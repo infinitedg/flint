@@ -1,0 +1,39 @@
+<head>
+  <title>flint</title>
+</head>
+
+<body>
+  {{> coreController}}
+</body>
+
+<!--  -->
+<template name="coreController">
+	{{#if stationPicked}}{{! Render the station}}
+		{{> stationCore}}
+	{{else}}
+		{{> stationPicker}}
+	{{/if}}
+</template>
+
+<template name="stationPicker">
+	<h1>Station Picker</h1>
+	<h2>Select Simulator</h2>
+	<div class="btn-group">
+		{{#each simulators}}
+		<button class="simulator btn btn-primary">{{name}}</button>
+		{{/each}}
+	</div>
+		
+	{{#if selectedSimulator}}
+		<h2>Select Station</h2>
+		<div class="btn-group">
+			{{#each stations}}
+				<button class="station btn btn-primary">{{name}}</button>
+			{{/each}}
+		</div>
+	{{/if}}
+</template>
+
+<template name="stationCore">
+	<h1>Station Core</h1>
+</template>
