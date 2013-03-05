@@ -855,4 +855,5 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .show{display:block;}
 .invisible{visibility:hidden;}
 .affix{position:fixed;}
-body{background: #000 url(/img/back.png) no-repeat fixed 0 bottom;}
+body{background: #000 url(/img/back.png) no-repeat fixed 0 bottom;cursor:url(/img/cursor.png),default;}
+*:hover{cursor:url(/img/cursor.png),default;}
