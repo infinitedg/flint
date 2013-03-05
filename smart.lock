@@ -8,7 +8,8 @@
     "basePackages": {
       "jquery-ui": {},
       "cookie": {},
-      "router": {}
+      "router": {},
+      "observatory": {}
     },
     "packages": {
       "jquery-ui": {
@@ -25,6 +26,11 @@
         "git": "https://github.com/tmeasday/meteor-router.git",
         "tag": "v0.4.2",
         "commit": "82d2895847502b4025370523dba60d597cff4772"
+      },
+      "observatory": {
+        "git": "https://github.com/jhoxray/observatory.git",
+        "tag": "v0.1.8",
+        "commit": "08188f96361dbdbec1855ee616bbb4c03543b1ea"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

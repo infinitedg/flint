@@ -4,16 +4,8 @@
 
 <body>
 	{{renderPage}}
+	{{> programming_tools}}
 </body>
-
-<!--  -->
-<template name="coreController">
-	{{#if stationPicked}}{{! Render the station}}
-		{{> stationCore}}
-	{{else}}
-		{{> stationPicker}}
-	{{/if}}
-</template>
 
 <template name="stationPicker">
 	<div class="container-fluid">
@@ -74,3 +66,8 @@
 	</ul>
 </template>
 
+<template name="programming_tools">
+	{{#if programmingEnabled}}
+		{{>logs_bootstrap}}
+	{{/if}}
+</template>

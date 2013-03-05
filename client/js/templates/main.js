@@ -13,15 +13,6 @@
 		},
     });
 	
-	Template.coreController.stationPicked = function() {
-		var s = Cookie.get('station');
-		if (s === undefined || s.length == 0) {
-			return false;
-		} else {
-			return true;
-		}
-	};
-	
 	Template.stationPicker.simulators = function() {
 		return Simulators.find({});
 	}
@@ -81,5 +72,9 @@
 	}
 	
 	Template.stationCore.cards = Template.cardList.cards;
+	
+	Template.programming_tools.programmingEnabled = function() {
+		return Session.get('_programming');
+	}
 	
 }());

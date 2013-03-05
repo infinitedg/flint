@@ -6,6 +6,7 @@
   "packages": {
     "jquery-ui": {},
     "cookie": {},
-    "router": {}
+    "router": {},
+    "observatory": {}
   }
 }

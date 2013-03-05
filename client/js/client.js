@@ -38,7 +38,10 @@
 			}
 		},
 		loopCache: {},
-		transitionSpeed: 200
+		transitionSpeed: 200,
+		programmingEnabeld: function(tf) {
+			Session.set('_programming', (tf == true));
+		}
 	};
 	
 	$('.btn').click(function() {
