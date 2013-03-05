@@ -37,7 +37,8 @@
 				return false;
 			}
 		},
-		loopCache: {}
+		loopCache: {},
+		transitionSpeed: 200
 	};
 	
 	$('.btn').click(function() {

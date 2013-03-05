@@ -49,6 +49,21 @@
 		return Stations.findOne({_id: Cookie.get('station')});
 	}
 	
+	Template.stationCore.currentCard = function() {
+		var t1 = this.cardId;
+		Session.setDefault('currentCard', Template.stationCore.cards()[0].cardId);
+		var t2 = Session.get('currentCard');
+		if (t1 !== undefined && t2 !== undefined) {
+			return (t1 == t2);
+		} else {
+			return true;
+		}
+	}
+	
+	Template.stationCore.currentUser = function() {
+		return Session.get('username');
+	}
+	
 	Template.cardList.cards = function() {
 		var station = Stations.findOne({_id: Cookie.get('station')});
 		if (station) {
@@ -57,5 +72,14 @@
 			return [];
 		}
 	}
+	
+	Template.cardList.events = {
+		'click a': function(e) {
+			App.beep();
+			Session.set('currentCard', this.cardId);
+		}
+	}
+	
+	Template.stationCore.cards = Template.cardList.cards;
 	
 }());
