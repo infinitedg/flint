@@ -856,4 +856,6 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .invisible{visibility:hidden;}
 .affix{position:fixed;}
 body{background: #000 url(/img/back.png) no-repeat fixed 0 bottom;cursor:url(/img/cursor.png),default;}
-*:hover{cursor:url(/img/cursor.png),default;}
+*:hover{cursor:url(/img/cursor.png),default;text-decoration:none;}
+::selection{background:rgba(0,0,0,0);}
+::-moz-selection{background:rgba(0,0,0,0);}

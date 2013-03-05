@@ -55,6 +55,10 @@
 		return Session.get('username');
 	}
 	
+	Template.stationCore.loggedIn = function() {
+		return Session.equals('loggedIn', true);
+	}
+	
 	Template.cardList.cards = function() {
 		var station = Stations.findOne({_id: Cookie.get('station')});
 		if (station) {

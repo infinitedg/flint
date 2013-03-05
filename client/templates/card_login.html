@@ -1,22 +1,29 @@
 <template name="card_login">
 	<div class="row-fluid">
-		<div class="span8 well">
-			<h3>Login</h3>
-			<form class="form-horizontal">
-				<div class="control-group">
-					<label class="control-label">Name</label>
-					<div class="controls">
-						<input type="text" class="loginname login-input"/>
-						<span class="input uneditable-input loginname hide">Test</span>
-					</div>
+		<div class="span8">
+			{{#if loggedIn}}
+				<div class="text-center">
+					<h1>Welcome {{userName}}</h1>
+					<a href="#" class="btn btn-primary btn-logout">Logout</a>
 				</div>
-						  
-				<div class="control-group">
-					<div class="controls">
-						<input type="submit" value="Login" class="btn btn-primary btn-login login-input"/>
+			{{else}}
+			<div class="well">
+				<form class="form-horizontal">
+					<h2>Login</h2>
+					<div class="control-group">
+						<label class="control-label">Name</label>
+						<div class="controls">
+							<input type="text" class="loginname login-input"/>
+						</div>
 					</div>
-				</div>
-			</form>
+					<div class="control-group">
+					    <div class="controls">
+							<a href="#" class="btn btn-primary btn-login">Login</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			{{/if}}
 		</div>
 	</div>
 </template>
