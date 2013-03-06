@@ -24,6 +24,19 @@ Meteor does not install from the command line on windows like step 2 above indic
 
 If you are doing work on client software (e.g. Arduino kits or your own [kiosk](https://bitbucket.org/spacecenter/flint-kiosk) software), then contact Brent and we can get an instance running online.
 
+## Flint command line tools
+Flint has some automated processes that use normal Node modules. To run the automated tasks you must install `grunt-cli` using `npm`.
+
+	sudo npm install -g grunt-cli
+
+From there, you can run `grunt` from within the .submodules folder to start using the automated processes for testing and jshint.
+
+If you have just cloned the repository (or if there is no node_modules directory), then you will need to install the package modules:
+
+	npm install
+
+This will install the modules necessary to simpy run `grunt` to start testing the project.
+
 ## Contributing
 * All Javascript code contributions must pass JSHint testing. To run JSHint testing:
 	1. `cd tests`
