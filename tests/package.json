@@ -1,0 +1,9 @@
+{
+  "name": "Flint-CLI",
+  "description": "Command line tools supporting Flint",
+  "author": "Space EdVentures Foundation <hello@spaceedventures.org>, Brent Anderson <brent@spaceedventures.org>",
+  "version": "0.5.0",
+  "dependencies": {
+    "grunt-contrib-jshint": "~0.2.0"
+  }
+}
