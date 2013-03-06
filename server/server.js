@@ -1,6 +1,9 @@
 Meteor.startup(function () {
 	var simulators = Simulators.find({});
 	if (simulators.count() < 1) { // Install fixtures
+		
+		Log.info("Rebuilding database", "server");
+		
 		Simulators.insert({
 			"name": "USS Odyssey",
 			"_id": "Dck3AxjjmNFZgR8u5"
