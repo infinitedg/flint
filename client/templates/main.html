@@ -41,13 +41,12 @@
 			</div>
 		</div>
 		<div class="row-fluid">
-			<div class="span4">
+			<div class="span3">
 				<div class="{{#if loggedIn}} {{else}} hide{{/if}}">
-					<h2>Cards</h2>
 					{{> cardList}}
 				</div>
 			</div>
-			<div class="span8">
+			<div class="span9">
 				{{#each cards}}
 					<div class="card{{#if currentCard}} {{else}} hide{{/if}}" id="card-{{cardId}}">
 						{{renderCard cardId}}
@@ -59,9 +58,10 @@
 </template>
 
 <template name="cardList">
-	<ul>
+	<ul class="nav nav-list well">
+	    <li class="nav-header">{{stationName}}</li>
 		{{#each cards}}
-			<li><a href="#">{{name}}</a></li>
+			<li class="{{#if isCurrentCard cardId}}active{{/if}}"><a href="#">{{name}}</a></li>
 		{{/each}}
 	</ul>
 </template>

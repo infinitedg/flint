@@ -68,6 +68,14 @@
 		}
 	}
 	
+	Template.cardList.isCurrentCard = function(cardId) {
+		return Session.equals('currentCard', cardId);
+	}
+	
+	Template.cardList.stationName = function() {
+		return Session.get('currentStation');
+	}
+	
 	Template.cardList.events = {
 		'click a': function(e) {
 			App.beep();

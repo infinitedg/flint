@@ -39,8 +39,11 @@
 		},
 		loopCache: {},
 		transitionSpeed: 200,
-		programmingEnabeld: function(tf) {
+		programmingEnabled: function(tf) {
 			Session.set('_programming', (tf == true));
+		},
+		setMenubar: function() {
+			Session.set('_programming', false);
 		}
 	};
 	
