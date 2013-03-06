@@ -19,8 +19,8 @@
 			s.play();
 		},
 		unloop: function(snd) {
-			var s;
-			if (s = window.App.loopCache[snd]) {
+			var s = window.App.loopCache[snd];
+			if (s !== undefined) {
 				s.unloop();
 				window.App.loopCache[snd] = null;
 				return true;
@@ -30,8 +30,8 @@
 			
 		},
 		isLooping: function(snd) {
-			var s;
-			if (s = window.App.loopCache[snd]) {
+			var s = window.App.loopCache[snd];
+			if (s !== undefined) {
 				return ($(s.get()).attr('loop') == 'loop');
 			} else {
 				return false;
@@ -40,7 +40,7 @@
 		loopCache: {},
 		transitionSpeed: 200,
 		programmingEnabled: function(tf) {
-			Session.set('_programming', (tf == true));
+			Session.set('_programming', (tf === true));
 		},
 		setMenubar: function() {
 			Session.set('_programming', false);

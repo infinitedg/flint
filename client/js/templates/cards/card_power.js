@@ -13,11 +13,11 @@
 
 	Template.card_power.systems = function() {
 		return Systems.find({});
-	}
+	};
 	
 	Template.card_power.barPercent = function() {
 		return (this.power / this.maxPower) * 100;
-	}
+	};
 	
 	Template.card_power.barClass = function() {
 		var level = (this.power / this.maxPower) * 100;
@@ -30,7 +30,7 @@
 		} else {
 			return 'success';
 		}
-	}
+	};
 	
 	Template.card_power.totalPower = function() {
 		var systems = Systems.find({});
@@ -40,12 +40,13 @@
 		});
 		
 		return totalPower;
-	}
+	};
 	
 	Template.card_power.totalPowerAvailable = function() {
 		var station = Stations.findOne({_id:Cookie.get('station')});
 		var simulator = Simulators.findOne({_id:station.simulator});
 		var totalPower = simulator.power;
 		return totalPower;
-	}
+	};
+	
 }());

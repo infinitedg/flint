@@ -20,15 +20,15 @@
 				e.preventDefault();
 				return false;
 			}
-			return true;;
+			return true;
 		}
-	}
+	};
 	
 	Template.card_login.loggedIn = function() {
-		return (Session.get('loggedIn') == true);
-	}
+		return (Session.get('loggedIn') === true);
+	};
 	
 	Template.card_login.userName = function() {
 		return Session.get('currentUser');
-	}
+	};
 }());
