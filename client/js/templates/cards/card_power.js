@@ -1,27 +1,4 @@
 (function () {
-// 	}
-// 	
-// 	var mouseDragging = false;
-// 	var moveBar = function(e, context) {
-// 		var parentOffset = $(context).parent().offset(); 
-// 		var relX = e.pageX - parentOffset.left;
-// 		var relY = e.pageY - parentOffset.top;
-// 		
-// 		var ratioW = relX / $(context).width();
-// 		var rounded = Math.floor(Math.round(ratioW * 10)) * 10;
-// 		$(context).find('.bar').css('width', rounded + '%');
-// 		$(context).data('level', rounded);
-// 		setProgressColor(context);
-// 	}
-// 	Template.card_power.events = {
-// 		'mousedown .progress': function(e) {
-// 			mouseDragging = true;
-// 			moveBar(e, this);
-// 			App.beep();
-// 		},'mouseup .progress': function(e) {
-// 			mouseDragging = false;
-// 		}
-// 	};
 	Template.card_power.events = {
 		'click div.progress': function(e, context) {
 			App.beep();
@@ -53,5 +30,22 @@
 		} else {
 			return 'success';
 		}
+	}
+	
+	Template.card_power.totalPower = function() {
+		var systems = Systems.find({});
+		var totalPower = 0;
+		systems.forEach(function(system){
+			totalPower += system.power;
+		});
+		
+		return totalPower;
+	}
+	
+	Template.card_power.totalPowerAvailable = function() {
+		var station = Stations.findOne({_id:Cookie.get('station')});
+		var simulator = Simulators.findOne({_id:station.simulator});
+		var totalPower = simulator.power;
+		return totalPower;
 	}
 }());
