@@ -1,15 +1,15 @@
 {
-  "name": "Flint-CLI",
+  "name": "Flint",
   "description": "Command line tools supporting Flint",
   "author": "Space EdVentures Foundation <hello@spaceedventures.org>, Brent Anderson <brent@spaceedventures.org>",
   "version": "0.5.0",
   "dependencies": {
-    "grunt-contrib-clean": "*",
-    "grunt-contrib-copy": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-coffee": "*",
+    "grunt-contrib-clean":  "~0.4.0",
+    "grunt-contrib-copy":   "~0.4.0",
+    "grunt-contrib-concat": "~0.1.3",
+    "grunt-contrib-coffee": "~0.6.0",
     "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-less": "*",
-    "grunt-contrib-watch": "*"
+    "grunt-contrib-less":   "~0.5.0",
+    "grunt-contrib-watch":  "~0.3.1"
   }
 }

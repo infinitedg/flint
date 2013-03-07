@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     
     jshint: {
-      
+
       options: {
         globals: {
           jQuery: true,
@@ -214,5 +214,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.registerTask('test', ['jshint']);
-  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'less', 'copy', 'concat']);
+  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'less', 'copy', 'concat', 'watch']);
 };

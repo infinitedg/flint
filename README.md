@@ -15,7 +15,7 @@ If you aren't familliar with what `cd` or your command line does, then first tak
 6. If you don't already have `git`, download it from [git-scm.org](http://git-scm.com/) and install it.
 	* Find out if you have `git` by running `which git` on your command line. If it shows something like `/usr/bin/git` then you have it!
 7. `cd` to the directory you'd like to keep `Flint` and clone it by running `git clone git@bitbucket.org:spacecenter/flint.git`
-8. Run `cd flint` and then `mrt` to fire it up! If you get any errors, review the above commands and try again.
+8. Run `cd flint` and then `grunt` to fire it up! If you get any errors, review the above commands and try again.
 
 ## A note for windows users
 _Note: I do not have a windows system running Meteor, meteorite, or NPM. I don't know how they work on Windows, so the following are my assumptions about how it should work. Feel free to submit a pull request with edits to this document if you want to make corrections._
