@@ -4,6 +4,12 @@
   "author": "Space EdVentures Foundation <hello@spaceedventures.org>, Brent Anderson <brent@spaceedventures.org>",
   "version": "0.5.0",
   "dependencies": {
-    "grunt-contrib-jshint": "~0.2.0"
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-watch": "*"
   }
 }
