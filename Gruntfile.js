@@ -186,20 +186,23 @@ module.exports = function(grunt) {
     }, // concat
     
     watch: {
+      options: {
+        nospawn: true
+      }, // options
       
       core: {
         files: ['core/{client,common,public,server}/**'],
-        tasks: ['jshint:core', 'clean:core', 'coffee:core', 'copy:core'],
+        tasks: ['jshint:core', 'clean:core', 'coffee:core', 'copy:core', 'meteorite'],
       }, // core
       
       cards: {
         files: ['cards/*/{client,common,public,server}/**'],
-        tasks: ['jshint:cards', 'clean:cards', 'coffee:cards', 'copy:cards'],
+        tasks: ['jshint:cards', 'clean:cards', 'coffee:cards', 'copy:cards', 'meteorite'],
       }, // cards
       
       themes: {
         files: ['themes/*/{coffee,js,less,css}/**'],
-        tasks: ['jshint:themes', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes'],
+        tasks: ['jshint:themes', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes', 'meteorite'],
       } // themes
       
     } // watch
@@ -214,5 +217,51 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.registerTask('test', ['jshint']);
-  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'less', 'copy', 'concat', 'watch']);
+  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'less', 'copy', 'concat']);
+  grunt.registerTask('run', ['default', 'meteorite', 'watch']);
+  
+  var meteorite = null;
+  grunt.registerTask('meteorite', function() {
+    var self = this;
+    var spawn = function spawn() {
+      meteorite = require('child_process').exec('mrt', { cwd: 'app' });
+      meteorite.stdout.on('data', function(data) {
+        var prefix = "mrt: ";
+        process.stdout.write(data
+          .replace(/$[^\n]/, prefix)
+          .replace(/\r\n/g, "\r\n" + prefix)
+          .replace(/\n/g, "\n" + prefix)
+          .replace(/\r[^\n]/g, "\r" + prefix)
+        );
+      });
+      meteorite.stderr.on('data', function(data) {
+        var prefix = "mrt: ";
+        process.stderr.write(data
+          .replace(/$[^\n]/, prefix)
+          .replace(/\r\n/g, "\r\n" + prefix)
+          .replace(/\n/g, "\n" + prefix)
+          .replace(/\r[^\n]/g, "\r" + prefix)
+        );
+      });
+      meteorite.on('exit', function(code) {
+        meteorite = null;
+      });
+    }
+    
+    if (meteorite) {
+      var done = this.async();
+      meteorite.once('exit', function() {
+        grunt.log.ok('Meteorite finished. Restarting...');
+        spawn();
+        grunt.log.ok('Meteorite restarted.');
+        done();
+      });
+      grunt.log.ok('Waiting for Meteorite to finish...');
+      meteorite.kill();
+    } else {
+      grunt.log.ok('Starting Meteorite...');
+      spawn();
+      grunt.log.ok('Meteorite Started.');
+    }
+  });
 };
