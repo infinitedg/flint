@@ -40,10 +40,15 @@
 		loopCache: {},
 		transitionSpeed: 200,
 		programmingEnabled: function(tf) {
+			tf = (tf === undefined) ? true : tf;
 			Session.set('_programming', (tf === true));
 		},
 		setMenubar: function() {
 			Session.set('_programming', false);
+		},
+		// Choose a new station identity
+		reselect: function() {
+			Meteor.Router.to('/reset');
 		}
 	};
 	

@@ -8,7 +8,8 @@ Meteor.Router.add({
 	},
 	'/reset': function() {
 		Cookie.remove('station');
-		Meteor.Router.to('/');
-		window.location.reload();
+		Meteor.defer(function() { // Fire away on next run loop
+			Meteor.Router.to('/');
+		});
 	}
 });
