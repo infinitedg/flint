@@ -2,7 +2,7 @@ Meteor.startup(function () {
 	var simulators = Simulators.find({});
 	if (simulators.count() < 1) { // Install fixtures
 		
-		Log.info("Rebuilding database", "server");
+		Flint.Log.info("Rebuilding database", "server");
 		
 		Simulators.insert({
 			"name": "USS Odyssey",

@@ -1,6 +1,10 @@
-var Log;
+var Flint;
 (function () {
 	'use strict';
 	
-	Log = TLog.getLogger(TLog.LOGLEVEL_MAX, true);
+	if (Flint === undefined) {
+		Flint = {};
+	}
+	
+	Flint.Log = TLog.getLogger(TLog.LOGLEVEL_MAX, true);
 }());
