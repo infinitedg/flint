@@ -6,18 +6,21 @@ Meteor.startup(function () {
 		
 		Simulators.insert({
 			"name": "USS Odyssey",
-			"_id": "Dck3AxjjmNFZgR8u5"
+			"_id": "Dck3AxjjmNFZgR8u5",
+			"theme": 'odyssey'
 		});
 		
 		Simulators.insert({
 			"name": "USS Phoenix",
-			"_id": "dX2EuPNoSA2tmBBbH"
+			"_id": "dX2EuPNoSA2tmBBbH",
+			"theme": 'shamrock'
 		});
 		
 		Simulators.insert({
 			"_id": "8ofeYktqCx3SEGgpx",
 			"name": "USS Voyager",
-			"power": 120
+			"power": 120,
+			"theme": 'flint'
 		});
 		
 		Stations.insert({
@@ -38,6 +41,46 @@ Meteor.startup(function () {
 			],
 			"name": "Operations",
 			"simulator": "8ofeYktqCx3SEGgpx"
+		});
+		
+		Stations.insert({
+			"cards": [
+				{
+					"name": "Login",
+					"cardId": "login"
+				},
+				{
+					"name": "Power Distribution",
+					"cardId": "power"
+				},
+				{
+					"cardId": "alertCondition",
+					"name": "Alert Condition"
+				}
+			],
+			"name": "Communications",
+			"simulator": "Dck3AxjjmNFZgR8u5",
+			"_id": "EQn4Ysn7ek4HChD6A"
+		});
+		
+		Stations.insert({
+			"cards": [
+				{
+					"name": "Login",
+					"cardId": "login"
+				},
+				{
+					"name": "Power Distribution",
+					"cardId": "power"
+				},
+				{
+					"cardId": "alertCondition",
+					"name": "Alert Condition"
+				}
+			],
+			"name": "Engineer",
+			"simulator": "dX2EuPNoSA2tmBBbH",
+			"_id": "qzHy5Qebbbj77jJFR"
 		});
 		
 		Systems.insert({

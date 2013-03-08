@@ -89,4 +89,16 @@
 		return Session.get('_programming');
 	};
 	
+	Template.themePicker.theme = function() {
+		var station = Stations.findOne({_id: Cookie.get('station')});
+		if (station) {
+			var simulator = Simulators.findOne({_id: station.simulator});
+			if (simulator.theme) {
+				return simulator.theme;
+			}
+		} else {
+			return false;
+		}
+	};
+	
 }());
