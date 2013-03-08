@@ -3,13 +3,13 @@
 	
 	Template.card_login.events = {
 		'click .btn-login': function(e) {
-			App.beep();
+			Flint.beep();
 			Session.set('loggedIn', true);
 			Session.set('currentUser', $('.loginname').val());
 			return false;
 		},
 		'click .btn-logout': function(e) {
-			App.beep();
+			Flint.beep();
 			Session.set('loggedIn', false);
 			Session.set('currentUser', undefined);
 			return false;

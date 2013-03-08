@@ -3,7 +3,7 @@
 	
     Template.stationPicker.events({
 		'click button.simulator': function(event) {
-			App.beep();
+			Flint.beep();
 			Session.set('selectedSimulator', this);
 		},
 		'click button.station': function(event) {
@@ -78,7 +78,7 @@
 	
 	Template.cardList.events = {
 		'click a': function(e) {
-			App.beep();
+			Flint.beep();
 			Session.set('currentCard', this.cardId);
 		}
 	};

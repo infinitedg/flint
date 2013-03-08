@@ -2,9 +2,9 @@
 	'use strict';
 	
 	var soundPrefix = '/sounds/';
-	window.App = {
+	window.Flint = {
 		beep: function() {
-			App.play('chime'+(Math.floor(Math.random()*6)+1)+'.wav');
+			Flint.play('chime'+(Math.floor(Math.random()*6)+1)+'.wav');
 		},
 		play: function(snd) {
 			var s = new buzz.sound(soundPrefix + snd);
@@ -15,14 +15,14 @@
 			var s = new buzz.sound(soundPrefix + snd, {
 				loop: true
 			});
-			window.App.loopCache[snd] = s;
+			window.Flint.loopCache[snd] = s;
 			s.play();
 		},
 		unloop: function(snd) {
-			var s = window.App.loopCache[snd];
+			var s = window.Flint.loopCache[snd];
 			if (s !== undefined) {
 				s.unloop();
-				window.App.loopCache[snd] = null;
+				window.Flint.loopCache[snd] = null;
 				return true;
 			} else {
 				return false;
@@ -30,7 +30,7 @@
 			
 		},
 		isLooping: function(snd) {
-			var s = window.App.loopCache[snd];
+			var s = window.Flint.loopCache[snd];
 			if (s !== undefined) {
 				return ($(s.get()).attr('loop') == 'loop');
 			} else {
@@ -48,8 +48,8 @@
 	};
 	
 	$('.btn').click(function() {
-		App.beep();
+		Flint.beep();
 	});
 	
-	App.play('sciences.wav');
+	Flint.play('sciences.wav');
 }());

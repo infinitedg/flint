@@ -1,7 +1,7 @@
 (function () {
 	Template.card_power.events = {
 		'click div.progress': function(e, context) {
-			App.beep();
+			Flint.beep();
 			var relX = e.pageX - $(e.target).position().left;
 			// var relY = e.pageY - $(e.target).position().top;
 			var el = ($(e.target).hasClass('progress')) ? $(e.target) : $(e.target).parent('.progress');
