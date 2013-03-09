@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       }, // options
       
       core: {
-        src: ["core/{client,common,public,server}/**/*.js"]
+        src: ["core/{client,common,public,server}/**/*.js", "!core/client/lib/**"]
       }, // core
       
       cards: {
