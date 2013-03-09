@@ -2,21 +2,23 @@
 	'use strict';
 	
 	var soundPrefix = '/sounds/';
+	var spokenPhrases = {};
 	window.Flint = {
 		beep: function() {
-			Flint.play('chime'+(Math.floor(Math.random()*6)+1)+'.wav');
+			Flint.play('chime'+(Math.floor(Math.random()*6)+1) + '.wav');
+		},
+		playRaw: function(snd) {
+			var s = new buzz.sound(snd, {autoplay: true});
 		},
 		play: function(snd) {
-			var s = new buzz.sound(soundPrefix + snd);
-			s.play();
-			
+			Flint.playRaw(soundPrefix + snd);
 		},
 		loop: function(snd) {
 			var s = new buzz.sound(soundPrefix + snd, {
-				loop: true
+				loop: true,
+				autoplay: true
 			});
 			window.Flint.loopCache[snd] = s;
-			s.play();
 		},
 		unloop: function(snd) {
 			var s = window.Flint.loopCache[snd];
@@ -49,6 +51,16 @@
 		// Choose a new station identity
 		reselect: function() {
 			Meteor.Router.to('/reset');
+		},
+		// Function to read text aloud
+		// This will break someday when google shuts this down. If we can find a better component for this that would be ideal.
+		say: function(txt) {
+			if (spokenPhrases[txt] === undefined || new Date().getTime() - spokenPhrases[txt] >= 1000) {
+				Flint.Log.verbose('Said "'+txt+'"');
+				var url = "http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURIComponent(txt)+"&tl=en&total=1&idx=0prev=input";
+				Flint.playRaw(url);
+				spokenPhrases[txt] = new Date().getTime();
+			}
 		}
 	};
 	
