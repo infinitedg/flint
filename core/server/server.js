@@ -6,25 +6,28 @@ Meteor.startup(function () {
 		
 		Simulators.insert({
 			"name": "USS Odyssey",
-			"_id": "Dck3AxjjmNFZgR8u5",
+			"_id": "fixed-simulators-odyssey",
+			"power": 150,
 			"theme": 'odyssey'
 		});
 		
 		Simulators.insert({
 			"name": "USS Phoenix",
-			"_id": "dX2EuPNoSA2tmBBbH",
+			"_id": "fixed-simulators-phoenix",
+			"power": 100,
 			"theme": 'shamrock'
 		});
 		
 		Simulators.insert({
-			"_id": "8ofeYktqCx3SEGgpx",
+			"_id": "fixed-simulators-voyager",
 			"name": "USS Voyager",
 			"power": 120,
-			"theme": 'flint'
+			"theme": 'flint',
+			"layout": 'flint'
 		});
 		
 		Stations.insert({
-			"_id": "N9h4coBbhLTHHEYud",
+			"_id": "fixed-stations-voyager-operations",
 			"cards": [
 				{
 					"name": "Login",
@@ -40,7 +43,7 @@ Meteor.startup(function () {
 				}
 			],
 			"name": "Operations",
-			"simulatorId": "8ofeYktqCx3SEGgpx"
+			"simulatorId": "fixed-simulators-voyager"
 		});
 		
 		Stations.insert({
@@ -59,8 +62,8 @@ Meteor.startup(function () {
 				}
 			],
 			"name": "Communications",
-			"simulatorId": "Dck3AxjjmNFZgR8u5",
-			"_id": "EQn4Ysn7ek4HChD6A"
+			"simulatorId": "fixed-simulators-odyssey",
+			"_id": "fixed-stations-odyssey-communications"
 		});
 		
 		Stations.insert({
@@ -79,8 +82,29 @@ Meteor.startup(function () {
 				}
 			],
 			"name": "Engineer",
-			"simulatorId": "dX2EuPNoSA2tmBBbH",
-			"_id": "qzHy5Qebbbj77jJFR"
+			"simulatorId": "fixed-simulators-phoenix",
+			"_id": "fixed-stations-phoenix-engineer"
+		});
+		
+		Stations.insert({
+			"cards": [
+				{
+					"name": "Stations",
+					"cardId": "stations"
+				},
+				{
+					"name": "Power Distribution",
+					"cardId": "power"
+				},
+				{
+					"cardId": "alertCondition",
+					"name": "Alert Condition"
+				}
+			],
+			"name": "Flight Director",
+			"simulatorId": "fixed-simulators-voyager",
+			"layout": "core",
+			"_id": "fixed-stations-voyager-flightDirector"
 		});
 		
 		Systems.insert({
@@ -88,7 +112,7 @@ Meteor.startup(function () {
 			"minPower": 5,
 			"maxPower": 20,
 			"power": 7,
-			"_id": "nprnQfbti8XBbQ42W"
+			"_id": "systems-srCommunications"
 		});
 		
 		Systems.insert({
@@ -96,7 +120,7 @@ Meteor.startup(function () {
 			"minPower": 7,
 			"maxPower": 30,
 			"power": 10,
-			"_id": "8DnWtrhdxC55PcY9a"
+			"_id": "systems-torpedoes"
 		});
 		
 		Systems.insert({
@@ -104,7 +128,7 @@ Meteor.startup(function () {
 			"minPower": 7,
 			"maxPower": 30,
 			"power": 10,
-			"_id": "erisBfgr5uC568EZj"
+			"_id": "systems-phasers"
 		});
 		
 		Systems.insert({
@@ -112,7 +136,7 @@ Meteor.startup(function () {
 			"minPower": 5,
 			"maxPower": 20,
 			"power": 7,
-			"_id": "bPob55YS8CPcnSr6w"
+			"_id": "systems-warpCore"
 		});
 	}
 });

@@ -1,0 +1,15 @@
+<template name="core_power">
+	<h1>Power Management</h1>
+	<div class="row-fluid">
+		<div class="span11">
+			<dl class="dl-horizontal systems">
+				{{#each systems}}
+					<dt>{{name}}</dt>
+					<dd>{{power}} / {{maxPower}}</dd>
+				{{/each}}
+				<dt>Total Power:</dt>
+				<dd>{{totalPower}} / {{totalPowerAvailable}}</dd>
+			</dl>
+		</div>
+	</div>
+</template>
