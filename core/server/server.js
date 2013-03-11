@@ -40,7 +40,7 @@ Meteor.startup(function () {
 				}
 			],
 			"name": "Operations",
-			"simulator": "8ofeYktqCx3SEGgpx"
+			"simulatorId": "8ofeYktqCx3SEGgpx"
 		});
 		
 		Stations.insert({
@@ -59,7 +59,7 @@ Meteor.startup(function () {
 				}
 			],
 			"name": "Communications",
-			"simulator": "Dck3AxjjmNFZgR8u5",
+			"simulatorId": "Dck3AxjjmNFZgR8u5",
 			"_id": "EQn4Ysn7ek4HChD6A"
 		});
 		
@@ -79,7 +79,7 @@ Meteor.startup(function () {
 				}
 			],
 			"name": "Engineer",
-			"simulator": "dX2EuPNoSA2tmBBbH",
+			"simulatorId": "dX2EuPNoSA2tmBBbH",
 			"_id": "qzHy5Qebbbj77jJFR"
 		});
 		

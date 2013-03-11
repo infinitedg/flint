@@ -1,5 +1,9 @@
 (function () {
 	'use strict';
+
+	Meteor.startup(function() {
+		Session.set('station', Cookie.get('station'));
+	});
 	
 	var soundPrefix = '/sounds/';
 	var spokenPhrases = {};

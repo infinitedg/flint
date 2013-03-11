@@ -1,0 +1,24 @@
+<template name="layout_default">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<h1>{{simulator.name}}</h1>
+				<h2>{{station.name}}</h1>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="{{#if loggedIn}} {{else}} hide{{/if}}">
+					{{> cardList}}
+				</div>
+			</div>
+			<div class="span9">
+				{{#each cards}}
+					<div class="card{{#if currentCard}} {{else}} hide{{/if}}" id="card-{{cardId}}">
+						{{renderCard cardId}}
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</template>

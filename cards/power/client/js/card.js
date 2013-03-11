@@ -44,8 +44,8 @@
 	};
 	
 	Template.card_power.totalPowerAvailable = function() {
-		var station = Stations.findOne({_id:Cookie.get('station')});
-		var simulator = Simulators.findOne({_id:station.simulator});
+		var station = Stations.findOne({_id: Session.get('station')});
+		var simulator = Simulators.findOne({_id: station.simulatorId});
 		var totalPower = simulator.power;
 		return totalPower;
 	};
