@@ -6,12 +6,14 @@
 			Flint.beep();
 			Session.set('loggedIn', true);
 			Session.set('currentUser', $('.loginname').val());
+			Stations.update({_id: Session.get('station')}, {$set: {currentUser: $('.loginname').val()}});
 			return false;
 		},
 		'click .btn-logout': function(e) {
 			Flint.beep();
 			Session.set('loggedIn', false);
 			Session.set('currentUser', undefined);
+			Stations.update({_id: Session.get('station')}, {$unset: {currentUser: 1}});
 			return false;
 		},
 		'keypress input.loginname': function(e) {
