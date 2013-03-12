@@ -2,7 +2,14 @@
 	'use strict';
 	
 	Template.core_power.events = {
-		
+		'dblclick .systemPower': function() {
+			var context = this;
+			bootbox.prompt("Enter new power for " + this.name, 'Cancel', 'OK', function(result) {
+				if (result !== undefined) {
+					Systems.update({_id: context._id},{$set: {power: result}});
+				}
+			}, this.power);
+		}
 	};
 
 	Template.core_power.systems = function() {

@@ -9,13 +9,14 @@
       "jquery-ui": {},
       "cookie": {},
       "router": {},
-      "observatory": {}
+      "observatory": {},
+      "bootboxjs": {}
     },
     "packages": {
       "jquery-ui": {
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
-        "tag": "v1.8.16",
-        "commit": "abda12134b8f3c5db31d6a4864bead6aa3640358"
+        "tag": "v1.9.2",
+        "commit": "c437d45edcf1367df8d5ffa8bad2867758030bd2"
       },
       "cookie": {
         "git": "https://github.com/chuangbo/meteor-cookie.git",
@@ -29,8 +30,13 @@
       },
       "observatory": {
         "git": "https://github.com/jhoxray/observatory.git",
-        "tag": "v0.1.8",
-        "commit": "08188f96361dbdbec1855ee616bbb4c03543b1ea"
+        "tag": "v0.1.99",
+        "commit": "ee4d2940c8e0854a2354367cae7b173152f277e9"
+      },
+      "bootboxjs": {
+        "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
+        "tag": "v0.1.1",
+        "commit": "6c46c71a5632eb49b20cd679a5008b7dc9ac39af"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",
