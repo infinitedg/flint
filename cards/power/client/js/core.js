@@ -8,7 +8,7 @@
 				if (result !== undefined) {
 					Systems.update({_id: context._id},{$set: {power: result}});
 				}
-			}, this.power);
+			}, context.power);
 		}
 	};
 
@@ -20,9 +20,8 @@
 		var systems = Systems.find({});
 		var totalPower = 0;
 		systems.forEach(function(system){
-			totalPower += system.power;
+			totalPower += parseInt(system.power, 10);
 		});
-		
 		return totalPower;
 	};
 	
