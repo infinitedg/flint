@@ -7,6 +7,7 @@
 	
 	var soundPrefix = '/sounds/';
 	var spokenPhrases = {};
+	var voicePrefix = '/voices/';
 	window.Flint = {
 		beep: function() {
 			Flint.play('chime'+(Math.floor(Math.random()*6)+1) + '.wav');
@@ -60,11 +61,13 @@
 		// This will break someday when google shuts this down. If we can find a better component for this that would be ideal.
 		say: function(txt) {
 			if (spokenPhrases[txt] === undefined || new Date().getTime() - spokenPhrases[txt] >= 1000) {
-				Flint.Log.verbose('Said "'+txt+'"');
-				var url = "http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURIComponent(txt)+"&tl=en&total=1&idx=0prev=input";
-				Flint.playRaw(url);
+				Flint.Log.verbose('Said "'+txt+'"', 'Speech');
+				meSpeak.speak(txt);
 				spokenPhrases[txt] = new Date().getTime();
 			}
+		},
+		loadVoice: function(name) {
+			meSpeak.loadVoice(voicePrefix + name + '.json');
 		}
 	};
 	
@@ -73,4 +76,9 @@
 	});
 	
 	Flint.play('sciences.wav');
+	$(function() {
+		meSpeak.loadConfig(voicePrefix + "mespeak_config.json");
+		Flint.loadVoice('en-us');
+		Flint.Log.verbose('MeSpeak loaded','Speech');
+	});
 }());
