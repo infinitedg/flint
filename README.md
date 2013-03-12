@@ -46,7 +46,7 @@ This will install the modules necessary to simpy run `grunt` to start testing th
 * We will also add unit tests in the future which will also run via `grunt` from the `/tests` directory using the same instructions as above.
 
 ## Contributor's Agreement
-Unless prior arrangements are made, all contributions to this project are completely volunteer and uncompensated. You'll get a pat on the back and a big "thank you", and we'll put your name in the credits below. By contributing, you assign all rights to any contributions you make to this project to The Space EdVentures Foundation, Inc.
+Unless prior arrangements are made, all contributions to this project are completely volunteer and uncompensated. You'll get a pat on the back and a big "thank you", and we'll put your name in CREDITS.md. By contributing, you assign all rights to any contributions you make to this project to The Space EdVentures Foundation, Inc.
 
-## Credits
-1. Brent Anderson
+## Licenses & 3rd party software
+3Rd party software in the project is governed by their respective license. Check out the licenses at the top of the various files for more information on the licenses for various components. See LICENSE.md for specifics.
