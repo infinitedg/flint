@@ -10,7 +10,8 @@
       "cookie": {},
       "router": {},
       "observatory": {},
-      "bootboxjs": {}
+      "bootboxjs": {},
+      "bootstrap-growl": {}
     },
     "packages": {
       "jquery-ui": {
@@ -37,6 +38,11 @@
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
         "tag": "v0.1.1",
         "commit": "6c46c71a5632eb49b20cd679a5008b7dc9ac39af"
+      },
+      "bootstrap-growl": {
+        "git": "https://github.com/TimHeckel/meteor-bootstrap-growl.git",
+        "tag": "v0.1.1",
+        "commit": "674fd231a46e405f8d4eb463725d8003a02374ec"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

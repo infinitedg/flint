@@ -1,13 +1,35 @@
 <template name="card_alertCondition">
 	<h1>Alert Condition</h1>
-	{{#constant}}
-	<style>
-		#container {
-			background: #000;
-			width: 400px;
-			height: 300px;
-		}
-	</style>
-	<div id="container"></div>
-	{{/constant}}
+	<div class="row-fluid">
+		<div class="span3 text-center">
+			<div class="alert-affix">
+				<div class="alert alert-{{alertStyle}} alert-box">
+					<h3>Alert Condition</h3>
+					<h1>{{alertCondition}}</h1>
+				</div>
+			</div>
+		</div>
+		<div class="span9">
+			<div class="alert alert-success" data-alert="4">
+				<h1>Alert Condition 4</h1>
+				<p>This alert level indicates that the ship is operating as expected and that no major threats are present.</p>
+				<p><a href="#" class="btn btn-success">Change Alert level</a></p>
+			</div>
+			<div class="alert alert-info" data-alert="3">
+				<h1>Alert Condition 3</h1>
+				<p>This alert condition indicates that the ship's systems may be stressed. Critical personnel and leadership are to be on watch.</p>
+				<p><a href="#" class="btn btn-info">Change Alert level</a></p>
+			</div>
+			<div class="alert alert-block" data-alert="2">
+				<h1>Alert Condition 2</h1>
+				<p>This alert condition indicates that the ship is significantly threatened. All hands at battle ready.</p>
+				<p><a href="#" class="btn btn-warning">Change Alert level</a></p>
+			</div>
+			<div class="alert alert-error" data-alert="1">
+				<h1>Alert Condition 1</h1>
+				<p>This alert condition calls all hands to battle stations. The ship and its crew are directly threatened, and its systems are under heavy stress.</p>
+				<p><a href="#" class="btn btn-danger">Change Alert level</a></p>
+			</div>
+		</div>
+	</div>
 </template>

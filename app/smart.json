@@ -8,6 +8,7 @@
     "cookie": {},
     "router": {},
     "observatory": {},
-    "bootboxjs": {}
+    "bootboxjs": {},
+    "bootstrap-growl": {}
   }
 }

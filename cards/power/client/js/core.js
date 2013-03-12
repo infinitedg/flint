@@ -17,6 +17,7 @@
 	};
 	
 	Template.core_power.totalPower = function() {
+		Flint.say('power');
 		var systems = Systems.find({});
 		var totalPower = 0;
 		systems.forEach(function(system){

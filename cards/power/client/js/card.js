@@ -2,7 +2,6 @@
 	Template.card_power.events = {
 		'click div.progress': function(e, context) {
 			Flint.beep();
-			Flint.say('power');
 			var relX = e.pageX - $(e.target).position().left;
 			// var relY = e.pageY - $(e.target).position().top;
 			var el = ($(e.target).hasClass('progress')) ? $(e.target) : $(e.target).parent('.progress');
@@ -37,7 +36,7 @@
 		var systems = Systems.find({});
 		var totalPower = 0;
 		systems.forEach(function(system){
-			totalPower += system.power;
+			totalPower += parseInt(system.power, 10);
 		});
 		
 		return totalPower;

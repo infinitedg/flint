@@ -12,6 +12,7 @@ Meteor.Router.add({
 				layout = (layout) ? layout : 'default';
 				return 'layout_' + layout;
 			}
+			Flint.play('sciences.wav');
 		}
 	},
 	'/reset': function() {

@@ -68,15 +68,40 @@
 		},
 		loadVoice: function(name) {
 			meSpeak.loadVoice(voicePrefix + name + '.json');
+		},
+		notification: function(message, options) {
+			// Prep options
+			if (options === undefined) {
+				options = {};
+			}
+			$.bootstrapGrowl(message, options);
+			// From https://github.com/ifightcrime/bootstrap-growl
+			
+		},
+		notify: function(message, options) {
+			Flint.say(message);
+			Flint.notification(message, options);
+		},
+		getStation: function() {
+			var i = Session.get('station');
+			if (i !== undefined) {
+				return Stations.findOne(i);
+			} else {
+				return undefined;
+			}
+		},
+		getSimulator: function() {
+			var i = Session.get('station');
+			if (i !== undefined) {
+				return Simulators.findOne(Flint.getStation().simulatorId);
+			} else {
+				return undefined;
+			}
 		}
 	};
 	
-	$('.btn').click(function() {
-		Flint.beep();
-	});
-	
-	Flint.play('sciences.wav');
-	$(function() {
+	// Trigger when everything is loaded
+	Meteor.startup(function(){
 		meSpeak.loadConfig(voicePrefix + "mespeak_config.json");
 		Flint.loadVoice('en-us');
 		Flint.Log.verbose('MeSpeak loaded','Speech');
