@@ -6,7 +6,10 @@
   "packages": {
     "jquery-ui": {},
     "cookie": {},
-    "router": {},
+    "router": {
+      "git": "https://github.com/tmeasday/meteor-router.git",
+      "branch": "0.5.9"
+    },
     "observatory": {},
     "bootboxjs": {},
     "bootstrap-growl": {}
