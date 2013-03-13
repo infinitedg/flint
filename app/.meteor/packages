@@ -9,8 +9,9 @@ preserve-inputs
 bootstrap
 jquery-ui
 cookie
-router
 observatory
 underscore
 bootboxjs
 bootstrap-growl
+appcache
+router
