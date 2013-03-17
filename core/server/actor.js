@@ -1,8 +1,9 @@
+/* exported Flint */
 var Flint = Flint || {};
 (function() {
   "use strict";
   
-  var Actor = function(key, startCallback, stopCallback) {
+  var Actor = function Actor(key, startCallback, stopCallback) {
     var self = this;
     self.key = key;
     self.started = false;
@@ -54,7 +55,7 @@ var Flint = Flint || {};
       }
     }); // extend
   };
-
+  
   Flint.actors = [];
   Flint.addActor = function(key, start, stop) {
     Flint.actors[key] = new Actor(key, start, stop);
