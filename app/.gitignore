@@ -2,3 +2,4 @@ client/**
 common/**
 public/**
 server/**
+lib/**

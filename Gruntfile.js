@@ -43,7 +43,7 @@ module.exports = function(grunt) {
           nonstandard: true
         },
         src: [
-          "core/common/**/*.js", "!core/common/lib/**",
+          "core/{common,lib}/**/*.js", "!core/common/lib/**",
           "cards/*/common/**/*.js"
         ]
       }, // common
@@ -150,13 +150,13 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: 'core/',
-            src: ['{client,common,public,server}/**', '!{client,common,public,server}/**.coffee'],
+            src: ['{client,common,public,server,lib}/**', '!{client,common,public,server}/**.coffee'],
             dest: 'app/'
           },
           {
             expand: true,
             cwd: 'tmp/core/',
-            src: ['{client,common,public,server}/**'],
+            src: ['{client,common,public,server,lib}/**'],
             dest: 'app/'
           }
         ] // files
@@ -223,7 +223,7 @@ module.exports = function(grunt) {
       }, // options
       
       core: {
-        files: ['core/{client,common,public,server}/**'],
+        files: ['core/{client,common,public,server,lib}/**'],
         tasks: ['jshint', 'clean:core', 'coffee:core', 'copy:core', 'meteorite'],
       }, // core
       
