@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   
-    Template.stationPicker.events({
+  Template.stationPicker.events({
     'click button.simulator': function(event) {
       Flint.beep();
       Session.set('selectedSimulator', this);
@@ -11,7 +11,7 @@
       Cookie.set('station', this._id);
       Session.set('station', this._id);
     }
-    });
+  });
   
   Template.stationPicker.simulators = function() {
     return Simulators.find({});

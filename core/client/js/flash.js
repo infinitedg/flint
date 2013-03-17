@@ -23,7 +23,7 @@ var Flint = Flint || {};
       }
       
       // Don't run if we're already flashing
-      if (flashTargets.indexOf(flashTarget) != -1) {
+      if (flashTargets.indexOf(flashTarget) !== -1) {
         return;
       }
       
@@ -35,7 +35,7 @@ var Flint = Flint || {};
       var inverter = function (willInvert) {
         var x;
         if (willInvert === undefined) {
-          x = (_flashTarget.css('-webkit-filter') == "invert(0)") ? 1 : 0;
+          x = (_flashTarget.css('-webkit-filter') === "invert(0)") ? 1 : 0;
         } else {
           x = (willInvert) ? 1 : 0;
         }

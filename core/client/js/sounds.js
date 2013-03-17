@@ -37,7 +37,7 @@ var Flint = Flint || {};
     isLooping: function(snd) {
       var s = Flint.loopCache[snd];
       if (s !== undefined) {
-        return ($(s.get()).attr('loop') == 'loop');
+        return ($(s.get()).attr('loop') === 'loop');
       } else {
         return false;
       }

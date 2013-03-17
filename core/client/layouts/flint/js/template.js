@@ -18,7 +18,7 @@
     Session.setDefault('currentCard', Template.layout_flint.cards()[0].cardId);
     var t2 = Session.get('currentCard');
     if (t1 !== undefined && t2 !== undefined) {
-      return (t1 == t2);
+      return (t1 === t2);
     } else {
       return true;
     }

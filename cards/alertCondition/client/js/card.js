@@ -9,13 +9,13 @@
   Template.card_alertCondition.alertStyle = function() {
     var a = Simulators.findOne(Flint.getSimulator()._id);
     switch (a) {
-      case 4:
+    case 4:
       return 'success';
-      case 3:
+    case 3:
       return 'info';
-      case 2:
+    case 2:
       return 'block';
-      case 1:
+    case 1:
       return 'error';
     }
   };

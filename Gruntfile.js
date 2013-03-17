@@ -6,25 +6,56 @@ module.exports = function(grunt) {
     jshint: {
 
       options: {
-        globals: {
-          jQuery: true,
-          console: true,
-          module: true,
-          document: true
-        } // globals
+        // Conventions borrowed from Meteor
+        //camelcase: true,
+        curly: false,
+        eqeqeq: true,
+        indent: 2,
+        //trailing: true,
+        //maxlen: 80,
+        asi: false,
+        
+        // Conventions created for Flint
+        
+        // Environment
+        devel: true
       }, // options
       
-      core: {
-        src: ["core/{client,common,public,server}/**/*.js", "!core/client/lib/**"]
-      }, // core
+      client: {
+        options: { 
+          browser: true,
+          jquery: true,
+          nonstandard: true
+        },
+        src: [
+          "core/client/**/*.js", "!core/client/lib/**",
+          "cards/*/client/**/*.js",
+          "themes/*/js/**/*.js"
+        ]
+      }, // client
       
-      cards: {
-        src: ["cards/*/{client,common,public,server}/**/*.js", "!cards/template/**"]
-      }, // cards
+      common: {
+        options: { 
+          browser: true,
+          node: true,
+          jquery: true,
+          nonstandard: true
+        },
+        src: [
+          "core/common/**/*.js", "!core/common/lib/**",
+          "cards/*/common/**/*.js"
+        ]
+      }, // common
       
-      themes: {
-        src: ["themes/*/js/**/*.js"]
-      } // themes
+      server: {
+        options: { 
+          node: true
+        },
+        src: [
+          "core/server/**/*.js", "!core/server/lib/**",
+          "cards/*/server/**/*.js"
+        ]
+      } // server
       
     }, // jshint
     
@@ -192,17 +223,17 @@ module.exports = function(grunt) {
       
       core: {
         files: ['core/{client,common,public,server}/**'],
-        tasks: ['jshint:core', 'clean:core', 'coffee:core', 'copy:core', 'meteorite'],
+        tasks: ['jshint', 'clean:core', 'coffee:core', 'copy:core', 'meteorite'],
       }, // core
       
       cards: {
         files: ['cards/*/{client,common,public,server}/**'],
-        tasks: ['jshint:cards', 'clean:cards', 'coffee:cards', 'copy:cards', 'meteorite'],
+        tasks: ['jshint', 'clean:cards', 'coffee:cards', 'copy:cards', 'meteorite'],
       }, // cards
       
       themes: {
         files: ['themes/*/{coffee,js,less,css}/**'],
-        tasks: ['jshint:themes', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes', 'meteorite'],
+        tasks: ['jshint', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes', 'meteorite'],
       } // themes
       
     } // watch
