@@ -1,15 +1,15 @@
 <template name="card_power">
-	<h1>Power Management</h1>
-	<div class="row-fluid">
-		<div class="span11">
-			<dl class="dl-horizontal systems">
-				{{#each systems}}
-					<dt>{{name}} ({{power}} / {{maxPower}})</dt>
-					<dd><div class="progress progress-{{barClass}}"><div class="bar" style="width: {{barPercent}}%;"></div></div></dd>
-				{{/each}}
-				<dt>Total Power:</dt>
-				<dd>{{totalPower}} / {{totalPowerAvailable}}</dd>
-			</dl>
-		</div>
-	</div>
+  <h1>Power Management</h1>
+  <div class="row-fluid">
+    <div class="span11">
+      <dl class="dl-horizontal systems">
+        {{#each systems}}
+          <dt>{{name}} ({{power}} / {{maxPower}})</dt>
+          <dd><div class="progress progress-{{barClass}}"><div class="bar" style="width: {{barPercent}}%;"></div></div></dd>
+        {{/each}}
+        <dt>Total Power:</dt>
+        <dd>{{totalPower}} / {{totalPowerAvailable}}</dd>
+      </dl>
+    </div>
+  </div>
 </template>

@@ -245,12 +245,12 @@ var buzz = {
               return null;
             }
 
-			var percent = Math.round( buzz.toPercent( this.sound.currentTime, this.sound.duration ) );
+      var percent = Math.round( buzz.toPercent( this.sound.currentTime, this.sound.duration ) );
             return isNaN( percent ) ? buzz.defaults.placeholder : percent;
         };
 
         this.setSpeed = function( duration ) {
-			if ( !supported ) {
+      if ( !supported ) {
               return this;
             }
 
@@ -258,7 +258,7 @@ var buzz = {
         };
 
         this.getSpeed = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -275,7 +275,7 @@ var buzz = {
         };
 
         this.getPlayed = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -283,7 +283,7 @@ var buzz = {
         };
 
         this.getBuffered = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -291,7 +291,7 @@ var buzz = {
         };
 
         this.getSeekable = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -306,7 +306,7 @@ var buzz = {
         };
 
         this.getErrorMessage = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -325,7 +325,7 @@ var buzz = {
         };
 
         this.getStateCode = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -333,7 +333,7 @@ var buzz = {
         };
 
         this.getStateMessage = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -354,7 +354,7 @@ var buzz = {
         };
 
         this.getNetworkStateCode = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -362,7 +362,7 @@ var buzz = {
         };
 
         this.getNetworkStateMessage = function() {
-			if ( !supported ) {
+      if ( !supported ) {
               return null;
             }
 
@@ -405,7 +405,7 @@ var buzz = {
             types = types.split( ' ' );
 
             var that = this,
-				efunc = function( e ) { func.call( that, e ); };
+        efunc = function( e ) { func.call( that, e ); };
 
             for( var t = 0; t < types.length; t++ ) {
                 var type = types[ t ],
@@ -481,7 +481,7 @@ var buzz = {
         };
 
         this.fadeTo = function( to, duration, callback ) {
-			if ( !supported ) {
+      if ( !supported ) {
               return this;
             }
 
@@ -493,7 +493,7 @@ var buzz = {
             }
 
             var from = this.volume,
-				delay = duration / Math.abs( from - to ),
+        delay = duration / Math.abs( from - to ),
                 that = this;
             this.play();
 
@@ -526,7 +526,7 @@ var buzz = {
         };
 
         this.fadeOut = function( duration, callback ) {
-			if ( !supported ) {
+      if ( !supported ) {
               return this;
             }
 
@@ -837,13 +837,13 @@ var buzz = {
     },
 
     toPercent: function( value, total, decimal ) {
-		var r = Math.pow( 10, decimal || 0 );
+    var r = Math.pow( 10, decimal || 0 );
 
-		return Math.round( ( ( value * 100 ) / total ) * r ) / r;
+    return Math.round( ( ( value * 100 ) / total ) * r ) / r;
     },
 
     fromPercent: function( percent, total, decimal ) {
-		var r = Math.pow( 10, decimal || 0 );
+    var r = Math.pow( 10, decimal || 0 );
 
         return  Math.round( ( ( total / 100 ) * percent ) * r ) / r;
     }

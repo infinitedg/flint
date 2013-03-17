@@ -1,4 +1,4 @@
 (function () {
-	'use strict';
-	// code goes here
+  'use strict';
+  // code goes here
 }());

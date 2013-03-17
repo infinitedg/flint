@@ -13,7 +13,7 @@ If you aren't familliar with what `cd` or your command line does, then first tak
 4. Run the installer. You now have NodeJS (Which we may need at some point) and NPM (which we need in the next step!)
 5. From the command line, run `sudo npm install -g meteorite` and enter your password if prompted.
 6. If you don't already have `git`, download it from [git-scm.org](http://git-scm.com/) and install it.
-	* Find out if you have `git` by running `which git` on your command line. If it shows something like `/usr/bin/git` then you have it!
+  * Find out if you have `git` by running `which git` on your command line. If it shows something like `/usr/bin/git` then you have it!
 7. `cd` to the directory you'd like to keep `Flint` and clone it by running `git clone git@bitbucket.org:spacecenter/flint.git`
 8. Run `cd flint` and then `grunt run` to fire it up! If you get any errors, review the above commands and try again.
 
@@ -27,21 +27,21 @@ If you are doing work on client software (e.g. Arduino kits or your own [kiosk](
 ## Flint command line tools
 Flint has some automated processes that use normal Node modules. To run the automated tasks you must install `grunt-cli` using `npm`.
 
-	sudo npm install -g grunt-cli
+  sudo npm install -g grunt-cli
 
 From there, you can run `grunt` from within the .submodules folder to start using the automated processes for testing and jshint.
 
 If you have just cloned the repository (or if there is no node_modules directory), then you will need to install the package modules:
 
-	npm install
+  npm install
 
 This will install the modules necessary to simpy run `grunt` to start testing the project.
 
 ## Contributing
 * All Javascript code contributions must pass JSHint testing. To run JSHint testing:
-	1. `cd tests`
-	2. `npm install` (Only do this the first time. From time to time, you may also want to run `npm update` to keep your modules up to date)
-	3. `grunt`
+  1. `cd tests`
+  2. `npm install` (Only do this the first time. From time to time, you may also want to run `npm update` to keep your modules up to date)
+  3. `grunt`
 
 * We will also add unit tests in the future which will also run via `grunt` from the `/tests` directory using the same instructions as above.
 

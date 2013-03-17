@@ -580,8 +580,8 @@ button.btn.btn-mini,input[type="submit"].btn.btn-mini{*padding-top:1px;*padding-
 .nav{margin-left:0;margin-bottom:20px;list-style:none;}
 .nav>li>a{display:block;}
 .nav>li>a:hover{text-decoration:none;
-	background-color: #999;
-	color: #fff;
+  background-color: #999;
+  color: #fff;
 }
 .nav>li>a>img{max-width:none;}
 .nav>.pull-right{float:right;}

@@ -1,13 +1,13 @@
 <template name="layout_core">
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span12 masonryBox">
-				{{#each cards}}
-					<div class="coreCard well" id="core-{{cardId}}">
-						{{renderCore cardId}}
-					</div>
-				{{/each}}
-			</div>
-		</div>
-	</div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12 masonryBox">
+        {{#each cards}}
+          <div class="coreCard well" id="core-{{cardId}}">
+            {{renderCore cardId}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
 </template>
