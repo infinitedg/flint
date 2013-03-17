@@ -14,6 +14,7 @@ module.exports = function(grunt) {
         //trailing: true,
         //maxlen: 80,
         asi: false,
+        expr: true,
         
         // Conventions created for Flint
         
