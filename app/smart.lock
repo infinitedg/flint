@@ -11,7 +11,8 @@
       "router": {},
       "observatory": {},
       "bootboxjs": {},
-      "bootstrap-growl": {}
+      "bootstrap-growl": {},
+      "kinetic.js": {}
     },
     "packages": {
       "jquery-ui": {
@@ -43,6 +44,11 @@
         "git": "https://github.com/TimHeckel/meteor-bootstrap-growl.git",
         "tag": "v0.1.1",
         "commit": "674fd231a46e405f8d4eb463725d8003a02374ec"
+      },
+      "kinetic.js": {
+        "git": "https://github.com/brentjanderson/meteor-kinetic.git",
+        "tag": "v0.1.0",
+        "commit": "95864dec73c122ac0c0dedfdb9748cc9add523cf"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

@@ -9,6 +9,7 @@
     "router": {},
     "observatory": {},
     "bootboxjs": {},
-    "bootstrap-growl": {}
+    "bootstrap-growl": {},
+    "kinetic.js": {}
   }
 }

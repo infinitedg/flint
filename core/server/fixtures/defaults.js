@@ -35,6 +35,10 @@ Flint.addFixture({
         {
           "cardId": "alertCondition",
           "name": "Alert Condition"
+        },
+        {
+          "cardId": "sensorGrid",
+          "name": "Sensor Grid"
         }
       ],
       "name": "Operations",
@@ -128,5 +132,8 @@ Flint.addFixture({
       "power": 7,
       "_id": "systems-warpCore"
     }
+  ],
+  "sensorContacts": [
+  
   ]
 });
