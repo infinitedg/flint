@@ -148,10 +148,13 @@
           changed: function(contact, oldContact) {
             console.log("changed", contact);
             var sprite = sensorContacts[contact._id]._sprite;
-            sprite.setPosition(contact.x * k.width, contact.y * k.height);
             contact._sprite = sprite;
             sensorContacts[contact._id] = contact;
-            stage.draw();
+            sprite.transitionTo({
+              x: contact.x * k.width, 
+              y: contact.y * k.height,
+              duration: 1
+            });
           },
           removed: function(contact) {
             console.log("removed", contact);
