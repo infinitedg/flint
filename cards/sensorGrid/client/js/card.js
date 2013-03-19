@@ -3,7 +3,9 @@
   
   var k;
   var observeLoop;
-  window.sensorContacts = {};
+  var sensorContactAnimationLoop; // @TODO move back to function scope
+  
+  window.sensorContacts = {}; // @TODO move back to function scope
   
   Template.card_sensorGrid.sensorInfo = function() {
     return Flint.getSimulator().sensorText;
@@ -25,7 +27,7 @@
       };
       k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
       
-      window.stage = new Kinetic.Stage({
+      window.stage = new Kinetic.Stage({ // @TODO move back to function scope
         container: k.container,
         width: k.width,
         height: k.height
@@ -119,6 +121,7 @@
       backdrop.add(lineLowInv);
     
       // Setup sensor contacts
+      var contactsLayer = new Kinetic.Layer();
       var addContact = function(contact) {
         console.log('added',contact);
         var circle = new Kinetic.Circle({
@@ -130,7 +133,7 @@
           strokeWidth: 4
         });
       
-        backdrop.add(circle);
+        contactsLayer.add(circle);
         contact._sprite = circle;
         sensorContacts[contact._id] = contact;
         
@@ -141,7 +144,6 @@
       SensorContacts.find().forEach(addContact);
       
       // Observe changes to collection
-      var contactsLayer = new Kinetic.Layer();
       if (observeLoop === undefined) {
         observeLoop = SensorContacts.find().observe({
           added: addContact,
@@ -150,11 +152,6 @@
             var sprite = sensorContacts[contact._id]._sprite;
             contact._sprite = sprite;
             sensorContacts[contact._id] = contact;
-            sprite.transitionTo({
-              x: contact.x * k.width, 
-              y: contact.y * k.height,
-              duration: 1
-            });
           },
           removed: function(contact) {
             console.log("removed", contact);
@@ -165,9 +162,78 @@
         });
       }
       
+      // 
+      var flipper = 0;
+      window.sensorContactAnimationLoop = new Kinetic.Animation(function(frame) {
+        var dt = frame.timeDiff / 1000; // Change in time between this frame and the prior frame
+        
+        for (var i in sensorContacts) {
+          var contact = sensorContacts[i];
+          var sprite = contact._sprite;
+          var v = contact.velocity || 5; // Defaults to 1 pixels/second (as a fraction of a grid)
+          var x0 = sprite.getX();
+          var y0 = sprite.getY();
+          var x  = contact.x * k.width;
+          var y  = contact.y * k.height;
+          
+          if (x0 === x && y0 === y) {
+            continue;
+          }
+          
+          // First, if the velocity is zero then move the contact there immediately
+          if (v === 0) {
+            sensorContacts[i]._sprite.setPosition(x, y);
+            continue;
+          }
+          
+          // 1. Calculate the distance in x, y, and direct (h)
+          var dx = Math.abs(x - x0); // Distance between current sprite location and intended location on the x-axis
+          var dy = Math.abs(y - y0); // Distance between current sprite location and intended location on the y-axis
+          var h  = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)); // Distance between current sprite location and intended location (the hypotenuse)
+          
+          // 2. Calculate angle theta
+          var th  = Math.acos(dx / h);
+
+          var x1, y1;
+          if (x0 / k.width > 0.5) {
+            x1 = x0 - v * dt * Math.cos(th);
+          } else {
+            x1 = x0 + v * dt * Math.cos(th);
+          }
+          
+          if (y0 / k.height > 0.5) {
+            y1 = y0 - v * dt * Math.sin(th);
+          } else {
+            y1 = y0 + v * dt * Math.sin(th);
+          }
+          
+          // If the difference between the new point and the target point is within our threshhold, then set it to the new location
+          var threshhold = 0.2;
+          if (Math.abs(x1-x) < threshhold) {
+            x1 = x;
+          }
+          if (Math.abs(y1-y) < threshhold) {
+            y1 = y;
+          }
+          
+          // 3. Set the location of this sprite to the new location
+          sensorContacts[i]._sprite.setPosition(x1, y1);
+        }
+        if (window.sensorContactAnimationLoop !== undefined && flipper !== 0) {
+          // window.sensorContactAnimationLoop.stop();
+          flipper = 0;
+        } else {
+          flipper = 1;
+        }
+        
+      }, contactsLayer);
+      
       // add the layer to the stage
       stage.add(backdrop);
-      // stage.add(contactsLayer);
+      stage.add(contactsLayer);
+      
+      // Start our animations
+      window.sensorContactAnimationLoop.start();
       
     });
   };
