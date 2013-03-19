@@ -123,21 +123,24 @@
       // Setup sensor contacts
       var contactsLayer = new Kinetic.Layer();
       var addContact = function(contact) {
-        console.log('added',contact);
-        var circle = new Kinetic.Circle({
-          x: contact.x * k.width,
-          y: contact.y * k.height,
-          radius: 20,
-          fill: 'red',
-          stroke: 'black',
-          strokeWidth: 4
-        });
+        if (sensorContacts[contact._id] === undefined) {
+          console.log('added',contact);
+          var circle = new Kinetic.Circle({
+            x: contact.x * k.width,
+            y: contact.y * k.height,
+            radius: 20,
+            fill: 'red',
+            stroke: 'black',
+            strokeWidth: 4
+          });
       
-        contactsLayer.add(circle);
-        contact._sprite = circle;
-        sensorContacts[contact._id] = contact;
+          contactsLayer.add(circle);
+          contact._sprite = circle;
         
-        stage.draw();
+          sensorContacts[contact._id] = contact;
+        
+          stage.draw();
+        }
       };
       
       // Add currently available contacts to the simulation
@@ -177,10 +180,12 @@
           var y  = contact.y * k.height;
           
           if (x0 === x && y0 === y) {
+            sensorContacts[i].isMoving = false;
             continue;
           }
           
           // First, if the velocity is zero then move the contact there immediately
+          sensorContacts[i].isMoving = true;
           if (v === 0) {
             sensorContacts[i]._sprite.setPosition(x, y);
             continue;
@@ -195,16 +200,16 @@
           var th  = Math.acos(dx / h);
 
           var x1, y1;
-          if (x0 / k.width > 0.5) {
-            x1 = x0 - v * dt * Math.cos(th);
-          } else {
+          if (x0 - x < 0) {
             x1 = x0 + v * dt * Math.cos(th);
+          } else {
+            x1 = x0 - v * dt * Math.cos(th);
           }
           
-          if (y0 / k.height > 0.5) {
-            y1 = y0 - v * dt * Math.sin(th);
-          } else {
+          if (y0 - y < 0) {
             y1 = y0 + v * dt * Math.sin(th);
+          } else {
+            y1 = y0 - v * dt * Math.sin(th);
           }
           
           // If the difference between the new point and the target point is within our threshhold, then set it to the new location
