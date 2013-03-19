@@ -205,11 +205,24 @@
           // 2. Calculate angle theta
           var th  = Math.acos(dx / h);
 
+          /** 
+            IF the distrance between the sprite and its 
+            target destination is less than the distance between 
+            the sprite and it's planned location,
+            THEN set the planned location to its target location
+          **/
+          var vdt; // Velocity * change in time
+          if (v * dt > h) {
+            vdt = h;
+          } else {
+            vdt = v * dt;
+          }
+
           var x1, y1;
           if (x0 - x < 0) {
-            x1 = x0 + v * dt * Math.cos(th);
+            x1 = x0 + vdt * Math.cos(th);
           } else {
-            x1 = x0 - v * dt * Math.cos(th);
+            x1 = x0 - vdt * Math.cos(th);
           }
         
           if (y0 - y < 0) {
@@ -226,7 +239,7 @@
           if (Math.abs(y1-y) < threshhold) {
             y1 = y;
           }
-        
+          
           // 3. Set the location of this sprite to the new location
           sensorContacts[i]._sprite.setPosition(x1, y1);
         
