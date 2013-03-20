@@ -32,8 +32,8 @@
       },
       "observatory": {
         "git": "https://github.com/jhoxray/observatory.git",
-        "tag": "v0.1.99",
-        "commit": "ee4d2940c8e0854a2354367cae7b173152f277e9"
+        "tag": "v0.2.0",
+        "commit": "26bb95c14287e9dfa456c785be045dbb563f210d"
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
