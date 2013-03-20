@@ -46,6 +46,14 @@
   {{#if programmingEnabled}}
     {{>logs_bootstrap}}
   {{/if}}
+  {{#if offline}}
+  <div class="alert alert-error">
+      <h4>{{offlineStatus}}</h4>
+      <p>{{offlineMessage}}</p>
+      <p>{{offlineCounting}}</p>
+      <p><a href="#" class="btn btn-warning btn-small">Reconnect Now</a></p>
+  </div>
+  {{/if}}
 </template>
 
 <template name="themePicker">
