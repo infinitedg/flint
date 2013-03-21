@@ -31,6 +31,8 @@ var Flint = Flint || {};
       
       var _flashTarget = $(flashTarget);
       
+      Flint.Log.verbose("Flashing '" + flashTarget + "' " + times + " times", "Effects");
+      
       // Invert the screen. willInvert will invert the screen with truthy values, set it normal with falsey values
       var inverter = function (willInvert) {
         var x;
@@ -41,6 +43,10 @@ var Flint = Flint || {};
         }
         _flashTarget.css('-webkit-filter','invert(' + x + ')');
       };
+      
+      // Technically, we want the screen to be inverted 10 times.
+      // Because an inversion is 2 invert operations, we double the number of times flashed.
+      times = times * 2;
       
       var flashIntervalId = Meteor.setInterval(function() {
         if (times < 0) {

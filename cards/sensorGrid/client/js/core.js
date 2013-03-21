@@ -11,12 +11,4 @@
   Template.core_sensorGrid.sensorText = function() {
     return Flint.getSimulator().sensorText;
   };
-  
-  Simulators.find({}).observeChanges({
-    changed: function(id, fields){
-      if (fields.sensorText !== undefined) {
-        Flint.flash('#card-sensorGrid .well');
-      }
-    }
-  });
 }());

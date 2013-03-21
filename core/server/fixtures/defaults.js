@@ -5,20 +5,23 @@ Flint.addFixture({
       "name": "USS Odyssey",
       "power": 150,
       "theme": 'odyssey',
-      "alertCondition": 4
+      "alertCondition": 4,
+      "sensorText": "The Odyssey is in trouble!"
     },
     {
       "_id": "fixed-simulators-phoenix",
       "name": "USS Phoenix",
       "power": 100,
       "theme": 'shamrock',
-      "alertCondition": 4
+      "alertCondition": 4,
+      "sensorText": "The Phoenix is in orbit"
     },
     {
       "_id": "fixed-simulators-voyager",
       "name": "USS Voyager",
       "power": 120,
-      "alertCondition": 4
+      "alertCondition": 4,
+      "sensorText": "Important sensor information, Captain."
     }
   ],
   "stations": [

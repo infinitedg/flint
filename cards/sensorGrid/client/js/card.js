@@ -1,19 +1,10 @@
 (function () {
   'use strict';
+
+  var sensorTextObserver;
   
   Template.card_sensorGrid.sensorInfo = function() {
     return Flint.getSimulator().sensorText;
-  };
-  
-  var sensorTextObserver;
-  Template.card_sensorGrid.created = function() {
-    sensorTextObserver = Simulators.find({_id: Flint.getSimulator()._id }).observeChanges({
-      changed: function(id, fields){
-        if (fields.sensorText !== undefined) {
-          Flint.flash('#card-sensorGrid .well');
-        }
-      }
-    });
   };
   
   Template.card_sensorGrid.destroyed = function() {
@@ -24,6 +15,14 @@
   };
   
   Template.card_sensorGrid.created = function() {
+    sensorTextObserver = Simulators.find({_id: Flint.getSimulator(false)._id }).observeChanges({
+      changed: function(id, fields){
+        if (fields.sensorText !== undefined) {
+          Flint.flash('#card-sensorGrid .well');
+        }
+      }
+    });
+    
     Meteor.defer(function(){
       
       var k;
