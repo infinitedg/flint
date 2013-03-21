@@ -95,11 +95,16 @@ Flint.addFixture({
         {
           "cardId": "alertCondition",
           "name": "Alert Condition"
+        },
+        {
+          "cardId": "sensorGrid",
+          "name": "Sensor Grid"
         }
       ],
       "name": "Flight Director",
       "simulatorId": "fixed-simulators-voyager",
       "layout": "core",
+      "sensorText": "Mission critical sensor information goes here.",
       "_id": "fixed-stations-voyager-flightDirector"
     }
   ],
