@@ -1,11 +1,11 @@
 Meteor.Router.add({
   '/': function() {
     Flint.Log.verbose("Routed to /", "Router");
-    if (!Session.get('station')) {
+    if (!Flint.getStation(false)) {
       return 'stationPicker';
     } else {
       if (!Flint.isStationPrepared()) {
-        Flint.prepareStation(Session.get('station'));
+        Flint.prepareStation(Flint.getStation(false)._id);
       }
       Flint.play('sciences.wav');
       return 'layout_' + Session.get('layout');

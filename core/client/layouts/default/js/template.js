@@ -1,10 +1,10 @@
 (function() {
   Template.layout_default.simulator = function() {
-    return Session.get('station');
+    return Flint.getSimulator(false);
   };
   
   Template.layout_default.station = function() {
-    return Session.get('station');
+    return Flint.getStation(false);
   };
   
   Template.layout_default.hideCardlistCSS = function() {
@@ -20,7 +20,7 @@
   };
   
   Template.layout_default.cards = function() {
-    return Session.get('station').cards;
+    return Flint.getStation(false).cards;
   };
   
   var autorun;

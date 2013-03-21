@@ -10,7 +10,7 @@
   };
   
   Template.cardList.stationName = function() {
-    return Session.get('station').name;
+    return Flint.getStation(false).name;
   };
   
   Template.cardList.events = {

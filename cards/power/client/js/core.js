@@ -27,7 +27,7 @@
   };
   
   Template.core_power.totalPowerAvailable = function() {
-    var simulator = Simulators.findOne({_id: Session.get('station').simulatorId});
+    var simulator = Simulators.findOne({_id: Flint.getStation(false).simulatorId});
     var totalPower = simulator.power;
     return totalPower;
   };

@@ -2,7 +2,7 @@
   'use strict';
   
   Template.core_login.stations = function() {
-    var stations = Stations.find({simulatorId: Session.get('station').simulatorId});
+    var stations = Stations.find({simulatorId: Flint.getStation(false).simulatorId});
     return stations;
   };
 }());

@@ -73,21 +73,37 @@ var Flint = Flint || {};
       Flint.notification(message, options);
     },
     
-    
-    getStation: function() {
-      var i = Session.get('station');
-      if (i !== undefined) {
-        return Stations.findOne(i._id);
+    // If reactive (or unspecified), then return a reactive data source
+    // Note: Clearly Session.get returns a reactive data source.
+    // By convention, the session variables 'simulator', 'station', 'theme', and 'layout'
+    // Are not to be touched
+    getStation: function(reactive) {
+      if (reactive === undefined || reactive) {
+        var i = Session.get('station');
+        if (i !== undefined) {
+          return Stations.findOne(i._id);
+        } else {
+          return {};
+        }
       } else {
-        return undefined;
+        return Session.get('station');
       }
     },
-    getSimulator: function() {
-      var i = Session.get('station');
-      if (i !== undefined) {
-        return Simulators.findOne(Flint.getStation().simulatorId);
+    
+    // If reactive (or unspecified), then return a reactive data source
+    // Note: Clearly Session.get returns a reactive data source.
+    // By convention, the session variables 'simulator', 'station', 'theme', and 'layout'
+    // Are not to be touched
+    getSimulator: function(reactive) {
+      if (reactive === undefined || reactive) {
+        var i = Session.get('station');
+        if (i !== undefined) {
+          return Simulators.findOne(Flint.getStation().simulatorId);
+        } else {
+          return {};
+        }
       } else {
-        return undefined;
+        return Session.get('simulator');
       }
     }
   });
