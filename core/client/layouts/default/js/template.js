@@ -26,8 +26,14 @@
   var autorun;
   Template.layout_default.created = function() {
     autorun = Deps.autorun(function() {
-      $('div.card').hide();
-      $('div.card#card-' + Session.get('currentCard')).show();
+      if ('card-' + Session.get('currentCard') !== $('div.card:visible').attr('id')) {
+        $('div.card:visible').fadeOut(Flint.transitionSpeed, function(){
+          $('div.card#card-' + Session.get('currentCard')).fadeIn(Flint.transitionSpeed);
+        });
+      } else {
+        $('div.card').not('#card-' + Session.get('currentCard')).hide();
+        $('div.card#card-' + Session.get('currentCard')).show();
+      }
     });
   };
   
@@ -35,7 +41,7 @@
     Session.setDefault('currentCard', Template.layout_default.cards()[0].cardId);
     if (!$('div.card:visible')) {
       $('div.card:first').show();
-      $('div.card').remove(':first').hide();
+      $('div.card').not(':first').hide();
     } else {
       autorun.invalidate();
     }
