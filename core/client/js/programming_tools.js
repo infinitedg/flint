@@ -23,6 +23,13 @@
   Template.programming_tools.offlineCounting = function() {
     var r = Meteor.status();
     var s = 'Retried ' + r.retryCount + ' times - next attempt in ' + Math.round((r.retryTime - (new Date()).getTime()) / 1000) + ' seconds';
+    
+    // Update the counter in 1 second.
+    var computation = Deps.currentComputation;
+    Meteor.setTimeout(function() {
+      computation.invalidate();
+    }, 1000);
+    
     return s;
   };
   
