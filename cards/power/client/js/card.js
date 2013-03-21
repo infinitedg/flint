@@ -43,9 +43,7 @@
   };
   
   Template.card_power.totalPowerAvailable = function() {
-    var station = Stations.findOne({_id: Session.get('station')});
-    var simulator = Simulators.findOne({_id: station.simulatorId});
-    var totalPower = simulator.power;
+    var totalPower = Flint.getSimulator().power;
     return totalPower;
   };
   

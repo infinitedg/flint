@@ -4,7 +4,11 @@ var Flint = Flint || {};
   'use strict';
   
   Meteor.startup(function() {
-    Session.set('station', Cookie.get('station'));
+    if (Cookie.get('station') && Meteor.Router.page() !== 'stationPicker') {
+      Flint.prepareStation(Cookie.get('station'));
+    } else {
+      Flint.reselect();
+    }
   });
   
   _.extend(Flint, {
@@ -22,6 +26,38 @@ var Flint = Flint || {};
       Meteor.Router.to('/reset');
     },
     
+    // Prepare static session variables based on StationID
+    prepareStation: function(stationId) {
+      if (stationId === undefined) {
+        stationId = Cookie.get('station');
+      }
+      Flint.Log.verbose("Loading station " + stationId, "Core");
+      var station = Stations.findOne({_id: stationId});
+      var simulator = Simulators.findOne({_id: station.simulatorId});
+      
+      // Calculate theme once to prevent re-rendering
+      var theme = (station.theme) ? station.theme : simulator.theme;
+      theme = (theme) ? theme : 'default';
+      Session.set('theme', theme);
+      
+      // Calculate layout once to prevent re-rendering
+      var layout = (station.layout) ? station.layout : simulator.layout;
+      layout = (layout) ? layout : 'default';
+      Session.set('layout', layout);
+      
+      Cookie.set('station', station._id);
+      Session.set('station', station);
+      Session.set('simulator', simulator);
+      Session.set('currentCard', station.cards[0].cardId);
+    },
+    
+    // Determine if the station is ready to be launched
+    isStationPrepared: function() {
+      return !Session.equals('station', undefined) &&
+        !Session.equals('simulator', undefined) &&
+        !Session.equals('layout', undefined) &&
+        !Session.equals('theme', undefined);
+    },
     
     notification: function(message, options) {
       // Prep options
@@ -41,7 +77,7 @@ var Flint = Flint || {};
     getStation: function() {
       var i = Session.get('station');
       if (i !== undefined) {
-        return Stations.findOne(i);
+        return Stations.findOne(i._id);
       } else {
         return undefined;
       }

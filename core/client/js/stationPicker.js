@@ -7,9 +7,7 @@
       Session.set('selectedSimulator', this);
     },
     'click button.station': function(event) {
-      Session.set('selectedStation', this);
-      Cookie.set('station', this._id);
-      Session.set('station', this._id);
+      Flint.prepareStation(this._id);
     }
   });
   
