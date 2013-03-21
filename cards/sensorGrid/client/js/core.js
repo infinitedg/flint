@@ -13,12 +13,4 @@
     return Flint.getSimulator().sensorText;
   };
   
-  Simulators.find({}).observeChanges({
-    changed: function(id, fields){
-      if (fields.sensorText !== undefined) {
-        console.log(this);
-        Flint.flash('#card-sensorGrid .well');
-      }
-    }
-  });
 }());
