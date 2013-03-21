@@ -4,20 +4,21 @@ Flint.addFixture({
       "_id": "fixed-simulators-odyssey",
       "name": "USS Odyssey",
       "power": 150,
-      "theme": 'odyssey'
+      "theme": 'odyssey',
+      "alertCondition": 4
     },
     {
       "_id": "fixed-simulators-phoenix",
       "name": "USS Phoenix",
       "power": 100,
-      "theme": 'shamrock'
+      "theme": 'shamrock',
+      "alertCondition": 4
     },
     {
       "_id": "fixed-simulators-voyager",
       "name": "USS Voyager",
       "power": 120,
-      "theme": 'flint',
-      "layout": 'flint'
+      "alertCondition": 4
     }
   ],
   "stations": [

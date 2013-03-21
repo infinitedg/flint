@@ -1,31 +1,18 @@
 (function() {
   Template.layout_default.simulator = function() {
-    var station = Stations.findOne({_id: Session.get('station')});
-    if (station) {
-      var simulator = Simulators.findOne({_id: station.simulatorId});
-      return simulator;
-    } else {
-      return {};
-    }
+    return Flint.getSimulator();
   };
   
   Template.layout_default.station = function() {
-    return Stations.findOne({_id: Session.get('station')});
+    return Flint.getStation();
   };
   
-  Template.layout_default.currentCard = function() {
-    var t1 = this.cardId;
-    Session.setDefault('currentCard', Template.layout_default.cards()[0].cardId);
-    var t2 = Session.get('currentCard');
-    if (t1 !== undefined && t2 !== undefined) {
-      return (t1 === t2);
+  Template.layout_default.hideCardlistCSS = function() {
+    if (Session.equals('loggedIn', true)) {
+      return '';
     } else {
-      return true;
+      return 'hide';
     }
-  };
-  
-  Template.layout_default.currentUser = function() {
-    return Session.get('username');
   };
   
   Template.layout_default.loggedIn = function() {
@@ -33,11 +20,37 @@
   };
   
   Template.layout_default.cards = function() {
-    var station = Stations.findOne({_id: Session.get('station')});
-    if (station) {
-      return station.cards;
+    return Flint.getStation(false).cards;
+  };
+  
+  var autorun;
+  Template.layout_default.created = function() {
+    autorun = Deps.autorun(function() {
+      if ('card-' + Session.get('currentCard') !== $('div.card:visible').attr('id')) {
+        $('div.card:visible').fadeOut(Flint.transitionSpeed, function(){
+          $('div.card#card-' + Session.get('currentCard')).fadeIn(Flint.transitionSpeed);
+        });
+      } else {
+        $('div.card').not('#card-' + Session.get('currentCard')).hide();
+        $('div.card#card-' + Session.get('currentCard')).show();
+      }
+    });
+    
+    // For old times' sake :)
+    Flint.play('sciences.wav');
+  };
+  
+  Template.layout_default.rendered = function() {
+    Session.setDefault('currentCard', Template.layout_default.cards()[0].cardId);
+    if (!$('div.card:visible')) {
+      $('div.card:first').show();
+      $('div.card').not(':first').hide();
     } else {
-      return [];
+      autorun.invalidate();
     }
+  };
+  
+  Template.layout_default.destroyed = function() {
+    autorun.stop();
   };
 }());

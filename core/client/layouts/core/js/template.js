@@ -12,28 +12,17 @@
   };
   
   Template.layout_core.simulator = function() {
-    var station = Stations.findOne({_id: Session.get('station')});
-    if (station) {
-      var simulator = Simulators.findOne({_id: station.simulatorId});
-      return simulator;
-    } else {
-      return {};
-    }
+    return Flint.getSimulator();
   };
   
   Template.layout_core.station = function() {
-    return Stations.findOne({_id: Session.get('station')});
+    return Flint.getStation();
   };
   
   Template.layout_core.currentCard = function() {
     var t1 = this.cardId;
     Session.setDefault('currentCard', Template.layout_core.cards()[0].cardId);
-    var t2 = Session.get('currentCard');
-    if (t1 !== undefined && t2 !== undefined) {
-      return (t1 === t2);
-    } else {
-      return true;
-    }
+    return Session.equals('currentCard', t1);
   };
   
   Template.layout_core.currentUser = function() {
@@ -45,11 +34,6 @@
   };
   
   Template.layout_core.cards = function() {
-    var station = Stations.findOne({_id: Session.get('station')});
-    if (station) {
-      return station.cards;
-    } else {
-      return [];
-    }
+    return Flint.getStation().cards;
   };
 }());

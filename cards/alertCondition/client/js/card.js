@@ -7,7 +7,7 @@
   };
   
   Template.card_alertCondition.alertStyle = function() {
-    var a = Simulators.findOne(Flint.getSimulator()._id);
+    var a = Flint.getSimulator().alertCondition;
     switch (a) {
     case 4:
       return 'success';

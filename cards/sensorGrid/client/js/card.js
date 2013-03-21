@@ -1,12 +1,6 @@
 (function () {
   'use strict';
   
-  var k;
-  var observeLoop;
-  var sensorContactAnimationLoop; 
-  
-  var sensorContacts = {};
-  
   Template.card_sensorGrid.sensorInfo = function() {
     return Flint.getSimulator().sensorText;
   };
@@ -31,6 +25,12 @@
   
   Template.card_sensorGrid.created = function() {
     Meteor.defer(function(){
+      
+      var k;
+      var observeLoop;
+      var sensorContactAnimationLoop; 
+      var sensorContacts = {};
+      
       k = {
         width: 600,
         height: 600,

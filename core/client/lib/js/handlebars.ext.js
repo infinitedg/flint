@@ -8,6 +8,7 @@
   Handlebars.registerHelper('render', render);
 
   Handlebars.registerHelper('renderCard', function(name, options) {
+    Flint.Log.verbose("renderCard");
     return render('card_' + name, options);
   });
   

@@ -2,12 +2,7 @@
   'use strict';
   
   Template.cardList.cards = function() {
-    var station = Stations.findOne({_id: Session.get('station')});
-    if (station) {
-      return station.cards;
-    } else {
-      return [];
-    }
+    return Flint.getStation().cards;
   };
   
   Template.cardList.isCurrentCard = function(cardId) {
@@ -15,13 +10,14 @@
   };
   
   Template.cardList.stationName = function() {
-    return Session.get('currentStation');
+    return Flint.getStation(false).name;
   };
   
   Template.cardList.events = {
     'click a': function(e) {
       Flint.beep();
       Session.set('currentCard', this.cardId);
+      e.preventDefault();
     }
   };
 }());
