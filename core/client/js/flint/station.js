@@ -3,14 +3,6 @@ var Flint = Flint || {};
 (function () {
   'use strict';
   
-  Meteor.startup(function() {
-    if (Cookie.get('station') && Meteor.Router.page() !== 'stationPicker') {
-      Flint.prepareStation(Cookie.get('station'));
-    } else {
-      Flint.reselect();
-    }
-  });
-  
   _.extend(Flint, {
     
     transitionSpeed: 200,
@@ -33,6 +25,10 @@ var Flint = Flint || {};
       }
       Flint.Log.verbose("Loading station " + stationId, "Core");
       var station = Stations.findOne({_id: stationId});
+      if (station === undefined) { // The database is not ready yet. Please hold...
+        Flint.Log.verbose("Database not ready - deferring render...", "Core");
+        return;
+      }
       var simulator = Simulators.findOne({_id: station.simulatorId});
       
       // Calculate theme once to prevent re-rendering
@@ -49,6 +45,7 @@ var Flint = Flint || {};
       Session.set('station', station);
       Session.set('simulator', simulator);
       Session.set('currentCard', station.cards[0].cardId);
+      Flint.Log.verbose("Loaded station " + stationId, "Core");
     },
     
     // Determine if the station is ready to be launched
@@ -57,6 +54,24 @@ var Flint = Flint || {};
         !Session.equals('simulator', undefined) &&
         !Session.equals('layout', undefined) &&
         !Session.equals('theme', undefined);
+    },
+    
+    resetSession: function() {
+      Session.set('station', undefined);
+      Session.set('simulator', undefined);
+      Session.set('theme', undefined);
+      Session.set('layout', undefined);
+      Session.set('selectedSimulator', undefined);
+      Session.set('currentCard', undefined);
+      Session.set('loggedIn', false);
+      Session.set('currentUser', undefined);
+      Flint.Log.verbose("Session reset", "Core");
+    },
+    
+    resetHard: function() {
+      Flint.resetSession();
+      Cookie.remove('station');
+      Flint.Log.verbose("Hard reset complete", "Core");
     },
     
     notification: function(message, options) {
@@ -81,7 +96,7 @@ var Flint = Flint || {};
       if (reactive === undefined || reactive) {
         var i = Session.get('station');
         if (i !== undefined) {
-          return Stations.findOne(i._id);
+          return Stations.findOne(i._id) || {};
         } else {
           return {};
         }
@@ -98,7 +113,7 @@ var Flint = Flint || {};
       if (reactive === undefined || reactive) {
         var i = Session.get('station');
         if (i !== undefined) {
-          return Simulators.findOne(Flint.getStation().simulatorId);
+          return Simulators.findOne(Flint.getStation().simulatorId) || {};
         } else {
           return {};
         }

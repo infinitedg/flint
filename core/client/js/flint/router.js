@@ -1,29 +1,38 @@
-Meteor.Router.add({
-  '/': function() {
-    Flint.Log.verbose("Routed to /", "Router");
-    if (!Flint.getStation(false)) {
-      return 'stationPicker';
-    } else {
-      if (!Flint.isStationPrepared()) {
-        Flint.prepareStation(Flint.getStation(false)._id);
+(function() {
+  'use strict';
+  
+  Meteor.Router.add({
+    '/': function() {
+      Flint.Log.verbose("Routed to /", "Router");
+      if (Flint.getStation(false) === undefined && Cookie.get('station') === undefined) {
+        Flint.resetSession(); // Ensure a clean environment
+        Flint.Log.verbose("Presenting Station Picker", "Router");
+        return 'stationPicker';
+      } else {
+        if (!Flint.isStationPrepared()) {
+          var station = Flint.getStation(false);
+          var id = (station) ? station._id : Cookie.get('station');
+          Flint.prepareStation(id);
+          /**
+          * To prevent a double-render of the station's layout
+          * Meteor will re-run the '/' route in a moment
+          * and because the station is now prepared, we skip this if block.
+          */
+          return 'layout_loading';
+        }
+        var layout = Session.get('layout');
+        layout = (Template['layout_' + layout] !== undefined) ? layout : 'loading';
+        Flint.Log.verbose("Rendering layout " + layout, "Router");
+        
+        return 'layout_' + layout;
       }
-      Flint.play('sciences.wav');
-      return 'layout_' + Session.get('layout');
+    },
+    '/reset': function() {
+      Flint.Log.verbose("Routed to /reset", "Router");
+      Flint.resetHard();
+      Meteor.defer(function() { // Fire away on next run loop
+        Meteor.Router.to('/');
+      });
     }
-  },
-  '/reset': function() {
-    Flint.Log.verbose("Routed to /reset", "Router");
-    Cookie.remove('station');
-    Session.set('station', undefined);
-    Session.set('simulator', undefined);
-    Session.set('theme', undefined);
-    Session.set('layout', undefined);
-    Session.set('selectedSimulator', undefined);
-    Session.set('currentCard', undefined);
-    Session.set('loggedIn', false);
-    Session.set('currentUser', undefined);
-    Meteor.defer(function() { // Fire away on next run loop
-      Meteor.Router.to('/');
-    });
-  }
-});
+  });
+}());

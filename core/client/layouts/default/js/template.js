@@ -35,6 +35,9 @@
         $('div.card#card-' + Session.get('currentCard')).show();
       }
     });
+    
+    // For old times' sake :)
+    Flint.play('sciences.wav');
   };
   
   Template.layout_default.rendered = function() {
