@@ -27,7 +27,7 @@ var Flint = Flint || {};
       var station = Stations.findOne({_id: stationId});
       if (station === undefined) { // The database is not ready yet. Please hold...
         Flint.Log.verbose("Database not ready - deferring render...", "Core");
-        return;
+        return false;
       }
       var simulator = Simulators.findOne({_id: station.simulatorId});
       
