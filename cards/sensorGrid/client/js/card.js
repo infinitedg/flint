@@ -244,20 +244,11 @@
           }
       
           if (y0 - y < 0) {
-            y1 = y0 + v * dt * Math.sin(th);
+            y1 = y0 + vdt * Math.sin(th);
           } else {
-            y1 = y0 - v * dt * Math.sin(th);
+            y1 = y0 - vdt * Math.sin(th);
           }
       
-          // If the difference between the new point and the target point is within our threshhold, then set it to the new location
-          var threshhold = 0.2;
-          if (Math.abs(x1-x) < threshhold) {
-            x1 = x;
-          }
-          if (Math.abs(y1-y) < threshhold) {
-            y1 = y;
-          }
-        
           // 3. Set the location of this sprite to the new location
           sensorContacts[i]._sprite.setPosition(x1, y1);
       
