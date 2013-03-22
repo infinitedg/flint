@@ -142,7 +142,12 @@
               y: contact.y * k.height,
               image: imageObj,
               width: 32 * k.scale,
-              height: 32 * k.scale
+              height: 32 * k.scale,
+              draggable: true
+            });
+            
+            image.on('dragend', function(e){
+              SensorContacts.update(contact._id, { $set: {x: e.shape.getX() / k.width, y: e.shape.getY() / k.height }});
             });
   
             contactsLayer.add(image);
@@ -193,7 +198,7 @@
           var x  = contact.x * k.width;
           var y  = contact.y * k.height;
       
-          if (x0 === x && y0 === y) {
+          if ((x0 === x && y0 === y) || sprite.isDragging) {
             sensorContacts[i].isMoving = false;
             continue;
           }
@@ -250,11 +255,6 @@
         
           // 3. Set the location of this sprite to the new location
           sensorContacts[i]._sprite.setPosition(x1, y1);
-      
-          // If the sprite is out of bounds, then remove it
-          if (Math.sqrt(Math.pow(x1 - k.center.x, 2) + Math.pow(y1 - k.center.y, 2)) > k.radius - k.strokeWidth) {
-            SensorContacts.remove({_id: i});
-          }
         }
       }, contactsLayer);
   
