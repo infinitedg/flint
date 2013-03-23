@@ -7,13 +7,20 @@
       Session.set('loggedIn', true);
       Session.set('currentUser', $('.loginname').val());
       // Stations.update({_id: Flint.getStation(false)._id}, {$set: {currentUser: $('.loginname').val()}});
+      var participant = Participants.insert({
+        stationId: Flint.getStation()._id,
+        simulatorId: Flint.getSimulator()._id,
+        name: Session.get('currentUser'),
+        date: (new Date()).getTime()
+      });
+      Session.set('participantId', participant);
       return false;
     },
     'click .btn-logout': function(e) {
       Flint.beep();
       Session.set('loggedIn', false);
       Session.set('currentUser', undefined);
-      Stations.update({_id: Flint.getStation(false)._id}, {$unset: {currentUser: 1}});
+      Participants.remove(Session.get('participantId'));
       return false;
     },
     'keypress input.loginname': function(e) {

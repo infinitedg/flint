@@ -65,6 +65,8 @@ var Flint = Flint || {};
       Session.set('currentCard', undefined);
       Session.set('loggedIn', false);
       Session.set('currentUser', undefined);
+      Participants.remove(Session.get('participantId'));
+      Session.set('participantId', undefined);
       Flint.Log.verbose("Session reset", "Core");
     },
     

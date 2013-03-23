@@ -1,8 +1,13 @@
 (function (){
   'use strict';
   
-  Template.core_login.stations = function() {
-    var stations = Stations.find({simulatorId: Flint.getStation(false).simulatorId});
-    return stations;
+  Template.core_login.participants = function() {
+    var participants = Participants.find({simulatorId: Flint.getStation().simulatorId}, {
+      transform: function(doc) {
+        doc.station = Stations.findOne(doc.stationId);
+        return doc;
+      }
+    });
+    return participants;
   };
 }());

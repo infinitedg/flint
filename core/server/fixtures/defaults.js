@@ -90,7 +90,7 @@ Flint.addFixture({
       "cards": [
         {
           "name": "Stations",
-          "cardId": "stations"
+          "cardId": "login"
         },
         {
           "name": "Power Distribution",
@@ -150,5 +150,7 @@ Flint.addFixture({
       "y":0.3,
       "_id":"contact"
     }
+  ],
+  "participants": [
   ]
 });
