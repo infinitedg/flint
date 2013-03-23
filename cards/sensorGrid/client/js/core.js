@@ -28,8 +28,11 @@
         color: "00ff00",
         container: $('#core-sensorGrid .sensorgrid-container').get(0),
         spritePath: '/cards/sensorGrid/sprites/',
-        shadowInterval: 1000
+        shadowInterval: 1000,
+        contactSize: 32 // The standard size in pixels for a contact
       };
+      k.armyDrawerOffsetX = 20 * k.scale;
+      k.armyDrawerOffsetY = 20 * k.scale;
       k.center = {
         x: k.width / 2,
         y: k.height / 2
@@ -38,13 +41,13 @@
   
       var stage = new Kinetic.Stage({
         container: k.container,
-        width: k.width,
-        height: k.height
+        width: k.width + k.armyDrawerOffsetX * 2 + k.contactSize * k.scale,
+        height: k.height + k.armyDrawerOffsetY
       });
 
       var outerCircle = new Kinetic.Circle({
-        x: stage.getWidth() / 2,
-        y: stage.getHeight() / 2,
+        x: k.radius + k.strokeWidth,
+        y: k.radius + k.strokeWidth,
         radius: k.radius,
         fill: 'black',
         stroke: k.color,
@@ -52,16 +55,16 @@
       });
 
       var middleCircle = new Kinetic.Circle({
-        x: stage.getWidth() / 2,
-        y: stage.getHeight() / 2,
+        x: k.radius + k.strokeWidth,
+        y: k.radius + k.strokeWidth,
         radius: k.radius * 2 / 3,
         stroke: k.color,
         strokeWidth: k.strokeWidth
       });
 
       var innerCircle = new Kinetic.Circle({
-        x: stage.getWidth() / 2,
-        y: stage.getHeight() / 2,
+        x: k.radius + k.strokeWidth,
+        y: k.radius + k.strokeWidth,
         radius: k.radius * 1 / 3,
         stroke: k.color,
         strokeWidth: k.strokeWidth
@@ -148,8 +151,8 @@
               x: contact.x * k.width,
               y: contact.y * k.height,
               image: contactImage,
-              width: 32 * k.scale,
-              height: 32 * k.scale,
+              width: k.contactSize * k.scale,
+              height: k.contactSize * k.scale,
               draggable: true
             });
             
@@ -170,8 +173,8 @@
               x: contact.x * k.width,
               y: contact.y * k.height,
               image: shadowImage,
-              width: 32 * k.scale,
-              height: 32 * k.scale
+              width: k.contactSize * k.scale,
+              height: k.contactSize * k.scale
             });
   
             // Make the shadow contact look a little darker
@@ -317,6 +320,68 @@
         }
       });
       
+      // Setup army contacts //
+      var armyContactsDrawerLayer = new Kinetic.Layer();
+      
+      // Create draggable sensor contacts for the drawer //
+      // For now, we statically declare the available army contacts
+      // In the future, this may be driven by a simulator-wide mission object that configures our presets
+      var armyContacts = [
+        {
+          name: "USS Voyager",
+          icon: "Planet.png"
+        },
+        {
+          name: "Earth",
+          icon: "Planet.png"
+        }
+      ];
+      var armyContactsDrawerCache = [];
+      
+      var armyImageOnload = function() {
+        var that = this;
+        var image = new Kinetic.Image({
+          x: k.width + k.armyDrawerOffsetX,
+          y: k.armyDrawerOffsetY + (1.1 * that.height * k.scale) * that.drawerIndex,
+          image: this,
+          width: k.contactSize * k.scale,
+          height: k.contactSize * k.scale,
+          draggable: true
+        });
+        
+        image.on('dragend', function(e){
+          var x = e.shape.getX();
+          var y = e.shape.getY();
+          
+          // If we're within the outerCircle...
+          if (outerCircle.intersects([x,y])) {
+            SensorContacts.insert({
+              x: e.shape.getX() / k.width,
+              y: e.shape.getY() / k.width,
+              icon: armyContactsDrawerCache[that.drawerIndex].icon,
+              velocity: 0.01,
+              name: armyContactsDrawerCache[that.drawerIndex].name
+            });
+          }
+          
+          e.shape.setPosition(k.width + k.armyDrawerOffsetX, k.armyDrawerOffsetY + (1.1 * that.height * k.scale) * that.drawerIndex);
+          armyContactsDrawerLayer.draw();
+        });
+
+        armyContactsDrawerLayer.add(image).draw();
+        armyContactsDrawerCache[that.drawerIndex]._sprite = image;
+      };
+      
+      for (var i = 0; i < armyContacts.length; i++) {
+        armyContactsDrawerCache[i] = armyContacts[i];
+        var armyImage = new Image();
+        armyImage.drawerIndex = i; // So that the armyImageOnload function knows which index we're working with
+        armyImage.onload = armyImageOnload;
+        armyImage.src = k.spritePath + armyContactsDrawerCache[i].icon;
+      }
+      
+      stage.add(armyContactsDrawerLayer);
+      window.acdl = armyContactsDrawerLayer;
     }); // Meteor.defer
   }; // Template.created
 }());
