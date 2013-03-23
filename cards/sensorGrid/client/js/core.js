@@ -113,21 +113,21 @@
       /// lineLowInv a line through the origin terminating on the circle at 15 degrees
       var lineLowInv = new Kinetic.Line(_.extend(linePrototype, {points: linepoints(15, true)}));
 
-      // Create backdrop for sensors grid
-      var backdrop = new Kinetic.Layer();
+      // Create backdropLayer for sensors grid
+      var backdropLayer = new Kinetic.Layer();
 
       // add the shape to the layer
-      backdrop.add(outerCircle);
-      backdrop.add(middleCircle);
-      backdrop.add(innerCircle);
+      backdropLayer.add(outerCircle);
+      backdropLayer.add(middleCircle);
+      backdropLayer.add(innerCircle);
 
-      backdrop.add(lineHigh);
-      backdrop.add(lineMid);
-      backdrop.add(lineLow);
+      backdropLayer.add(lineHigh);
+      backdropLayer.add(lineMid);
+      backdropLayer.add(lineLow);
 
-      backdrop.add(lineHighInv);
-      backdrop.add(lineMidInv);
-      backdrop.add(lineLowInv);
+      backdropLayer.add(lineHighInv);
+      backdropLayer.add(lineMidInv);
+      backdropLayer.add(lineLowInv);
   
       Flint.Log.verbose('Base grid drawn', 'Sensors');
 
@@ -292,7 +292,7 @@
       }, shadowContactsLayer);
   
       // add the layer to the stage
-      stage.add(backdrop);
+      stage.add(backdropLayer);
       stage.add(shadowContactsLayer);
       stage.add(contactsLayer);
       
@@ -306,7 +306,7 @@
       Flint.Log.verbose('Animation loop started', 'Sensors');
       
       // Display shadowContacts for k.shadowInterval when we click the black grid
-      backdrop.on('click tap', function(e) {
+      backdropLayer.on('click tap', function(e) {
         if (!shadowContactsLayer.isVisible()) {
           Flint.Log.verbose("Shadow contacts revealed", "Sensors");
           shadowContactsLayer.show();
@@ -316,7 +316,7 @@
           }, k.shadowInterval);
         }
       });
-            
-    });
-  };
+      
+    }); // Meteor.defer
+  }; // Template.created
 }());
