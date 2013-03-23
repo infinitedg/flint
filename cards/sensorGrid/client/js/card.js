@@ -36,7 +36,8 @@
         scale: 1, // Used to determine the sizing of contacts
         strokeWidth: 2,
         color: "00ff00",
-        container: $('#card-sensorGrid .sensorgrid-container').get(0)
+        container: $('#card-sensorGrid .sensorgrid-container').get(0),
+        spritePath: '/cards/sensorGrid/sprites/'
       };
       k.center = {
         x: k.width / 2,
@@ -161,7 +162,7 @@
       
           sensorContacts[contact._id] = contact;
       
-          imageObj.src = '/cards/sensorGrid/sprites/planet.big';
+          imageObj.src = k.spritePath + contact.icon;
         }
       };
   
