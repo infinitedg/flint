@@ -93,6 +93,10 @@ Flint.addFixture({
           "cardId": "login"
         },
         {
+          "name": "Station Utilities",
+          "cardId": "stationUtility"
+        },
+        {
           "name": "Power Distribution",
           "cardId": "power"
         },
