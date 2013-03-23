@@ -145,7 +145,7 @@ Flint.addFixture({
   "sensorContacts": [
     {
       "name":'USS Voyager',
-      "icon":'Federation',
+      "icon":'Planet.png',
       "x":0.6,
       "y":0.3,
       "_id":"contact"

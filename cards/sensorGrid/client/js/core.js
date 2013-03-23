@@ -18,7 +18,7 @@
       var k;
       var observeLoop;
       var sensorContactAnimationLoop; 
-      var sensorContacts = {};
+      var sensorContactsCache = {};
     
       k = {
         width: 200,
@@ -26,8 +26,13 @@
         scale: 200 / 600, // Used to determine contact scaling
         strokeWidth: 2,
         color: "00ff00",
-        container: $('#core-sensorGrid .sensorgrid-container').get(0)
+        container: $('#core-sensorGrid .sensorgrid-container').get(0),
+        spritePath: '/cards/sensorGrid/sprites/',
+        shadowInterval: 1000,
+        contactSize: 32 // The standard size in pixels for a contact
       };
+      k.armyDrawerOffsetX = 20 * k.scale;
+      k.armyDrawerOffsetY = 20 * k.scale;
       k.center = {
         x: k.width / 2,
         y: k.height / 2
@@ -36,13 +41,13 @@
   
       var stage = new Kinetic.Stage({
         container: k.container,
-        width: k.width,
-        height: k.height
+        width: k.width + k.armyDrawerOffsetX * 2 + k.contactSize * k.scale,
+        height: k.height + k.armyDrawerOffsetY
       });
 
       var outerCircle = new Kinetic.Circle({
-        x: stage.getWidth() / 2,
-        y: stage.getHeight() / 2,
+        x: k.radius + k.strokeWidth,
+        y: k.radius + k.strokeWidth,
         radius: k.radius,
         fill: 'black',
         stroke: k.color,
@@ -50,16 +55,16 @@
       });
 
       var middleCircle = new Kinetic.Circle({
-        x: stage.getWidth() / 2,
-        y: stage.getHeight() / 2,
+        x: k.radius + k.strokeWidth,
+        y: k.radius + k.strokeWidth,
         radius: k.radius * 2 / 3,
         stroke: k.color,
         strokeWidth: k.strokeWidth
       });
 
       var innerCircle = new Kinetic.Circle({
-        x: stage.getWidth() / 2,
-        y: stage.getHeight() / 2,
+        x: k.radius + k.strokeWidth,
+        y: k.radius + k.strokeWidth,
         radius: k.radius * 1 / 3,
         stroke: k.color,
         strokeWidth: k.strokeWidth
@@ -111,38 +116,43 @@
       /// lineLowInv a line through the origin terminating on the circle at 15 degrees
       var lineLowInv = new Kinetic.Line(_.extend(linePrototype, {points: linepoints(15, true)}));
 
-      // Create backdrop for sensors grid
-      var backdrop = new Kinetic.Layer();
+      // Create backdropLayer for sensors grid
+      var backdropLayer = new Kinetic.Layer();
 
       // add the shape to the layer
-      backdrop.add(outerCircle);
-      backdrop.add(middleCircle);
-      backdrop.add(innerCircle);
+      backdropLayer.add(outerCircle);
+      backdropLayer.add(middleCircle);
+      backdropLayer.add(innerCircle);
 
-      backdrop.add(lineHigh);
-      backdrop.add(lineMid);
-      backdrop.add(lineLow);
+      backdropLayer.add(lineHigh);
+      backdropLayer.add(lineMid);
+      backdropLayer.add(lineLow);
 
-      backdrop.add(lineHighInv);
-      backdrop.add(lineMidInv);
-      backdrop.add(lineLowInv);
+      backdropLayer.add(lineHighInv);
+      backdropLayer.add(lineMidInv);
+      backdropLayer.add(lineLowInv);
   
       Flint.Log.verbose('Base grid drawn', 'Sensors');
 
       // Setup sensor contacts
       var contactsLayer = new Kinetic.Layer();
-      var addContact = function(contact) {
-        if (sensorContacts[contact._id] === undefined) {
-          Flint.Log.verbose('Added contact ' + contact._id, 'Sensors');
+      var shadowContactsLayer = new Kinetic.Layer();
       
-          var imageObj = new Image();
-          imageObj.onload = function() {
+      var addContact = function(contact) {
+        if (sensorContactsCache[contact._id] === undefined) {
+
+          // Store the contact in our cache
+          sensorContactsCache[contact._id] = contact;
+
+          // Create the visible, draggable contact
+          var contactImage = new Image();
+          contactImage.onload = function() {
             var image = new Kinetic.Image({
               x: contact.x * k.width,
               y: contact.y * k.height,
-              image: imageObj,
-              width: 32 * k.scale,
-              height: 32 * k.scale,
+              image: contactImage,
+              width: k.contactSize * k.scale,
+              height: k.contactSize * k.scale,
               draggable: true
             });
             
@@ -150,13 +160,33 @@
               SensorContacts.update(contact._id, { $set: {x: e.shape.getX() / k.width, y: e.shape.getY() / k.height }});
             });
   
-            contactsLayer.add(image);
-            sensorContacts[contact._id]._sprite = image;
+            contactsLayer.add(image).draw();
+            sensorContactsCache[contact._id]._sprite = image;
           };
+          contactImage.src = k.spritePath + contact.icon;
+          
+          
+          // Create the invisible, shadow contact
+          var shadowImage = new Image();
+          shadowImage.onload = function() {
+            var image = new Kinetic.Image({
+              x: contact.x * k.width,
+              y: contact.y * k.height,
+              image: shadowImage,
+              width: k.contactSize * k.scale,
+              height: k.contactSize * k.scale
+            });
+  
+            // Make the shadow contact look a little darker
+            image.applyFilter(Kinetic.Filters.Brighten, { val: -100 });
+            
+            shadowContactsLayer.add(image);
+            sensorContactsCache[contact._id]._shadowSprite = image;
+          };
+          shadowImage.src = k.spritePath + contact.icon;
       
-          sensorContacts[contact._id] = contact;
-      
-          imageObj.src = '/cards/sensorGrid/sprites/planet.big';
+          
+          Flint.Log.verbose('Added contact ' + contact._id, 'Sensors');
         }
       };
   
@@ -169,44 +199,50 @@
           added: addContact,
           changed: function(contact, oldContact) {
             Flint.Log.verbose('Changed contact ' + contact._id, 'Sensors');
-            var sprite = sensorContacts[contact._id]._sprite;
+            var shadowSprite = sensorContactsCache[contact._id]._shadowSprite;
+            var sprite = sensorContactsCache[contact._id]._sprite;
+            contact._shadowSprite = shadowSprite;
             contact._sprite = sprite;
-            sensorContacts[contact._id] = contact;
+            sensorContactsCache[contact._id] = contact;
+            
+            contactsLayer.draw();
           },
           removed: function(contact) {
             Flint.Log.verbose('Removed contact ' + contact._id, 'Sensors');
-            sensorContacts[contact._id]._sprite.remove();
-            delete sensorContacts[contact._id];
-            stage.draw();
+            sensorContactsCache[contact._id]._shadowSprite.remove();
+            sensorContactsCache[contact._id]._sprite.remove();
+            delete sensorContactsCache[contact._id];
+            contactsLayer.draw();
           }
         });
       }
   
+      // For the core, this animation loop runs behind the scenes only when clicked
       sensorContactAnimationLoop = new Kinetic.Animation(function(frame) {
         var dt = frame.timeDiff / 1000; // Change in time between this frame and the prior frame
     
-        for (var i in sensorContacts) {
-          if (sensorContacts[i]._sprite === undefined) { // Ignore contacts with undefined sprites - they may be loading
+        for (var i in sensorContactsCache) {
+          if (sensorContactsCache[i]._shadowSprite === undefined) { // Ignore contacts with undefined sprites - they may be loading
             continue;
           }
       
-          var contact = sensorContacts[i];
-          var sprite = contact._sprite;
+          var contact = sensorContactsCache[i];
+          var sprite = contact._shadowSprite;
           var v = contact.velocity * k.width || 0.01 * k.width; // Defaults to 1/100 grid/second
           var x0 = sprite.getX();
           var y0 = sprite.getY();
           var x  = contact.x * k.width;
           var y  = contact.y * k.height;
       
-          if ((x0 === x && y0 === y) || sprite.isDragging) {
-            sensorContacts[i].isMoving = false;
+          if ((x0 === x && y0 === y) || sprite.isDragging()) {
+            sensorContactsCache[i].isMoving = false;
             continue;
           }
       
           // First, if the velocity is zero then move the contact there immediately
-          sensorContacts[i].isMoving = true;
+          sensorContactsCache[i].isMoving = true;
           if (v === 0) {
-            sensorContacts[i]._sprite.setPosition(x, y);
+            sensorContactsCache[i]._shadowSprite.setPosition(x, y);
             continue;
           }
       
@@ -254,19 +290,98 @@
           }
         
           // 3. Set the location of this sprite to the new location
-          sensorContacts[i]._sprite.setPosition(x1, y1);
+          sensorContactsCache[i]._shadowSprite.setPosition(x1, y1);
         }
-      }, contactsLayer);
+      }, shadowContactsLayer);
   
       // add the layer to the stage
-      stage.add(backdrop);
+      stage.add(backdropLayer);
+      stage.add(shadowContactsLayer);
       stage.add(contactsLayer);
+      
+      // Hide the shadowContactsLayer
+      shadowContactsLayer.hide();
   
       Flint.Log.verbose('Layers attached to stage', 'Sensors');
   
       // Start our animations
       sensorContactAnimationLoop.start();
       Flint.Log.verbose('Animation loop started', 'Sensors');
-    });
-  };
+      
+      // Display shadowContacts for k.shadowInterval when we click the black grid
+      backdropLayer.on('click tap', function(e) {
+        if (!shadowContactsLayer.isVisible()) {
+          Flint.Log.verbose("Shadow contacts revealed", "Sensors");
+          shadowContactsLayer.show();
+          Meteor.setTimeout(function(){
+            Flint.Log.verbose("Shadow contacts concealed", "Sensors");
+            shadowContactsLayer.hide();
+          }, k.shadowInterval);
+        }
+      });
+      
+      // Setup army contacts //
+      var armyContactsDrawerLayer = new Kinetic.Layer();
+      
+      // Create draggable sensor contacts for the drawer //
+      // For now, we statically declare the available army contacts
+      // In the future, this may be driven by a simulator-wide mission object that configures our presets
+      var armyContacts = [
+        {
+          name: "USS Voyager",
+          icon: "Planet.png"
+        },
+        {
+          name: "Earth",
+          icon: "Planet.png"
+        }
+      ];
+      var armyContactsDrawerCache = [];
+      
+      var armyImageOnload = function() {
+        var that = this;
+        var image = new Kinetic.Image({
+          x: k.width + k.armyDrawerOffsetX,
+          y: k.armyDrawerOffsetY + (1.1 * that.height * k.scale) * that.drawerIndex,
+          image: this,
+          width: k.contactSize * k.scale,
+          height: k.contactSize * k.scale,
+          draggable: true
+        });
+        
+        image.on('dragend', function(e){
+          var x = e.shape.getX();
+          var y = e.shape.getY();
+          
+          // If we're within the outerCircle...
+          if (outerCircle.intersects([x,y])) {
+            SensorContacts.insert({
+              x: e.shape.getX() / k.width,
+              y: e.shape.getY() / k.width,
+              icon: armyContactsDrawerCache[that.drawerIndex].icon,
+              velocity: 0.01,
+              name: armyContactsDrawerCache[that.drawerIndex].name
+            });
+          }
+          
+          e.shape.setPosition(k.width + k.armyDrawerOffsetX, k.armyDrawerOffsetY + (1.1 * that.height * k.scale) * that.drawerIndex);
+          armyContactsDrawerLayer.draw();
+        });
+
+        armyContactsDrawerLayer.add(image).draw();
+        armyContactsDrawerCache[that.drawerIndex]._sprite = image;
+      };
+      
+      for (var i = 0; i < armyContacts.length; i++) {
+        armyContactsDrawerCache[i] = armyContacts[i];
+        var armyImage = new Image();
+        armyImage.drawerIndex = i; // So that the armyImageOnload function knows which index we're working with
+        armyImage.onload = armyImageOnload;
+        armyImage.src = k.spritePath + armyContactsDrawerCache[i].icon;
+      }
+      
+      stage.add(armyContactsDrawerLayer);
+      window.acdl = armyContactsDrawerLayer;
+    }); // Meteor.defer
+  }; // Template.created
 }());
