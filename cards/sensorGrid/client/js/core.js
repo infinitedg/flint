@@ -27,7 +27,8 @@
         strokeWidth: 2,
         color: "00ff00",
         container: $('#core-sensorGrid .sensorgrid-container').get(0),
-        spritePath: '/cards/sensorGrid/sprites/'
+        spritePath: '/cards/sensorGrid/sprites/',
+        shadowInterval: 1000
       };
       k.center = {
         x: k.width / 2,
@@ -156,10 +157,11 @@
               SensorContacts.update(contact._id, { $set: {x: e.shape.getX() / k.width, y: e.shape.getY() / k.height }});
             });
   
-            contactsLayer.add(image);
+            contactsLayer.add(image).draw();
             sensorContactsCache[contact._id]._sprite = image;
           };
           contactImage.src = k.spritePath + contact.icon;
+          
           
           // Create the invisible, shadow contact
           var shadowImage = new Image();
@@ -172,6 +174,9 @@
               height: 32 * k.scale
             });
   
+            // Make the shadow contact look a little darker
+            image.applyFilter(Kinetic.Filters.Brighten, { val: -100 });
+            
             shadowContactsLayer.add(image);
             sensorContactsCache[contact._id]._shadowSprite = image;
           };
@@ -196,13 +201,15 @@
             contact._shadowSprite = shadowSprite;
             contact._sprite = sprite;
             sensorContactsCache[contact._id] = contact;
+            
+            contactsLayer.draw();
           },
           removed: function(contact) {
             Flint.Log.verbose('Removed contact ' + contact._id, 'Sensors');
             sensorContactsCache[contact._id]._shadowSprite.remove();
             sensorContactsCache[contact._id]._sprite.remove();
             delete sensorContactsCache[contact._id];
-            stage.draw();
+            contactsLayer.draw();
           }
         });
       }
@@ -224,7 +231,7 @@
           var x  = contact.x * k.width;
           var y  = contact.y * k.height;
       
-          if ((x0 === x && y0 === y) || sprite.isDragging) {
+          if ((x0 === x && y0 === y) || sprite.isDragging()) {
             sensorContactsCache[i].isMoving = false;
             continue;
           }
@@ -286,8 +293,11 @@
   
       // add the layer to the stage
       stage.add(backdrop);
-      stage.add(contactsLayer);
       stage.add(shadowContactsLayer);
+      stage.add(contactsLayer);
+      
+      // Hide the shadowContactsLayer
+      shadowContactsLayer.hide();
   
       Flint.Log.verbose('Layers attached to stage', 'Sensors');
   
@@ -295,8 +305,18 @@
       sensorContactAnimationLoop.start();
       Flint.Log.verbose('Animation loop started', 'Sensors');
       
-      window.scl = shadowContactsLayer;
-      window.cl = contactsLayer;
+      // Display shadowContacts for k.shadowInterval when we click the black grid
+      backdrop.on('click tap', function(e) {
+        if (!shadowContactsLayer.isVisible()) {
+          Flint.Log.verbose("Shadow contacts revealed", "Sensors");
+          shadowContactsLayer.show();
+          Meteor.setTimeout(function(){
+            Flint.Log.verbose("Shadow contacts concealed", "Sensors");
+            shadowContactsLayer.hide();
+          }, k.shadowInterval);
+        }
+      });
+            
     });
   };
 }());
