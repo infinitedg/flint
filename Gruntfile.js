@@ -83,7 +83,13 @@ module.exports = function(grunt) {
           "tmp/themes",
           "app/public/themes"
         ] // files
-      } // themes
+      }, // themes
+      
+      fixtures: {
+        src: [
+          "app/server/fixtures"
+        ] // files
+      } // fixtures
       
     }, // clean
     
@@ -185,7 +191,28 @@ module.exports = function(grunt) {
             }
           }
         ] // files
-      } // cards
+      }, // cards
+      
+      fixtures: {
+        
+        files: [{
+          expand: true,
+          cwd: 'fixtures/',
+          src: ['*.json', '*/*.json'],
+          dest: 'app/server/fixtures/',
+          ext: '.js'
+        }],
+        
+        options: {
+          processContent: function(content, path) {
+            var parts = path.split(require('path').sep);
+            if (parts.length >= 3)
+              return "Flint.addFixture(" + content + ", \"" + parts[1] + "\");";
+            else
+              return "Flint.addFixture(" + content + ");";
+          }
+        }
+      } // fixtures
       
     }, // copy
     
@@ -235,7 +262,12 @@ module.exports = function(grunt) {
       themes: {
         files: ['themes/*/{coffee,js,less,css}/**'],
         tasks: ['jshint', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes', 'meteorite'],
-      } // themes
+      }, // themes
+      
+      fixtures: {
+        files: ['fixtures/**'],
+        tasks: ['jshint', 'clean:fixtures', 'copy:fixtures', 'meteorite']
+      } // fixtures
       
     } // watch
   });

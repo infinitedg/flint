@@ -1,0 +1,43 @@
+{
+  "systems": [
+    {
+      "name": "Short Range Communications",
+      "minPower": 5,
+      "maxPower": 20,
+      "power": 7,
+      "_id": "systems-srCommunications"
+    },
+    {
+      "name": "Torpedo Launchers",
+      "minPower": 7,
+      "maxPower": 30,
+      "power": 10,
+      "_id": "systems-torpedoes"
+    },
+    {
+      "name": "Phasers",
+      "minPower": 7,
+      "maxPower": 30,
+      "power": 10,
+      "_id": "systems-phasers"
+    },
+    {
+      "name": "Warp Core",
+      "minPower": 5,
+      "maxPower": 20,
+      "power": 7,
+      "_id": "systems-warpCore"
+    }
+  ],
+  "sensorContacts": [
+    {
+      "name":'USS Voyager',
+      "icon":'Federation',
+      "x":0.6,
+      "y":0.3,
+      "_id":"contact"
+    }
+  ],
+  "participants": [
+  ]
+}

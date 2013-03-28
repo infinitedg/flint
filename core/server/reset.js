@@ -8,6 +8,9 @@ var Flint = Flint || {};
     // reset database
     //
     
+    // TODO: Reset applicable documents in the simulators collection (they don't
+    //       have a simulatorId key, so they aren't reset yet.)
+    
     if (simulatorId)
       _.each(Flint.collections, function(collection) {
         collection.remove({ simulatorId: simulatorId }, { multi: true });
@@ -25,9 +28,13 @@ var Flint = Flint || {};
         _.each(docs, function(doc) {
           
           // Inherit the simulatorId key from the fixture if necessary.
-          if (! _.has(doc, "simulatorId") && fixture.simulatorId)
-            _.extend(doc, { "simulatorId": fixture.simulatorId });
-            
+          if (fixture.simulatorId) {
+            if (collectionName === "simulators" && ! _.has(doc, "_id"))
+              _.extend(doc, { "_id": fixture.simulatorId });
+            else if (! _.has(doc, "simulatorId"))
+              _.extend(doc, { "simulatorId": fixture.simulatorId });
+          }
+          
           // If this is a global reset, or if the documents simulatorId matches
           // the simulator we've reset, insert the document.
           if (!simulatorId || (_.has(doc, "simulatorId") && doc.simulatorId === simulatorId))
