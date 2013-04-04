@@ -6,7 +6,14 @@
   };
   
   Template.core_stationUtility.participants = function() {
-    return Participants.find({simulatorId: Flint.getSimulator()._id});
+    return Participants.find({simulatorId: Flint.getSimulator()._id},
+      {
+        transform: function(doc) {
+          var station = Stations.findOne(doc.stationId);
+          doc.stationName = station.name;
+          return doc;
+        }
+      });
   };
   
   Template.core_stationUtility.events = {
