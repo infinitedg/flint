@@ -1,8 +1,8 @@
 <template name="cardList">
   <ul class="nav nav-list well">
-      <li class="nav-header">{{stationName}}</li>
+      <li class="nav-header">{{station.name}}</li>
     {{#each cards}}
-      <li class="{{#if isCurrentCard cardId}}active{{/if}}"><a href="#">{{name}}</a></li>
+      <li class="{{#if isCurrentCard}}active{{/if}}"><a href="#">{{name}}</a></li>
     {{/each}}
   </ul>
 </template>

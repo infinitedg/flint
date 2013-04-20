@@ -13,10 +13,10 @@
           {{/each}}
         </optgroup>
       {{/if}}
-      {{#if participants}}
+      {{#if clients}}
         <optgroup label="Participants">
-          {{#each participants}}
-          <option class="participant" value="{{_id}}">{{stationName}} - {{name}}</option>
+          {{#each clients}}
+          <option class="participant" value="{{_id}}">{{stationName}} - {{user}}</option>
           {{/each}}
         </optgroup>
       {{/if}}

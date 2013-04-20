@@ -1,9 +1,9 @@
 <template name="card_login">
   <div class="row-fluid">
     <div class="span8">
-      {{#if loggedIn}}
+      {{#if currentUser}}
         <div class="text-center">
-          <h1>Welcome {{userName}}</h1>
+          <h1>Welcome {{currentUser}}</h1>
           <a href="#" class="btn btn-primary btn-logout">Logout</a>
         </div>
       {{else}}

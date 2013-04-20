@@ -4,12 +4,12 @@
     'click a.sensor-info': function(e, t) {
       e.preventDefault();
       var s = $(t.find('textarea.sensor-info')).val();
-      Simulators.update({_id: Flint.getSimulator()._id}, {$set:{sensorText: s}});
+      Flint.simulators.update({ _id: Flint.simulatorId() }, {$set:{sensorText: s}});
     }
   };
   
   Template.core_sensorGrid.sensorText = function() {
-    return Flint.getSimulator().sensorText;
+    return Flint.simulator().sensorText;
   };
   
   Template.core_sensorGrid.created = function() {

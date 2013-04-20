@@ -43,7 +43,7 @@
   };
   
   Template.card_power.totalPowerAvailable = function() {
-    var totalPower = Flint.getSimulator().power;
+    var totalPower = Flint.simulator().power;
     return totalPower;
   };
   

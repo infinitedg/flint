@@ -2,12 +2,12 @@
   'use strict';
   
   Template.card_alertCondition.alertCondition = function() {
-    var a = Flint.getSimulator().alertCondition;
+    var a = Flint.simulator().alertCondition;
     return a;
   };
   
   Template.card_alertCondition.alertStyle = function() {
-    var a = Flint.getSimulator().alertCondition;
+    var a = Flint.simulator().alertCondition;
     switch (a) {
     case 4:
       return 'success';
@@ -24,7 +24,7 @@
     'click .btn': function(e) {
       Flint.beep();
       var a = $(e.target).parents('[data-alert]').data('alert');
-      Simulators.update({_id: Flint.getSimulator()._id}, {$set: {alertCondition: a}});
+      Flint.simulators.update(Flint.simulatorId(), {$set: {alertCondition: a}});
       e.preventDefault();
     }
   };
