@@ -3,7 +3,10 @@
 </head>
 
 <body>
+  {{#if theme}}
+  <link rel="stylesheet" id="themeCSS" href="/themes/{{theme}}.css"/>
+  {{/if}}
+  
   {{renderPage}}
   {{> debugging}}
-  {{> themePicker}}
 </body>
