@@ -1,61 +1,17 @@
 Flint = this.Flint || {};
 
 //
-// clientId
+// Getters
 //
 
 Flint.clientId = function() {
   return Session.get("Flint.clientId");
 };
 
-Flint.setClientId = function(id) {
-  if (id)
-    // Allow us to open multiple client instances until we select the current
-    // station.
-    Deps.autorun(function() {
-      if (Flint.stationId()) {
-        Cookie.set("clientId", id);
-        this.stop();
-      }
-    });
-  else
-    Cookie.remove("clientId");
-    
-  Session.set("Flint.clientId", id);
-};
-
 Flint.client = function() {
   var id = Flint.clientId();
   return id ? Flint.clients.findOne(id) : null;
 };
-
-function heartbeat() {
-  if (Flint.client())
-    Flint.clients.update(Flint.clientId(), { $set: { heartbeat: new Date() }});
-}
-
-// Whenever the clientId doesn't exist, create it. Only set the clientId after
-// the client object has been loaded.
-Deps.autorun(function() {
-  if (! Flint.clientId()) {
-    Meteor.call("checkIn", Cookie.get("clientId"), function(error, result) {
-      if (!error) {
-        Meteor.subscribe("client", result, function() {
-          if (result !== Cookie.get("clientId"))
-            Flint.Log.verbose("Using a new clientId");
-          Flint.Log.verbose("Using clientId " + result);
-          Flint.setClientId(result);
-          Meteor.setInterval(heartbeat, 1000);
-        });
-      }
-    });
-  }
-});
-
-
-//
-// Getters
-//
 
 Flint.stationId = Utils.memoize(function() {
   var client = Flint.client();
@@ -80,7 +36,7 @@ Flint.simulator = function() {
 Flint.cardId = Utils.memoize(function() {
   var result;
   
-  if (Flint.station() && Flint.station().cards.length > 0)
+  if (Flint.station() && Flint.station().cards && Flint.station().cards.length > 0)
     result = Flint.station().cards[0].cardId;
   if (Flint.station() && Flint.station().cardId)
     result = Flint.station().cardId;
@@ -132,6 +88,22 @@ Flint.programmingEnabled = function() {
 // Setters
 //
 
+Flint.setClientId = function(id) {
+  if (id)
+    // Allow us to open multiple client instances until we select the current
+    // station.
+    Deps.autorun(function() {
+      if (Flint.stationId()) {
+        Cookie.set("clientId", id);
+        this.stop();
+      }
+    });
+  else
+    Cookie.remove("clientId");
+    
+  Session.set("Flint.clientId", id);
+};
+
 Flint.setStationId = function(id) {
   if (id !== undefined)
     Flint.clients.update(Flint.clientId(), { $set: { stationId: id }});
@@ -171,6 +143,42 @@ Flint.resetClient = function() {
 };
 
 //
+// Subscriptions
+//
+
+Deps.autorun(function() {
+  function heartbeat() {
+    if (Flint.client())
+      Flint.clients.update(Flint.clientId(), {$set:{heartbeat: new Date()}});
+  }
+  
+  if (! Flint.clientId())
+    Meteor.call("checkIn", Cookie.get("clientId"), function(error, result) {
+      if (!error) {
+        // Sometimes this gets called before the logger is loaded.
+        Meteor.startup(function() {
+          if (result !== Cookie.get("clientId"))
+            Flint.Log.verbose("Using a new clientId");
+          Flint.Log.verbose("Using clientId " + result);
+        });
+        
+        Meteor.subscribe("client", result, function() {
+          Flint.setClientId(result);
+          Meteor.setInterval(heartbeat, 1000);
+        });
+      }
+    });
+});
+
+Deps.autorun(function() {
+  Meteor.subscribe("station", Flint.stationId());
+});
+
+Deps.autorun(function() {
+  Meteor.subscribe("simulator", Flint.simulatorId());
+});
+
+//
 // Handlebars
 //
 
@@ -179,7 +187,7 @@ Handlebars.registerHelper('station', Flint.station);
 Handlebars.registerHelper('currentUser', Flint.user);
 Handlebars.registerHelper('theme', Flint.theme);
 Handlebars.registerHelper('layout', Flint.layout);
-Handlebars.registerHelper('cards', function() {
-  if (Flint.stationId())
+Handlebars.registerHelper('cards', Utils.memoize(function() {
+  if (Flint.station())
     return Flint.station().cards;
-});
+}));

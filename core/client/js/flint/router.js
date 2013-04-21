@@ -18,11 +18,13 @@
   Meteor.Router.filters({
     'checkLoaded' : function(page) {
     
-      var clientExists = Utils.memoize(function() {
-        return !! Flint.client();
+      var loading = Utils.memoize(function() {
+        return (! Flint.client() ||
+          (Flint.stationId() && !Flint.station()) ||
+          (Flint.simulatorId() && !Flint.simulator()));
       });
     
-      if (! clientExists())
+      if (loading())
         return 'layout_loading';
       if (! Flint.stationId())
         return 'stationPicker';
