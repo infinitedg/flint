@@ -10,7 +10,14 @@ Flint.clientId = function() {
 
 Flint.setClientId = function(id) {
   if (id)
-    Cookie.set("clientId", id);
+    // Allow us to open multiple client instances until we select the current
+    // station.
+    Deps.autorun(function() {
+      if (Flint.stationId()) {
+        Cookie.set("clientId", id);
+        this.stop();
+      }
+    });
   else
     Cookie.remove("clientId");
     

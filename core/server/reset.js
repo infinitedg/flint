@@ -57,4 +57,8 @@ Flint = this.Flint || {};
     "reset" : Flint.reset
   });
   
+  Meteor.startup(function() {
+    Flint.reset();
+  });
+  
 }());
