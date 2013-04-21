@@ -12,14 +12,14 @@
       <div class="span3">
         {{#isolate}}
           <div class="{{hideCardlistCSS}}">
-            {{> cardList}}
+            {{> layout_default_cardList}}
           </div>
         {{/isolate}}
       </div>
       <div class="span9">
           {{#each cards}}
             <div class="card" id="card-{{cardId}}">
-                {{renderCard cardId}}
+              {{renderCard cardId}}
             </div>
           {{/each}}
       </div>
