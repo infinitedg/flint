@@ -4,23 +4,23 @@
   Template.stationPicker.events({
     'click button.simulator': function(event) {
       Flint.beep();
-      Session.set('selectedSimulator', this);
+      Session.set('selectedSimulatorId', this._id);
     },
     'click button.station': function(event) {
-      Flint.prepareStation(this._id);
+      Flint.setStationId(this._id);
     }
   });
   
   Template.stationPicker.simulators = function() {
-    return Simulators.find({});
+    return Flint.simulators.find();
   };
   
   Template.stationPicker.stations = function() {
-    var id = Session.get('selectedSimulator')._id;
-    return Stations.find({simulatorId: id});
+    var id = Session.get('selectedSimulatorId');
+    return Flint.stations.find({simulatorId: id});
   };
   
   Template.stationPicker.selectedSimulator = function() {
-    return Session.get('selectedSimulator');
+    return Flint.simulators.find(Session.get('selectedSimulatorId'));
   };
 }());

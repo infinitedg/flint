@@ -1,4 +1,4 @@
-var Flint = Flint || {};
+Flint = this.Flint || {};
 (function () {
   'use strict';
   

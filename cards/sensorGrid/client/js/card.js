@@ -4,7 +4,7 @@
   var sensorTextObserver;
   
   Template.card_sensorGrid.sensorInfo = function() {
-    return Flint.getSimulator().sensorText;
+    return Flint.simulator().sensorText;
   };
   
   Template.card_sensorGrid.destroyed = function() {
@@ -15,7 +15,7 @@
   };
   
   Template.card_sensorGrid.created = function() {
-    sensorTextObserver = Simulators.find({_id: Flint.getSimulator(false)._id }).observeChanges({
+    sensorTextObserver = Flint.simulators.find(Flint.simulatorId()).observeChanges({
       changed: function(id, fields){
         if (fields.sensorText !== undefined) {
           Flint.flash('#card-sensorGrid .well');

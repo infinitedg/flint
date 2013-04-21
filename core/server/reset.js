@@ -1,4 +1,4 @@
-var Flint = Flint || {};
+Flint = this.Flint || {};
 (function() {
   "use strict";
   
@@ -10,6 +10,7 @@ var Flint = Flint || {};
     
     // TODO: Reset applicable documents in the simulators collection (they don't
     //       have a simulatorId key, so they aren't reset yet.)
+    // TODO: Reset all stations of simulatorId
     
     if (simulatorId)
       _.each(Flint.collections, function(collection) {
@@ -51,11 +52,13 @@ var Flint = Flint || {};
         actor.restart();
       });
   };
-
-  // XXX Reset the server on startup for now. Later server reset should only
-  // occur if a collection that shouldn't be empty is empty (like the simulators
-  // list).
+  
+  Meteor.methods({
+    "reset" : Flint.reset
+  });
+  
   Meteor.startup(function() {
     Flint.reset();
   });
+  
 }());

@@ -2,7 +2,7 @@
   'use strict';
   
   Template.core_alertCondition.alertCondition = function() {
-    var a = Flint.getSimulator().alertCondition;
+    var a = Flint.simulator().alertCondition;
     Flint.notify('Alert condition ' + a);
     return a;
   };
@@ -18,9 +18,9 @@
             result = 4;
           }
           
-          Simulators.update({_id: Flint.getSimulator()._id},{$set: {alertCondition: result}});
+          Flint.simulators.update({ _id: Flint.simulatorId() },{$set: {alertCondition: result}});
         }
-      }, Flint.getSimulator().alertCondition);
+      }, Flint.simulator().alertCondition);
       e.preventDefault();
     }
   };

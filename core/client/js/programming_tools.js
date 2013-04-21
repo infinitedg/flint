@@ -2,7 +2,7 @@
   'use strict';
   
   Template.programming_tools.programmingEnabled = function() {
-    return Session.get('_programming');
+    return Flint.programmingEnabled();
   };
   
   Template.programming_tools.offline = function() {
