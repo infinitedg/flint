@@ -1,6 +1,16 @@
 (function () {
   'use strict';
   
+  Template.core_power.created = function() {
+    this.subComputation = Deps.autorun(function() {
+      Meteor.subscribe("cards.power.systems", Flint.simulatorId());
+    });
+  };
+  
+  Template.core_power.destroyed = function() {
+    this.subComputation.stop();
+  };
+  
   Template.core_power.events = {
     'dblclick .systemPower': function() {
       var context = this;
@@ -27,8 +37,7 @@
   };
   
   Template.core_power.totalPowerAvailable = function() {
-    var totalPower = Flint.simulator().power;
-    return totalPower;
+    return Flint.simulator().power;
   };
   
 }());

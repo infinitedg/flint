@@ -1,6 +1,17 @@
 (function (){
   'use strict';
   
+  Template.stationPicker.created = function() {
+    this.subComputation = Deps.autorun(function() {
+      Meteor.subscribe("stationPicker.simulators");
+      Meteor.subscribe("stationPicker.stations", Session.get("selectedSimulatorId"));
+    });
+  };
+  
+  Template.stationPicker.destroyed = function() {
+    this.subComputation.stop();
+  };
+  
   Template.stationPicker.events({
     'click button.simulator': function(event) {
       Flint.beep();

@@ -1,4 +1,14 @@
 (function () {
+  Template.card_power.created = function() {
+    this.subComputation = Deps.autorun(function() {
+      Meteor.subscribe("cards.power.systems", Flint.simulatorId());
+    });
+  };
+  
+  Template.card_power.destroyed = function() {
+    this.subComputation.stop();
+  };
+  
   Template.card_power.events = {
     'click div.progress': function(e, context) {
       Flint.beep();
@@ -12,7 +22,7 @@
   };
 
   Template.card_power.systems = function() {
-    return Systems.find({});
+    return Systems.find();
   };
   
   Template.card_power.barPercent = function() {
@@ -33,7 +43,7 @@
   };
   
   Template.card_power.totalPower = function() {
-    var systems = Systems.find({});
+    var systems = Systems.find();
     var totalPower = 0;
     systems.forEach(function(system){
       totalPower += parseInt(system.power, 10);
@@ -43,8 +53,8 @@
   };
   
   Template.card_power.totalPowerAvailable = function() {
-    var totalPower = Flint.simulator().power;
-    return totalPower;
+    if (Flint.simulator())
+      return Flint.simulator().power;
   };
   
 }());

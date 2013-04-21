@@ -13,6 +13,16 @@ Meteor.methods({
   }
 });
 
-Meteor.publish("client", function(clientId) {
-  return Flint.clients.find(clientId);
+Meteor.publish("client", function(id) {
+  return Flint.clients.find(id);
+});
+
+Meteor.publish("station", function(id) {
+  if (id)
+    return Flint.stations.find(id);
+});
+
+Meteor.publish("simulator", function(id) {
+  if (id)
+    return Flint.simulators.find(id);
 });
