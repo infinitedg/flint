@@ -79,11 +79,6 @@ Flint.user = Utils.memoize(function() {
   return client ? client.user : null;
 });
 
-Flint.programmingEnabled = function() {
-  return Session.get('Flint.programmingEnabled');
-};
-
-
 //
 // Setters
 //
@@ -117,11 +112,6 @@ Flint.setCardId = function(id) {
   else
     Flint.clients.update(Flint.clientId(), { $unset: { cardId: "" }});
 };
-
-Flint.setProgrammingEnabled = function(tf) {
-  Session.set('Flint.programmingEnabled', tf);
-};
-
 
 //
 // Actions
