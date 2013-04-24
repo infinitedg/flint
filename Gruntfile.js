@@ -118,7 +118,7 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: 'cards/',
-            src: '**',
+            src: '*/**',
             // Add a card- prefix.
             rename: function(dst, src) {
               return "app/packages/card-" + src;
