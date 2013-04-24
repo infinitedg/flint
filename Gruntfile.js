@@ -28,41 +28,11 @@ module.exports = function(grunt) {
         ]
       }, // core
       
-      client: {
-        options: { 
-          browser: true,
-          jquery: true,
-          nonstandard: true
-        },
+      cards: {
         src: [
-          "core/client/**/*.js", "!core/client/lib/**",
-          "cards/*/client/**/*.js",
-          "themes/*/js/**/*.js"
+          "cards/*/**.js", "!cards/*/lib/**"
         ]
-      }, // client
-      
-      common: {
-        options: { 
-          browser: true,
-          node: true,
-          jquery: true,
-          nonstandard: true
-        },
-        src: [
-          "core/{common,lib}/**/*.js", "!core/common/lib/**",
-          "cards/*/common/**/*.js"
-        ]
-      }, // common
-      
-      server: {
-        options: { 
-          node: true
-        },
-        src: [
-          "core/server/**/*.js", "!core/server/lib/**",
-          "cards/*/server/**/*.js"
-        ]
-      } // server
+      } // cards
       
     }, // jshint
     
@@ -71,13 +41,6 @@ module.exports = function(grunt) {
       packages: {
         src: "app/packages/*"
       }, // packages
-      
-      cards: {
-        src: [
-          "tmp/cards",
-          "app/{client,common,public,server}/cards"
-        ] // files
-      }, // cards
       
       themes: {
         src: [
@@ -155,14 +118,13 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: 'cards/',
-            src: ['*/{client,common,public,server}/**', '!template/**'],
+            src: '**',
+            // Add a card- prefix.
             rename: function(dst, src) {
-              // transform "card/subfolder/**" to "subfolder/cards/card/**"
-              var path = src.split("/");
-              return "app/" + path[1] + "/cards/" + path[0] + "/" + path.slice(2).join('/');
+              return "app/packages/card-" + src;
             }
           }
-        ] // files
+        ]
       }, // cards
       
       themes: {
@@ -234,12 +196,12 @@ module.exports = function(grunt) {
       }, // options
       
       core: {
-        files: ['core/{client,common,public,server,lib}/**'],
+        files: ['core/**'],
         tasks: ['jshint', 'clean:packages', 'copy:core', 'copy:layouts', 'meteorite'],
       }, // core
       
       cards: {
-        files: ['cards/*/{client,common,public,server}/**'],
+        files: ['cards/**'],
         tasks: ['jshint', 'clean:cards', 'copy:cards', 'meteorite'],
       }, // cards
       

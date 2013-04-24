@@ -27,7 +27,7 @@
         strokeWidth: 2,
         color: "00ff00",
         container: $('#core-sensorGrid .sensorgrid-container').get(0),
-        spritePath: '/cards/sensorGrid/sprites/',
+        spritePath: '/packages/card-sensorGrid/sprites/',
         shadowInterval: 1000,
         contactSize: 32 // The standard size in pixels for a contact
       };

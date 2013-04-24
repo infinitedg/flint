@@ -37,7 +37,7 @@
         strokeWidth: 2,
         color: "00ff00",
         container: $('#card-sensorGrid .sensorgrid-container').get(0),
-        spritePath: '/cards/sensorGrid/sprites/'
+        spritePath: '/packages/card-sensorGrid/sprites/'
       };
       k.center = {
         x: k.width / 2,
