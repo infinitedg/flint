@@ -22,6 +22,12 @@ module.exports = function(grunt) {
         devel: true
       }, // options
       
+      core: {
+        src: [
+          "core/*/**.js", "!core/*/lib/**"
+        ]
+      }, // core
+      
       client: {
         options: { 
           browser: true,
@@ -62,14 +68,9 @@ module.exports = function(grunt) {
     
     clean: {
       
-      core: {
-        src: [
-          "tmp/core",
-          "app/{client,common,public,server}/*",
-          "!app/{client,common,public,server}/cards",
-          "!app/public/themes"
-        ] // files
-      }, // core
+      packages: {
+        src: "app/packages/*"
+      }, // packages
       
       cards: {
         src: [
@@ -94,30 +95,6 @@ module.exports = function(grunt) {
     }, // clean
     
     coffee: {
-      
-      core: {
-        files: [
-          {
-            expand: true,
-            cwd: 'core/',
-            src: ['{client,common,public,server}/**.coffee'],
-            dest: 'tmp/core/',
-            ext: '.js'
-          }
-        ] // files
-      }, // core
-      
-      cards: {
-        files: [
-          {
-            expand: true,
-            cwd: 'cards/',
-            src: ['*/{client,common,public,server}/**.coffee'],
-            dest: 'tmp/cards/',
-            ext: '.js'
-          }
-        ] // files
-      }, // cards
       
       themes: {
         files: [
@@ -156,42 +133,50 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: 'core/',
-            src: ['{client,common,public,server,lib}/**', '!{client,common,public,server}/**.coffee'],
-            dest: 'app/'
-          },
+            src: '**',
+            dest: 'app/packages/'
+          }
+        ]
+      }, // core
+      
+      layouts: {
+        files: [
           {
             expand: true,
-            cwd: 'tmp/core/',
-            src: ['{client,common,public,server,lib}/**'],
-            dest: 'app/'
+            cwd: 'layouts/',
+            src: '**',
+            dest: 'app/packages/'
           }
-        ] // files
-      }, // core
+        ]
+      }, // layouts
       
       cards: {
         files: [
           {
             expand: true,
             cwd: 'cards/',
-            src: ['*/{client,common,public,server}/**', '!template/**', '!*/{client,common,public,server}/**.coffee'],
-            rename: function(dst, src) {
-              // transform "card/subfolder/**" to "subfolder/cards/card/**"
-              var path = src.split("/");
-              return "app/" + path[1] + "/cards/" + path[0] + "/" + path.slice(2).join('/');
-            }
-          },
-          {
-            expand: true,
-            cwd: 'tmp/cards/',
             src: ['*/{client,common,public,server}/**', '!template/**'],
             rename: function(dst, src) {
-              // transform "card/subfolder/**" to "app/subfolder/cards/card/**"
+              // transform "card/subfolder/**" to "subfolder/cards/card/**"
               var path = src.split("/");
               return "app/" + path[1] + "/cards/" + path[0] + "/" + path.slice(2).join('/');
             }
           }
         ] // files
       }, // cards
+      
+      themes: {
+        files: [{
+          expand: true,
+          cwd: 'themes/',
+          src: '*/public/**',
+          rename: function(dst, src) {
+            var string = "app/public/themes/" + src;
+            console.log(string);
+            return string;
+          }
+        }]
+      }, // themes
       
       fixtures: {
         
@@ -212,8 +197,7 @@ module.exports = function(grunt) {
               return "Flint.addFixture(" + content + ");";
           }
         }
-      } // fixtures
-      
+      }, // fixtures
     }, // copy
     
     concat: {
@@ -251,12 +235,12 @@ module.exports = function(grunt) {
       
       core: {
         files: ['core/{client,common,public,server,lib}/**'],
-        tasks: ['jshint', 'clean:core', 'coffee:core', 'copy:core', 'meteorite'],
+        tasks: ['jshint', 'clean:packages', 'copy:core', 'copy:layouts', 'meteorite'],
       }, // core
       
       cards: {
         files: ['cards/*/{client,common,public,server}/**'],
-        tasks: ['jshint', 'clean:cards', 'coffee:cards', 'copy:cards', 'meteorite'],
+        tasks: ['jshint', 'clean:cards', 'copy:cards', 'meteorite'],
       }, // cards
       
       themes: {
