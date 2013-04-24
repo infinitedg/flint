@@ -107,8 +107,11 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: 'layouts/',
-            src: '**',
-            dest: 'app/packages/'
+            src: '*/**',
+            // Add a layout- prefix.
+            rename: function(dst, src) {
+              return "app/packages/layout-" + src;
+            }
           }
         ]
       }, // layouts
