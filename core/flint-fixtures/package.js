@@ -1,10 +1,33 @@
 Package.describe({
-  summary: "Model a simulator using fixture files."
+  summary: "Import fixture files to initialize the server.",
+  internal: false
 });
 
 Package.on_use(function(api) {  
-  api.use(['log', 'flint-core', 'utils']);
-  
-  api.add_files('collection.js', ['client', 'server']);
-  api.add_files(['fixture.js', 'reset.js'], 'server');
+  // We're going to use the addFixture file from flint-models.
+  api.use('flint-models');
 });
+
+// TODO: Since we add this package to the app's packages folder, this
+//       extension is applied to the entire project.
+var fs = Npm.require('fs');
+Package.register_extension(
+  "json", function(bundle, source_path, serve_path, where) {
+    
+    if (where !== "server") {
+      console.log("Warning: Can not add json file as a fixture to the client.", source_path);
+      return;
+    }
+    
+    // XXX Probably should deal with encodings better.
+    var json = fs.readFileSync(source_path);
+    var result = "Flint.addFixture(" + json.toString('utf8') + ");";
+    
+    bundle.add_resource({
+      type: "js",
+      where: "server",
+      path: serve_path,
+      data: result
+    });
+  }
+);
