@@ -18,11 +18,7 @@ If you aren't familliar with what `cd` or your command line does, then first tak
 8. Run `cd flint` and then `grunt run` to fire it up! If you get any errors, review the above commands and try again.
 
 ## A note for windows users
-_Note: I do not have a windows system running Meteor, meteorite, or NPM. I don't know how they work on Windows, so the following are my assumptions about how it should work. Feel free to submit a pull request with edits to this document if you want to make corrections._
-
-Meteor does not install from the command line on windows like step 2 above indicates. Instead, visit [win.meteor.com](http://win.meteor.com) and download the latest installer. The windows fork of Meteor tends to be up to date, however it is not fully supported.
-
-If you are doing work on client software (e.g. Arduino kits or your own [kiosk](https://bitbucket.org/spacecenter/flint-kiosk) software), then contact Brent and we can get an instance running online.
+Meteor and Meteorite are not supported on Windows at this time. While windows users can access Flint from the browser, and may be able to run unit tests or generate documentation, Flint will not run as a server on a Windows system at this time.
 
 ## Flint command line tools
 Flint has some automated processes that use normal Node modules. To run the automated tasks you must install `grunt-cli` using `npm`.
