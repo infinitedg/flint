@@ -1,3 +1,6 @@
+/**
+ * Core declaration of basic system collections
+*/
 Flint = this.Flint || {};
 
 Flint.clients       = new Meteor.Collection("flint.clients");

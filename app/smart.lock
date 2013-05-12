@@ -2,7 +2,7 @@
   "meteor": {
     "git": "https://github.com/meteor/meteor.git",
     "branch": "master",
-    "commit": "1dfc7171f237a029cca74cbf25024acbf6ed5b75"
+    "commit": "bfe4b72ebec4367eaddcdf0887fcf5e649d9dcb8"
   },
   "dependencies": {
     "basePackages": {
@@ -12,7 +12,8 @@
       "observatory": {},
       "bootboxjs": {},
       "bootstrap-growl": {},
-      "kinetic.js": {}
+      "kinetic.js": {},
+      "jquery-masonry": {}
     },
     "packages": {
       "jquery-ui": {
@@ -22,8 +23,8 @@
       },
       "cookie": {
         "git": "https://github.com/chuangbo/meteor-cookie.git",
-        "tag": "v1.0.2.1",
-        "commit": "69714c31452c8ed6909ab37717f6383187b409a7"
+        "tag": "v1.0.2.2",
+        "commit": "e8659ecdec442916938726df11e9153f06c349e5"
       },
       "router": {
         "git": "https://github.com/tmeasday/meteor-router.git",
@@ -49,6 +50,11 @@
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
         "tag": "v0.1.0",
         "commit": "95864dec73c122ac0c0dedfdb9748cc9add523cf"
+      },
+      "jquery-masonry": {
+        "git": "https://github.com/waltyuyu/meteor-jquery-masonry.git",
+        "tag": "v0.1.0",
+        "commit": "ec514fa4440f3cd77f5f567f25be27dc38ab57fa"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

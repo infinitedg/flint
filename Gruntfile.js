@@ -1,5 +1,6 @@
 /**
  * Project runner - handles automated tasks for running, linting, and compilation
+ * @exports grunt/flint
  */
 module.exports = function(grunt) {
   
