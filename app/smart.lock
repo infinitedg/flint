@@ -13,7 +13,8 @@
       "bootboxjs": {},
       "bootstrap-growl": {},
       "kinetic.js": {},
-      "jquery-masonry": {}
+      "jquery-masonry": {},
+      "buzz.js": {}
     },
     "packages": {
       "jquery-ui": {
@@ -55,6 +56,11 @@
         "git": "https://github.com/waltyuyu/meteor-jquery-masonry.git",
         "tag": "v0.1.0",
         "commit": "ec514fa4440f3cd77f5f567f25be27dc38ab57fa"
+      },
+      "buzz.js": {
+        "git": "https://github.com/brentjanderson/meteor-buzz.git",
+        "tag": "v0.1.0",
+        "commit": "248d9fb0011ba6ceff51bcff8e28dcd587fe9a8e"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",
