@@ -133,6 +133,20 @@ module.exports = function(grunt) {
         ]
       }, // cards
       
+      models: {
+        files: [
+          {
+            expand: true,
+            cwd: 'models/',
+            src: '*/**',
+            // Add a card- prefix.
+            rename: function(dst, src) {
+              return "app/packages/model-" + src;
+            }
+          }
+        ]
+      }, // models
+      
       themes: {
         files: [{
           expand: true,
@@ -144,28 +158,7 @@ module.exports = function(grunt) {
             return string;
           }
         }]
-      }, // themes
-      
-      fixtures: {
-        
-        files: [{
-          expand: true,
-          cwd: 'fixtures/',
-          src: ['*.json', '*/*.json'],
-          dest: 'app/server/fixtures/',
-          ext: '.js'
-        }],
-        
-        options: {
-          processContent: function(content, path) {
-            var parts = path.split(require('path').sep);
-            if (parts.length >= 3)
-              return "Flint.addFixture(" + content + ", \"" + parts[1] + "\");";
-            else
-              return "Flint.addFixture(" + content + ");";
-          }
-        }
-      }, // fixtures
+      } // themes
     }, // copy
     
     concat: {
@@ -208,8 +201,13 @@ module.exports = function(grunt) {
       
       cards: {
         files: ['cards/**'],
-        tasks: ['jshint', 'clean:cards', 'copy:cards', 'meteorite'],
+        tasks: ['jshint', 'clean:packages', 'copy:cards', 'meteorite'],
       }, // cards
+      
+      models: {
+        files: ['models/**'],
+        tasks: ['jshint', 'clean:packages', 'copy:models', 'meteorite']
+      }, // models
       
       themes: {
         files: ['themes/*/{coffee,js,less,css}/**'],

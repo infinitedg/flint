@@ -4,35 +4,88 @@ Flint = this.Flint || {};
 // Getters
 //
 
+/** 
+ * Get the current client id.
+ *
+ * When a client connects to the server for the first time, it asks the server 
+ * for a unique clientId that references a document in the `Flint.clients`
+ * collection.
+ *  
+ * After the first connection to the server, the client will save the client id
+ * in local storage so that client will keep its identity when the page is 
+ * reloaded.
+ *  
+ * @note Currently this method can only be called from the client, in the future
+ * it will be capable of being called from anywhere.
+ *  
+ * @return {String} a document ID unique to the client.
+ * @locus Client
+ */
 Flint.clientId = function() {
   return Session.get("Flint.clientId");
 };
 
+/**
+ * Get the current client document. 
+ *
+ * @return {Object} a document unique to the client.
+ * @locus Client
+ */
 Flint.client = function() {
   var id = Flint.clientId();
   return id ? Flint.clients.findOne(id) : null;
 };
 
+/** 
+ * Get the station ID of the current client.
+ *
+ * @return {String} the ID of the current client's station.
+ * @locus Client
+ */
 Flint.stationId = Utils.memoize(function() {
   var client = Flint.client();
   return client ? client.stationId : null;
 });
 
+/**
+ * Get the station document of the current client.
+ *
+ * @return {Object} the station document of the current client.
+ */
 Flint.station = function() {
   var id = Flint.stationId();
   return id ? Flint.stations.findOne(id) : null;
 };
 
+/**
+ * Get the simulator ID of the current client.
+ *
+ * The simulator ID is derived from the current client's station document.
+ *
+ * @return {String} the simulator id of the current client.
+ */
 Flint.simulatorId = Utils.memoize(function() {
   var station = Flint.station();
   return station ? station.simulatorId : null;
 });
 
+/**
+ * Get the simulator document of the current client.
+ *
+ * The simulator document is derived from the current client's station document.
+ *
+ * @return {Object} the simulator document of the current client.
+ */
 Flint.simulator = function() {
   var id = Flint.simulatorId();
   return id ? Flint.simulators.findOne(id) : null;
 };
 
+/**
+ * Get the participant name of the current client.
+ *
+ * @return {String} the participant name of the current client.
+ */
 Flint.user = Utils.memoize(function() {
   var client = Flint.client();
   return client ? client.user : null;
@@ -42,6 +95,16 @@ Flint.user = Utils.memoize(function() {
 // Setters
 //
 
+/**
+ * Set the current clientId.
+ *
+ * The client ID will be saved in a cookie for use by future instances of Flint,
+ * which enables Flint to recognize which client is which and makes the client's
+ * identity consistent across reloads.
+ *
+ * @param {String} id the ID of a document in `Flint.clients`
+ * @api private
+ */
 Flint.setClientId = function(id) {
   if (id)
     // Allow us to open multiple client instances until we select the current
@@ -58,6 +121,12 @@ Flint.setClientId = function(id) {
   Session.set("Flint.clientId", id);
 };
 
+/**
+ * Set the current station.
+ *
+ * The current simulator ID is derived from the client's station ID.
+ * @param {String} id the ID of a document in `Flint.clients`
+ */
 Flint.setStationId = function(id) {
   if (id !== undefined)
     Flint.clients.update(Flint.clientId(), { $set: { stationId: id }});
@@ -69,14 +138,35 @@ Flint.setStationId = function(id) {
 // Actions
 //
 
+/**
+ * Log in using an arbitrary participant name.
+ *
+ * "Logging in" is probably a misuse of terms, as we really don't do any kind of
+ * authentication. The current user is nothing more than a name tied to a
+ * client.
+ *
+ * @param {String} name a participant name to set as the current participant 
+ *        name for the client.
+ */
 Flint.logIn = function(name) {
   Flint.clients.update(Flint.clientId(), { $set: { user: name }});
 };
 
+/**
+ * Log out of the current participant.
+ *
+ * Sets the participant name to null.
+ */
 Flint.logOut = function() {
   Flint.clients.update(Flint.clientId(), { $set: { user: null }});
 };
 
+/**
+ * Reset the client.
+ *
+ * Requests that the server send us a fresh, new client document to use. This
+ * will reset all client-specific fields.
+ */
 Flint.resetClient = function() {
   // Remove the client document. It will be automatically re-created.
   var clientId = Deps.nonreactive(function() { return Flint.clientId(); });
@@ -88,6 +178,10 @@ Flint.resetClient = function() {
 // Subscriptions
 //
 
+/**
+ * Whenever a client ID is null, the client will ask the server to send it a new
+ * client ID.
+ */
 Deps.autorun(function() {
   function heartbeat() {
     if (Flint.client())
@@ -124,6 +218,17 @@ Deps.autorun(function() {
 // Handlebars
 //
 
+/**
+ * Returns the current simulator document.
+ */
 Handlebars.registerHelper('simulator', Flint.simulator);
+
+/**
+ * Returns the current station document.
+ */
 Handlebars.registerHelper('station', Flint.station);
+
+/**
+ * Returns the currently logged in participant name.
+ */
 Handlebars.registerHelper('currentUser', Flint.user);
