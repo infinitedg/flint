@@ -3,7 +3,7 @@ Flint = this.Flint || {};
 (function () {
   'use strict';
   
-  var soundPrefix = '/sounds/';
+  var soundPrefix = '/packages/sounds/sounds/';
   
   _.extend(Flint, {
     
