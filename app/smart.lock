@@ -47,8 +47,8 @@
       },
       "kinetic.js": {
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
-        "tag": "v0.1.0",
-        "commit": "95864dec73c122ac0c0dedfdb9748cc9add523cf"
+        "tag": "v4.5.2.3",
+        "commit": "5e0bee96e97dd990c4591e5dda54a9defee8abd8"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",
