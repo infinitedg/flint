@@ -7,9 +7,9 @@
     "jquery-ui": {},
     "cookie": {},
     "router": {},
-    "observatory": {},
     "bootboxjs": {},
     "bootstrap-growl": {},
-    "kinetic.js": {}
+    "kinetic.js": {},
+    "winston": {}
   }
 }

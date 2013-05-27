@@ -8,9 +8,9 @@ preserve-inputs
 bootstrap
 jquery-ui
 cookie
-observatory
 underscore
 bootboxjs
 bootstrap-growl
 router
 kinetic.js
+winston
