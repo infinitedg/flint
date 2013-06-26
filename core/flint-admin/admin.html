@@ -1,0 +1,38 @@
+<template name="flintAdmin">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h1>Flint Administrator</h1>
+      </div>
+      
+      <div class="span4">
+        <h2>Simulators</h2>
+        <ul>
+          {{#each simulators}}
+          <li><a href="#" class="simulator">{{name}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+      
+      <div class="span4">
+        <h2>Stations</h2>
+        <ul>
+          {{#each stations}}
+          <li><a href="#" class="station">{{name}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+      
+      <div class="span4">
+        <h2>Cards</h2>
+        <ul>
+          {{#each cards}}
+          <li><a href="#" class="card">{{name}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+
+</template>

@@ -7,4 +7,4 @@ Meteor.Router.filters({
   }
 });
 
-Meteor.Router.filter('pickStation');
+Meteor.Router.filter('pickStation', { except: ['flintAdmin'] });

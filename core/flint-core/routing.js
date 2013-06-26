@@ -13,4 +13,4 @@ Meteor.Router.filters({
   }
 });
 
-Meteor.Router.filter('checkLoaded');
+Meteor.Router.filter('checkLoaded', {except: 'admin'});

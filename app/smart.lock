@@ -12,7 +12,8 @@
       "observatory": {},
       "bootboxjs": {},
       "bootstrap-growl": {},
-      "kinetic.js": {}
+      "kinetic.js": {},
+      "buzz.js": {}
     },
     "packages": {
       "jquery-ui": {
@@ -37,8 +38,8 @@
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
-        "tag": "v0.1.1",
-        "commit": "6c46c71a5632eb49b20cd679a5008b7dc9ac39af"
+        "tag": "v3.2.0",
+        "commit": "6088b5b6ec13304457394cd358cbdc5f3def1a1c"
       },
       "bootstrap-growl": {
         "git": "https://github.com/TimHeckel/meteor-bootstrap-growl.git",
@@ -49,6 +50,11 @@
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
         "tag": "v4.5.2.3",
         "commit": "5e0bee96e97dd990c4591e5dda54a9defee8abd8"
+      },
+      "buzz.js": {
+        "git": "https://github.com/brentjanderson/meteor-buzz.git",
+        "tag": "v1.0.5b",
+        "commit": "ae34b4f9dd12fbdb921aafd355a9a791c2439014"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

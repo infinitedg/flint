@@ -10,6 +10,7 @@
     "observatory": {},
     "bootboxjs": {},
     "bootstrap-growl": {},
-    "kinetic.js": {}
+    "kinetic.js": {},
+    "buzz.js": {}
   }
 }

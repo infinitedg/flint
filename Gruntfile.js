@@ -193,22 +193,22 @@ module.exports = function(grunt) {
       
       core: {
         files: ['core/**'],
-        tasks: ['jshint', 'clean:packages', 'copy:core', 'copy:layouts', 'meteorite'],
+        tasks: ['jshint', 'clean:packages', 'copy:core', 'copy:layouts'],
       }, // core
       
       cards: {
         files: ['cards/**'],
-        tasks: ['jshint', 'clean:packages', 'copy:cards', 'meteorite'],
+        tasks: ['jshint', 'clean:packages', 'copy:cards'],
       }, // cards
       
       models: {
         files: ['models/**'],
-        tasks: ['jshint', 'clean:packages', 'copy:models', 'meteorite']
+        tasks: ['jshint', 'clean:packages', 'copy:models']
       }, // models
       
       themes: {
         files: ['themes/*/{coffee,js,less,css}/**'],
-        tasks: ['jshint', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes', 'meteorite'],
+        tasks: ['jshint', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes'],
       } // themes
     } // watch
   });
