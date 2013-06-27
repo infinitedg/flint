@@ -60,6 +60,20 @@
         }
       ],
       "_id": "voyager-flightDirector"
+    },
+    {
+      "name": "Communications",
+      "cards": [
+        {
+          "name": "Login",
+          "cardId": "login"
+        },
+        {
+          "name": "Particle Field",
+          "cardId": "particleField"
+        }
+      ],
+      "_id": "voyager-communications"
     }
   ]
 }
