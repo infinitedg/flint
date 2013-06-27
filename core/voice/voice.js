@@ -11,7 +11,7 @@ Flint = this.Flint || {};
     // Function to read text aloud
     // This will break someday when google shuts this down. If we can find a better component for this that would be ideal.
     say: function(txt) {
-      if (meSpeak.isConfigLoaded()) {
+      if (!meSpeak.isConfigLoaded()) {
         // Trigger only when we actually use it
         meSpeak.loadConfig(voicePrefix + "mespeak_config.json");
         Flint.loadVoice('en-us');
