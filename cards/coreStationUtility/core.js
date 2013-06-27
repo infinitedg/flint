@@ -1,9 +1,11 @@
 Template.core_stationUtility.created = function() {
   this.stationSub = Meteor.subscribe("core.stationUtility.stations", Flint.simulatorId());
+  this.clientSub = Meteor.subscribe("core.stationUtility.clients", Flint.simulatorId());
 };
 
 Template.core_stationUtility.destroyed = function() {
   this.stationSub.stop();
+  this.clientSub.stop();
 };
 
 Template.core_stationUtility.stations = function() {
@@ -12,8 +14,11 @@ Template.core_stationUtility.stations = function() {
 
 Template.core_stationUtility.clients = Utils.memoize(function() {
   return _.flatten(
-    Flint.stations.find({ simulatorId: Flint.simulatorId() }).map(function(station) {
-      return Flint.clients.find({ stationId: station._id, _id: { $ne: Flint.clientId() } }).map(function(client) { 
+    Flint.stations.find().map(function(station) {
+      return Flint.clients.find({ stationId: station._id, _id: { $ne: Flint.clientId() } }, { transform: function(doc) {
+        delete doc.heartbeat;
+        return doc;
+      }}).map(function(client) { 
         client.stationName = station.name;
         return client;
       });
