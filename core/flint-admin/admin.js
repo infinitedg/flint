@@ -5,8 +5,8 @@ Meteor.Router.add({
 
 Template.flintAdmin.created = function() {
   this.subComputation = Deps.autorun(function() {
-    Meteor.subscribe("stationPicker.simulators");
-    Meteor.subscribe("stationPicker.stations", Session.get("selectedSimulatorId"));
+    Meteor.subscribe("flintAdmin.simulators");
+    Meteor.subscribe("flintAdmin.stations", Session.get("selectedSimulatorId"));
   });
 };
 
