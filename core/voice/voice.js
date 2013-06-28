@@ -12,6 +12,13 @@ _.extend(Flint, {
    * @param {String} txt The text to speak
    */
   say: function(txt) {
+    if (!meSpeak.isConfigLoaded()) {
+      // Trigger only when we actually use it
+      meSpeak.loadConfig(voicePrefix + "mespeak_config.json");
+      Flint.loadVoice('en-us');
+      Flint.Log.verbose('MeSpeak loaded','Speech');
+    }
+    
     if (spokenPhrases[txt] === undefined || new Date().getTime() - spokenPhrases[txt] >= 1000) {
       Flint.Log.verbose('Said "'+txt+'"', 'Speech');
       meSpeak.speak(txt);
@@ -52,13 +59,7 @@ _.extend(Flint, {
    * @param {String} name The name of the voice to load
    */
   loadVoice: function(name) {
+    Flint.Log.verbose('Loaded voice ' + name, 'voice');
     meSpeak.loadVoice(voicePrefix + name + '.json');
   }
-});
-
-// Trigger when everything is loaded
-Meteor.startup(function(){
-  meSpeak.loadConfig(voicePrefix + "mespeak_config.json");
-  Flint.loadVoice('en-us');
-  Flint.Log.verbose('MeSpeak loaded','Speech');
 });

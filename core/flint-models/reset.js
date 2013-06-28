@@ -56,5 +56,6 @@ Meteor.methods({
 });
 
 Meteor.startup(function() {
+  Flint.Log.verbose('Resetting database', 'flint-models');
   Flint.reset();
 });

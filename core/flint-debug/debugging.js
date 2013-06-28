@@ -1,18 +1,3 @@
-Session.setDefault('debuggingEnabled', false);
-
-// TODO: Do these really need to be in Flint's namespace?
-this.Flint = this.Flint || {};
-Flint.debuggingEnabled = function() {
-  return Session.get('debuggingEnabled');
-};
-Flint.debuggingEnabled = function() {
-  return Session.get('debuggingEnabled');
-};
-
-Template.debugging.enabled = function() {
-  return Session.get("debuggingEnabled");
-};
-
 Template.debugging.status = function() {
   return Meteor.status();
 };

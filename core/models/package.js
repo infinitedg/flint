@@ -7,3 +7,4 @@ Package.on_use(function(api) {
   
   api.add_files('models.js', ['client', 'server']);
 });
+// @TODO: Shouldn't this be merged into flint-models?
