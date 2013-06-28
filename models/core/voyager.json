@@ -62,7 +62,7 @@
       "_id": "voyager-flightDirector"
     },
     {
-      "name": "Communications",
+      "name": "MEPCOMM",
       "cards": [
         {
           "name": "Login",
@@ -71,9 +71,29 @@
         {
           "name": "Particle Field",
           "cardId": "particleField"
+        },
+        {
+          "name": "Particle Tactics",
+          "cardId": "particleTactics"
+        },
+        {
+          "name": "Marconi Direct",
+          "cardId": "radioDirect",
+        },
+        {
+          "name": "Marconi Broadcast",
+          "cardId": "radioBroadcast"
+        },
+        {
+          "name": "Marconi Tactics",
+          "cardId": "radioTactics"
+        },
+        {
+          "name": "Cryptography",
+          "cardId": "cryptography"
         }
       ],
-      "_id": "voyager-communications"
+      "_id": "voyager-marconi"
     },
     {
       "name": "Navigator",
