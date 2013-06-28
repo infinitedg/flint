@@ -12,6 +12,6 @@ Flint.collection = function(name) {
   return Flint.collections[name];
 };
 
-Systems = Flint.collection('systems');
-SensorContacts = Flint.collection('sensorContacts');
-Participants = Flint.collection('participants');
+Systems = Flint.collection('simulators');
+SensorContacts = Flint.collection('stations');
+Participants = Flint.collection('clients');
