@@ -1,3 +1,7 @@
+/**
+ * Project runner - handles automated tasks for running, linting, and compilation
+ * @exports grunt/flint
+ */
 module.exports = function(grunt) {
   
   grunt.initConfig({
@@ -208,9 +212,27 @@ module.exports = function(grunt) {
       
       themes: {
         files: ['themes/*/{coffee,js,less,css}/**'],
-        tasks: ['jshint', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes'],
-      } // themes
-    } // watch
+        tasks: ['jshint', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes', 'meteorite'],
+      }, // themes
+      
+      fixtures: {
+        files: ['fixtures/**'],
+        tasks: ['jshint', 'clean:fixtures', 'copy:fixtures', 'meteorite']
+      } // fixtures
+      
+    }, // watch
+    
+    jsdoc: {
+      dist: {
+        src: ['README.md', 'app'],
+        
+        options: {
+          destination: 'docs',
+          recurse: true,
+          configure: "jsdoc.json"
+        }
+      }
+    } // jsdoc
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -220,6 +242,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   grunt.registerTask('test', ['jshint']);
   grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'less', 'copy', 'concat']);

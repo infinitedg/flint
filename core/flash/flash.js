@@ -8,8 +8,12 @@ Flint = this.Flint || {};
   
   _.extend(Flint, {
     
-    // Invert the screen a specified number of times
-    // flashTarget is an optional CSS selector for the element to be targeted, if not provided defaults to 'html'.
+    /**
+     * Invert the screen a specified number of times
+     * 
+     * @param {Number} times The number of times to flash. May also be a CSS selector
+     * @param {String} [flashTarget] CSS selector for the element to be targeted, if not provided defaults to 'html'.
+    */
     flash: function(times, flashTarget) {
       if (isNaN(times) || times < 0) {
         if ($(times)) { // If times is actually a CSS selector...

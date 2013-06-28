@@ -11,6 +11,7 @@
     "grunt-contrib-coffee": "~0.6.0",
     "grunt-contrib-jshint": "~0.2.0",
     "grunt-contrib-less":   "~0.5.0",
-    "grunt-contrib-watch":  "~0.3.1"
+    "grunt-contrib-watch":  "~0.3.1",
+    "grunt-jsdoc":          "~0.3.2"
   }
 }
