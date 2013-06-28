@@ -74,6 +74,20 @@
         }
       ],
       "_id": "voyager-communications"
+    },
+    {
+      "name": "Navigator",
+      "cards": [
+        {
+          "name": "Login",
+          "cardId": "login"
+        },
+        {
+          "name": "Star Charts",
+          "cardId": "navCharts"
+        }
+      ],
+      "_id": "voyager-navigator"
     }
   ]
 }
