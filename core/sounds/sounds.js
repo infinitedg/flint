@@ -1,4 +1,6 @@
-
+/**
+@class Flint
+*/
 Flint = this.Flint || {};
 
 var soundPrefix = '/packages/sounds/sounds/';
