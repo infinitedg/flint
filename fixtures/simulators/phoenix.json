@@ -6,7 +6,7 @@
     {
       "name": "USS Phoenix",
       "power": 100,
-      "theme": 'shamrock',
+      "theme": "shamrock",
       "alertCondition": 4,
       "sensorText": "The Phoenix is in orbit"
     }

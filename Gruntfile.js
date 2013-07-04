@@ -134,11 +134,11 @@ module.exports = function(grunt) {
         ]
       }, // cards
       
-      models: {
+      fixtures: {
         files: [
           {
             expand: true,
-            cwd: 'models/',
+            cwd: 'fixtures/',
             src: '*/**',
             // Add a card- prefix.
             rename: function(dst, src) {
@@ -146,7 +146,7 @@ module.exports = function(grunt) {
             }
           }
         ]
-      }, // models
+      }, // fixtures
       
       themes: {
         files: [{
@@ -205,10 +205,10 @@ module.exports = function(grunt) {
         tasks: ['jshint', 'clean:packages', 'copy:cards'],
       }, // cards
       
-      models: {
-        files: ['models/**'],
-        tasks: ['jshint', 'clean:packages', 'copy:models']
-      }, // models
+      fixtures: {
+        files: ['fixtures/**'],
+        tasks: ['jshint', 'clean:packages', 'copy:fixtures']
+      }, // fixtures
       
       themes: {
         files: ['themes/*/{coffee,js,less,css}/**'],

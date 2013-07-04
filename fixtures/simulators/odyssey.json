@@ -6,7 +6,7 @@
     {
       "name": "USS Odyssey",
       "power": 150,
-      "theme": 'odyssey',
+      "theme": "odyssey",
       "alertCondition": 4,
       "sensorText": "The Odyssey is in trouble!"
     }
