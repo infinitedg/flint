@@ -10,14 +10,19 @@ Flint.reset = function(simulatorId) {
   //       have a simulatorId key, so they aren't reset yet.)
   // TODO: Reset all stations of simulatorId
   
-  if (simulatorId)
+  if (simulatorId) {
+    var simulator = Flint.simulators.findOne(simulatorId);
+    Flint.Log.verbose('Resetting simulator ' + simulator.name + ' (' + simulatorId + ')', 'flint-models');
     _.each(Flint.collections, function(collection) {
       collection.remove({ simulatorId: simulatorId }, { multi: true });
     });
-  else
+  }
+  else {
+    Flint.Log.verbose('Resetting all simulators', 'flint-models');
     _.each(Flint.collections, function(collection) {
       collection.remove({});
     });
+  }
   
   
   // For each document belonging to collection in each fixture
@@ -51,11 +56,15 @@ Flint.reset = function(simulatorId) {
     });
 };
 
+// Expose `Meteor.call("reset", [simulatorId])` to clients
 Meteor.methods({
   "reset" : Flint.reset
 });
 
+// When we start the server, if we do not have simulator documents then we should reset the database and load all fixtures
 Meteor.startup(function() {
-  Flint.Log.verbose('Resetting database', 'flint-models');
-  Flint.reset();
+  if (Flint.simulators.find().count() === 0) {
+    Flint.Log.verbose('No simulator documents -- loading fixtures for first run...', 'flint-models');
+    Flint.reset();
+  }
 });
