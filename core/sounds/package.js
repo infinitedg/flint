@@ -3,9 +3,9 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use('log');
+  api.use(['log', 'buzz.js']);
    
-  api.add_files(['lib/buzz.js', 'sounds.js'], 'client');
+  api.add_files(['sounds.js'], 'client');
   api.add_files([
     'sounds/chime1.wav',
     'sounds/chime2.wav',

@@ -20,12 +20,20 @@ If you aren't familliar with what `cd` or your command line does, then first tak
 ## A note for windows users
 Meteor and Meteorite are not supported on Windows at this time. While windows users can access Flint from the browser, and may be able to run unit tests or generate documentation, Flint will not run as a server on a Windows system at this time.
 
+Instead of attempting to run Flint on Windows, we recommend either setting up a bootable USB Drive running Ubuntu Linux (or any flavor of Linux you prefer), or running Linux in Virtualbox, and then developing in that environment.
+
 ## Flint command line tools
 Flint has some automated processes that use normal Node modules. To run the automated tasks you must install `grunt-cli` using `npm`.
-
+```javascript
   sudo npm install -g grunt-cli
+```
+From there, you can run `grunt` in the main project folder to fire off various automated tasks. `grunt` will run with the following commands
 
-From there, you can run `grunt` from within the .submodules folder to start using the automated processes for testing and jshint.
+* `grunt` or `grunt default` will run `jshint` and then compile the project into the `/app` directory
+* `grunt test` will run `jshint` only
+* `grunt run` will watch the project's files and, whenever something changes, `grunt` will rebuild the project to `/app`. This task also launches the `mrt` server as well. Note that there are open bugs with this task, and it will crash from time to time.
+
+`grunt run` can be an effective way to continuously build the project, including refreshing the browser through meteor. An alternative until the `grunt run` bug is fixed is to run `mrt` in the `/app` directory, and to manually rebuild the project by running `grunt` in the main project directory. Although it requires developer intervention, this technique will not crash.
 
 If you have just cloned the repository (or if there is no node_modules directory), then you will need to install the package modules:
 
@@ -34,15 +42,12 @@ If you have just cloned the repository (or if there is no node_modules directory
 This will install the modules necessary to simpy run `grunt` to start testing the project.
 
 ## Contributing
-* All Javascript code contributions must pass JSHint testing. To run JSHint testing:
-  1. `cd tests`
-  2. `npm install` (Only do this the first time. From time to time, you may also want to run `npm update` to keep your modules up to date)
-  3. `grunt`
+All Javascript code contributions must pass JSHint testing. JSHint automatically tests all code 
 
-* We will also add unit tests in the future which will also run via `grunt` from the `/tests` directory using the same instructions as above.
+Unit testing is in development, and will follow the `mrt test-packages` standard. More documentation on using Tinytest is forthcoming.
 
 ## Contributor's Agreement
-Unless prior arrangements are made, all contributions to this project are completely volunteer and uncompensated. You'll get a pat on the back and a big "thank you", and we'll put your name in CREDITS.md. By contributing, you assign all rights to any contributions you make to this project to The Space EdVentures Foundation, Inc.
+Unless prior arrangements are made, all contributions to this project are completely volunteer and uncompensated. You'll get a pat on the back and a big "thank you", and we'll put your name in CREDITS.md. By contributing, you assign all rights and ownership to any contributions you make to this project to The Space EdVentures Foundation, Inc. You also certify that you are able to do so without conflicting with other agreements (e.g. with employers, etc.).
 
 ## Licenses & 3rd party software
 3Rd party software in the project is governed by their respective license. Check out the licenses at the top of the various files for more information on the licenses for various components. See LICENSE.md for specifics.

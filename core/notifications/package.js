@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use('log');
+  api.use(['log', 'voice']);
    
   api.add_files('notifications.js', 'client');
 });

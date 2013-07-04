@@ -15,7 +15,7 @@ Package.register_extension(
   "json", function(bundle, source_path, serve_path, where) {
     
     if (where !== "server") {
-      console.log("Warning: Can not add json file as a fixture to the client.", source_path);
+      console.warn("Warning: Can not add json file as a fixture to the client. (" + source_path + ")", 'flint-fixtures');
       return;
     }
     

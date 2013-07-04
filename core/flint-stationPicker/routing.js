@@ -1,3 +1,6 @@
+/**
+* Filter for properly displaying the stationPicker when we do not have a station loaded
+*/
 Meteor.Router.filters({
   'pickStation' : function(page) {
     if (Flint.client() && ! Flint.stationId())
@@ -7,4 +10,4 @@ Meteor.Router.filters({
   }
 });
 
-Meteor.Router.filter('pickStation');
+Meteor.Router.filter('pickStation', { except: ['flintAdmin'] });

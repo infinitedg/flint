@@ -1,5 +1,8 @@
 Utils = this.Utils || {};
 
+/**
+ * @TODO Have Dan fill in this documentation since he knows what this is supposed to do
+ */
 Utils.memoize = function(func) {
   
   var value;

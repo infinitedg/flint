@@ -1,7 +1,7 @@
 {
   "name": "Flint",
   "description": "Command line tools supporting Flint",
-  "author": "Space EdVentures Foundation <hello@spaceedventures.org>, Brent Anderson <brent@spaceedventures.org>",
+  "author": "Space EdVentures Foundation <hello@spaceedventures.org>",
   "version": "0.5.0",
   "dependencies": {
     "grunt": "~0.4.0",

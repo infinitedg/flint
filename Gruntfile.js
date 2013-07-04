@@ -1,3 +1,7 @@
+/**
+ * Project runner - handles automated tasks for running, linting, and compilation
+ * @exports grunt/flint
+ */
 module.exports = function(grunt) {
   
   grunt.initConfig({
@@ -130,11 +134,11 @@ module.exports = function(grunt) {
         ]
       }, // cards
       
-      models: {
+      fixtures: {
         files: [
           {
             expand: true,
-            cwd: 'models/',
+            cwd: 'fixtures/',
             src: '*/**',
             // Add a card- prefix.
             rename: function(dst, src) {
@@ -142,7 +146,7 @@ module.exports = function(grunt) {
             }
           }
         ]
-      }, // models
+      }, // fixtures
       
       themes: {
         files: [{
@@ -193,24 +197,31 @@ module.exports = function(grunt) {
       
       core: {
         files: ['core/**'],
-        tasks: ['jshint', 'clean:packages', 'copy:core', 'copy:layouts', 'meteorite'],
+        tasks: ['jshint', 'clean:packages', 'copy:core', 'copy:layouts'],
       }, // core
       
       cards: {
         files: ['cards/**'],
-        tasks: ['jshint', 'clean:packages', 'copy:cards', 'meteorite'],
+        tasks: ['jshint', 'clean:packages', 'copy:cards'],
       }, // cards
       
-      models: {
-        files: ['models/**'],
-        tasks: ['jshint', 'clean:packages', 'copy:models', 'meteorite']
-      }, // models
+      fixtures: {
+        files: ['fixtures/**'],
+        tasks: ['jshint', 'clean:packages', 'copy:fixtures']
+      }, // fixtures
       
       themes: {
         files: ['themes/*/{coffee,js,less,css}/**'],
         tasks: ['jshint', 'clean:themes', 'coffee:themes', 'less:themes', 'concat:themes', 'meteorite'],
-      } // themes
-    } // watch
+      }, // themes
+      
+      fixtures: {
+        files: ['fixtures/**'],
+        tasks: ['jshint', 'clean:fixtures', 'copy:fixtures', 'meteorite']
+      } // fixtures
+      
+    }, // watch
+    
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');

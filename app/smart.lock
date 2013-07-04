@@ -2,7 +2,7 @@
   "meteor": {
     "git": "https://github.com/meteor/meteor.git",
     "branch": "master",
-    "commit": "5d736d4bf0448c7db1f9b47124dfafc34a9631bb"
+    "commit": "9bb2b5447e845c4f483df5e9b42a2c1de5ab909b"
   },
   "dependencies": {
     "basePackages": {
@@ -12,7 +12,8 @@
       "bootboxjs": {},
       "bootstrap-growl": {},
       "kinetic.js": {},
-      "winston": {}
+      "winston": {},
+      "buzz.js": {}
     },
     "packages": {
       "jquery-ui": {
@@ -32,8 +33,8 @@
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
-        "tag": "v0.1.1",
-        "commit": "6c46c71a5632eb49b20cd679a5008b7dc9ac39af"
+        "tag": "v3.2.0",
+        "commit": "6088b5b6ec13304457394cd358cbdc5f3def1a1c"
       },
       "bootstrap-growl": {
         "git": "https://github.com/TimHeckel/meteor-bootstrap-growl.git",
@@ -45,10 +46,17 @@
         "tag": "v4.5.2.3",
         "commit": "5e0bee96e97dd990c4591e5dda54a9defee8abd8"
       },
+<<<<<<< HEAD
       "winston": {
         "git": "https://github.com/tomrogers3/meteor-winston.git",
         "tag": "v0.0.1",
         "commit": "eb9070a0d5f7b2c3c7dd9c1bb2647d46b2a358cb"
+=======
+      "buzz.js": {
+        "git": "https://github.com/brentjanderson/meteor-buzz.git",
+        "tag": "v1.0.5b",
+        "commit": "ae34b4f9dd12fbdb921aafd355a9a791c2439014"
+>>>>>>> 6e66e837ac8c7f1463b1fc675f0ef97b84c4c210
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

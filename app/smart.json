@@ -10,6 +10,7 @@
     "bootboxjs": {},
     "bootstrap-growl": {},
     "kinetic.js": {},
-    "winston": {}
+    "winston": {},
+    "buzz.js": {}
   }
 }
