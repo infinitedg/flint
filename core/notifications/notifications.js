@@ -1,13 +1,13 @@
-/*
-@module Flint
+/**
+@class Flint
 */
 Flint = this.Flint || {};
 
 /**
- * Flint.notify to issue a message and a tooltip
- * @method Flint.notify
+ * Issue a message and a tooltip
+ * @method notify
  * @param {String} The message to show
- * @param {Object} Options to pass to [BootstrapGrowl](https://github.com/ifightcrime/bootstrap-growl)
+ * @param {Object} [options] Options to pass to [BootstrapGrowl](https://github.com/ifightcrime/bootstrap-growl)
  */
 Flint.notify = function(message, options) {
   options = options || {};
