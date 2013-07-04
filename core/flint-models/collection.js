@@ -1,6 +1,10 @@
 Flint = this.Flint || {};
 
-Flint.collections = {};
+Flint.collections = {
+  "simulators": Flint.simulators,
+  "stations": Flint.stations,
+  "clients": Flint.clients
+};
 
 /**
  * Wrapper to create collections, enables us to track collections dynamically.
@@ -11,7 +15,3 @@ Flint.collection = function(name) {
     Flint.collections[name] = new Meteor.Collection(name);
   return Flint.collections[name];
 };
-
-Systems = Flint.collection('simulators');
-SensorContacts = Flint.collection('stations');
-Participants = Flint.collection('clients');
