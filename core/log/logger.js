@@ -1,15 +1,72 @@
+/**
+@class Flint
+*/
 Flint = this.Flint || {};
 
+// @TODO: Port logging to winston, enable client & server-side logging streaming
+
 /**
- * Flint.log exposes the following basic logging functions, each of which takes an error and an optional module name
- *   * `Flint.fatal(_message_, [_module_])` - Highest level of reporting
- *   * `Flint.error(_message_, [_module_])` - Error level of reporting
- *   * `Flint.warn(_message_, [_module_])` - Non-blocking level of reporting
- *   * `Flint.info(_message_, [_module_])` - Helpful level of reporting
- *   * `Flint.verbose(_message_, [_module_])` - Verbose level of reporting
- *   * `Flint.debug(_message_, [_module_])` - Most verbose level of reporting, will be ignored in production
- * Also available are the following methods:
- *   * `Flint.trace(_error_, _message_, [_module_])` - Properly log an error object when caught
- *   * `Flint.dir(_object_, _message_, [_module_])` - Log an object directly for inspection
- */
+Logging object from [`observatory-apollo`](https://atmosphere.meteor.com/package/observatory)
+@property Log
+@type Object
+*/
 Flint.Log = TLog.getLogger(TLog.LOGLEVEL_MAX, true);
+
+
+/**
+1st priority logging - reserved for fatal/critical errors
+@method Log.fatal
+@param {String} message The message to log
+@param {String} [module] The module associated with the message
+*/
+
+/**
+2nd priority logging - Reserved for significant errors
+@method Log.error
+@param {String} message The message to log
+@param {String} [module] The module associated with the message
+*/
+
+/**
+3rd priority logging - Reserved for warnings, non-bloking errors
+@method Log.warn
+@param {String} message The message to log
+@param {String} [module] The module associated with the message
+*/
+
+/**
+4rd priority logging - Reserved for information, helpful data
+@method Log.info
+@param {String} message The message to log
+@param {String} [module] The module associated with the message
+*/
+
+/**
+5th priority logging - Reserved for descriptive messages, may be ignored
+@method Log.verbose
+@param {String} message The message to log
+@param {String} [module] The module associated with the message
+*/
+
+/**
+6th priority logging - Most granular level of reporting - __Will be ignored in production__
+@method Log.debug
+@param {String} message The message to log
+@param {String} [module] The module associated with the message
+*/
+
+/**
+Logging for caught error objects
+@method Log.trace
+@param {Error} error The error object to log
+@param {String} message The message to log
+@param {String} [module] The module associated with the message
+*/
+
+/**
+Logging of objects for inspection in the console
+@method Log.dir
+@param {Object} object The object to inspect/log
+@param {String} message The message to log
+@param {String} [module] The module associated with the message
+*/

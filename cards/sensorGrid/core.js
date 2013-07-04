@@ -254,12 +254,12 @@
           // 2. Calculate angle theta
           var th  = Math.acos(dx / h);
 
-          /** 
-            IF the distance between the sprite and its 
-            target destination is less than the distance between 
-            the sprite and it's planned location,
-            THEN set the planned location to its target location
-          **/
+          
+          // IF the distance between the sprite and its 
+          // target destination is less than the distance between 
+          // the sprite and it's planned location,
+          // THEN set the planned location to its target location
+          
           var vdt; // Velocity * change in time
           if (v * dt > h) {
             vdt = h;
