@@ -1,5 +1,5 @@
 /**
- @class Subscriptions
+ @class Meteor.subscriptions
 */
 
 /**

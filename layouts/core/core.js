@@ -1,4 +1,17 @@
-// Setup a 5 column JQuery Masonry layout on create
+/**
+@module Templates
+@submodule Layouts
+*/
+ 
+/**
+Core layout for control room stations
+@class layout_core
+*/
+
+/**
+Setup a 5 column JQuery Masonry layout
+@method created
+*/
 Template.layout_core.created = function() {
   var context = this;
   Meteor.defer(function() {

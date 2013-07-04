@@ -1,9 +1,29 @@
+/**
+@module Templates
+@submodule Cards
+*/
+ 
+/**
+Standard sensor grid card for sensors stations
+@class card_sensorGrid
+*/
+
+// @TODO: Move from being a variable to being a property on this.
 var sensorTextObserver;
 
+/**
+The current sensor information from the flight director
+@property sensorInfo
+@type String
+*/
 Template.card_sensorGrid.sensorInfo = function() {
   return Flint.simulator().sensorText;
 };
 
+/**
+Cleanup outstanding dependencies and cursors
+@method destroyed
+*/
 Template.card_sensorGrid.destroyed = function() {
   if (sensorTextObserver) {
     sensorTextObserver.stop();
@@ -11,6 +31,10 @@ Template.card_sensorGrid.destroyed = function() {
   }
 };
 
+/**
+Setup dependencies and observation loop for animating sensor contacts
+@method created
+*/
 Template.card_sensorGrid.created = function() {
   sensorTextObserver = Flint.simulators.find(Flint.simulatorId()).observeChanges({
     changed: function(id, fields){

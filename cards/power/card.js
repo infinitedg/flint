@@ -1,14 +1,37 @@
+/**
+@module Templates
+@submodule Cards
+*/
+ 
+/**
+Power balancing screen. Originally developed as a demo.
+@class card_power
+*/
+
+
+/**
+Create a subscripton to cards.power.systems and save for later teardown
+@method created
+*/
 Template.card_power.created = function() {
   this.subComputation = Deps.autorun(function() {
     Meteor.subscribe("cards.power.systems", Flint.simulatorId());
   });
 };
 
+/**
+Teardown subscription to cards.power.systems
+@method destroyed
+*/
 Template.card_power.destroyed = function() {
   this.subComputation.stop();
 };
 
 Template.card_power.events = {
+  /**
+  Update the power level when the progress bar is tapped
+  @method click div.progress
+  */
   'click div.progress': function(e, context) {
     Flint.beep();
     var relX = e.pageX - $(e.target).position().left;
@@ -20,14 +43,29 @@ Template.card_power.events = {
   }
 };
 
+/**
+The list of systems
+@property systems
+@type Meteor.Collection
+*/
 Template.card_power.systems = function() {
   return Systems.find();
 };
 
+/**
+The percentage level of a given bar. Used in a handlebars {{#each}} loop.
+@property barPercent
+@type Number
+*/
 Template.card_power.barPercent = function() {
   return (this.power / this.maxPower) * 100;
 };
 
+/**
+The bootstrap class for a bar based on its power level. Used in a handlebars {{#each}} loop.
+@property barClass
+@type String
+*/
 Template.card_power.barClass = function() {
   var level = (this.power / this.maxPower) * 100;
   if (level < 25) {
@@ -41,6 +79,11 @@ Template.card_power.barClass = function() {
   }
 };
 
+/**
+The total power consumed by the system
+@property totalPower
+@type Number
+*/
 Template.card_power.totalPower = function() {
   var systems = Systems.find();
   var totalPower = 0;
@@ -51,6 +94,11 @@ Template.card_power.totalPower = function() {
   return totalPower;
 };
 
+/**
+The total power available to the current simulator
+@property totalPowerAvailable
+@type Number
+*/
 Template.card_power.totalPowerAvailable = function() {
   if (Flint.simulator())
     return Flint.simulator().power;

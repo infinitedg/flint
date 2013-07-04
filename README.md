@@ -81,9 +81,9 @@ A __class__ should be a a real Javascript class, however Yuidoc is flexible enou
 * Handlebars.helpers - A fake class for listing helper methods available in handlebars
 * Meteor.call - A fake class for listing methods available to meteor.call
 * Meteor.startup - A fake class for listing methods triggered on `Meteor.startup`
+* Meteor.subscriptions - A fake class for listing subscriptions declared by `Meteor.Subscribe`
 * Router.Filters - A fake class for listing filters employed by the router
 * Router.Routes - A fake class for listing routes employed by the router
-* Subscriptions - A fake class for listing subscriptions declared by `Meteor.Subscribe`
 
 Extensions to this list should be discussed with team members before being implemented.
 

@@ -22,7 +22,7 @@ Meteor.methods({
 });
 
 /**
-@class Subscriptions
+@class Meteor.subscriptions
 */
 
 /**

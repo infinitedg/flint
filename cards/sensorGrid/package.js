@@ -1,4 +1,5 @@
 Package.describe({
+  "summary": "Standard sensor grid card for sensors stations"
 });
 
 Package.on_use(function(api) {  

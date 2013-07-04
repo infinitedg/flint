@@ -4,7 +4,7 @@
 
 /**
 Filter for properly displaying the stationPicker when we do not have a station loaded. Ignored by flintAdmin.
-@method checkLoaded
+@method pickStation
 @return {String} The page to be loaded or the template "stationPicker" (defined in `flint-stationPicker`)
 */
 Meteor.Router.filters({

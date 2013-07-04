@@ -1,4 +1,5 @@
 Package.describe({
+  "summary": "Power balancing screen. Originally developed as a demo."
 });
 
 Package.on_use(function(api) {  

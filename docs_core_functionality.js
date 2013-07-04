@@ -50,5 +50,5 @@ Core routes for [`Meteor.Router`](https://atmosphere.meteor.com/package/router).
 
 /**
  Core Flint subscriptions for [`Meteor.subscribe`](http://docs.meteor.com/#meteor_subscribe). Not really a class, just a convenient way to render our documentation.
- @class Subscriptions
+ @class Meteor.subscriptions
 */
