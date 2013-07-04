@@ -60,13 +60,8 @@ Flint.reset = function(simulatorId) {
     });
 };
 
-/**
-@class Meteor.startup
-*/
-
-/**
+/*
  When we start the server, if we do not have simulator documents then we should reset the database and load all fixtures.
-@method flint-models/reset.js
 */
 Meteor.startup(function() {
   if (Flint.simulators.find().count() === 0) {
