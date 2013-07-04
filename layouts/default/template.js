@@ -1,3 +1,18 @@
+/**
+@module Templates
+@submodule Layouts
+*/
+ 
+/**
+Default station layout
+@class layout_default
+*/
+
+/**
+Returns a class to either show or hide the cardList if the user is logged in or out, respectively.
+@property hideCardlistCSS
+@type String
+*/
 Template.layout_default.hideCardlistCSS = function() {
   if (Flint.user()) {
     return '';
@@ -6,9 +21,26 @@ Template.layout_default.hideCardlistCSS = function() {
   }
 };
 
+/**
+Constant speed for transitioning between cards
+@property transitionSpeed
+@type Number
+@default 200
+*/
 Template.layout_default.transitionSpeed = 200;
 
+// @TODO: Consider moving these to being variables on "this"
 var cardTransitionAutorun, stationActionObserver;
+
+/**
+Setup card transitions and handle remote functions like flashing or resetting the client.
+When the current station's document changes, it will trigger certain events on the client.
+We may refactor this behavior into a more reusable package with an invisible template,
+implemented similarly or through [meteor-streams](https://atmosphere.meteor.com/package/streams).
+
+Most importantly, this will also play the "sciences.wav" sound effect for old times' sake.
+@method created
+*/
 Template.layout_default.created = function() {
   cardTransitionAutorun = Deps.autorun(function() {
     if ('card-' + Flint.cardId() !== $('div.card:visible').attr('id')) {
@@ -43,7 +75,7 @@ Template.layout_default.created = function() {
         if (action === 'flash') {
           Flint.flash();
         } else if (action === 'reselect') {
-          Flint.clients.update(Flint.clientId(), { $set: { stationId: null }});
+          Flint.resetClient();
         }
       }
     }
@@ -53,6 +85,10 @@ Template.layout_default.created = function() {
   Flint.play('sciences.wav');
 };
 
+/**
+When rendered, perform some magic to properly manage card transitions using dependencies
+@method rendered
+*/
 Template.layout_default.rendered = function() {
   if (!$('div.card:visible')) {
     $('div.card:first').show();
@@ -62,6 +98,10 @@ Template.layout_default.rendered = function() {
   }
 };
 
+/**
+Cleanup dependencies
+@method destroyed
+*/
 Template.layout_default.destroyed = function() {
   cardTransitionAutorun.stop();
   stationActionObserver.stop();

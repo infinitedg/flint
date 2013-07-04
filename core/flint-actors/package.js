@@ -1,3 +1,6 @@
+/**
+ @class Flint
+*/
 Package.describe({
   summary: "Control the simulation with actors."
 });

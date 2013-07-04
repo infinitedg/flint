@@ -1,4 +1,11 @@
-// Bindings for admin template
+/**
+@class Router.Routes
+*/
+
+/**
+Administrative page for authenticated users. Provides interface for managing simulators, stations, and cards.
+@method /admin
+*/
 Meteor.Router.add({
   '/admin': 'flintAdmin'
 });

@@ -1,3 +1,6 @@
+/**
+@class Flint
+*/
 Flint = this.Flint || {};
 
 //
@@ -15,11 +18,11 @@ Flint = this.Flint || {};
  * in local storage so that client will keep its identity when the page is 
  * reloaded.
  *  
- * @note Currently this method can only be called from the client, in the future
+ * Currently this method can only be called from the client, in the future
  * it will be capable of being called from anywhere.
  *  
  * @return {String} a document ID unique to the client.
- * @locus Client
+ * @method clientId
  */
 Flint.clientId = function() {
   return Session.get("Flint.clientId");
@@ -29,7 +32,7 @@ Flint.clientId = function() {
  * Get the current client document. 
  *
  * @return {Object} a document unique to the client.
- * @locus Client
+ * @method client
  */
 Flint.client = function() {
   var id = Flint.clientId();
@@ -40,7 +43,7 @@ Flint.client = function() {
  * Get the station ID of the current client.
  *
  * @return {String} the ID of the current client's station.
- * @locus Client
+ * @method stationId
  */
 Flint.stationId = Utils.memoize(function() {
   var client = Flint.client();
@@ -51,6 +54,7 @@ Flint.stationId = Utils.memoize(function() {
  * Get the station document of the current client.
  *
  * @return {Object} the station document of the current client.
+ * @method station
  */
 Flint.station = function() {
   var id = Flint.stationId();
@@ -61,7 +65,9 @@ Flint.station = function() {
  * Get the simulator ID of the current client.
  *
  * The simulator ID is derived from the current client's station document.
- *
+ * 
+ * 
+ * @method simulatorId
  * @return {String} the simulator id of the current client.
  */
 Flint.simulatorId = Utils.memoize(function() {
@@ -73,7 +79,8 @@ Flint.simulatorId = Utils.memoize(function() {
  * Get the simulator document of the current client.
  *
  * The simulator document is derived from the current client's station document.
- *
+ * 
+ * @method simulator
  * @return {Object} the simulator document of the current client.
  */
 Flint.simulator = function() {
@@ -84,6 +91,7 @@ Flint.simulator = function() {
 /**
  * Get the participant name of the current client.
  *
+ * @method user
  * @return {String} the participant name of the current client.
  */
 Flint.user = Utils.memoize(function() {
@@ -103,7 +111,8 @@ Flint.user = Utils.memoize(function() {
  * identity consistent across reloads.
  *
  * @param {String} id the ID of a document in `Flint.clients`
- * @api private
+ * @private
+ * @method setClientId
  */
 Flint.setClientId = function(id) {
   if (id)
@@ -126,6 +135,7 @@ Flint.setClientId = function(id) {
  *
  * The current simulator ID is derived from the client's station ID.
  * @param {String} id the ID of a document in `Flint.clients`
+ * @method setStationId
  */
 Flint.setStationId = function(id) {
   if (id !== undefined)
@@ -147,6 +157,7 @@ Flint.setStationId = function(id) {
  *
  * @param {String} name a participant name to set as the current participant 
  *        name for the client.
+ * @method logIn
  */
 Flint.logIn = function(name) {
   Flint.clients.update(Flint.clientId(), { $set: { user: name }});
@@ -156,6 +167,7 @@ Flint.logIn = function(name) {
  * Log out of the current participant.
  *
  * Sets the participant name to null.
+ * @method logout
  */
 Flint.logOut = function() {
   Flint.clients.update(Flint.clientId(), { $set: { user: null }});
@@ -166,6 +178,7 @@ Flint.logOut = function() {
  *
  * Requests that the server send us a fresh, new client document to use. This
  * will reset all client-specific fields.
+ * @method resetClient
  */
 Flint.resetClient = function() {
   // Remove the client document. It will be automatically re-created.
@@ -178,10 +191,9 @@ Flint.resetClient = function() {
 // Subscriptions
 //
 
-/**
- * Whenever a client ID is null, the client will ask the server to send it a new
- * client ID.
- */
+
+// Whenever a client ID is null, the client will ask the server to send it a new
+// client ID.
 Deps.autorun(function() {
   function heartbeat() {
     if (Flint.client())
@@ -220,15 +232,18 @@ Deps.autorun(function() {
 
 /**
  * Returns the current simulator document.
+ * @method simulator
  */
 Handlebars.registerHelper('simulator', Flint.simulator);
 
 /**
  * Returns the current station document.
+ * @method station
  */
 Handlebars.registerHelper('station', Flint.station);
 
 /**
  * Returns the currently logged in participant name.
+ * @method currentUser
  */
 Handlebars.registerHelper('currentUser', Flint.user);

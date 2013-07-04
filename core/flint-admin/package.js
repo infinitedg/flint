@@ -1,3 +1,6 @@
+/**
+@class Flint
+*/
 Package.describe({
   summary: "Provides administrative controls for managing simulators, stations, and cards."
 });
