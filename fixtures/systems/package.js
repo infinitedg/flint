@@ -1,4 +1,5 @@
 Package.describe({
+  "summary": "Provides fixtures for systems information"
 });
 
 Package.on_use(function(api) { 

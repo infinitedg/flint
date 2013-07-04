@@ -1,1 +1,0 @@
-Systems = Flint.collection('systems');

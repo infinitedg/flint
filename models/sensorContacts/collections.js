@@ -1,1 +1,0 @@
-SensorContacts = Flint.collection('sensorContacts');
