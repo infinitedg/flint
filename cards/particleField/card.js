@@ -1,5 +1,17 @@
-// ParticleField Card
+/**
+@module Templates
+@submodule Cards
+*/
+ 
+/**
+Communications card for connecting via particle network
+@class card_particleField_map
+*/
 
+/**
+Create a reactive D3 node network
+@method rendered
+*/
 Template.card_particleField_map.rendered = function() {
   var self = this;
   
@@ -56,6 +68,10 @@ Template.card_particleField_map.rendered = function() {
   }
 };
 
+/**
+Tear down the D3 node network
+@method destroyed
+*/
 Template.card_particleField_map.destroyed = function() {
   this.handle && this.handle.stop();
 };

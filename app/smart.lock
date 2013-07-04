@@ -46,17 +46,15 @@
         "tag": "v4.5.2.3",
         "commit": "5e0bee96e97dd990c4591e5dda54a9defee8abd8"
       },
-<<<<<<< HEAD
       "winston": {
         "git": "https://github.com/tomrogers3/meteor-winston.git",
         "tag": "v0.0.1",
         "commit": "eb9070a0d5f7b2c3c7dd9c1bb2647d46b2a358cb"
-=======
+      },
       "buzz.js": {
         "git": "https://github.com/brentjanderson/meteor-buzz.git",
         "tag": "v1.0.5b",
         "commit": "ae34b4f9dd12fbdb921aafd355a9a791c2439014"
->>>>>>> 6e66e837ac8c7f1463b1fc675f0ef97b84c4c210
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

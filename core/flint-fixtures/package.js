@@ -19,7 +19,7 @@ Package.register_extension(
       return;
     }
     
-    // XXX Probably should deal with encodings better.
+    // @TODO: xxx - Probably should deal with encodings better.
     var json = fs.readFileSync(source_path);
     var result = "Flint.addFixture(" + json.toString('utf8') + ");";
     

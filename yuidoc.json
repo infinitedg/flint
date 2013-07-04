@@ -1,0 +1,10 @@
+{
+  "name": "Flint",
+  "description": "The next generation simulation control platform",
+  "version": "0.0.1a",
+  "url": "http://bitbucket.org/spacecenter/flint",
+  "options": {
+    "outdir": "docs",
+    "exclude": "app,node_modules,.meteor"
+  }
+}

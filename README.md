@@ -22,6 +22,8 @@ Meteor and Meteorite are not supported on Windows at this time. While windows us
 
 Instead of attempting to run Flint on Windows, we recommend either setting up a bootable USB Drive running Ubuntu Linux (or any flavor of Linux you prefer), or running Linux in Virtualbox, and then developing in that environment.
 
+Another option is to follow the instructions available at [http://win.meteor.com/](http://win.meteor.com/) under __Virtualized Solutions__. This provides a more flexible way to provision a development environment on your windows machine. Although still using VirtualBox, it may be more flexible. Note, however, that these instructions talk about the creation of a new Meteor project. Be sure to properly clone `Flint` into your project when you get your virtual system up and running.
+
 ## Flint command line tools
 Flint has some automated processes that use normal Node modules. To run the automated tasks you must install `grunt-cli` using `npm`.
 ```javascript
@@ -40,6 +42,133 @@ If you have just cloned the repository (or if there is no node_modules directory
   npm install
 
 This will install the modules necessary to simpy run `grunt` to start testing the project.
+
+## Documentation
+Flint's documentation uses [YUIDoc](http://yui.github.io/yuidoc/). `yuidoc` provides a number of convenient tools, including intuitive Javadoc/Doxygen-style comment blocks, speed, and a great HTML UI. `yuidoc` provides a documentation compiler as well as a documentation server.
+
+To install `yuidoc` run `sudo npm install -g yuidocjs`.
+
+To compile the latest docs for the project, run `yuidoc .` from within the base directory of flint. Default settings are located in `yuidoc.json` in the root of the project.
+
+When developing documentation for any extended period of time, the server feature will fire up the documentation as a local web server. Page refreshes will rebuild the documentation, making for a quick and convenient documentation-generation experience. To run the documentation web server, run `yuidoc . --server [port]` where `[port]` is an optional port number (defaults to 3000).
+
+For thorough YUIDoc instructions, visit their [project page](http://yui.github.io/yuidoc/). For instructions on syntax, check out the [YUIDoc syntax reference](http://yui.github.io/yuidoc/syntax/index.html).
+
+### Documentation techniques
+YUIDoc comments begin with `/**` and end with `*/`. Comments can (and should) include [markdown](http://daringfireball.net/projects/markdown/) where appropriate.
+
+Yuidoc provides __classes__ and __modules__ as organizational constructs. As of this writing, Flint is organized into two modules, giving us rough organizational separation between templates and functionality. We should consider a refactor of this logical organization, perhaps making each package its own `@module`. This is not entirely straightforward, since Flint's various components are highly coupled. Refactoring may be required to break up the various packages that make Flint into atomic modules, and then exposing methods from these modules in a single Flint package that has dependencies to these other various packages.
+
+__Available Modules__
+
+* Core Functionality
+* Templates
+
+Core functionality contains mostly static methods, objects, and other functional components for the Flint platform. The Templates module is applied to all template javascript files, and includes the following submodules:
+
+* Cards
+* Core
+* Layouts
+
+Documentation of HTML is not supported by YUIDoc (although documenting all appropriate code is encouraged).
+
+A __class__ should be a a real Javascript class, however Yuidoc is flexible enough to take literally any string as a "class name". We use this to our advantage for breaking up our documentation into various sections. The following are the list of sections currently available for the `Core Functionality` module, including their intended use:
+
+* Actor - An actual class for system actors
+* Flint - An actual class for static, global platform methods
+* Utils - An actual class for static, global utility methods
+* Flint.collections - A fake class for listing collections available to the platform
+* Handlebars.helpers - A fake class for listing helper methods available in handlebars
+* Meteor.call - A fake class for listing methods available to meteor.call
+* Meteor.startup - A fake class for listing methods triggered on `Meteor.startup`
+* Meteor.subscriptions - A fake class for listing subscriptions declared by `Meteor.Subscribe`
+* Router.Filters - A fake class for listing filters employed by the router
+* Router.Routes - A fake class for listing routes employed by the router
+
+Extensions to this list should be discussed with team members before being implemented.
+
+### Using classes
+When working on documentation, declare the class/section that a given method belongs to by providing the following comment block before the methods (This example would declare that the `Flint` class applies to any following methods and properties):
+
+    /**
+    @class Flint
+    */
+
+Note that the `@static` tag or a description are not necessary.
+
+### Commenting methods
+Methods should be documented like the following example:
+
+    /**
+    * Trigger a database reset from a client
+    * @method reset
+    * @param {String} [simulatorId] The Simulator's ID
+    * @example
+    *     // Reset just the `voyager`
+    *     Meteor.call("reset", "voyager-id");
+    * @example
+    *     // Reset all simulators
+    *     Meteor.call("reset");
+    */
+
+For a thorough reference to how to document methods, visit [YUIDoc's syntax reference](http://yui.github.io/yuidoc/syntax/index.html).
+
+### Commenting templates
+Templates unsurprisingly fall under the `Templates` module. Template classes are the template's name. Properties exposed to the view as a handlebars helper are treated as `@property`s. Each event in the event map is treated as a `@method`.
+
+The following is an example of how to document a template
+
+    /**
+    @module Templates
+    @submodule Cards
+    */
+    /**
+    Station card for viewing and managing the current alert condition
+    @class card_alertCondition
+    */
+    
+    /**
+    The alert condtion for the simulator
+    @property alertCondition
+    @type Number
+    */
+    Template.card_alertCondition.alertCondition = function() {
+      var a = Flint.simulator().alertCondition;
+      return a;
+    };
+    
+    /**
+    The bootstrap styling for a given alert condition level
+    @property alertStyle
+    @type String
+    */
+    Template.card_alertCondition.alertStyle = function() {
+      var a = Flint.simulator().alertCondition;
+      switch (a) {
+      case 4:
+        return 'success';
+      case 3:
+        return 'info';
+      case 2:
+        return 'block';
+      case 1:
+        return 'error';
+      }
+    };
+    
+    Template.card_alertCondition.events = {
+      
+      /**
+      When you click one of the alertCondition buttons, change the alert condition to the `data-alert` attribute of the containing box
+      @method click .btn
+      */
+      'click .btn': function(e) {
+        Flint.beep();
+        var a = $(e.target).parents('[data-alert]').data('alert');
+        Flint.simulators.update(Flint.simulatorId(), {$set: {alertCondition: a}});
+        e.preventDefault();
+      }
+    };
 
 ## Contributing
 All Javascript code contributions must pass JSHint testing. JSHint automatically tests all code 
