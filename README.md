@@ -44,15 +44,24 @@ If you have just cloned the repository (or if there is no node_modules directory
 This will install the modules necessary to simpy run `grunt` to start testing the project.
 
 ## Documentation
-Flint's documentation uses [YUIDoc](http://yui.github.io/yuidoc/). `yuidoc` provides a number of convenient tools, including intuitive Javadoc/Doxygen-style comment blocks, speed, and a great HTML UI. `yuidoc` provides a documentation compiler as well as a documentation server.
+Flint's documentation uses [YUIDoc](http://yui.github.io/yuidoc/). `yuidoc` provides a number of convenient tools, including intuitive Javadoc/Doxygen-style comment blocks, speed, and a great HTML UI. `yuidoc` provides a documentation compiler as well as a documentation server. To simply view Flint's documentation without worrying about developing it, visit [http://docs.flint.farpointStation.org](http://docs.flint.farpointStation.org). This may require a password - contact a project administrator or Farpoint staff for access.
 
-If you wish to run the YUIDoc server, install `yuidoc` by running `sudo npm install -g yuidocjs`.
+Although anyone can write documentation for the project at any time, prior to performing any documentation _compilation intended for publication to docs.flint.farpointStation.org_ (manually or via `grunt`), you must first run `grunt docs_init` to clone the working documentation repository into your project. Otherwise your work will be in vain (See section titled "Automated documentation publishing")!
 
-To compile the latest docs for the project, run `grunt yuidoc` from within the base directory of flint. Default settings are located in `yuidoc.json` in the root of the project. If you have installed `yuidoc` globally (see above) you may alternatively run `yuidoc` from the base directory of flint as well. This provides more granular control, if necessary.
+To compile the latest docs for the project, run `grunt yuidoc` from within the base directory of flint. Default settings are located in `yuidoc.json` in the root of the project. If you have installed `yuidoc` globally (see below) you may alternatively run `yuidoc` from the base directory of flint as well. This provides more granular control, if necessary.
 
-When developing documentation for any extended period of time, the server feature will fire up the documentation as a local web server. Page refreshes will rebuild the documentation, making for a quick and convenient documentation-generation experience. To run the documentation web server, run `yuidoc . --server [port]` where `[port]` is an optional port number (defaults to 3000).
+When developing documentation for any extended period of time, the server feature will fire up the documentation as a local web server. Page refreshes will rebuild the documentation, making for a quick and convenient documentation-generation experience. To run the documentation web server, first ensure you have `yuidoc` installed by running `sudo npm install -g yuidocjs`. You may then run `yuidoc . --server [port]` where `[port]` is an optional port number (defaults to 3000). Note that providing the dot is necessary - otherwise `yuidoc` will not use relative paths when listing files in the generated documentation, which is as ugly as it is annoying.
 
 For thorough YUIDoc instructions, visit their [project page](http://yui.github.io/yuidoc/). For instructions on syntax, check out the [YUIDoc syntax reference](http://yui.github.io/yuidoc/syntax/index.html).
+
+### Automated documentation publishing
+`grunt` has a few other tricks up its sleeve: It is also equipped for automatically building ___and publishing___ documentation. Before developing documentation The relevant tasks are as follows:
+
+* `grunt docs` will build and publish your current documentation if you have setup your docs repository and if you are on the master branch. This is a safety feature so that the docs are always in a more stable state than on somebody's feature branch.
+* `grunt docs_fix` will destroy and re-clone your `docs/` directory. Very useful tool. Since 
+* `grunt yuidoc` will only build current documentation, regardless of branches or git repositories (although it is still recommended that you run `grunt exec:docs_init` before doing any doc compilation work)
+
+Visit [the docs page on `grunt`](http://docs.flint.farpointstation.org/classes/Grunt.html) for complete instructions and documentation on available `grunt` documentation commands.
 
 ### Documentation techniques
 YUIDoc comments begin with `/**` and end with `*/`. Comments can (and should) include [markdown](http://daringfireball.net/projects/markdown/) where appropriate.

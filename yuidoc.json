@@ -1,7 +1,7 @@
 {
   "name": "Flint",
   "description": "The next generation simulation control platform",
-  "version": "0.0.1a",
+  "version": "0.0.2",
   "url": "http://bitbucket.org/spacecenter/flint",
   "logo": "http://www.farpointstation.org/img/foundation_logo.png",
   "options": {

@@ -345,30 +345,38 @@ module.exports = function(grunt) {
       /**
       Destroys the docs repository from the project.  
       Note that the docs directory is not a submodule and is completely ignored by the main flint project.
-      @method exec:destroy_docs
+      @method exec:docs_destory
       */
-      destroy_docs: {
+      docs_destory: {
         cmd: 'rm -rf docs'
       },
       
       /**
       Clone the [flint-docs](http://www.bitbucket.org/spacecenter/flint-docs/) repository into the `docs/` directory.  
-      __This command must be run prior to running `grunt exec:publish_docs` or `grunt docs`.__  
-      If by mistake documentation is generated prior to running init_docs, run `grunt exec:fix_docs`.
+      __This command must be run prior to running `grunt exec:docs_publish` or `grunt docs`.__  
+      If by mistake documentation is generated prior to running docs_init, run `grunt exec:fix_docs`.
       */
-      init_docs: {
+      docs_init: {
         cmd: 'git clone git@bitbucket.org:spacecenter/flint-docs.git docs'
       },
       
       /**
       Commit and publish the docs/ directory to its remote repository.  
       This method will only create a commit and push if there have been any changes.
-      @method exec:publish_docs
+      @method exec:docs_publish
       */
-      publish_docs: {
+      docs_publish: {
         // If we have initialized the docs directory, and if have something to commit, then commit it with the current message and then push
-        cmd: 'if [ -d .git ]; then git diff-index --quiet HEAD || git commit -a -m "Docs as of `date`" && git push;fi',
+        cmd: 'if [ -d .git ]; then git diff-index --quiet HEAD || git commit -a -m "Docs as of `date`" && git push; else echo "Docs uninitialized. Run grunt docs_fix to prepare your environment.";fi',
         cwd: 'docs/'
+      },
+      
+      /**
+      Does nothing unless we are not on the master branch in our code. Then it will exit with error code 1
+      @method exec:docs_branchCheck
+      */
+      docs_branchCheck: {
+        cmd: '[[ "$(git rev-parse --abbrev-ref HEAD)" == "master" ]] || exit 1'
       }
     }
   });
@@ -385,17 +393,17 @@ module.exports = function(grunt) {
   
   /**
   Grunt task for compiling and publishing current documentation.  
-  Will fail if `docs` directory missing or if user has not successfully run `grunt exec:init_docs`
+  Will fail if `docs` directory missing or if user has not successfully run `grunt exec:docs_init` or if the flint repository is not on the master branch
   @method docs
   */
-  grunt.registerTask('docs', ['yuidoc:compile', 'exec:publish_docs']);
+  grunt.registerTask('docs', ['exec:docs_branchCheck', 'yuidoc:compile', 'exec:docs_publish']);
   
   /**
   Grunt task for completely rebuilding documentation component of the project.
   Destroys the `docs` directory and re-clones it from master repository.
   @method fix_docs
   */
-  grunt.registerTask('docs_fix', ['exec:destroy_docs', 'exec:init_docs']);
+  grunt.registerTask('docs_fix', ['exec:docs_destory', 'exec:docs_init']);
   
   /**
   Grunt task for running automated tests. At the moment, only performs `jshint` testing
