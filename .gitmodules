@@ -1,0 +1,3 @@
+[submodule "docs"]
+	path = docs
+	url = git@bitbucket.org:spacecenter/flint-docs.git
