@@ -11,6 +11,8 @@
     "bootstrap-growl": {},
     "kinetic.js": {},
     "winston": {},
-    "buzz.js": {}
+    "buzz.js": {},
+    "winston-client": {},
+    "winston-loggly": {}
   }
 }

@@ -13,7 +13,9 @@
       "bootstrap-growl": {},
       "kinetic.js": {},
       "winston": {},
-      "buzz.js": {}
+      "buzz.js": {},
+      "winston-client": {},
+      "winston-loggly": {}
     },
     "packages": {
       "jquery-ui": {
@@ -43,8 +45,8 @@
       },
       "kinetic.js": {
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
-        "tag": "v4.5.2.3",
-        "commit": "5e0bee96e97dd990c4591e5dda54a9defee8abd8"
+        "tag": "v4.5.4",
+        "commit": "6ac18dff77cb887295b0633f813afc64c33f5f82"
       },
       "winston": {
         "git": "https://github.com/tomrogers3/meteor-winston.git",
@@ -55,6 +57,16 @@
         "git": "https://github.com/brentjanderson/meteor-buzz.git",
         "tag": "v1.0.5b",
         "commit": "ae34b4f9dd12fbdb921aafd355a9a791c2439014"
+      },
+      "winston-client": {
+        "git": "https://github.com/farpoint/meteor-winston-client.git",
+        "tag": "v0.0.2",
+        "commit": "78b8605fc2c2023a9a83c2f214414fbb53f90a9e"
+      },
+      "winston-loggly": {
+        "git": "https://github.com/tomrogers3/meteor-winston-loggly.git",
+        "tag": "v0.0.2",
+        "commit": "8110c5f52ca0bffd102403c5225d07e2c0918608"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

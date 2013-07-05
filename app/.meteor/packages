@@ -16,3 +16,5 @@ kinetic.js
 winston
 buzz.js
 d3
+winston-loggly
+winston-client
