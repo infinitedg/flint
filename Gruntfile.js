@@ -343,11 +343,18 @@ module.exports = function(grunt) {
     */
     exec: {
       /**
+      Prevents the exec command from running by itself and wreaking havoc
+      @method exec:blocker
+      */
+      blocker: {
+        cmd: 'echo "Do not run grunt exec by itself" && exit 1'
+      },
+      /**
       Destroys the docs repository from the project.  
       Note that the docs directory is not a submodule and is completely ignored by the main flint project.
-      @method exec:docs_destory
+      @method exec:docs_destroy
       */
-      docs_destory: {
+      docs_destroy: {
         cmd: 'rm -rf docs'
       },
       
@@ -367,7 +374,7 @@ module.exports = function(grunt) {
       */
       docs_publish: {
         // If we have initialized the docs directory, and if have something to commit, then commit it with the current message and then push
-        cmd: '[[ ! -d .git ]] && echo "Docs uninitialized. Run grunt docs_fix to prepare your environment." || git diff-index --quiet HEAD && echo "No changes to commit" || (git commit -a -m "Docs as of `date`" && git push)',
+        cmd: '[[ ! -d .git ]] && echo "Docs uninitialized. Run grunt docs_fix to prepare your environment." || (git diff-index --quiet HEAD && echo "No changes to commit" || (git commit -a -m "Docs as of `date`" && git push))',
         cwd: 'docs/'
       },
       
@@ -403,7 +410,7 @@ module.exports = function(grunt) {
   Destroys the `docs` directory and re-clones it from master repository.
   @method fix_docs
   */
-  grunt.registerTask('docs_fix', ['exec:docs_destory', 'exec:docs_init']);
+  grunt.registerTask('docs_fix', ['exec:docs_destroy', 'exec:docs_init']);
   
   /**
   Grunt task for running automated tests. At the moment, only performs `jshint` testing
