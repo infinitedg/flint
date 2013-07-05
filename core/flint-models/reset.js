@@ -1,8 +1,12 @@
+/**
+* @class Flint
+*/
 Flint = this.Flint || {};
 
 /**
-* Reset the database
-* @param {String} simulatorId The simulator to reset. If not provided, all simulators are reset.
+* Reset the database (available only on the server).
+* @method reset
+* @param {String} [simulatorId] The simulator to reset. If not provided, all simulators are reset **and** all actors are restarted.
 */
 Flint.reset = function(simulatorId) {
   
@@ -56,15 +60,31 @@ Flint.reset = function(simulatorId) {
     });
 };
 
-// Expose `Meteor.call("reset", [simulatorId])` to clients
-Meteor.methods({
-  "reset" : Flint.reset
-});
-
-// When we start the server, if we do not have simulator documents then we should reset the database and load all fixtures
+/*
+ When we start the server, if we do not have simulator documents then we should reset the database and load all fixtures.
+*/
 Meteor.startup(function() {
   if (Flint.simulators.find().count() === 0) {
     Flint.Log.verbose('No simulator documents -- loading fixtures for first run...', 'flint-models');
     Flint.reset();
   }
+});
+
+/**
+* @class Meteor.call
+*/
+
+/**
+* Trigger a database reset from a client
+* @method reset
+* @param {String} [simulatorId] The Simulator's ID
+* @example
+*     // Reset just the `voyager`
+*     Meteor.call("reset", "voyager-id");
+* @example
+*     // Reset all simulators
+*     Meteor.call("reset");
+*/
+Meteor.methods({
+  "reset" : Flint.reset
 });

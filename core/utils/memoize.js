@@ -1,8 +1,19 @@
-Utils = this.Utils || {};
+/**
+@module Core Functionality
+*/
 
 /**
- * @TODO Have Dan fill in this documentation since he knows what this is supposed to do
- */
+* @class Utils
+*/
+Utils = this.Utils || {};
+
+// @TODO Have Dan verify this documentation since he knows what this is supposed to do
+ 
+/**
+* Create a reactive datasource derived from the results of the given function, preventing reactive computation invalidations when the function's result hasn't actually changed
+* @method memoize
+* @param {Function} func Function to evaluate
+*/
 Utils.memoize = function(func) {
   
   var value;

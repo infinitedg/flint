@@ -1,14 +1,18 @@
+/**
+* @class Flint
+*/
 Flint = this.Flint || {};
 
-/** @TODO Consider encapsulating mespeak in its own package and upload it to Atmosphere */
+// @TODO Consider encapsulating mespeak in its own package and upload it to Atmosphere 
 
 var spokenPhrases = {};
 var voicePrefix = '/packages/voice/voices/';
 
 _.extend(Flint, {
-  // Function to read text aloud
   /**
    * Text-to-speak function. If a phrase is being triggered rapidly, it will rate limit it to once each second
+   * May be slow with first phrase, as it lazy-loads its speech configuration and voice
+   * @method say
    * @param {String} txt The text to speak
    */
   say: function(txt) {
@@ -28,6 +32,7 @@ _.extend(Flint, {
 
   /**
    * Wrapper function for meSpeak voice loader. Languages available include:
+   * 
    *   * ca (Catalan)
    *   * cs (Czech)
    *   * de (German)
@@ -56,6 +61,7 @@ _.extend(Flint, {
    *   * sk (Slovak)
    *   * sv (Swedish)
    *   * tr (Turkish)
+   * @method loadVoice
    * @param {String} name The name of the voice to load
    */
   loadVoice: function(name) {
