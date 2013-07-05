@@ -8,7 +8,7 @@ Mechanism for creating or updating a client object
 @param {String} clientId The ID of the client checking in
 */
 Meteor.methods({
-  checkIn: function(clientId) {
+  heartbeat: function(clientId) {
     var client = Flint.clients.find(clientId);
     if (client.count() === 0) {
       if (clientId)
@@ -16,6 +16,8 @@ Meteor.methods({
       else
         clientId = Flint.clients.insert({});
     }
+    else
+      Flint.clients.update(clientId, {$set:{heartbeat: new Date()}});
     
     return clientId;
   }

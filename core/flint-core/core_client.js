@@ -191,32 +191,42 @@ Flint.resetClient = function() {
 // Subscriptions
 //
 
+/**
+ * Tells the server the client is still alive.
+ *
+ * Tells the server "Hey, I'm here!". The server will give the client a new ID
+ * if the old one is stale.
+ * @method heartbeat
+ */
+Flint.heartbeat = function() {
+  var prevClientId = Session.get("Flint.clientId") || Cookie.get("clientId");
+  
+  Meteor.call("heartbeat", prevClientId, function(error, newClientId) {
+    if (!error && newClientId !== Session.get("Flint.clientId"))
+      Meteor.subscribe("client", newClientId, function() {
+        Flint.setClientId(newClientId);
+        
+        // Sometimes this gets called before the logger is loaded, so wait until
+        // startup to log this info.
+        Meteor.startup(function() {
+          Flint.Log.verbose("Using a new clientId");
+          Flint.Log.verbose("Using clientId " + result);
+        });
+      });
+  });
+};
 
 // Whenever a client ID is null, the client will ask the server to send it a new
 // client ID.
+// XXX: Possible race condition if clientId gets set to null.
 Deps.autorun(function() {
-  function heartbeat() {
-    if (Flint.client())
-      Flint.clients.update(Flint.clientId(), {$set:{heartbeat: new Date()}});
-  }
-  
   if (! Flint.clientId())
-    Meteor.call("checkIn", Cookie.get("clientId"), function(error, result) {
-      if (!error) {
-        // Sometimes this gets called before the logger is loaded.
-        Meteor.startup(function() {
-          if (result !== Cookie.get("clientId"))
-            Flint.Log.verbose("Using a new clientId");
-          Flint.Log.verbose("Using clientId " + result);
-        });
-        
-        Meteor.subscribe("client", result, function() {
-          Flint.setClientId(result);
-          Meteor.setInterval(heartbeat, 1000);
-        });
-      }
-    });
+    Flint.heartbeat();
+  if (! Flint.client())
+    Flint.heartbeat();
 });
+
+Meteor.setInterval(Flint.heartbeat, 1000);
 
 Deps.autorun(function() {
   Meteor.subscribe("station", Flint.stationId());
