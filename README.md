@@ -62,9 +62,14 @@ Yuidoc provides __classes__ and __modules__ as organizational constructs. As of 
 __Available Modules__
 
 * Core Functionality
+* Automation
 * Templates
 
-Core functionality contains mostly static methods, objects, and other functional components for the Flint platform. The Templates module is applied to all template javascript files, and includes the following submodules:
+__Core functionality__ contains mostly static methods, objects, and other functional components for the Flint platform.
+
+__Automation__ contains information about available grunt tasks for app and documentation compilation.
+
+The __Templates__ module is applied to all template javascript files, and includes the following submodules:
 
 * Cards
 * Core
