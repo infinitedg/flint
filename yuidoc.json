@@ -4,6 +4,7 @@
   "version": "0.0.1a",
   "url": "http://bitbucket.org/spacecenter/flint",
   "options": {
+    "paths": ".",
     "outdir": "docs",
     "exclude": "app,node_modules,.meteor"
   }

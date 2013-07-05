@@ -46,9 +46,9 @@ This will install the modules necessary to simpy run `grunt` to start testing th
 ## Documentation
 Flint's documentation uses [YUIDoc](http://yui.github.io/yuidoc/). `yuidoc` provides a number of convenient tools, including intuitive Javadoc/Doxygen-style comment blocks, speed, and a great HTML UI. `yuidoc` provides a documentation compiler as well as a documentation server.
 
-To install `yuidoc` run `sudo npm install -g yuidocjs`.
+If you wish to run the YUIDoc server, install `yuidoc` by running `sudo npm install -g yuidocjs`.
 
-To compile the latest docs for the project, run `yuidoc .` from within the base directory of flint. Default settings are located in `yuidoc.json` in the root of the project.
+To compile the latest docs for the project, run `grunt yuidoc` from within the base directory of flint. Default settings are located in `yuidoc.json` in the root of the project. If you have installed `yuidoc` globally (see above) you may alternatively run `yuidoc` from the base directory of flint as well. This provides more granular control, if necessary.
 
 When developing documentation for any extended period of time, the server feature will fire up the documentation as a local web server. Page refreshes will rebuild the documentation, making for a quick and convenient documentation-generation experience. To run the documentation web server, run `yuidoc . --server [port]` where `[port]` is an optional port number (defaults to 3000).
 

@@ -325,6 +325,17 @@ module.exports = function(grunt) {
       
     }, // watch
     
+    /**
+    Generate project documentation
+    @method yuidoc
+    */
+    yuidoc: {
+      /**
+      Generate project documentation
+      @method yuidoc:compile
+      */
+      compile: grunt.file.readJSON('yuidoc.json')
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -334,6 +345,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-yuidoc');
   
   /**
   Grunt task for running automated tests. At the moment, only performs `jshint` testing
@@ -346,7 +358,7 @@ module.exports = function(grunt) {
   Includes: `jshint`, `clean`, `coffee`, `less`, `copy`, `concat`
   @method default
   */
-  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'less', 'copy', 'concat']);
+  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'less', 'copy', 'concat', 'yuidoc']);
   
   /**
   Task for running `default`, `meteorite`, and `watch`. Effectively the preferred mechanism for development - rebuilding the app as changes are made, and thus refreshing the browser.
