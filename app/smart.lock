@@ -9,11 +9,13 @@
       "jquery-ui": {},
       "cookie": {},
       "router": {},
-      "observatory": {},
       "bootboxjs": {},
       "bootstrap-growl": {},
       "kinetic.js": {},
-      "buzz.js": {}
+      "winston": {},
+      "buzz.js": {},
+      "winston-client": {},
+      "winston-loggly": {}
     },
     "packages": {
       "jquery-ui": {
@@ -31,11 +33,6 @@
         "tag": "v0.5.1",
         "commit": "32e377c7703bb119acccc859fc7296882903cbe7"
       },
-      "observatory": {
-        "git": "https://github.com/jhoxray/observatory.git",
-        "tag": "v0.2.1",
-        "commit": "3a3302c086fc9e9c59adf9dfc01e88d746f6c501"
-      },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
         "tag": "v3.2.0",
@@ -48,23 +45,33 @@
       },
       "kinetic.js": {
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
-        "tag": "v4.5.2.3",
-        "commit": "5e0bee96e97dd990c4591e5dda54a9defee8abd8"
+        "tag": "v4.5.4",
+        "commit": "6ac18dff77cb887295b0633f813afc64c33f5f82"
+      },
+      "winston": {
+        "git": "https://github.com/tomrogers3/meteor-winston.git",
+        "tag": "v0.0.1",
+        "commit": "eb9070a0d5f7b2c3c7dd9c1bb2647d46b2a358cb"
       },
       "buzz.js": {
         "git": "https://github.com/brentjanderson/meteor-buzz.git",
         "tag": "v1.0.5b",
         "commit": "ae34b4f9dd12fbdb921aafd355a9a791c2439014"
       },
+      "winston-client": {
+        "git": "https://github.com/farpoint/meteor-winston-client.git",
+        "tag": "v0.0.2",
+        "commit": "78b8605fc2c2023a9a83c2f214414fbb53f90a9e"
+      },
+      "winston-loggly": {
+        "git": "https://github.com/tomrogers3/meteor-winston-loggly.git",
+        "tag": "v0.0.2",
+        "commit": "8110c5f52ca0bffd102403c5225d07e2c0918608"
+      },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",
         "tag": "v1.3.5",
         "commit": "b99ed8380aefd10b2afc8f18d9eed4dd0d8ea9cb"
-      },
-      "observatory-apollo": {
-        "git": "https://github.com/superstringsoftware/observatory-apollo.git",
-        "branch": "master",
-        "commit": "b754bb265ef3df07a406f2b342a169e951e6caee"
       }
     }
   }

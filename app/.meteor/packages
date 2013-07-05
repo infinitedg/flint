@@ -8,11 +8,13 @@ preserve-inputs
 bootstrap
 jquery-ui
 cookie
-observatory
 underscore
 bootboxjs
 bootstrap-growl
 router
 kinetic.js
+winston
 buzz.js
 d3
+winston-loggly
+winston-client

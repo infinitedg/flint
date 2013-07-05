@@ -7,10 +7,12 @@
     "jquery-ui": {},
     "cookie": {},
     "router": {},
-    "observatory": {},
     "bootboxjs": {},
     "bootstrap-growl": {},
     "kinetic.js": {},
-    "buzz.js": {}
+    "winston": {},
+    "buzz.js": {},
+    "winston-client": {},
+    "winston-loggly": {}
   }
 }
