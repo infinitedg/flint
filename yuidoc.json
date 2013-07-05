@@ -3,9 +3,10 @@
   "description": "The next generation simulation control platform",
   "version": "0.0.1a",
   "url": "http://bitbucket.org/spacecenter/flint",
+  "logo": "http://www.farpointstation.org/img/foundation_logo.png",
   "options": {
     "paths": ".",
-    "outdir": "docs",
+    "outdir": "docs/www",
     "exclude": "app,node_modules,.meteor"
   }
 }

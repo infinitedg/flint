@@ -326,7 +326,7 @@ module.exports = function(grunt) {
     }, // watch
     
     /**
-    Generate project documentation
+    Generate project documentation with YUIDoc
     @method yuidoc
     */
     yuidoc: {
@@ -335,6 +335,41 @@ module.exports = function(grunt) {
       @method yuidoc:compile
       */
       compile: grunt.file.readJSON('yuidoc.json')
+    },
+    
+    /**
+    Perform arbitrary commands. __This method should probably never be run by itself (e.g. `grunt exec`) as it will execute all subtasks.
+    @method exec
+    */
+    exec: {
+      /**
+      Destroys the docs repository from the project.  
+      Note that the docs directory is not a submodule and is completely ignored by the main flint project.
+      @method exec:destroy_docs
+      */
+      destroy_docs: {
+        cmd: 'rm -rf docs'
+      },
+      
+      /**
+      Clone the [flint-docs](http://www.bitbucket.org/spacecenter/flint-docs/) repository into the `docs/` directory.  
+      __This command must be run prior to running `grunt exec:publish_docs` or `grunt docs`.__  
+      If by mistake documentation is generated prior to running init_docs, run `grunt exec:fix_docs`.
+      */
+      init_docs: {
+        cmd: 'git clone git@bitbucket.org:spacecenter/flint-docs.git docs'
+      },
+      
+      /**
+      Commit and publish the docs/ directory to its remote repository.  
+      This method will only create a commit and push if there have been any changes.
+      @method exec:publish_docs
+      */
+      publish_docs: {
+        // If we have something to commit, then commit it with the current message and then push
+        cmd: 'git diff-index --quiet HEAD || git commit -a -m "Docs as of `date`" && git push',
+        cwd: 'docs/'
+      }
     }
   });
 
@@ -346,6 +381,21 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-yuidoc');
+  grunt.loadNpmTasks('grunt-exec');
+  
+  /**
+  Grunt task for compiling and publishing current documentation.  
+  Will fail if `docs` directory missing or if user has not successfully run `grunt exec:init_docs`
+  @method docs
+  */
+  grunt.registerTask('docs', ['yuidoc:compile', 'exec:publish_docs']);
+  
+  /**
+  Grunt task for completely rebuilding documentation component of the project.
+  Destroys the `docs` directory and re-clones it from master repository.
+  @method fix_docs
+  */
+  grunt.registerTask('docs_fix', ['exec:destroy_docs', 'exec:init_docs']);
   
   /**
   Grunt task for running automated tests. At the moment, only performs `jshint` testing
