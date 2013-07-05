@@ -366,8 +366,8 @@ module.exports = function(grunt) {
       @method exec:publish_docs
       */
       publish_docs: {
-        // If we have something to commit, then commit it with the current message and then push
-        cmd: 'git diff-index --quiet HEAD || git commit -a -m "Docs as of `date`" && git push',
+        // If we have initialized the docs directory, and if have something to commit, then commit it with the current message and then push
+        cmd: 'if [ -d .git ]; then git diff-index --quiet HEAD || git commit -a -m "Docs as of `date`" && git push;fi',
         cwd: 'docs/'
       }
     }
