@@ -367,7 +367,7 @@ module.exports = function(grunt) {
       */
       docs_publish: {
         // If we have initialized the docs directory, and if have something to commit, then commit it with the current message and then push
-        cmd: 'if [ -d .git ]; then git diff-index --quiet HEAD || git commit -a -m "Docs as of `date`" && git push; else echo "Docs uninitialized. Run grunt docs_fix to prepare your environment.";fi',
+        cmd: '[[ ! -d .git ]] && echo "Docs uninitialized. Run grunt docs_fix to prepare your environment." || git diff-index --quiet HEAD && echo "No changes to commit" || (git commit -a -m "Docs as of `date`" && git push)',
         cwd: 'docs/'
       },
       
