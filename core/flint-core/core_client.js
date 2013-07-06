@@ -210,7 +210,7 @@ Flint.heartbeat = function() {
         // startup to log this info.
         Meteor.startup(function() {
           Flint.Log.verbose("Using a new clientId");
-          Flint.Log.verbose("Using clientId " + result);
+          Flint.Log.verbose("Using clientId " + newClientId);
         });
       });
   });
