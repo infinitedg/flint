@@ -160,6 +160,7 @@ Flint.setStationId = function(id) {
  * @method logIn
  */
 Flint.logIn = function(name) {
+  Flint.Log.info("Client " + Flint.clientId() + " logged in as " + name);
   Flint.clients.update(Flint.clientId(), { $set: { user: name }});
 };
 
