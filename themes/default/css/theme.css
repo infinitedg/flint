@@ -1,4 +1,8 @@
-/* @override http://localhost/css/theme.css */
+/* @override 
+	http://localhost/css/theme.css
+	http://localhost:3000/themes/default.css
+*/
+
 @import url(http://fonts.googleapis.com/css?family=Orbitron);
 article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
 audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}
@@ -859,3 +863,5 @@ body{background: #000 url(/themes/default/public/back.png) no-repeat fixed 0 bot
 *:hover{cursor:url(/themes/default/public/cursor.png),default;text-decoration:none;}
 ::selection{background:rgba(0,0,0,0);}
 ::-moz-selection{background:rgba(0,0,0,0);}
+ul.breadcrumb {background-color: rgba(0,0,0,0.3);}
+ul.breadcrumb li {text-shadow: rgba(255,255,254,0) 0 0 0;}

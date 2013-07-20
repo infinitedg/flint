@@ -1,10 +1,28 @@
 <template name="card_particleField">
-  <h1>Particle Field</h1>
-  {{>card_particleField_map}}
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        {{>card_particleField_map}}
+      </div>
+    </div>
+    
+    <div class="row-fluid row-adjust">
+      <div class="span2">
+        <a href="#" class="btn btn-warning">Connect</a>
+      </div>
+      <div class="span10">
+        <ul class="breadcrumb">
+          <li>Connection:</li>
+          <li>Kepler 62e <span class="divider">/</span></li>
+          <li>Earth</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="card_particleField_map">
     {{#constant}}
-    <div class="field"></div>    
+      <div class="field"></div>    
     {{/constant}}
 </template>
