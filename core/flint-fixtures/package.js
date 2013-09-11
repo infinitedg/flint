@@ -5,7 +5,7 @@ Package.describe({
 
 Package.on_use(function(api) {  
   // We're going to use the addFixture file from flint-models.
-  api.use('flint-models');
+  api.use(['log', 'flint-models']);
 });
 
 // TODO: Since we add this package to the app's packages folder, this
@@ -19,6 +19,11 @@ Package.register_extension(
       return;
     }
     
+    if (serve_path === '/smart.json') {
+      console.warn("flint-fixtures: Skipping smart.json");
+      return;
+    }
+
     // @TODO: xxx - Probably should deal with encodings better.
     var json = fs.readFileSync(source_path);
     var result = "Flint.addFixture(" + json.toString('utf8') + ");";

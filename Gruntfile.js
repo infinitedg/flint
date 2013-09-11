@@ -63,7 +63,9 @@ module.exports = function(grunt) {
     @method clean
     */
     clean: {
-      
+      options: {
+        force: true
+      },
       /**
       Cleans the packages directory in the `app/packages`
       @method clean:packages
@@ -210,7 +212,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'fixtures/',
             src: '*/**',
-            // Add a card- prefix.
+            // Add a model- prefix.
             rename: function(dst, src) {
               return "app/packages/model-" + src;
             }

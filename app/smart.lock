@@ -2,7 +2,7 @@
   "meteor": {
     "git": "https://github.com/meteor/meteor.git",
     "branch": "master",
-    "commit": "9bb2b5447e845c4f483df5e9b42a2c1de5ab909b"
+    "commit": "bb6c88ca9e3409ce4d50b796123c62cfb8fc71fd"
   },
   "dependencies": {
     "basePackages": {
@@ -30,13 +30,13 @@
       },
       "router": {
         "git": "https://github.com/tmeasday/meteor-router.git",
-        "tag": "v0.5.3",
-        "commit": "7bd3a1bdd1099625bb8b49406d9b8f961d6f4a17"
+        "tag": "v0.5.4.1",
+        "commit": "d00e380dda2184b70e909fc4a0fb5358d602c586"
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
-        "tag": "v3.2.0",
-        "commit": "6088b5b6ec13304457394cd358cbdc5f3def1a1c"
+        "tag": "v3.2.2",
+        "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
       },
       "bootstrap-growl": {
         "git": "https://github.com/TimHeckel/meteor-bootstrap-growl.git",
@@ -45,18 +45,18 @@
       },
       "kinetic.js": {
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
-        "tag": "v4.5.4",
-        "commit": "6ac18dff77cb887295b0633f813afc64c33f5f82"
+        "tag": "v4.6.0",
+        "commit": "722478657ba65d2277ff2d44d6df0af7cdfd62d4"
       },
       "winston": {
         "git": "https://github.com/tomrogers3/meteor-winston.git",
-        "tag": "v0.0.1",
-        "commit": "eb9070a0d5f7b2c3c7dd9c1bb2647d46b2a358cb"
+        "tag": "v0.0.2",
+        "commit": "3e27e22cc7a9bae7d0a6b4048619cf29d8d0d36b"
       },
       "buzz.js": {
         "git": "https://github.com/brentjanderson/meteor-buzz.git",
-        "tag": "v1.0.6",
-        "commit": "5ba1f2db74c55991cabd202bd95edc1d926dae66"
+        "tag": "v1.1.0.1",
+        "commit": "5c579c9833a6633a38fb05db928a09ac0a3bbc7e"
       },
       "winston-client": {
         "git": "https://github.com/farpoint/meteor-winston-client.git",
@@ -65,13 +65,18 @@
       },
       "winston-loggly": {
         "git": "https://github.com/tomrogers3/meteor-winston-loggly.git",
-        "tag": "v0.0.2",
-        "commit": "8110c5f52ca0bffd102403c5225d07e2c0918608"
+        "tag": "v0.0.3",
+        "commit": "87ac23ce1134d778d53a3b99350921f9eb15358c"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",
         "tag": "v1.3.5",
         "commit": "b99ed8380aefd10b2afc8f18d9eed4dd0d8ea9cb"
+      },
+      "HTML5-History-API": {
+        "git": "https://github.com/tmeasday/meteor-HTML5-History-API.git",
+        "tag": "v4.0.0",
+        "commit": "dc4965f1424cfca625ec3fbea17eace03f8e32c5"
       }
     }
   }
