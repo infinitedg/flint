@@ -1,0 +1,60 @@
+<head>
+  <title>flint</title>
+</head>
+
+<body></body>
+
+<template name="core_layout">
+  <!-- @TODO: Use reactive themes -->
+  <link rel="stylesheet" href="/themes/default/css/theme.css">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+			{{loginButtons}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12">
+			{{yield}}
+			</div>
+		</div>
+	</div>
+  {{>debugging}}
+</template>
+
+<template name="core_404">
+	<h1>404!</h1>
+	<p>Unknown page</p>
+</template>
+
+<template name="core_loading">
+	<h1 class="text-center">Loading...</h1>
+	<div class="progress progress-striped active">
+		<div class="bar" style="width: 100%;"></div>
+	</div>
+</template>
+
+<template name="core_simulatorPicker">
+  <h1>Station Picker</h1>
+  <h2>Select Simulator</h2>
+  <div class="btn-group">
+    {{#each simulators}}
+      <a href="/simulator/{{_id}}" class="simulator btn btn-primary">{{name}}</a>
+    {{/each}}
+  </div>
+</template>
+
+<template name="core_stationPicker">
+  <h1>Station Picker - {{name}}</h1>
+  <a href="/">&laquo; Go Back</a>
+  <h2>Select Station</h2>
+  <div class="btn-group">
+    {{#each stations}}
+      <a href="/simulator/{{simulatorId}}/station/{{_id}}/card/0" class="station btn btn-primary">{{name}}</a>
+    {{/each}}
+  </div>
+</template>
+
+<template name="core_login">
+	<h1>Please sign in to continue</h1>
+</template>

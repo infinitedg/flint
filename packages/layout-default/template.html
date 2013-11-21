@@ -1,0 +1,24 @@
+<template name="layout_default">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        {{#isolate}}
+          <h1>{{simulator.name}}</h1>
+          <h2>{{station.name}}</h1>
+        {{/isolate}}
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span3">
+        {{#isolate}}
+          <div class="{{hideCardlistCSS}}">
+            {{> layout_default_cardList}}
+          </div>
+        {{/isolate}}
+      </div>
+      <div class="span9">
+        {{yield}}
+      </div>
+    </div>
+  </div>
+</template>
