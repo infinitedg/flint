@@ -2,7 +2,7 @@
 @class Flint
 */
 
-var soundPrefix = '/packages/flint/sounds/';
+var soundPrefix = '/packages/flint-sound/sounds/';
 
 _.extend(Flint, {
   /**
@@ -10,7 +10,7 @@ _.extend(Flint, {
    * @method beep
    */
   beep: function() {
-    Flint.play('chime'+(Math.floor(Math.random()*6)+1) + '.wav');
+    Flint.play('chime'+(Math.floor(Math.random()*6)+1));
   },
 
   /**
@@ -20,7 +20,10 @@ _.extend(Flint, {
    */
   playRaw: function(snd) {
     // @TODO Test if this causes a memory leak?
-    var s = new buzz.sound(snd, {autoplay: true});
+    var s = new buzz.sound(snd, {
+      autoplay: true,
+      formats: ['wav', 'ogg', 'mp3']
+    });
   },
 
   /**
@@ -40,7 +43,8 @@ _.extend(Flint, {
   loop: function(snd) {
     var s = new buzz.sound(soundPrefix + snd, {
       loop: true,
-      autoplay: true
+      autoplay: true,
+      formats: ['wav', 'ogg', 'mp3']
     });
     Flint.loopCache[snd] = s;
   },

@@ -15,7 +15,8 @@ Template.card_login.events = {
   */
   'click .btn-login': function(e) {
     Flint.beep();
-    Flint.logIn($('.loginname').val());
+    Flint.login($('.loginname').val());
+    e.preventDefault();
     return false;
   },
   
@@ -25,7 +26,8 @@ Template.card_login.events = {
   */
   'click .btn-logout': function(e) {
     Flint.beep();
-    Flint.logOut();
+    Flint.logout();
+    e.preventDefault();
     return false;
   },
   
@@ -33,12 +35,20 @@ Template.card_login.events = {
   Trigger a login if the user presses return/enter (key 13)
   @method keypress input.loginname
   */
-  'keypress input.loginname': function(e) {
+  'keypress input.loginname': function(e, t) {
     if (e.which === 13) {
-      Template.card_login.events['click .btn-login'](null);
+      // Simulate click event
+      var evObj = document.createEvent('Events');
+      evObj.initEvent('click', true, false);
+      t.find('.btn-login').dispatchEvent(evObj);
+      
       e.preventDefault();
       return false;
     }
     return true;
   }
 };
+
+Template.card_login.currentUser = function() {
+  return Flint.user();
+}

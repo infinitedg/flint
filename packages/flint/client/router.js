@@ -32,7 +32,7 @@ Router.map(function () {
     layoutTemplate: 'flint_layout',
     template: 'flint_simulatorPicker',
     before: function () {
-      this.s = this.subscribe('core.picker.simulators').wait();
+      this.s = this.subscribe('flint.picker.simulators').wait();
     }
   });
   
@@ -44,26 +44,27 @@ Router.map(function () {
       return Flint.collection("simulators").findOne(this.params.simulatorId) || {};
     },
     before: function () {
-      this.subscribe('core.picker.simulator', this.params.simulatorId).wait();
-      this.subscribe('core.picker.stations', this.params.simulatorId).wait();
+      this.subscribe('flint.picker.simulator', this.params.simulatorId).wait();
+      this.subscribe('flint.picker.stations', this.params.simulatorId).wait();
     }
   });
   
   this.route('flint_station', {
     path: '/simulator/:simulatorId/station/:stationId/card/:cardId',
     before: function() {
-      this.subscribe('core.picker.simulator', this.params.simulatorId).wait();
-      this.subscribe('core.picker.station', this.params.stationId).wait();
+      this.subscribe('flint.picker.simulator', this.params.simulatorId).wait();
+      this.subscribe('flint.picker.station', this.params.stationId).wait();
       
-      Session.set("core.simulatorId", this.params.simulatorId);
-      Session.set("core.stationId", this.params.stationId);
-      Session.set("core.cardId", this.params.cardId);
+      Session.set("flint.simulatorId", this.params.simulatorId);
+      Session.set("flint.stationId", this.params.stationId);
+      Session.set("flint.cardId", this.params.cardId);
     },
     action: function() {
-      console.log(Flint.station());
-      // var r = Flint.collection("stations").findOne(this.params.stationId).cards[this.params.cardId].template;
-      var card = (Flint.station().cards) ? Flint.station().cards[this.params.cardId] : {template: 'flint_404'};
-      this.render(card.template);
+      if (!Flint.station())
+        return;
+      
+      var card = (Flint.station().cards) ? Flint.station().cards[this.params.cardId] : {cardId: 'flint_404'};
+      this.render(card.cardId);
     }
   });
 });
@@ -77,8 +78,8 @@ Flint.layout = function() {
     params = Router.current().params;
     station = Flint.stations.findOne(params.stationId);
     simulator = Flint.simulators.findOne(params.simulatorId);
-    if (station && simulator) { // If we haven't loaded anything, then stay with our flint_layout
-      layout = station.layout || simulator.layout || 'flint_layout';
+    if (station && simulator) { // If we haven't loaded anything, then use our default layout
+      layout = station.layout || simulator.layout || 'layout_default';
     } else {
       layout = 'flint_layout';
     }

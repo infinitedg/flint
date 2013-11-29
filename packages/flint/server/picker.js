@@ -1,4 +1,4 @@
-Meteor.publish("core.picker.simulators", function() {
+Meteor.publish("flint.picker.simulators", function() {
   if (!this.userId) {
 		this.error(new Meteor.Error(401, "Please log in to continue"));
 	}
@@ -6,7 +6,7 @@ Meteor.publish("core.picker.simulators", function() {
 	return Flint.collection("simulators").find();
 });
 
-Meteor.publish("core.picker.stations", function(simId) {
+Meteor.publish("flint.picker.stations", function(simId) {
   if (!this.userId) {
 		this.error(new Meteor.Error(401, "Please log in to continue"));
 	}
@@ -14,7 +14,7 @@ Meteor.publish("core.picker.stations", function(simId) {
 	return Flint.collection("stations").find({simulatorId: simId});
 });
 
-Meteor.publish("core.picker.simulator", function(simId) {
+Meteor.publish("flint.picker.simulator", function(simId) {
   if (!this.userId) {
     this.error(new Meteor.Error(401, "Please log in to continue"));
   }
@@ -22,7 +22,7 @@ Meteor.publish("core.picker.simulator", function(simId) {
   return Flint.collection("simulators").find({_id: simId});
 });
 
-Meteor.publish("core.picker.station", function(stationId) {
+Meteor.publish("flint.picker.station", function(stationId) {
   if (!this.userId) {
     this.error(new Meteor.Error(401, "Please log in to continue"));
   }

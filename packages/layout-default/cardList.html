@@ -2,7 +2,7 @@
   <ul class="nav nav-list well">
       <li class="nav-header">{{station.name}}</li>
     {{#each cards}}
-      <li class="{{#if isCurrentCard}}active{{/if}}"><a href="#">{{name}}</a></li>
+      <li class="{{#if isCurrentCard}}active{{/if}}"><a href="{{pathFor 'flint_station'}}">{{name}}</a></li>
     {{/each}}
   </ul>
 </template>

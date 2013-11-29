@@ -115,3 +115,7 @@ Template.layout_default.simulator = function() {
 Template.layout_default.station = function() {
   return Flint.station();
 }
+
+Template.layout_default.created = function() {
+	Flint.play('sciences');
+}

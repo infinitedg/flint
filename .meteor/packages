@@ -18,8 +18,11 @@ bootstrap-growl
 flint-debug
 buzz.js
 flint-flash
-flint-fixtures
 layout-default
 flint-sound
 layout-blackout
 card-login
+card-power
+card-alertCondition
+card-sensorGrid
+kinetic.js

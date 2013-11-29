@@ -8,7 +8,8 @@
       "winston-loggly": {},
       "winston-client": {},
       "bootstrap-growl": {},
-      "buzz.js": {}
+      "buzz.js": {},
+      "kinetic.js": {}
     },
     "packages": {
       "iron-router": {
@@ -45,6 +46,11 @@
         "git": "https://github.com/brentjanderson/meteor-buzz.git",
         "tag": "v1.1.0.1",
         "commit": "5c579c9833a6633a38fb05db928a09ac0a3bbc7e"
+      },
+      "kinetic.js": {
+        "git": "https://github.com/brentjanderson/meteor-kinetic.git",
+        "tag": "v4.7.4.1",
+        "commit": "c378707ff3b54bfc04d36e6b880ebeab15f23b10"
       }
     }
   }

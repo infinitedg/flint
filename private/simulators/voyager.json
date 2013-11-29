@@ -1,0 +1,12 @@
+{
+    "simulatorId": "voyager",
+    "simulators": [
+        {
+            "name": "USS Voyager",
+            "power": 120,
+            "alertCondition": 4,
+            "sensorText": "Important sensor information, Captain.",
+            "_id": "voyager"
+        }
+    ]
+}

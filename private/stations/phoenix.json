@@ -1,0 +1,24 @@
+{
+	"simulatorId": "phoenix",
+
+	"stations": [
+    {
+      "name": "Engineer",
+      "cards": [
+        {
+          "name": "Login",
+          "cardId": "card_login"
+        },
+        {
+          "name": "Power Distribution",
+          "cardId": "card_power"
+        },
+        {
+          "cardId": "card_alertCondition",
+          "name": "Alert Condition"
+        }
+      ],
+      "_id": "phoenix-engineer"
+    }
+  ]
+}

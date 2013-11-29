@@ -6,6 +6,7 @@
     "winston-loggly": {},
     "winston-client": {},
     "bootstrap-growl": {},
-    "buzz.js": {}
+    "buzz.js": {},
+    "kinetic.js": {}
   }
 }

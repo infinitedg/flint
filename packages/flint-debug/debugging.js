@@ -1,8 +1,8 @@
-Template.debugging.status = function() {
+Template.flint_debugging.status = function() {
   return Meteor.status();
 };
 
-Template.debugging.reconnectCountdown = function() {
+Template.flint_debugging.reconnectCountdown = function() {
   var status = Meteor.status();
   if (status.retryTime) {
     var computation = Deps.currentComputation;
@@ -13,15 +13,15 @@ Template.debugging.reconnectCountdown = function() {
   }
 };
 
-Template.debugging.connecting = function() {
+Template.flint_debugging.connecting = function() {
   return Meteor.status().status === "connecting";
 };
 
-Template.debugging.waiting = function() {
+Template.flint_debugging.waiting = function() {
   return Meteor.status().status === "waiting";
 };
 
-Template.debugging.events = {
+Template.flint_debugging.events = {
   'click a': function(e, t) {
     Meteor.reconnect();
     e.preventDefault();

@@ -14,6 +14,8 @@ Flint.collections = {};
  * @param {String} name Name of collection to be created
  */
 Flint.collection = function(name) {
+  name = name.toLowerCase(); // Ensure consistent naming of our collections
+
 	Flint.Log.verbose("Retrieving collection " + name);
 	if (! _.has(Flint.collections, name))
 		Flint.collections[name] = new Meteor.Collection(name);
@@ -26,27 +28,27 @@ Flint.stations = Flint.collection("stations");
 Flint.simulators = Flint.collection("simulators");
 
 Flint.simulator = function() {
-  return Flint.simulators.findOne(Session.get("core.simulatorId"));
+  return Flint.simulators.findOne(Session.get("flint.simulatorId"));
 };
 
 Flint.simulatorId = function() {
-  return Session.get("core.simulatorId");
+  return Session.get("flint.simulatorId");
 };
 
 Flint.station = function() {
-  return Flint.stations.findOne(Session.get("core.stationId"));
+  return Flint.stations.findOne(Session.get("flint.stationId"));
 };
 
 Flint.stationId = function() {
-  return Session.get("core.stationId");
+  return Session.get("flint.stationId");
 };
 
 Flint.card = function() {
   var station = Flint.station();
   if (station)
-    return station.cards[Session.get("core.cardId")];
+    return station.cards[Session.get("flint.cardId")];
 }
 
 Flint.cardId = function() {
-  return Session.get("core.cardId");
+  return Session.get("flint.cardId");
 }

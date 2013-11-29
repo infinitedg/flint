@@ -1,0 +1,15 @@
+{
+  "simulatorId": "odyssey",
+    
+  "simulators": [
+    {
+      "name": "USS Odyssey",
+      "power": 150,
+      "theme": "odyssey",
+      "alertCondition": 4,
+      "sensorText": "The Odyssey is in trouble!",
+      "_id": "odyssey"
+    }
+  ]  
+  
+}

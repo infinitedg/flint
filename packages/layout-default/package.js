@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use(['flint', 'templating']);
+  api.use(['flint', 'templating', 'iron-router']);
   
   api.add_files([
     'cardList.html', 'cardList.js', 

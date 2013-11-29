@@ -1,0 +1,14 @@
+{
+  "simulatorId": "phoenix",
+  
+  "simulators": [
+    {
+      "name": "USS Phoenix",
+      "power": 100,
+      "theme": "shamrock",
+      "alertCondition": 4,
+      "sensorText": "The Phoenix is in orbit",
+      "_id": "phoenix"
+    }
+  ]
+}
