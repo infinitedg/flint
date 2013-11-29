@@ -1,0 +1,35 @@
+{
+  "simulatorId": "odyssey",
+  
+  
+  "simulators": [
+    {
+      "name": "USS Odyssey",
+      "power": 150,
+      "theme": "odyssey",
+      "alertCondition": 4,
+      "sensorText": "The Odyssey is in trouble!"
+    }
+  ],
+  
+  "stations": [
+    {
+      "name": "Communications",
+      "cards": [
+        {
+          "name": "Login",
+          "cardId": "login"
+        },
+        {
+          "name": "Power Distribution",
+          "cardId": "power"
+        },
+        {
+          "cardId": "alertCondition",
+          "name": "Alert Condition"
+        }
+      ],
+      "_id": "odyssey-communications"
+    }
+  ]
+}

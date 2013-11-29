@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use(['templating', 'flint']);
+  api.use(['flint', 'templating']);
   
   api.add_files([
     'cardList.html', 'cardList.js', 

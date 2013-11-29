@@ -1,0 +1,35 @@
+{
+  "simulatorId": "phoenix",
+  
+  
+  "systems": [
+    {
+      "name": "Short Range Communications",
+      "minPower": 5,
+      "maxPower": 20,
+      "power": 7,
+      "_id": "systems-phoenix-srCommunications"
+    },
+    {
+      "name": "Torpedo Launchers",
+      "minPower": 7,
+      "maxPower": 30,
+      "power": 10,
+      "_id": "systems-phoenix-torpedoes"
+    },
+    {
+      "name": "Phasers",
+      "minPower": 7,
+      "maxPower": 30,
+      "power": 10,
+      "_id": "systems-phoenix-phasers"
+    },
+    {
+      "name": "Warp Core",
+      "minPower": 5,
+      "maxPower": 20,
+      "power": 7,
+      "_id": "systems-phoenix-warpCore"
+    }
+  ]
+}

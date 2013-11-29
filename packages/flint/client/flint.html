@@ -2,11 +2,17 @@
   <title>flint</title>
 </head>
 
-<body></body>
+<body>
+  {{> flint_theme}}
+</body>
 
-<template name="core_layout">
-  <!-- @TODO: Use reactive themes -->
-  <link rel="stylesheet" href="/themes/default/css/theme.css">
+<template name="flint_theme">
+  {{#if theme}}
+  <link rel="stylesheet" href="{{theme}}">
+  {{/if}}
+</template>
+
+<template name="flint_layout">
 	<div class="container">
 		<div class="row">
 			<div class="span12">
@@ -22,19 +28,19 @@
   {{>debugging}}
 </template>
 
-<template name="core_404">
+<template name="flint_404">
 	<h1>404!</h1>
 	<p>Unknown page</p>
 </template>
 
-<template name="core_loading">
+<template name="flint_loading">
 	<h1 class="text-center">Loading...</h1>
 	<div class="progress progress-striped active">
 		<div class="bar" style="width: 100%;"></div>
 	</div>
 </template>
 
-<template name="core_simulatorPicker">
+<template name="flint_simulatorPicker">
   <h1>Station Picker</h1>
   <h2>Select Simulator</h2>
   <div class="btn-group">
@@ -44,7 +50,7 @@
   </div>
 </template>
 
-<template name="core_stationPicker">
+<template name="flint_stationPicker">
   <h1>Station Picker - {{name}}</h1>
   <a href="/">&laquo; Go Back</a>
   <h2>Select Station</h2>
@@ -55,6 +61,10 @@
   </div>
 </template>
 
-<template name="core_login">
+<template name="flint_login">
 	<h1>Please sign in to continue</h1>
+</template>
+
+<template name="sample">
+  <h1>Sample</h1>
 </template>

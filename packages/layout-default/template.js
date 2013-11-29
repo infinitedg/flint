@@ -13,14 +13,14 @@ Returns a class to either show or hide the cardList if the user is logged in or 
 @property hideCardlistCSS
 @type String
 */
-// Template.layout_default.hideCardlistCSS = function() {
-//   if (Flint.user()) {
-//     return '';
-//   } else {
-//     return 'hide';
-//   }
-// };
-// 
+Template.layout_default.hideCardlistCSS = function() {
+  if (Flint.user()) {
+    return '';
+  } else {
+    return 'hide';
+  }
+};
+
 // /**
 // Constant speed for transitioning between cards
 // @property transitionSpeed
@@ -106,3 +106,12 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   cardTransitionAutorun.stop();
 //   stationActionObserver.stop();
 // };
+
+
+Template.layout_default.simulator = function() {
+  return Flint.simulator();
+}
+
+Template.layout_default.station = function() {
+  return Flint.station();
+}

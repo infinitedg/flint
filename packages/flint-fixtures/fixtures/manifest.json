@@ -1,0 +1,12 @@
+{
+  "collections": [
+    "sensorContacts",
+    "simulators",
+    "systems"
+  ],
+  "simulators": [
+    "odyssey",
+    "phoenix",
+    "voyager"
+  ]
+}

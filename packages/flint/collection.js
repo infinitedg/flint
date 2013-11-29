@@ -21,6 +21,10 @@ Flint.collection = function(name) {
 };
 
 // Aliases for frequently referenced items
+
+Flint.stations = Flint.collection("stations");
+Flint.simulators = Flint.collection("simulators");
+
 Flint.simulator = function() {
   return Flint.simulators.findOne(Session.get("core.simulatorId"));
 };
@@ -46,6 +50,3 @@ Flint.card = function() {
 Flint.cardId = function() {
   return Session.get("core.cardId");
 }
-
-Flint.stations = Flint.collection("stations");
-Flint.simulators = Flint.collection("simulators");

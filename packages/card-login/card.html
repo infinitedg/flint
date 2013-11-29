@@ -1,0 +1,29 @@
+<template name="card_login">
+  <div class="row-fluid">
+    <div class="span8">
+      {{#if currentUser}}
+        <div class="text-center">
+          <h1>Welcome {{currentUser}}</h1>
+          <a href="#" class="btn btn-primary btn-logout">Logout</a>
+        </div>
+      {{else}}
+      <div class="well">
+        <form class="form-horizontal">
+          <h2>Login</h2>
+          <div class="control-group">
+            <label class="control-label">Name</label>
+            <div class="controls">
+              <input type="text" class="loginname login-input"/>
+            </div>
+          </div>
+          <div class="control-group">
+              <div class="controls">
+              <a href="#" class="btn btn-primary btn-login">Login</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</template>
