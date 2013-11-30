@@ -13,8 +13,17 @@ Setup subscription to cards.power.systems for later teardown
 @method created
 */
 Template.core_power.created = function() {
+  that = this;
   this.subComputation = Deps.autorun(function() {
     Meteor.subscribe("cards.power.systems", Flint.simulatorId());
+
+    that.observer = Flint.collection('systems').find().observeChanges({
+      changed: function(id, fields) {
+        if (fields.power) {
+          Flint.say("Power");
+        }
+      }
+    });
   });
 };
 
@@ -24,6 +33,7 @@ Teardown subscription to cards.power.systems
 */
 Template.core_power.destroyed = function() {
   this.subComputation.stop();
+  this.observer.stop();
 };
 
 Template.core_power.events = {
@@ -51,12 +61,11 @@ Template.core_power.systems = function() {
 };
 
 /**
-The total power in use. Side-effect of saying the current total power in use.
+The total power in use.
 @property totalPower
 @type Number
 */
 Template.core_power.totalPower = function() {
-  Flint.say('power');
   var systems = Flint.collection('systems').find({});
   var totalPower = 0;
   systems.forEach(function(system){

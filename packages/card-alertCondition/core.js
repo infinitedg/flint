@@ -14,9 +14,7 @@ The current alert condition. Also has a side-effect where it issues a notificati
 @type Number
 */
 Template.core_alertCondition.alertCondition = function() {
-  var a = Flint.simulator().alertCondition;
-  Flint.notify('Alert condition ' + a); // @TODO: Trigger notifications only when the property changes, not when it is added/removed
-  return a;
+  return Flint.simulator().alertCondition;
 };
 
 Template.core_alertCondition.events = {
@@ -39,4 +37,18 @@ Template.core_alertCondition.events = {
     }, Flint.simulator().alertCondition);
     e.preventDefault();
   }
+};
+
+Template.core_alertCondition.created = function() {
+  this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+    changed: function(id, fields) {
+      if (fields.alertCondition) {
+          Flint.notify('Alert condition ' + fields.alertCondition);
+      }
+    }
+  })
+};
+
+Template.core_alertCondition.destroyed = function() {
+  this.conditionObserver.stop();
 };
