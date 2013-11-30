@@ -91,3 +91,8 @@ Meteor.startup(function() {
     });
   });
 });
+
+window.onbeforeunload = function() {
+  Flint.resetClient();
+  return;
+};
