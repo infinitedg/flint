@@ -14,7 +14,7 @@ Returns a class to either show or hide the cardList if the user is logged in or 
 @type String
 */
 Template.layout_default.hideCardlistCSS = function() {
-  if (Flint.user()) {
+  if (Flint.client('name')) {
     return '';
   } else {
     return 'hide';

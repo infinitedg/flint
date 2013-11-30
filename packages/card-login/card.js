@@ -49,6 +49,6 @@ Template.card_login.events = {
   }
 };
 
-Template.card_login.currentUser = function() {
-  return Flint.user();
+Template.card_login.client = function() {
+  return Flint.client();
 }

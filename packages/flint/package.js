@@ -16,7 +16,7 @@ Package.on_use(function(api) {
   api.add_files(['voices/mespeak_config.json', 'voices/en-us.json', 'lib/mespeak.js', 'client/voice.js'], 'client');
   api.add_files(['client/notifications.js', 'client/flint.html', 'client/picker.js', 'client/router.js'], 'client');
   
-  api.add_files(['client/user.js'], 'client');
+  api.add_files(['client/client.js'], 'client');
   
   api.export("Flint");
 });
