@@ -16,12 +16,15 @@ Flint.notify = function(message, options) {
     Flint.say(message);
   options.speak = undefined;
   
-  if (window.webkitNotifications) {
+  if (window.webkitNotifications) { // @TODO Chrome's notifications are annoying.
     if (window.webkitNotifications.checkPermission() === 0) {
       options.title = options.title || "Flint";
       options.icon = options.icon || "icon.png";
       var n = window.webkitNotifications.createNotification(options.icon, options.title, message);
       n.show();
+      setTimeout(function() {
+        n.close();
+      }, 5000);
     } else {
       window.webkitNotifications.requestPermission(function(r) {
         console.log(r);
