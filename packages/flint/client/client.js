@@ -1,3 +1,4 @@
+var heartbeatInterval = 10 * 1000;
 function setCookie(name,value,days) {
   if (days) {
     var date = new Date();
@@ -84,7 +85,7 @@ Meteor.startup(function() {
     Meteor.subscribe("flint.clientId", Flint.clientId(), function() {
       Meteor.setInterval(function(){
         Flint.heartbeat();
-      }, 10 * 1000);
+      }, heartbeatInterval);
     });
   });
 });
