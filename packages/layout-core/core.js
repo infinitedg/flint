@@ -23,3 +23,30 @@ Setup a 5 column JQuery Masonry layout
 //     });
 //   });
 // };
+
+Meteor.startup(function() {
+	/**
+	 * Convenience method for rendering templates safely
+	 * @method _render
+	 * @param {String} name The name of the template to render
+	 * @param {Object} [options] Map of options to be passed to handlebars
+	 * @private
+	 */
+	var _render = function(name, options) {
+	  if (Template[name]) {
+	    return new Handlebars.SafeString(Template[name]());
+	  }
+	};
+
+	/**
+	 * `render` helper for Hanldebars - Renders arbitrary templates
+	 * @method render
+	 * @param {String} name The name of the template to render
+	 * @param {Object} [options] Optional values to be passed to handlebars
+	 */
+	Handlebars.registerHelper('render', _render);
+});
+
+Template.layout_core.cards = function() {
+	return Flint.station().cards;
+};

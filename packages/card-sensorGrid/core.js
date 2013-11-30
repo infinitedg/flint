@@ -36,6 +36,7 @@ Setup grid and animation loop
 @method created
 */
 Template.core_sensorGrid.created = function() {
+  var that = this;
   Meteor.defer(function(){
   
     var k;
@@ -49,7 +50,7 @@ Template.core_sensorGrid.created = function() {
       scale: 200 / 600, // Used to determine contact scaling
       strokeWidth: 2,
       color: "00ff00",
-      container: $('#core-sensorGrid .sensorgrid-container').get(0),
+      container: that.find('.sensorgrid-container'),
       spritePath: '/packages/card-sensorGrid/sprites/',
       shadowInterval: 1000,
       contactSize: 32 // The standard size in pixels for a contact
@@ -180,7 +181,7 @@ Template.core_sensorGrid.created = function() {
           });
           
           image.on('dragend', function(e){
-            SensorContacts.update(contact._id, { $set: {x: e.shape.getX() / k.width, y: e.shape.getY() / k.height }});
+            Flint.collection('sensorContacts').update(contact._id, { $set: {x: e.shape.getX() / k.width, y: e.shape.getY() / k.height }});
           });
 
           contactsLayer.add(image).draw();
@@ -214,11 +215,11 @@ Template.core_sensorGrid.created = function() {
     };
 
     // Add currently available contacts to the simulation
-    SensorContacts.find().forEach(addContact);
+    Flint.collection('sensorContacts').find().forEach(addContact);
 
     // Observe changes to collection
     if (observeLoop === undefined) {
-      observeLoop = SensorContacts.find().observe({
+      observeLoop = Flint.collection('sensorContacts').find().observe({
         added: addContact,
         changed: function(contact, oldContact) {
           Flint.Log.verbose('Changed contact ' + contact._id, 'Sensors');
@@ -378,7 +379,7 @@ Template.core_sensorGrid.created = function() {
         
         // If we're within the outerCircle...
         if (outerCircle.intersects([x,y])) {
-          SensorContacts.insert({
+          Flint.collection('sensorContacts').insert({
             x: e.shape.getX() / k.width,
             y: e.shape.getY() / k.width,
             icon: armyContactsDrawerCache[that.drawerIndex].icon,

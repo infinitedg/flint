@@ -29,13 +29,13 @@ Meteor.startup(function() {
 
   Flint.client = function(key, value) {
     var clientId = Flint.clientId();
-    var client = Flint.collection('clients').findOne(clientId);
+    var client = Flint.clients.findOne(clientId);
     if (!client) {
       clientId = Meteor.call('flint.getClient', clientId, function(e, newClientId) {
         setCookie('flint.clientId', newClientId);
         clientIdDep.changed();
       });
-      client = Flint.collection('clients').findOne(clientId) || {};
+      client = Flint.clients.findOne(clientId) || {};
     }
 
     if (key && value && client) { // Set a value
@@ -43,7 +43,7 @@ Meteor.startup(function() {
       client[key] = value;
       var d = new Date();
       client.updatedOn = d.getTime();
-      return (Flint.collection('clients').update(clientId, {$set: client}) === 1);
+      return (Flint.clients.update(clientId, {$set: client}) === 1);
     } else if (key && !value && client) { // Get a value
       return client[key];
     } else { // Get entire object
@@ -55,13 +55,15 @@ Meteor.startup(function() {
     var obj = {};
     obj[key] = 1;
 
-    return (Flint.collection('clients').update(Flint.clientId(), {$unset: obj}) === 1);
+    return (Flint.clients.update(Flint.clientId(), {$unset: obj}) === 1);
   };
 
   Flint.clientId = function() {
     clientIdDep.depend();
     return getCookie('flint.clientId');
   };
+
+  Flint.clients = Flint.collection('clients');
 
   Flint.login = function(name) {
     return Flint.client('name', name);

@@ -35,7 +35,7 @@ Template.core_power.events = {
     var context = this;
     bootbox.prompt("Enter new power for " + this.name, 'Cancel', 'OK', function(result) {
       if (result !== undefined) {
-        Systems.update({_id: context._id},{$set: {power: result}});
+        Flint.collection('systems').update({_id: context._id},{$set: {power: result}});
       }
     }, context.power);
   }
@@ -47,7 +47,7 @@ The list of systems available
 @type Meteor.Collection
 */
 Template.core_power.systems = function() {
-  return Systems.find({});
+  return Flint.collection('systems').find({});
 };
 
 /**
@@ -57,7 +57,7 @@ The total power in use. Side-effect of saying the current total power in use.
 */
 Template.core_power.totalPower = function() {
   Flint.say('power');
-  var systems = Systems.find({});
+  var systems = Flint.collection('systems').find({});
   var totalPower = 0;
   systems.forEach(function(system){
     totalPower += parseInt(system.power, 10);

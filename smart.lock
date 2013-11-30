@@ -9,7 +9,8 @@
       "winston-client": {},
       "bootstrap-growl": {},
       "buzz.js": {},
-      "kinetic.js": {}
+      "kinetic.js": {},
+      "bootboxjs": {}
     },
     "packages": {
       "iron-router": {
@@ -51,6 +52,11 @@
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
         "tag": "v4.7.4.1",
         "commit": "c378707ff3b54bfc04d36e6b880ebeab15f23b10"
+      },
+      "bootboxjs": {
+        "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
+        "tag": "v3.2.2",
+        "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
       }
     }
   }

@@ -1,0 +1,26 @@
+<template name="core_stationUtility">
+  <form class="form-inline">
+    <select class="action">
+      <option value="flash">Flash</option>
+      <option value="reselect">Reselect Station</option>
+    </select>
+  
+    <select class="target">
+      {{#if stations}}
+        <optgroup label="Stations">
+          {{#each stations}}
+          <option value="{{_id}}">{{name}}</option>
+          {{/each}}
+        </optgroup>
+      {{/if}}
+      {{#if clients}}
+        <optgroup label="Participants">
+          {{#each clients}}
+          <option class="participant" value="{{_id}}">{{stationName}} - {{user}}</option>
+          {{/each}}
+        </optgroup>
+      {{/if}}
+    </select>
+    <button class="btn btn-warning">Run</button>
+  </form>
+</template>
