@@ -5,7 +5,7 @@
 // @TODO Consider encapsulating mespeak in its own package and upload it to Atmosphere 
 
 var spokenPhrases = {};
-var voicePrefix = '/packages/flint/voices/';
+var voicePrefix = '/packages/flint-speech/voices/';
 
 _.extend(Flint, {
   /**
