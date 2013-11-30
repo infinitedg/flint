@@ -18,6 +18,7 @@ Template.core_login.clients = function() {
     Flint.collection('stations').find({ simulatorId: Flint.simulatorId() }).map(function(station) {
       return Flint.collection('clients').find({ stationId: station._id, _id: { $ne: Flint.clientId() } }).map(function(client) { 
         client.stationName = station.name;
+        client.name = client.name || '-';
         return client;
       });
     }), true);
