@@ -69,8 +69,9 @@ Router.map(function () {
     action: function() {
       if (!Flint.station())
         return;
-      
-      var card = (Flint.station().cards) ? Flint.station().cards[this.params.cardId] : {cardId: 'flint_404'};
+      // If we're not logged in, then take us to card 0 (presumably login)
+      var cardId = (Flint.client() && Flint.client().name) ? this.params.cardId : 0;
+      var card = (Flint.station().cards) ? Flint.station().cards[cardId] : {cardId: 'flint_404'};
       this.render(card.cardId);
     },
     unload: function() {
