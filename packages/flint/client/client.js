@@ -29,7 +29,6 @@ Meteor.startup(function() {
 
   Flint.client = function(key, value) {
     var clientId = Flint.clientId();
-    var d = new Date();
     var client = Flint.collection('clients').findOne(clientId);
     if (!client) {
       clientId = Meteor.call('flint.getClient', clientId, function(e, newClientId) {
@@ -42,6 +41,7 @@ Meteor.startup(function() {
     if (key && value && client) { // Set a value
       delete client['_id']; // Updates disallow _id on mass assignment
       client[key] = value;
+      var d = new Date();
       client.updatedOn = d.getTime();
       return (Flint.collection('clients').update(clientId, {$set: client}) === 1);
     } else if (key && !value && client) { // Get a value
@@ -52,11 +52,10 @@ Meteor.startup(function() {
   };
 
   Flint.clientUnset = function(key) {
-    var client = Flint.client();
     var obj = {};
     obj[key] = 1;
 
-    return (Flint.collection('clients').update(client._id, {$unset: obj}) === 1);
+    return (Flint.collection('clients').update(Flint.clientId(), {$unset: obj}) === 1);
   };
 
   Flint.clientId = function() {
@@ -73,7 +72,7 @@ Meteor.startup(function() {
   };
 
   Flint.resetClient = function() {
-    document.cookie = 'flint.clientId=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    clearCookie('flint.clientId');
     var c = Flint.client(); // Creates a new client object since our cookie is now invalid.
   };
   

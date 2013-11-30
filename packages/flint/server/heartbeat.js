@@ -13,7 +13,7 @@ Meteor.startup(function(){
 });
 
 Meteor.publish("flint.clientId", function(clientId) {
-  return Flint.collection("clients").find(clientId);
+  return Flint.collection("clients").find(clientId, {fields: { heartbeat: false, createdOn: false, updatedOn: false }});
 });
 
 Meteor.methods({
