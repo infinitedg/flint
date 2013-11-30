@@ -44,8 +44,6 @@ Meteor.methods({
     } else {
       unsetObj['simulatorId'] = true;
     }
-
-    console.log(setObj, unsetObj);
     
     Flint.collection('clients').update(clientId, {$set: setObj, $unset: unsetObj});
   }
