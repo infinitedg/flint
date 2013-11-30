@@ -2,7 +2,8 @@
 @class Flint
 */
 
-var soundPrefix = '/packages/flint-sound/sounds/';
+var soundPrefix = '/packages/flint-sound/sounds/',
+    flintFormats = ['wav', 'ogg', 'mp3'];
 
 _.extend(Flint, {
   /**
@@ -22,7 +23,7 @@ _.extend(Flint, {
     // @TODO Test if this causes a memory leak?
     var s = new buzz.sound(snd, {
       autoplay: true,
-      formats: ['wav', 'ogg', 'mp3']
+      formats: flintFormats
     });
   },
 
@@ -41,12 +42,14 @@ _.extend(Flint, {
    * @param {String} snd The name of the sound to loop
    */
   loop: function(snd) {
-    var s = new buzz.sound(soundPrefix + snd, {
-      loop: true,
-      autoplay: true,
-      formats: ['wav', 'ogg', 'mp3']
-    });
-    Flint.loopCache[snd] = s;
+    if (!Flint.loopCache[snd]) {
+      var s = new buzz.sound(soundPrefix + snd, {
+        loop: true,
+        autoplay: true,
+        formats: flintFormats
+      });
+      Flint.loopCache[snd] = s;
+    }
   },
 
   /**
@@ -76,7 +79,7 @@ _.extend(Flint, {
   isLooping: function(snd) {
     var s = Flint.loopCache[snd];
     if (s !== undefined) {
-      return ($(s.get()).attr('loop') === 'loop');
+      return (s.get().loop);
     } else {
       return false;
     }
