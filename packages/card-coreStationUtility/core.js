@@ -61,14 +61,19 @@ Template.core_stationUtility.events = {
   'click button': function(e, t) {
     var target = t.find('select.target').value;
     var action = t.find('select.action').value;
-    var opts = {};
+    var opts = {}; // Unused, reserved for future applications
     
+    var searchParams = {stationId: target};
+
     if ($(t.find('select.target option:selected')).hasClass('participant')) {
-      opts.clientId = target;
-      target = Flint.clients.findOne(target).stationId;
+      searchParams = {_id: target};
     }
-    
-    Flint.stations.update(target, {$set: {remoteAction: action, remoteActionSeed: Math.random(), remoteActionOptions: opts}});
+
+    Flint.clients.find(searchParams).forEach(function(client, i){
+      Flint.clients.update(client._id, {$set: {remoteAction: action, remoteActionSeed: Math.random(), remoteActionOptions: opts}});
+    }), 
+
     e.preventDefault();
+    return false;
   }
 };

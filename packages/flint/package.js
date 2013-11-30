@@ -7,7 +7,7 @@ Package.on_use(function(api) {
   api.use(['iron-router', 'underscore']);
   api.use(['winston', 'winston-loggly'], ['server']);
 	api.use(['templating', 'winston-client', 'bootstrap-growl'], ['client']);
-  api.use(['deps'], 'client');
+  api.use(['deps'], 'client'); // @TODO Evaluate - see if we can use Utils.memoize
   api.use('flint-utils');
   
   api.add_files(['flint.js', 'logger.js', 'collection.js'], ['server', 'client']);
