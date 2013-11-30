@@ -26,14 +26,27 @@ Meteor.methods({
 		}
 		return client._id;
 	},
-  "flint.heartbeat": function(clientId, simulatorId) {
+  "flint.resetClient": function(clientId) {
+    Flint.collection('clients').remove(clientId);
+  },
+  "flint.heartbeat": function(clientId, simulatorId, stationId) {
     var d = new Date();
-    if (simulatorId) {
-      Flint.collection('clients').update(clientId, {$set: {simulatorId: simulatorId}});
+    var setObj = {heartbeat: d.getTime()};
+    var unsetObj = {};
+    if (stationId) {
+      setObj['stationId'] = stationId;
     } else {
-      Flint.collection('clients').update(clientId, {$unset: {simulatorId: 1}});
+      unsetObj['stationId'] = true;
     }
+
+    if (simulatorId) {
+      setObj['simulatorId'] = simulatorId;
+    } else {
+      unsetObj['simulatorId'] = true;
+    }
+
+    console.log(setObj, unsetObj);
     
-    Flint.collection('clients').update(clientId, {$set: {heartbeat: d.getTime()}});
+    Flint.collection('clients').update(clientId, {$set: setObj, $unset: unsetObj});
   }
 });

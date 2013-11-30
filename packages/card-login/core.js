@@ -15,10 +15,20 @@ The list of clients currently attached to the simulator
 */
 Template.core_login.clients = function() {
   return _.flatten(
-    Flint.stations.find({ simulatorId: Flint.simulatorId() }).map(function(station) {
-      return Flint.clients.find({ stationId: station._id, _id: { $ne: Flint.clientId() } }).map(function(client) { 
+    Flint.collection('stations').find({ simulatorId: Flint.simulatorId() }).map(function(station) {
+      return Flint.collection('clients').find({ stationId: station._id, _id: { $ne: Flint.clientId() } }).map(function(client) { 
         client.stationName = station.name;
         return client;
       });
     }), true);
+};
+
+Template.core_login.created = function() {
+	this.clientSub = Meteor.subscribe("core.login.clients", Flint.simulatorId());
+	this.stationSub = Meteor.subscribe("core.login.stations", Flint.simulatorId());
+};
+
+Template.core_login.destroyed = function() {
+	this.clientSub.stop();
+	this.stationSub.stop();
 };

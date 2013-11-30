@@ -72,13 +72,15 @@ Meteor.startup(function() {
   };
 
   Flint.resetClient = function() {
+    Meteor.call('flint.resetClient', Flint.clientId());
     clearCookie('flint.clientId');
+    clientIdDep.changed()
     var c = Flint.client(); // Creates a new client object since our cookie is now invalid.
     Router.go('/');
   };
   
   Flint.heartbeat = function() {
-    Meteor.call('flint.heartbeat', Flint.clientId(), Flint.simulatorId());
+    Meteor.call('flint.heartbeat', Flint.clientId(), Flint.simulatorId(), Flint.stationId());
   };
   
   Deps.autorun(function(){
