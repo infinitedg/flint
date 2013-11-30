@@ -28,14 +28,16 @@ Template.layout_default_cardList.events = {
   */
   'click a': function(e, t) {
     Flint.beep();
-    that = this;
-    $('.card-area').fadeOut(function(){
-      Router.go('flint_station', {
-        simulatorId: that.simulatorId,
-        stationId: that.stationId,
-        cardId: that.cardId
+    if ('' + this.cardId !== Flint.cardId() + '') { // Cast to strings
+      that = this;
+      $('.card-area').fadeOut(function(){
+        Router.go('flint_station', {
+          simulatorId: that.simulatorId,
+          stationId: that.stationId,
+          cardId: that.cardId
+        });
       });
-    });
+    }
     e.preventDefault();
   }
 };
