@@ -10,12 +10,10 @@ Template.flint_theme.theme = function() {
   return Flint.theme();
 };
 
-var themeDep = new Deps.Dependency;
-Flint.theme = function() {
-  themeDep.depend();
+Flint.theme = Utils.memoize(function() {
   if (Flint.station() && Flint.simulator()) {
   	var theme = Flint.client('theme') || Flint.station().theme || Flint.simulator().theme || 'default';
 
   	return '/themes/' + theme + '/css/theme.css';
   }
-};
+});

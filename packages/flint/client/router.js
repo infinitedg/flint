@@ -83,9 +83,7 @@ Router.map(function () {
 });
 
 // Automatically change layouts based on current selection
-var layoutDep = new Deps.Dependency;
-Flint.layout = function() {
-  layoutDep.depend();
+Flint.layout = Utils.memoize(function() {
   if (Router.current()) {
     var layout,
     params = Router.current().params, 
@@ -100,7 +98,7 @@ Flint.layout = function() {
     
     return layout;
   }
-};
+});
 
 Deps.autorun(function() {
   if (Router.current()) {
