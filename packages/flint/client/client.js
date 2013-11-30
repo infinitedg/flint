@@ -84,13 +84,17 @@ Meteor.startup(function() {
   Flint.heartbeat = function() {
     Meteor.call('flint.heartbeat', Flint.clientId(), Flint.simulatorId(), Flint.stationId());
   };
-  
+
+  Meteor.setInterval(function(){
+    Flint.heartbeat();
+  }, heartbeatInterval);
+
+  Meteor.setTimeout(function() {
+    Flint.heartbeat();
+  }, 1000);
+
   Deps.autorun(function(){
-    Meteor.subscribe("flint.clientId", Flint.clientId(), function() {
-      Meteor.setInterval(function(){
-        Flint.heartbeat();
-      }, heartbeatInterval);
-    });
+    Meteor.subscribe("flint.clientId", Flint.clientId());
   });
 });
 
