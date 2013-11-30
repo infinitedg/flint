@@ -50,3 +50,10 @@ Meteor.startup(function() {
 Template.layout_core.cards = function() {
 	return Flint.station().cards;
 };
+
+Template.layout_core.created = function() {
+	that = this;
+	Meteor.defer(function(){
+		salvattore.register_grid(that.find('#grid'));
+	});
+};
