@@ -26,8 +26,14 @@ Meteor.methods({
 		}
 		return client._id;
 	},
-  "flint.heartbeat": function(clientId) {
+  "flint.heartbeat": function(clientId, simulatorId) {
     var d = new Date();
+    if (simulatorId) {
+      Flint.collection('clients').update(clientId, {$set: {simulatorId: simulatorId}});
+    } else {
+      Flint.collection('clients').update(clientId, {$unset: {simulatorId: 1}});
+    }
+    
     Flint.collection('clients').update(clientId, {$set: {heartbeat: d.getTime()}});
   }
 });

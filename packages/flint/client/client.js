@@ -74,10 +74,11 @@ Meteor.startup(function() {
   Flint.resetClient = function() {
     clearCookie('flint.clientId');
     var c = Flint.client(); // Creates a new client object since our cookie is now invalid.
+    Router.go('/');
   };
   
   Flint.heartbeat = function() {
-    Meteor.call('flint.heartbeat', Flint.clientId());
+    Meteor.call('flint.heartbeat', Flint.clientId(), Flint.simulatorId());
   };
   
   Deps.autorun(function(){
