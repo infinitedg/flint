@@ -13,11 +13,8 @@ Template.flint_theme.theme = function() {
 var themeDep = new Deps.Dependency;
 Flint.theme = function() {
   themeDep.depend();
-  var station = Flint.station();
-  var simulator = Flint.simulator();
-
   if (Flint.station() && Flint.simulator()) {
-  	var theme = Flint.station().theme || Flint.simulator().theme || 'default';
+  	var theme = Flint.client('theme') || Flint.station().theme || Flint.simulator().theme || 'default';
 
   	return '/themes/' + theme + '/css/theme.css';
   }

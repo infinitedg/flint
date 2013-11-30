@@ -87,12 +87,13 @@ var layoutDep = new Deps.Dependency;
 Flint.layout = function() {
   layoutDep.depend();
   if (Router.current()) {
-    var layout, params, station, simulator;
-    params = Router.current().params;
-    station = Flint.stations.findOne(params.stationId);
+    var layout,
+    params = Router.current().params, 
+    station = Flint.stations.findOne(params.stationId), 
     simulator = Flint.simulators.findOne(params.simulatorId);
+
     if (station && simulator) { // If we haven't loaded anything, then use our default layout
-      layout = station.layout || simulator.layout || 'layout_default';
+      layout = Flint.client('layout') || station.layout || simulator.layout || 'layout_default';
     } else {
       layout = 'flint_layout';
     }
