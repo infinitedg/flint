@@ -20,6 +20,18 @@
                 {
                     "cardId": "card_sensorGrid",
                     "name": "Sensor Grid"
+                },
+                {
+                    "cardId": "card_mario",
+                    "name": "Mario"
+                },
+                {
+                    "cardId": "card_3d_car_demo",
+                    "name": "3D Car Demo"
+                },
+                {
+                    "cardId": "card_3d_stars_demo",
+                    "name": "3D Stars Demo"
                 }
             ],
             "_id": "voyager-operations"
@@ -48,6 +60,10 @@
                 {
                     "cardId": "core_sensorGrid",
                     "name": "Sensor Grid"
+                },
+                {
+                    "cardId": "core_speed",
+                    "name": "Speed"
                 }
             ],
             "_id": "voyager-flightDirector"
@@ -92,6 +108,10 @@
                 {
                     "name": "Login",
                     "cardId": "card_login"
+                },
+                {
+                    "name": "Speed",
+                    "cardId": "card_speed"
                 },
                 {
                     "name": "Star Charts",
