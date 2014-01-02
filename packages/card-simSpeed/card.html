@@ -1,0 +1,35 @@
+<template name="card_simSpeed">
+  <h1>Alert Condition</h1>
+  <div class="row-fluid">
+    <div class="span3 text-center">
+      <div class="alert-affix">
+        <div class="alert alert-{{alertStyle}} alert-box">
+          <h3>Alert Condition</h3>
+          <h1>{{alertCondition}}</h1>
+        </div>
+      </div>
+    </div>
+    <div class="span9">
+      <div class="speed speed-4" data-alert="4">
+        <h1>Speed 4</h1>
+        <p>This speed is the fastest a ship can go. Only use in dire times of need.</p>
+        <p><a href="#" class="btn btn-success">Change Speed To/a></p>
+      </div>
+      <div class="speed speed-3" data-alert="3">
+        <h1>Speed 3</h1>
+        <p>This speed is the normal traveling time for most starships and places little strain on engines.</p>
+        <p><a href="#" class="btn btn-info">Change Speed TO</a></p>
+      </div>
+      <div class="speed speed-2" data-alert="2">
+        <h1>Speed 2</h1>
+        <p>This speed is more leisurely speed and can be used to protect easily damaged cargo from higher speeds.</p>
+        <p><a href="#" class="btn btn-warning">Change Speed To</a></p>
+      </div>
+      <div class="speed speed-1" data-alert="1">
+        <h1>Orbital Speed</h1>
+        <p>This speed is the slowest a starship can travel and is used to orbit planets.</p>
+        <p><a href="#" class="btn btn-danger">Change Alert level</a></p>
+      </div>
+    </div>
+  </div>
+</template>
