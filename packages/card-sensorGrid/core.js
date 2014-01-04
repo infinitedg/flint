@@ -353,11 +353,11 @@ Template.core_sensorGrid.created = function() {
     var armyContacts = [
       {
         name: "USS Voyager",
-        icon: "Planet.png"
+        icon: "planet.png"
       },
       {
         name: "Earth",
-        icon: "Planet.png"
+        icon: "planet.png"
       }
     ];
     var armyContactsDrawerCache = [];

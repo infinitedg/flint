@@ -5,7 +5,7 @@
   "sensorContacts": [
     {
       "name":"USS Voyager",
-      "icon":"Federation",
+      "icon":"planet.png",
       "x":0.6,
       "y":0.3,
       "_id":"odyssey-contact"
