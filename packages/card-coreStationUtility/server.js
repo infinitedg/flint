@@ -15,6 +15,6 @@ List of clients for the requested simulator ID
 @method core.stationUtility.clients
 */
 Meteor.publish("core.stationUtility.clients", function(simId) {
-  return Flint.clients.find();
+  return Flint.collection('clients').find();
   // @TODO: Attach simulatorID to client table
 });
