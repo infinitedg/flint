@@ -3,6 +3,20 @@
 	
     "stations": [
         {
+          "name": "Scanners",
+          "cards": [
+            {
+              "name": "Login",
+              "cardId": "card_login"
+            },
+            {
+              "name": "Scanners",
+              "cardId": "card_scanner"
+            }
+          ],
+          "_id": "voyager-scanner"
+        },
+        {
             "name": "Operations",
             "cards": [
                 {
