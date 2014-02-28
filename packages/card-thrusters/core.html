@@ -1,0 +1,44 @@
+<template name="core_thrusters">
+  <style>
+    .thruster-icon{
+      background-color: #333;
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      line-height: 30px;
+      text-align: center;
+    }
+    .highlight{
+      background-color: #ff0;
+      color: #000;
+    }
+  </style>
+  <h1>Thrusters</h1>
+  <div class="container">
+    <div class="row fa-2">
+      <div id="reverse" class="col-lg-1 col-md-1 col-sm-1 thruster-icon"><i class="fa fa-angle-double-down fa-2x"></i></div>
+      <div id="up" class="col-lg-1 col-md-1 col-sm-1 thruster-icon"><i class="fa fa-angle-up fa-2x"></i></div>
+      <div id="forward" class="col-lg-1 col-md-1 col-sm-1 thruster-icon"><i class="fa fa-angle-double-up fa-2x"></i></div>
+    </div>
+    <div class="row">
+      <div id="port" class="col-lg-1 col-md-1 col-sm-1 thruster-icon"><i class="fa fa-angle-left fa-2x"></i></div>
+      <div id="down" class="col-lg-1 col-md-1 col-sm-1 thruster-icon"><i class="fa fa-angle-down fa-2x"></i></div>
+      <div id="starboard" class="col-lg-1 col-md-1 col-sm-1 thruster-icon"><i class="fa fa-angle-right fa-2x"></i></div>
+    </div>
+    <div id="rotation-numbers" class="">
+      <div id="yaw" class="col-lg-2">
+        <h3>YAW</h3>
+        <span class="yaw-value">0</span>
+      </div>
+      <div id="pitch" class="col-lg-2">
+        <h3>PITCH</h3>
+        <span class="pitch-value">0</span>
+      </div>
+      <div id="roll" class="col-lg-2">
+        <h3>ROLL</h3>
+        <span class="roll-value">0</span>
+      </div>
+    </div>
+  </div>
+
+</template>
