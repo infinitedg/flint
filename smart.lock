@@ -10,13 +10,14 @@
       "bootstrap-growl": {},
       "buzz.js": {},
       "kinetic.js": {},
-      "bootboxjs": {}
+      "bootboxjs": {},
+      "apm": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.6.1",
-        "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
+        "tag": "v0.6.4",
+        "commit": "927bbaed1b87894fb6fb70807f74ff3a5bd89f29"
       },
       "nprogress": {
         "git": "https://github.com/zhouzhuojie/meteor-nprogress.git",
@@ -50,13 +51,18 @@
       },
       "kinetic.js": {
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
-        "tag": "v4.7.4.1",
-        "commit": "c378707ff3b54bfc04d36e6b880ebeab15f23b10"
+        "tag": "v5.0.1",
+        "commit": "3c29f5bcbcdc9687081b336e59e8387dc02236a5"
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
         "tag": "v3.2.2",
         "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
+      },
+      "apm": {
+        "git": "https://github.com/arunoda/meteor-apm-client.git",
+        "tag": "v0.2.4",
+        "commit": "0958a97a6d67960b40ba8db804e7230dd1cf9d98"
       }
     }
   }
