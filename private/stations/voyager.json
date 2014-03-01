@@ -78,6 +78,10 @@
                 {
                     "cardId": "core_speed",
                     "name": "Speed"
+                },
+                {
+                    "cardId": "core_scanner",
+                    "name": "Scanner"
                 }
             ],
             "_id": "voyager-flightDirector"
