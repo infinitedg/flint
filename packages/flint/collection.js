@@ -27,8 +27,16 @@ Flint.collection = function(name) {
 Flint.stations = Flint.collection("stations");
 Flint.simulators = Flint.collection("simulators");
 
-Flint.simulator = function() {
-  return Flint.simulators.findOne(Session.get("flint.simulatorId"));
+Flint.simulator = function(p, v) {
+  if (!p && !v)
+    return Flint.simulators.findOne(Session.get("flint.simulatorId"));
+  if (p && !v)
+    return Flint.simulators.findOne(Session.get("flint.simulatorId"))[p];
+  if (p && v) {
+    var setter = {};
+    setter[p] = v;
+    return Flint.simulators.update(Flint.simulatorId(), {$set: setter});
+  }
 };
 
 Flint.simulatorId = function() {
