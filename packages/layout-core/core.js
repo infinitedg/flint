@@ -51,9 +51,6 @@ Template.layout_core.cards = function() {
 	return Flint.station().cards;
 };
 
-Template.layout_core.created = function() {
-	that = this;
-	Meteor.defer(function(){
-		salvattore.register_grid(that.find('#grid'));
-	});
-};
+Template.layout_core.render = function() {
+	return Template[this.cardId];
+}
