@@ -6,6 +6,18 @@ Template.card_scanner.scan_disabled = function() {
 	}
 };
 
+Template.card_scanner.scanning = function() {
+	if (Flint.simulator('scannerStatus') === 'scanning') {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+Template.card_scanner.scannerResponse = function() {
+	return Flint.simulator('scannerResponse');
+};
+
 Template.card_scanner.events({
 	'click .scan-btn': function(e, t) {
 		var v = t.find('.input-field').value;

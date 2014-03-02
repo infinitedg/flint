@@ -1,4 +1,7 @@
 <template name="card_scanner">
+  {{#if scanning}}
+  <h1>Scanning...</h1>
+  {{else}}
   <div class="row-fluid {{css_input}}">
     <div class="span12">
       <div class="row-fluid">
@@ -13,9 +16,10 @@
       <div class="row-fluid">
         <div class="span12 scanning_output">
         <h2>Scan Response</h2>
-          <textarea rows="5" disabled class="span12">This is where scans go out</textarea>
+          <textarea rows="5" disabled class="span12">{{scannerResponse}}</textarea>
         </div>
       </div>
     </div>
   </div>
+  {{/if}}
 </template>
