@@ -3,6 +3,20 @@
 	
     "stations": [
         {
+          "name": "Scanners",
+          "cards": [
+            {
+              "name": "Login",
+              "cardId": "card_login"
+            },
+            {
+              "name": "Scanners",
+              "cardId": "card_scanner"
+            }
+          ],
+          "_id": "voyager-scanner"
+        },
+        {
             "name": "Operations",
             "cards": [
                 {
@@ -70,6 +84,10 @@
                 {
                     "cardId": "core_speed",
                     "name": "Speed"
+                },
+                {
+                    "cardId": "core_scanner",
+                    "name": "Scanner"
                 }
             ],
             "_id": "voyager-flightDirector"
@@ -116,7 +134,7 @@
                     "cardId": "card_login"
                 },
                 {
-                    "name": "Speed",
+                    "name": "Speed!",
                     "cardId": "card_speed"
                 },
                 {

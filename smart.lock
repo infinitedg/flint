@@ -14,7 +14,8 @@
       "buzz.js": {},
       "kinetic.js": {},
       "bootboxjs": {},
-      "blaze-layout": {}
+      "blaze-layout": {},
+      "apm": {}
     },
     "packages": {
       "iron-router": {
@@ -66,6 +67,11 @@
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.0.1",
         "commit": "fa631b7b192618e8690d43f0033a3f4c7f77fa1d"
+      },
+      "apm": {
+        "git": "https://github.com/arunoda/meteor-apm-client.git",
+        "tag": "v0.2.9",
+        "commit": "816279a6871c13ed3672d2d3c3aec9d0e7521537"
       }
     }
   }
