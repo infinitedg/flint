@@ -1,4 +1,5 @@
 Package.describe({
+  summary: "Controls the simulator's speed"
 });
 
 Package.on_use(function(api) {  
