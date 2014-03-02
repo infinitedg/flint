@@ -42,6 +42,12 @@
             "sensorText": "Mission critical sensor information goes here.",
             "cards": [
                 {
+                    "name": "Core",
+                    "cardId": "card_core"
+                }
+            ],
+            "coreWidgets": [
+                {
                     "name": "Stations",
                     "cardId": "core_login"
                 },

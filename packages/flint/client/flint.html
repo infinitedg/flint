@@ -1,5 +1,5 @@
 <head>
-  <title>flint</title>
+  <title>Flint</title>
 </head>
 
 <body>
@@ -17,16 +17,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="span12">
-			{{loginButtons}}
+			{{> loginButtons}}
 			</div>
 		</div>
 		<div class="row">
-			<div class="span12">
-			{{yield}}
-			</div>
+			<div class="span12">{{> yield}}</div>
 		</div>
 	</div>
-
 </template>
 
 <template name="flint_404">

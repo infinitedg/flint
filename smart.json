@@ -1,6 +1,10 @@
 {
   "packages": {
-    "iron-router": {},
+    "iron-router": {
+      "git": "https://github.com/EventedMind/iron-router.git",
+      "branch": "blaze-integration",
+      "commit": "6fd133401bb6de65a30ba148f7d61ea1b4dc9b43"
+    },
     "nprogress": {},
     "winston": {},
     "winston-loggly": {},
@@ -8,6 +12,7 @@
     "bootstrap-growl": {},
     "buzz.js": {},
     "kinetic.js": {},
-    "bootboxjs": {}
+    "bootboxjs": {},
+    "blaze-layout": {}
   }
 }

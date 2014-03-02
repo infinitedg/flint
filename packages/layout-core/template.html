@@ -1,13 +1,7 @@
 <template name="layout_core">
   <div id="layout_core" class="container-fluid">
     <div class="row-fluid">
-      <div id="grid" class="span12" data-columns>
-	      {{#each cards}}
-	      <div id="{{cardId}}">
-			{{render cardId}}
-		  </div>
-	      {{/each}}
-      </div>
+    {{> yield}}
     </div>
   </div>
 </template>

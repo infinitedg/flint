@@ -4,7 +4,6 @@
       <h4>{{status.status}}</h4>
       <p>{{status.reason}}</p>
       <p>
-      {{#isolate}}
         Retried {{status.retryCount}} times &mdash;
         {{#if connecting}}
           reconnecting now...
@@ -15,7 +14,6 @@
             could not connect.
           {{/if}}
         {{/if}}
-      {{/isolate}}
       </p>
       <p><a href="#" class="btn btn-warning btn-small">Reconnect Now</a></p>
   </div>

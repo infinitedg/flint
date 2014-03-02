@@ -4,29 +4,24 @@ Router.configure({
   loadingTemplate: 'flint_loading'
 });
 
-Router.before(function(){
+Router.before(function(pause){
   if (!Meteor.user()) {
     this.render('flint_login');
-    this.stop();
+    pause();
   }
 });
 
-Router.before(function () {
+Router.before(function (pause) {
   // we're done waiting on all subs
   if (this.ready()) {
     NProgress.done(); 
   } else {
     NProgress.start();
-    this.stop(); // stop downstream funcs from running
+    pause(); // stop downstream funcs from running
   }
 });
 
 Router.map(function () {
-  /**
-   * The route's name is "home"
-   * The route's template is also "home"
-   * The default action will render the home template
-   */
   this.route('flint_simulatorPicker', {
     path: '/',
     layoutTemplate: 'flint_layout',
