@@ -1,4 +1,4 @@
-@media screen and (max-width: 480px){
+/*@media screen and (max-width: 480px){
 	#grid[data-columns]::before {
 		content: '1 .column.size-1of1';
 	}
@@ -20,4 +20,4 @@
 .size-1of2 { width: 50%; }
 .size-1of3 { width: 33.333%; }
 
-[data-columns]::before { display: none; }
+[data-columns]::before { display: none; }*/
