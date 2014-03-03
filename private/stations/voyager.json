@@ -21,6 +21,14 @@
                     "cardId": "card_sensorGrid",
                     "name": "Sensor Grid"
                 },
+          	  {
+        		      "name": "Thrusters",
+      		      "cardId": "card_thrustercard"
+          	  },
+          	  {
+               	  "name": "Thrustify",
+               	  "cardId": "card_thrustify"
+                }
             ],
             "_id": "voyager-operations"
         },

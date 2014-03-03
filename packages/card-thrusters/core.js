@@ -4,7 +4,7 @@
 */
  
 /**
-Power balancing screen. Originally developed as a demo.
+Thruster card. Directional and Rotational thrusters.
 @class core_thrusters
 */
 
