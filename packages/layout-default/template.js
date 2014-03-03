@@ -119,3 +119,13 @@ Template.layout_default.station = function() {
 Template.layout_default.created = function() {
 	Flint.play('sciences');
 }
+
+Template.layout_default.events = {
+  'mouseup div.nav-list': function(e, context) {
+    $('body').toggleClass('menu-open');
+  },
+
+  'mouseup div.sim-name': function(e, context) {
+        $('body').toggleClass('menu-open');
+    }
+}
