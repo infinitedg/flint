@@ -13,7 +13,7 @@
     }
     
 /* Card Styling */    
-#card_thrusters #thrusters{
+#thruster-card #thrusters{
     position: relative;
 	/*The Ratio of the width to the height is .97101449275
 	Use that value to scale the selector appropriately.
@@ -24,124 +24,124 @@
 	color: #000;
 	text-align: center;
 }
-#card_thrusters .white{
+#thruster-card .white{
 	background-image: -webkit-linear-gradient(top, #fff, #eee);
 	border: 1px solid #b9b9b9;
 }
-#card_thrusters .white:active{
+#thruster-card .white:active{
 	background-color:#aaa;
 	background-image: -webkit-linear-gradient(top, #ddd, #eee);
 }
-#card_thrusters .yellow{
+#thruster-card .yellow{
 	background-image: -webkit-linear-gradient(top, #fef985, #f5e749);
 	border: 1px solid #a58a00;
 }
-#card_thrusters .yellow:active{
+#thruster-card .yellow:active{
 	background-image: -webkit-linear-gradient(top, #ECD50D, #f5e749);
 }
-#card_thrusters .box {
+#thruster-card .box {
 	line-height: 150%;
 	width: 27.6%;
 	height: 11.044%;
 }
-#card_thrusters .right-round{
+#thruster-card .right-round{
 	width: 27.6%;
 	height: 15.522%;
 	border-radius: 30% 0px 0px 30%;	
 }
-#card_thrusters .left-round{
+#thruster-card .left-round{
 	width: 27.6%;
 	height:15.522%;
 	border-radius: 0px 30% 30% 0px;
 }
-#card_thrusters .top-right{
+#thruster-card .top-right{
 	width: 34.202%;
 	height: 40%;
 		border-radius: 0px 100% 0px 0px;
 }
-#card_thrusters .top-left{
+#thruster-card .top-left{
 	width: 34.202%;
 	height: 40%;
 	border-radius: 100% 0px 0px 0px;
 }
-#card_thrusters .bottom-right{
+#thruster-card .bottom-right{
 	width: 34.202%;
 	height: 40%;
 	border-radius: 0px 0px 100% 0px;
 }
-#card_thrusters .bottom-left{
+#thruster-card .bottom-left{
 	width: 34.202%;
 	height: 40%;
 	border-radius: 0px 0px 0px 100%;
 }
-#card_thrusters .inner-text-top{
+#thruster-card .inner-text-top{
 	top: 50%;
 	position: relative;
 }
-#card_thrusters .inner-text-bottom{
+#thruster-card .inner-text-bottom{
 	top: 25%;
 	position: relative;
 }
-#card_thrusters .inner-text-sides{
+#thruster-card .inner-text-sides{
 	position: relative;
 	top: 25%;
 }
-#card_thrusters #forward {
+#thruster-card #forward {
 	left: 36%;
 	top: 12.239%;
 	position: absolute;
 }
-#card_thrusters #up {
+#thruster-card #up {
 	left: 36%;
 	position: absolute;
 	top: 25%;
 }
-#card_thrusters #port {
+#thruster-card #port {
 	position: absolute;
 	top: 41.7%;
 	left: 6.6%;
 }
-#card_thrusters #starboard {
+#thruster-card #starboard {
 	position: absolute;
 	top: 41.7%;
 	left: 65.6%;
 }
-#card_thrusters #down {
+#thruster-card #down {
 	left: 36%;
 	position: absolute;
 	top: 62.3%; 
 }
-#card_thrusters #reverse {
+#thruster-card #reverse {
 	left: 36%;
 	position: absolute;
 	top: 74.7%;
 }
-#card_thrusters #port-yaw {
+#thruster-card #port-yaw {
 	top: 0%;
 	left: 0%;
 	position: absolute;	
 }
-#card_thrusters #starboard-yaw{
+#thruster-card #starboard-yaw{
 	position: absolute;
 	top: 0%;
 	left: 65.6%;
 }
-#card_thrusters #port-roll {
+#thruster-card #port-roll {
 	position: absolute;
 	top: 58.5%;
 	left: 0%;
 }
-#card_thrusters #starboard-roll {
+#thruster-card #starboard-roll {
 	position: absolute;
 	top: 58.5%;
 	left: 65.6%;
 }
-#card_thrusters #pitch-up {
+#thruster-card #pitch-up {
 	left: 36%;
 	position: absolute;
 	top: 37.6%;
 }
-#card_thrusters #pitch-down {
+#thruster-card #pitch-down {
 	left: 36%;
 	position: absolute;
 	top: 49.7%;
