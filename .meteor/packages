@@ -7,7 +7,6 @@ standard-app-packages
 insecure
 preserve-inputs
 iron-router
-bootstrap
 accounts-ui
 accounts-password
 nprogress
@@ -35,3 +34,5 @@ card-mario
 card-3d-stars-demo
 card-3d-car-demo
 card-thrusters
+bootstrap-3
+font-awesome
