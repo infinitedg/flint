@@ -30,6 +30,7 @@ Template.layout_default_cardList.events = {
     Flint.beep();
     if ('' + this.cardId !== Flint.cardId() + '') { // Cast to strings
       that = this;
+      $('body').toggleClass('menu-open');
       $('.card-area').fadeOut(function(){
         Router.go('flint_station', {
           simulatorId: that.simulatorId,
