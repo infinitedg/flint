@@ -1,23 +1,33 @@
 <template name="layout_default">
+  <div class="menu-area">
+    <div class="span3">
+      <div class="{{hideCardlistCSS}}">
+        {{> layout_default_cardList}}
+      </div>
+    </div>
+  </div>
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span12">
-        {{#isolate}}
-          <h1>{{simulator.name}}</h1>
-          <h2>{{station.name}}</h1>
-        {{/isolate}}
+      <div class="layout-top span12">
+        <svg class="layout-chrome" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 81">
+          <polyline points="-10,-6 -10,79 227.9,79 270.4,49.4 755.4,49.4 797.6,79 1034,79 1034,-6"></polyline>
+          <text x="512" y="35" fill="#FFFFFF" font-family="'OCRA'" font-size="36">{{simulator.name}}</text>
+          <!--<text class="left" x="15" y="22" fill="#FFFFFF" font-family="'OCRA'" font-size="24">{{simulator.name}}</text>
+          <text class="right" x="1009" y="22" fill="#FFFFFF" font-family="'OCRA'" font-size="24">{{station.name}}</text>-->
+        </svg>
       </div>
     </div>
     <div class="row-fluid">
-      <div class="span3">
-        {{#isolate}}
-          <div class="{{hideCardlistCSS}}">
-            {{> layout_default_cardList}}
-          </div>
-        {{/isolate}}
+      <div class="layout-middle card-area">
+          {{yield}}
       </div>
-      <div class="span9 card-area">
-        {{yield}}
+    </div>
+    <div class="row-fluid">
+      <div class="layout-bottom span12">
+        <svg class="layout-chrome" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 81">
+          <polyline points="1028.7,81.4 1028.7,-0.4 798.7,-0.4 755.8,32 385.5,32 266.4,32 223.8,-0.4 -4.7,-0.4 -4.7,81.4 "></polyline>
+          <text x="512" y="68" fill="#FFFFFF" font-family="'OCRA'" font-size="36">{{station.name}}</text>
+        </svg>
       </div>
     </div>
   </div>

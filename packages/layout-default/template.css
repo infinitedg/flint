@@ -1,0 +1,38 @@
+body > .container-fluid{
+	margin: 0;
+	padding: 0;
+}
+
+svg.layout-chrome {
+	width: 100%;
+	height: 1%;
+}
+
+svg.layout-chrome polyline {
+	fill: rgba(46,156,197,0.5);
+	stroke:#939598;
+	stroke-width:2;
+	stroke-miterlimit:10;
+}
+
+svg.layout-chrome text {
+	text-anchor: middle;
+}
+
+.layout-top {
+	position: absolute;
+}
+
+.layout-middle {
+	padding-bottom: 7%;
+	padding-top: 9%;
+}
+
+.layout-bottom {
+	position: fixed;
+	bottom: -7px;
+}
+
+.menu-area {
+	display: none;
+}
