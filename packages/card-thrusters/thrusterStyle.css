@@ -1,12 +1,14 @@
 /* Core Styling */  
-  #core_thrusters .thruster-icon{
+#core_thrusters .thruster-icon{
       background-color: #333;
-      width: 40px;
-      height: 40px;
-      margin: 5px;
-      line-height: 30px;
+      width: 30px;
+      height: 30px;
+      margin: 0px auto;
       text-align: center;
-    }
+	border: 2px solid #171717;
+	display: block;
+	float: left;
+}
     #core_thrusters .highlight{
       background-color: #ff0;
       color: #000;
@@ -24,6 +26,7 @@
 	color: #000;
 	text-align: center;
 }
+
 #thruster-card .white{
 	background-image: -webkit-linear-gradient(top, #fff, #eee);
 	border: 1px solid #b9b9b9;
@@ -146,3 +149,5 @@
 	position: absolute;
 	top: 49.7%;
 }
+
+
