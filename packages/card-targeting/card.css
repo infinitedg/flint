@@ -1,0 +1,27 @@
+#targeting-card .btn-default {
+	width: 25%;
+	height: 80px;
+	margin-bottom: 10px;
+	}
+#targeting-card .btn-danger {
+	width: 100%;
+}
+#targeting-card img .target-image{
+	height: 250px;
+	width: 250px;
+	display: block;
+	float: left;
+}
+#targeting-card .calculated-x, .calculated-y, .calculated-z, .lock-x, .lock-y, .lock-z{
+	background-color: #fff;
+	height: 50px;
+	color: #000;
+	width: 100%;
+	float: left;
+	border-radius: 2px;
+	border: 1px solid #bababa;
+	font-size: 30px;
+	line-height: 50px;
+	padding-left: 10px;
+	margin-bottom: 10px;
+}

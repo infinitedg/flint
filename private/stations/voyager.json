@@ -115,6 +115,20 @@
 		}
             ],
             "_id": "voyager-navigator"
+        },
+         {
+            "name": "Tactical",
+            "cards": [
+                {
+                    "name": "Login",
+                    "cardId": "card_login"
+                },
+                {
+                    "name": "Targeting",
+                    "cardId": "card_targeting"
+                }
+            ],
+            "_id": "voyager-tactical"
         }
     ]
 }
