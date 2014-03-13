@@ -2,38 +2,43 @@
     <div id="targeting-card" class="">
         <h1>Targeting</h1>
         <div class="calculated-target col-lg-4"> <!--This is where they see the numbers they need to be typed in -->
-            <img class="target-image" src="" />
-            <span class="calculated-x">801.00</span>
-            <span class="calculated-y">427.00</span>
-            <span class="calculated-z">4358.00</span>
+            <div class="target-image">
+                <img src="/packages/card-targeting/targeting-imgs/noTarget.png" />
+            </div>
+            <span class="calculated-x"></span>
+            <span class="calculated-y"></span>
+            <span class="calculated-z"></span>
             <button type="button" class="btn btn-danger">Calculate Target</button>
         </div>
         <div class="target-numbers col-lg-3 col-lg-offset-1">
             <div class="row">
-                <button type="button" class="btn btn-default">7</button>
-                <button type="button" class="btn btn-default">8</button>
-                <button type="button" class="btn btn-default">9</button>
+                <button type="button" class="btn keypad btn-default">7</button>
+                <button type="button" class="btn keypad btn-default">8</button>
+                <button type="button" class="btn keypad btn-default">9</button>
             </div>
             <div class="row">
-                <button type="button" class="btn btn-default">4</button>
-                <button type="button" class="btn btn-default">5</button>
-                <button type="button" class="btn btn-default">6</button>
+                <button type="button" class="btn keypad btn-default">4</button>
+                <button type="button" class="btn keypad btn-default">5</button>
+                <button type="button" class="btn keypad btn-default">6</button>
             </div>
             <div class="row">
-                <button type="button" class="btn btn-default">1</button>
-                <button type="button" class="btn btn-default">2</button>
-                <button type="button" class="btn btn-default">3</button>
+                <button type="button" class="btn keypad btn-default">1</button>
+                <button type="button" class="btn keypad btn-default">2</button>
+                <button type="button" class="btn keypad btn-default">3</button>
             </div>     
             <div class="row">
-                <button type="button" class="btn btn-default">.</button>
-                <button type="button" class="btn btn-default">C</button>
-                <button type="button" class="btn btn-default">⌫</button>
+                <button type="button" class="btn keypad btn-default">.</button>
+                <button type="button" class="btn clearButton btn-default">C</button>
+                <button type="button" class="btn returnButton btn-default">⏎</button>
             </div> 
+            <div class="row">
+                
+            </div>
         </div>
         <div class="target-output col-lg-4">
-            <span class="lock-x"></span>
-            <span class="lock-y"></span>
-            <span class="lock-z"></span>
+            <div class="lock-x"></div>
+            <div class="lock-y"></div>
+            <div class="lock-z"></div>
             <button type="button" class="btn btn-danger">Lock In Target</button>
         </div>
     </div>
