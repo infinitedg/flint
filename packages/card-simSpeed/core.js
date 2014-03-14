@@ -26,7 +26,7 @@ Template.core_simSpeed.events = {
   */
   'click .condition': function(e) {
     Flint.beep();
-    bootbox.prompt('Pick the ship's speed (1-4)', 'Cancel', 'OK', function(result) {
+    bootbox.prompt('Pick the ship\'s speed (1-4)', 'Cancel', 'OK', function(result) {
       if (result !== undefined) {
         if (result < 1) {
           result = 1;
@@ -40,4 +40,3 @@ Template.core_simSpeed.events = {
     e.preventDefault();
   }
 };
-Status API Training Shop Blog About © 2013 GitHub, Inc. Terms Privacy Security Contact 
