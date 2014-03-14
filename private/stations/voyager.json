@@ -56,6 +56,10 @@
                 {
                     "name": "Thrusters",
                     "cardId": "core_thrusters"
+                },
+                {
+                    "name": "Targeting",
+                    "cardId": "core_targeting"
                 }
             ],
             "_id": "voyager-flightDirector"

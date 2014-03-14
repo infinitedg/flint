@@ -9,7 +9,7 @@
 	width: 100%;
    
 }
-#targeting-card .target-image{
+#targeting-card .target-image-back{
 	height: 100%;
 	width: 100%;
 	display: block;
@@ -20,9 +20,10 @@
     padding: 2px;
     text-align: center;
 }
-#targeting-card .target-image img{
+#targeting-card .target-image-back img{
     max-height:200px;
 }
+
 
 #targeting-card .lock-x.selected, #targeting-card .lock-y.selected, #targeting-card .lock-z.selected{
  background-color:#333;
@@ -42,4 +43,18 @@
 	line-height: 50px;
 	padding-left: 10px;
 	margin-bottom: 10px;
+}
+
+#targeting-card .calculated-x.hilited, #targeting-card .calculated-y.hilited, #targeting-card .calculated-z.hilited{
+ background-color: #333;
+    color: #fff;
+}
+
+#targeting-core .targetedInfo{
+ font-size: 18px;
+    color: #f00;
+}
+
+#targeting-core .targetedInfo.noShow{
+ visibility: hidden
 }

@@ -12,6 +12,8 @@ Package.on_use(function(api) {
       'targeting-imgs/battlestar.png',
       'targeting-imgs/Cargo Ship.png',
       'targeting-imgs/Renegade.png',
-      'targeting-imgs/Small Fighter.png'
+      'targeting-imgs/Small Fighter.png',
+      'targeting-imgs/notTargeting.png',
+      'targeting-imgs/noImage.png'
   ], 'client');
 });

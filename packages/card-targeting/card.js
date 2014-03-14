@@ -4,16 +4,72 @@
 */
 
 /*
-Card for targeting enemy ships. Target is sent from Sensors, typed in, and then locked in. Ability to show specific images for target
+Card for targeting enemy ships. Target is sent from Sensors, typed in, and then locked in. Ability to show specific images for target.
 @class card_targeting
 */
 var selectedTargetingField = '';
+var currentTacticalTarget;
+var imagePath = "/packages/card-targeting/targeting-imgs/";
+var randomLoopX;
+var randomLoopY;
+var randomLoopZ;
+var TimeoutX;
+var TimeoutY;
+var TimeoutZ;
+var TimeoutEnd;
 
+Template.card_targeting.getRandomInt = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+/*This changes the image of the current target currently. It could do more, since the key it is observing is an array.*/
+Template.card_targeting.created = function() {
+  this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+    changed: function(id, fields) {
+      if (fields.tacticalTarget) {
+          if (fields.tacticalTarget['image'] == '') {
+              _i = 'noTarget.png';
+              $('.calculateBtn').addClass('disabled');
+              clearInterval(randomLoopX);
+              clearInterval(randomLoopY);
+              clearInterval(randomLoopZ);
+              clearTimeout(TimeoutX);
+              clearTimeout(TimeoutY);
+              clearTimeout(TimeoutZ);
+              clearTimeout(TimeoutEnd);
+              $(".calculated-x").text('');
+              $(".calculated-y").text('');
+              $(".calculated-z").text('');
+              a = Flint.simulator().tacticalTarget;
+              a["targeted"] = false;
+              Flint.simulators.update(Flint.simulatorId(), {$set: {tacticalTarget: (a)}});
+          }
+          else {
+              _i= fields.tacticalTarget['image'] + ".png";
+              $('.calculateBtn').removeClass('disabled');
+
+          }
+          $(".target-image").attr("src",(imagePath + _i));
+          
+          if (fields.tacticalTarget['targeted'] == false) {
+              $(".calculated-x").text('');
+              $(".calculated-y").text('');
+              $(".calculated-z").text('');
+              $(".current-target-image").attr("src",(imagePath + "notTargeting.png"));
+
+          }
+      }
+    }
+  })
+};
+          
+          
+          
 Template.card_targeting.selectField = function(whichField) {
     if (whichField == "next") {
         if (selectedTargetingField == 'x') {whichField = 'y';}
         if (selectedTargetingField == 'y') {whichField = 'z';}
-        if (selectedTargetingField == 'z') {whichField = '';}
+        if (selectedTargetingField == 'z') {Template.card_targeting.lockTarget();}
         if (selectedTargetingField == '')  {whichField = '';}
     }
         $(".lock-x").removeClass("selected");
@@ -24,10 +80,43 @@ Template.card_targeting.selectField = function(whichField) {
         selectedTargetingField = whichField;
 };
 
-/*
-Show whether the thruster buttons are being depressed.
-*/
+Template.card_targeting.lockTarget = function() {
+    if ($('.calculated-x').text() != ('') &&
+        $('.lock-x').text() == $('.calculated-x').text() && 
+        $('.lock-y').text() == $('.calculated-y').text() && 
+        $('.lock-z').text() == $('.calculated-z').text()) {
+        setTimeout(function() {
+            clearInterval(randomLoopX);
+            $(".lock-x").addClass("selected");   
+        },0);
+        setTimeout(function() {
+            clearInterval(randomLoopY);
+            $(".lock-x").removeClass("selected");   
+            $(".lock-y").addClass("selected");   
+        },250);
+        setTimeout(function() {
+            clearInterval(randomLoopZ);
+            $(".lock-y").removeClass("selected");   
+            $(".lock-z").addClass("selected"); 
+        },500);
+        setTimeout(function() {
+            $(".lock-z").removeClass("selected");  
+        },750);
+        $(".current-target-image").attr("src",($(".target-image").attr("src")));
+        a = Flint.simulator().tacticalTarget;
+        a["targeted"] = true;
+        Flint.simulators.update(Flint.simulatorId(), {$set: {tacticalTarget: (a)}});
 
+    } else {
+        $(".current-target-image").attr("src",(imagePath + "notTargeting.png"));
+        a = Flint.simulator().tacticalTarget;
+        a["targeted"] = false;
+        Flint.simulators.update(Flint.simulatorId(), {$set: {tacticalTarget: (a)}});
+    }
+        
+    
+    Template.card_targeting.selectField('');
+}
 
 Template.card_targeting.events = {
     "mousedown .keypad": function(e, context) {
@@ -71,9 +160,43 @@ Template.card_targeting.events = {
     "mousedown .lock-z": function(e, context) {
     Flint.beep();
     Template.card_targeting.selectField('z');
+    },
+    "mousedown .lockInBtn": function(e, context) {
+        Flint.beep();
+        Template.card_targeting.lockTarget();
+    },
+    "mousedown .calculateBtn": function(e, context) {
+        Flint.beep()
+        randomLoopX = setInterval(function() {
+            $(".calculated-x").text(Template.card_targeting.getRandomInt(1,99999)/100);
+        }, 40);
+        randomLoopY = setInterval(function() {
+            $(".calculated-y").text(Template.card_targeting.getRandomInt(1,99999)/100);
+        }, 40);
+        randomLoopZ = setInterval(function() {
+            $(".calculated-z").text(Template.card_targeting.getRandomInt(1,99999)/100);
+        }, 40);
+        TimeoutX = setTimeout(function() {
+            clearInterval(randomLoopX);
+            $(".calculated-x").addClass("hilited");   
+        },10000);
+        TimeoutY = setTimeout(function() {
+            clearInterval(randomLoopY);
+            $(".calculated-x").removeClass("hilited");   
+            $(".calculated-y").addClass("hilited");   
+        },10250);
+        TimeoutZ = setTimeout(function() {
+            clearInterval(randomLoopZ);
+            $(".calculated-y").removeClass("hilited");   
+            $(".calculated-z").addClass("hilited"); 
+        },10500);
+        TimeoutEnd = setTimeout(function() {
+            $(".calculated-z").removeClass("hilited");  
+        },10750);
+
+
+
     }
-        
-        
 
     
 };
@@ -82,7 +205,6 @@ Template.card_targeting.rendered = function(){
     var a
   $(window).on('keydown', function(e){
     a = (e.which);
-      console.log(a);
       /*Number Row keys*/
     if (a > 47 && a < 58) {
         newA=a-48;
