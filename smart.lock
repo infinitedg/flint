@@ -12,7 +12,8 @@
       "kinetic.js": {},
       "bootboxjs": {},
       "bootstrap-3": {},
-      "font-awesome": {}
+      "font-awesome": {},
+      "gsap": {}
     },
     "packages": {
       "iron-router": {
@@ -62,13 +63,18 @@
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v3.1.0-1",
-        "commit": "329dccb08bfc18c635676dea600ac9953162cda9"
+        "tag": "v3.1.1-1",
+        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
       },
       "font-awesome": {
         "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
         "tag": "v4.0.3",
         "commit": "61e9361384347547ae144f8228faa4deffda23db"
+      },
+      "gsap": {
+        "git": "https://github.com/RoyalMist/meteor-gsap.git",
+        "tag": "v1.11.5",
+        "commit": "9fc801d7f232ea943a3414a793680c924801d696"
       }
     }
   }

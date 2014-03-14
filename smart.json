@@ -10,6 +10,7 @@
     "kinetic.js": {},
     "bootboxjs": {},
     "bootstrap-3": {},
-    "font-awesome": {}
+    "font-awesome": {},
+    "gsap": {}
   }
 }
