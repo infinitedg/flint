@@ -121,7 +121,7 @@ Template.layout_default.created = function() {
 }
 
 Template.layout_default.events = {
-  'mouseup div.nav-list': function(e, context) {
+  'mouseup div.col-lg-3.nav-list': function(e, context) {
     $('body').toggleClass('menu-open');
   },
 
