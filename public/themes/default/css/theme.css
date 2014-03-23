@@ -7,14 +7,21 @@
   src: local('Gamecuben'),  url(/themes/default/public/GameCube.ttf) format('ttf');
 }
 
-
 header.row-fluid{
-    background-image: url(/themes/default/public/noise.svg);
+    background-image: url(/themes/default/public/svg/noise.svg);
     margin: 0;
     width: 100%;
+    text-shadow: 0px 0px 14px rgba(255, 255, 255, 1);   
 }
 
-.btn.ender{
+header.row-fluid h2, header.row-fluid h3{
+    
+    padding-left: 5px;
+ background-color: rgba(47,64,68,.4);   
+}
+
+
+.enderBtn{
     
 }
 
@@ -31,7 +38,7 @@ html, body, .perspective {
 	position: relative;
 }
 
-.contents {
+.pageContent {
 background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
     background-color: #000;
     
@@ -59,7 +66,7 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 	float: right;*/
 }
 
-.contents::after {
+.pageContent::after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -91,7 +98,7 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 	perspective: 1500px;
 }
 
-.modalview .contents {
+.modalview .pageContent {
 	position: absolute;
 	overflow: hidden;
 	width: 100%;
@@ -104,7 +111,7 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 	-webkit-transform: translateZ(-1px); /* solves a rendering bug in Chrome on Windows */
 }
 
-.animate .contents::after {
+.animate .pageContent::after {
 	opacity: 1;
 	height: 101%;
 	-webkit-transition: opacity 0.3s;
@@ -115,7 +122,7 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 .outer-nav {
 	position: absolute;
 	height: auto;
-	font-size: 2em;
+	font-size: 1.3em;
 }
 
 .outer-nav.vertical {
@@ -154,7 +161,7 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 .outer-nav a {
 	display: inline-block;
 	white-space: nowrap;
-	font-weight: 300;
+	font-weight: 50;
 	margin: 0 0 30px 0;
 	color: #fff;
 	-webkit-transition: color 0.3s;
@@ -165,6 +172,7 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 
 .outer-nav a:hover {
 	color: #ffdccd;
+    text-decoration: none;
 }
 
 .outer-nav.vertical a {
@@ -200,23 +208,23 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
     background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 }
 
-.effect-movedown .contents {
+.effect-movedown .pageContent {
 	-webkit-transition: -webkit-transform 0.4s;
 	transition: transform 0.4s;
 	-webkit-transform-origin: 50% 50%;
 	transform-origin: 50% 50%;
 }
 
-.effect-movedown .contents::after {
+.effect-movedown .pageContent::after {
 background: linear-gradient(to bottom, rgba(0,0,0,.5) 32%,rgba(30,30,30,.5) 100%);
 }
 
-.effect-movedown.animate .contents {
+.effect-movedown.animate .pageContent {
 	-webkit-transform: translateY(100%) translateZ(-1500px) rotateX(30deg);
 	transform: translateY(100%) translateZ(-1500px) rotateX(30deg);
 }
 
-.no-csstransforms3d .effect-movedown.animate .contents {
+.no-csstransforms3d .effect-movedown.animate .pageContent {
 	top: 75%;
 }
 

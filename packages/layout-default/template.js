@@ -121,15 +121,24 @@ Template.layout_default.created = function() {
 }
 
 Template.layout_default.events = {
-  'mouseup div.content': function(e, context) {
-           
+  'mouseup div.pageContent': function(e, context) {
+           if ($('.animate').length > 0) {
+              var showMenu = document.getElementById( 'showMenu' ),
+			 perspectiveWrapper = document.getElementById( 'perspective' ),
+			 container = perspectiveWrapper.querySelector( '.pageContent' ),
+			 contentWrapper = container.querySelector( '.wrapper' );
+        
+        $(perspectiveWrapper).removeClass('animate');
+		Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 1000);
+               
+           }
       
   },
 
   'mouseup div.sim-name': function(e, context) {
             var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),
-			 container = perspectiveWrapper.querySelector( '.contents' ),
+			 container = perspectiveWrapper.querySelector( '.pageContent' ),
 			 contentWrapper = container.querySelector( '.wrapper' );
             docscroll = window.pageYOffset || window.document.documentElement.scrollTop; //Finds the yScoll
 			// change top of contentWrapper

@@ -1,14 +1,18 @@
 <template name="layout_default">
     <div id="perspective" class="perspective effect-movedown">
-        <div class="contents">
+        <div class="pageContent">
             <div class="wrapper"><!-- wrapper needed for scroll -->
                 
                 <div class="container-fluid">
                     <header class="row-fluid">
-                        <div class="col-lg-5 sim-name">
-                            <h2>{{simulator.name}}</h1>
-                            <h3>{{station.name}}</h1>
+                         {{#isolate}}
+                        <div class="col-lg-4 sim-name">
+                            <h2>{{simulator.name}}</h2>
+                            <div class="simName-bracket"></div>
+                            <h3>{{station.name}}</h3>
+                            <div class="stationName-bracket"></div>
                         </div>
+                         {{/isolate}}
                     </header>
                     <div class="row-fluid">
                         <div class="col-lg-12 card-area">
@@ -19,8 +23,10 @@
                 
 			</div><!-- wrapper -->
         </div><!-- /container -->
+         {{#isolate}}
         <nav class="outer-nav top horizontal {{hideCardlistCSS}}">
         {{> layout_default_cardList}}
         </nav>
+         {{/isolate}}
     </div><!-- /perspective -->
 </template>

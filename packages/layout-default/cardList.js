@@ -33,20 +33,20 @@ Template.layout_default_cardList.events = {
 
         var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),
-			 container = perspectiveWrapper.querySelector( '.contents' ),
+			 container = perspectiveWrapper.querySelector( '.pageContent' ),
 			 contentWrapper = container.querySelector( '.wrapper' );
         
         $(perspectiveWrapper).removeClass('animate');
 		Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 1000);   
         
-    Meteor.setTimeout( function() { $('.card-area').fadeOut(function(){
+        $('.card-area').fadeOut(function(){
         Router.go('flint_station', {
           simulatorId: that.simulatorId,
           stationId: that.stationId,
           cardId: that.cardId
         });
       });
-                                  }, 100);
+                         
     }
     e.preventDefault();
   }
