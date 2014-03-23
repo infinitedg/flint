@@ -20,7 +20,7 @@ Template.card_thrusters.events = {
     e.preventDefault();
   },
   
-  'mouseup div#directional-thrusters': function(e, context) {
+  'mouseup': function(e, context) {
     Flint.simulators.update(Flint.simulatorId(), {$set: {thrusterDirection: 'none'}});
     e.preventDefault();
   },
@@ -28,12 +28,10 @@ Template.card_thrusters.events = {
   'mousedown  div#rotational-thrusters': function(e, context) {
     Flint.beep();
     var a = e.target.textContent.toLowerCase();
-                console.log(e);
     var d = e.target.dataset['direction'];
     var a = e.target.dataset['axis'];
-    console.log(d);
-    int = setInterval(function() {
-     
+    int = Meteor.setInterval(function() {
+
       if (d=="port" || d=="down") {
             $("." + a + "-value").text(parseInt($("." + a + "-value").text()) - 5);
             if (parseInt($("." + a + "-value").text()) < 0) {$("." + a + "-value").text("355");}
@@ -48,7 +46,7 @@ Template.card_thrusters.events = {
   },
     
   'mouseup div#rotational-thrusters': function(e, context) {
-    clearInterval(int);
+    Meteor.clearInterval(int);
     int = null;
   }
 };
