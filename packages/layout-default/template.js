@@ -121,11 +121,23 @@ Template.layout_default.created = function() {
 }
 
 Template.layout_default.events = {
-  'mouseup div.col-lg-3.nav-list': function(e, context) {
-    $('body').toggleClass('menu-open');
+  'mouseup div.content': function(e, context) {
+           
+      
   },
 
   'mouseup div.sim-name': function(e, context) {
-        $('body').toggleClass('menu-open');
-    }
+            var showMenu = document.getElementById( 'showMenu' ),
+			 perspectiveWrapper = document.getElementById( 'perspective' ),
+			 container = perspectiveWrapper.querySelector( '.contents' ),
+			 contentWrapper = container.querySelector( '.wrapper' );
+            docscroll = window.pageYOffset || window.document.documentElement.scrollTop; //Finds the yScoll
+			// change top of contentWrapper
+			contentWrapper.style.top = docscroll * -1 + 'px';
+			// mac chrome issue:
+			document.body.scrollTop = document.documentElement.scrollTop = 0;
+			// add modalview class
+			$(perspectiveWrapper).addClass('modalview');
+			// animate..
+			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
 }

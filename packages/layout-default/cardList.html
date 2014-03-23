@@ -1,8 +1,8 @@
 <template name="layout_default_cardList">
-  <ul class="nav nav-list">
-      <li class="nav-header">{{station.name}}</li>
+    <nav class="outer-nav top horizontal">
+    <!--  <li class="nav-header">{{station.name}}</li> -->
     {{#each cards}}
-      <li class="{{#if isCurrentCard}}active{{/if}}"><a href="{{pathFor 'flint_station'}}">{{name}}</a></li>
+      <a href="{{pathFor 'flint_station'}}" class="{{#if isCurrentCard}}active{{/if}}">{{name}}</a>
     {{/each}}
-  </ul>
+  </nav>
 </template>

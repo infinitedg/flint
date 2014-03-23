@@ -1,26 +1,26 @@
 <template name="layout_default">
-  <div class="menu-area">
-    <div class="col-lg-3">
-        {{#isolate}}
-          <div class="{{hideCardlistCSS}}">
-            {{> layout_default_cardList}}
-          </div>
-        {{/isolate}}
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="col-lg-3 sim-name">
-        {{#isolate}}
-          <h1>{{simulator.name}}</h1>
-          <h2>{{station.name}}</h1>
-        {{/isolate}}
-      </div>
-    </div>
-    <div class="row-fluid">
-            <div class="col-lg-12 card-area">
-        {{yield}}
-      </div>
-    </div>
-  </div>
+    <div id="perspective" class="perspective effect-movedown">
+        <div class="contents">
+            <div class="wrapper"><!-- wrapper needed for scroll -->
+                
+                <div class="container-fluid">
+                    <header class="row-fluid">
+                        <div class="col-lg-5 sim-name">
+                            <h2>{{simulator.name}}</h1>
+                            <h3>{{station.name}}</h1>
+                        </div>
+                    </header>
+                    <div class="row-fluid">
+                        <div class="col-lg-12 card-area">
+                            {{yield}}
+                        </div>
+                    </div>
+                </div>
+                
+			</div><!-- wrapper -->
+        </div><!-- /container -->
+        <nav class="outer-nav top horizontal {{hideCardlistCSS}}">
+        {{> layout_default_cardList}}
+        </nav>
+    </div><!-- /perspective -->
 </template>
