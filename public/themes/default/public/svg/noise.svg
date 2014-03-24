@@ -8,6 +8,6 @@
       <stop offset="100%" style="stop-color:rgb(91,72,54);stop-opacity:1" />
     </linearGradient>
 <rect width='100%' height='100%' fill='url(#grad1)'/>
-<rect width='100%' height='100%' filter="url(#n)" opacity='0.1'/>
+<rect width='100%' height='100%' filter="url(#n)" opacity='0.15'/>
 </svg>
 

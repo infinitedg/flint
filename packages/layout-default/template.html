@@ -6,16 +6,17 @@
                 <div class="container-fluid">
                     <header class="row-fluid">
                          {{#isolate}}
-                        <div class="col-lg-4 sim-name">
+                        <div class="col-md-4 sim-name">
                             <h2>{{simulator.name}}</h2>
-                            <div class="simName-bracket"></div>
                             <h3>{{station.name}}</h3>
-                            <div class="stationName-bracket"></div>
+                        </div>
+                        <div class="alertLevelNum col-md-1 col-md-offset-7">
+                        5    
                         </div>
                          {{/isolate}}
                     </header>
                     <div class="row-fluid">
-                        <div class="col-lg-12 card-area">
+                        <div class="col-md-12 card-area">
                             {{yield}}
                         </div>
                     </div>

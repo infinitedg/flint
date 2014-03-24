@@ -1,26 +1,75 @@
-/* @override http://localhost:3000/themes/default/css/theme.css */
-
 @font-face {
-  font-family: 'GameCuben';
+  font-family: 'Gamecuben';
   font-style: normal;
   font-weight: 400;
-  src: local('Gamecuben'),  url(/themes/default/public/GameCube.ttf) format('ttf');
+  src: local('GameCuben'), local('GAMECUBENDualSet'), url(/themes/default/public/fonts/GameCube.woff) format('woff');
 }
 
-header.row-fluid{
+header{
     background-image: url(/themes/default/public/svg/noise.svg);
-    margin: 0;
     width: 100%;
-    text-shadow: 0px 0px 14px rgba(255, 255, 255, 1);   
+    text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);   
 }
 
 header.row-fluid h2, header.row-fluid h3{
-    
     padding-left: 5px;
- background-color: rgba(47,64,68,.4);   
+    background-color: rgba(90,112,138,.4); 
+    box-shadow: 0px 0px 5px rgba(90,112,138,1); 
+    z-index: 1;
 }
 
+header.row-fluid h2:before{
+    content:'';
+    float: left;
+    position: absolute;
+    z-index: 2;
+    background: #fff;
+    width: 50px;
+    height: 2px;
+    top: 51px;
+}
 
+header.row-fluid h3:before{
+    content:'';
+    float: left;
+    position: absolute;
+    z-index: 2;
+    background: #fff;
+    width: 50px;
+    height: 2px;
+    bottom: 7px;
+}
+
+header.row-fluid h2:after{
+    content:'';
+    float: right;
+    position: absolute;
+    z-index: 2;
+    background: url(/themes/default/public/svg/bracket.svg);
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 80px;
+    bottom: 35px;
+    right: -6px;
+}
+
+header.row-fluid h3:after{
+    content:'';
+    float: right;
+    position: absolute;
+    z-index: 2;
+    background: url(/themes/default/public/svg/bracket.svg);
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 80px;
+    bottom: -15px;
+    right: -6px;
+}
+
+header.row-fluid .alertLevelNum{
+ font-size: 70px;
+line-height: 100px;
+}
 .enderBtn{
     
 }
