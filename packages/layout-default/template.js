@@ -106,7 +106,10 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   cardTransitionAutorun.stop();
 //   stationActionObserver.stop();
 // };
-
+Template.layout_default.alertCondition = function() {
+  var a = Flint.simulator().alertCondition;
+  return a;
+};
 
 Template.layout_default.simulator = function() {
   return Flint.simulator();
@@ -129,7 +132,7 @@ Template.layout_default.events = {
 			 contentWrapper = container.querySelector( '.wrapper' );
         
         $(perspectiveWrapper).removeClass('animate');
-		Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 1000);
+		Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 300);
                
            }
       
