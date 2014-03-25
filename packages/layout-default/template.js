@@ -111,6 +111,7 @@ Template.layout_default.alertCondition = function() {
   return a;
 };
 
+
 Template.layout_default.simulator = function() {
   return Flint.simulator();
 }
@@ -139,6 +140,7 @@ Template.layout_default.events = {
   },
 
   'mouseup div.sim-name': function(e, context) {
+            if (Flint.client().name){
             var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),
 			 container = perspectiveWrapper.querySelector( '.pageContent' ),
@@ -152,4 +154,5 @@ Template.layout_default.events = {
 			$(perspectiveWrapper).addClass('modalview');
 			// animate..
 			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
+            }
 }
