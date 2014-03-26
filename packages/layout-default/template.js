@@ -123,6 +123,38 @@ Template.layout_default.station = function() {
 Template.layout_default.created = function() {
 	Flint.play('sciences');
 }
+//Gives the EnderLayout color classes for different alert levels
+Template.layout_default.alertLevel = function() {
+  var a = Flint.simulator().alertCondition;
+  switch (a) {
+  case 'c':
+  case 'cloak':
+  case 'purple':
+    return 'cloakColor';
+  case 5:
+    return 'nominalColor';
+  case 4:
+    return 'attentionColor';
+  case 3:
+    return 'cautionColor';
+  case 2:
+    return 'warningColor';
+  case 1:
+    return 'dangerColor';
+  }
+    
+}
+
+//Change the colors based on the current alert condition
+Template.layout_default.alertChange =function(l) {
+  $('.alertable').removeClass('nominalColor');
+    $('.alertable').removeClass('attentionColor');
+    $('.alertable').removeClass('cautionColor');
+    $('.alertable').removeClass('warningColor');
+    $('.alertable').removeClass('dangerColor');
+    
+    $('.alertable').addClass(l);
+}
 
 Template.layout_default.events = {
   'mouseup div.pageContent': function(e, context) {

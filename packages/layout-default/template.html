@@ -4,13 +4,13 @@
             <div class="wrapper"><!-- wrapper needed for scroll -->
                 
                 <div class="container-fluid" style="padding:0px;">
-                    <header class="row-fluid">
+                    <header class="alertable {{alertLevel}} row-fluid">
                          {{#isolate}}
-                        <div class="col-md-4 sim-name">
+                        <div class="col-xs-4 sim-name">
                             <h2>{{simulator.name}}</h2>
                             <h3>{{station.name}}</h3>
                         </div>
-                        <div class="alertLevelNum col-md-1 col-md-offset-7">
+                        <div class="alertLevelNum">
                             {{alertCondition}}   
                         </div>
                          {{/isolate}}

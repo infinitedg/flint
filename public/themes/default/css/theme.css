@@ -4,17 +4,30 @@
   font-weight: 400;
   src: local('GameCuben'), local('GAMECUBENDualSet'), url(/themes/default/public/fonts/GameCube.woff) format('woff');
 }
+body{padding: 0px;}
+
 
 .contentCenter{
     width: 100%;
     margin: 0 auto;
 }
+.nominalColor{background-image: url(/themes/default/public/svg/nominal.svg);}
+.attentionColor{background-image: url(/themes/default/public/svg/attention.svg);}
+.cautionColor{background-image: url(/themes/default/public/svg/caution.svg);}
+.warningColor{background-image: url(/themes/default/public/svg/warning.svg);}
+.dangerColor{background-image: url(/themes/default/public/svg/danger.svg);}
+.cloakColor{background-image: url(/themes/default/public/svg/cloak.svg);}
+
 header{
-    background-image: url(/themes/default/public/svg/noise.svg);
     width: 100%;
-    text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);   
-    box-shadow: 0px 5px 20px rgba(90,112,138,1); 
+    text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);  
 }
+header.nominalColor, header.attentionColor{box-shadow: 0px 5px 20px rgba(90,112,138,1); }
+header.cautionColor{box-shadow: 0px 5px 20px rgba(138,132,90,1); }
+header.dangerColor{box-shadow: 0px 5px 20px rgba(138,64,64,1); }
+header.warningColor{box-shadow: 0px 5px 20px rgba(138,118,90,1); }
+header.cloakColor{box-shadow: 0px 5px 20px rgba(118,90,138,1); }
+
 
 header.row-fluid h2, header.row-fluid h3{
     padding-left: 5px;
@@ -22,7 +35,21 @@ header.row-fluid h2, header.row-fluid h3{
     box-shadow: 0px 0px 5px rgba(90,112,138,1); 
     z-index: 1;
 }
-
+header.row-fluid h2{font-size: 30px;}
+header.row-fluid h3{font-size: 24px;}
+    
+@media (max-width: 1025px) {
+    header.row-fluid h2{font-size:24px;}
+    header.row-fluid h3{font-size:18px;}
+}
+@media (max-width: 769px) {
+    header.row-fluid h2{font-size:16px;}
+    header.row-fluid h3{font-size:12px;}
+}
+@media print {
+ header{	border-bottom: 2px solid #000;  
+}
+}
 header.row-fluid h2:before{
     content:'';
     float: left;
@@ -74,18 +101,26 @@ header.row-fluid h3:after{
 header.row-fluid .alertLevelNum{
  font-size: 70px;
 line-height: 100px;
+    position: absolute;
+    right: 0px;
 }
+
 a.enderBtn{
-    background-image: url(/themes/default/public/svg/noise.svg);
+  /*  background-image: url(/themes/default/public/svg/noise.svg);*/
     text-decoration: none;
     font-size: 14px;
     height: 40px;
     padding: 10px;
     color: #fff;
     text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);   
-    box-shadow: 0px 0px 5px rgba(90,112,138,1); 
-    
 }
+a.enderBtn.nominalColor, a.enderBtn.attentionColor{box-shadow: 0px 0px 5px rgba(90,112,138,1); }
+a.enderBtn.cautionColor{box-shadow: 0px 0px 5px rgba(138,132,90,1); }
+a.enderBtn.dangerColor{box-shadow: 0px 0px 5px rgba(138,64,64,1); }
+a.enderBtn.warningColor{box-shadow: 0px 0px 5px rgba(138,118,90,1); }
+a.enderBtn.cloakColor{box-shadow: 0px 0px 5px rgba(118,90,138,1); }
+
+
 a.enderBtn:before{
     content:'';
 float: center;

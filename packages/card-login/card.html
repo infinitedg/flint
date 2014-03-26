@@ -1,10 +1,10 @@
 <template name="card_login">
   <div class="row-fluid">
-    <div class="col-lg-6 col-lg-offset-3">
+    <div class="col-sm-6 col-sm-offset-3">
       {{#if client.name}}
         <div class="text-center ">
           <h1>Welcome {{client.name}}</h1>
-          <a href="#" class="enderBtn btn-logout">Logout</a>
+          <a href="#" class="enderBtn alertable {{alertLevel}} btn-logout">Logout</a>
         </div>
       {{else}}
         <form class="form-horizontal">
@@ -17,7 +17,7 @@
           </div>
           <div class="control-group">
               <div class="controls">
-              <a href="#" class="enderBtn btn-login">Login</a>
+              <a href="#" class="enderBtn alertable {{alertLevel}} btn-login">Login</a>
             </div>
           </div>
         </form>

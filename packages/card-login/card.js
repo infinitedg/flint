@@ -52,3 +52,7 @@ Template.card_login.events = {
 Template.card_login.client = function() {
   return Flint.client();
 }
+
+Template.card_login.alertLevel = function() {
+ return Template.layout_default.alertLevel();   
+}
