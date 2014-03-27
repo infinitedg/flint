@@ -4,7 +4,7 @@
       {{#if client.name}}
         <div class="text-center ">
           <h1>Welcome {{client.name}}</h1>
-          <a href="#" class="enderBtn alertable {{alertLevel}} btn-logout">Logout</a>
+          <a href="#" class="enderBtn {{alertLevel}} btn-logout">Logout</a>
         </div>
       {{else}}
         <form class="form-horizontal">
@@ -12,12 +12,12 @@
           <div class="control-group">
             <label class="control-label">Name</label>
             <div class="controls">
-              <input type="text" class="loginname login-input"/>
+              <input type="text" class="loginname login-input {{alertLevel}}"/>
             </div>
           </div>
           <div class="control-group">
               <div class="controls">
-              <a href="#" class="enderBtn alertable {{alertLevel}} btn-login">Login</a>
+              <a href="#" class="enderBtn {{alertLevel}} btn-login">Login</a>
             </div>
           </div>
         </form>

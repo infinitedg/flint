@@ -123,6 +123,7 @@ Template.layout_default.station = function() {
 Template.layout_default.created = function() {
 	Flint.play('sciences');
 }
+
 //Gives the EnderLayout color classes for different alert levels
 Template.layout_default.alertLevel = function() {
   var a = Flint.simulator().alertCondition;
@@ -143,17 +144,6 @@ Template.layout_default.alertLevel = function() {
     return 'dangerColor';
   }
     
-}
-
-//Change the colors based on the current alert condition
-Template.layout_default.alertChange =function(l) {
-  $('.alertable').removeClass('nominalColor');
-    $('.alertable').removeClass('attentionColor');
-    $('.alertable').removeClass('cautionColor');
-    $('.alertable').removeClass('warningColor');
-    $('.alertable').removeClass('dangerColor');
-    
-    $('.alertable').addClass(l);
 }
 
 Template.layout_default.events = {
