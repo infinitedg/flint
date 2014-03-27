@@ -114,9 +114,9 @@
                     "cardId": "card_navCharts"
                 },
           	  {
-		    "name": "Thrusters",
-		    "cardId": "card_thrusters"
-		}
+                    "name": "Thrusters",
+                    "cardId": "card_thrusters"
+              }
             ],
             "_id": "voyager-navigator"
         },
