@@ -10,6 +10,13 @@
       </div>
     </div>
     <div class="span9">
+        <select class="form-control {{alertLevel}}">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
     <div class="alert alert-success" data-alert="5">
         <h1>Alert Condition 5</h1>
         <p>This alert level indicates that the ship is operating as expected and that no major threats are present.</p>
@@ -42,19 +49,13 @@
       </div>
         <form class="form-horizontal" role="form">
 
-        <input type="email" placeholder="email">
-        <input type="text" placeholder="text">
-        <input type="password" placeholder="password">
-        <input type="checkbox" placeholder="checkbox">
-        <input type="radio" placeholder="radio">
-        <textarea rows="3"></textarea>
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+        <input type="email" placeholder="email" class="{{alertLevel}}">
+        <input type="text" placeholder="text" class="{{alertLevel}}">
+        <input type="password" placeholder="password" class="{{alertLevel}}">
+        <input type="checkbox" placeholder="checkbox" class="{{alertLevel}}">
+        <input type="radio" placeholder="radio" class="{{alertLevel}}">
+        <textarea rows="3" class="{{alertLevel}}"></textarea>
+            
             </form>
     </div>
   </div>

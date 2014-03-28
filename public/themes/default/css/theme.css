@@ -11,12 +11,12 @@ body{padding: 0px;}
     width: 100%;
     margin: 0 auto;
 }
-.nominalColor{background-image: url(/themes/default/public/svg/nominal.svg);}
-.attentionColor{background-image: url(/themes/default/public/svg/attention.svg);}
-.cautionColor{background-image: url(/themes/default/public/svg/caution.svg);}
-.warningColor{background-image: url(/themes/default/public/svg/warning.svg);}
-.dangerColor{background-image: url(/themes/default/public/svg/danger.svg);}
-.cloakColor{background-image: url(/themes/default/public/svg/cloak.svg);}
+.nominalColor:not(textarea) {background: url(/themes/default/public/svg/nominal.svg);}
+.attentionColor:not(textarea) {background: url(/themes/default/public/svg/attention.svg);}
+.cautionColor:not(textarea) {background: url(/themes/default/public/svg/caution.svg);}
+.warningColor:not(textarea) {background: url(/themes/default/public/svg/warning.svg);}
+.dangerColor:not(textarea) {background: url(/themes/default/public/svg/danger.svg);}
+.cloakColor:not(textarea) {background: url(/themes/default/public/svg/cloak.svg);}
 
 header{
     width: 100%;
@@ -1331,16 +1331,12 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .show{display:block;}
 .invisible{visibility:hidden;}
 .affix{position:fixed;}
-body{background: #666;
-cursor:url(/themes/default/public/cursor.png),default;}
-*:hover{cursor:url(/themes/default/public/cursor.png),default;text-decoration:none;}
-::selection{background:rgba(0,0,0,0);}
-::-moz-selection{background:rgba(0,0,0,0);}
+
 ul.breadcrumb {background-color: rgba(0,0,0,0.3);}
-ul.breadcrumb li {text-shadow: rgba(255,255,254,0) 0 0 0;}
+ul.breadcrumb li {text-shadow: rgba(255,255,254,0) 0 0 0;} 
 
 
-input[type="email"],input[type="text"],input[type="password"],textarea{
+input[type="email"],input[type="text"],input[type="password"], textarea {
 	color: #fff;
 	border: 0px solid rgba(255,255,255,.5); 
     padding: 15px;
@@ -1349,19 +1345,19 @@ input[type="email"],input[type="text"],input[type="password"],textarea{
     box-shadow: 0px 0px 5px rgba(255,255,255,.75);
     margin: 0 0 10px 0;	
 }
-input[type="text"].attentionColor:focus, input[type="text"].nominalColor:focus, {
+input[type="text"].attentionColor:focus, input[type="text"].nominalColor:focus, input[type="password"].attentionColor:focus, input[type="password"].nominalColor:focus, textarea.nominalColor:focus, textarea.attentionColor:focus {
         box-shadow: 0px 0px 5px rgba(83,121,204,.75);
 }
-input[type="text"].cautionColor:focus {
+input[type="text"].cautionColor:focus, input[type="password"].cautionColor:focus, textarea.cautionColor:focus {
         box-shadow: 0px 0px 5px rgba(194,204,83,.75);
 }
-input[type="text"].warningColor:focus {
+input[type="text"].warningColor:focus, input[type="password"].warningColor:focus, textarea.warningColor:focus {
         box-shadow: 0px 0px 5px rgba(204,145,83,.75);
 }
-input[type="text"].dangerColor:focus {
+input[type="text"].dangerColor:focus, input[type="password"].dangerColor:focus, textarea.dangerColor:focus{
         box-shadow: 0px 0px 5px rgba(204,83,83,.75);
 }
-input[type="text"].cloakColor:focus {
+input[type="text"].cloakColor:focus, input[type="password"].cloakColor:focus, textarea.cloakColor:focus {
         box-shadow: 0px 0px 5px rgba(152,83,204,.75);
 }
 inputAfter{
@@ -1377,11 +1373,103 @@ inputAfter{
 	height: 40px;
 }
 
+body{background: #666;
+cursor:url(/themes/default/public/cursor.png),default;}
+*:hover{cursor:url(/themes/default/public/cursor.png),default;text-decoration:none;}
+::selection{background:rgba(0,0,0,0);}
+::-moz-selection{background:rgba(0,0,0,0);}
 
 
 
+input[type="radio"]{
+    visibility:hidden;
+    margin: 10px;
+}
+input[type="radio"]:before{
+    content:'';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.10);
+    border-radius: 6px;
+    box-shadow: 0px 0px 3px #fff;
+    visibility:visible;   
+}
+input[type="radio"]:checked:after{
+   content:'';
+    display: inline-block;
+    visibility:visible;
+    width: 50%;
+    height: 45%;
+    border-radius: 3px;
+    position: relative;
+    top:-22px;
+    left: 3px;
+}
+input.nominalColor[type="radio"]:checked:after,input.attentionColor[type="radio"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(83,121,204,1);
+    background: rgba(83,121,204,.50);
+}
+input.cautionColor[type="radio"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(194,204,83,1);
+    background: rgba(194,204,83,.50);
+}
+input.warningColor[type="radio"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(204,145,83,1);
+    background: rgba(204,145,83,.50);
+}
+input.dangerColor[type="radio"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(204,83,83,1);
+    background: rgba(204,83,83,.50);
+}
+input.cloakColor[type="radio"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(152,83,204,1);
+    background: rgba(152,83,204,.50);
+}
 
 
-
-
-
+input[type="checkbox"]{
+    visibility:hidden;
+    margin: 10px;
+}
+input[type="checkbox"]:before{
+    content:'';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.10);
+    border-radius: 2px;
+    box-shadow: 0px 0px 3px #fff;
+    visibility:visible;   
+}
+input[type="checkbox"]:checked:after{
+   content:'';
+    display: inline-block;
+    visibility:visible;
+    width: 50%;
+    height: 50%;
+    border-radius: 1px;
+    position: relative;
+    top:-21px;
+    left: 3px;
+}
+input.nominalColor[type="checkbox"]:checked:after,input.attentionColor[type="checkbox"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(83,121,204,1);
+    background: rgba(83,121,204,.50);
+}
+input.cautionColor[type="checkbox"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(194,204,83,1);
+    background: rgba(194,204,83,.50);
+}
+input.warningColor[type="checkbox"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(204,145,83,1);
+    background: rgba(204,145,83,.50);
+}
+input.dangerColor[type="checkbox"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(204,83,83,1);
+    background: rgba(204,83,83,.50);
+}
+input.cloakColor[type="checkbox"]:checked:after {
+    box-shadow: 0px 0px 5px rgba(152,83,204,1);
+    background: rgba(152,83,204,.50);
+}
