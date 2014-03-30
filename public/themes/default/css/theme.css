@@ -240,7 +240,7 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 }
 
 .modalview .wrapper {
-	-webkit-transform: translateZ(-1px); /* solves a rendering bug in Chrome on Windows */
+	-webkit-transform: perspective(1500) translateZ(-1px); /* solves a rendering bug in Chrome on Windows */
 }
 
 .animate .pageContent::after {
@@ -345,6 +345,7 @@ background: linear-gradient(to bottom, #000000 32%,#1e1e1e 100%);
 	transition: transform 0.4s;
 	-webkit-transform-origin: 50% 50%;
 	transform-origin: 50% 50%;
+    -webkit-transform: translateZ(0px) translateY(0%) rotateX(0deg);
 }
 
 .effect-movedown .pageContent::after {
@@ -1336,6 +1337,16 @@ ul.breadcrumb {background-color: rgba(0,0,0,0.3);}
 ul.breadcrumb li {text-shadow: rgba(255,255,254,0) 0 0 0;} 
 
 
+.loginname, a.btn-login{
+ width: 300px;   
+}
+
+.text-center {
+ margin-top: 100px;   
+}
+.text-center h1{
+ margin: 50px;   
+}
 input[type="email"],input[type="text"],input[type="password"], textarea {
 	color: #fff;
 	border: 0px solid rgba(255,255,255,.5); 

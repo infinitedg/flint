@@ -2,10 +2,20 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1010px"
 	 height="427px" viewBox="0 0 1010 427" enable-background="new 0 0 1010 427" xml:space="preserve">
+   <linearGradient id="myLinearGradient1" spreadMethod="pad">
+      <stop offset="0%"   stop-color="#5379CC" stop-opacity="1"/>
+               <stop offset="40%"   stop-color="#3B4692" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#2A2A69 " stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="myLinearGradient2" spreadMethod="pad">
+      <stop offset="100%"   stop-color="#5379CC" stop-opacity="1"/>
+        <stop offset="40%"   stop-color="#3B4692" stop-opacity="1"/>
+      <stop offset="0%" stop-color="#2A2A69 " stop-opacity="1"/>
+    </linearGradient>
 <g id="Shape_1_1_" enable-background="new    ">
 	<g id="Shape_1">
 		<g>
-			<path fill-rule="evenodd" clip-rule="evenodd" fill="#CF0000" d="M233.544,390.603c-98.448,0-178.256-79.808-178.256-178.256
+			<path fill-rule="evenodd" clip-rule="evenodd" style="fill:url(#myLinearGradient1);" d="M233.544,390.603c-98.448,0-178.256-79.808-178.256-178.256
 				S135.096,34.091,233.544,34.091c83.098,0,152.915,56.861,172.666,133.798h365.493C733.577,72.068,577.516,0.306,390.79,0.306
 				C175.499,0.306,0.971,95.704,0.971,213.384c0,117.681,174.528,213.079,389.819,213.079c184.665,0,339.335-70.188,379.604-164.422
 				H404.771C383.255,336.306,314.744,390.603,233.544,390.603z M232.858,332.078c68.161,0,123.418-55.256,123.418-123.418
@@ -17,6 +27,6 @@
 	</g>
 </g>
 <g id="OUTLAND_CORPS">
-	<text transform="matrix(1 0 0 1 402.1421 241.5059)" fill="#CF0000" font-family="'Zekton'" font-size="71.01">OUTLAND CORPS</text>
+	<text transform="matrix(1 0 0 1 402.1421 241.5059)" style="fill:url(#myLinearGradient2);" font-family="'Zekton'" font-size="71.01">OUTLAND CORPS</text>
 </g>
 </svg>

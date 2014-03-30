@@ -154,8 +154,8 @@ Template.layout_default.events = {
 			 container = perspectiveWrapper.querySelector( '.pageContent' ),
 			 contentWrapper = container.querySelector( '.wrapper' );
         
-        $(perspectiveWrapper).removeClass('animate');
-		Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 300);
+            $(perspectiveWrapper).removeClass('animate');
+            Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 400);
                
            }
       

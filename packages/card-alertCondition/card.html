@@ -10,13 +10,19 @@
       </div>
     </div>
     <div class="span9">
-        <select class="form-control {{alertLevel}}">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+        <form class="form-horizontal" role="form">
+
+        <input type="text" placeholder="text" class="{{alertLevel}}">
+        <input type="password" placeholder="password" class="{{alertLevel}}">
+        <input type="checkbox" placeholder="checkbox" class="{{alertLevel}}">
+            <div class="radioClass">
+                <input type="radio" name="radioBtns" placeholder="radio" class="{{alertLevel}}">
+                <input type="radio" name="radioBtns" placeholder="radio" class="{{alertLevel}}">
+
+            </div>
+        <textarea rows="3" class="{{alertLevel}}"></textarea>
+            
+        </form>
     <div class="alert alert-success" data-alert="5">
         <h1>Alert Condition 5</h1>
         <p>This alert level indicates that the ship is operating as expected and that no major threats are present.</p>
@@ -47,16 +53,6 @@
         <p>This alert condition calls all hands to battle stations. The ship and its crew are directly threatened, and its systems are under heavy stress.</p>
         <p><a href="#" class="btn btn-danger">Change Alert level</a></p>
       </div>
-        <form class="form-horizontal" role="form">
-
-        <input type="email" placeholder="email" class="{{alertLevel}}">
-        <input type="text" placeholder="text" class="{{alertLevel}}">
-        <input type="password" placeholder="password" class="{{alertLevel}}">
-        <input type="checkbox" placeholder="checkbox" class="{{alertLevel}}">
-        <input type="radio" placeholder="radio" class="{{alertLevel}}">
-        <textarea rows="3" class="{{alertLevel}}"></textarea>
-            
-            </form>
     </div>
   </div>
 </template>
