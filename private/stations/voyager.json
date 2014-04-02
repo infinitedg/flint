@@ -20,6 +20,10 @@
                 {
                     "cardId": "card_sensorGrid",
                     "name": "Sensor Grid"
+                },
+                {
+                    "cardId": "card_selfDestruct",
+                    "name": "Self Destruct"
                 }
             ],
             "_id": "voyager-operations"

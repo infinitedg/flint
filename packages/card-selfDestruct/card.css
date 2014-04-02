@@ -1,0 +1,83 @@
+.card-selfDestruct{
+	height: 85vh;
+	display: -webkit-flex;
+   	display: flex;
+   	-webkit-flex-direction: row;
+  	flex-direction: row;
+  	-webkit-justify-content: center;
+  	justify-content: center;
+}
+
+@-webkit-keyframes dangerAnimation {
+  0%   { background-position: 0px 0px; }
+  100% { background-position: 100px 0px; }
+}
+@keyframes dangerAnimation {
+  0%   { background-position: 0px 0px; }
+  100% { background-position: 100px 0px; }
+}
+
+.card-selfDestruct .bigBorder{
+	margin-top: 2vw;
+	border-radius: 20px;
+	background: linear-gradient(45deg, black 25%,
+    #ff0 25%, #ff0 50%, 
+    black 50%, black 75%, 
+    #ff0 75%);
+	background-size:100px 100px;
+	width: 35vw;
+   	height: 35vw;
+   	visibility: hidden;
+	display: -webkit-flex;
+   	display: flex;
+  	-webkit-justify-content: center;
+  	justify-content: center;
+
+}
+
+.card-selfDestruct .bigBorder.animating{
+	-webkit-animation: dangerAnimation 1s infinite; /* Safari 4+ */
+	animation:         dangerAnimation 1s infinite; /* IE 10+ */
+    animation-timing-function: linear;
+	-webkit-animation-timing-function: linear;
+	visibility: visible;
+}
+.card-selfDestruct .bigBorder:after{
+	content: '';
+	position: absolute;
+	background: #000;
+	float: right;
+	width: 32vw;
+	height: 32vw;
+	margin: 1.5vw -31vw;
+	border-radius: 20px;
+	z-index: 1;
+}
+.card-selfDestruct .bigbutton{
+	border-radius: 250px;
+	font-size: 2vw;
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#f00), to(#700));
+	background-image: -webkit-linear-gradient(top, #f00, #700);
+	background-image: linear-gradient(top, #f00, #700);
+	line-height: 30vw;
+	text-align: center;
+	-webkit-align-self: center;
+	background-color: #f00;
+   	align-self: center;
+   	width: 30vw;
+   	height: 30vw;
+	border: 10px solid #919191;
+	box-shadow: inset 5px 5px 20px rgba(0,0,0,1);
+	z-index: 2;
+	visibility: visible;
+}
+
+.card-selfDestruct .countdownTimer{
+    position: absolute;
+    font-size: 10vh;
+    bottom: 10vh;
+    text-align: center;
+    right: 0px;
+    left: 0px;
+    
+}
