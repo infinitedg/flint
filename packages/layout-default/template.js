@@ -176,5 +176,5 @@ Template.layout_default.events = {
 			$(perspectiveWrapper).addClass('modalview');
 			// animate..
 			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
-            }
+            },
 }
