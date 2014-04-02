@@ -61,8 +61,8 @@
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v0.2.11",
-        "commit": "4ee1a31248e45cbf98dfbdacd2daa82f0be7748b"
+        "tag": "v0.2.14",
+        "commit": "3727371164f28d4fbf50efb12a9c75617198b596"
       }
     }
   }
