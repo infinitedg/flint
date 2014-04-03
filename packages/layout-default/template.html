@@ -5,7 +5,6 @@
                 
                 <div class="container-fluid" style="padding:0px;">
                     <header class="{{alertLevel}} row-fluid">
-                         {{#isolate}}
                         <div class="col-xs-4 sim-name">
                             <h2>{{simulator.name}}</h2>
                             <h3>{{station.name}}</h3>
@@ -13,21 +12,18 @@
                         <div class="alertLevelNum">
                             {{alertCondition}}   
                         </div>
-                         {{/isolate}}
                     </header>
                     <div class="row-fluid">
                         <div class="col-md-12 card-area">
-                            {{yield}}
+                            {{> yield}}
                         </div>
                     </div>
                 </div>
                     <div class="flintModal-cover"></div>
 			</div><!-- wrapper -->
         </div><!-- /container -->
-         {{#isolate}}
         <nav class="outer-nav top horizontal {{hideCardlistCSS}}">
         {{> layout_default_cardList}}
         </nav>
-         {{/isolate}}
     </div><!-- /perspective -->
 </template>

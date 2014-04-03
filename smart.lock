@@ -15,7 +15,7 @@
       "kinetic.js": {},
       "bootboxjs": {},
       "blaze-layout": {},
-      "apm": {}
+      "apm": {},
       "bootstrap-3": {},
       "font-awesome": {},
       "gsap": {},
@@ -76,6 +76,7 @@
         "git": "https://github.com/arunoda/meteor-apm-client.git",
         "tag": "v0.2.9",
         "commit": "816279a6871c13ed3672d2d3c3aec9d0e7521537"
+        },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
         "tag": "v3.1.1-1",
