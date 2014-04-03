@@ -4,7 +4,7 @@ Template.card_selfDestruct.events = {
     'mouseup .modalOpen': function(e, context) {
         if (! Template.card_selfDestruct.currentCountdown()){
               bootbox.prompt('ENTER TIME UNTIL SELF DESTRUCT IN MINUTES:', function(result){
-                  if (result === null) {                                             
+                  if (result === null || isNaN(result)) {                                             
                       //Example.show("Prompt dismissed");                              
                   } else {
                       //Example.show("Hi <b>"+result+"</b>");
@@ -21,16 +21,31 @@ Template.card_selfDestruct.events = {
                   }
               });
         } else{
-           bootbox.confirm("Would you like to deactivate self-destruct?", function(result) {
+           bootbox.confirm("Would you like to deactivate self destruct?", function(result) {
                if (result === true) {
                    countdownEnd = '';
                   //  $('.bigBorder').removeClass('animating');
-
+                   Meteor.clearInterval(timer);
                     Flint.simulators.update(Flint.simulatorId(), {$set: {selfDestructCountdown: null}});
                }
            }); 
         }
-    }
+    },
+    
+    'keypress input.input-block-level': function(e, t) {
+        console.log("gotit!");
+            if (e.which === 13) {
+                // Simulate click event
+                var evObj = document.createEvent('Events');
+                evObj.initEvent('click', true, false);
+                t.find('.modal-footer .btn.btn-primary').dispatchEvent(evObj);
+    
+                e.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    
 }
 
 Template.card_selfDestruct.currentCountdown = function(){
@@ -55,10 +70,10 @@ function parseTimer(currentTime){
 function pad(n) {
     return (n < 10) ? ("0" + n) : n;
 }
+var timer;
 
 function Countdown(options) {
-  var timer,
-  instance = this,
+  var instance = this,
   seconds = options.seconds || 10,
   updateStatus = options.onUpdateStatus || function () {},
   counterEnd = options.onCounterEnd || function () {};
