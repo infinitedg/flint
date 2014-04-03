@@ -121,7 +121,7 @@ Template.layout_default.station = function() {
 }
 
 Template.layout_default.created = function() {
-	Flint.play('sciences');
+	//Flint.play('sciences');
 }
 
 //Gives the EnderLayout color classes for different alert levels
@@ -147,7 +147,7 @@ Template.layout_default.alertLevel = function() {
 }
 
 Template.layout_default.events = {
-  'mouseup div.pageContent': function(e, context) {
+  'click div.pageContent': function(e, context) {
            if ($('.animate').length > 0) {
               var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),
@@ -161,7 +161,7 @@ Template.layout_default.events = {
       
   },
 
-  'mouseup div.sim-name': function(e, context) {
+  'click div.sim-name': function(e, context) {
             if (Flint.client().name){
             var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),

@@ -16,7 +16,8 @@
       "bootstrap-3": {},
       "font-awesome": {},
       "gsap": {},
-      "chosen-package": {}
+      "chosen-package": {},
+      "bootstrap3-slider-touch": {}
     },
     "packages": {
       "iron-router": {
@@ -93,6 +94,11 @@
         "git": "https://github.com/Ore4444/chosen-package.git",
         "tag": "v0.11.1",
         "commit": "8d1a748bafaae8b6005a979ab7261ac14ff38052"
+      },
+      "bootstrap3-slider-touch": {
+        "git": "https://github.com/jcchin/meteor-bootstrap-slider-touch/",
+        "tag": "v2.0.3",
+        "commit": "3f8ce5ad2696fb80c337949890e2ded415ac3239"
       }
     }
   }

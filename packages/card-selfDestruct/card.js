@@ -19,12 +19,13 @@ Template.card_selfDestruct.events = {
                     });
                       selfDestruct.start();
                   }
+                  
               });
         } else{
            bootbox.confirm("Would you like to deactivate self destruct?", function(result) {
                if (result === true) {
                    countdownEnd = '';
-                  //  $('.bigBorder').removeClass('animating');
+                  $('.bigBorder').removeClass('animating');
                    Meteor.clearInterval(timer);
                     Flint.simulators.update(Flint.simulatorId(), {$set: {selfDestructCountdown: null}});
                }
