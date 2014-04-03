@@ -11,7 +11,6 @@ Template.card_selfDestruct.events = {
                     var selfDestruct = new Countdown({  
                         seconds:(result * 60),  // number of seconds to count down
                         onUpdateStatus: function(sec){
-                            $('.bigBorder').addClass('animating');
                             parseTimer(sec);
                             
                         }, // callback for each second
@@ -25,7 +24,6 @@ Template.card_selfDestruct.events = {
            bootbox.confirm("Would you like to deactivate self destruct?", function(result) {
                if (result === true) {
                    countdownEnd = '';
-                  $('.bigBorder').removeClass('animating');
                    Meteor.clearInterval(timer);
                     Flint.simulators.update(Flint.simulatorId(), {$set: {selfDestructCountdown: null}});
                }
@@ -54,16 +52,21 @@ Template.card_selfDestruct.currentCountdown = function(){
     if (t == '00:00:00'){t = '';}
     return t;
 }
+Template.card_selfDestruct.isOn = function(){
+       var t = Flint.simulator().selfDestructCountdown; 
+     if (t == '00:00:00' || t == '' || t == null) { return '';}
+     else {return 'animating';} 
+}
 
 Template.card_selfDestruct.alertLevel = function() {
- return Template.layout_default.alertLevel();   
+    return Template.layout_default.alertLevel();   
+                                         
 }
 
 function parseTimer(currentTime){
     var hours = Math.floor(currentTime/(60*60));
     var minutes = Math.floor((currentTime - (hours*60*60))/60);
     var seconds = Math.floor(currentTime - (hours*60*60 + minutes*60));
-    if (currentTime > 0) {$('.bigBorder').addClass('animating');}
     var countdownOutput = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
     Flint.simulators.update(Flint.simulatorId(), {$set: {selfDestructCountdown: countdownOutput}});
                          
