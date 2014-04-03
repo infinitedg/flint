@@ -1,0 +1,153 @@
+/* Core Styling */  
+#core_thrusters .thruster-icon{
+      background-color: #333;
+      width: 30px;
+      height: 30px;
+      margin: 0px auto;
+      text-align: center;
+	border: 2px solid #171717;
+	display: block;
+	float: left;
+}
+    #core_thrusters .highlight{
+      background-color: #ff0;
+      color: #000;
+    }
+    
+/* Card Styling */    
+#thruster-card #thrusters{
+    position: relative;
+	/*The Ratio of the width to the height is .97101449275
+	Use that value to scale the selector appropriately.
+	Note that font sizes might need to be changed to accomadate*/
+	width: 500px;
+	height: 485.50724638px;
+	font:  30px;
+	color: #000;
+	text-align: center;
+}
+
+#thruster-card .white{
+	background-image: -webkit-linear-gradient(top, #fff, #eee);
+	border: 1px solid #b9b9b9;
+}
+#thruster-card .white:active{
+	background-color:#aaa;
+	background-image: -webkit-linear-gradient(top, #ddd, #eee);
+}
+#thruster-card .yellow{
+	background-image: -webkit-linear-gradient(top, #fef985, #f5e749);
+	border: 1px solid #a58a00;
+}
+#thruster-card .yellow:active{
+	background-image: -webkit-linear-gradient(top, #ECD50D, #f5e749);
+}
+#thruster-card .box {
+	line-height: 150%;
+	width: 27.6%;
+	height: 11.044%;
+}
+#thruster-card .right-round{
+	width: 27.6%;
+	height: 15.522%;
+	border-radius: 30% 0px 0px 30%;	
+}
+#thruster-card .left-round{
+	width: 27.6%;
+	height:15.522%;
+	border-radius: 0px 30% 30% 0px;
+}
+#thruster-card .top-right{
+	width: 34.202%;
+	height: 40%;
+		border-radius: 0px 100% 0px 0px;
+}
+#thruster-card .top-left{
+	width: 34.202%;
+	height: 40%;
+	border-radius: 100% 0px 0px 0px;
+}
+#thruster-card .bottom-right{
+	width: 34.202%;
+	height: 40%;
+	border-radius: 0px 0px 100% 0px;
+}
+#thruster-card .bottom-left{
+	width: 34.202%;
+	height: 40%;
+	border-radius: 0px 0px 0px 100%;
+}
+#thruster-card .inner-text-top{
+	top: 50%;
+	position: relative;
+}
+#thruster-card .inner-text-bottom{
+	top: 25%;
+	position: relative;
+}
+#thruster-card .inner-text-sides{
+	position: relative;
+	top: 25%;
+}
+#thruster-card #forward {
+	left: 36%;
+	top: 12.239%;
+	position: absolute;
+}
+#thruster-card #up {
+	left: 36%;
+	position: absolute;
+	top: 25%;
+}
+#thruster-card #port {
+	position: absolute;
+	top: 41.7%;
+	left: 6.6%;
+}
+#thruster-card #starboard {
+	position: absolute;
+	top: 41.7%;
+	left: 65.6%;
+}
+#thruster-card #down {
+	left: 36%;
+	position: absolute;
+	top: 62.3%; 
+}
+#thruster-card #reverse {
+	left: 36%;
+	position: absolute;
+	top: 74.7%;
+}
+#thruster-card #port-yaw {
+	top: 0%;
+	left: 0%;
+	position: absolute;	
+}
+#thruster-card #starboard-yaw{
+	position: absolute;
+	top: 0%;
+	left: 65.6%;
+}
+#thruster-card #port-roll {
+	position: absolute;
+	top: 58.5%;
+	left: 0%;
+}
+#thruster-card #starboard-roll {
+	position: absolute;
+	top: 58.5%;
+	left: 65.6%;
+}
+#thruster-card #pitch-up {
+	left: 36%;
+	position: absolute;
+	top: 37.6%;
+}
+#thruster-card #pitch-down {
+	left: 36%;
+	position: absolute;
+	top: 49.7%;
+}
+
+

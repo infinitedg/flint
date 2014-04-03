@@ -1,0 +1,60 @@
+#targeting-card .btn-default {
+	width: 25%;
+	height: 80px;
+	margin-bottom: 10px;
+     font-size: 25px;
+    line-height: 50px;
+	}
+#targeting-card .btn-danger {
+	width: 100%;
+   
+}
+#targeting-card .target-image-back{
+	height: 100%;
+	width: 100%;
+	display: block;
+	float: left;
+    background-color:black;
+    border: 3px solid #333;
+    margin-bottom: 10px;
+    padding: 2px;
+    text-align: center;
+}
+#targeting-card .target-image-back img{
+    max-height:200px;
+}
+
+
+#targeting-card .lock-x.selected, #targeting-card .lock-y.selected, #targeting-card .lock-z.selected{
+ background-color:#333;
+    color: #fff;
+    	border: 1px solid #454545;
+
+}
+#targeting-card .calculated-x, .calculated-y, .calculated-z, .lock-x, .lock-y, .lock-z{
+	background-color: #fff;
+	height: 50px;
+	color: #000;
+	width: 100%;
+	float: left;
+	border-radius: 2px;
+	border: 1px solid #bababa;
+	font-size: 30px;
+	line-height: 50px;
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+
+#targeting-card .calculated-x.hilited, #targeting-card .calculated-y.hilited, #targeting-card .calculated-z.hilited{
+ background-color: #333;
+    color: #fff;
+}
+
+#targeting-core .targetedInfo{
+ font-size: 18px;
+    color: #f00;
+}
+
+#targeting-core .targetedInfo.noShow{
+ visibility: hidden
+}

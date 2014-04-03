@@ -106,6 +106,10 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   cardTransitionAutorun.stop();
 //   stationActionObserver.stop();
 // };
+Template.layout_default.alertCondition = function() {
+  var a = Flint.simulator().alertCondition;
+  return a;
+};
 
 
 Template.layout_default.simulator = function() {
@@ -118,4 +122,59 @@ Template.layout_default.station = function() {
 
 Template.layout_default.created = function() {
 	Flint.play('sciences');
+}
+
+//Gives the EnderLayout color classes for different alert levels
+Template.layout_default.alertLevel = function() {
+  var a = Flint.simulator().alertCondition;
+  switch (a) {
+  case 'c':
+  case 'cloak':
+  case 'purple':
+    return 'cloakColor';
+  case 5:
+    return 'nominalColor';
+  case 4:
+    return 'attentionColor';
+  case 3:
+    return 'cautionColor';
+  case 2:
+    return 'warningColor';
+  case 1:
+    return 'dangerColor';
+  }
+    
+}
+
+Template.layout_default.events = {
+  'mouseup div.pageContent': function(e, context) {
+           if ($('.animate').length > 0) {
+              var showMenu = document.getElementById( 'showMenu' ),
+			 perspectiveWrapper = document.getElementById( 'perspective' ),
+			 container = perspectiveWrapper.querySelector( '.pageContent' ),
+			 contentWrapper = container.querySelector( '.wrapper' );
+        
+            $(perspectiveWrapper).removeClass('animate');
+            Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 400);
+               
+           }
+      
+  },
+
+  'mouseup div.sim-name': function(e, context) {
+            if (Flint.client().name){
+            var showMenu = document.getElementById( 'showMenu' ),
+			 perspectiveWrapper = document.getElementById( 'perspective' ),
+			 container = perspectiveWrapper.querySelector( '.pageContent' ),
+			 contentWrapper = container.querySelector( '.wrapper' );
+            docscroll = window.pageYOffset || window.document.documentElement.scrollTop; //Finds the yScoll
+			// change top of contentWrapper
+			contentWrapper.style.top = docscroll * -1 + 'px';
+			// mac chrome issue:
+			document.body.scrollTop = document.documentElement.scrollTop = 0;
+			// add modalview class
+			$(perspectiveWrapper).addClass('modalview');
+			// animate..
+			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
+            },
 }

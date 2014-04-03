@@ -1,28 +1,26 @@
 <template name="card_login">
   <div class="row-fluid">
-    <div class="span8">
+    <div class="col-sm-6 col-sm-offset-3">
       {{#if client.name}}
         <div class="text-center">
           <h1>Welcome {{client.name}}</h1>
-          <a href="#" class="btn btn-primary btn-logout">Logout</a>
+          <a href="#" class="enderBtn {{alertLevel}} btn-logout">Logout</a>
         </div>
       {{else}}
-      <div class="well">
         <form class="form-horizontal">
-          <h2>Login</h2>
+            <img class="simLogo" src="/themes/default/public/svg/outlandCorpsLogo.svg" style="height: 200px; margin-left: 70px; margin-top: 50px; margin-bottom: 30px;"/>
           <div class="control-group">
             <label class="control-label">Name</label>
             <div class="controls">
-              <input type="text" class="loginname login-input"/>
+              <input type="text" class="loginname login-input {{alertLevel}}"/>
             </div>
           </div>
           <div class="control-group">
               <div class="controls">
-              <a href="#" class="btn btn-primary btn-login">Login</a>
+              <a href="#" class="enderBtn {{alertLevel}} btn-login">Login</a>
             </div>
           </div>
         </form>
-      </div>
       {{/if}}
     </div>
   </div>

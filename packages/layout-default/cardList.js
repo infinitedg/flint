@@ -30,13 +30,23 @@ Template.layout_default_cardList.events = {
     Flint.beep();
     if ('' + this.cardId !== Flint.cardId() + '') { // Cast to strings
       that = this;
-      $('.card-area').fadeOut(function(){
+
+        var showMenu = document.getElementById( 'showMenu' ),
+			 perspectiveWrapper = document.getElementById( 'perspective' ),
+			 container = perspectiveWrapper.querySelector( '.pageContent' ),
+			 contentWrapper = container.querySelector( '.wrapper' );
+        
+        $(perspectiveWrapper).removeClass('animate');
+		Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 1000);   
+        
+        $('.card-area').fadeOut(function(){
         Router.go('flint_station', {
           simulatorId: that.simulatorId,
           stationId: that.stationId,
           cardId: that.cardId
         });
       });
+                         
     }
     e.preventDefault();
   }

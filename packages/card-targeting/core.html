@@ -1,0 +1,16 @@
+<template name="core_targeting">
+ <div id="targeting-core" class="container">
+   <h3>Targeting</h3>
+     <select name="targets" id="targetChoice" onChange="Template.core_targeting.chooseTarget()">
+        <option value="">None</option>
+        <option value="battlestar">Battlestar</option>
+         <option value="Cargo Ship">Cargo Ship</option>
+         <option value="Renegade">Renegade</option>
+         <option value="Small Fighter">Small Fighter</option>
+     </select>
+     <div class="targetedInfo noShow">
+         <span class="targetedInfo">TARGETED</span>
+         <button type="button" class="btn unlockTarget btn-default">Unlock Target</button>
+    </div>
+ </div>
+</template>
