@@ -16,6 +16,10 @@
       "bootboxjs": {},
       "blaze-layout": {},
       "apm": {}
+      "bootstrap-3": {},
+      "font-awesome": {},
+      "gsap": {},
+      "chosen-package": {}
     },
     "packages": {
       "iron-router": {
@@ -25,8 +29,8 @@
       },
       "nprogress": {
         "git": "https://github.com/zhouzhuojie/meteor-nprogress.git",
-        "tag": "v0.0.3",
-        "commit": "ffd1c5dd400af64121197f4e637a215c4b6b1fc7"
+        "tag": "v0.0.4",
+        "commit": "8333206b751a24fac1fbd1b03fa37621bcefe50c"
       },
       "winston": {
         "git": "https://github.com/tomrogers3/meteor-winston.git",
@@ -72,6 +76,25 @@
         "git": "https://github.com/arunoda/meteor-apm-client.git",
         "tag": "v0.2.9",
         "commit": "816279a6871c13ed3672d2d3c3aec9d0e7521537"
+      "bootstrap-3": {
+        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
+        "tag": "v3.1.1-1",
+        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
+      },
+      "font-awesome": {
+        "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
+        "tag": "v4.0.3",
+        "commit": "61e9361384347547ae144f8228faa4deffda23db"
+      },
+      "gsap": {
+        "git": "https://github.com/RoyalMist/meteor-gsap.git",
+        "tag": "v1.11.5",
+        "commit": "9fc801d7f232ea943a3414a793680c924801d696"
+      },
+      "chosen-package": {
+        "git": "https://github.com/Ore4444/chosen-package.git",
+        "tag": "v0.11.1",
+        "commit": "8d1a748bafaae8b6005a979ab7261ac14ff38052"
       }
     }
   }

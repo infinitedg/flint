@@ -15,5 +15,9 @@
     "bootboxjs": {},
     "blaze-layout": {},
     "apm": {}
+    "bootstrap-3": {},
+    "font-awesome": {},
+    "gsap": {},
+    "chosen-package": {}
   }
 }

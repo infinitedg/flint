@@ -36,16 +36,8 @@
                     "name": "Sensor Grid"
                 },
                 {
-                    "cardId": "card_mario",
-                    "name": "Mario"
-                },
-                {
-                    "cardId": "card_3d_car_demo",
-                    "name": "3D Car Demo"
-                },
-                {
-                    "cardId": "card_3d_stars_demo",
-                    "name": "3D Stars Demo"
+                    "cardId": "card_selfDestruct",
+                    "name": "Self Destruct"
                 }
             ],
             "_id": "voyager-operations"
@@ -88,6 +80,14 @@
                 {
                     "cardId": "core_scanner",
                     "name": "Scanner"
+                },
+                {
+                    "name": "Thrusters",
+                    "cardId": "core_thrusters"
+                },
+                {
+                    "name": "Targeting",
+                    "cardId": "core_targeting"
                 }
             ],
             "_id": "voyager-flightDirector"
@@ -140,9 +140,27 @@
                 {
                     "name": "Star Charts",
                     "cardId": "card_navCharts"
-                }
+                },
+          	  {
+                    "name": "Thrusters",
+                    "cardId": "card_thrusters"
+              }
             ],
             "_id": "voyager-navigator"
+        },
+         {
+            "name": "Tactical",
+            "cards": [
+                {
+                    "name": "Login",
+                    "cardId": "card_login"
+                },
+                {
+                    "name": "Targeting",
+                    "cardId": "card_targeting"
+                }
+            ],
+            "_id": "voyager-tactical"
         }
     ]
 }
