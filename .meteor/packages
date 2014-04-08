@@ -34,6 +34,7 @@ card-3d-stars-demo
 card-3d-car-demo
 blaze-layout
 card-core
+card-messageComposer
 card-scanner
 apm
 card-speed
@@ -44,3 +45,4 @@ bootstrap-3
 font-awesome
 gsap
 bootstrap3-slider-touch
+three.js

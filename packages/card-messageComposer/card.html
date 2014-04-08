@@ -1,0 +1,22 @@
+<template name="card_messageComposer">
+    <div id="card-messageComposer">
+        <div class="message-list">
+            <h5>MESSAGES:</h5>
+            <div class="textbox">
+                {{#each messageList}}
+                    <p>{{to}}</p>
+                {{/each}}
+            </div>
+        </div>
+        <div class="message-composer">
+            <span class="to-box"><a href="#" class="btn btn-default">TO:</a><input type="text" class="to-input" /></span>
+            <textarea class='body-text'></textarea>
+            <span class="bottom-btns">
+                <a href="#" class="clearBtn btn btn-danger">CLEAR</a>
+                <a href="#" class="newBtn btn btn-primary">NEW</a>
+                <a href="#" class="saveBtn btn btn-primary">SAVE</a>
+                <a href="#" class="encodeBtn btn btn-primary">ENCODE</a>
+                <a href="#" class="queueBtn btn btn-default">QUEUE FOR SENDING</a></span>
+        </div>
+    </div>
+</template>

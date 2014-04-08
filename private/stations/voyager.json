@@ -38,6 +38,10 @@
                 {
                     "cardId": "card_selfDestruct",
                     "name": "Self Destruct"
+                },
+                {
+                    "cardId": "card_messageComposer",
+                    "name": "Message Composer"
                 }
             ],
             "_id": "voyager-operations"
