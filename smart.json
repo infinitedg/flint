@@ -15,6 +15,7 @@
     "font-awesome": {},
     "gsap": {},
     "chosen-package": {},
-    "bootstrap3-slider-touch": {}
+    "bootstrap3-slider-touch": {},
+    "three.js": {}
   }
 }

@@ -17,7 +17,8 @@
       "font-awesome": {},
       "gsap": {},
       "chosen-package": {},
-      "bootstrap3-slider-touch": {}
+      "bootstrap3-slider-touch": {},
+      "three.js": {}
     },
     "packages": {
       "iron-router": {
@@ -62,13 +63,13 @@
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
-        "tag": "v3.2.2",
-        "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
+        "tag": "v4.2.0",
+        "commit": "2b7d18ad028d9e7b37238ecf2a8a7970735cebd1"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.3",
-        "commit": "0166a768476c1c54d659a919a7ff0cb52f30ef81"
+        "tag": "v0.2.4",
+        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
@@ -99,6 +100,11 @@
         "git": "https://github.com/jcchin/meteor-bootstrap-slider-touch/",
         "tag": "v2.0.3",
         "commit": "3f8ce5ad2696fb80c337949890e2ded415ac3239"
+      },
+      "three.js": {
+        "git": "https://github.com/nozpheratu/three-meteor",
+        "tag": "v0.0.1",
+        "commit": "a437d4e0314b055b19cfc60fa9e1ddfac844a0d9"
       }
     }
   }
