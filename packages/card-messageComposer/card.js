@@ -72,17 +72,18 @@ Template.card_messageComposer.events = {
 };
 
 Template.card_messageComposer.saveMessage = function(context){
-    var message = Flint.collection('lrmessages').find({_id: Session.get('currentLRMessage')});
-        Flint.collection('lrmessages').upsert(
-            Session.get('currentLRMessage'),
-            {
-            sender: Flint.station().name,
+    var message = Flint.collection('lrmessages').find({_id: Session.get('currentLRMessage')}).fetch();
+    var senderName = Flint.station().name;
+    Flint.collection('lrmessages').update(
+        Session.get('currentLRMessage'),
+        {
+            sender: senderName,
             to: context.find('.to-input').value,
             body: context.find('.body-text').value,
             encoded: message.encoded,
             status: message.status,
             simulatorId: Flint.simulatorId()
-          });
+        });
 };
 /**
 Create a subscripton to cards.messageComposer.lrmessages and save for later teardown
