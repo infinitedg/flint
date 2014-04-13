@@ -1,0 +1,21 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='110%' height='110%' viewBox='-20px -20px 100% 100%'>
+                            <defs>
+                                <linearGradient id="gradient" x1="0" y1="00%" x2 ="0" y2="100%">
+                                  <stop stop-color="black" offset="0"/>
+                                  <stop stop-color="white" offset="1"/>
+                                </linearGradient>
+
+                                <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+                                  <rect y="0.3" width="1" height=".7" fill="url(#gradient)" />
+                                </mask>
+                                <pattern id='bluestripe' patternUnits='userSpaceOnUse' x='0' y='0' width='35' height='35' viewBox='0 0 70 70' >
+                                <rect width='110%' height='110%' fill='#000000'/>
+                                    <path d='M1,1h70v70h-70v-70' fill-opacity='0' stroke-width='.7' stroke-dasharray='0,1,1' stroke='#304e66'/>
+                                </pattern> 
+                                <filter id='fuzz' x='0' y='0'>
+                                    <feTurbulence type='turbulence' result='t' baseFrequency='.2 .3' numOctaves='5' stitchTiles='stitch'/>
+                                    <feColorMatrix type='saturate' in='t' values='0'/>
+                                </filter>
+                            </defs>
+                            <rect width='110%' height='100%' mask='url(#masking)' fill='url(#bluestripe)'/>
+                            </svg>

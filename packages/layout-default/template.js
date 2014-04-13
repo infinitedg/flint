@@ -111,7 +111,25 @@ Template.layout_default.alertCondition = function() {
   return a;
 };
 
-
+Template.layout_default.alertColor = function() {
+    var a = Flint.simulator().alertCondition;
+  switch (a) {
+  case 'c':
+  case 'cloak':
+  case 'purple':
+    return '#5C3D70';
+  case 5:
+    return '#304e66';
+  case 4:
+    return '#304e66';
+  case 3:
+    return '#70683D';
+  case 2:
+    return '#705C3D';
+  case 1:
+    return '#703D3D';
+  }
+}
 Template.layout_default.simulator = function() {
   return Flint.simulator();
 }
@@ -119,7 +137,9 @@ Template.layout_default.simulator = function() {
 Template.layout_default.station = function() {
   return Flint.station();
 }
-
+Template.layout_default.cardName = function() {
+    return Flint.card().name;   
+}
 Template.layout_default.created = function() {
 	//Flint.play('sciences');
 }
