@@ -1,5 +1,5 @@
 <template name="layout_default">
-    <div id="perspective" class="perspective effect-movedown">
+    <div id="perspective" class="{{alertLevel}} perspective effect-movedown">
         <div class="pageContent">
             <svg id="grid" xmlns='http://www.w3.org/2000/svg' width='110%' style="position: fixed; left: -15px; bottom: 0px; background-color:transparent; margin: 0px; padding: 0px;" height='110%' viewBox='-20px -20px 100% 100%'>
                             <defs>
@@ -10,11 +10,11 @@
                                 </linearGradient>
 
                                 <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
-                                  <rect y="0.3" width="1" height=".7" fill="url(#gradient)" />
+                                  <rect y="0.3" width="1" height=".9" fill="url(#gradient)" />
                                 </mask>
-                                <pattern id='bluestripe' patternUnits='userSpaceOnUse' x='0' y='0' width='35' height='35' viewBox='0 0 70 70' >
+                                <pattern id='bluestripe' patternUnits='userSpaceOnUse' x='0' y='0' width='100' height='150' viewBox='0 0 100 150' >
                                 <rect width='110%' height='110%' fill='#000000'/>
-                                    <path d='M1,1h70v70h-70v-70' fill-opacity='0' stroke-width='.7' stroke-dasharray='0,1,1' stroke='{{alertColor}}'/>
+                                    <path d='M1,1h200v200h-200v-300' fill-opacity='0' stroke-width='.7' stroke-dasharray='0,1,1' stroke='{{alertColor}}'/>
                                 </pattern> 
                                 <filter id='fuzz' x='0' y='0'>
                                     <feTurbulence type='turbulence' result='t' baseFrequency='.2 .3' numOctaves='5' stitchTiles='stitch'/>
@@ -27,24 +27,8 @@
                 
                 <div class="container-fluid" style="padding:0px;">
      
-                    <header class="row-fluid">
-                        <svg version="1.1" class="{{alertLevel}}" id="Layer_1" style="background: transparent; position: absolute;" x="0px" y="0px"
-	 width="1440px" height="117px" transform="scale(1.40625,0)" preserveAspectRatio="none" viewBox="0 0 1024 100%" >
-                            <filter id='n' x='0' y='0' >
-                                <feTurbulence  result="turb" type="fractalNoise" baseFrequency="0.7" numOctaves="10" stitchTiles="stitch"></feTurbulence>
-	                           <feComposite  in2="SourceAlpha" in="turb" operator="in"></feComposite>
-                            </filter>
-                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                  <stop offset="0%" style="stop-color:rgb(122,47,145);stop-opacity:1" />
-                                    <stop offset="43%" style="stop-color:rgb(95,40,128);stop-opacity:1" />
-                                  <stop offset="100%" style="stop-color:rgb(74,30,99);stop-opacity:1" />
-                                </linearGradient>
-                            <polyline fill="url(#grad1)" stroke="#000000" points="0,117.021 529.138125,117.021 627.87515625,37.766 1218.7996875,37.766 1328.90625,117.021 1440,117.021 1440,0 0,-4.787 "/>
-                                 <polyline filter='url(#n)' fill="#fff" points="0,117.021 529.138125,117.021 627.87515625,37.766 1218.7996875,37.766 1328.90625,117.021 1440,117.021 1440,0 0,-4.787 " stroke="#000000" opacity="0.15" />
-                            
-                                                        
-                            
-                        </svg>
+                    <header class="row-fluid {{alertLevel}}">
+                       <div class="background {{alertLevel}}"></div>
                         
                         <div class="col-xs-4 sim-name">
                             <h2>{{ simulator.name}}</h2>
@@ -64,9 +48,13 @@
                             
                         </div>
                     </div>
+
                 </div>
 			</div><!-- wrapper -->
-            
+           <div class="footer {{alertLevel}}">
+                <div class="messageBox {{alertLevel}}"></div>
+                <div class="footerBackground {{alertLevel}}"></div>
+            </div>
         </div><!-- /container -->
         <nav class="outer-nav top horizontal {{hideCardlistCSS}}">
         {{> layout_default_cardList}}

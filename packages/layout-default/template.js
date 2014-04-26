@@ -117,17 +117,17 @@ Template.layout_default.alertColor = function() {
   case 'c':
   case 'cloak':
   case 'purple':
-    return '#5C3D70';
+    return '#7D5399';
   case 5:
-    return '#304e66';
+    return '#487599';
   case 4:
-    return '#304e66';
+    return '#487599';
   case 3:
-    return '#70683D';
+    return '#998E53';
   case 2:
-    return '#705C3D';
+    return '#997D53';
   case 1:
-    return '#703D3D';
+    return '#995353';
   }
 }
 Template.layout_default.simulator = function() {
@@ -181,7 +181,7 @@ Template.layout_default.events = {
       
   },
 
-  'click div.sim-name': function(e, context) {
+  'click header': function(e, context) {
             if (Flint.client().name){
             var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),
