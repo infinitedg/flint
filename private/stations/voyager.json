@@ -42,6 +42,14 @@
                 {
                     "cardId": "card_messageComposer",
                     "name": "Message Composer"
+                },
+                {
+                    "cardId": "card_security",
+                    "name": "Security"
+                },
+                {
+                    "cardId": "card_shortRangeComm",
+                    "name": "Short Range Comm"
                 }
             ],
             "_id": "voyager-operations"

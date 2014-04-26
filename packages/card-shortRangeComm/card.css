@@ -1,0 +1,24 @@
+#card-shortRangeComm{
+	margin-top: 45px;
+}
+#card-shortRangeComm .commControls{
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	justify-content: space-around;
+   	-webkit-justify-content: space-around;
+   	height: 68vh;
+
+}
+#card-shortRangeComm .commControls img{
+	flex: 1;
+	height: 21vw;
+	width: 21 vw;
+}
+#card-shortRangeComm .commSelect{
+	height: 68vh;
+}
+#card-shortRangeComm .commCandy{
+	height: 68vh;
+}

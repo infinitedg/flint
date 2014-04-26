@@ -41,6 +41,8 @@ card-speed
 card-thrusters
 card-targeting
 card-selfDestruct
+card-shortRangeComm
+card-security
 bootstrap-3
 font-awesome
 gsap
