@@ -78,7 +78,7 @@ function animate(canvas, theta, lastTime) {
 Template.card_shortRangeComm.rendered = function() {
     $('#frequency').slider();
     $('#amplitude').slider();
-   debugger;
+    
     var c = $('#canvasCandy');
     var ct = c.get(0).getContext('2d');
     var container = $(c).parent();
@@ -89,8 +89,10 @@ Template.card_shortRangeComm.rendered = function() {
     function respondCanvas(){ 
         c.attr('width', $(container).width() ); //max width
         c.attr('height', $(container).height() ); //max height
-
-        //Call a function to redraw other content (texts, images etc)
+            var canvas = document.getElementById('canvasCandy');
+      var theta = 0;
+      var time = (new Date()).getTime();
+      animate(canvas, theta, time);
     }
     
     respondCanvas();

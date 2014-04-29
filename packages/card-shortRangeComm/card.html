@@ -8,12 +8,18 @@
                 <a href="#" class="btn btn-default mute">MUTE COMMUNICATION</a>
 
             </div>
-            <div class="commSelect well col-sm-5">
-                <input type="text" id="frequency" value="1" data-slider-min="0" data-slider-max="80" data-slider-step="1" data-slider-value="5" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden;">
-                <input type="text" id="amplitude" value='1' data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="5" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden;">
-            </div>
-            <div class="commCandy col-sm-4">
-                <canvas id="canvasCandy"></canvas>
+            <div class="commSelect col-sm-4 col-sm-offset-1">
+                <div class="well frequencySelect">
+                    <div class="freqBar"></div>
+                    <input type="text" id="frequency" value="1" data-slider-min="4" data-slider-max="80" data-slider-step="1" data-slider-value="5" data-slider-orientation="vertical" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden;">
+                </div>
+                <div class="well amplitudeSelect">
+                                    <input type="text" id="amplitude" value='50' data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="5" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden; width: 28vw;">
+                    <div class="ampBar"></div>
+                </div>
+                </div>
+            <div class="commCandy col-sm-3 col-sm-offset-1">
+                <canvas id="canvasCandy" ></canvas>
             </div>
         </div>
     </div>

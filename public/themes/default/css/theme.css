@@ -115,8 +115,8 @@ header .background{-webkit-clip-path: polygon(0% 0%, 0% 100%, 30.5% 100%, 34.5% 
 
 @media (max-width: 1025px) {
     header.row-fluid h2{font-size:24px;display:none;}
-    header.row-fluid h3{font-size:18px;margin-top:65px;}
-    header .background{-webkit-clip-path: polygon(0% 0%, 0% 100%, 34.7% 100%, 38.2% 51%, 91% 51% , 95% 85% , 100% 85%, 100% 0%, 0% 0%  );}
+    header.row-fluid h3{font-size:18px;margin-top:57px;}
+    header .background{-webkit-clip-path: polygon(0% 0%, 0% 100%, 30.5% 100%, 34.5% 55%, 0% 55%, 0% 47%, 35% 47%, 39% 0%, 40% 0%, 36% 47%, 90% 47%, 86% 0%, 87% 0%, 91% 47% , 94.2% 85% , 100% 85%, 100% 0%, 0% 0%  );}
     header.row-fluid {position:absolute; top:-50px;}
     header.row-fluid .alertLevelNum{font-size: 50px; line-height: 150px; }
     .card-area{margin-top: 100px;}
