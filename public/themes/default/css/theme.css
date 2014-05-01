@@ -11,6 +11,16 @@
   src: local('GameCuben'), local('GAMECUBENDualSet'), url(/themes/default/public/fonts/GameCube.woff) format('woff');
 }
 
+@font-face {
+  font-family: 'Steelfish';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Steelfish'), url(/themes/default/public/fonts/Steelfish.woff) format('woff');
+}
+
+.readable{
+    font-family: 'Steelfish';
+}
 .flexRow{
 margin: 0 auto;
 width: 530px;
@@ -648,6 +658,16 @@ html, body, .perspective {
 .effect-movedown.animate .outer-nav a:nth-child(7) {
 	-webkit-transition-delay: 0.24s;
 	transition-delay: 0.24s;
+}
+
+.effect-movedown.animate .outer-nav a:nth-child(8) {
+	-webkit-transition-delay: 0.28s;
+	transition-delay: 0.28s;
+}
+
+.effect-movedown.animate .outer-nav a:nth-child(9) {
+	-webkit-transition-delay: 0.32s;
+	transition-delay: 0.32s;
 }
 
 /* Media Queries */

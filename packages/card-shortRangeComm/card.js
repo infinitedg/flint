@@ -149,3 +149,6 @@ Template.card_shortRangeComm.rendered = function() {
       animate(canvas, theta, time);
 }
 
+Template.card_shortRangeComm.commList = function(){
+    return ["Cardassian", "Klingon", "Romulan", "General Use", "Starfleet", "Orion Pirate", "Ferengi"];
+}
