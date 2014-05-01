@@ -5,7 +5,6 @@
 
 standard-app-packages
 insecure
-preserve-inputs
 iron-router
 accounts-ui
 accounts-password
@@ -37,5 +36,9 @@ card-thrusters
 card-targeting
 bootstrap-3
 font-awesome
-greensocks
 gsap
+blaze-layout
+card-core
+card-scanner
+apm
+card-speed

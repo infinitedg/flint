@@ -1,0 +1,10 @@
+<template name="card_core">
+<h1>Card core</h1>
+	<div id="grid" class="span12" data-columns>
+		{{#each cards}}
+		<div id="{{cardId}}">
+		{{> addWidget}}
+		</div>
+		{{/each}}
+	</div>
+</template>
