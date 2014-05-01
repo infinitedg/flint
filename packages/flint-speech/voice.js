@@ -2,10 +2,23 @@
 * @class Flint
 */
 
-// @TODO Consider encapsulating mespeak in its own package and upload it to Atmosphere 
-
 var spokenPhrases = {};
-var voicePrefix = '/packages/flint-speech/voices/';
+var defaultVoice = null;
+var voices = [];
+var voiceSettings = {
+	pitch: 1,
+	volume: 1,
+	rate: 1,
+	lang: 'en-US'
+};
+
+var checkCompatibility = function() {
+	if (!window.speechSynthesis) {
+		Flint.Log.warn("Speech synthesis not available in this browser.");
+		return false;
+	}
+	return true;
+}
 
 _.extend(Flint, {
   /**
@@ -15,56 +28,93 @@ _.extend(Flint, {
    * @param {String} txt The text to speak
    */
   say: function(txt) {
-    if (!meSpeak.isConfigLoaded()) {
-      // Trigger only when we actually use it
-      meSpeak.loadConfig(voicePrefix + "mespeak_config.json");
-      Flint.loadVoice('en-us');
-      Flint.Log.verbose('MeSpeak loaded','Speech');
-    }
-    
-    if (spokenPhrases[txt] === undefined || new Date().getTime() - spokenPhrases[txt] >= 1000) {
-      Flint.Log.verbose('Said "'+txt+'"', 'Speech');
-      meSpeak.speak(txt);
-      spokenPhrases[txt] = new Date().getTime();
+  	if (spokenPhrases[txt] === undefined && checkCompatibility()) {
+      Flint.Log.verbose('Said "' + txt + '"', 'Speech');
+      var msg = new SpeechSynthesisUtterance(txt);
+      msg.onend = function() {
+      	delete spokenPhrases[txt];
+      }
+      msg.voice = defaultVoice;
+      msg.rate = voiceSettings.rate;
+      msg.volume = voiceSettings.volume;
+      msg.pitch = voiceSettings.pitch;
+      msg.lang = voiceSettings.lang;
+      console.log(msg);
+      
+      spokenPhrases[txt] = (new Date()).getTime();
+      speechSynthesis.speak(msg);
     }
   },
 
   /**
-   * Wrapper function for meSpeak voice loader. Languages available include:
-   * 
-   *   * ca (Catalan)
-   *   * cs (Czech)
-   *   * de (German)
-   *   * el (Greek)
-   *   * en/en (English)
-   *   * en/en-n (English, regional)
-   *   * en/en-rp (English, regional)
-   *   * en/en-sc (English, Scottish)
-   *   * en/en-us (English, US)
-   *   * en/en-wm (English, regional)
-   *   * eo (Esperanto)
-   *   * es (Spanish)
-   *   * es-la (Spanish, Latin America)
-   *   * fi (Finnish)
-   *   * fr (French)
-   *   * hu (Hungarian)
-   *   * it (Italian)
-   *   * kn (Kannada)
-   *   * la (Latin)
-   *   * lv (Latvian)
-   *   * nl (Dutch)
-   *   * pl (Polish)
-   *   * pt (Portuguese, Brazil)
-   *   * pt-pt (Portuguese, European)
-   *   * ro (Romanian)
-   *   * sk (Slovak)
-   *   * sv (Swedish)
-   *   * tr (Turkish)
-   * @method loadVoice
-   * @param {String} name The name of the voice to load
+   * Sets the voice to an available system voice.
+   * @return {Boolean} True if successful, false if not successful
    */
-  loadVoice: function(name) {
-    Flint.Log.verbose('Loaded voice ' + name, 'voice');
-    meSpeak.loadVoice(voicePrefix + name + '.json');
+  setVoice: function(newVoice) {
+  	if (checkCompatibility()) {
+	  	var result = speechSynthesis.getVoices().filter(function(voice) { return voice.name == newVoice; })[0];
+	  	if (result) {
+	  		defaultVoice = result;
+	  		return true;
+	  	} else {
+	  		return false;
+	  	}
+	}
+  },
+
+  getVoices: function() {
+  	if (voices.length == 0 && window.speechSynthesis) {
+  		speechSynthesis.getVoices().forEach(function(voice) {
+		  voices.push(voice.name);
+		});
+	}
+	return voices;
+  },
+
+  voiceProperty: function(property, newValue) {
+  	if (checkCompatibility()) {
+  		if (newValue) {
+  			switch (property) {
+  				case "rate":
+	  				if (isNaN(newValue)) {
+	  					Flint.Log.warn('Invalid rate setting (0.1 - 10)');
+	  					return false;
+		  			} 
+		  			newValue = (newValue < 0.1) ? 0.1 : newValue;
+	  				newValue = (newValue > 10) ? 10 : newValue;
+  				break;
+
+  				case "volume":
+	  				if (isNaN(newValue)) {
+	  					Flint.Log.warn('Invalid volume setting (0 - 1)');
+	  					return false;
+		  			} 
+		  			newValue = (newValue < 0) ? 0 : newValue;
+	  				newValue = (newValue > 1) ? 1 : newValue;
+  				break;
+  				case "pitch":
+	  				if (isNaN(newValue)) {
+	  					Flint.Log.warn('Invalid pitch setting (0 - 2)');
+	  					return false;
+		  			} 
+		  			newValue = (newValue < 0) ? 0 : newValue;
+	  				newValue = (newValue > 2) ? 2 : newValue;
+  				break;
+  				case "lang":
+	  				if (!isNaN(newValue)) {
+	  					Flint.Log.warn('Invalid lang setting (Must be string)');
+	  					return false;
+	  				}
+  				break;
+  				default:
+	  				Flint.Log.warn("Unknown voice property " + property);
+	  				return false;
+  				break;
+  			}
+  			voiceSettings[property] = newValue;
+  		}
+  	}
   }
 });
+
+Flint.setVoice('Victoria');
