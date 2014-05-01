@@ -2,10 +2,7 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "iron-router": {
-        "git": "https://github.com/EventedMind/iron-router.git",
-        "branch": "blaze-integration"
-      },
+      "iron-router": {},
       "nprogress": {},
       "winston": {},
       "winston-loggly": {},
@@ -20,13 +17,13 @@
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "branch": "blaze-integration",
-        "commit": "6fd133401bb6de65a30ba148f7d61ea1b4dc9b43"
+        "tag": "v0.7.1",
+        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
       },
       "nprogress": {
         "git": "https://github.com/zhouzhuojie/meteor-nprogress.git",
-        "tag": "v0.0.3",
-        "commit": "ffd1c5dd400af64121197f4e637a215c4b6b1fc7"
+        "tag": "v0.0.4",
+        "commit": "8333206b751a24fac1fbd1b03fa37621bcefe50c"
       },
       "winston": {
         "git": "https://github.com/tomrogers3/meteor-winston.git",
@@ -60,18 +57,23 @@
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
-        "tag": "v3.2.2",
-        "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
+        "tag": "v4.2.0",
+        "commit": "2b7d18ad028d9e7b37238ecf2a8a7970735cebd1"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.0.1",
-        "commit": "fa631b7b192618e8690d43f0033a3f4c7f77fa1d"
+        "tag": "v0.2.5",
+        "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v0.2.9",
-        "commit": "816279a6871c13ed3672d2d3c3aec9d0e7521537"
+        "tag": "v1.2.3",
+        "commit": "b299d8506689d9f21aa3af9bfe7dc367a9dbcc3a"
+      },
+      "bootstrap-3": {
+        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
+        "tag": "v3.1.1-1",
+        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
       }
     }
   }

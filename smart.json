@@ -1,10 +1,6 @@
 {
   "packages": {
-    "iron-router": {
-      "git": "https://github.com/EventedMind/iron-router.git",
-      "branch": "blaze-integration",
-      "commit": "6fd133401bb6de65a30ba148f7d61ea1b4dc9b43"
-    },
+    "iron-router": {},
     "nprogress": {},
     "winston": {},
     "winston-loggly": {},
