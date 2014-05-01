@@ -7,5 +7,5 @@ Package.on_use(function(api) {
   
   api.add_files([
     'cardList.html', 'cardList.js', 
-    'template.html', 'template.js'], 'client');
+    'template.html', 'template.js', 'template.css'], 'client');
 });
