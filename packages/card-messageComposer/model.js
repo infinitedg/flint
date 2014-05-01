@@ -1,0 +1,1 @@
+var lrmessage = Flint.collection('lrmessages');

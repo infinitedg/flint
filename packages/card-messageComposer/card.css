@@ -1,0 +1,67 @@
+#card-messageComposer{
+    margin-top: 25px;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: baseline;
+    width: 100%;
+}
+
+.message-list{
+    width: 20vw;
+    height: 78vh;
+    white-space: nowrap;
+    font-size: 12px;
+}
+.message-list h5{
+	margin: 0;
+}
+
+.message-list .textbox{
+	width: 100%;
+	height: 66vh;
+	overflow-y: scroll; 
+    overflow-x: hidden;
+}
+
+.message-list .textbox p.lineSelected{
+ background: rgba(255,255,255,.5);   
+}
+.message-composer {
+    height: 74vh;
+    width: 70vw;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+     flex-direction: column;
+    -webkit-flex-direction: column;
+     -webkit-justify-content: space-between;
+    justify-content: space-between;  
+}
+.message-composer textarea{
+	width:  100%;
+	height: 65vh;
+}
+
+.to-box h6{
+    float: left;
+    width: 5%;
+    font-size: 24px;
+    line-height: 1.5;
+}
+.to-box .to-input{
+    float: right;
+	height: 40px;
+	width: 93%;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.bottom-btns{
+	-webkit-align-self: flex-end;
+}
+.bottom-btns .btn{
+	margin:5px;
+}

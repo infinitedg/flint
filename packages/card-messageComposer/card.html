@@ -1,0 +1,21 @@
+<template name="card_messageComposer">
+    <div id="card-messageComposer">
+        <div class="message-list">
+            <h5>MESSAGES:</h5>
+            <div class="textbox">
+                {{#each messageList}}
+                    <p>{{to}}</p>
+                {{/each}}
+            </div>
+        </div>
+        <div class="message-composer">
+            <span class="to-box"><h6>TO:</h6><input type="text" class="to-input {{alertLevel}}" disabled="disabled"/></span>
+            <textarea class='body-text {{alertLevel}}' disabled="disabled"></textarea>
+            <span class="bottom-btns">
+                <a href="#" class="clearBtn btn btn-danger">CLEAR</a>
+                <a href="#" class="newBtn btn btn-primary">NEW</a>
+                <!--<a href="#" class="encodeBtn btn btn-primary">ENCODE</a> Commented because it is lamesauce -->
+                <a href="#" class="queueBtn btn btn-default">QUEUE FOR SENDING</a></span>
+        </div>
+    </div>
+</template>

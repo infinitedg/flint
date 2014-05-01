@@ -34,6 +34,22 @@
                 {
                     "cardId": "card_sensorGrid",
                     "name": "Sensor Grid"
+                },
+                {
+                    "cardId": "card_selfDestruct",
+                    "name": "Self Destruct"
+                },
+                {
+                    "cardId": "card_messageComposer",
+                    "name": "Message Composer"
+                },
+                {
+                    "cardId": "card_security",
+                    "name": "Security"
+                },
+                {
+                    "cardId": "card_shortRangeComm",
+                    "name": "Short Range Comm"
                 }
             ],
             "_id": "voyager-operations"
@@ -74,16 +90,16 @@
                     "name": "Speed"
                 },
                 {
+                    "cardId": "core_scanner",
+                    "name": "Scanner"
+                },
+                {
                     "name": "Thrusters",
                     "cardId": "core_thrusters"
                 },
                 {
                     "name": "Targeting",
                     "cardId": "core_targeting"
-                },
-                {
-                    "cardId": "core_scanner",
-                    "name": "Scanner"
                 }
             ],
             "_id": "voyager-flightDirector"
@@ -138,9 +154,9 @@
                     "cardId": "card_navCharts"
                 },
           	  {
-		    "name": "Thrusters",
-		    "cardId": "card_thrusters"
-		}
+                    "name": "Thrusters",
+                    "cardId": "card_thrusters"
+              }
             ],
             "_id": "voyager-navigator"
         },

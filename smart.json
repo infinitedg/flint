@@ -9,10 +9,13 @@
     "buzz.js": {},
     "kinetic.js": {},
     "bootboxjs": {},
+    "blaze-layout": {},
+    "apm": {},
     "bootstrap-3": {},
     "font-awesome": {},
     "gsap": {},
-    "blaze-layout": {},
-    "apm": {}
+    "chosen-package": {},
+    "bootstrap3-slider-touch": {},
+    "three.js": {}
   }
 }

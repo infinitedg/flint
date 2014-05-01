@@ -4,14 +4,14 @@ Router.configure({
   loadingTemplate: 'flint_loading'
 });
 
-Router.before(function(pause){
+Router.onBeforeAction(function(pause){
   if (!Meteor.user()) {
     this.render('flint_login');
     pause();
   }
 });
 
-Router.before(function (pause) {
+Router.onBeforeAction(function (pause) {
   // we're done waiting on all subs
   if (this.ready()) {
     NProgress.done(); 
@@ -26,7 +26,7 @@ Router.map(function () {
     path: '/',
     layoutTemplate: 'flint_layout',
     template: 'flint_simulatorPicker',
-    before: function () {
+    onBeforeAction: function () {
       this.s = this.subscribe('flint.picker.simulators').wait();
       Session.set("flint.simulatorId", undefined);
       Session.set("flint.stationId", undefined);
@@ -41,7 +41,7 @@ Router.map(function () {
     data: function() {
       return Flint.collection("simulators").findOne(this.params.simulatorId) || {};
     },
-    before: function () {
+    onBeforeAction: function () {
       this.subscribe('flint.picker.simulator', this.params.simulatorId).wait();
       this.subscribe('flint.picker.stations', this.params.simulatorId).wait();
 
@@ -53,7 +53,7 @@ Router.map(function () {
   
   this.route('flint_station', {
     path: '/simulator/:simulatorId/station/:stationId/card/:cardId',
-    before: function() {
+    onBeforeAction: function() {
       this.subscribe('flint.picker.simulator', this.params.simulatorId).wait();
       this.subscribe('flint.picker.station', this.params.stationId).wait();
       
@@ -69,7 +69,7 @@ Router.map(function () {
       var card = (Flint.station().cards) ? Flint.station().cards[cardId] : {cardId: 'flint_404'};
       this.render(card.cardId);
     },
-    unload: function() {
+    onStop: function() {
       Session.set("flint.simulatorId", undefined);
       Session.set("flint.stationId", undefined);
       Session.set("flint.cardId", undefined);
@@ -99,8 +99,7 @@ Deps.autorun(function() {
   if (Router.current()) {
     var layout = Flint.layout();
     if (Router.current().layoutTemplate !== layout) {
-      Router.configure({ layoutTemplate: layout });
-      Router.go(Router.current().path);
+      Router.layout(layout);
     }
   }
 });

@@ -53,7 +53,7 @@ Template.layout_default_cardList.events = {
 };
 
 Template.layout_default_cardList.created = function() {
-  Router.after(function() {
+  Router.onAfterAction(function() {
     $('.card-area').fadeIn();
   }, {
     name: 'layout_default_fading'
@@ -64,13 +64,13 @@ Template.layout_default_cardList.destroyed = function() {
   // Remove hook for fading in after a template has loaded
   
   // Find the element
-  var h = _.find(Router._globalHooks.after, function(hook){
+  var h = _.find(Router._globalHooks.onAfterAction, function(hook){
     return (hook.options.name === 'layout_default_fading');
   });
   // Get its index
-  var i = Router._globalHooks.after.indexOf(h);
+  var i = Router._globalHooks.onAfterAction.indexOf(h);
   // Splice it!
-  Router._globalHooks.after.splice(i, 1);
+  Router._globalHooks.onAfterAction.splice(i, 1);
 };
 
 Template.layout_default_cardList.cards = function() {

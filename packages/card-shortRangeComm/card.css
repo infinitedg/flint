@@ -1,0 +1,88 @@
+#card-shortRangeComm{
+	margin-top: 45px;
+}
+#card-shortRangeComm .commControls{
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	justify-content: space-around;
+   	-webkit-justify-content: space-around;
+   	height: 68vh;
+
+}
+#card-shortRangeComm .commControls img{
+	flex: 1;
+	height: 22vw;
+	width: 22vw;
+}
+#card-shortRangeComm .frequencySelect{
+	height: 50vh;
+    margin-bottom: 1vh;
+}
+#card-shortRangeComm .commSelect .freqBar{
+    height: 45vh;
+    width: 40px;
+    position: absolute;
+    right: 80px;
+    background-image: url(/packages/card-shortRangeComm/svg/freqBar.svg);
+        background-repeat:repeat;
+}
+#card-shortRangeComm .commSelect .ampBar{
+    width: 28vw;
+    height: 30px;
+    position: absolute;
+    top: 80px;
+    background-image: url(/packages/card-shortRangeComm/svg/ampBar.svg);
+        background-repeat:repeat;
+}
+#card-shortRangeComm .amplitudeSelect{
+    height: 17vh;   
+    position: relative;
+}
+#card-shortRangeComm .commCandy{
+	height: 68vh;
+    padding: 0;
+    border: solid 1px #666;
+    background-color: #333;
+    border-radius: 5px;
+}
+#card-shortRangeComm .canvasCandy{
+
+}
+
+#card-shortRangeComm .slider.slider-vertical{
+ height: 45vh;   
+    position: absolute;
+    right: 60px;
+}
+
+#card-shortRangeComm .slider.slider-horizontal{
+ width: 27vw;   
+
+}
+
+#card-shortRangeComm .slider.slider-vertical .slider-handle{
+    background-image: url(/themes/default/public/svg/default.png);
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    width: 40px;
+    height: 15px;
+    -webkit-clip-path: polygon(100% 0%, 20% 0%, 0% 40%, 100% 40%, 100% 60%, 0% 60%, 20% 100%, 100% 100%); 
+    
+}
+
+#card-shortRangeComm .slider.slider-horizontal .slider-handle{
+    background-image: url(/themes/default/public/svg/default.png);
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    width: 15px;
+    height: 40px;
+    -webkit-clip-path: polygon(40% 0%, 0% 0%, 0% 80%, 40% 100%, 40% 0%, 60% 0%, 60% 100%, 100% 80%, 100% 0%); 
+    
+}
+
+#card-shortRangeComm .slider-track, #card-shortRangeComm  .slider-selection  {
+    background-image: url() ;
+    background-color: transparent;
+}
