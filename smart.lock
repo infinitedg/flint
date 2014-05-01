@@ -68,13 +68,13 @@
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.4",
-        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
+        "tag": "v0.2.5",
+        "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v0.2.14",
-        "commit": "3727371164f28d4fbf50efb12a9c75617198b596"
+        "tag": "v1.2.4",
+        "commit": "d7f245ca4da4c515f46f70e66eb46d4c94925fa1"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -89,7 +89,7 @@
       "gsap": {
         "git": "https://github.com/RoyalMist/meteor-gsap.git",
         "tag": "v1.11.5",
-        "commit": "9fc801d7f232ea943a3414a793680c924801d696"
+        "commit": "a13421d1a00e40aa80e3cba2adbc5e43a207ba7e"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",
