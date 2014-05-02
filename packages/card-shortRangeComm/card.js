@@ -10,9 +10,34 @@ Template.card_shortRangeComm.events = {
     'slide #frequency': function(e){
         var canvas = document.getElementById('canvasCandy');
       var theta = 0;
+        var commName;
       var time = (new Date()).getTime();
       animate(canvas, theta, time);
-        $('.commControls .textbox').val("FREQUENCY: " + $('#frequency').val());
+        Yloc = $('#frequency')[0].value * 1.25; //Makes it into a number out of 100.
+            if (Yloc > 0 && Yloc <=15.5){
+               commName = Template.card_shortRangeComm.commList()[0];
+            }
+            if (Yloc > 15.5 && Yloc <= 27.9){
+                commName = Template.card_shortRangeComm.commList()[1];
+            }
+            if (Yloc > 27.9 && Yloc<= 38.8){
+                commName = Template.card_shortRangeComm.commList()[2];
+            }
+            if (Yloc > 38.8 && Yloc <= 55.9){
+                commName = Template.card_shortRangeComm.commList()[3];
+            }
+            if (Yloc > 55.9 && Yloc <= 77.6){
+                commName = Template.card_shortRangeComm.commList()[4];
+            }
+            if (Yloc > 77.6 && Yloc <= 90){
+                commName = Template.card_shortRangeComm.commList()[5];
+            }
+            if (Yloc > 90 && Yloc <= 100){
+                commName = Template.card_shortRangeComm.commList()[6];
+            }
+
+        $('.commControls .textbox').html("FREQUENCY: " + Math.floor(Yloc*4.25*10)/10 + " MHz" + '</br>' + commName );
+
     },  
 'slide #amplitude': function(e){
         var canvas = document.getElementById('canvasCandy');
@@ -73,6 +98,24 @@ function animate(canvas, theta, lastTime) {
         context.restore();
 
       }
+
+
+Template.card_shortRangeComm.stardate = function(){ 
+   var calculatedDate = new Date().getTime()/1000/60/60/30/2;
+   var subtraction = Math.floor(calculatedDate);
+   var finalDate = (calculatedDate - subtraction) * 100000;
+    return Math.floor(finalDate) /10;
+    
+}
+
+Template.card_shortRangeComm.vh = function(perc){
+    var windowHeight = window.innerHeight;
+    return windowHeight*(perc/100);
+}
+Template.card_shortRangeComm.vw = function(perc){
+     var windowWidth = window.innerWidth;
+    return windowWidth*(perc/100);
+}
 
 
 Template.card_shortRangeComm.rendered = function() {

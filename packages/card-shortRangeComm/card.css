@@ -21,18 +21,18 @@
 }
 #card-shortRangeComm .freqBar{
     height: 64vh;
-    width: 40px;
+    width: 3vw;
     position: absolute;
-    right: 55px;
+    right: 4vw;
     background-image: url(/packages/card-shortRangeComm/svg/freqBar.svg);
         background-repeat:repeat;
 }
 #card-shortRangeComm .ampBar{
     height: 64vh;
-    width: 40px;
+    width: 3vw;
     position: absolute;
-    top:20px;
-    right: 55px;
+    top:2.5vh;
+    right: 4vw;
     background-image: url(/packages/card-shortRangeComm/svg/ampBar.svg);
         background-repeat:repeat;
 }
@@ -102,7 +102,7 @@
 	width: 70%;
 	padding: 0px;
 	margin: 0px;
-	font-size: 30px;
+	font-size: 2.5vw;
 	border-top: solid 1px #fff;
 	white-space: nowrap;
 	font-family: 'Steelfish';
