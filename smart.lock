@@ -73,8 +73,8 @@
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v1.2.4",
-        "commit": "d7f245ca4da4c515f46f70e66eb46d4c94925fa1"
+        "tag": "v1.2.5",
+        "commit": "c4552ec9c2d011604729af42d66d8c896aaa77d4"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
