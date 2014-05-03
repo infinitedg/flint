@@ -55,7 +55,7 @@ var Actor = function(opts) {
 
 	this._pulse = function() {
 		var a = Flint.collection('FlintActors').findOne(this._id);
-		if (!a.lastRunTime) {
+		if (a && !a.lastRunTime) {
 			a.lastRunTime = (new Date()).getTime();
 		}
 		if (a && a.claimedBy === DramaInstanceID && a.running) {
@@ -63,6 +63,8 @@ var Actor = function(opts) {
 			try {
 				this.action([(new Date()).getTime() - a.lastRunTime]);
 			} catch (exc) {
+				Flint.Log.error(this._id + ' threw an exception', 'flint-drama');
+				Flint.Log.data(exc);
 				if (typeof this.onError == 'function') {
 					this.onError(exc);
 				}
@@ -79,6 +81,7 @@ Actor.prototype.start = function() {
 		this._timeoutID = 'ready'; // Placeholder used to prevent multiple pulses
 		var a = Flint.collection('FlintActors').findOne(this._id);
 		if (a.claimedBy === DramaInstanceID || !a.claimedBy) {
+			Flint.Log.info(a._id + " starting", "flint-drama");
 			if (typeof this.onStart === "function") {
 				this.onStart();
 			}
@@ -92,7 +95,8 @@ Actor.prototype.start = function() {
 Actor.prototype.stop = function() {
 	if (this._timeoutID) {
 		var a = Flint.collection('FlintActors').findOne(this._id);
-		if (a.claimedBy === DramaInstanceID || !a.claimedBy) {
+		if (a && (a.claimedBy === DramaInstanceID || !a.claimedBy)) {
+			Flint.Log.info(a._id + " stopping", "flint-drama");
 			if (typeof this.onStop === "function") {
 				this.onStop();
 			}
@@ -113,7 +117,11 @@ Actor.prototype.kill = function() {
 		Meteor.clearTimeout(this._timeoutID);
 	}
 	delete FlintActors[this._id];
-	if (Flint.collection('FlintActors').findOne(this._id)) {
+	var a = Flint.collection('FlintActors').findOne(this._id);
+	if (a) {
+		if (a.claimedBy === DramaInstanceID) {
+			Flint.Log.info(a._id + " being killed", "flint-drama");
+		}
 		Flint.collection('FlintActors').remove(this._id);
 	}
 };
@@ -124,6 +132,7 @@ _.extend(Flint, {
 		if (a = new Actor(opts)) {
 			var coll = Flint.collection('FlintActors');
 			var d = coll.findOne(a._id);
+			Flint.Log.info("Registered actor " + a._id, "flint-drama");
 			if (!d) { // Insert the actor into our collection if we haven't seen it before
 				coll.insert({_id: a._id, counter: 0, claimedBy: DramaInstanceID, running: true});
 			}
@@ -136,7 +145,7 @@ _.extend(Flint, {
 ActorObserver = Flint.collection('FlintActors').find().observeChanges({
 	added: function(id, fields) {
 		if (FlintActors[id] === undefined) {
-			Flint.Log.warn("Pruning actor " + id + " from database - not a registered actor!");
+			Flint.Log.warn("Pruning actor " + id + " from database - not a registered actor!", 'flint-drama');
 			Flint.collection('FlintActors').remove(id);
 		} else {
 			if (fields.running) {
@@ -146,7 +155,7 @@ ActorObserver = Flint.collection('FlintActors').find().observeChanges({
 	}, changed: function(id, fields) {
 		if (FlintActors[id]) {
 			if (fields.claimedBy == DramaInstanceID) {
-				Flint.Log.info("Instance " + DramaInstanceID + " taking control of actor " + id);
+				Flint.Log.info("Instance " + DramaInstanceID + " taking control of actor " + id, 'flint-drama');
 				fields.running = Flint.collection('FlintActors').findOne(id).running;
 			}
 			if (fields.running == true) {
