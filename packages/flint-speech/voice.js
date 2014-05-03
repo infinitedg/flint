@@ -116,5 +116,3 @@ _.extend(Flint, {
   	}
   }
 });
-
-Flint.setVoice('Victoria');

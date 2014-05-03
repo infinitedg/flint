@@ -12,6 +12,10 @@
             {
               "name": "Scanners",
               "cardId": "card_scanner"
+            },
+            {
+                "name": "Sensors",
+                "cardId": "card_sensorGrid"
             }
           ],
           "_id": "voyager-scanner"
@@ -30,10 +34,6 @@
                 {
                     "cardId": "card_alertCondition",
                     "name": "Alert Condition"
-                },
-                {
-                    "cardId": "card_sensorGrid",
-                    "name": "Sensor Grid"
                 },
                 {
                     "cardId": "card_selfDestruct",
