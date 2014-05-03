@@ -5,7 +5,7 @@
 /**
 * Reset the database (available only on the server).
 * @method reset
-* @param {String} [simulatorId] The simulator to reset. If not provided, all simulators are reset **and** all actors are restarted.
+* @param {String} [simulatorId] The simulator to reset. If not provided, all simulators are reset
 */
 Flint.reset = function(simulatorId) {
   
@@ -49,14 +49,6 @@ Flint.reset = function(simulatorId) {
       });
     });
   });
-  
-  //
-  // Restart actors
-  //
-  if (!simulatorId)
-    _.each(Flint.actors, function(actor) {
-      actor.restart();
-    });
 };
 
 /*

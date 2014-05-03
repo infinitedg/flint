@@ -3,8 +3,8 @@ var a = Flint.actor({
 	period: function() {
 		return 1000;
 	},
-	action: function() {
-		console.log("hello world!");
+	action: function(ticks) {
+		console.log("hello world! Time between cycles: " + ticks);
 	},
 	onStart: function() {
 		console.log("STARTING");
@@ -12,8 +12,9 @@ var a = Flint.actor({
 		console.log("STOPPING");
 	}, onKill: function() {
 		console.log("KILLING");
-	}, onError: function(){
+	}, onError: function(exc){
 		console.log("ERROR");
+		console.log(exc);
 	}
 });
 

@@ -18,7 +18,10 @@
       "gsap": {},
       "chosen-package": {},
       "bootstrap3-slider-touch": {},
-      "three.js": {}
+      "three.js": {
+        "git": "https://github.com/farpoint/meteor-three",
+        "tag": "v0.67.1"
+      }
     },
     "packages": {
       "iron-router": {
@@ -73,8 +76,8 @@
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v1.2.4",
-        "commit": "d7f245ca4da4c515f46f70e66eb46d4c94925fa1"
+        "tag": "v1.2.5",
+        "commit": "c4552ec9c2d011604729af42d66d8c896aaa77d4"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -102,9 +105,9 @@
         "commit": "3f8ce5ad2696fb80c337949890e2ded415ac3239"
       },
       "three.js": {
-        "git": "https://github.com/nozpheratu/three-meteor",
-        "tag": "v0.0.1",
-        "commit": "a437d4e0314b055b19cfc60fa9e1ddfac844a0d9"
+        "git": "https://github.com/farpoint/meteor-three",
+        "tag": "v0.67.1",
+        "commit": "3d819e5a1f96160190511361eef834cf458a262b"
       }
     }
   }

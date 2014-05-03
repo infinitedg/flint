@@ -11,7 +11,7 @@ Package.on_use(function(api) {
   api.use('flint-utils');
   
   api.add_files(['flint.js', 'logger.js', 'collection.js'], ['server', 'client']);
-  api.add_files(['server/fixture.js', 'server/reset.js', 'server/actor.js', 'server/picker.js'], 'server');
+  api.add_files(['server/fixture.js', 'server/reset.js', 'server/picker.js'], 'server');
   
   api.add_files(['client/notifications.js', 'client/flint.html', 'client/picker.js', 'client/router.js'], 'client');
   
