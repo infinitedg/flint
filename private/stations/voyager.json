@@ -16,6 +16,10 @@
             {
                 "name": "Sensors",
                 "cardId": "card_sensorGrid"
+            },
+            {
+                "name": "3D Sensors",
+                "cardId": "card_sensor3d"
             }
           ],
           "_id": "voyager-scanner"

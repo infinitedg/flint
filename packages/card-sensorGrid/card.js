@@ -11,8 +11,8 @@ var k = {
   strokeWidth: 2,
   color: "00ff00",
   spritePath: '/packages/card-sensorGrid/sprites/'
-};
-window.contactsArray = {};
+}, 
+contactsArray = {};
 
 k.center = {
   x: k.width / 2,
@@ -35,7 +35,7 @@ Template.card_sensorGrid.created = function() {
   this.sensorObserver = Flint.collection('sensorContacts').find({simulatorId: Flint.simulatorId()}).observeChanges({
     added: function(id, doc) {
       if (!contactsArray[id]) {
-        console.log("Added", id, doc);
+        // console.log("Added", id, doc);
         var imageObj = new Image();
         imageObj.onload = function() {
           var icon = new Kinetic.Image({
@@ -49,24 +49,31 @@ Template.card_sensorGrid.created = function() {
           // add the shape to the layer
           contactsLayer.add(icon);
           icon.draw();
+          icon.visible(doc.isVisible);
           contactsArray[id] = icon;
         };
         imageObj.src = k.spritePath + doc.icon;
       }
     },
     changed: function(id, fields) {
-      console.log("Changed", id, fields);
+      // console.log("Changed", id, fields);
       var icon = contactsArray[id];
-      if (fields.x) {
-        icon.setX(Math.round(fields.x * k.width));
+      if (icon) {
+        if (fields.x) {
+          icon.setX(Math.round(fields.x * k.width));
+        }
+        if (fields.y) {
+          icon.setY(Math.round(fields.y * k.height));
+        }
+
+        if (fields.isVisible) {
+          icon.visible(fields.isVisible);
+        }
+        contactsLayer.draw();
       }
-      if (fields.y) {
-        icon.setY(Math.round(fields.y * k.height));
-      }
-      contactsLayer.draw();
     },
     removed: function(id) {
-      console.log("Removed", id);
+      // console.log("Removed", id);
       contactsArray[id].remove();
       contactsLayer.draw();
     }
@@ -175,7 +182,6 @@ Template.card_sensorGrid.rendered = function() {
 };
 
 Template.card_sensorGrid.destroyed = function() {
-  console.log(this);
   this.sensorObserver.stop();
   this.subscription.stop();
 };

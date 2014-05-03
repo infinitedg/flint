@@ -1,0 +1,3 @@
+.sensorgrid-container canvas {
+	clip-path: circle(250px at 250px 250px);
+}

@@ -142,31 +142,34 @@ _.extend(Flint, {
 	}
 });
 
-ActorObserver = Flint.collection('FlintActors').find().observeChanges({
-	added: function(id, fields) {
-		if (FlintActors[id] === undefined) {
-			Flint.Log.warn("Pruning actor " + id + " from database - not a registered actor!", 'flint-drama');
-			Flint.collection('FlintActors').remove(id);
-		} else {
-			if (fields.running) {
-				FlintActors[id].start();
+Meteor.setTimeout(function() {
+	Flint.Log.info("Starting drama monitor", "flint-drama");
+	ActorObserver = Flint.collection('FlintActors').find().observeChanges({
+		added: function(id, fields) {
+			if (FlintActors[id] === undefined) {
+				Flint.Log.warn("Pruning actor " + id + " from database - not a registered actor!", 'flint-drama');
+				Flint.collection('FlintActors').remove(id);
+			} else {
+				if (fields.running) {
+					FlintActors[id].start();
+				}
+			}
+		}, changed: function(id, fields) {
+			if (FlintActors[id]) {
+				if (fields.claimedBy == DramaInstanceID) {
+					Flint.Log.info("Instance " + DramaInstanceID + " taking control of actor " + id, 'flint-drama');
+					fields.running = Flint.collection('FlintActors').findOne(id).running;
+				}
+				if (fields.running == true) {
+					FlintActors[id].start();
+				} else if (fields.running == false) {
+					FlintActors[id].stop();
+				}
+			}
+		}, removed: function(id) {
+			if (FlintActors[id]) {
+				FlintActors[id].kill();
 			}
 		}
-	}, changed: function(id, fields) {
-		if (FlintActors[id]) {
-			if (fields.claimedBy == DramaInstanceID) {
-				Flint.Log.info("Instance " + DramaInstanceID + " taking control of actor " + id, 'flint-drama');
-				fields.running = Flint.collection('FlintActors').findOne(id).running;
-			}
-			if (fields.running == true) {
-				FlintActors[id].start();
-			} else if (fields.running == false) {
-				FlintActors[id].stop();
-			}
-		}
-	}, removed: function(id) {
-		if (FlintActors[id]) {
-			FlintActors[id].kill();
-		}
-	}
-});
+	});
+}, 1000)
