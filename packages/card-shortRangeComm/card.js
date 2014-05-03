@@ -13,7 +13,7 @@ Template.card_shortRangeComm.events = {
         var commName;
       var time = (new Date()).getTime();
       animate(canvas, theta, time);
-        Yloc = $('#frequency')[0].value * 1.25; //Makes it into a number out of 100.
+        Yloc = ($('#frequency')[0].value/2 * 1.25); //Makes it into a number out of 100.
             if (Yloc > 0 && Yloc <=15.5){
                commName = Template.card_shortRangeComm.commList()[0];
             }
@@ -36,7 +36,7 @@ Template.card_shortRangeComm.events = {
                 commName = Template.card_shortRangeComm.commList()[6];
             }
 
-        $('.commControls .textbox').html("FREQUENCY: " + Math.floor(Yloc*4.25*10)/10 + " MHz" + '</br>' + commName );
+        $('.commControls .textbox').html("FREQUENCY: " + (Math.floor($('#frequency')[0].value * 1.25*4.25*10)/10) + " MHz" + '</br>' + commName );
 
     },  
 'slide #amplitude': function(e){
@@ -54,7 +54,7 @@ function drawSpring(canvas, context, f, a, p) {
     var container = $(c).parent();
         context.beginPath();
         context.moveTo(0, 0);
-          var f = parseInt($('#frequency').val())/4;
+          var f = parseInt($('#frequency').val())/8;
           var a= parseInt($('#amplitude').val());
           var p = 5;
         for(var y = 0; y < $(container).height(); y++) {

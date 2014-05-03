@@ -4,6 +4,7 @@ Template.card_viewscreen.scene = function() {
 }
 Template.card_viewscreen.rendered = function() {
     var renderer	= new THREE.WebGLRenderer();
+    //debugger;
 	renderer.setSize( 640, 480 );
 	document.getElementsByClassName('card-area').item().appendChild( renderer.domElement );
      scene	= new THREE.Scene();
@@ -29,52 +30,38 @@ Template.card_viewscreen.rendered = function() {
     var starSphere  = new THREE.Mesh(geometry, material);
     scene.add(starSphere);
     
-    var object3d;
 	var loader	= new THREE.OBJMTLLoader();                                                                              
 	loader.addEventListener('load', function( event ){                                                                    
-		 object3d	= event.content                                                                                         
-		object3d.scale.multiplyScalar(1/10)                                                                                  
+		var object3d	= event.content;                                                                                         
+		object3d.scale.multiplyScalar(1/10);                                                                                  
 		// change emissive color of all object3d material - they are too dark                                                
 		object3d.traverse(function(object3d){                                                                                
-			if( object3d.material ){                                                                                     
-				object3d.material.emissive.set('white')                                                                     
+			if( object3d.material ){ 
+				object3d.material.emissive.set('white') ;  
+                object3d.material.shininess = 3;                                                                    
 			}                                                                                                        
 		})                                                                                                               
 		// notify the callback 
             scene.add(object3d);
 	});                                                                                                                  
 	var baseUrl	= '/packages/card-viewscreen/'                                                                              
-	var objUrl	= baseUrl + 'models/att5.obj';                                                  
-	var mtlUrl	= baseUrl + 'models/att5.mtl';                                                   
-	loader.load(objUrl, mtlUrl);		                                                                                       
-    /*
-    var dae;
-    var skin;
+	var objUrl	= baseUrl + 'models/battleship.obj';                                                  
+	var mtlUrl	= baseUrl + 'models/battleship.mtl';                                                   
+	loader.load(objUrl, mtlUrl);	                                                                                       
     
-    var loader = new THREE.ColladaLoader();
-			loader.options.convertUpAxis = true;
-			loader.load( '/packages/card-viewscreen/models/att5.dae', function ( collada ) {
-
-				dae = collada.scene;
-				skin = collada.skins[ 0 ];
-
-				dae.scale.x = dae.scale.y = dae.scale.z = 0.02;
-				dae.updateMatrix();
-                scene.add(dae);
-            });*/
     
-    var ship;
-    var loader = new THREE.JSONLoader();
-    var callbackMale = function ( geometry, materials ) { 
-        ship = new THREE.Mesh( geometry, MeshNormalMaterial); //new THREE.MeshFaceMaterial( materials ) )
-        scene.add(ship);
-    };
+    var loader1 = new THREE.AssimpJSONLoader();
+			loader1.load( '/packages/card-viewscreen/models/battleship.json', function ( assimpjson ) {
+				assimpjson.scale.x = assimpjson.scale.y = assimpjson.scale.z = 0.2;
+				assimpjson.updateMatrix();
 
-    loader.load( "/packages/card-viewscreen/models/ship.json", callbackMale );
+				scene.add(assimpjson);
+			} );
                 
                 
     camera.position.z = 1;
     onRenderFcts.push(function(){
+        //object3d.rotateY(.01);
 		renderer.render( scene, camera );		
 	})
     var lastTimeMsec= null

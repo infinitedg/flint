@@ -132,6 +132,23 @@ function setCharAt(str,index,chr) {
     if(index > str.length-1) return str;
     return str.substr(0,index) + chr + str.substr(index+1);
 };
-Template.card_login.alertLevel = function() {
- return Template.layout_default.alertLevel();   
+//Gives the EnderLayout color classes for different alert levels
+Template.card_messageComposer.alertLevel = function() {
+  var a = Flint.simulator().alertCondition;
+  switch (a) {
+  case 'c':
+  case 'cloak':
+  case 'purple':
+    return 'cloakColor';
+  case 5:
+    return 'nominalColor';
+  case 4:
+    return 'attentionColor';
+  case 3:
+    return 'cautionColor';
+  case 2:
+    return 'warningColor';
+  case 1:
+    return 'dangerColor';
+  }
 }

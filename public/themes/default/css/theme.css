@@ -30,8 +30,16 @@ width: 530px;
 	margin-bottom: 20px;
 }
 
+body{padding: 0px;
+overflow: hidden;
+height: 100%}
 
-body{padding: 0px;}
+#perspective{
+ height:100%;   
+}
+#layout_core{
+    overflow:scroll;
+}
 #perspective.nominalColor, #perspective.attentionColor{background: linear-gradient(to bottom, #000000 32%,#4D6580  100%);}
 #perspective.cautionColor{background: linear-gradient(to bottom, #000000 32%,#80804D 100%);}
 #perspective.warningColor{background: linear-gradient(to bottom, #000000 32%,#80664D 100%);}
@@ -69,9 +77,10 @@ header.row-fluid .alertLevelNum{
 line-height: 100px;
     position: absolute;
     right: 0px;
+     text-shadow: 3px 3px 5px rgba(0,0,0,.7);
 }
 
-
+/*
 header.nominalColor, header.attentionColor{
     -webkit-filter: drop-shadow(0px 5px 20px rgba(48,88,138,1));
 		filter: drop-shadow(0px 5px 20px rgba(48,88,138,1)); }
@@ -94,41 +103,61 @@ header.cloakColor{-webkit-filter: drop-shadow(0px 5px 20px rgba(100,48,138,1));
 		filter: drop-shadow(0px -5px 10px rgba(138,100,48,1)); }
 .footer.cloakColor{-webkit-filter: drop-shadow(0px 0px 10px rgba(100,48,138,1));
 		          filter: drop-shadow(0px 0px 10px rgba(100,48,138,1)); }
-
+*/
+/*Add gradient to the header text */
+/*
+header{
+    -webkit-filter: drop-shadow(2px 2px 0px rgba(255,255,255,1));
+		filter: drop-shadow(2px 2px 0px rgba(255,255,255,1)); }
+}*/
 header.row-fluid h2, header.row-fluid h3{
     padding-left: 5px;
-    background-color: rgba(90,112,138,.4); 
-    box-shadow: 0px 0px 5px rgba(90,112,138,1); 
+     -webkit-filter: drop-shadow(3px 3px 5px rgba(0,0,0,.7));
+		filter: drop-shadow(3px 3px 5px rgba(0,0,0,.7)); } 
+    /*
+      background-color:transparent;
+    background-image: '';
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f85032), color-stop(50%,#f16f5c), color-stop(51%,#f6290c), color-stop(71%,#f02f17), color-stop(100%,#e73827));
+background: -webkit-linear-gradient(top, #f85032 0%,#f16f5c 50%,#f6290c 51%,#f02f17 71%,#e73827 100%);
+background: -o-linear-gradient(top, #f85032 0%,#f16f5c 50%,#f6290c 51%,#f02f17 71%,#e73827 100%);
+background: -ms-linear-gradient(top, #f85032 0%,#f16f5c 50%,#f6290c 51%,#f02f17 71%,#e73827 100%);
+background: linear-gradient(to bottom, #f85032 0%,#f16f5c 50%,#f6290c 51%,#f02f17 71%,#e73827 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    */
+    
+      
+    
+
     z-index: 1;
 }
 header.row-fluid h2{font-size: 30px; position: relative; top: -3px}
 header.row-fluid h3{font-size: 24px; position: relative; top: 13px;}
 header .background{-webkit-clip-path: polygon(0% 0%, 0% 100%, 30.5% 100%, 34.5% 55%, 0% 55%, 0% 47%, 35% 47%, 39% 0%, 40% 0%, 36% 47%, 90% 47%, 86% 0%, 87% 0%, 91% 47% , 94.2% 85% , 100% 85%, 100% 0%, 0% 0%  );} 
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 .footerBackground{
     height:70px;
     width: 100%;
     position: absolute;
     bottom: 0px;
 }
-.messageBox{
-    height:20px;
-    width: 25%;
-    bottom:22px;
-    position: absolute;
 
-}
 .footerBackground{
 	-webkit-clip-path: polygon(0% 75%, 22.5% 75%, 20.5% 100%, 21.5% 100%, 26% 40%, 87.9% 40%, 84.5% 100%, 85.5% 100%, 87.5% 65%, 100% 65%, 100% 100%, 0% 100%);
 	
 	--webkit-clip-path: polygon(0% 75%, 0% 100%, 20.5% 100%, 22.5% 75%, 23% 100%, 24% 65%, 75% 65%, 73% 50%, 25% 50%, 23% 75%  );}    
-.messageBox{-webkit-clip-path: polygon(0% 0%, 0% 100%, 90% 100%, 100% 0%);}
 
 @media (max-width: 1025px) {
     header.row-fluid h2{font-size:24px;display:none;}
     header.row-fluid h3{font-size:18px;margin-top:57px;}
     header .background{-webkit-clip-path: polygon(0% 0%, 0% 100%, 30.5% 100%, 34.5% 55%, 0% 55%, 0% 47%, 35% 47%, 39% 0%, 40% 0%, 36% 47%, 90% 47%, 86% 0%, 87% 0%, 91% 47% , 94.2% 85% , 100% 85%, 100% 0%, 0% 0%  );}
     header.row-fluid {position:absolute; top:-50px;}
-    header.row-fluid .alertLevelNum{font-size: 50px; line-height: 150px; }
+    header.row-fluid .alertLevelNum{font-size: 50px; line-height: 150px;}
     .card-area{margin-top: 100px;}
 }
 @media (max-width: 769px) {
@@ -142,7 +171,7 @@ header .background{-webkit-clip-path: polygon(0% 0%, 0% 100%, 30.5% 100%, 34.5% 
 header .sim-name{
 	width:  30%;
 }
-header.row-fluid h2:before{
+/*header.row-fluid h2:before{
     content:'';
     float: left;
     position: absolute;
@@ -189,7 +218,7 @@ header.row-fluid h3:after{
     top: -15px;
     right: -20px;
 }
-
+*/
 
 
 header.row-fluid svg polyline{
