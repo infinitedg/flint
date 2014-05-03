@@ -55,15 +55,19 @@ var Actor = function(opts) {
 
 	this._pulse = function() {
 		var a = Flint.collection('FlintActors').findOne(this._id);
+		if (!a.lastRunTime) {
+			a.lastRunTime = (new Date()).getTime();
+		}
 		if (a && a.claimedBy === DramaInstanceID && a.running) {
 			Flint.collection('FlintActors').update(this._id, {$set: {counter: 0}});
 			try {
-				this.action();	
+				this.action([(new Date()).getTime() - a.lastRunTime]);
 			} catch (exc) {
 				if (typeof this.onError == 'function') {
 					this.onError(exc);
 				}
 			}
+			Flint.collection('FlintActors').update(this._id, {$set: {lastRunTime: (new Date()).getTime() }});
 		}
 
 		this._timeoutID = Meteor.setTimeout(function() {if (FlintActors[a._id]) {FlintActors[a._id]._pulse(); }}, getPeriod(FlintActors[a._id].period)); // Always run an actor
