@@ -17,8 +17,12 @@
     "chosen-package": {},
     "bootstrap3-slider-touch": {},
     "three.js": {
-        "git": "https://github.com/farpoint/meteor-three",
-        "tag": "v0.67.1"
-      }
+      "git": "https://github.com/farpoint/meteor-three",
+      "tag": "v0.67.2"
+    },
+    "tween": {
+      "tag": "v0.12.0",
+      "git": "https://github.com/farpoint/meteor-tween"
+    }
   }
 }

@@ -20,7 +20,11 @@
       "bootstrap3-slider-touch": {},
       "three.js": {
         "git": "https://github.com/farpoint/meteor-three",
-        "tag": "v0.67.1"
+        "tag": "v0.67.2"
+      },
+      "tween": {
+        "git": "https://github.com/farpoint/meteor-tween",
+        "tag": "v0.12.0"
       }
     },
     "packages": {
@@ -106,8 +110,13 @@
       },
       "three.js": {
         "git": "https://github.com/farpoint/meteor-three",
-        "tag": "v0.67.1",
-        "commit": "3d819e5a1f96160190511361eef834cf458a262b"
+        "tag": "v0.67.2",
+        "commit": "1a6ac65ade791ddc8f27dc844b4d84501d3a46b7"
+      },
+      "tween": {
+        "git": "https://github.com/farpoint/meteor-tween",
+        "tag": "v0.12.0",
+        "commit": "3b6cb38567274e35ccdb238912cf5c529631e162"
       }
     }
   }

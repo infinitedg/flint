@@ -1,4 +1,4 @@
-var mouseX = 0, mouseY = 0;
+var mouseX = 0, mouseY = 0, viewRadius = 1000;
 Template.card_sensor3d.created = function() {
 	this.subscription = Deps.autorun(function() {
 	    Meteor.subscribe('cards.card-sensor3d.contacts', Flint.simulatorId());
@@ -8,8 +8,8 @@ Template.card_sensor3d.created = function() {
 Template.card_sensor3d.rendered = function() {
 	var that = this;
 
-	that.camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 2, 1000 );
-	that.camera.position.z = 500;
+	that.camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 2, viewRadius * 2 );
+	that.camera.position.z = viewRadius;
 
 	that.scene = new THREE.Scene();
 
@@ -22,7 +22,9 @@ Template.card_sensor3d.rendered = function() {
         axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, -length, 0 ), 0x00FF00, true ) ); // -Y
         axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, length ), 0x0000FF, false ) ); // +Z
         axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -length ), 0x0000FF, true ) ); // -Z
-		axes.add( buildHalo( length, 0x0000FF, new THREE.Vector3(1, 0, 0)) );
+		// axes.add( buildHalo( length, 0x0000FF, new THREE.Vector3(0, 1, 0)) );
+		// axes.add( buildHalo( length, 0x00FF00, new THREE.Vector3(0, 0, 1)) );
+		// axes.add( buildHalo( length, 0xFF0000, new THREE.Vector3(1, 0, 0)) );
 
         return axes;
 	};
@@ -46,44 +48,44 @@ Template.card_sensor3d.rendered = function() {
         return axis;
 	}
 
-	function buildHalo(length, color, vect) {
-		var material = new THREE.LineBasicMaterial({
-        	linewidth: 3,
-			color: 0x00ff00
-		});
+	// function buildHalo(length, color, vect) {
+	// 	var material = new THREE.LineBasicMaterial({
+ //        	linewidth: 3,
+	// 		color: color
+	// 	});
 
-		var radius = length;
-		var segments = 32;
+	// 	var radius = length;
+	// 	var segments = 32;
 
-		var circleGeometry = new THREE.CircleGeometry( radius, segments );
-		circleGeometry.vertices.shift();
-		var circle = new THREE.Line( circleGeometry, material );
+	// 	var circleGeometry = new THREE.CircleGeometry( radius, segments );
+	// 	circleGeometry.vertices.shift();
+	// 	var circle = new THREE.Line( circleGeometry, material );
 
-		rotateAroundWorldAxis(circle, vect, Math.PI / 180);
+	// 	rotateAroundWorldAxis(circle, vect, Math.PI/180);
 
-		return circle;
-	}
+	// 	return circle;
+	// }
 
-	// Rotate an object around an arbitrary axis in object space
-	var rotObjectMatrix;
-	function rotateAroundObjectAxis(object, axis, radians) {
-	    rotObjectMatrix = new THREE.Matrix4();
-	    rotObjectMatrix.makeRotationAxis(axis.normalize(), radians);
-	    object.matrix.multiply(rotObjectMatrix);
-	    object.rotation.setEulerFromRotationMatrix(object.matrix);
-	}
+	// // Rotate an object around an arbitrary axis in object space
+	// var rotObjectMatrix;
+	// function rotateAroundObjectAxis(object, axis, radians) {
+	//     rotObjectMatrix = new THREE.Matrix4();
+	//     rotObjectMatrix.makeRotationAxis(axis.normalize(), radians);
+	//     object.matrix.multiply(rotObjectMatrix);
+	//     object.rotation.setEulerFromRotationMatrix(object.matrix);
+	// }
 
-	var rotWorldMatrix;
-	// Rotate an object around an arbitrary axis in world space       
-	function rotateAroundWorldAxis(object, axis, radians) {
-	    rotWorldMatrix = new THREE.Matrix4();
-	    rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
-	    rotWorldMatrix.multiply(object.matrix);
-	    object.matrix = rotWorldMatrix;
-	    object.rotation.setFromRotationMatrix(object.matrix);
-	}
+	// var rotWorldMatrix;
+	// // Rotate an object around an arbitrary axis in world space       
+	// function rotateAroundWorldAxis(object, axis, radians) {
+	//     rotWorldMatrix = new THREE.Matrix4();
+	//     rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
+	//     rotWorldMatrix.multiply(object.matrix);
+	//     object.matrix = rotWorldMatrix;
+	//     object.rotation.setFromRotationMatrix(object.matrix);
+	// }
 
-	var axes = buildAxes( 500 );
+	var axes = buildAxes( viewRadius / 2 );
 	that.scene.add(axes);
 
 	that.renderer = new THREE.WebGLRenderer();
@@ -131,15 +133,16 @@ Template.card_sensor3d.rendered = function() {
 			
 			var crateMaterial = new THREE.SpriteMaterial( { map: that.sprite, useScreenCoordinates: false, color: 0x00ff00 } );
 			var sprite = new THREE.Sprite( crateMaterial );
-			sprite.position.set( doc.x, doc.y, doc.z );
+			sprite.position.set( doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
 			sprite.scale.set( 50, 50, 1.0 ); // imageWidth, imageHeight
 			that.scene.add( sprite );
 
 			that.sceneSprites[doc._id] = sprite;
 
 		}, changed: function(doc) {
-			that.sceneSprites[doc._id].position.set(doc.x, doc.y, doc.z);
+			that.sceneSprites[doc._id].position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
 		}, removed: function(doc) {
+			that.scene.remove(that.sceneSprites[doc._id]);
 			delete that.sceneSprites[doc._id];
 		}
 	})
