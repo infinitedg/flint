@@ -1,4 +1,6 @@
-var viewRadius = 100;
+var viewRadius = 100,
+viewWidth = 500,
+viewHeight = 500;
 
 function debugAxes( length ) {
 	function buildAxis( src, dst, colorHex, dashed ) {
@@ -45,8 +47,8 @@ Template.card_sensor3d.created = function() {
 Template.card_sensor3d.rendered = function() {
 	var onRenderFcts = [];
 	// Camera
-	var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 1000 );
-	camera.position.z = 50;
+	var camera = new THREE.PerspectiveCamera(45, viewWidth / viewHeight, 0.01, 1000 );
+	camera.position.z = 130;
 
 	// Scene
 	var scene = new THREE.Scene();
@@ -55,30 +57,51 @@ Template.card_sensor3d.rendered = function() {
 	scene.add(debugAxes(viewRadius / 2));
 
 	// Starfield
-	var geometry  = new THREE.SphereGeometry(90, 32, 32)
-	var material  = new THREE.MeshBasicMaterial()
+	var geometry  = new THREE.SphereGeometry(200, 32, 32);
+	var material  = new THREE.MeshBasicMaterial();
 	material.map   = THREE.ImageUtils.loadTexture('/packages/card-sensor3d/stars.png');
-	material.side  = THREE.BackSide
-	var mesh  = new THREE.Mesh(geometry, material)
-	scene.add(mesh)
+	material.side  = THREE.BackSide;
+	var mesh  = new THREE.Mesh(geometry, material);
+	scene.add(mesh);
 
 	// Renderer
 	var renderer = new THREE.WebGLRenderer();
-	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setSize( viewWidth, viewHeight );
 	this.find('.sensor_box').appendChild( renderer.domElement );
 
 	// Mouse Controls
-	var windowHalfX = window.innerWidth / 2;
-	var windowHalfY = window.innerHeight / 2;
-	$('.sensor_box canvas').on('mousedown.card_sensor3d', function(){
-		$('body').on('mousemove.card_sensor3d', function(event) {
-			mouseX = event.clientX - windowHalfX;
-			mouseY = event.clientY - windowHalfY;
-		}).one('mouseup.card_sensor3d', function() {
-			$('body').off('mousemove.card_sensor3d');
-		})
+	var mouse	= {x : 0, y : 0}
+	$('.sensor_box canvas').on('mousemove', function(){
+		mouse.x	= (event.clientX / $('.sensor_box canvas').width() ) - 0.5;
+		mouse.y	= (event.clientY / $('.sensor_box canvas').height()) - 0.5;
 	});
+	onRenderFcts.push(function(delta, now){
+		camera.position.x += (mouse.x*10 - camera.position.x) * (delta*3);
+		camera.position.y += (mouse.y*10 - camera.position.y) * (delta*3);
+		camera.lookAt( scene.position );
+	});
+	
+	// controls = new THREE.TrackballControls( camera );
 
+	// controls.rotateSpeed = 1.0;
+	// controls.zoomSpeed = 1.2;
+	// controls.panSpeed = 0.8;
+
+	// controls.noZoom = true;
+	// controls.noPan = true;
+
+	// controls.staticMoving = true;
+	// controls.dynamicDampingFactor = 0.3;
+
+	// controls.keys = [ 65, 83, 68 ];
+
+	// controls.addEventListener( 'change', function() {
+	// 	renderer.render(scene, camera);
+	// });
+
+	// onRenderFcts.push(function() {
+	// 	controls.update();
+	// });
 
 	// Animation Function
 	onRenderFcts.push(function(){
@@ -93,13 +116,13 @@ Template.card_sensor3d.rendered = function() {
 			requestAnimationFrame( animate );
 		}
 		// measure time
-		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
-		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
-		lastTimeMsec	= nowMsec
+		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60;
+		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec);
+		lastTimeMsec	= nowMsec;
 		// call each update function
 		onRenderFcts.forEach(function(onRenderFct){
 			onRenderFct(deltaMsec/1000, nowMsec/1000)
-		})
+		});
 	});
 
 	var sceneSprites = {};
