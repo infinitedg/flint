@@ -1,4 +1,4 @@
-var mouseX = 0, mouseY = 0, viewRadius = 1000;
+var viewRadius = 100;
 
 function debugAxes( length ) {
 	function buildAxis( src, dst, colorHex, dashed ) {
@@ -43,15 +43,24 @@ Template.card_sensor3d.created = function() {
 };
 
 Template.card_sensor3d.rendered = function() {
+	var onRenderFcts = [];
 	// Camera
-	var camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 2, viewRadius * 2 );
-	camera.position.z = viewRadius;
+	var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 1000 );
+	camera.position.z = 50;
 
 	// Scene
 	var scene = new THREE.Scene();
 
 	// Debugging Axis
 	scene.add(debugAxes(viewRadius / 2));
+
+	// Starfield
+	var geometry  = new THREE.SphereGeometry(90, 32, 32)
+	var material  = new THREE.MeshBasicMaterial()
+	material.map   = THREE.ImageUtils.loadTexture('/packages/card-sensor3d/stars.png');
+	material.side  = THREE.BackSide
+	var mesh  = new THREE.Mesh(geometry, material)
+	scene.add(mesh)
 
 	// Renderer
 	var renderer = new THREE.WebGLRenderer();
@@ -70,24 +79,28 @@ Template.card_sensor3d.rendered = function() {
 		})
 	});
 
+
 	// Animation Function
-	var that = this;
-	function animate() {
-		if (!that.animating) {
-			return;
-		}
-
-		requestAnimationFrame( animate );
-		
-		camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-		camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
-
-		camera.lookAt( scene.position );
-
+	onRenderFcts.push(function(){
 		renderer.render( scene, camera );
-	}
+	});
 
-	animate();
+	var lastTimeMsec= null
+	var that = this;
+	requestAnimationFrame(function animate(nowMsec){
+		// keep looping
+		if (that.animating) {
+			requestAnimationFrame( animate );
+		}
+		// measure time
+		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
+		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
+		lastTimeMsec	= nowMsec
+		// call each update function
+		onRenderFcts.forEach(function(onRenderFct){
+			onRenderFct(deltaMsec/1000, nowMsec/1000)
+		})
+	});
 
 	var sceneSprites = {};
 	this.sensorObserver = Flint.collection('sensorContacts').find().observe({
@@ -97,7 +110,7 @@ Template.card_sensor3d.rendered = function() {
 			var material = new THREE.SpriteMaterial( { map: sprite, useScreenCoordinates: false, color: 0x00ff00 } );
 			var sprite = new THREE.Sprite( material );
 			sprite.position.set( doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
-			sprite.scale.set( 50, 50, 1.0 );
+			sprite.scale.set( 0.05 * viewRadius, 0.05 * viewRadius, 1.0 );
 			scene.add( sprite );
 
 			sceneSprites[doc._id] = sprite;
