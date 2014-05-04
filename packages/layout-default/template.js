@@ -106,6 +106,9 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   cardTransitionAutorun.stop();
 //   stationActionObserver.stop();
 // };
+Template.layout_default.destroyed = function() {
+   this.subComputation.stop();  
+};
 Template.layout_default.alertCondition = function() {
   var a = Flint.simulator().alertCondition;
   return a;
@@ -141,9 +144,12 @@ Template.layout_default.cardName = function() {
     return Flint.card().name;   
 }
 Template.layout_default.created = function() {
+    this.subComputation = Deps.autorun(function() {
+       // console.log("PING");
+        Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
+    });
 	//Flint.play('sciences');
 }
-
 //Gives the EnderLayout color classes for different alert levels
 Template.layout_default.alertLevel = function() {
   var a = Flint.simulator().alertCondition;

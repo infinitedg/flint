@@ -28,6 +28,7 @@ Meteor.startup(function() {
   var clientIdDep = new Deps.Dependency;
 
   Flint.client = function(key, value) {
+
     var clientId = Flint.clientId();
     var client = Flint.clients.findOne(clientId);
     if (!client) {

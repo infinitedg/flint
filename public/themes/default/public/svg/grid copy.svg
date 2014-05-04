@@ -1,4 +1,4 @@
- <svg id="grid" xmlns='http://www.w3.org/2000/svg' width='1440px' style="position: fixed; left: -15px; bottom: 0px; background-color:transparent; margin: 0px; padding: 0px;" height='900px' viewBox='0px 0px 1440px 900px'>
+ <svg id="grid" xmlns='http://www.w3.org/2000/svg' width='110%' style="position: fixed; left: -15px; bottom: 0px; background-color:transparent; margin: 0px; padding: 0px;" height='110%' viewBox='-20px -20px 1440px 900px'>
                             <defs>
                                 
                                 <linearGradient id="gradient" x1="0" y1="0%" x2 ="0" y2="100%">

@@ -17,28 +17,27 @@
 	width: 22vw;
 }
 #card-shortRangeComm .frequencySelect{
-	height: 50vh;
-    margin-bottom: 1vh;
+	height: 68vh;
 }
-#card-shortRangeComm .commSelect .freqBar{
-    height: 45vh;
-    width: 40px;
+#card-shortRangeComm .freqBar{
+    height: 64vh;
+    width: 3vw;
     position: absolute;
-    right: 80px;
+    right: 4vw;
     background-image: url(/packages/card-shortRangeComm/svg/freqBar.svg);
         background-repeat:repeat;
 }
-#card-shortRangeComm .commSelect .ampBar{
-    width: 28vw;
-    height: 30px;
+#card-shortRangeComm .ampBar{
+    height: 64vh;
+    width: 3vw;
     position: absolute;
-    top: 80px;
+    top:2.5vh;
+    right: 4vw;
     background-image: url(/packages/card-shortRangeComm/svg/ampBar.svg);
         background-repeat:repeat;
 }
 #card-shortRangeComm .amplitudeSelect{
-    height: 17vh;   
-    position: relative;
+    height: 68vh;   
 }
 #card-shortRangeComm .commCandy{
 	height: 68vh;
@@ -52,13 +51,15 @@
 }
 
 #card-shortRangeComm .slider.slider-vertical{
- height: 45vh;   
+ height: 65vh;   
     position: absolute;
-    right: 60px;
+    right: 30px;
 }
 
 #card-shortRangeComm .slider.slider-horizontal{
- width: 27vw;   
+ height: 65vh;   
+    position: absolute;
+    right: 60px;  
 
 }
 
@@ -85,4 +86,59 @@
 #card-shortRangeComm .slider-track, #card-shortRangeComm  .slider-selection  {
     background-image: url() ;
     background-color: transparent;
+}
+
+#card-shortRangeComm .freqControl{
+	float: right;
+	position: relative;
+}
+
+#card-shortRangeComm .commList{
+	float: left;
+	width: 100%;
+}
+
+#card-shortRangeComm .commList p{
+	width: 70%;
+	padding: 0px;
+	margin: 0px;
+	font-size: 2.5vw;
+	border-top: solid 1px #fff;
+	white-space: nowrap;
+	font-family: 'Steelfish';
+}
+#card-shortRangeComm .commList p:nth-child(1){
+ height: 10vh;
+ line-height: 10vh;
+}
+#card-shortRangeComm .commList p:nth-child(2){
+ height: 8vh;
+ line-height: 8vh;
+
+}
+#card-shortRangeComm .commList p:nth-child(3){
+	height: 7vh;
+ line-height: 7vh;
+
+}
+#card-shortRangeComm .commList p:nth-child(4){
+ height: 11vh;
+  line-height: 11vh;
+
+}
+#card-shortRangeComm .commList p:nth-child(5){
+	height: 14vh;
+	  line-height: 14vh;
+
+}
+#card-shortRangeComm .commList p:nth-child(6){
+	height: 8vh;
+	  line-height: 8vh;
+
+}
+#card-shortRangeComm .commList p:nth-child(7){
+ height: 6.5vh;
+   line-height: 6.5vh;
+ 	border-bottom: solid 1px #fff;
+
 }

@@ -26,6 +26,7 @@ card-sensorGrid
 kinetic.js
 layout-core
 flint-speech
+flint-touch
 card-coreStationUtility
 flint-utils
 bootboxjs
@@ -43,6 +44,7 @@ card-targeting
 card-selfDestruct
 card-shortRangeComm
 card-security
+card-viewscreen
 bootstrap-3
 font-awesome
 gsap

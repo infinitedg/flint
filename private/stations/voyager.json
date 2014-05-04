@@ -54,6 +54,10 @@
                 {
                     "cardId": "card_shortRangeComm",
                     "name": "Short Range Comm"
+                },
+                {
+                    "cardId": "card_viewscreen",
+                    "name": "Viewscreen"
                 }
             ],
             "_id": "voyager-operations"
