@@ -126,6 +126,7 @@ Template.card_sensor3d.rendered = function() {
 	});
 
 	var sceneSprites = {};
+	console.log(this);
 	this.sensorObserver = Flint.collection('sensorContacts').find().observe({
 		added: function(doc) {
 			var sprite = THREE.ImageUtils.loadTexture( "/packages/card-sensorGrid/sprites/" + doc.icon );
@@ -148,6 +149,10 @@ Template.card_sensor3d.rendered = function() {
 
 Template.card_sensor3d.destroyed = function() {
 	this.animating = false;
-	this.sensorObserver.stop();
-	this.subscription.stop();
+	if (this.sensorObserver) {
+		this.sensorObserver.stop();
+	}
+	if (this.subscription) {
+		this.subscription.stop();
+	}
 };
