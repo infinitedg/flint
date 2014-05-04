@@ -48,43 +48,6 @@ Template.card_sensor3d.rendered = function() {
         return axis;
 	}
 
-	// function buildHalo(length, color, vect) {
-	// 	var material = new THREE.LineBasicMaterial({
- //        	linewidth: 3,
-	// 		color: color
-	// 	});
-
-	// 	var radius = length;
-	// 	var segments = 32;
-
-	// 	var circleGeometry = new THREE.CircleGeometry( radius, segments );
-	// 	circleGeometry.vertices.shift();
-	// 	var circle = new THREE.Line( circleGeometry, material );
-
-	// 	rotateAroundWorldAxis(circle, vect, Math.PI/180);
-
-	// 	return circle;
-	// }
-
-	// // Rotate an object around an arbitrary axis in object space
-	// var rotObjectMatrix;
-	// function rotateAroundObjectAxis(object, axis, radians) {
-	//     rotObjectMatrix = new THREE.Matrix4();
-	//     rotObjectMatrix.makeRotationAxis(axis.normalize(), radians);
-	//     object.matrix.multiply(rotObjectMatrix);
-	//     object.rotation.setEulerFromRotationMatrix(object.matrix);
-	// }
-
-	// var rotWorldMatrix;
-	// // Rotate an object around an arbitrary axis in world space       
-	// function rotateAroundWorldAxis(object, axis, radians) {
-	//     rotWorldMatrix = new THREE.Matrix4();
-	//     rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
-	//     rotWorldMatrix.multiply(object.matrix);
-	//     object.matrix = rotWorldMatrix;
-	//     object.rotation.setFromRotationMatrix(object.matrix);
-	// }
-
 	var axes = buildAxes( viewRadius / 2 );
 	that.scene.add(axes);
 
