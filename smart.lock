@@ -96,7 +96,7 @@
       "gsap": {
         "git": "https://github.com/RoyalMist/meteor-gsap.git",
         "tag": "v1.11.5",
-        "commit": "a13421d1a00e40aa80e3cba2adbc5e43a207ba7e"
+        "commit": "9fc801d7f232ea943a3414a793680c924801d696"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",

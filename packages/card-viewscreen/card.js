@@ -4,11 +4,13 @@ Template.card_viewscreen.scene = function() {
 }
 Template.card_viewscreen.rendered = function() {
     var renderer	= new THREE.WebGLRenderer();
-    //debugger;
 	renderer.setSize( 640, 480 );
 	document.getElementsByClassName('card-area').item().appendChild( renderer.domElement );
      scene	= new THREE.Scene();
 	var camera	= new THREE.PerspectiveCamera(45, 500 / 375, 0.01, 10000);
+    
+  
+    
     
     var onRenderFcts= [];
     
@@ -30,38 +32,40 @@ Template.card_viewscreen.rendered = function() {
     var starSphere  = new THREE.Mesh(geometry, material);
     scene.add(starSphere);
     
-	var loader	= new THREE.OBJMTLLoader();                                                                              
-	loader.addEventListener('load', function( event ){                                                                    
-		var object3d	= event.content;                                                                                         
-		object3d.scale.multiplyScalar(1/10);                                                                                  
-		// change emissive color of all object3d material - they are too dark                                                
-		object3d.traverse(function(object3d){                                                                                
-			if( object3d.material ){ 
-				object3d.material.emissive.set('white') ;  
-                object3d.material.shininess = 3;                                                                    
-			}                                                                                                        
-		})                                                                                                               
-		// notify the callback 
-            scene.add(object3d);
-	});                                                                                                                  
-	var baseUrl	= '/packages/card-viewscreen/'                                                                              
-	var objUrl	= baseUrl + 'models/battleship.obj';                                                  
-	var mtlUrl	= baseUrl + 'models/battleship.mtl';                                                   
-	loader.load(objUrl, mtlUrl);	                                                                                       
     
-    
-    var loader1 = new THREE.AssimpJSONLoader();
-			loader1.load( '/packages/card-viewscreen/models/battleship.json', function ( assimpjson ) {
-				assimpjson.scale.x = assimpjson.scale.y = assimpjson.scale.z = 0.2;
-				assimpjson.updateMatrix();
+    var manager = new THREE.LoadingManager();
+    manager.onProgress = function ( item, loaded, total ) {
+        console.log( item, loaded, total );
+    };
+    var shipMaterial = new THREE.MeshLambertMaterial( { color: 0x0000ff } )
 
-				scene.add(assimpjson);
-			} );
-                
-                
+    var texture = new THREE.Texture();
+
+    var imageLoader = new THREE.ImageLoader( manager );
+    imageLoader.load( '/packages/card-viewscreen/models/astra_elements2_c.png', function ( image ) {
+        texture.image = image;
+        texture.needsUpdate = true;
+    } );
+    var ship;
+    var loader = new THREE.OBJMTLLoader();
+    loader.load( '/packages/card-viewscreen/models/battleship.obj', '/packages/card-viewscreen/models/battleship.mtl', function ( object ) {
+        object.scale.multiplyScalar(1/10);                                                                                            
+        object.traverse(function(object3d){                                                                                
+            if( object3d.material ){ 
+                object3d.material.map = texture;
+                object3d.material.emissive.set('white') ;  
+                object3d.material.shininess = 3;
+            }                                                                                                        
+        })        
+        //object.position.y = - 80;
+        ship = object;
+        scene.add( object );
+    } );
+    
+    
     camera.position.z = 1;
     onRenderFcts.push(function(){
-        //object3d.rotateY(.01);
+        ship.rotateY(.01);
 		renderer.render( scene, camera );		
 	})
     var lastTimeMsec= null

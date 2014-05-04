@@ -1,0 +1,11 @@
+
+newmtl alotech_elements_c
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  0.0
+illum 2
+map_Kd alotech_elements_c v3.psd
+
+
