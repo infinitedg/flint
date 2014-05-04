@@ -16,6 +16,9 @@
     "gsap": {},
     "chosen-package": {},
     "bootstrap3-slider-touch": {},
-    "three.js": {}
+    "three.js": {
+        "git": "https://github.com/farpoint/meteor-three",
+        "tag": "v0.67.1"
+      }
   }
 }
