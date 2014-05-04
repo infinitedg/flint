@@ -2,6 +2,20 @@
 	"simulatorId": "voyager",
 	
     "stations": [
+        {   "name": "Viewscreen",
+            "cards": [
+                {
+              "name": "Login",
+              "cardId": "card_login"
+                },
+                {
+                    "name": "Viewscreen",
+                    "cardId": "card_viewscreen"
+                }
+            ],
+         "_id": "voyager-viewscreen",
+         "layout": "layout-viewscreen"
+        },
         {
           "name": "Scanners",
           "cards": [

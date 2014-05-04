@@ -17,6 +17,7 @@ flint-debug
 buzz.js
 flint-flash
 layout-default
+layout-viewscreen
 flint-sound
 layout-blackout
 card-login

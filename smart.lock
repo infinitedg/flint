@@ -20,7 +20,7 @@
       "bootstrap3-slider-touch": {},
       "three.js": {
         "git": "https://github.com/farpoint/meteor-three",
-        "tag": "v0.67.1"
+        "tag": "v0.67.3"
       }
     },
     "packages": {
@@ -61,8 +61,8 @@
       },
       "kinetic.js": {
         "git": "https://github.com/brentjanderson/meteor-kinetic.git",
-        "tag": "v5.0.1",
-        "commit": "3c29f5bcbcdc9687081b336e59e8387dc02236a5"
+        "tag": "v5.1.0",
+        "commit": "0657c2faa36afadfb4405a8c9f6201710f7984b1"
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
@@ -92,7 +92,7 @@
       "gsap": {
         "git": "https://github.com/RoyalMist/meteor-gsap.git",
         "tag": "v1.11.5",
-        "commit": "a13421d1a00e40aa80e3cba2adbc5e43a207ba7e"
+        "commit": "9fc801d7f232ea943a3414a793680c924801d696"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",
@@ -106,8 +106,8 @@
       },
       "three.js": {
         "git": "https://github.com/farpoint/meteor-three",
-        "tag": "v0.67.1",
-        "commit": "3d819e5a1f96160190511361eef834cf458a262b"
+        "tag": "v0.67.3",
+        "commit": "0314a3647c5ed25f08336718dee7bc2a5e871d1a"
       }
     }
   }
