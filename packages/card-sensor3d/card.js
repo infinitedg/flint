@@ -62,11 +62,12 @@ Template.card_sensor3d.rendered = function() {
 	material.map   = THREE.ImageUtils.loadTexture('/packages/card-sensor3d/stars.png');
 	material.side  = THREE.BackSide;
 	var mesh  = new THREE.Mesh(geometry, material);
-	scene.add(mesh);
+	//scene.add(mesh);
 
 	// Renderer
-	var renderer = new THREE.WebGLRenderer();
+	var renderer = new THREE.WebGLRenderer({ alpha: true, clearColor: 0xff0000, clearAlpha: 1 });
 	renderer.setSize( viewWidth, viewHeight );
+    //renderer.setClearColorHex( 0xffffff, 0);
 	this.find('.sensor_box').appendChild( renderer.domElement );
 
 	// Mouse Controls
