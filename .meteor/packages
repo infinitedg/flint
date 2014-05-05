@@ -19,6 +19,7 @@ flint-flash
 layout-default
 flint-sound
 layout-blackout
+layout-viewscreen
 card-login
 card-power
 card-alertCondition
