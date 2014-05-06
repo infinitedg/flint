@@ -3,21 +3,13 @@ Template.card_viewscreenControl.rendered = function(){
                                    onDrag: function(){
                                        pos = {x:this.x+$('.joystick-back').width()/2, y:this.y+$('.joystick-back').height()/2}
                                        newPos = newPoints(pos);
-                                       debugger;
-                                       this.x = newPos.x;
-                                       this.y = newPos.y;
-                                       /*var point = {x:this.x+$('.joystick-back').width()/2, y:this.y+$('.joystick-back').height()/2};
-                                     if (withinCircle(point)){ 
-
-                                     } else{
-                                        point = {x:this.x, y:this.y};
-                                       var newPoint = edgeFinder(point);
-                                         console.log('--' + point.x + ',' + point.y);
-                                         console.log(newPoint.x + ',' + newPoint.y);
-                                     }
-                                    
-                                       */  
-                                      }  
+                                       transformSet = 'translate3d(' + (newPos.x - $('.joystick-back').width()/2) + 'px, ' + (newPos.y-$('.joystick-back').height()/2) + 'px, 0px)';
+                                       this.target.style.transform = transformSet;
+                                      },
+                                   onDragEnd: function(){
+                                      var joystick = $("#dragger");
+                                       TweenLite.to(joystick, .25, {transform: 'translate3d(0px,0px,0px)'}); 
+                                   }
                                   }); 
                                       
 }
