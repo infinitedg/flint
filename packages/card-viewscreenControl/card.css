@@ -1,0 +1,30 @@
+#viewscreenControl{
+	width: 100%;
+	margin: 0 auto;
+}
+
+#viewscreenControl .joystick-back{
+	width: 25vw;
+	height: 25vw;
+	border-radius: 25vw;
+	background: -webkit-radial-gradient(center, ellipse cover, #b3dced 0%,#29b8e5 50%,#bce0ee 100%);
+    position:absolute;
+    left: 37.5vw;
+    top: 10vw;
+}
+
+#viewscreenControl .joystick-button{
+	width: 8vw;
+	height: 8vw;
+	border-radius: 8vw;
+	
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 99%,rgba(0,0,0,0.65) 100%);
+	
+   
+  /*Centering Method 2*/
+ position:absolute;
+  left: 33.33%;
+  top: 33.33%;
+
+}
+

@@ -57,19 +57,17 @@ Template.card_viewscreen.rendered = function() {
     var camera1	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
     camera1.position.z = -5;
     cameras.push(camera1);
-    controls = new THREE.OrbitControls( camera );
+    //controls = new THREE.OrbitControls( camera );
     
     camera.position.z = 5;
     
     controls = new THREE.FlyControls( camera );
 
-    controls.movementSpeed = 1000;
+    controls.movementSpeed = 0;
     controls.domElement = document.getElementById('viewscreen');
     controls.rollSpeed = Math.PI / 24;
     controls.autoForward = false;
-    controls.dragToLook = false;
-    controls.mousedown = '';
-    controls.keydown = '';
+    controls.dragToLook = true;
     
                 
  
@@ -84,7 +82,7 @@ Template.card_viewscreen.rendered = function() {
 	backLight.position.set(-0.5, -0.5, -2);
 	scene.add( backLight );*/
     
-    var geometry  = new THREE.SphereGeometry(500, 32, 32);
+    var geometry  = new THREE.SphereGeometry(1000, 32, 32);
     var url   = '/packages/card-viewscreen/models/starback.png';
     var material  = new THREE.MeshBasicMaterial({
         map : THREE.ImageUtils.loadTexture(url),
