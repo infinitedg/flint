@@ -59,14 +59,14 @@ Template.card_sensorGrid.created = function() {
       // console.log("Changed", id, fields);
       var icon = contactsArray[id];
       if (icon) {
-        if (fields.x) {
+        if (fields.x !== undefined) {
           icon.setX(Math.round(fields.x * k.width));
         }
-        if (fields.y) {
+        if (fields.y !== undefined) {
           icon.setY(Math.round(fields.y * k.height));
         }
 
-        if (fields.isVisible) {
+        if (fields.isVisible !== undefined) {
           icon.visible(fields.isVisible);
         }
         contactsLayer.draw();
