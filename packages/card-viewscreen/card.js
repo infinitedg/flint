@@ -1,7 +1,9 @@
 var scene;
 var controls;
 var cameras = [];
+var animatingObjects = [];
 var currentCamera = 0;
+
 Template.card_viewscreen.scene = function () {
     return scene;
 };
@@ -9,7 +11,14 @@ Template.card_viewscreen.controls = function () {
     return controls;
 };
 Template.card_viewscreen.currentCamera = function (num) {
+    if (num){
     currentCamera = num;
+    }
+    return currentCamera;
+    
+};
+Template.card_viewscreen.cameras = function() {
+  return cameras;  
 };
 
 function loadObject(objModel, objMtl, objTexture, options) {
@@ -88,7 +97,7 @@ Template.card_viewscreen.destroyed = function () {
 };
 
 Template.card_viewscreen.rendered = function () {
-
+    var up = new THREE.Vector3(0,1,0);
     var clock = new THREE.Clock();
     var renderer = new THREE.WebGLRenderer({
         antialias: true,
@@ -245,7 +254,6 @@ Template.card_viewscreen.rendered = function () {
             }
         });
         battleShip = object;
-        object.rotateY(Math.PI / 2);
         scene.add(object);
     });
     imageLoader.load('/packages/card-viewscreen/models/AstraShuttle/astra_elements1_c.png', function (image) {
@@ -263,7 +271,6 @@ Template.card_viewscreen.rendered = function () {
             }
         });
         object.position.x = -0.5;
-        object.rotateY(Math.PI / 2);
         shuttleShip = object;
         scene.add(object);
     });
@@ -278,7 +285,6 @@ Template.card_viewscreen.rendered = function () {
             }
         });
         object.position.x = 0.5;
-        object.rotateY(Math.PI / 2);
         ltCruiserShip = object;
         scene.add(object);
     });
@@ -293,21 +299,72 @@ Template.card_viewscreen.rendered = function () {
             }
         });
         object.position.x = 0.25;
-        object.rotateY(Math.PI / 2);
         hvyCruiserShip = object;
         scene.add(object);
+        object.rotSpeed = 5.0;
+        object.speed = 0.1;
+        object.closeEnough = 0.1;
+        object.dx = new THREE.Vector3();
+
+        animatingObjects.push(object);
     });
 
 
     var currentScene = scene;
     //var currentCamera = camera;
+    function moveToPoint(fromObject, toPosition, dTheta) {
+        fromObject.dx.subVectors(toPosition,fromObject.position);
+        if (fromObject.dx.length() > fromObject.closeEnough) {
+            var moveDist = dTheta*fromObject.speed;
+            fromObject.translateZ(moveDist);
+        }   
+    }
+    function lookTowards(fromObject, toPosition, dTheta) {
+        if (fromObject.rotSpeed){dTheta = dTheta * fromObject.rotSpeed;}
+        var quat0 = fromObject.quaternion;
+        var eye = fromObject.position;
+        var center = toPosition;
+        var mat = new THREE.Matrix4();
+        mat.lookAt(center,eye,up);
+        var quat1 = new THREE.Quaternion();
+        quat1.setFromRotationMatrix( mat );
+        var deltaTheta = angleBetweenQuats(quat0,quat1);
+        var frac = dTheta/deltaTheta;
+        if (frac>1)  frac=1;
+        fromObject.quaternion.slerp(quat1,frac);
+        
+    }
+    function angleBetweenQuats(qBefore,qAfter) {
+        q1 = new THREE.Quaternion();
+        q1.copy(qBefore);
+        q1.inverse();
+        q1.multiply(qAfter);
+        var halfTheta = Math.acos( q1.w );
+        return 2*halfTheta;
+    }
+     function onKeyDown(evt) {
+    var result;
+    switch (evt.keyCode) {
+      case 49: // '1'
+        hvyCruiserShip.target = new THREE.Vector3(0,0,0);
+        break;
+      case 50: // '2'
+        bug.goal = greenCube.position;
+        break;
+      case 51: // '3'
+        bug.goal = blueCube.position;
+        break;
+    }
+  }
+
+  window.addEventListener('keydown', onKeyDown, false);
     onRenderFcts.push(function () {
+        var delta = clock.getDelta();
         if (currentScene == scene) {
             controls.object = cameras[currentCamera];
             //controls.target = scene.position;
             //controls.update();
 
-            var delta = clock.getDelta();
             controls.update(delta);
             //  planetMesh.rotateY(.005);
         } else {
@@ -325,10 +382,21 @@ Template.card_viewscreen.rendered = function () {
 			tunnelCamera.position.y	= Math.sin(angle - Math.PI/2) * radius;
 			tunnelCamera.rotation.z	= angle;*/
         }
+       // var delta = clock.getDelta();
+        animatingObjects.forEach(function (object) {
+            var target = object.target;
+            if (target){
+                var targetDelta = delta;
+                lookTowards(object, target, targetDelta);
+                moveToPoint(object, target, targetDelta);
+                
+            }
+        });
         // debugger;
         renderer.render(currentScene, cameras[currentCamera]);
 
     });
+    
     var lastTimeMsec = null;
     requestAnimationFrame(function animate(nowMsec) {
         // keep looping

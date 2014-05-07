@@ -10,7 +10,7 @@
 	background: -webkit-radial-gradient(center, ellipse cover, #b3dced 0%,#29b8e5 50%,#bce0ee 100%);
     position:absolute;
     left: 37.5vw;
-    top: 30vh;
+    top: 20vh;
 }
 
 #viewscreenControl .joystick-button{
