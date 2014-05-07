@@ -15,12 +15,15 @@
       "apm": {},
       "bootstrap-3": {},
       "font-awesome": {},
-      "gsap": {},
+      "gsap": {
+        "git": "https://github.com/brentjanderson/meteor-gsap.git",
+        "branch": "master"
+      },
       "chosen-package": {},
       "bootstrap3-slider-touch": {},
       "three.js": {
         "git": "https://github.com/farpoint/meteor-three",
-        "tag": "v0.67.4"
+        "tag": "v0.67.5"
       },
       "tween": {
         "git": "https://github.com/farpoint/meteor-tween",
@@ -80,8 +83,8 @@
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v1.2.5",
-        "commit": "c4552ec9c2d011604729af42d66d8c896aaa77d4"
+        "tag": "v1.2.6",
+        "commit": "426e3c3c33457736ec64d8af17c765d477d1476b"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -94,9 +97,9 @@
         "commit": "61e9361384347547ae144f8228faa4deffda23db"
       },
       "gsap": {
-        "git": "https://github.com/RoyalMist/meteor-gsap.git",
-        "tag": "v1.11.5",
-        "commit": "9fc801d7f232ea943a3414a793680c924801d696"
+        "git": "https://github.com/brentjanderson/meteor-gsap.git",
+        "branch": "master",
+        "commit": "a7a6c03769ea3d7983f360f21ce4046a88c2f78b"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",
@@ -110,8 +113,8 @@
       },
       "three.js": {
         "git": "https://github.com/farpoint/meteor-three",
-        "tag": "v0.67.4",
-        "commit": "6918583a26d80a9b217a2ecc2565af322dc93737"
+        "tag": "v0.67.5",
+        "commit": "2f737a35355f0ecc7193e4a41e92386c1490450f"
       },
       "tween": {
         "git": "https://github.com/farpoint/meteor-tween",

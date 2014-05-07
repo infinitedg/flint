@@ -13,12 +13,14 @@
     "apm": {},
     "bootstrap-3": {},
     "font-awesome": {},
-    "gsap": {},
+    "gsap": {
+      "git": "https://github.com/brentjanderson/meteor-gsap.git"
+    },
     "chosen-package": {},
     "bootstrap3-slider-touch": {},
     "three.js": {
       "git": "https://github.com/farpoint/meteor-three",
-      "tag": "v0.67.4"
+      "tag": "v0.67.5"
     },
     "tween": {
       "tag": "v0.12.0",
