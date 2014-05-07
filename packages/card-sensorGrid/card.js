@@ -21,6 +21,14 @@ k.center = {
 
 k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
 
+function transformX(x) {
+  return Math.round(k.width * ((x * 1) + 1) / 2); // Translate and scale to different coordinate system
+};
+
+function transformY(y) {
+  return Math.round(k.height * ((y * -1) + 1) / 2); // Flip, translate, and scale to different coordinate system
+};
+
 /**
 Standard sensor grid card for sensors stations
 @class card_sensorGrid
@@ -39,8 +47,8 @@ Template.card_sensorGrid.created = function() {
         var imageObj = new Image();
         imageObj.onload = function() {
           var icon = new Kinetic.Image({
-            x: Math.round(doc.x * k.width),
-            y: Math.round(doc.y * k.height),
+            x: transformX(doc.x),
+            y: transformY(doc.y),
             image: imageObj,
             width: 50,
             height: 50
@@ -60,10 +68,10 @@ Template.card_sensorGrid.created = function() {
       var icon = contactsArray[id];
       if (icon) {
         if (fields.x !== undefined) {
-          icon.setX(Math.round(fields.x * k.width));
+          icon.setX(transformX(fields.x));
         }
         if (fields.y !== undefined) {
-          icon.setY(Math.round(fields.y * k.height));
+          icon.setY(transformY(fields.y));
         }
 
         if (fields.isVisible !== undefined) {
