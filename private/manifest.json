@@ -3,7 +3,8 @@
     "sensorContacts",
     "simulators",
     "systems",
-    "stations"
+    "stations",
+    "armyContacts"
   ],
   "simulators": [
     "odyssey",

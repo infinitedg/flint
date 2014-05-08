@@ -1,32 +1,32 @@
 {
-  "simulatorId": "voyager",
+  "simulatorId": "phoenix",
   
   
   "sensorContacts": [
     {
       "name":"Earth",
       "icon":"planet.png",
-      "_id":"voyager-army-1"
+      "_id":"phoenix-army-1"
     },
     {
       "name":"Earth",
       "icon":"planet.png",
-      "_id":"voyager-army-2"
+      "_id":"phoenix-army-2"
     },
     {
       "name":"Earth",
       "icon":"planet.png",
-      "_id":"voyager-army-3"
+      "_id":"phoenix-army-3"
     },
     {
       "name":"Earth",
       "icon":"planet.png",
-      "_id":"voyager-army-4"
+      "_id":"phoenix-army-4"
     },
     {
       "name":"Earth",
       "icon":"planet.png",
-      "_id":"voyager-army-5"
+      "_id":"phoenix-army-5"
     }
     
   ]
