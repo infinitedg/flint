@@ -5,7 +5,7 @@
 
 var contactsLayer = new Kinetic.Layer();
 var ghostLayer = new Kinetic.Layer();
-window.currentDimensions = {
+var currentDimensions = {
   x: 'x',
   y: 'z',
   flippedX: 1,
@@ -25,7 +25,7 @@ var k = {
   },
   spritePath: '/packages/card-sensorGrid/sprites/'
 };
-window.contactsArray = {};
+var contactsArray = {};
 
 k.center = {
   x: k.width / 2,
@@ -47,13 +47,13 @@ Standard sensor grid card for sensors stations
 @class core_sensor3d
 */
 Template.core_sensor3d.created = function() {
+  Session.set('currentDimension', currentDimensions.y);
+
   this.subscription = Deps.autorun(function() {
     Meteor.subscribe('cards.card-sensorGrid.contacts', Flint.simulatorId());
   });
 
-  // contactsLayer = new Kinetic.Layer();
-
-  this.sensorObserver = Flint.collection('sensorContacts').find({simulatorId: Flint.simulatorId()}).observeChanges({
+  this.sensorObserver = Flint.collection('sensorContacts').find().observeChanges({
     added: function(id, doc) {
       // console.log("Added", id, doc);
       if (!contactsArray[id]) {
@@ -260,4 +260,37 @@ Template.core_sensor3d.rendered = function() {
 Template.core_sensor3d.destroyed = function() {
   this.sensorObserver.stop();
   this.subscription.stop();
+};
+
+function refreshGrid() {
+  Flint.collection('sensorContacts').find().forEach(function(doc) {
+    contactsArray[doc._id].contact.setX(transformX(doc['dst' + currentDimensions.x.toUpperCase()]));
+    contactsArray[doc._id].contact.setY(transformY(doc['dst' + currentDimensions.y.toUpperCase()]));
+    contactsArray[doc._id].ghost.setX(transformX(doc[currentDimensions.x]));
+    contactsArray[doc._id].ghost.setY(transformY(doc[currentDimensions.y]));
+  });
+  contactsLayer.draw();
+  ghostLayer.draw();
+};
+
+Template.core_sensor3d.events({
+  'click .flipper': function(e ,t) {
+    if (currentDimensions.y === 'z') {
+      currentDimensions.y = 'y';
+      currentDimensions.flippedY = -1;
+    } else {
+      currentDimensions.y = 'z';
+      currentDimensions.flippedY = 1;
+    }
+    Session.set('currentDimension', currentDimensions.y);
+    refreshGrid();
+  }
+});
+
+Template.core_sensor3d.buttonLabel = function() {
+  if (Session.get('currentDimension') === 'z') {
+    return 'Viewing From Top';
+  } else {
+    return 'Viewing From Side';
+  }
 };
