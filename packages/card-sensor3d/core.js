@@ -3,8 +3,14 @@
 @submodule Cards
 */
 
-window.contactsLayer = new Kinetic.Layer();
+var contactsLayer = new Kinetic.Layer();
 var ghostLayer = new Kinetic.Layer();
+window.currentDimensions = {
+  x: 'x',
+  y: 'z',
+  flippedX: 1,
+  flippedY: 1
+};
 
 var k = {
   width: 250,
@@ -29,11 +35,11 @@ k.center = {
 k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
 
 function transformX(x) {
-  return k.width * ((x * 1) + 1) / 2; // Translate and scale to different coordinate system
+  return k.width * ((x * currentDimensions.flippedX) + 1) / 2; // Translate and scale to different coordinate system
 };
 
 function transformY(y) {
-  return k.height * ((y * -1) + 1) / 2; // Flip, translate, and scale to different coordinate system
+  return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
 };
 
 /**
@@ -57,23 +63,28 @@ Template.core_sensor3d.created = function() {
         var contactObj = new Image();
         contactObj.onload = function() {
           var icon = new Kinetic.Image({
-            x: transformX(doc.dstX),
-            y: transformY(doc.dstY),
+            x: transformX(doc['dst' + currentDimensions.x.toUpperCase()]),
+            y: transformY(doc['dst' + currentDimensions.y.toUpperCase()]),
             image: contactObj,
             width: 50 * k.scale,
             height: 50 * k.scale,
-            draggable: true
+            draggable: true,
+            red: k.filter.red,
+            green: k.filter.green,
+            blue: k.filter.blue
           });
-          icon.filters([Kinetic.Filters.RGB]);
-          icon.red(k.filter.red);
-          icon.green(k.filter.green);
-          icon.blue(k.filter.blue);
+
+          // Setup filters
+          icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
 
           // Dragging handler
           icon.on('dragend', function(evt) {
-            var x = (2 * (this.getX()) / k.width) - 1,
-                y = (-2 * (this.getY()) / k.height) + 1;
-            Flint.collection('sensorContacts').update(id, {$set: {dstX: x, dstY: y, isMoving: true}});
+            var x = ( currentDimensions.flippedX * 2 * (this.getX()) / k.width) + 1 * currentDimensions.flippedX * -1,
+                y = ( currentDimensions.flippedY * 2 * (this.getY()) / k.height) + 1 * currentDimensions.flippedY * -1,
+            updateObj = {isMoving: true};
+            updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+            updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+            Flint.collection('sensorContacts').update(id, {$set: updateObj});
           });
 
           // add the shape to the layer
@@ -88,17 +99,18 @@ Template.core_sensor3d.created = function() {
         var ghostObj = new Image();
         ghostObj.onload = function() {
           var icon = new Kinetic.Image({
-            x: transformX(doc.x),
-            y: transformY(doc.x),
+            x: transformX(doc[currentDimensions.x]),
+            y: transformY(doc[currentDimensions.y]),
             image: ghostObj,
             width: 50 * k.scale,
             height: 50 * k.scale,
-            opacity: 0.5
+            opacity: 0.5,
+            blurRadius: 2,
+            red: k.filter.red,
+            green: k.filter.green,
+            blue: k.filter.blue
           });
-          icon.filters([Kinetic.Filters.RGB]);
-          icon.red(k.filter.red);
-          icon.green(k.filter.green);
-          icon.blue(k.filter.blue);
+          icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.Blur]);
 
           // add the shape to the layer
           ghostLayer.add(icon);
@@ -114,18 +126,18 @@ Template.core_sensor3d.created = function() {
       var contact = contactsArray[id].contact,
             ghost = contactsArray[id].ghost;
       if (contact && ghost) {
-        if (fields.x !== undefined) {
-          ghost.setX(transformX(fields.x));
+        if (fields[currentDimensions.x] !== undefined) {
+          ghost.setX(transformX(fields[currentDimensions.x]));
         }
-        if (fields.y !== undefined) {
-          ghost.setY(transformY(fields.y));
+        if (fields[currentDimensions.y] !== undefined) {
+          ghost.setY(transformY(fields[currentDimensions.y]));
         }
 
-        if (fields.dstX !== undefined) {
-          contact.setX(transformX(fields.dstX));
+        if (fields['dst' + currentDimensions.x.toUpperCase()] !== undefined) {
+          contact.setX(transformX(fields['dst' + currentDimensions.x.toUpperCase()]));
         }
-        if (fields.dstY !== undefined) {
-          contact.setY(transformY(fields.dstY));
+        if (fields['dst' + currentDimensions.y.toUpperCase()] !== undefined) {
+          contact.setY(transformY(fields['dst' + currentDimensions.y.toUpperCase()]));
         }
 
         
