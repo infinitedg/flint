@@ -27,7 +27,7 @@
       },
       "tween": {
         "git": "https://github.com/farpoint/meteor-tween",
-        "tag": "v0.12.0"
+        "tag": "v0.13.1"
       }
     },
     "packages": {
@@ -118,8 +118,8 @@
       },
       "tween": {
         "git": "https://github.com/farpoint/meteor-tween",
-        "tag": "v0.12.0",
-        "commit": "3b6cb38567274e35ccdb238912cf5c529631e162"
+        "tag": "v0.13.1",
+        "commit": "ea218fe9f498191c7679a7dad29df180fb37b402"
       }
     }
   }
