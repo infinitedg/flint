@@ -29,7 +29,7 @@ var updateTweener = function(doc) {
 	velocity = doc.velocity || defaultVelocity;
 	contactTweens[doc._id] = new TWEEN.Tween({x: doc.x, y: doc.y, z: doc.z})
 		.to({x: doc.dstX, y: doc.dstY, z: doc.dstZ }, Math.round(1000 * dist / velocity))
-		.easing(TWEEN.Easing.Exponential.InOut)
+		.easing(TWEEN.Easing.Linear.None)
 		.onUpdate( function() {
 			Flint.collection('sensorContacts').update(doc._id, { $set: {x: this.x, y: this.y, z: this.z}});
 		})
