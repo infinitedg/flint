@@ -25,11 +25,11 @@ var updateTweener = function(doc) {
 		contactTweens[doc._id].stop();
 		delete contactTweens[doc._id];
 	}
-	var dist = Math.sqrt(Math.pow(doc.x - doc.dstX, 2), Math.pow(doc.y - doc.dstY, 2), Math.pow(doc.z - doc.dstZ, 2)),
+	var dist = Math.sqrt(Math.pow(doc.x - doc.dstX, 2) + Math.pow(doc.y - doc.dstY, 2) + Math.pow(doc.z - doc.dstZ, 2)),
 	velocity = doc.velocity || defaultVelocity;
 	contactTweens[doc._id] = new TWEEN.Tween({x: doc.x, y: doc.y, z: doc.z})
 		.to({x: doc.dstX, y: doc.dstY, z: doc.dstZ }, Math.round(1000 * dist / velocity))
-		.easing(TWEEN.Easing.Quadratic.InOut)
+		.easing(TWEEN.Easing.Exponential.InOut)
 		.onUpdate( function() {
 			Flint.collection('sensorContacts').update(doc._id, { $set: {x: this.x, y: this.y, z: this.z}});
 		})
@@ -47,7 +47,7 @@ var observer = Flint.collection('sensorContacts').find({isMoving: true}).observe
 		}
 	},
 	changed: function(newDoc, oldDoc) {
-		if (newDoc.dstX !== oldDoc.dstX || newDoc.dstY !== oldDoc.dstY || newDoc.dstZ !== oldDoc.dstZ) {
+		if (newDoc.dstX !== oldDoc.dstX || newDoc.dstY !== oldDoc.dstY || newDoc.dstZ !== oldDoc.dstZ || newDoc.velocity !== oldDoc.velocity) {
 			updateTweener(newDoc);
 		}
 	},

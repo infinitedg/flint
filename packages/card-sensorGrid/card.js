@@ -3,7 +3,8 @@
 @submodule Cards
 */
  
-window.contactsLayer = new Kinetic.Layer();
+var contactsLayer = new Kinetic.Layer();
+
 var k = {
   width: 500,
   height: 500,

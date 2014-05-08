@@ -4,15 +4,22 @@
 */
 
 window.contactsLayer = new Kinetic.Layer();
+var ghostLayer = new Kinetic.Layer();
+
 var k = {
   width: 250,
   height: 250,
   scale: 0.3, // Used to determine the sizing of contacts
   strokeWidth: 2,
   color: "00ff00",
+  filter: {
+    red: 0,
+    green: 255,
+    blue: 0
+  },
   spritePath: '/packages/card-sensorGrid/sprites/'
-},
-contactsArray = {};
+};
+window.contactsArray = {};
 
 k.center = {
   x: k.width / 2,
@@ -22,12 +29,12 @@ k.center = {
 k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
 
 function transformX(x) {
-  return Math.round(k.width * ((x * 1) + 1) / 2); // Translate and scale to different coordinate system
-}
+  return k.width * ((x * 1) + 1) / 2; // Translate and scale to different coordinate system
+};
 
 function transformY(y) {
-  return Math.round(k.height * ((y * -1) + 1) / 2); // Flip, translate, and scale to different coordinate system
-}
+  return k.height * ((y * -1) + 1) / 2; // Flip, translate, and scale to different coordinate system
+};
 
 /**
 Standard sensor grid card for sensors stations
@@ -42,50 +49,95 @@ Template.core_sensor3d.created = function() {
 
   this.sensorObserver = Flint.collection('sensorContacts').find({simulatorId: Flint.simulatorId()}).observeChanges({
     added: function(id, doc) {
+      // console.log("Added", id, doc);
       if (!contactsArray[id]) {
-        // console.log("Added", id, doc);
-        var imageObj = new Image();
-        imageObj.onload = function() {
-          var icon = new Kinetic.Image({
-            x: transformX(doc.x),
-            y: transformY(doc.y),
-            image: imageObj,
-            width: 50 * k.scale,
-            height: 50 * k.scale
-          });
+        contactsArray[id] = {};
 
-          console.log(icon.getX(), icon.getY());
+        // Draggable Contact
+        var contactObj = new Image();
+        contactObj.onload = function() {
+          var icon = new Kinetic.Image({
+            x: transformX(doc.dstX),
+            y: transformY(doc.dstY),
+            image: contactObj,
+            width: 50 * k.scale,
+            height: 50 * k.scale,
+            draggable: true
+          });
+          icon.filters([Kinetic.Filters.RGB]);
+          icon.red(k.filter.red);
+          icon.green(k.filter.green);
+          icon.blue(k.filter.blue);
+
+          // Dragging handler
+          icon.on('dragend', function(evt) {
+            var x = (2 * (this.getX()) / k.width) - 1,
+                y = (-2 * (this.getY()) / k.height) + 1;
+            Flint.collection('sensorContacts').update(id, {$set: {dstX: x, dstY: y, isMoving: true}});
+          });
 
           // add the shape to the layer
           contactsLayer.add(icon);
+          icon.cache();
           icon.draw();
-          icon.visible(doc.isVisible);
-          contactsArray[id] = icon;
+          contactsArray[id].contact = icon;
         };
-        imageObj.src = k.spritePath + doc.icon;
+        contactObj.src = k.spritePath + doc.icon;
+
+        // Ghost Contact
+        var ghostObj = new Image();
+        ghostObj.onload = function() {
+          var icon = new Kinetic.Image({
+            x: transformX(doc.x),
+            y: transformY(doc.x),
+            image: ghostObj,
+            width: 50 * k.scale,
+            height: 50 * k.scale,
+            opacity: 0.5
+          });
+          icon.filters([Kinetic.Filters.RGB]);
+          icon.red(k.filter.red);
+          icon.green(k.filter.green);
+          icon.blue(k.filter.blue);
+
+          // add the shape to the layer
+          ghostLayer.add(icon);
+          icon.cache();
+          icon.draw();
+          contactsArray[id].ghost = icon;
+        };
+        ghostObj.src = k.spritePath + doc.icon;
       }
     },
     changed: function(id, fields) {
       // console.log("Changed", id, fields);
-      var icon = contactsArray[id];
-      if (icon) {
+      var contact = contactsArray[id].contact,
+            ghost = contactsArray[id].ghost;
+      if (contact && ghost) {
         if (fields.x !== undefined) {
-          icon.setX(transformX(fields.x));
+          ghost.setX(transformX(fields.x));
         }
         if (fields.y !== undefined) {
-          icon.setY(transformY(fields.y));
+          ghost.setY(transformY(fields.y));
         }
 
-        if (fields.isVisible !== undefined) {
-          icon.visible(fields.isVisible);
+        if (fields.dstX !== undefined) {
+          contact.setX(transformX(fields.dstX));
         }
-        console.log(icon.getX(), icon.getY());
+        if (fields.dstY !== undefined) {
+          contact.setY(transformY(fields.dstY));
+        }
+
+        
         contactsLayer.draw();
+        ghostLayer.draw();
       }
     },
     removed: function(id) {
       // console.log("Removed", id);
-      contactsArray[id].remove();
+      contactsArray[id].contact.remove();
+      contactsArray[id].ghost.remove();
+      delete contactsArray[id];
       contactsLayer.draw();
     }
   });
@@ -189,6 +241,7 @@ Template.core_sensor3d.rendered = function() {
   stage.add(backdrop);
 
   Flint.Log.verbose('Layers attached to stage', 'Sensors');
+  stage.add(ghostLayer);
   stage.add(contactsLayer);
 };
 
