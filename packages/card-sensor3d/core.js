@@ -3,13 +3,25 @@
 @submodule Cards
 */
 
-var contactsLayer = new Kinetic.Layer();
-var ghostLayer = new Kinetic.Layer();
-var currentDimensions = {
+window.currentDimensions = {
   x: 'x',
   y: 'z',
   flippedX: 1,
-  flippedY: 1
+  flippedY: 1,
+  otherDimension: function() { // Returns the dimension currently not being viewed
+    var dims = {
+      x: this.x === 'x' || this.y === 'y',
+      y: this.x === 'y' || this.y === 'y',
+      z: this.x === 'z' || this.y === 'z'
+    };
+    if (!dims.x) {
+      return 'x';
+    } else if (!dims.y) {
+      return 'y';
+    } else if (!dims.z) {
+      return 'z';
+    }
+  }
 };
 
 var k = {
@@ -25,7 +37,9 @@ var k = {
   },
   spritePath: '/packages/card-sensorGrid/sprites/'
 };
+
 var contactsArray = {};
+var armyArray = {};
 
 k.center = {
   x: k.width / 2,
@@ -42,6 +56,13 @@ function transformY(y) {
   return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
 };
 
+var contactsLayer = new Kinetic.Layer();
+var ghostLayer = new Kinetic.Layer();
+var armyLayer  = new Kinetic.Layer({
+    x: k.width + 30,
+    y: 0
+  });
+
 /**
 Standard sensor grid card for sensors stations
 @class core_sensor3d
@@ -50,7 +71,8 @@ Template.core_sensor3d.created = function() {
   Session.set('currentDimension', currentDimensions.y);
 
   this.subscription = Deps.autorun(function() {
-    Meteor.subscribe('cards.card-sensorGrid.contacts', Flint.simulatorId());
+    Meteor.subscribe('cards.core-sensor3d.contacts', Flint.simulatorId());
+    Meteor.subscribe('cards.core-sensor3d.armies', Flint.simulatorId());
   });
 
   this.sensorObserver = Flint.collection('sensorContacts').find().observeChanges({
@@ -151,8 +173,75 @@ Template.core_sensor3d.created = function() {
       contactsArray[id].ghost.remove();
       delete contactsArray[id];
       contactsLayer.draw();
+      ghostLayer.draw();
     }
   });
+
+  this.armyObserver = Flint.collection('armyContacts').find().observe({
+    addedAt: function(doc, atIndex) {
+      var id = doc._id;
+      // console.log("Added", id, doc);
+      if (!armyArray[id]) {
+        armyArray[id] = {};
+
+        // Draggable Contact
+        var contactObj = new Image();
+        contactObj.onload = function() {
+          var icon = new Kinetic.Image({
+            x: 0,
+            y: atIndex * (50 * k.scale + 5),
+            image: contactObj,
+            width: 50 * k.scale,
+            height: 50 * k.scale,
+            draggable: true,
+            red: 242,
+            green: 174,
+            blue: 67
+          });
+
+          // Setup filters
+          icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
+
+          // Dragging handler
+          icon.on('dragend', function(evt) {
+            var cTmpl = Flint.collection('armyContacts').findOne(id);
+            var x = ( currentDimensions.flippedX * 2 * (this.getX() + k.width + 30) / k.width) + 1 * currentDimensions.flippedX * -1,
+                y = ( currentDimensions.flippedY * 2 * (this.getY()) / k.height) + 1 * currentDimensions.flippedY * -1,
+                z = 0,
+                d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+            if (d < 1.2) { // Only drop the contact if we are within 120% of the grid's radius
+              var updateObj = _.extend(cTmpl, {isMoving: true, isVisible: true, velocity: 0.1});
+              updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+              updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+              updateObj['dst' + currentDimensions.otherDimension().toUpperCase()] = z;
+              updateObj[currentDimensions.x] = x;
+              updateObj[currentDimensions.y] = y;
+              updateObj[currentDimensions.otherDimension()] = z;
+              delete updateObj['_id'];
+              Flint.collection('sensorContacts').insert(updateObj);
+            }
+              // Move back to the origin
+              this.setX(0);
+              this.setY(atIndex * (50 * k.scale + 5));
+              armyLayer.draw();
+          });
+
+          // add the shape to the layer
+          armyLayer.add(icon);
+          icon.cache();
+          icon.draw();
+          armyArray[id].contact = icon;
+        };
+        contactObj.src = k.spritePath + doc.icon;
+      }
+    },
+    changedAt: function(id, fields) {
+      // Update kinetic image properties
+    },
+    removedAt: function(id) {
+
+    }
+  })
 };
 
 /**
@@ -164,13 +253,13 @@ Template.core_sensor3d.rendered = function() {
 
   var stage = new Kinetic.Stage({
     container: k.container,
-    width: k.width,
+    width: k.width + 30 + 50 * k.scale, // Provide room for 30 pixel margin between grid and army contacts, plus contact size.
     height: k.height
   });
 
   var circlePrototype = {
-    x: stage.getWidth() / 2,
-    y: stage.getHeight() / 2,
+    x: k.width / 2,
+    y: k.height / 2,
     radius: k.radius,
     stroke: k.color,
     strokeWidth: k.strokeWidth
@@ -250,15 +339,17 @@ Template.core_sensor3d.rendered = function() {
   Flint.Log.verbose('Base grid drawn', 'Sensors');
 
   // add the layer to the stage
-  stage.add(backdrop);
+  stage.add(backdrop); // Lowest layer
 
   Flint.Log.verbose('Layers attached to stage', 'Sensors');
-  stage.add(ghostLayer);
-  stage.add(contactsLayer);
+  stage.add(ghostLayer); 
+  stage.add(armyLayer);
+  stage.add(contactsLayer); // Uppermost layer
 };
 
 Template.core_sensor3d.destroyed = function() {
   this.sensorObserver.stop();
+  this.armyObserver.stop();
   this.subscription.stop();
 };
 
