@@ -100,7 +100,7 @@
                     "name": "Alert Condition"
                 },
                 {
-                    "cardId": "core_sensorGrid",
+                    "cardId": "core_sensor3d",
                     "name": "Sensor Grid"
                 },
                 {
