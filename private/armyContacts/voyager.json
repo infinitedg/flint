@@ -2,7 +2,7 @@
   "simulatorId": "voyager",
   
   
-  "sensorContacts": [
+  "armyContacts": [
     {
       "name":"Earth",
       "icon":"planet.png",

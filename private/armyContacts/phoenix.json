@@ -2,7 +2,7 @@
   "simulatorId": "phoenix",
   
   
-  "sensorContacts": [
+  "armyContacts": [
     {
       "name":"Earth",
       "icon":"planet.png",
