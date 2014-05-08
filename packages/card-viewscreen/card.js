@@ -3,7 +3,8 @@ var controls;
 var cameras = [];
 var animatingObjects = [];
 var currentCamera = 0;
-
+var cameraZoom = 0;
+var planetMesh;
 Template.card_viewscreen.scene = function () {
     return scene;
 };
@@ -88,6 +89,10 @@ Template.card_viewscreen.created = function () {
                 }
                 controls.updateRotationVector();
             }
+            if (fields.cameraZoom || fields.cameraZoom ==0) {
+                cameraZoom = (fields.cameraZoom/4);
+                
+            }
         }
     });
 };
@@ -107,17 +112,17 @@ Template.card_viewscreen.rendered = function () {
     document.getElementById('viewscreen').appendChild(renderer.domElement);
     /*Ships Scene*/
     scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+    var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.3, 10000);
     camera.position.z = 1;
     cameras.push(camera);
 
     var camera1 = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
-    camera1.position.z = -5;
+    camera1.position.z = 5;
     cameras.push(camera1);
     //controls = new THREE.OrbitControls( camera );
 
-    camera.position.z = 5;
-
+    camera.position.z = 0;
+    camera.rotateY(Math.PI);
     controls = new THREE.FlyControls(camera);
 
     controls.movementSpeed = 0;
@@ -132,12 +137,12 @@ Template.card_viewscreen.rendered = function () {
 
     var ambientLight = new THREE.AmbientLight(0x020202);
     scene.add(ambientLight);
-    /*var frontLight	= new THREE.DirectionalLight('white', 1);
+    var frontLight	= new THREE.DirectionalLight('white', 0.5);
 	frontLight.position.set(0.5, 0.5, 2);
 	scene.add( frontLight );
 	var backLight	= new THREE.DirectionalLight('white', 0.75);
 	backLight.position.set(-0.5, -0.5, -2);
-	scene.add( backLight );*/
+	scene.add( backLight );
 
     var geometry = new THREE.SphereGeometry(1000, 32, 32);
     var url = '/packages/card-viewscreen/models/starback.png';
@@ -155,7 +160,7 @@ Template.card_viewscreen.rendered = function () {
     var textureFlare2 = THREE.ImageUtils.loadTexture("/packages/card-viewscreen/textures/lensflare/lensflare2.png");
     var textureFlare3 = THREE.ImageUtils.loadTexture("/packages/card-viewscreen/textures/lensflare/lensflare3.png");
 
-    addLight(0.55, 0.9, 0.5, -40, 0, -100);
+    addLight(0.55, 0.9, 0.5, -40, 0, 100);
     //addLight( 0.08, 0.8, 0.5,    0, 0, -100 );
     //addLight( 0.995, 0.5, 0.9, 400, 400, -100 );
 
@@ -221,9 +226,9 @@ Template.card_viewscreen.rendered = function () {
         specularMap: THREE.ImageUtils.loadTexture('/packages/card-viewscreen/models/Planets/earthspec1k.jpg'),
         specular: new THREE.Color('black')
     });
-    var planetMesh = new THREE.Mesh(geometry, material);
+    planetMesh = new THREE.Mesh(geometry, material);
     planetMesh.position.x = 5;
-    planetMesh.position.z = -100;
+    planetMesh.position.z = 100;
     planetMesh.scale.x = 20;
     planetMesh.scale.y = 20;
     planetMesh.scale.z = 20;
@@ -239,13 +244,13 @@ Template.card_viewscreen.rendered = function () {
     var texture = new THREE.Texture();
 
     var imageLoader = new THREE.ImageLoader(manager);
-    imageLoader.load('/packages/card-viewscreen/models/astra_elements2_c.png', function (image) {
+    imageLoader.load('/packages/card-viewscreen/models/Battleship/astra_elements2_c.png', function (image) {
         texture.image = image;
         texture.needsUpdate = true;
     });
     var loader = new THREE.OBJMTLLoader();
-    loader.load('/packages/card-viewscreen/models/battleship.obj', '/packages/card-viewscreen/models/battleship.mtl', function (object) {
-        object.scale.multiplyScalar(1 / 10);
+    loader.load('/packages/card-viewscreen/models/Battleship/_1.obj', '/packages/card-viewscreen/models/Battleship/_1.mtl', function (object) {
+        object.scale.multiplyScalar(1 / 15);
         object.traverse(function (object3d) {
             if (object3d.material) {
                 object3d.material.map = texture;
@@ -289,7 +294,7 @@ Template.card_viewscreen.rendered = function () {
         scene.add(object);
     });
     object = [];
-    loader.load('/packages/card-viewscreen/models/AstraHeavyCruiser/_1.obj', '/packages/card-viewscreen/models/AstraHeavyCruiser/_1.mtl', function (object) {
+    loader.load('/packages/card-viewscreen/models/AstraHeavyCruiser/_1.obj', '/packages/card-viewscreen/models/AstraHeavyCruiser/_1.mtl', function (object)     {
         object.scale.multiplyScalar(1 / 2);
         object.traverse(function (object3d) {
             if (object3d.material) {
@@ -301,15 +306,47 @@ Template.card_viewscreen.rendered = function () {
         object.position.x = 0.25;
         hvyCruiserShip = object;
         scene.add(object);
-        object.rotSpeed = 5.0;
-        object.speed = 0.1;
+        object.rotSpeed = 2.5;
+        object.speed = 0.5;
         object.closeEnough = 0.1;
         object.dx = new THREE.Vector3();
 
         animatingObjects.push(object);
     });
-
-
+    
+    var hyperLight1	= new THREE.DirectionalLight( 0xff8000, .75 );
+    hyperLight1.position.set( 1, 1, 0 ).normalize();
+    hyperLight1.visible = false;
+    scene.add( hyperLight1 );
+    var hyperLight2	= new THREE.DirectionalLight( 0xff8000, .75 );
+    hyperLight2.position.set( -1, 1, 0 ).normalize();
+    hyperLight2.visible = false;
+    scene.add( hyperLight2 );
+    var hyperLight3	= new THREE.PointLight( 0x44FFAA, 1, 25 );
+    hyperLight3.position.set( 0, -3, 0 );
+    hyperLight3.visible = false;
+    scene.add( hyperLight3 );
+    var hyperLight4	= new THREE.PointLight( 0xff4400, 2, 30 );
+    hyperLight4.position.set( 3, 3, 0 );
+    hyperLight4.visible = false;
+    scene.add( hyperLight4 );
+    
+    var boxTexture		= THREE.ImageUtils.loadTexture( "/packages/card-viewscreen/textures/water.jpg" );
+    boxTexture.wrapT	= THREE.RepeatWrapping;
+    var boxGeo = new THREE.SphereGeometry(5, 32, 32);
+    var boxMat = new THREE.MeshLambertMaterial({color : 0xFFFFFF, map : boxTexture, side: THREE.BackSide});
+    var hyperBox = new THREE.Mesh(boxGeo,boxMat);
+    hyperBox.name = 'cube';
+    hyperBox.position.x = 0;
+    hyperBox.position.y = 0;
+    hyperBox.position.z = 10;
+    hyperBox.scale.y = 15;
+    hyperBox.rotateX(Math.PI/2);
+    hyperBox.visible = false;
+    scene.add(hyperBox);
+    
+    
+    
     var currentScene = scene;
     //var currentCamera = camera;
     function moveToPoint(fromObject, toPosition, dTheta) {
@@ -349,40 +386,56 @@ Template.card_viewscreen.rendered = function () {
         hvyCruiserShip.target = new THREE.Vector3(0,0,0);
         break;
       case 50: // '2'
-        bug.goal = greenCube.position;
+        hvyCruiserShip.target = new THREE.Vector3(.25,-.25,4);
         break;
       case 51: // '3'
-        bug.goal = blueCube.position;
+        hvyCruiserShip.target = new THREE.Vector3(-4,1,0);
         break;
+      case 53: //'5'
+            hyperLight1.visible = false;
+            hyperLight2.visible = false;
+            hyperLight3.visible = false;
+            hyperLight4.visible = false;
+            hyperBox.visible = false;
+        break;
+      case 54: //'6'
+            hyperLight1.visible = true;
+            hyperLight2.visible = true;
+            hyperLight3.visible = true;
+            hyperLight4.visible = true;
+            hyperBox.visible = true;    
+        break;
+      case 56: // '8'
+        currentCamera = 0;
+        break;
+      case 57: // '9'
+        currentCamera = 1;
+        break;
+        
     }
   }
 
   window.addEventListener('keydown', onKeyDown, false);
     onRenderFcts.push(function () {
         var delta = clock.getDelta();
-        if (currentScene == scene) {
             controls.object = cameras[currentCamera];
             //controls.target = scene.position;
             //controls.update();
 
             controls.update(delta);
-            //  planetMesh.rotateY(.005);
-        } else {
-            // move the texture to give the illusion of moving thru the tunnel
-            //	tunnelTexture.offset.y	+= 0.008;
-            //	tunnelTexture.offset.y	%= 1;
-            //		tunnelTexture.needsUpdate	= true;
-
-            /*	// move the camera back and forth
-			var seconds		= Date.now() / 1000;
-			var radius		= 0.70;
-			var angle		= Math.sin(0.75 * seconds * Math.PI) / 4;
-			//angle	= (seconds*Math.PI)/4;
-			tunnelCamera.position.x	= Math.cos(angle - Math.PI/2) * radius;
-			tunnelCamera.position.y	= Math.sin(angle - Math.PI/2) * radius;
-			tunnelCamera.rotation.z	= angle;*/
-        }
-       // var delta = clock.getDelta();
+         
+            boxTexture.offset.y	+= 0.008;
+			boxTexture.offset.y	%= 1;
+			boxTexture.needsUpdate	= true;
+        
+        
+        
+        var currentZoom = cameras[currentCamera].fov;
+        currentZoom += cameraZoom;
+        if (currentZoom <= 0) {currentZoom = 0.1;} 
+        if (currentZoom >= 60) {currentZoom = 60;}
+        cameras[currentCamera].fov = currentZoom;
+        cameras[currentCamera].updateProjectionMatrix()
         animatingObjects.forEach(function (object) {
             var target = object.target;
             if (target){
@@ -392,6 +445,7 @@ Template.card_viewscreen.rendered = function () {
                 
             }
         });
+        planetMesh.rotateY(.01);
         // debugger;
         renderer.render(currentScene, cameras[currentCamera]);
 

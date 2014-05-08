@@ -52,6 +52,27 @@ Template.card_viewscreenControl.rendered = function () {
 
         }
     });
+    Draggable.create($("#zoomDragger"), {
+        type: "y",
+        edgeResistance: 0.95,
+        bounds: $(".slider-back-vert"),
+        onDrag: function () {
+            pos = {
+                y: this.y,
+                x: 0
+            };
+            var magnitude = {y: this.y/($('.joystick-back').height()/2)};
+           Flint.simulators.update(Flint.simulatorId(), {$set: {cameraZoom: magnitude.y}});
+        },
+        onDragEnd: function () {
+            var slider = $("#zoomDragger");
+            TweenLite.to(slider, 0.25, {
+                transform: 'translate3d(0px,0px,0px)'
+            });
+            Flint.simulators.update(Flint.simulatorId(), {$set: {cameraZoom: 0}});
+
+        }
+    });
 
 };
 
