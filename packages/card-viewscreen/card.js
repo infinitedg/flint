@@ -5,6 +5,9 @@ var animatingObjects = [];
 var currentCamera = 0;
 var cameraZoom = 0;
 var planetMesh;
+var viewRadius = 20,
+viewWidth = 500,
+viewHeight = 500;
 Template.card_viewscreen.scene = function () {
     return scene;
 };
@@ -16,10 +19,10 @@ Template.card_viewscreen.currentCamera = function (num) {
     currentCamera = num;
     }
     return currentCamera;
-    
+
 };
 Template.card_viewscreen.cameras = function() {
-  return cameras;  
+  return cameras;
 };
 
 function loadObject(objModel, objMtl, objTexture, options) {
@@ -54,6 +57,10 @@ function loadObject(objModel, objMtl, objTexture, options) {
 
 }
 Template.card_viewscreen.created = function () {
+    this.animating = true;
+    this.subscription = Deps.autorun(function() {
+        Meteor.subscribe('cards.card-sensor3d.contacts', Flint.simulatorId());
+    });
     this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
         changed: function (id, fields) {
             if (fields.cameraRotationYaw || fields.cameraRotationYaw == 0) {
@@ -91,7 +98,7 @@ Template.card_viewscreen.created = function () {
             }
             if (fields.cameraZoom || fields.cameraZoom ==0) {
                 cameraZoom = (fields.cameraZoom/4);
-                
+
             }
         }
     });
@@ -99,6 +106,13 @@ Template.card_viewscreen.created = function () {
 
 Template.card_viewscreen.destroyed = function () {
     this.conditionObserver.stop();
+    this.animating = false;
+    if (this.sensorObserver) {
+        this.sensorObserver.stop();
+    }
+    if (this.subscription) {
+        this.subscription.stop();
+    }
 };
 
 Template.card_viewscreen.rendered = function () {
@@ -242,7 +256,6 @@ Template.card_viewscreen.rendered = function () {
     };
 
     var texture = new THREE.Texture();
-
     var imageLoader = new THREE.ImageLoader(manager);
     imageLoader.load('/packages/card-viewscreen/models/Battleship/astra_elements2_c.png', function (image) {
         texture.image = image;
@@ -261,39 +274,6 @@ Template.card_viewscreen.rendered = function () {
         battleShip = object;
         scene.add(object);
     });
-    imageLoader.load('/packages/card-viewscreen/models/AstraShuttle/astra_elements1_c.png', function (image) {
-        texture.image = image;
-        texture.needsUpdate = true;
-    });
-    object = [];
-    loader.load('/packages/card-viewscreen/models/AstraShuttle/_1.obj', '/packages/card-viewscreen/models/AstraShuttle/_1.mtl', function (object) {
-        object.scale.multiplyScalar(1 / 10);
-        object.traverse(function (object3d) {
-            if (object3d.material) {
-                object3d.material.map = texture;
-                object3d.material.emissive.set('white');
-                object3d.material.shininess = 3;
-            }
-        });
-        object.position.x = -0.5;
-        shuttleShip = object;
-        scene.add(object);
-    });
-    object = [];
-    loader.load('/packages/card-viewscreen/models/AstraLightCruiser/_1.obj', '/packages/card-viewscreen/models/AstraLightCruiser/_1.mtl', function (object) {
-        object.scale.multiplyScalar(1 / 5);
-        object.traverse(function (object3d) {
-            if (object3d.material) {
-                object3d.material.map = texture;
-                object3d.material.emissive.set('white');
-                object3d.material.shininess = 3;
-            }
-        });
-        object.position.x = 0.5;
-        ltCruiserShip = object;
-        scene.add(object);
-    });
-    object = [];
     loader.load('/packages/card-viewscreen/models/AstraHeavyCruiser/_1.obj', '/packages/card-viewscreen/models/AstraHeavyCruiser/_1.mtl', function (object)     {
         object.scale.multiplyScalar(1 / 2);
         object.traverse(function (object3d) {
@@ -310,10 +290,10 @@ Template.card_viewscreen.rendered = function () {
         object.speed = 0.5;
         object.closeEnough = 0.1;
         object.dx = new THREE.Vector3();
-
         animatingObjects.push(object);
     });
-    
+
+    //HyperSpace
     var hyperLight1	= new THREE.DirectionalLight( 0xff8000, .75 );
     hyperLight1.position.set( 1, 1, 0 ).normalize();
     hyperLight1.visible = false;
@@ -330,7 +310,7 @@ Template.card_viewscreen.rendered = function () {
     hyperLight4.position.set( 3, 3, 0 );
     hyperLight4.visible = false;
     scene.add( hyperLight4 );
-    
+
     var boxTexture		= THREE.ImageUtils.loadTexture( "/packages/card-viewscreen/textures/water.jpg" );
     boxTexture.wrapT	= THREE.RepeatWrapping;
     var boxGeo = new THREE.SphereGeometry(5, 32, 32);
@@ -344,9 +324,44 @@ Template.card_viewscreen.rendered = function () {
     hyperBox.rotateX(Math.PI/2);
     hyperBox.visible = false;
     scene.add(hyperBox);
-    
-    
-    
+
+    window.sceneContacts = {};
+
+
+    //Sensor Stuff
+    this.sensorObserver = Flint.collection('sensorContacts').find().observe({
+        added: function(doc) {
+            imageLoader.load('/packages/card-viewscreen/models/Battleship/battleship_elements2_c.png', function (image) {
+                texture.image = image;
+                texture.needsUpdate = true;
+            });
+            if (doc.mesh) {
+            loader.load('/packages/card-viewscreen/models/' + doc.mesh + '/_1.obj', '/packages/card-viewscreen/models/' + doc.mesh + '/_1.mtl', function (object) {
+                object.scale.multiplyScalar(1);
+                object.traverse(function (object3d) {
+                    if (object3d.material) {
+                        object3d.material.map = texture;
+                        object3d.material.emissive.set('white');
+                        object3d.material.shininess = 3;
+                    }
+                });
+                contact = object;
+                contact.position.set( doc.x * viewRadius/2, doc.y * viewRadius/2, doc.z * viewRadius / 2);
+                scene.add(contact);
+                contact.rotSpeed = 5;
+                sceneContacts[doc._id] = contact;
+                console.log('added');
+
+            });
+        }
+        }, changed: function(doc) {
+            sceneContacts[doc._id].position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
+            sceneContacts[doc._id].target = (new THREE.Vector3(doc.dstX * viewRadius / 2, doc.dstY * viewRadius/2, doc.dstZ * viewRadius/2));
+        }, removed: function(doc) {
+            scene.remove(sceneContacts[doc._id]);
+            delete sceneContacts[doc._id];
+        }
+    })
     var currentScene = scene;
     //var currentCamera = camera;
     function moveToPoint(fromObject, toPosition, dTheta) {
@@ -354,13 +369,14 @@ Template.card_viewscreen.rendered = function () {
         if (fromObject.dx.length() > fromObject.closeEnough) {
             var moveDist = dTheta*fromObject.speed;
             fromObject.translateZ(moveDist);
-        }   
+        }
     }
     function lookTowards(fromObject, toPosition, dTheta) {
         if (fromObject.rotSpeed){dTheta = dTheta * fromObject.rotSpeed;}
         var quat0 = fromObject.quaternion;
         var eye = fromObject.position;
         var center = toPosition;
+        if (eye == center){return false;}
         var mat = new THREE.Matrix4();
         mat.lookAt(center,eye,up);
         var quat1 = new THREE.Quaternion();
@@ -369,7 +385,6 @@ Template.card_viewscreen.rendered = function () {
         var frac = dTheta/deltaTheta;
         if (frac>1)  frac=1;
         fromObject.quaternion.slerp(quat1,frac);
-        
     }
     function angleBetweenQuats(qBefore,qAfter) {
         q1 = new THREE.Quaternion();
@@ -403,7 +418,7 @@ Template.card_viewscreen.rendered = function () {
             hyperLight2.visible = true;
             hyperLight3.visible = true;
             hyperLight4.visible = true;
-            hyperBox.visible = true;    
+            hyperBox.visible = true;
         break;
       case 56: // '8'
         currentCamera = 0;
@@ -411,7 +426,7 @@ Template.card_viewscreen.rendered = function () {
       case 57: // '9'
         currentCamera = 1;
         break;
-        
+
     }
   }
 
@@ -423,34 +438,34 @@ Template.card_viewscreen.rendered = function () {
             //controls.update();
 
             controls.update(delta);
-         
+
             boxTexture.offset.y	+= 0.008;
 			boxTexture.offset.y	%= 1;
 			boxTexture.needsUpdate	= true;
-        
-        
-        
+
+
+
         var currentZoom = cameras[currentCamera].fov;
         currentZoom += cameraZoom;
-        if (currentZoom <= 0) {currentZoom = 0.1;} 
+        if (currentZoom <= 0) {currentZoom = 0.1;}
         if (currentZoom >= 60) {currentZoom = 60;}
         cameras[currentCamera].fov = currentZoom;
         cameras[currentCamera].updateProjectionMatrix()
-        animatingObjects.forEach(function (object) {
-            var target = object.target;
-            if (target){
+
+        for (prop in sceneContacts){
+            var object = sceneContacts[prop];
+            var target = sceneContacts[prop].target;
+            if (target && target != object.position){
                 var targetDelta = delta;
                 lookTowards(object, target, targetDelta);
-                moveToPoint(object, target, targetDelta);
-                
             }
-        });
+        }
         planetMesh.rotateY(.01);
         // debugger;
         renderer.render(currentScene, cameras[currentCamera]);
 
     });
-    
+
     var lastTimeMsec = null;
     requestAnimationFrame(function animate(nowMsec) {
         // keep looping
