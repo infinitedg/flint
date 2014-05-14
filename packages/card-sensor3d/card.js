@@ -21,17 +21,17 @@ function buildAxis( src, dst, colorHex, dashed ) {
     return axis;
 };
 
-function debugAxes( length ) {
-	function buildHalo (radius, color, axis) {
-		var segments = 64,
-	    material = new THREE.LineBasicMaterial( { color: color } ),
-	    geometry = new THREE.CircleGeometry( radius, segments );
-	    geometry.vertices.shift();
-	    var l = new THREE.Line(geometry, material);
-	    l.rotateOnAxis(axis, Math.PI / 2);
-	    return l;
-	}
+function buildHalo (radius, color, axis) {
+	var segments = 64,
+    material = new THREE.LineBasicMaterial( { color: color } ),
+    geometry = new THREE.CircleGeometry( radius, segments );
+    geometry.vertices.shift();
+    var l = new THREE.Line(geometry, material);
+    l.rotateOnAxis(axis, Math.PI / 2);
+    return l;
+}
 
+function debugAxes( length ) {
     var axes = new THREE.Object3D();
 
     axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( length, 0, 0 ), 0xFF0000, false ) ); // +X
@@ -40,8 +40,7 @@ function debugAxes( length ) {
     axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, -length, 0 ), 0x00FF00, true ) ); // -Y
     axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, length ), 0x0000FF, false ) ); // +Z
     axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -length ), 0x0000FF, true ) ); // -Z
-	axes.add( buildHalo( length, 0xFF0000, new THREE.Vector3(1, 0, 0)) );
-	axes.add( buildHalo( length, 0x00FF00, new THREE.Vector3(0, 1, 0)) );
+	
 	axes.add( buildHalo( length, 0x0000FF, new THREE.Vector3(0, 0, 1)) );
     return axes;
 };
@@ -116,40 +115,20 @@ Template.card_sensor3d.rendered = function() {
 	// "Radar" axes
 	var radar_x = new THREE.Object3D(),
 		radar_y = new THREE.Object3D(),
-		radar_z = new THREE.Object3D(),
 		radar_length = viewRadius / 2,
-		radar_rotation_speed = 0.05;
+		radar_rotation_speed = 0.01;
 
-	radar_x.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( radar_length, 0, 0 ), 0xFF0000, false ) ); // +X
-    radar_x.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( -radar_length, 0, 0 ), 0xFF0000, true) ); // -X
+	radar_x.add(buildHalo( radar_length, 0xFF0000, new THREE.Vector3(1, 0, 0))); // +X
     
-    radar_y.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, radar_length, 0 ), 0x00FF00, false ) ); // +Y
-    radar_y.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, -radar_length, 0 ), 0x00FF00, true ) ); // -Y
+    radar_y.add(buildHalo( radar_length, 0x00FF00, new THREE.Vector3(0, 1, 0))); // +Y
     
-    radar_z.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, radar_length ), 0x0000FF, false ) ); // +Z
-    radar_z.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -radar_length ), 0x0000FF, true ) ); // -Z
-	
 	scene.add(radar_x);
 	scene.add(radar_y);
-	scene.add(radar_z);
-
-	window.radar_x = radar_x;
-	window.radar_y = radar_y;
-	window.radar_z = radar_z;
-	
 	
 	onRenderFcts.push(function() {
 		radar_x.rotation.x = radar_x.rotation.x + radar_rotation_speed;
-		radar_x.rotation.y = radar_x.rotation.y + radar_rotation_speed;
-		radar_x.rotation.z = radar_x.rotation.z + radar_rotation_speed;
-
-		radar_y.rotation.x = radar_y.rotation.x + radar_rotation_speed;
+		
 		radar_y.rotation.y = radar_y.rotation.y + radar_rotation_speed;
-		radar_y.rotation.z = radar_y.rotation.z + radar_rotation_speed;
-
-		radar_z.rotation.x = radar_z.rotation.x + radar_rotation_speed;
-		radar_z.rotation.y = radar_z.rotation.y + radar_rotation_speed;
-		radar_z.rotation.z = radar_z.rotation.z + radar_rotation_speed;
 	});
 
 	// Animation Function
