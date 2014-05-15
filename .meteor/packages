@@ -48,7 +48,6 @@ layout-core
 card-login
 card-power
 card-alertCondition
-card-sensorGrid
 card-coreStationUtility
 card-mario
 card-3d-stars-demo
@@ -65,3 +64,9 @@ card-security
 card-viewscreen
 card-viewscreenControl
 card-sensor3d
+card-sensorGrid
+card-security-armory
+card-security-brig
+card-security-escapepods
+card-security-teams
+card-security-decks
