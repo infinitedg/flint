@@ -62,6 +62,7 @@ Template.card_viewscreenControl.rendered = function () {
                 x: 0
             };
             var magnitude = {y: this.y/($('.joystick-back').height()/2)};
+            console.log(magnitude.y);
            Flint.simulators.update(Flint.simulatorId(), {$set: {cameraZoom: magnitude.y}});
         },
         onDragEnd: function () {
