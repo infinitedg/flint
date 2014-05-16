@@ -57,6 +57,7 @@ Template.card_sensor3d.rendered = function() {
 	// Camera
 	var camera = new THREE.PerspectiveCamera(45, viewWidth / viewHeight, 0.01, 1000 );
 	camera.position.z = 130;
+	camera.position.y = 90
 
 	// Scene
 	var scene = new THREE.Scene();
@@ -89,7 +90,7 @@ Template.card_sensor3d.rendered = function() {
 		camera.position.y += (mouse.y*10 - camera.position.y) * (delta*3);
 		camera.lookAt( scene.position );
 	});
-	
+
 	// controls = new THREE.TrackballControls( camera );
 
 	// controls.rotateSpeed = 1.0;
@@ -174,7 +175,7 @@ Template.card_sensor3d.rendered = function() {
 	});
 
 	window.sceneSprites = {};
-	
+
 	var spriteOpacity = function(sprite) {
 		var x = sprite.position.x * 2 / viewRadius,
 			y = sprite.position.y * 2 / viewRadius,

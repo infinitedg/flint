@@ -162,7 +162,7 @@ Template.core_sensor3d.created = function() {
           contact.setY(transformY(fields['dst' + currentDimensions.y.toUpperCase()]));
         }
 
-        
+
         contactsLayer.draw();
         ghostLayer.draw();
       }
@@ -210,7 +210,7 @@ Template.core_sensor3d.created = function() {
                 z = 0,
                 d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
             if (d < 1.2) { // Only drop the contact if we are within 120% of the grid's radius
-              var updateObj = _.extend(cTmpl, {isMoving: true, isVisible: true, velocity: 0.1});
+              var updateObj = _.extend(cTmpl, {isMoving: true, isVisible: true, mesh: 'AstraShuttle', velocity: 0.05});
               updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
               updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
               updateObj['dst' + currentDimensions.otherDimension().toUpperCase()] = z;
@@ -342,7 +342,7 @@ Template.core_sensor3d.rendered = function() {
   stage.add(backdrop); // Lowest layer
 
   Flint.Log.verbose('Layers attached to stage', 'Sensors');
-  stage.add(ghostLayer); 
+  stage.add(ghostLayer);
   stage.add(armyLayer);
   stage.add(contactsLayer); // Uppermost layer
 };
