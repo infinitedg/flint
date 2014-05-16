@@ -83,8 +83,8 @@
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v1.2.6",
-        "commit": "426e3c3c33457736ec64d8af17c765d477d1476b"
+        "tag": "v1.3.1",
+        "commit": "0ed9f0d89a31ff186f45130cb0ae508b56f268db"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -99,7 +99,7 @@
       "gsap": {
         "git": "https://github.com/brentjanderson/meteor-gsap.git",
         "branch": "master",
-        "commit": "a7a6c03769ea3d7983f360f21ce4046a88c2f78b"
+        "commit": "337696a8f5922102ec44d7491b7dc9d01d594c0f"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",
