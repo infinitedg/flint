@@ -1,0 +1,14 @@
+{ 
+  "flintLocalizations": [
+	{
+		"sourceString": "Hello",
+		"string": "Hello",
+		"locale": "en-us"
+  	},
+  	{
+  		"sourceString": "Hello",
+  		"string": "Ahoj",
+  		"locale": "cs-cz"
+  	}
+  ]
+}
