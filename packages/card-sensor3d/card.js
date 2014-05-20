@@ -171,6 +171,7 @@ Template.card_sensor3d.rendered = function() {
 			$('.sensorLabel').addClass('shown');
 			$('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y - sensorLabelOffset.top - 10);
 			$('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x - sensorLabelOffset.left + 30);
+			$('.sensorLabel').text(obj.name);
 		}
 	});
 	controls = new THREE.OrbitControls( camera );
@@ -253,6 +254,7 @@ Template.card_sensor3d.rendered = function() {
 			sprite.scale.set( 0.05 * viewRadius, 0.05 * viewRadius, 1.0 );
 			sprite.material.opacity = spriteOpacity(sprite);
 			sprite.material.transparent = spriteTransparent(sprite);
+			sprite.name = doc.name;
 			scene.add( sprite );
 
 			sceneSprites[doc._id] = sprite;

@@ -9,6 +9,8 @@ Package.on_use(function(api) {
   api.add_files(['core.html', 'core.js', 'card.css'], 'client');
   api.add_files(['card.html', 'card.js'], 'client');
   api.add_files([
-    'sprites/planet.png'
+    'sprites/planet.png',
+    'sprites/blackhole.png',
+    'sprites/starbase.png'
   ], 'client');
 });
