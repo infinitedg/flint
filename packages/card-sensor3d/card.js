@@ -1,7 +1,7 @@
 var viewRadius = 100,
-viewWidth = 500,
-viewHeight = 500;
-
+viewWidth = window.innerHeight*.75;
+viewHeight = window.innerHeight*.75;
+var contactTooltipShown = false;
 function debugAxes( length ) {
 	function buildAxis( src, dst, colorHex, dashed ) {
 	    var geom = new THREE.Geometry(),
@@ -46,6 +46,29 @@ function debugAxes( length ) {
     return axes;
 };
 
+
+function shipDiagram(){
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(new THREE.Vector3(0,0,-1));
+	geometry.vertices.push(new THREE.Vector3(0.5,0,0.5));
+	geometry.vertices.push(new THREE.Vector3(0,0.25,0));
+	geometry.vertices.push(new THREE.Vector3(-0.5,0,0.5));
+	geometry.vertices.push(new THREE.Vector3(0,-0.25,0));
+
+	geometry.faces.push( new THREE.Face3( 0, 2, 1 ) );
+	geometry.faces.push( new THREE.Face3( 0, 3, 2 ) );
+	geometry.faces.push( new THREE.Face3( 0, 1, 4 ) );
+	geometry.faces.push( new THREE.Face3( 0, 4, 3 ) );
+	geometry.faces.push( new THREE.Face3( 2, 4, 1 ) );
+	geometry.faces.push( new THREE.Face3( 2, 3, 4 ) );
+
+    var material = new THREE.MeshLambertMaterial({color : 0xCCCCCC});
+    var ship = new THREE.Mesh(geometry,material);
+    ship.scale.x = 6;
+    ship.scale.y = 6;
+    ship.scale.z = 6;
+    return ship;
+};
 Template.card_sensor3d.created = function() {
 	this.animating = true;
 	this.subscription = Deps.autorun(function() {
@@ -53,8 +76,38 @@ Template.card_sensor3d.created = function() {
 	});
 };
 
+function toScreenXY( position, camera, div ) {
+            var pos = position.clone();
+            projScreenMat = new THREE.Matrix4();
+            projScreenMat.multiplyMatrices( camera.projectionMatrix, camera.matrixWorldInverse );
+            //projScreenMat.multiplyVector3( pos );
+            pos.applyProjection(projScreenMat);
+
+            var offset = findOffset(div);
+
+            return { x: ( pos.x + 1 ) * div.width / 2 + offset.left,
+                 y: ( - pos.y + 1) * div.height / 2 + offset.top };
+
+}
+function findOffset(element) { 
+          var pos = new Object();
+          pos.left = pos.top = 0;        
+          if (element.offsetParent)  
+          { 
+            do  
+            { 
+              pos.left += element.offsetLeft; 
+              pos.top += element.offsetTop; 
+            } while (element = element.offsetParent); 
+          } 
+          return pos;
+}
+
 Template.card_sensor3d.rendered = function() {
+	var sensorLabelOffset = $('.sensorLabel').offset();
 	var onRenderFcts = [];
+	var mouseVector = new THREE.Vector3();
+	var projector = new THREE.Projector();
 	// Camera
 	var camera = new THREE.PerspectiveCamera(45, viewWidth / viewHeight, 0.01, 1000 );
 	camera.position.z = 130;
@@ -66,6 +119,11 @@ Template.card_sensor3d.rendered = function() {
 	// Debugging Axis
 	scene.add(debugAxes(viewRadius / 2));
 
+	//Ship Diagram
+	scene.add(shipDiagram());
+
+	var light = new THREE.AmbientLight( 0xaaaaaa ); // soft white light
+	scene.add( light );
 	// Starfield
 	// var geometry  = new THREE.SphereGeometry(200, 32, 32);
 	// var material  = new THREE.MeshBasicMaterial();
@@ -79,8 +137,9 @@ Template.card_sensor3d.rendered = function() {
 	renderer.setSize( viewWidth, viewHeight );
     //renderer.setClearColorHex( 0xffffff, 0);
 	this.find('.sensor_box').appendChild( renderer.domElement );
-
+	var canvasElement = this.find('.sensor_box canvas')
 	// Mouse Controls
+	/*
 	var mouse	= {x : 0, y : 0}
 	$('.sensor_box canvas').on('mousemove', function(){
 		mouse.x	= (event.clientX / $('.sensor_box canvas').width() ) - 0.5;
@@ -90,29 +149,51 @@ Template.card_sensor3d.rendered = function() {
 		camera.position.x += (mouse.x*10 - camera.position.x) * (delta*3);
 		camera.position.y += (mouse.y*10 - camera.position.y) * (delta*3);
 		camera.lookAt( scene.position );
+	});*/
+	$('.sensor_box canvas').on('mousemove', function(){
+		e = event;
+		mouseVector.x = 2 * (e.offsetX / viewWidth) - 1;
+		mouseVector.y = 1 - 2 * ( e.offsetY / viewHeight );
+
+		var raycaster = projector.pickingRay( mouseVector.clone(), camera ),
+			intersects = raycaster.intersectObjects( scene.children );
+
+		 scene.children.forEach(function( cube ) {
+		 	if (cube.material){
+		 	cube.material.color.setRGB( 0, 1, 0 );}
+		 });
+		 $('.sensorLabel').removeClass('shown');
+		for( var i = 0; i < intersects.length; i++ ) {
+			var intersection = intersects[ i ],
+			obj = intersection.object;
+			obj.material.color.setRGB( 1.0 - i / intersects.length, 0, 0 );
+			var position = obj.position;
+			$('.sensorLabel').addClass('shown');
+			$('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y - sensorLabelOffset.top - 10);
+			$('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x - sensorLabelOffset.left + 30);
+		}
 	});
+	controls = new THREE.OrbitControls( camera );
 
-	// controls = new THREE.TrackballControls( camera );
+	/*controls.rotateSpeed = 1.0;
+	controls.zoomSpeed = 1.2;
+	controls.panSpeed = 0.8;
 
-	// controls.rotateSpeed = 1.0;
-	// controls.zoomSpeed = 1.2;
-	// controls.panSpeed = 0.8;
+	controls.noZoom = true;
+	controls.noPan = true;
 
-	// controls.noZoom = true;
-	// controls.noPan = true;
+	controls.staticMoving = true;
+	controls.dynamicDampingFactor = 0.3;
 
-	// controls.staticMoving = true;
-	// controls.dynamicDampingFactor = 0.3;
+	controls.keys = [ 65, 83, 68 ];
 
-	// controls.keys = [ 65, 83, 68 ];
+	controls.addEventListener( 'change', function() {
+		renderer.render(scene, camera);
+	});*/
 
-	// controls.addEventListener( 'change', function() {
-	// 	renderer.render(scene, camera);
-	// });
-
-	// onRenderFcts.push(function() {
-	// 	controls.update();
-	// });
+	onRenderFcts.push(function() {
+		controls.update();
+	});
 
 	// Animation Function
 	onRenderFcts.push(function(){
