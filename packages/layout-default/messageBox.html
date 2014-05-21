@@ -1,11 +1,12 @@
 <template name="layout_default_messageBox">
 <div class="messageBox {{messageBoxAnimate}}">
-<div class="messageBoxHeader {{alertLevel}}">{{newMessage}} MESSAGES</div>
-    <div class="chat textbox">
-        {{#each messages}}
-            <p><strong>{{name}}:</strong> {{message}}</p>
-        {{/each}}
-    </div>    
-    <p><input type="text" id="message" size="80"/></p>
-</div>
+	<div class="messageBoxBezel"></div>
+	<div class="messageBoxHeader {{alertLevel}}">{{newMessage}} MESSAGES</div>
+	    <div class="chat textbox">
+	        {{#each messages}}
+	            <p><strong>{{name}}:</strong> {{message}}</p>
+	        {{/each}}
+	    </div>    
+	    <p><input type="text" id="message" size="80"/></p>
+	</div>
 </template>
