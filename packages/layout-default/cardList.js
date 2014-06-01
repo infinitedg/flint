@@ -47,7 +47,7 @@ Template.layout_default_cardList.events = {
         });
       });
                          
-    }
+   }
     e.preventDefault();
   }
 };
