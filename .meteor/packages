@@ -32,7 +32,7 @@ flint-debug
 flint-flash
 flint-sound
 flint-speech
-flint-touch
+#flint-touch
 flint-drama
 flint-utils
 actor-sensors
