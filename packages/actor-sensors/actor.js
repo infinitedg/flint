@@ -20,7 +20,7 @@ var a = Flint.actor({
 });
 
 var updateTweener = function(doc) {
-	var oldTween = tweenBank[id];
+	var oldTween = tweenBank[doc._id];
 	if (oldTween) {
 		oldTween.stop();
 		TWEEN.remove(oldTween);
@@ -58,6 +58,6 @@ var observer = Flint.collection('sensorContacts').find({isMoving: true}).observe
 		}
 	},
 	removed: function(doc) {
-		TWEEN.remove(tweenBank[id]);
+		TWEEN.remove(tweenBank[doc._id]);
 	}
 });
