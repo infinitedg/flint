@@ -16,6 +16,9 @@
   src: local('Steelfish'), url(/themes/default/public/fonts/Steelfish.woff) format('woff');
 }
 
+.hidden{
+  display: none;
+}
 .readable{
     font-family: 'Steelfish';
 }
