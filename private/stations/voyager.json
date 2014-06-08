@@ -2,6 +2,16 @@
 	"simulatorId": "voyager",
 	
     "stations": [
+        {   "name": "Tactical Control",
+            "cards": [
+                {
+                    "name": "Tactical Control",
+                    "cardId": "card_tacControl"
+                }
+            ],
+           "layout": "layout_tacControl", 
+         "_id": "voyager-tacControl"
+        },
         {   "name": "Viewscreen",
             "cards": [
                 {

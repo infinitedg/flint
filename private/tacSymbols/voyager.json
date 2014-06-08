@@ -1,0 +1,33 @@
+{
+  "simulatorId": "voyager",
+  
+  
+  "tacSymbols": [
+    {
+      "name":"Earth",
+      "icon":"planet.png",
+      "_id":"voyager-army-1"
+    },
+    {
+      "name":"Black Hole",
+      "icon":"blackhole.png",
+      "_id":"voyager-army-2"
+    },
+    {
+      "name":"Starbase",
+      "icon":"starbase.png",
+      "_id":"voyager-army-3"
+    },
+    {
+      "name":"Earth",
+      "icon":"planet.png",
+      "_id":"voyager-army-4"
+    },
+    {
+      "name":"Earth",
+      "icon":"planet.png",
+      "_id":"voyager-army-5"
+    }
+    
+  ]
+}

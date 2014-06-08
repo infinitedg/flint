@@ -42,6 +42,7 @@ layout-default
 layout-blackout
 layout-viewscreen
 layout-core
+layout-tacControl
 
 #Cards
 #These can be differentiated by station later
@@ -57,6 +58,7 @@ card-core
 card-messageComposer
 card-scanner
 card-speed
+card-tacControl
 card-thrusters
 card-targeting
 card-selfDestruct

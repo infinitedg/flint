@@ -1,0 +1,33 @@
+{
+  "simulatorId": "phoenix",
+  
+  
+  "tacSymbols": [
+    {
+      "name":"Earth",
+      "icon":"planet.png",
+      "_id":"phoenix-army-1"
+    },
+    {
+      "name":"Earth",
+      "icon":"planet.png",
+      "_id":"phoenix-army-2"
+    },
+    {
+      "name":"Earth",
+      "icon":"planet.png",
+      "_id":"phoenix-army-3"
+    },
+    {
+      "name":"Earth",
+      "icon":"planet.png",
+      "_id":"phoenix-army-4"
+    },
+    {
+      "name":"Earth",
+      "icon":"planet.png",
+      "_id":"phoenix-army-5"
+    }
+    
+  ]
+}
