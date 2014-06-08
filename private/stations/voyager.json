@@ -58,10 +58,6 @@
                     "name": "Message Composer"
                 },
                 {
-                    "cardId": "card_security",
-                    "name": "Security"
-                },
-                {
                     "cardId": "card_shortRangeComm",
                     "name": "Short Range Comm"
                 },
@@ -191,6 +187,35 @@
                 }
             ],
             "_id": "voyager-tactical"
+        },
+        {
+            "name": "Security",
+            "cards": [
+                {
+                    "name": "Login",
+                    "cardId": "card_login"
+                },
+                {
+                    "name": "Decks",
+                    "cardId": "card_security_decks"
+                },
+                {
+                    "name": "Security Teams",
+                    "cardId": "card_security_teams"
+                },
+                {
+                    "name": "Brig",
+                    "cardId": "card_security_brig"
+                },
+                {
+                    "name": "Armory",
+                    "cardId": "card_security_armory"
+                },
+                {
+                    "name": "Escape Pods",
+                    "cardId": "card_security_escapepods"
+                }
+            ]
         }
     ]
 }
