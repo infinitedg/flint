@@ -42,11 +42,17 @@ When you click one of the alertCondition buttons, change the alert condition to 
 @method click .btn
 */
 Template.card_alertCondition.events = {
-  'click .btn': function(e) {
+  'click .alerts li': function(e) {
     Flint.beep();
-    var a = $(e.target).parents('[data-alert]').data('alert');
+    var a = $(e.target).data('alert');
     Flint.simulators.update(Flint.simulatorId(), {$set: {alertCondition: a}});
     e.preventDefault();
+  },
+  'mouseover .alerts li': function(e) {
+    $('.alertInfo').text($(e.target).data().alertinfo);
+  },
+  'mouseleave .alerts li': function(e) {
+    $('.alertInfo').text('');
   }
 };
 

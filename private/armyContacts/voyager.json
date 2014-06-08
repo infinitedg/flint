@@ -9,13 +9,13 @@
       "_id":"voyager-army-1"
     },
     {
-      "name":"Earth",
-      "icon":"planet.png",
+      "name":"Black Hole",
+      "icon":"blackhole.png",
       "_id":"voyager-army-2"
     },
     {
-      "name":"Earth",
-      "icon":"planet.png",
+      "name":"Starbase",
+      "icon":"starbase.png",
       "_id":"voyager-army-3"
     },
     {

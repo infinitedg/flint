@@ -2,8 +2,8 @@ Package.describe({
 });
 
 Package.on_use(function(api) {
-  api.use(['templating', 'flint']);
-
+  api.use(['templating', 'flint', 'kinetic.js', 'underscore', 'jquery']);
+  api.add_files(['publish.js'], 'server');
   api.add_files(['core.html', 'core.js'], 'client');
   api.add_files(['card.html', 'card.js', 'card.css'], 'client');
     api.add_files(['models/Battleship/_1.mtl', 'models/Battleship/_1.obj','models/Battleship/battleship_elements2_c.png'], 'client');

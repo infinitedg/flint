@@ -5,9 +5,11 @@ var animatingObjects = [];
 var currentCamera = 0;
 var cameraZoom = 0;
 var planetMesh;
+var onRenderFcts = [];
 var viewRadius = 20,
 viewWidth = 500,
 viewHeight = 500;
+var hyperBox, boxTexture, hyperLight1, hyperLight2, hyperLight3, hyperLight4;
 var Examples;
 Template.card_viewscreen.scene = function () {
     return scene;
@@ -67,6 +69,14 @@ Template.card_viewscreen.created = function () {
     });
     this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
         changed: function (id, fields) {
+            if (fields.currentScreen == 'Sandbox'){
+                $('#viewscreen').removeClass('hidden');
+                $('#tacView').addClass('hidden');
+            }
+            if (fields.currentScreen == 'Tactical'){
+                $('#tacView').removeClass('hidden');
+                $('#viewscreen').addClass('hidden');
+            }
             if (fields.cameraRotationYaw || fields.cameraRotationYaw == 0) {
                 if (fields.cameraRotationYaw < 0){
                 controls.moveState.yawLeft = Math.abs(fields.cameraRotationYaw);
@@ -119,8 +129,8 @@ Template.card_viewscreen.destroyed = function () {
     }
 };
 
-Template.card_viewscreen.rendered = function () {
-var up = new THREE.Vector3(0,1,0);
+function initSandbox(){
+    var up = new THREE.Vector3(0,1,0);
     var clock = new THREE.Clock();
     var renderer = new THREE.WebGLRenderer({
         antialias: true,
@@ -150,16 +160,15 @@ var up = new THREE.Vector3(0,1,0);
     controls.dragToLook = true;
 
 
-    var onRenderFcts = [];
 
     var ambientLight = new THREE.AmbientLight(0x020202);
     scene.add(ambientLight);
-    var frontLight	= new THREE.DirectionalLight('white', 0.5);
-	frontLight.position.set(0.5, 0.5, 2);
-	scene.add( frontLight );
-	var backLight	= new THREE.DirectionalLight('white', 0.75);
-	backLight.position.set(-0.5, -0.5, -2);
-	scene.add( backLight );
+    var frontLight  = new THREE.DirectionalLight('white', 0.5);
+    frontLight.position.set(0.5, 0.5, 2);
+    scene.add( frontLight );
+    var backLight   = new THREE.DirectionalLight('white', 0.75);
+    backLight.position.set(-0.5, -0.5, -2);
+    scene.add( backLight );
 
     var geometry = new THREE.SphereGeometry(1000, 32, 32);
     var url = '/packages/card-viewscreen/models/starback.png';
@@ -297,29 +306,29 @@ var up = new THREE.Vector3(0,1,0);
     });
 
     //HyperSpace
-    var hyperLight1	= new THREE.DirectionalLight( 0xff8000, .75 );
+    hyperLight1 = new THREE.DirectionalLight( 0xff8000, .75 );
     hyperLight1.position.set( 1, 1, 0 ).normalize();
     hyperLight1.visible = false;
     scene.add( hyperLight1 );
-    var hyperLight2	= new THREE.DirectionalLight( 0xff8000, .75 );
+    hyperLight2 = new THREE.DirectionalLight( 0xff8000, .75 );
     hyperLight2.position.set( -1, 1, 0 ).normalize();
     hyperLight2.visible = false;
     scene.add( hyperLight2 );
-    var hyperLight3	= new THREE.PointLight( 0x44FFAA, 1, 25 );
+    hyperLight3 = new THREE.PointLight( 0x44FFAA, 1, 25 );
     hyperLight3.position.set( 0, -3, 0 );
     hyperLight3.visible = false;
     scene.add( hyperLight3 );
-    var hyperLight4	= new THREE.PointLight( 0xff4400, 2, 30 );
+    hyperLight4 = new THREE.PointLight( 0xff4400, 2, 30 );
     hyperLight4.position.set( 3, 3, 0 );
     hyperLight4.visible = false;
     scene.add( hyperLight4 );
 
-    var boxTexture		= THREE.ImageUtils.loadTexture( "/packages/card-viewscreen/textures/water.jpg" );
-    boxTexture.wrapT	= THREE.RepeatWrapping;
+    boxTexture      = THREE.ImageUtils.loadTexture( "/packages/card-viewscreen/textures/water.jpg" );
+    boxTexture.wrapT    = THREE.RepeatWrapping;
     var boxGeo = new THREE.SphereGeometry(5, 32, 32);
     var PlaneGeo = new THREE.PlaneGeometry(200,200);
     var boxMat = new THREE.MeshLambertMaterial({color : 0xFFFFFF, map : boxTexture, side: THREE.DoubleSide});
-    var hyperBox = new THREE.Mesh(boxGeo,boxMat);
+    hyperBox = new THREE.Mesh(boxGeo,boxMat);
 
 
     hyperBox.name = 'cube';
@@ -436,47 +445,6 @@ var up = new THREE.Vector3(0,1,0);
         var halfTheta = Math.acos( q1.w );
         return 2*halfTheta;
     }
-     function onKeyDown(evt) {
-    var result;
-    switch (evt.keyCode) {
-      case 49: // '1'
-        hvyCruiserShip.target = new THREE.Vector3(0,0,0);
-        break;
-      case 50: // '2'
-        hvyCruiserShip.target = new THREE.Vector3(.25,-.25,4);
-        break;
-      case 51: // '3'
-        hvyCruiserShip.target = new THREE.Vector3(-4,1,0);
-        break;
-      case 53: //'5'
-              hyperspace = false;
-            hyperLight1.visible = false;
-            hyperLight2.visible = false;
-            hyperLight3.visible = false;
-            hyperLight4.visible = false;
-            scene.remove(hyperFlare);
-            hyperBox.visible = false;
-        break;
-      case 54: //'6'
-            hyperLight1.visible = true;
-            hyperLight2.visible = true;
-            hyperLight3.visible = true;
-            hyperLight4.visible = true;
-            scene.add(hyperFlare);
-            hyperBox.visible = true;
-            hyperspace = true;
-        break;
-      case 56: // '8'
-        currentCamera = 0;
-        break;
-      case 57: // '9'
-        currentCamera = 1;
-        break;
-
-    }
-  }
-
-  window.addEventListener('keydown', onKeyDown, false);
     onRenderFcts.push(function () {
         var delta = clock.getDelta();
         controls.object = cameras[currentCamera];
@@ -485,9 +453,9 @@ var up = new THREE.Vector3(0,1,0);
 
         controls.update(delta);
 
-        boxTexture.offset.y	+= 0.008;
-		boxTexture.offset.y	%= 1;
-		boxTexture.needsUpdate	= true;
+        boxTexture.offset.y += 0.008;
+        boxTexture.offset.y %= 1;
+        boxTexture.needsUpdate  = true;
 
         var currentZoom = cameras[currentCamera].fov;
         if ((currentZoom += cameraZoom) < 60) {currentZoom += cameraZoom;}
@@ -508,7 +476,218 @@ var up = new THREE.Vector3(0,1,0);
 
     });
 
+    
+};
+
+function initTactical(){
+    var stage,symbolsLayer,contactsLayer,ghostLayer;
+
+    window.currentDimensions = {
+      x: 'x',
+      y: 'y',
+      flippedX: 1,
+      flippedY: 1,
+    };
+
+    var k = {
+      width: 250,
+      height: 250,
+      scale: 0.3, // Used to determine the sizing of contacts
+      strokeWidth: 2,
+      color: "00ff00",
+      filter: {
+        red: 0,
+        green: 255,
+        blue: 0
+      },
+      spritePath: '/packages/card-sensorGrid/sprites/'
+    };
+
+    function transformX(x) {
+      //return k.width * ((x * currentDimensions.flippedX) + 1) / 2; // Translate and scale to different coordinate system
+      return x*2;
+    };
+
+    function transformY(y) {
+      //return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
+      return y*2;
+    };
+
+    var armyArray = {};
+    var contactsArray = {};
+
+    k.center = {
+      x: k.width / 2,
+      y: k.height / 2
+    };
+
+    k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
+
+
+    this.subscription = Deps.autorun(function() {
+        Meteor.subscribe('cards.card-tacControl.contacts', Flint.simulatorId());
+      });
+
+      stage = new Kinetic.Stage({
+            container: 'tacView',
+            width: 1440,
+            height: 630
+          });
+
+          
+
+               contactsLayer = new Kinetic.Layer();
+               symbolsLayer = new Kinetic.Layer();
+              ghostLayer = new Kinetic.Layer();
+              backgroundLayer = new Kinetic.Layer();
+
+
+          var box = new Kinetic.Rect({
+            x: 1,
+            y: 1,
+            width: 1438,
+            height: 628,
+            fill: 'transparent',
+            stroke: 'green',
+            strokeWidth: 2
+          });
+          backgroundLayer.add(box);
+
+          for (i=1; i<24; i++){
+            var line = new Kinetic.Line({
+            points: [i*120,0,i*120,630],
+            dash: [20,10],
+            fill: 'green',
+            stroke: 'green',
+            strokeWidth: 2
+          });
+            backgroundLayer.add(line);
+          }
+          for (i=1; i<5; i++){
+             var line = new Kinetic.Line({
+            points: [0,i*120,1440,i*120],
+            dash: [20, 10],
+            fill: 'green',
+            stroke: 'green',
+            strokeWidth: 2
+          });
+            backgroundLayer.add(line);
+
+          }
+
+    this.tacticalObserver = Flint.collection('tacticalContacts').find().observeChanges({
+        added: function(id, doc) {
+          // console.log("Added", id, doc);
+          if (!contactsArray[id]) {
+            contactsArray[id] = {};
+            // Draggable Contact
+            var contactObj = new Image();
+            contactObj.onload = function() {
+              var icon = new Kinetic.Image({
+                x: transformX(doc['X']),
+                y: transformY(doc['Y']),
+                image: contactObj,
+                width: (doc['width']*2),
+                 height: (doc['height']*2),
+                red: k.filter.red,
+                green: k.filter.green,
+                blue: k.filter.blue
+              });
+
+              // Setup filters
+              icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
+
+              // add the shape to the layer
+              contactsLayer.add(icon);
+              icon.cache();
+              icon.draw();
+              contactsArray[id].contact = icon;
+            };
+            contactObj.src = k.spritePath + doc.icon;
+          }
+        },
+        changed: function(id, fields) {
+          // console.log("Changed", id, fields);
+          var contact = contactsArray[id].contact
+          if (contact) {
+
+            if (fields['X'] !== undefined) {
+              contact.setX(transformX(fields['X']));
+            }
+            if (fields['Y'] !== undefined) {
+              contact.setY(transformY(fields['Y']));
+            }
+            if (fields['width'] !== undefined){
+                debugger;
+                contact.attrs.width = (fields['width']*2);
+                contact.attrs.height = (fields['height']*2);
+                contact.cache();
+
+            }
+            contactsLayer.draw();
+          }
+        },
+        removed: function(id) {
+          // console.log("Removed", id);
+          contactsArray[id].contact.remove();
+          delete contactsArray[id];
+          contactsLayer.draw();
+        }
+      });
+
+              
+
+      stage.add(backgroundLayer);
+      stage.add(contactsLayer); // Uppermost layer
+};
+Template.card_viewscreen.rendered = function () {
+    initSandbox();
+    initTactical();
     var lastTimeMsec = null;
+    function onKeyDown(evt) {
+        var result;
+        switch (evt.keyCode) {
+          case 53: //'5'
+            currentCamera = 0;
+            
+            TweenLite.to(cameras[currentCamera], 1, {fov:179, onComplete: function(){
+                hyperLight1.visible = false;
+            hyperLight2.visible = false;
+            hyperLight3.visible = false;
+            hyperLight4.visible = false;
+            scene.remove(hyperFlare);
+            hyperBox.visible = false;
+            hyperspace = false;
+            TweenLite.to(cameras[currentCamera], 7, {fov:45, ease: Expo.easeOut, onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});},
+            onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});
+            
+            break;
+          case 54: //'6'
+          currentCamera = 0;
+            TweenLite.to(cameras[currentCamera],12, {fov:179, ease: Expo.easeIn, onComplete:function(){
+            hyperLight1.visible = true;
+            hyperLight2.visible = true;
+            hyperLight3.visible = true;
+            hyperLight4.visible = true;
+            scene.add(hyperFlare);
+            hyperBox.visible = true;
+            hyperspace = true;
+            TweenLite.to(cameras[currentCamera], 3, {fov:45, 
+            onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});},
+            onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});
+
+
+            break;
+          case 56: // '8'
+            currentCamera = 0;
+            break;
+          case 57: // '9'
+            currentCamera = 1;
+            break;
+        }
+    }
+
+  window.addEventListener('keydown', onKeyDown, false);
     requestAnimationFrame(function animate(nowMsec) {
         // keep looping
         requestAnimationFrame(animate);
@@ -517,8 +696,10 @@ var up = new THREE.Vector3(0,1,0);
         var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
         lastTimeMsec = nowMsec;
         // call each update function
-        onRenderFcts.forEach(function (onRenderFct) {
-            onRenderFct(deltaMsec / 1000, nowMsec / 1000);
-        });
+        if (Flint.simulator().currentScreen == "Sandbox") {
+            onRenderFcts.forEach(function (onRenderFct) {
+                onRenderFct(deltaMsec / 1000, nowMsec / 1000);
+            });
+        } 
     });
 };

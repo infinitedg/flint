@@ -1,0 +1,8 @@
+.shown{opacity: 1 !important;}
+
+.sensorLabel{opacity:0;
+	color: #fff; 
+	position:absolute; 
+	font-size: 10px;
+	transition: opacity 0.5s ease;
+}

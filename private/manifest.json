@@ -5,7 +5,8 @@
     "systems",
     "stations",
     "armyContacts",
-    "decks"
+    "decks",
+    "tacSymbols"
   ],
   "simulators": [
     "odyssey",
