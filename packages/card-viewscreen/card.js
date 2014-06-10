@@ -6,6 +6,7 @@ var currentCamera = 0;
 var cameraZoom = 0;
 var planetMesh;
 var onRenderFcts = [];
+var hyperBox;
 var viewRadius = 20,
 viewWidth = 500,
 viewHeight = 500;
@@ -26,6 +27,9 @@ Template.card_viewscreen.currentCamera = function (num) {
     }
     return currentCamera;
 
+};
+Template.card_viewscreen.hyperBox = function(){
+    return hyperBox;
 };
 Template.card_viewscreen.cameras = function() {
   return cameras;
@@ -149,6 +153,13 @@ function initSandbox(){
     cameras.push(camera1);
     //controls = new THREE.OrbitControls( camera );
 
+    var camera2 = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+    camera2.position.z = 10;
+    camera2.position.y = 5;
+    camera2.position.x = 5;
+    camera2.lookAt(new THREE.Vector3(0,0,0));
+    cameras.push(camera2);
+
     camera.position.z = 0;
     camera.rotateY(Math.PI);
     controls = new THREE.FlyControls(camera);
@@ -170,6 +181,7 @@ function initSandbox(){
     backLight.position.set(-0.5, -0.5, -2);
     scene.add( backLight );
 
+    //Star Sphere
     var geometry = new THREE.SphereGeometry(1000, 32, 32);
     var url = '/packages/card-viewscreen/models/starback.png';
     var material = new THREE.MeshBasicMaterial({
@@ -259,16 +271,149 @@ function initSandbox(){
     planetMesh.scale.y = 20;
     planetMesh.scale.z = 20;
 
-    scene.add(planetMesh);
+    //scene.add(planetMesh);
 
+    var texture = new THREE.Texture();
+    var imageLoader = new THREE.ImageLoader(manager);
+
+
+
+ //HyperSpace
+    wormhole = new THREE.Object3D;
+    hyperLight1 = new THREE.DirectionalLight( 0xff8000, .75 );
+    hyperLight1.position.set( 1, 1, 70 ).normalize();
+    hyperLight1.visible = false;
+    wormhole.add( hyperLight1 );
+    hyperLight2 = new THREE.DirectionalLight( 0xff8000, .75 );
+    hyperLight2.position.set( -1, 1, 70 ).normalize();
+    hyperLight2.visible = false;
+    wormhole.add( hyperLight2 );
+    hyperLight3 = new THREE.PointLight( 0x44FFAA, 1, 25 );
+    hyperLight3.position.set( 0, -3, 70 );
+    hyperLight3.visible = false;
+    wormhole.add( hyperLight3 );
+    hyperLight4 = new THREE.PointLight( 0xff4400, 2, 30 );
+    hyperLight4.position.set( 3, 3, 70 );
+    hyperLight4.visible = false;
+    wormhole.add( hyperLight4 );
+
+    boxTexture      = THREE.ImageUtils.loadTexture( "/packages/card-viewscreen/textures/water.jpg" );
+    boxTexture.wrapT    = THREE.RepeatWrapping;
+    var boxGeo = new THREE.SphereGeometry(5, 32, 32);
+    var PlaneGeo = new THREE.PlaneGeometry(200,200);
+    var boxMat = new THREE.MeshLambertMaterial({color : 0xFFFFFF, map : boxTexture, side: THREE.BackSide});
+    hyperBox = new THREE.Mesh(boxGeo,boxMat);
+
+
+    hyperBox.name = 'cube';
+    hyperBox.position.x = 0;
+    hyperBox.position.y = 0;
+    hyperBox.position.z = 25;
+    hyperBox.scale.y = 5;
+    hyperBox.scale.z = .5;
+    hyperBox.scale.x = .5;
+    hyperBox.rotateX(Math.PI/2);
+    hyperBox.visible = false;
+
+    var hyperPlane1 = new THREE.Mesh(PlaneGeo,boxMat);
+    var hyperPlane2 = new THREE.Mesh(PlaneGeo,boxMat);
+    hyperPlane1.position.y = 5;
+    hyperPlane2.position.y = -5;
+    hyperPlane1.position.z = 20;
+    hyperPlane2.position.z = 20;
+    hyperPlane1.rotateX((Math.PI/2)+.05);
+    hyperPlane2.rotateX((Math.PI/2)-.05);
+    hyperPlane1.visible = false;
+    hyperPlane2.visible = false;
+
+    scene.add(hyperPlane1);
+    scene.add(hyperPlane2);
+    wormhole.add(hyperBox);
+
+    //Lens Flare
+    var flareColor = new THREE.Color(0xffffff);
+    flareColor.setHSL(.55, .8, .5 + 0.5);
+
+    hyperFlare = new THREE.LensFlare(textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor);
+
+    hyperFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
+    hyperFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
+    hyperFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
+
+    hyperFlare.add(textureFlare3, 60, 0.6, THREE.AdditiveBlending);
+    hyperFlare.add(textureFlare3, 70, 0.7, THREE.AdditiveBlending);
+    hyperFlare.add(textureFlare3, 120, 0.9, THREE.AdditiveBlending);
+    hyperFlare.add(textureFlare3, 70, 1.0, THREE.AdditiveBlending);
+
+    hyperFlare.customUpdateCallback = lensFlareUpdateCallback;
+    hyperFlare.position = new THREE.Vector3(0,0,10);
+
+
+    hyperFlare.visible = false;
+
+    var geometry = new THREE.PlaneGeometry(10,10);
+    var material1 = new THREE.MeshLambertMaterial({
+        map: THREE.ImageUtils.loadTexture('/packages/card-viewscreen/textures/planar001.png'),
+        transparent: true,
+        opacity: 1,
+        side: THREE.DoubleSide
+    });
+    var material2 = new THREE.MeshLambertMaterial({
+        map: THREE.ImageUtils.loadTexture('/packages/card-viewscreen/textures/planar002.png'),
+        transparent: true,
+        opacity: 1,
+        side: THREE.DoubleSide
+    });
+    var material3 = new THREE.MeshLambertMaterial({
+        map: THREE.ImageUtils.loadTexture('/packages/card-viewscreen/textures/planar005.png'),
+        transparent: true,
+        opacity: 1,
+        side: THREE.DoubleSide
+    });
+    var material4 = new THREE.MeshLambertMaterial({
+        map: THREE.ImageUtils.loadTexture('/packages/card-viewscreen/textures/planar006.png'),
+        transparent: true,
+        opacity: 1,
+        side: THREE.DoubleSide
+    });
+        wormholeMesh1 = new THREE.Mesh(geometry, material1);
+        wormholeMesh2 = new THREE.Mesh(geometry, material2);
+        wormholeMesh3 = new THREE.Mesh(geometry, material3);
+        wormholeMesh4 = new THREE.Mesh(geometry, material4);
+
+        wormholeMesh1.position.z = 0.7;
+        wormholeMesh2.position.z = 0.2;
+        wormholeMesh3.position.z = 0;
+        wormholeMesh4.position.z = 0.5;
+        wormholeMesh1.scale.x = 0.001;
+            wormholeMesh1.scale.y = 0.001;
+            wormholeMesh2.scale.x = 0.001;
+            wormholeMesh2.scale.y = 0.001;
+            wormholeMesh3.scale.x = 0.005;
+            wormholeMesh3.scale.y = 0.005;
+            wormholeMesh4.scale.x = 0.00125;
+            wormholeMesh4.scale.y = 0.00125;
+        wormholeMesh1.rotateX(0);
+
+        wormhole.add(wormholeMesh1);
+        wormhole.add(wormholeMesh2);
+        wormhole.add(wormholeMesh3);
+        wormhole.add(wormholeMesh4);
+        wormhole.position.z = 5;
+        wormhole.matrixAutoUpdate = true;
+        scene.add(wormhole);
+        /*
+        scene.add(wormholeMesh1);
+        scene.add(wormholeMesh2);
+        scene.add(wormholeMesh3);
+        scene.add(wormholeMesh4);
+        */
     //Ship Textures
     var manager = new THREE.LoadingManager();
     manager.onProgress = function (item, loaded, total) {
         console.log(item, loaded, total);
     };
 
-    var texture = new THREE.Texture();
-    var imageLoader = new THREE.ImageLoader(manager);
     imageLoader.load('/packages/card-viewscreen/models/Battleship/battleship_elements2_c.png', function (image) {
         texture.image = image;
         texture.needsUpdate = true;
@@ -305,75 +450,7 @@ function initSandbox(){
         animatingObjects.push(object);
     });
 
-    //HyperSpace
-    hyperLight1 = new THREE.DirectionalLight( 0xff8000, .75 );
-    hyperLight1.position.set( 1, 1, 0 ).normalize();
-    hyperLight1.visible = false;
-    scene.add( hyperLight1 );
-    hyperLight2 = new THREE.DirectionalLight( 0xff8000, .75 );
-    hyperLight2.position.set( -1, 1, 0 ).normalize();
-    hyperLight2.visible = false;
-    scene.add( hyperLight2 );
-    hyperLight3 = new THREE.PointLight( 0x44FFAA, 1, 25 );
-    hyperLight3.position.set( 0, -3, 0 );
-    hyperLight3.visible = false;
-    scene.add( hyperLight3 );
-    hyperLight4 = new THREE.PointLight( 0xff4400, 2, 30 );
-    hyperLight4.position.set( 3, 3, 0 );
-    hyperLight4.visible = false;
-    scene.add( hyperLight4 );
-
-    boxTexture      = THREE.ImageUtils.loadTexture( "/packages/card-viewscreen/textures/water.jpg" );
-    boxTexture.wrapT    = THREE.RepeatWrapping;
-    var boxGeo = new THREE.SphereGeometry(5, 32, 32);
-    var PlaneGeo = new THREE.PlaneGeometry(200,200);
-    var boxMat = new THREE.MeshLambertMaterial({color : 0xFFFFFF, map : boxTexture, side: THREE.DoubleSide});
-    hyperBox = new THREE.Mesh(boxGeo,boxMat);
-
-
-    hyperBox.name = 'cube';
-    hyperBox.position.x = 0;
-    hyperBox.position.y = 0;
-    hyperBox.position.z = 10;
-    hyperBox.scale.y = 15;
-    hyperBox.rotateX(Math.PI/2);
-    hyperBox.visible = false;
-
-    var hyperPlane1 = new THREE.Mesh(PlaneGeo,boxMat);
-    var hyperPlane2 = new THREE.Mesh(PlaneGeo,boxMat);
-    hyperPlane1.position.y = 5;
-    hyperPlane2.position.y = -5;
-    hyperPlane1.position.z = 20;
-    hyperPlane2.position.z = 20;
-    hyperPlane1.rotateX((Math.PI/2)+.05);
-    hyperPlane2.rotateX((Math.PI/2)-.05);
-    hyperPlane1.visible = false;
-    hyperPlane2.visible = false;
-
-    scene.add(hyperPlane1);
-    scene.add(hyperPlane2);
-    scene.add(hyperBox);
-
-    //Lens Flare
-    var flareColor = new THREE.Color(0xffffff);
-    flareColor.setHSL(.55, .8, .5 + 0.5);
-
-    hyperFlare = new THREE.LensFlare(textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor);
-
-    hyperFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
-    hyperFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
-    hyperFlare.add(textureFlare2, 512, 0.0, THREE.AdditiveBlending);
-
-    hyperFlare.add(textureFlare3, 60, 0.6, THREE.AdditiveBlending);
-    hyperFlare.add(textureFlare3, 70, 0.7, THREE.AdditiveBlending);
-    hyperFlare.add(textureFlare3, 120, 0.9, THREE.AdditiveBlending);
-    hyperFlare.add(textureFlare3, 70, 1.0, THREE.AdditiveBlending);
-
-    hyperFlare.customUpdateCallback = lensFlareUpdateCallback;
-    hyperFlare.position = new THREE.Vector3(0,0,10);
-
-
-    hyperFlare.visible = false;
+   
 
     window.sceneContacts = {};
 
@@ -457,6 +534,8 @@ function initSandbox(){
         boxTexture.offset.y %= 1;
         boxTexture.needsUpdate  = true;
 
+        
+
         var currentZoom = cameras[currentCamera].fov;
         if ((currentZoom += cameraZoom) < 60) {currentZoom += cameraZoom;}
         if (currentZoom <= 0) {currentZoom = 0.1;}
@@ -471,7 +550,12 @@ function initSandbox(){
                 lookTowards(object, target, targetDelta);
             }
         }
-        planetMesh.rotateY(.01);
+        planetMesh.rotateY(.001);
+        wormholeMesh1.rotateZ(-0.05);
+        wormholeMesh2.rotateZ(0.01);
+        wormholeMesh3.rotateZ(0.05);
+        wormholeMesh4.rotateZ(-0.05);
+
         renderer.render(currentScene, cameras[currentCamera]);
 
     });
@@ -650,7 +734,7 @@ Template.card_viewscreen.rendered = function () {
           case 53: //'5'
             currentCamera = 0;
             
-            TweenLite.to(cameras[currentCamera], 1, {fov:179, onComplete: function(){
+            TweenLite.to(cameras[currentCamera], 1, {fov:140, onComplete: function(){
                 hyperLight1.visible = false;
             hyperLight2.visible = false;
             hyperLight3.visible = false;
@@ -664,20 +748,95 @@ Template.card_viewscreen.rendered = function () {
             break;
           case 54: //'6'
           currentCamera = 0;
-            TweenLite.to(cameras[currentCamera],12, {fov:179, ease: Expo.easeIn, onComplete:function(){
-            hyperLight1.visible = true;
-            hyperLight2.visible = true;
-            hyperLight3.visible = true;
-            hyperLight4.visible = true;
-            scene.add(hyperFlare);
-            hyperBox.visible = true;
-            hyperspace = true;
-            TweenLite.to(cameras[currentCamera], 3, {fov:45, 
-            onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});},
-            onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});
+          scaleValue = {currentValue:0.001, part1Value: 0.001, part2Value: 0.001, part3Value:0.001, part4Value: 0.001, currentPosition: 43 };
+            hyperBox.visible = false;
+            wormhole.position.z = scaleValue.currentPosition;
+            wormholeMesh1.scale.x = 0.001;
+            wormholeMesh1.scale.y = 0.001;
+            wormholeMesh2.scale.x = 0.001;
+            wormholeMesh2.scale.y = 0.001;
+            wormholeMesh3.scale.x = 0.005;
+            wormholeMesh3.scale.y = 0.005;
+            wormholeMesh4.scale.x = 0.00125;
+            wormholeMesh4.scale.y = 0.00125;
+            //wormhole.scale.x = scaleValue.currentValue;
+            //wormhole.scale.y = scaleValue.currentValue;
+            TweenLite.to(scaleValue, 8, {
+                part1Value: 1,
+                ease:Elastic.easeOut,
+                onUpdate: function(){
+                    wormholeMesh1.scale.x = scaleValue.part1Value;
+                    wormholeMesh1.scale.y = scaleValue.part1Value;
+                },
+                onComplete: function(){
+                    hyperLight1.visible = true;
+                      hyperLight2.visible = true;
+                      hyperLight3.visible = true;
+                      hyperLight4.visible = true;
+                      //scene.add(hyperFlare);
+                      hyperBox.visible = true;
+                      hyperspace = true;
+                }
+            });
+            TweenLite.to(scaleValue, 4, {
+                part2Value: 1,
+                delay: .5,
+                ease:Power4.easeOut,
+                onUpdate: function(){
+                    wormholeMesh2.scale.x = scaleValue.part2Value;
+                    wormholeMesh2.scale.y = scaleValue.part2Value;
+                }
+            });
+            TweenLite.to(scaleValue, 6, {
+                part3Value: .5,
+                delay: 0.75,
+                ease:Power4.easeOut,
+                onUpdate: function(){
+                    wormholeMesh3.scale.x = scaleValue.part3Value;
+                    wormholeMesh3.scale.y = scaleValue.part3Value;
+                }
+            });
+            TweenLite.to(scaleValue, 8, {
+                part4Value: 1.25,
+                ease:Elastic.easeOut,
+                delay: 1,
+                onUpdate: function(){
+                    wormholeMesh4.scale.x = scaleValue.part4Value;
+                    wormholeMesh4.scale.y = scaleValue.part4Value;
+                }
+            });
+            TweenLite.to(scaleValue, 12, {
+                currentValue: 15,
+                onUpdate: function(){
+                   // wormhole.scale.x = scaleValue.currentValue;
+                    //wormhole.scale.y = scaleValue.currentValue;
+                },
+                onComplete: function(){
+                    /*cameras[currentCamera].fov = 140;
+                    TweenLite.to(cameras[currentCamera], 3, {
+                        fov:45, 
+                        onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});*/
+                }
+            });
 
+           TweenLite.to(scaleValue, 12, {
+                currentPosition:-3, 
+                delay:  4,
+                ease: Power4.easeInOut,
+                onUpdate: function(){
+                    wormhole.position.z = scaleValue.currentPosition;
+                },
+                onComplete:function(){
+
+                }
+            });
+
+
+        
 
             break;
+          case 55: // '7'
+            currentCamera = 2;  
           case 56: // '8'
             currentCamera = 0;
             break;

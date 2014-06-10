@@ -12,7 +12,7 @@
       "kinetic.js": {},
       "bootboxjs": {},
       "blaze-layout": {},
-      "apm": {},
+      "kadira": {},
       "bootstrap-3": {},
       "font-awesome": {},
       "gsap": {
@@ -81,10 +81,17 @@
         "tag": "v0.2.5",
         "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
       },
+<<<<<<< HEAD
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
         "tag": "v1.4.1",
         "commit": "51e1fd890bea6e9b7b55e501f0abf8124fd1a611"
+=======
+      "kadira": {
+        "git": "https://github.com/meteorhacks/kadira.git",
+        "tag": "v2.1.5",
+        "commit": "1d33f51a7228fc430fb1823276fcfeeb6f251255"
+>>>>>>> 2744e81e25eb2ea103148e91bab589c794a03960
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
