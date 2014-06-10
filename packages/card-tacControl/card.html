@@ -1,0 +1,35 @@
+<template name="card_tacControl">
+  <div id="tacControl">
+
+  </div>
+	<div class="radioClass">
+        <label><input type="radio" name="radioBtns" placeholder="Sandbox" class="attentionColor screenPicker" {{isChecked "Sandbox"}}>Sandbox</label>
+        <label><input type="radio" name="radioBtns" placeholder="Tactical" class="attentionColor screenPicker" {{isChecked "Tactical"}}>Tactical</label>
+    </div>
+
+<div id="symbolControls">
+	<div id="symbolSize"></div>
+	<!--<div id="symbolRotation"></div>-->
+	<div class="manualMove">
+		<label><input type="radio" id="manualMove1" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (WASD/EQ)</label>
+		<label><input type="radio" id="manualMove2" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (IJKL/OU)</label>
+	</div>
+</div>
+<div id="timelineControls" class="hidden"> 
+<div id="slider"></div>
+<div>
+<input type="button" id="addKeyframe" value="Add Keyframe">
+<input type="button" id="playBtn" value="play()">
+<input type="button" id="pauseBtn" value="pause()">
+<input type="button" id="resumeBtn" value="resume()">
+<input type="button" id="reverseBtn" value="reverse()">
+<input type="button" id="playFromBtn" value="play(1)">
+<input type="button" id="reverseFromBtn" value="reverse(1)">
+<input type="button" id="seekBtn" value="seek(1.5)"><br/>
+<input type="button" id="timeScaleSlowBtn" value="timeScale(0.5)">
+<input type="button" id="timeScaleNormalBtn" value="timeScale(1)">
+<input type="button" id="timeScaleFastBtn" value="timeScale(2)">
+<input type="button" id="restartBtn" value="restart()">
+</div>
+</div>
+</template>

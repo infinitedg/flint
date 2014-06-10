@@ -11,7 +11,7 @@ Card for manipulating the thrusters. Also shows ship orientation (Yaw, pitch rol
 @class card_thrusters
 */
 Template.card_thrusters.created = function() {
-    debugger;
+   /* debugger;
     var renderer	= new THREE.WebGLRenderer();
 	renderer.setSize( 500, 375 );
 	document.getElementsByClassName('shipView').item().appendChild( renderer.domElement );
@@ -78,7 +78,7 @@ Template.card_thrusters.created = function() {
 		onRenderFcts.forEach(function(onRenderFct){
 			onRenderFct(deltaMsec/1000, nowMsec/1000);
 		});
-	});
+	});*/
 }
 
 Template.card_thrusters.events = {

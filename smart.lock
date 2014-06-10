@@ -99,7 +99,7 @@
       "gsap": {
         "git": "https://github.com/brentjanderson/meteor-gsap.git",
         "branch": "master",
-        "commit": "337696a8f5922102ec44d7491b7dc9d01d594c0f"
+        "commit": "a7a6c03769ea3d7983f360f21ce4046a88c2f78b"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",

@@ -1,0 +1,30 @@
+#slider{
+    width: 700px;
+    height:15px;
+    margin:15px 0px 8px 6px;    
+}
+.slider-handle{
+	width: 10px;
+	height: 10px;
+	display: block;
+	background-color: #fff;
+	border-radius: 3px;
+	box-shadow: inset 0px -3px 5px rgba(0,0,0,.5);
+}
+
+#timelineControls{
+	width: 700px;
+	margin-left: 20px;
+}
+input[type="button"]{
+	font-family: "Gill Sans";
+	font-size: 16px;
+	color: #222;
+background-color: #119fff;
+border: solid 1px #226fff;
+border-radius: 5px;
+margin: 2px;
+}
+input[type="button"]:hover{
+background-color: #52BAFF;
+}

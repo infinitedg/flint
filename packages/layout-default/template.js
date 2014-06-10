@@ -145,7 +145,6 @@ Template.layout_default.cardName = function() {
 }
 Template.layout_default.created = function() {
     this.subComputation = Deps.autorun(function() {
-       // console.log("PING");
         Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
     });
 	//Flint.play('sciences');
@@ -173,7 +172,7 @@ Template.layout_default.alertLevel = function() {
 }
 
 Template.layout_default.events = {
-  'click div.pageContent': function(e, context) {
+  'click div.pageContent, touchstart div.pageContent': function(e, context) {
            if ($('.animate').length > 0) {
               var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),
@@ -187,7 +186,8 @@ Template.layout_default.events = {
       
   },
 
-  'click header': function(e, context) {
+  'click header, touchstart header': function(e, context) {
+            console.log('Ping!')
             if (Flint.client().name){
             var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),

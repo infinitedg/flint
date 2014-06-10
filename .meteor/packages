@@ -32,7 +32,7 @@ flint-debug
 flint-flash
 flint-sound
 flint-speech
-flint-touch
+#flint-touch
 flint-drama
 flint-utils
 actor-sensors
@@ -42,6 +42,7 @@ layout-default
 layout-blackout
 layout-viewscreen
 layout-core
+layout-tacControl
 
 #Cards
 #These can be differentiated by station later
@@ -56,6 +57,7 @@ card-core
 card-messageComposer
 card-scanner
 card-speed
+card-tacControl
 card-thrusters
 card-targeting
 card-selfDestruct
