@@ -121,6 +121,16 @@ Template.card_tacControl.events = {
     Flint.simulators.update(Flint.simulatorId(), {$set: {currentScreen: target.attr('placeholder')}});
     e.preventDefault();
   },
+  'change #screenSelect': function(e, context){
+   var target = e.target.value;
+    Flint.simulators.update(Flint.simulatorId(), {$set: {currentScreen: target}});
+    e.preventDefault();
+  },
+  'change #videoSelect': function(e, context){
+    var target = e.target.value;
+    Flint.simulators.update(Flint.simulatorId(), {$set: {tacticalVideo: target}});
+    e.preventDefault();
+  },
   /*'slide #symbolRotation': function(e, context){
     var value = (e.value);
     var target = contactsArray[Session.get('selectedSymbol')].contact;

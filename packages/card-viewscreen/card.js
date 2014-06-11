@@ -15,8 +15,10 @@ var Examples;
 
 Template.card_viewscreen.dynamicTemplate = function () {
   return Template[Flint.simulator().currentScreen];
-}
-
+};
+Template.Video.tacticalVideo = function() {
+    return Flint.simulator().tacticalVideo;
+};
 Template.card_viewscreen.scene = function () {
     return scene;
 };
@@ -78,9 +80,6 @@ Template.card_viewscreen.created = function () {
     });
     this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
         changed: function (id, fields) {
-            if (fields.currentScreen){
-             Session.set('currentScreen', field.currentScreen);
-            }
             if (fields.cameraRotationYaw || fields.cameraRotationYaw == 0) {
                 if (fields.cameraRotationYaw < 0){
                 controls.moveState.yawLeft = Math.abs(fields.cameraRotationYaw);
