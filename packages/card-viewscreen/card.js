@@ -12,6 +12,11 @@ viewWidth = 500,
 viewHeight = 500;
 var hyperBox, boxTexture, hyperLight1, hyperLight2, hyperLight3, hyperLight4;
 var Examples;
+
+Template.card_viewscreen.dynamicTemplate = function () {
+  return Template[Flint.simulator().currentScreen];
+}
+
 Template.card_viewscreen.scene = function () {
     return scene;
 };
@@ -73,13 +78,8 @@ Template.card_viewscreen.created = function () {
     });
     this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
         changed: function (id, fields) {
-            if (fields.currentScreen == 'Sandbox'){
-                $('#viewscreen').removeClass('hidden');
-                $('#tacView').addClass('hidden');
-            }
-            if (fields.currentScreen == 'Tactical'){
-                $('#tacView').removeClass('hidden');
-                $('#viewscreen').addClass('hidden');
+            if (fields.currentScreen){
+             Session.set('currentScreen', field.currentScreen);
             }
             if (fields.cameraRotationYaw || fields.cameraRotationYaw == 0) {
                 if (fields.cameraRotationYaw < 0){
@@ -133,7 +133,7 @@ Template.card_viewscreen.destroyed = function () {
     }
 };
 
-function initSandbox(){
+Template.Sandbox.rendered = function (){
     var up = new THREE.Vector3(0,1,0);
     var clock = new THREE.Clock();
     var renderer = new THREE.WebGLRenderer({
@@ -563,7 +563,7 @@ function initSandbox(){
     
 };
 
-function initTactical(){
+Template.Tactical.rendered = function (){
     var stage,symbolsLayer,contactsLayer,ghostLayer;
 
     window.currentDimensions = {
@@ -725,8 +725,8 @@ function initTactical(){
       stage.add(contactsLayer); // Uppermost layer
 };
 Template.card_viewscreen.rendered = function () {
-    initSandbox();
-    initTactical();
+    //initSandbox();
+    //initTactical();
     var lastTimeMsec = null;
     function onKeyDown(evt) {
         var result;
@@ -735,7 +735,7 @@ Template.card_viewscreen.rendered = function () {
             currentCamera = 0;
             
             TweenLite.to(cameras[currentCamera], 1, {fov:140, onComplete: function(){
-                hyperLight1.visible = false;
+            hyperLight1.visible = false;
             hyperLight2.visible = false;
             hyperLight3.visible = false;
             hyperLight4.visible = false;
