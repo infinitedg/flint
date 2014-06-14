@@ -1,0 +1,3 @@
+_.extend(Flint, {
+	FS: {}
+});
