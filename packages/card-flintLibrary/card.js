@@ -11,13 +11,12 @@ flintAssets collection object schema
 		If this doesn't exist, then it's at the root
 	
 	// The following applies only to assets
-	objects: [
-		{
-			simulatorId: Simulator this applies to
-				// If nonexistent, this is the default object
+	defaultUrl: Absolute URL to the asset in question
+	objects: {
+		simulatorId: {
 			url: The URL in question
 		}
-	]
+	}
 }
 */
 Template.comp_flintassetbrowser.assets = function() {
@@ -103,7 +102,8 @@ Template.comp_flintassetbrowser.events({
 				type: "asset",
 				name: n,
 				fullPath: parent.fullPath + '/' + n,
-				basePath: parent.fullPath
+				basePath: parent.fullPath,
+				objects: {}
 			};
 			if (!Session.equals('comp.flintassetbrowser.currentDirectory', undefined)) {
 				obj.parentObject = Session.get('comp.flintassetbrowser.currentDirectory');
@@ -129,7 +129,7 @@ Template.comp_flintassetview.simulators = function() {
 
 	if (asset) {
 		// The difference between all simulators and those already defined
-		var objectSimulators = _.pluck(asset.objects, "simulatorId");
+		var objectSimulators = _.keys(asset.objects || {});
 		var allSimulators = _.pluck(Flint.simulators.find().fetch(), "simulatorId");
 		var diffSimulators = _.difference(allSimulators, objectSimulators);
 		return Flint.simulators.find({ simulatorId: {$in: diffSimulators}});
@@ -138,6 +138,37 @@ Template.comp_flintassetview.simulators = function() {
 
 Template.comp_flintassetview.events({
 	'click .add-object': function(e, t) {
+		var files = t.find('input[type=file]').files; // FileList object
+        
+        // Loop through the FileList and render image files as thumbnails.
+        for (var i = 0, f; f = files[i]; i++) {
 
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+                return function(e) {
+                	HTTP.post('http://assets.flint.farpointstation.org/api/asset/index',{
+                		//auth: '',
+                		data: {
+                			object: e.target.result
+                		}
+                	}, function(e, r) {
+                		if (!e) {
+                			var a = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset'));
+                			var newObjects = a.objects;
+                			newObjects[t.find('select :selected').value] = {
+                				url: r.object_url
+                			};
+                			Flint.collection('flintAssets').update(a._id, {$set: {objects: newObjects}});
+                		}
+                	});
+
+                };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+        }
 	}
 });
