@@ -1,6 +1,7 @@
 var _collections = {};
 
 Flint.FS.registerCollection = function(name, storeName, opts) {
+	name = name.toLowerCase();
 	if (_collections[name]) {
 		throw new Meteor.Error(500, "Registering predefined FS collection", "Collection " + name + " already exists");
 	}
@@ -14,6 +15,7 @@ Flint.FS.registerCollection = function(name, storeName, opts) {
 };
 
 Flint.FS.collection = function(name) {
+	name = name.toLowerCase();
 	if (!_collections[name]) {
 		throw new Meteor.Error(500, "Requested nonexistent FS collection", "No such collection " + name);
 	}
