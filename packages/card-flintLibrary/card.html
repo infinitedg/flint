@@ -1,0 +1,48 @@
+<template name="card_flintlibrary">
+	<div class="row">
+		<div class="col-md-4">
+			{{> comp_flintassetbrowser}}
+		</div>
+		<div class="col-md-8">
+			{{> comp_flintassetview}}
+		</div>
+	</div>
+</template>
+
+<template name="comp_flintassetbrowser">
+	<p><strong>Path: {{currentDirectory.fullPath}}</strong></p>
+	<p>
+	<div class="btn-group">
+		<button class="add-folder btn btn-primary">
+			<span class="glyphicon glyphicon-folder-open"></span>
+		</button>
+		<button class="add-asset btn btn-primary">
+			<span class="glyphicon glyphicon-file"></span>
+		</button>
+	</div>
+	</p>
+	<div class="well flintassetbrowser">
+		<ul>
+			{{#if notRoot}}
+			<li class="folder">
+				<span class="glyphicon glyphicon-folder-close"></span>
+				<a href="#" class="cd-dot-dot"><span class="glyphicon-class">&laquo; Back</span></a>
+			</li>
+			{{/if}}
+			{{#each assets}}
+			<li class="{{assetClass}}">
+				{{#if assetType "folder"}}
+					<span class="glyphicon glyphicon-folder-close"></span>
+				{{else}}
+					<span class="glyphicon glyphicon-file"></span>
+				{{/if}}
+				<a href="#" class="asset"><span class="glyphicon-class">{{name}}</span></a>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+</template>
+
+<template name="comp_flintassetview">
+
+</template>
