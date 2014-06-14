@@ -4,7 +4,9 @@
 			{{> comp_flintassetbrowser}}
 		</div>
 		<div class="col-md-8">
-			{{> comp_flintassetview}}
+			{{#if assetSelected}}
+				{{> comp_flintassetview}}
+			{{/if}}
 		</div>
 	</div>
 </template>
@@ -44,5 +46,20 @@
 </template>
 
 <template name="comp_flintassetview">
-
+	<p>Asset name: {{asset.name}}</p>
+	<p>Objects:</p>
+	{{#if asset.objects}}
+		<ul>
+			{{#each asset.objects}}
+				<li>{{name}} ({{objectType}})</li>
+			{{/each}}
+		</ul>
+	{{/if}}
+	<select>
+	{{#each simulators}}
+		<option value="{{_id}}">{{name}}</option>
+	{{/each}}
+	</select>
+	<input type="file">
+	<button class="btn btn-primary add-object">Add Object</button>
 </template>

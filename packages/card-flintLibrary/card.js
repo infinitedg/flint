@@ -28,6 +28,10 @@ Template.comp_flintassetbrowser.assets = function() {
 	return Flint.collection('flintAssets').find(sel);
 };
 
+Template.card_flintlibrary.assetSelected = function() {
+	return (!Session.equals('comp.flintassetbrowser.selectedAsset', undefined));
+};
+
 Template.comp_flintassetbrowser.assetType = function(comp) {
 	return (comp === this.type);
 };
@@ -53,8 +57,9 @@ Template.comp_flintassetbrowser.notRoot = function() {
 
 Template.comp_flintassetbrowser.created = function() {
 	Session.set('comp.flintassetbrowser.currentDirectory', undefined); // Root view
+	Session.set('comp.flintassetbrowser.selectedAsset', undefined);
 	Deps.autorun(function(){
-		this.assetSubscription = Meteor.subscribe("flint.assets", Session.get('comp.flintassetbrowser.currentDirectory'));
+		Meteor.subscribe("flint.assets", Session.get('comp.flintassetbrowser.currentDirectory'));
 	});
 };
 
@@ -72,6 +77,7 @@ Template.comp_flintassetbrowser.events({
 		Flint.beep();
 		var parent = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.currentDirectory')) || {};
 		Session.set('comp.flintassetbrowser.currentDirectory', parent.parentObject || undefined);
+		Session.set('comp.flintassetbrowser.selectedAsset', undefined);
 	},
 	'click button.add-folder': function(e, t) {
 		var n = prompt("Name this folder:");
@@ -104,5 +110,34 @@ Template.comp_flintassetbrowser.events({
 			}
 			Flint.collection('flintAssets').insert(obj);
 		}
+	}
+});
+
+/// comp_flintassetview
+Template.comp_flintassetview.created = function() {
+	Deps.autorun(function() {
+		Meteor.subscribe("flint.assets.simulators");
+	});
+};
+
+Template.comp_flintassetview.asset = function() {
+	return Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset'));
+};
+
+Template.comp_flintassetview.simulators = function() {
+	var asset = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset'));
+
+	if (asset) {
+		// The difference between all simulators and those already defined
+		var objectSimulators = _.pluck(asset.objects, "simulatorId");
+		var allSimulators = _.pluck(Flint.simulators.find().fetch(), "simulatorId");
+		var diffSimulators = _.difference(allSimulators, objectSimulators);
+		return Flint.simulators.find({ simulatorId: {$in: diffSimulators}});
+	}
+};
+
+Template.comp_flintassetview.events({
+	'click .add-object': function(e, t) {
+
 	}
 });

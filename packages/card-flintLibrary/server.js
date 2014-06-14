@@ -9,3 +9,7 @@ Meteor.publish("flint.assets", function(currentDirectory) {
 			]});
 	}
 });
+
+Meteor.publish("flint.assets.simulators", function() {
+	return Flint.collection('simulators').find();
+});
