@@ -30,7 +30,7 @@ Router.map(function () {
       this.s = this.subscribe('flint.picker.simulators').wait();
       Session.set("flint.simulatorId", undefined);
       Session.set("flint.stationId", undefined);
-      Session.set("flint.cardId", undefined);
+      Session.set("flint.cardNumber", undefined);
     }
   });
   
@@ -47,7 +47,7 @@ Router.map(function () {
 
       Session.set("flint.simulatorId", this.params.simulatorId);
       Session.set("flint.stationId", undefined);
-      Session.set("flint.cardId", undefined);
+      Session.set("flint.cardNumber", undefined);
     }
   });
   
@@ -59,7 +59,7 @@ Router.map(function () {
       
       Session.set("flint.simulatorId", this.params.simulatorId);
       Session.set("flint.stationId", this.params.stationId);
-      Session.set("flint.cardId", this.params.cardId);
+      Session.set("flint.cardNumber", this.params.cardId);
     },
     action: function() {
       if (!Flint.station())
@@ -72,7 +72,7 @@ Router.map(function () {
     onStop: function() {
       Session.set("flint.simulatorId", undefined);
       Session.set("flint.stationId", undefined);
-      Session.set("flint.cardId", undefined);
+      Session.set("flint.cardNumber", undefined);
     }
   });
 });
