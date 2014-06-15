@@ -14,7 +14,7 @@ Returns if a given card is the currently visible card
 @type Boolean
 */
 Template.layout_default_cardList.isCurrentCard = function() {
-  return Flint.cardId() === this.cardId;
+  return Flint.cardNumber() === this.cardId;
 };
 
 Template.layout_default_cardList.station = function() {
@@ -28,7 +28,7 @@ Template.layout_default_cardList.events = {
   */
   'click a': function(e, t) {
     Flint.beep();
-    if ('' + this.cardId !== Flint.cardId() + '') { // Cast to strings
+    if ('' + this.cardId !== Flint.cardNumber() + '') { // Cast to strings
       that = this;
 
         var showMenu = document.getElementById( 'showMenu' ),

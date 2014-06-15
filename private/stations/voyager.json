@@ -23,6 +23,20 @@
          "layout": "layout_viewscreen"
         },
         {
+            "name": "Flint Admin",
+            "cards": [
+                {
+                    "name": "Login",
+                    "cardId": "card_login"
+                },
+                {
+                    "name": "Asset Manager",
+                    "cardId": "card_flintlibrary"
+                }
+            ],
+            "_id": "flint-assetmanager"
+        },
+        {
           "name": "Scanners",
           "cards": [
             {
@@ -225,7 +239,8 @@
                     "name": "Escape Pods",
                     "cardId": "card_security_escapepods"
                 }
-            ]
+            ],
+            "_id": "voyager-security"
         }
     ]
 }

@@ -54,9 +54,14 @@ Flint.stationId = function() {
 Flint.card = function() {
   var station = Flint.station();
   if (station)
-    return station.cards[Session.get("flint.cardId")];
+    return station.cards[Session.get("flint.cardNumber")];
 }
 
+Flint.cardNumber = function() {
+  return Session.get("flint.cardNumber");
+};
+
 Flint.cardId = function() {
-  return Session.get("flint.cardId");
+  var card = Flint.card() || {};
+  return card.cardId;
 }

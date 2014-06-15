@@ -143,6 +143,9 @@ Template.layout_default.station = function() {
 Template.layout_default.cardName = function() {
     return Flint.card().name;   
 }
+Template.layout_default.cardId = function() {
+    return Flint.card().cardId;
+};
 Template.layout_default.created = function() {
     this.subComputation = Deps.autorun(function() {
         Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
