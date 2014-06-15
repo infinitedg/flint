@@ -1,0 +1,71 @@
+<template name="card_flintlibrary">
+	<div class="row">
+		<div class="col-md-4">
+			{{> comp_flintassetbrowser}}
+		</div>
+		<div class="col-md-8">
+			{{#if assetSelected}}
+				{{> comp_flintassetview}}
+			{{/if}}
+		</div>
+	</div>
+</template>
+
+<template name="comp_flintassetbrowser">
+	<p><strong>Path: {{currentDirectory.fullPath}}</strong></p>
+	<p>
+	<div class="btn-group">
+		<button class="add-folder btn btn-primary">
+			<span class="glyphicon glyphicon-folder-open"></span>
+		</button>
+		<button class="add-asset btn btn-primary">
+			<span class="glyphicon glyphicon-file"></span>
+		</button>
+	</div>
+	</p>
+	<div class="well flintassetbrowser">
+		<ul>
+			{{#if notRoot}}
+			<li class="folder">
+				<span class="glyphicon glyphicon-folder-close"></span>
+				<a href="#" class="cd-dot-dot"><span class="glyphicon-class">&laquo; Back</span></a>
+			</li>
+			{{/if}}
+			{{#each assets}}
+			<li class="{{assetClass}}">
+				{{#if assetType "folder"}}
+					<span class="glyphicon glyphicon-folder-close"></span>
+				{{else}}
+					<span class="glyphicon glyphicon-file"></span>
+				{{/if}}
+				<a href="#" class="asset"><span class="glyphicon-class">{{name}}</span></a>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+</template>
+
+<template name="comp_flintassetview">
+	<h2>Asset: {{asset.name}}</h2>
+	<h3 class="selectable">Asset Path: {{asset.fullPath}}</h3>
+	<h3>Default Value</h3>
+	{{#if asset.defaultUrl}}
+		<img src="{{asset.defaultUrl}}" class="img-responsive">
+	{{/if}}
+	<h3>Objects:</h3>
+	{{#if asset.objects}}
+		<ul>
+			{{#each objects}}
+				<li>{{simulatorId}} <img src="{{url}}" class="img-responsive"/></li>
+			{{/each}}
+		</ul>
+	{{/if}}
+	<select>
+	{{#each simulators}}
+		<option value="{{_id}}">{{name}}</option>
+	{{/each}}
+	</select>
+	<input type="file">
+	<button class="btn btn-primary add-object">Add Object</button>
+	<button class="btn btn-primary set-default">Set Default</button>
+</template>
