@@ -46,12 +46,17 @@
 </template>
 
 <template name="comp_flintassetview">
-	<p>Asset name: {{asset.name}}</p>
-	<p>Objects:</p>
+	<h2>Asset: {{asset.name}}</h2>
+	<h3 class="selectable">Asset Path: {{asset.fullPath}}</h3>
+	<h3>Default Value</h3>
+	{{#if asset.defaultUrl}}
+		<img src="{{asset.defaultUrl}}" class="img-responsive">
+	{{/if}}
+	<h3>Objects:</h3>
 	{{#if asset.objects}}
 		<ul>
-			{{#each asset.objects}}
-				<li>{{name}} ({{objectType}})</li>
+			{{#each objects}}
+				<li>{{simulatorId}} <img src="{{url}}" class="img-responsive"/></li>
 			{{/each}}
 		</ul>
 	{{/if}}
@@ -62,4 +67,5 @@
 	</select>
 	<input type="file">
 	<button class="btn btn-primary add-object">Add Object</button>
+	<button class="btn btn-primary set-default">Set Default</button>
 </template>

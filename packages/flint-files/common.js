@@ -1,3 +1,7 @@
+_.extend(Flint, {
+	FS: {}
+});
+
 var _collections = {};
 
 Flint.FS.registerCollection = function(name, storeName, opts) {
@@ -22,8 +26,4 @@ Flint.FS.collection = function(name) {
 	return _collections[name];
 };
 
-if (Meteor.absoluteUrl() !== "http://flint-demo.spaceedventures.org/") {
-	Flint.FS.registerCollection('flintAssets', 'FileSystem', { path: "~/flint-assets" });
-} else {
-	Flint.FS.registerCollection('flintAssets', 'FileSystem', { path: "~/flint-assets" });
-}
+Flint.FS.cfs = FS;

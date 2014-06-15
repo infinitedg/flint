@@ -1,0 +1,14 @@
+[data-card="card_flintlibrary"] img.enlarged {
+	width: inherit;
+}
+
+[data-card="card_flintlibrary"] img {
+	width: 100px;
+}
+
+.selectable::selection {
+	background: #ffb7b7; /* Safari */
+	}
+.selectable::-moz-selection {
+	background: #ffb7b7; /* Firefox */
+}

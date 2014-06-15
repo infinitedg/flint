@@ -75,3 +75,5 @@ card-flintLibrary
 collectionFS
 cfs-filesystem
 flint-files
+cfs-ejson-file
+ejson

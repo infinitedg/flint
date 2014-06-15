@@ -11,7 +11,7 @@ flintAssets collection object schema
 		If this doesn't exist, then it's at the root
 	
 	// The following applies only to assets
-	defaultUrl: Absolute URL to the asset in question
+	defaultObject: Absolute URL to the asset in question
 	objects: {
 		simulatorId: {
 			url: The URL in question
@@ -117,11 +117,19 @@ Template.comp_flintassetbrowser.events({
 Template.comp_flintassetview.created = function() {
 	Deps.autorun(function() {
 		Meteor.subscribe("flint.assets.simulators");
+		Meteor.subscribe('flint.assets.objects', Session.get('comp.flintassetbrowser.selectedAsset'));
 	});
 };
 
 Template.comp_flintassetview.asset = function() {
-	return Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset'));
+	var a = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset'));
+	if (a.defaultObject) {
+		var f = Flint.FS.collection('flintAssets').findOne(a.defaultObject);
+		if (f) {
+			a.defaultUrl = f.url();
+		}
+	}
+	return a;
 };
 
 Template.comp_flintassetview.simulators = function() {
@@ -140,35 +148,39 @@ Template.comp_flintassetview.events({
 	'click .add-object': function(e, t) {
 		var files = t.find('input[type=file]').files; // FileList object
         
-        // Loop through the FileList and render image files as thumbnails.
-        for (var i = 0, f; f = files[i]; i++) {
-
-            var reader = new FileReader();
-
-            // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(e) {
-                	HTTP.post('http://assets.flint.farpointstation.org/api/asset/index',{
-                		//auth: '',
-                		data: {
-                			object: e.target.result
-                		}
-                	}, function(e, r) {
-                		if (!e) {
-                			var a = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset'));
-                			var newObjects = a.objects;
-                			newObjects[t.find('select :selected').value] = {
-                				url: r.object_url
-                			};
-                			Flint.collection('flintAssets').update(a._id, {$set: {objects: newObjects}});
-                		}
-                	});
-
-                };
-            })(f);
-
-            // Read in the image file as a data URL.
-            reader.readAsDataURL(f);
-        }
+        for (var i = 0, ln = files.length; i < ln; i++) {
+	      Flint.FS.collection('flintAssets').insert(files[i], function (err, fileObj) {
+	        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+	        var a = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset'));
+			var newObjects = a.objects;
+			newObjects[t.find('select :selected').value] = fileObj._id;
+			Flint.collection('flintAssets').update(a._id, {$set: {objects: newObjects}});
+	      });
+	    }
+	},
+	'click .set-default': function(e, t) {
+		var files = t.find('input[type=file]').files; // FileList object
+        
+        for (var i = 0, ln = files.length; i < ln; i++) {
+	      Flint.FS.collection('flintAssets').insert(files[i], function (err, fileObj) {
+	        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+	       Flint.collection('flintAssets').update(Session.get('comp.flintassetbrowser.selectedAsset'), {$set: {defaultObject: fileObj._id}});
+	      });
+	    }
+	},
+	'click img': function(e, t) {
+		$(e.target).toggleClass('enlarged');
 	}
 });
+
+Template.comp_flintassetview.objects = function() {
+	var asset = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset')),
+	objectKeys = _.values(asset.objects),
+	objects = [];
+	simulatorMapping = _.invert(asset.objects);
+	Flint.FS.collection('flintAssets').find({_id: {$in: objectKeys}}).forEach(function(file) {
+		objects.push({url: file.url(), simulatorId: simulatorMapping[file._id]});
+	});
+
+	return objects;
+};
