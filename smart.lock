@@ -84,8 +84,8 @@
       },
       "kadira": {
         "git": "https://github.com/meteorhacks/kadira.git",
-        "tag": "v2.1.5",
-        "commit": "1d33f51a7228fc430fb1823276fcfeeb6f251255"
+        "tag": "v2.4.0",
+        "commit": "18ac6e2b054f891560063427bfa36c817e585567"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -100,7 +100,7 @@
       "gsap": {
         "git": "https://github.com/brentjanderson/meteor-gsap.git",
         "branch": "master",
-        "commit": "a7a6c03769ea3d7983f360f21ce4046a88c2f78b"
+        "commit": "337696a8f5922102ec44d7491b7dc9d01d594c0f"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",
