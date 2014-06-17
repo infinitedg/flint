@@ -29,7 +29,7 @@
         "git": "https://github.com/farpoint/meteor-tween",
         "tag": "v0.13.1"
       },
-      "bootstrap-colorpicker-2": {}
+      "bootstrap-colorpicker-2": {},
       "collectionFS": {}
     },
     "packages": {
@@ -127,6 +127,7 @@
         "git": "https://github.com/sclausen/meteor-bootstrap-colorpicker-2.git",
         "tag": "v0.1.1",
         "commit": "5252e088e48230c81a7b5f1c4b1afe4fbc674383"
+        },
       "collectionFS": {
         "git": "https://github.com/CollectionFS/Meteor-CollectionFS.git",
         "tag": "v0.4.8",
