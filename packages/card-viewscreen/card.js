@@ -671,10 +671,10 @@ Template.Tactical.rendered = function (){
                 y: transformY(doc['Y']),
                 image: contactObj,
                 width: (doc['width']*2),
-                 height: (doc['height']*2),
-                red: k.filter.red,
-                green: k.filter.green,
-                blue: k.filter.blue
+                height: (doc['height']*2),
+                red: doc['red'],
+                green: doc['green'],
+                blue: doc['blue']
               });
 
               // Setup filters
@@ -701,11 +701,17 @@ Template.Tactical.rendered = function (){
               contact.setY(transformY(fields['Y']));
             }
             if (fields['width'] !== undefined){
-                debugger;
                 contact.attrs.width = (fields['width']*2);
                 contact.attrs.height = (fields['height']*2);
                 contact.cache();
 
+            }
+            if (fields['red'] !== undefined) {
+              contact.attrs.red = fields['red'];
+              contact.attrs.green = fields['green'];
+              contact.attrs.blue = fields['blue'];
+              contact.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
+              contact.cache();
             }
             contactsLayer.draw();
           }

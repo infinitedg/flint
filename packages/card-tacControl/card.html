@@ -27,14 +27,18 @@
 	    <option value='/packages/card-viewscreen/movies/transmission.mp4'>transmission.mp4</option>
 	    <option value='/packages/card-viewscreen/movies/yellow_alert.ogv'>yellow_alert.ogv</option>
 	</select>
+	<input type="button" id="addCurve" value="Add Curve">
 	<div class="radioClass">
         <label><input type="radio" name="radioBtns" placeholder="Sandbox" class="attentionColor screenPicker" {{isChecked "Sandbox"}}>Sandbox</label>
         <label><input type="radio" name="radioBtns" placeholder="Tactical" class="attentionColor screenPicker" {{isChecked "Tactical"}}>Tactical</label>
     </div>
-
+<div id="curveControls" class="hidden">
+	<a href="#" class="colorpicker" id="contactColor">Curve Color</a>
+</div>
 <div id="symbolControls">
 	<div id="symbolSize"></div>
 	<!--<div id="symbolRotation"></div>-->
+	<a href="#" class="colorpicker" id="contactColor">Symbol Color</a>
 	<div class="manualMove">
 		<label><input type="radio" id="manualMove1" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (WASD/EQ)</label>
 		<label><input type="radio" id="manualMove2" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (IJKL/OU)</label>

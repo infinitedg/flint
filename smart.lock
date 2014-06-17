@@ -28,7 +28,8 @@
       "tween": {
         "git": "https://github.com/farpoint/meteor-tween",
         "tag": "v0.13.1"
-      }
+      },
+      "bootstrap-colorpicker-2": {}
     },
     "packages": {
       "iron-router": {
@@ -99,7 +100,7 @@
       "gsap": {
         "git": "https://github.com/brentjanderson/meteor-gsap.git",
         "branch": "master",
-        "commit": "a7a6c03769ea3d7983f360f21ce4046a88c2f78b"
+        "commit": "337696a8f5922102ec44d7491b7dc9d01d594c0f"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",
@@ -120,6 +121,11 @@
         "git": "https://github.com/farpoint/meteor-tween",
         "tag": "v0.13.1",
         "commit": "ea218fe9f498191c7679a7dad29df180fb37b402"
+      },
+      "bootstrap-colorpicker-2": {
+        "git": "https://github.com/sclausen/meteor-bootstrap-colorpicker-2.git",
+        "tag": "v0.1.1",
+        "commit": "5252e088e48230c81a7b5f1c4b1afe4fbc674383"
       }
     }
   }
