@@ -222,7 +222,7 @@ function timelineControls(e) {
         anchor.on('dragend', function() {
           drawCurves();
           updateDottedLines();
-                debugger;
+        //debugger;
           var curve = bezier[this.attrs.parentid];            
           var updateObj = {
                 start: {x:curve.start.attrs.x, y:curve.start.attrs.y},
@@ -230,6 +230,7 @@ function timelineControls(e) {
                 control2: {x:curve.control2.attrs.x, y:curve.control2.attrs.y},
                 end: {x:curve.end.attrs.x, y:curve.end.attrs.y}
             };
+            console.log(updateObj);
            /* if (x < 0 || x > 720 || y < 0 || y > 315) {
               Flint.collection('tacticalContacts').remove(id);
               Session.set('selectedSymbol', '');
