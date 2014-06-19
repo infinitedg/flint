@@ -1,6 +1,6 @@
 <template name="layout_default_messageBox">
 <div class="messageBox {{messageBoxAnimate}}">
-<div class="messageBoxHeader {{alertLevel}}">{{newMessage}} MESSAGES</div>
+<div class="messageBoxHeader {{alertLevel}}">{{newMessage}} {{t "Messages"}}</div>
     <div class="chat textbox">
         {{#each messages}}
             <p><strong>{{name}}:</strong> {{message}}</p>
