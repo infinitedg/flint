@@ -9,41 +9,44 @@
 	  <option value="Communications">Communications</option>
 	</select>
 	<select id="videoSelect">
-	    <option value="/packages/card-viewscreen/movies/asteroid_field.mp4">asteroid_field.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/code.mp4'>code.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/collision.ogv'>collision.ogv</option>
-	    <option value='/packages/card-viewscreen/movies/critical_power.mp4'>critical_power.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/docking.mp4'>docking.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/engines_overheating.mp4'>engines_overheating.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/forward_scans.ogv'>forward_scans.ogv</option>
-	    <option value='/packages/card-viewscreen/movies/lifeform.mp4'>lifeform.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/low_power.mp4'>low_power.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/proximity_alert.mp4'>proximity_alert.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/radiation.mp4'>radiation.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/red_alert.ogv'>red_alert.ogv</option>
-	    <option value='/packages/card-viewscreen/movies/sattelite.mp4'>sattelite.mov</option>
-	    <option value='/packages/card-viewscreen/movies/scanning.mp4'>scanning.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/tactical_failure.mp4'>tactical_failure.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/transmission.mp4'>transmission.mp4</option>
-	    <option value='/packages/card-viewscreen/movies/yellow_alert.ogv'>yellow_alert.ogv</option>
+	    
 	</select>
 	<input type="button" id="addCurve" value="Add Curve">
-	<div class="radioClass">
-        <label><input type="radio" name="radioBtns" placeholder="Sandbox" class="attentionColor screenPicker" {{isChecked "Sandbox"}}>Sandbox</label>
-        <label><input type="radio" name="radioBtns" placeholder="Tactical" class="attentionColor screenPicker" {{isChecked "Tactical"}}>Tactical</label>
-    </div>
+	<input type="button" id="addLabel" value="Add Label">
+	<input type="button" id="clearAll" value="Clear All">
 <div id="curveControls" class="hidden">
-	<a href="#" class="colorpicker" id="contactColor">Curve Color</a>
+	<a href="#" class="colorpicker" id="curveColor">Curve Color</a>
+	<label><input type="checkbox" id="curveArrow" name="curveArrow"  class="attentionColor">Arrow</label>
 </div>
-<div id="symbolControls">
+<div id="labelControls" class="hidden">
+	<select id="LabelFunction">
+		<option value="normal">Normal</option>
+		<option value="typeOn">Type On</option>
+		<option value="countdown">Countdown</option>
+	</select>
+	<label><input type="checkbox" id="labelFlashing" name="labelFlashing" value="Label Flashing" class="attentionColor">Flashing</label>
+	<a href="#" class="hidden colorpicker" id="flashColor">Flash Color</a>
+	<select id="LabelFont">
+		<option value="helvetica">Helvetica</option>
+		<option value="Gill Sans">Gill Sans</option>
+		<option value="Gamecuben">GameCuben</option>
+		<option value="Steelfish">Steelfish</option>
+	</select>
+	<a href="#" class="colorpicker" id="labelColor">Label Color</a>
+	<div id="fontSize"></div>
+	<textarea id="labelContent"></textarea>
+</div>
+
+<div id="symbolControls" class="hidden">
 	<div id="symbolSize"></div>
 	<!--<div id="symbolRotation"></div>-->
 	<a href="#" class="colorpicker" id="contactColor">Symbol Color</a>
-	<div class="manualMove">
+	<div class="manualMove hidden">
 		<label><input type="radio" id="manualMove1" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (WASD/EQ)</label>
 		<label><input type="radio" id="manualMove2" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (IJKL/OU)</label>
 	</div>
 </div>
+
 <div id="timelineControls" class="hidden"> 
 <div id="slider"></div>
 <div>

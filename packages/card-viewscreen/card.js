@@ -257,10 +257,6 @@ Template.card_viewscreen.destroyed = function () {
                 end: {x:curve.end.attrs.x, y:curve.end.attrs.y}
             };
             console.log(updateObj);
-           /* if (x < 0 || x > 720 || y < 0 || y > 315) {
-              Flint.collection('tacticalContacts').remove(id);
-              Session.set('selectedSymbol', '');
-            } else {*/
                 Flint.collection('tacticalContacts').update(id, {
                 $set: updateObj
             });
@@ -989,18 +985,25 @@ Template.Tactical.rendered = function (){
           }
         },
         removed: function(id) {
-        fields['type']= Flint.collection('tacticalContacts').findOne({_id: id}).type;
-          // console.log("Removed", id);
-        if (fields['type'] === 'contact'){
+                  // console.log("Removed", id);
+        if (contactsArray.hasOwnProperty(id)){
           contactsArray[id].contact.remove();
           delete contactsArray[id];
           contactsLayer.draw();
         }
-          if (fields['type'] === 'bezier'){
-            if (bezier[id]){
-                console.log('deleted');
+        if (bezier.hasOwnProperty(id)){
+                 bezier[id].start.remove();
+                bezier[id].control1.remove();
+                bezier[id].control2.remove();
+                bezier[id].end.remove();
+                bezier[id].curveLine.remove();
+                bezier[id].bezierLine.remove();
+                bezier[id].arrow.remove();  
+                delete bezier[id];
+                curveLayer.draw();
+                anchorLayer.draw();
+                lineLayer.draw();     
             }
-        }
         }
       });
 
