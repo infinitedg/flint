@@ -1,3 +1,7 @@
 <template name="card_security_decks">
+<<<<<<< HEAD
 	<img src="{{asset "img/outline.png"}}">
+=======
+<h1>{{t "Hello"}}</h1>
+>>>>>>> localization
 </template>

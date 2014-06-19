@@ -85,8 +85,8 @@
       },
       "kadira": {
         "git": "https://github.com/meteorhacks/kadira.git",
-        "tag": "v2.1.5",
-        "commit": "1d33f51a7228fc430fb1823276fcfeeb6f251255"
+        "tag": "v2.4.0",
+        "commit": "18ac6e2b054f891560063427bfa36c817e585567"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",

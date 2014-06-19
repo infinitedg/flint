@@ -11,7 +11,11 @@
                 <label class="control-label">{{ t "Name" }}</label>
                 <input type="text" class="loginname login-input form-control {{alertLevel}}"/>
             </div>
-            <button class="enderBtn {{alertLevel}} btn-login">{{t "Login" }}</button>
+<<<<<<< HEAD
+            <button class="enderBtn {{alertLevel}} btn-login">Login</button>
+=======
+            <a href="#" class="enderBtn {{alertLevel}} btn-login">{{t "Login" }}</a>
+>>>>>>> localization
       {{/if}}
   </div>
 </template>
