@@ -1,31 +1,57 @@
 <template name="card_tacControl">
-  <div id="tacControl">
+	<div id="upLeftView">{{> tacticalPreview}}</div>
+	<div id="lowerLeftView">{{> tactical_controls}}</div>
+	<div id="upRightView">{{> tacticalScreen}}</div>
+	<div id="lowerRightView">{{> animationControls}}</div>
+</template>
 
-  </div>
+<template name="tacticalPreview">
+  <div id="tacPreview"></div>
+</template>
+
+<template name="tacticalScreen">
+	<div id="tacScreen"></div>
+</template>
+
+<template name="animationControls">
+	<div id="stateList"></div>
+	<div id="actionList"></div>
+	<div id="actionControls">
+		<label>Delay</label>
+		<label>Duration</label>
+		
+	</div>
+</template>
+
+  <template name="tactical_controls">
 	<select id="screenSelect">
 	  <option value="Sandbox">Sandbox</option>
 	  <option value="Tactical">Tactical</option>
 	  <option value="Video">Video</option>
 	  <option value="Communications">Communications</option>
 	</select>
-	<select id="videoSelect">
-	    
-	</select>
 	<input type="button" id="addCurve" value="Add Curve">
 	<input type="button" id="addLabel" value="Add Label">
 	<input type="button" id="clearAll" value="Clear All">
+	<input type="button" id="updateViewscreen" value="Update Viewscreen">
+	<div id="videoControls" class="hidden">
+	<select id="videoSelect">
+	    
+	</select>
+	</div>
 <div id="curveControls" class="hidden">
 	<a href="#" class="colorpicker" id="curveColor">Curve Color</a>
 	<label><input type="checkbox" id="curveArrow" name="curveArrow"  class="attentionColor">Arrow</label>
 </div>
-<div id="labelControls" class="hidden">
-	<select id="LabelFunction">
+<div id="labelControls" class="">
+	<select id="LabelFunction" class="hidden">
 		<option value="normal">Normal</option>
 		<option value="typeOn">Type On</option>
 		<option value="countdown">Countdown</option>
 	</select>
-	<label><input type="checkbox" id="labelFlashing" name="labelFlashing" value="Label Flashing" class="attentionColor">Flashing</label>
+	<label class="hidden"><input type="checkbox" id="labelFlashing"  name="labelFlashing" value="Label Flashing" class="attentionColor">Flashing</label>
 	<a href="#" class="hidden colorpicker" id="flashColor">Flash Color</a>
+		<textarea id="labelContent"></textarea>
 	<select id="LabelFont">
 		<option value="helvetica">Helvetica</option>
 		<option value="Gill Sans">Gill Sans</option>
@@ -34,10 +60,10 @@
 	</select>
 	<a href="#" class="colorpicker" id="labelColor">Label Color</a>
 	<div id="fontSize"></div>
-	<textarea id="labelContent"></textarea>
 </div>
 
-<div id="symbolControls" class="hidden">
+
+<div id="symbolControls" class="">
 	<div id="symbolSize"></div>
 	<!--<div id="symbolRotation"></div>-->
 	<a href="#" class="colorpicker" id="contactColor">Symbol Color</a>
@@ -45,23 +71,5 @@
 		<label><input type="radio" id="manualMove1" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (WASD/EQ)</label>
 		<label><input type="radio" id="manualMove2" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (IJKL/OU)</label>
 	</div>
-</div>
-
-<div id="timelineControls" class="hidden"> 
-<div id="slider"></div>
-<div>
-<input type="button" id="addKeyframe" value="Add Keyframe">
-<input type="button" id="playBtn" value="play()">
-<input type="button" id="pauseBtn" value="pause()">
-<input type="button" id="resumeBtn" value="resume()">
-<input type="button" id="reverseBtn" value="reverse()">
-<input type="button" id="playFromBtn" value="play(1)">
-<input type="button" id="reverseFromBtn" value="reverse(1)">
-<input type="button" id="seekBtn" value="seek(1.5)"><br/>
-<input type="button" id="timeScaleSlowBtn" value="timeScale(0.5)">
-<input type="button" id="timeScaleNormalBtn" value="timeScale(1)">
-<input type="button" id="timeScaleFastBtn" value="timeScale(2)">
-<input type="button" id="restartBtn" value="restart()">
-</div>
 </div>
 </template>

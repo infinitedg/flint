@@ -1,20 +1,20 @@
-var stage, symbolsLayer, contactsLayer, ghostLayer;
-var backBox;
-var curveLayer, lineLayer, anchorLayer, quad, bezier = {};
-var ULLoc = '',
-    URLoc = '',
-    BLLoc = '',
-    BRLoc = '';
+stage, symbolsLayer, contactsLayer, ghostLayer;
+backBox;
+curveLayer, lineLayer, anchorLayer, bezier = {};
+ULLoc = '',
+URLoc = '',
+BLLoc = '',
+BRLoc = '';
 window.currentDimensions = {
     x: 'x',
     y: 'y',
     flippedX: 1,
     flippedY: 1
 };
-var k = {
+k = {
     width: 250,
     height: 250,
-    scale: 0.3, // Used to determine the sizing of contacts
+    scale: 0.4, // Used to determine the sizing of contacts
     strokeWidth: 2,
     color: "00ff00",
     filter: {
@@ -23,6 +23,43 @@ var k = {
         blue: 0
     },
     spritePath: '/packages/card-sensorGrid/sprites/'
+};
+ armyArray = {};
+ contactsArray = {};
+ labelsArray = {};
+k.center = {
+    x: k.width / 2,
+    y: k.height / 2
+};
+k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
+
+Template.card_tacControl.dynamicTemplateUL = function () {
+    if (!Flint.simulator().tacScreenUL) {
+        return null;
+    } else {
+        return Template[Flint.simulator().tacScreenUL];
+    }
+};
+Template.card_tacControl.dynamicTemplateBL = function () {
+    if (!Flint.simulator().tacScreenBL) {
+        return null;
+    } else {
+        return Template[Flint.simulator().tacScreenBL];
+    }
+};
+Template.card_tacControl.dynamicTemplateBR = function () {
+    if (!Flint.simulator().tacScreenBR) {
+        return null;
+    } else {
+        return Template[Flint.simulator().tacScreenBR];
+    }
+};
+Template.card_tacControl.dynamicTemplateUR = function () {
+    if (!Flint.simulator().tacScreenUR) {
+        return null;
+    } else {
+        return Template[Flint.simulator().tacScreenUR];
+    }
 };
 
 function transformX(x) {
@@ -35,8 +72,8 @@ function transformY(y) {
     return y;
 }
 
-function resetLocs() {
-    if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))){
+resetLocs = function() {
+    if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {
         var target = contactsArray[Session.get('selectedSymbol')].contact;
         URLoc.setX(target.attrs.x + target.attrs.width - 10);
         URLoc.setY(target.attrs.y - 9);
@@ -58,19 +95,16 @@ function resetLocs() {
         BLLoc.setY(target.attrs.y + target.getHeight() + 9);
     }
 }
-var armyArray = {};
-var contactsArray = {};
-var labelsArray = {};
-k.center = {
-    x: k.width / 2,
-    y: k.height / 2
+
+
+//
+Template.tacticalScreen.stage = function (e) {
+    return stage;
 };
-k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
 
-function addKeyframe() {}
-
-function symbolControls(e) {
-    $('#symbolSize').slider({
+Template.card_tacControl.destroyed = function (e) {};
+Template.tactical_controls.rendered = function (e) {
+$('#symbolSize').slider({
         range: true,
         tooltip: false,
         value: 100,
@@ -78,584 +112,70 @@ function symbolControls(e) {
         max: 1000,
         step: 1
     });
-    /* $('#symbolRotation').slider({
-range: true,
-tooltip: false,
-value: 100,
-min: 0,
-max: 360,
-step: 1
-});*/
-}
-
-function timelineControls(e) {
-    var playBtn = $("#playBtn"),
-        pauseBtn = $("#pauseBtn"),
-        resumeBtn = $("#resumeBtn"),
-        reverseBtn = $("#reverseBtn"),
-        playFromBtn = $("#playFromBtn"),
-        reverseFromBtn = $("#reverseFromBtn"),
-        seekBtn = $("#seekBtn"),
-        timeScaleSlowBtn = $("#timeScaleSlowBtn"),
-        timeScaleNormalBtn = $("#timeScaleNormalBtn"),
-        timeScaleFastBtn = $("#timeScaleFastBtn"),
-        restartBtn = $("#restartBtn"),
-        tl = new TimelineLite({
-            onUpdate: updateSlider
-        });
-    $("#slider").slider({
+    $('#fontSize').slider({
         range: true,
-        tooltip: false,
-        value: 0,
-        min: 0,
-        max: 100,
-        step: 0.1,
-        slide: function (event, ui) {
-            tl.progress(ui.value / 100).pause();
-        }
+        tooltip: true,
+        value: 18,
+        min: 6,
+        max: 144,
+        step: 2
     });
-
-    function updateSlider() {
-        $("#slider").slider("value", tl.progress() * 100);
-    }
-}
-
-// Bezier
-
-    bezierFunc = function (t, p0, p1, p2, p3) {
-        var cX = 3 * (p1.x - p0.x),
-            bX = 3 * (p2.x - p1.x) - cX,
-            aX = p3.x - p0.x - cX - bX;
-
-        var cY = 3 * (p1.y - p0.y),
-            bY = 3 * (p2.y - p1.y) - cY,
-            aY = p3.y - p0.y - cY - bY;
-
-        var x = (aX * Math.pow(t, 3)) + (bX * Math.pow(t, 2)) + (cX * t) + p0.x;
-        var y = (aY * Math.pow(t, 3)) + (bY * Math.pow(t, 2)) + (cY * t) + p0.y;
-
-        return {
-            x: x,
-            y: y
-        };
-    };
-
-    function updateDottedLines() {
-        for (var curveid in bezier) {
-            var b = bezier[curveid];
-            var bezierLine = b.bezierLine;
-            bezierLine.setPoints([b.start.attrs.x, b.start.attrs.y, b.control1.attrs.x, b.control1.attrs.y, b.control2.attrs.x, b.control2.attrs.y, b.end.attrs.x, b.end.attrs.y]);
-        }
-        // }; 
-        lineLayer.draw();
-    }
-
-    drawCurves = function () {
-        for (var curveid in bezier) {
-            var curve = bezier[curveid];
-            var accuracy = 0.01, //this'll give the bezier 100 segments
-                p0 = {
-                    x: curve.start.attrs.x,
-                    y: curve.start.attrs.y
-                },
-                p1 = {
-                    x: curve.control1.attrs.x,
-                    y: curve.control1.attrs.y
-                },
-                p2 = {
-                    x: curve.control2.attrs.x,
-                    y: curve.control2.attrs.y
-                },
-                p3 = {
-                    x: curve.end.attrs.x,
-                    y: curve.end.attrs.y
-                },
-                linePoints = [];
-
-            for (var i = 0; i < 1; i += accuracy) {
-                var p = bezierFunc(i, p0, p1, p2, p3);
-                linePoints.push(p.x);
-                linePoints.push(p.y);
-            }
-            curve.curveLine.attrs.points = linePoints;
-
-            var headlen = 13; // length of head in pixels
-            var angle = Math.atan2(curve.end.attrs.y - curve.control2.attrs.y, curve.end.attrs.x - curve.control2.attrs.x);
-            var ax = curve.end.attrs.x - headlen * Math.cos(angle - Math.PI / 6);
-            var ay = curve.end.attrs.y - headlen * Math.sin(angle - Math.PI / 6);
-            var arrowPoints = [curve.end.attrs.x, curve.end.attrs.y, curve.end.attrs.x - headlen * Math.cos(angle + Math.PI / 6), curve.end.attrs.y - headlen * Math.sin(angle + Math.PI / 6), ax, ay];
-            curve.arrow.attrs.points = arrowPoints;
-        }
-        curveLayer.draw();
-
-    };
-
-    function buildBezierLine() {
-        var bezierLine = new Kinetic.Line({
-            dashArray: [10, 10, 0, 10],
-            strokeWidth: 3,
-            stroke: 'gray',
-            lineCap: 'round',
-            id: 'bezierLine',
-            opacity: 0.3,
-            points: [0, 0]
-        });
-
-        lineLayer.add(bezierLine);
-        return bezierLine;
-    }
-
-
-    function buildAnchor(x, y, id) {
-        var anchor = new Kinetic.Circle({
-            x: x,
-            y: y,
-            radius: 5,
-            stroke: '#666',
-            fill: '#ddd',
-            strokeWidth: 1,
-            draggable: true,
-            parentid: id,
-            opacity: 0.5
-        });
-
-        // add hover styling
-        anchor.on('mouseover', function () {
-            document.body.style.cursor = 'pointer';
-            this.setStrokeWidth(4);
-            anchorLayer.draw();
-        });
-        anchor.on('mouseout', function () {
-            document.body.style.cursor = 'default';
-            this.setStrokeWidth(2);
-            anchorLayer.draw();
-
-        });
-        anchor.on('dragstart', function () {
-            Session.set('selectedSymbol', id);
-        });
-        anchor.on('dragend', function () {
-            drawCurves();
-            updateDottedLines();
-            var curve = bezier[this.attrs.parentid];
-            var updateObj = {
-                start: {
-                    x: curve.start.attrs.x,
-                    y: curve.start.attrs.y
-                },
-                control1: {
-                    x: curve.control1.attrs.x,
-                    y: curve.control1.attrs.y
-                },
-                control2: {
-                    x: curve.control2.attrs.x,
-                    y: curve.control2.attrs.y
-                },
-                end: {
-                    x: curve.end.attrs.x,
-                    y: curve.end.attrs.y
-                }
-            };
-            var removeBezier = false;
-            for (var part in updateObj) {
-                var position = updateObj[part];
-                if (position.x > 660 && position.x < 720 && position.y > 305 && position.y < 380) {
-                    removeBezier = true;
-                    console.log('In Trash');
-                }
-            }
-            if (removeBezier) {
-                Flint.collection('tacticalContacts').remove(id);
-                Session.set('selectedSymbol', '');
-            } else {
-                Flint.collection('tacticalContacts').update(id, {
-                    $set: updateObj
-                });
-            }
-            /*}*/
-        });
-
-        anchorLayer.add(anchor);
-        return anchor;
-    }
-
-    function buildArrow(options) {
-        var headlen = 13; // length of head in pixels
-        var angle = Math.atan2(options.end.y - options.control2.y, options.end.x - options.control2.x);
-
-        var ax = options.end.x - headlen * Math.cos(angle - Math.PI / 6);
-        var ay = options.end.y - headlen * Math.sin(angle - Math.PI / 6);
-        var arrowPoints = [options.end.x, options.end.y, options.end.x - headlen * Math.cos(angle + Math.PI / 6), options.end.y - headlen * Math.sin(angle + Math.PI / 6), ax, ay];
-
-        var lineArrow = new Kinetic.Line({
-            points: arrowPoints,
-            stroke: options.color,
-            fill: options.color,
-            strokeWidth: 5,
-            lineCap: 'round',
-            lineJoin: 'round',
-            closed: true
-        });
-        if (!options.hasArrow) {
-            lineArrow.attrs.opacity = 0;
-        }
-        curveLayer.add(lineArrow);
-        return lineArrow;
-    }
-
-    // add dotted line connectors
-    var addBezier = function (id, options) {
-
-        var curveLine = new Kinetic.Line({
-            //points: linePoints,
-            stroke: options.color,
-            strokeWidth: 5,
-            lineCap: 'round',
-            lineJoin: 'round',
-            draggable: false
-        });
-
-        // add hover styling
-        curveLine.on('mouseover', function () {
-            document.body.style.cursor = 'pointer';
-            this.setStrokeWidth(6);
-            anchorLayer.draw();
-        });
-        curveLine.on('mouseout', function () {
-            document.body.style.cursor = 'default';
-            this.setStrokeWidth(5);
-            anchorLayer.draw();
-
-        });
-
-        curveLine.on('dragend', function () {
-            drawCurves();
-            updateDottedLines();
-        });
-
-        curveLayer.add(curveLine);
-
-        var newBezier = {
-
-            start: buildAnchor(options.start.x, options.start.y, id),
-            control1: buildAnchor(options.control1.x, options.control1.y, id),
-            control2: buildAnchor(options.control2.x, options.control2.y, id),
-            end: buildAnchor(options.end.x, options.end.y, id),
-            bezierLine: buildBezierLine(),
-            arrow: buildArrow(options),
-            curveLine: curveLine
-        };
-
-
-        bezier[id] = newBezier;
-        drawCurves();
-        updateDottedLines();
-        anchorLayer.draw();
-    };
-
-    function updateBezier(id, options) {
-        curve = bezier[id];
-        if (options.start !== undefined) {
-            curve.start.attrs.x = options.start.x;
-            curve.start.attrs.y = options.start.y;
-        }
-        if (options.control1 !== undefined) {
-            curve.control1.attrs.x = options.control1.x;
-            curve.control1.attrs.y = options.control1.y;
-        }
-        if (options.control2 !== undefined) {
-            curve.control2.attrs.x = options.control2.x;
-            curve.control2.attrs.y = options.control2.y;
-        }
-        if (options.end !== undefined) {
-            curve.end.attrs.x = options.end.x;
-            curve.end.attrs.y = options.end.y;
-        }
-        if (options.color !== undefined) {
-            curve.curveLine.attrs.stroke = options.color;
-            curve.arrow.attrs.stroke = options.color;
-            curve.arrow.attrs.fill = options.color;
-        }
-        if (options.hasArrow !== undefined) {
-            if (options.hasArrow === true) {
-                curve.arrow.attrs.opacity = 1;
-            } else {
-                curve.arrow.attrs.opaticy = 0;
-            }
-        }
-        drawCurves();
-        updateDottedLines();
-        anchorLayer.draw();
-    }
-//
-Template.card_tacControl.stage = function (e) {
-    return stage;
-};
-Template.card_tacControl.events = {
-    'click body': function (e, context) {
-        Session.set('selectedSymbol', '');
-    },
-    'click #clearAll': function(e, context){
-        Session.set('selectedSymbol','');
-        for (var id in contactsArray){
-            Flint.collection('tacticalContacts').remove(id);
-        }
-        for (var id in bezier){
-            Flint.collection('tacticalContacts').remove(id);
-        }
-        for (var id in labelsArray){
-            Flint.collection('tacticalContacts').remove(id);
-        }
-    },
-        'click .screenPicker': function (e, context) {
-        var target = $(e.target);
-        Flint.simulators.update(Flint.simulatorId(), {
-            $set: {
-                currentScreen: target.attr('placeholder')
-            }
-        });
-        e.preventDefault();
-    },
-        'change #screenSelect': function (e, context) {
-        var target = e.target.value;
-        Flint.simulators.update(Flint.simulatorId(), {
-            $set: {
-                currentScreen: target
-            }
-        });
-        e.preventDefault();
-    },
-        'change #videoSelect': function (e, context) {
-        var target = e.target.value;
-        Flint.simulators.update(Flint.simulatorId(), {
-            $set: {
-                tacticalVideo: target
-            }
-        });
-        e.preventDefault();
-    },
-            /*'slide #symbolRotation': function(e, context){
-        var value = (e.value);
-        var target = contactsArray[Session.get('selectedSymbol')].contact;
-        var xVal = target.attrs.x;
-        var yVal = target.attrs.y;
-        target.offset({x: target.attrs.width/2, y:target.attrs.height/2});
-        //target.setPosition(stage.getWidth()/2,stage.getHeight()/2);
-        target.clearCache();
-        target.rotation(value);
-        target.offset({x:0, y:0});
-        contactsLayer.draw();
-        },*/
-        'slideStop #symbolSize': function (e, context) {
-        var updateObj = {};
-        var id = Session.get('selectedSymbol');
-        var target = contactsArray[Session.get('selectedSymbol')].contact;
-        updateObj['width'] = target.attrs.width;
-        updateObj['height'] = target.attrs.height;
-        Flint.collection('tacticalContacts').update(id, {
-            $set: updateObj
-        });
-    },
-        'slide #symbolSize': function (e, context) {
-        var value = (e.value) / 4;
-        var target = contactsArray[Session.get('selectedSymbol')].contact;
-        var aspect = target.attrs.image.height / target.attrs.image.width;
-        target.clearCache();
-        target.attrs.width = value;
-        target.attrs.height = value * aspect;
-        target.cache();
-        resetLocs();
-        contactsLayer.draw();
-        var updateObj = {};
-        var id = Session.get('selectedSymbol');
-        updateObj['width'] = target.attrs.width;
-        updateObj['height'] = target.attrs.height;
-        Flint.collection('tacticalContacts').update(id, {
-            $set: updateObj
-        });
-    },
-        'click .manualMove': function (e, context) {
-        var target = e.target;
-        if (target.id == 'manualMove1') {
-            if (Session.get('manualMoveIJKL') == Session.get('selectedSymbol')) {
-                Session.set('manualMoveIJKL', '');
-            }
-            Session.set('manualMoveWASD', Session.get('selectedSymbol'));
-        } else if (target.id == 'manualMove2') {
-            if (Session.get('manualMoveWASD') == Session.get('selectedSymbol')) {
-                Session.set('manualMoveWASD', '');
-            }
-            Session.set('manualMoveIJKL', Session.get('selectedSymbol'));
-        }
-    },
-        'hidePicker #contactColor': function (e, context) {
-        var colors = e.color.toRGB();
-        var updateObj = {};
-        var id = Session.get('selectedSymbol');
-        updateObj['red'] = colors.r;
-        updateObj['green'] = colors.g;
-        updateObj['blue'] = colors.b;
-        Flint.collection('tacticalContacts').update(id, {
-            $set: updateObj
-        });
-    },
-    'click #curveArrow': function(e, context) {
-        var updateObj = {};
-        var id = Session.get('selectedSymbol');
-        if (e.target.checked){
-            updateObj['hasArrow'] = true;
-        } else {
-            updateObj['hasArrow'] = false;
-        }
-        Flint.collection('tacticalContacts').update(id, {
-            $set: updateObj
-        });
-    },
-    'hidePicker #curveColor': function (e, context) {
-        var colors = e.color.toHex();
-        var updateObj = {};
-        var id = Session.get('selectedSymbol');
-        updateObj['color'] = colors;
-        Flint.collection('tacticalContacts').update(id, {
-            $set: updateObj
-        });
-    },
-    'hidePicker #labelColor': function (e, context) {
-        var colors = e.color.toHex();
-        var updateObj = {};
-        var id = Session.get('selectedSymbol');
-        updateObj['fill'] = colors;
-        Flint.collection('tacticalContacts').update(id, {
-            $set: updateObj
-        });
-    },
-        'change #LabelFont': function (e, context) {
-            var updateObj = {};
-            var id = Session.get('selectedSymbol');
-            updateObj['fontFamily'] = e.target.value;
-            Flint.collection('tacticalContacts').update(id, {
-                $set: updateObj
-            });
-    },
-    'change #LabelFunction': function (e, context) {
-            var updateObj = {};
-            var id = Session.get('selectedSymbol');
-            updateObj['labelFunction'] = e.target.value;
-            Flint.collection('tacticalContacts').update(id, {
-                $set: updateObj
-            });
-    },
-    'keyup #labelContent': function (e, context){
-            var updateObj = {};
-            var id = Session.get('selectedSymbol');
-            updateObj['text'] = e.target.value;
-            Flint.collection('tacticalContacts').update(id, {
-                $set: updateObj
-            });
-    },
-        'click #addCurve': function (e, context) {
-        var updateObj = {
-            type: 'bezier',
-            selected: false,
-            isVisible: true,
-            start: {
-                x: 100,
-                y: 100
-            },
-            control1: {
-                x: 150,
-                y: 125
-            },
-            control2: {
-                x: 175,
-                y: 200
-            },
-            end: {
-                x: 150,
-                y: 150
-            },
-            color: "#00ff00",
-            hasArrow: true,
-            simulatorId: Flint.simulatorId()
-        };
-
-        Flint.collection('tacticalContacts').insert(updateObj);
-    },
-        'click #addLabel': function (e,context){
-            var updateObj = {
-                type: 'label',
-                labelFunction: 'normal',
-                x: 100,
-                y: 60,
-                text: 'LABEL',
-                fontSize: 18,
-                fontFamily: 'Gamecuben',
-                fill: '#fff',
-                align: 'center',
-                simulatorId: Flint.simulatorId()
-            };
-            Flint.collection('tacticalContacts').insert(updateObj);
-    },
-    'click #playBtn': function (e, context) {
-            //Play the tween forward from the current position.
-            //If tween is complete, play() will have no effect
-            tl.play();
-            },
-                'click pauseBtn': function (e, context) {
-                tl.pause();
-            },
-                'click resumeBtn': function (e, context) {
-                //Resume playback in current direction.
-                tl.resume();
-            },
-                'click reverseBtn': function (e, context) {
-                tl.reverse();
-            },
-                'click playFromBtn': function (e, context) {
-                //Play from a sepcified time (in seconds).
-                tl.play(1);
-            },
-                'click reverseFromBtn': function (e, context) {
-                //Reverse from a specified time (in seconds).
-                tl.reverse(1);
-            },
-                'click seekBtn': function (e, context) {
-                //Jump to specificied time (in seconds) without affecting
-                //whether or not the tween is paused or reversed.
-                tl.seek(1.5);
-            },
-                'click timeScaleSlowBtn': function (e, context) {
-                //timescale of 0.5 will make the tween play at half-speed (slower).
-                //Tween will take 12 seconds to complete (normal duration is 6 seconds).
-                tl.timeScale(0.5);
-            },
-                'click timeScaleNormalBtn': function (e, context) {
-                //timescale of 1 will make tween play at normal speed.
-                tl.timeScale(1);
-            },
-                'click timeScaleFastBtn': function (e, context) {
-                //timescale of 1 will make the tween play at double-speed (faster).
-                //Tween will take 3 seconds to complete (normal duration is 6 seconds).
-                tl.timeScale(2);
-            },
-                'click restartBtn': function (e, context) {
-                //Start playing from a progress of 0.
-                tl.restart();
-            }
-};
-/*Template.card_tacControl.isChecked = function(which){
-var a = Flint.simulator().currentScreen;
-if (which == a){
-return 'checked';
-} else {
-return '';
-}
-};*/
-Template.card_tacControl.destroyed = function (e) {};
-Template.card_tacControl.rendered = function (e) {
-    timelineControls();
-    symbolControls();
+    $('#symbolControls').addClass('hidden');
+    $('#labelControls').addClass('hidden');
     $('.colorpicker').colorpicker();
+};
+Template.tacticalScreen.rendered = function(e) {
+    screenStage = new Kinetic.Stage({
+        container: 'tacScreen',
+        width: 720,
+        height: 380
+    });
+    screenAnchorLayer = new Kinetic.Layer();
+    screenLineLayer = new Kinetic.Layer();
+    screenCurveLayer = new Kinetic.Layer();
+    screenContactsLayer = new Kinetic.Layer();
+    screenGridLayer = new Kinetic.Layer();
+
+backBox = new Kinetic.Rect({
+        x: 1,
+        y: 1,
+        width: 718,
+        height: 313,
+        fill: 'black',
+        stroke: 'green'
+    });
+    screenGridLayer.add(backBox);
+    backBox.on('mousedown', function (e) {
+        Session.set('selectedSymbol', '');
+    });
+    for (i = 1; i < 24; i++) {
+        var line = new Kinetic.Line({
+            points: [i * 60, 0, i * 60, 315],
+            dash: [10, 5],
+            fill: 'green',
+            stroke: 'green',
+            strokeWidth: 1
+        });
+        screenGridLayer.add(line);
+    }
+    for (i = 1; i < 5; i++) {
+        var line = new Kinetic.Line({
+            points: [0, i * 60, 720, i * 60],
+            dash: [10, 5],
+            fill: 'green',
+            stroke: 'green',
+            strokeWidth: 1
+        });
+        screenGridLayer.add(line);
+    }    
+    screenStage.add(screenGridLayer);
+    screenStage.add(screenSymbolsLayer);
+    screenStage.add(screenLineLayer);
+    screenStage.add(screenCurveLayer);
+    screenStage.add(screenAnchorLayer);
+    screenStage.add(screenContactsLayer); // Uppermost layer
+};
+Template.tacticalPreview.rendered = function (e) {
     $(window).on('keydown', function (e) {
         if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {
             var id = Session.get('selectedSymbol');
@@ -691,7 +211,7 @@ Template.card_tacControl.rendered = function (e) {
     });
     Session.set('selectedSymbol', '');
     stage = new Kinetic.Stage({
-        container: 'tacControl',
+        container: 'tacPreview',
         width: 720,
         height: 380
     });
@@ -819,7 +339,7 @@ Template.card_tacControl.rendered = function (e) {
                 $('#curveControls').removeClass('hidden');
                 $('#labelControls').addClass('hidden');
             }
-            if (labelsArray.hasOwnProperty(Session.get('selectedSymbol'))){
+            if (labelsArray.hasOwnProperty(Session.get('selectedSymbol'))) {
                 $('#symbolControls').addClass('hidden');
                 $('#curveControls').addClass('hidden');
                 $('#labelControls').removeClass('hidden');
@@ -828,6 +348,9 @@ Template.card_tacControl.rendered = function (e) {
                 ULLoc.opacity = 1;
                 BRLoc.opacity = 1;
                 BLLoc.opacity = 1;
+                var target = labelsArray[Session.get('selectedSymbol')];
+                $('#labelContent').text(target.text());
+
             }
         } else if (URLoc) {
             $('#symbolControls').addClass('hidden');
@@ -877,10 +400,23 @@ Template.card_tacControl.rendered = function (e) {
         });
         gridLayer.add(line);
     }
-    this.tacSymbolsObserver = Flint.collection('tacSymbols').find().observe({
+    var sel = {};
+    sel.parentObject = Flint.collection('flintAssets').findOne({
+        fullPath: '/Tactical Contacts'
+    })._id;
+    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+
+    this.tacSymbolsObserver = tacSymbolAssets.observe({
         addedAt: function (doc, atIndex) {
             var id = doc._id;
-            // console.log("Added", id, doc);
+            var a = doc;
+            if (a.defaultObject) {
+                var f = Flint.FS.collection('flintAssets').findOne(a.defaultObject);
+                if (f) {
+                    a.defaultUrl = f.url();
+                }
+            }
+
             if (!armyArray[id]) {
                 armyArray[id] = {};
                 // Draggable Contact
@@ -891,7 +427,7 @@ Template.card_tacControl.rendered = function (e) {
                         y: (315 + 50 * k.scale / 2),
                         image: contactObj,
                         width: 50 * k.scale,
-                        height: 50 * k.scale,
+                        height: (contactObj.height / contactObj.width) * 50 * k.scale,
                         draggable: true,
                         red: 242,
                         green: 174,
@@ -910,7 +446,7 @@ Template.card_tacControl.rendered = function (e) {
                             height = this.attrs.image.height,
                             d = true;
                         if (d) { // Only drop the contact if we are within 120% of the grid's radius
-                            var updateObj = _.extend(cTmpl, {
+                            var updateObj = {
                                 red: 0,
                                 green: 255,
                                 blue: 0,
@@ -918,8 +454,10 @@ Template.card_tacControl.rendered = function (e) {
                                 isMoving: true,
                                 selected: true,
                                 isVisible: true,
-                                velocity: 0.05
-                            });
+                                velocity: 0.05,
+                                icon: a.defaultUrl,
+                                simulatorId: Flint.simulatorId()
+                            };
                             updateObj['X'] = x;
                             updateObj['Y'] = y;
                             updateObj['width'] = 50;
@@ -938,7 +476,7 @@ Template.card_tacControl.rendered = function (e) {
                     icon.draw();
                     armyArray[id].contact = icon;
                 };
-                contactObj.src = k.spritePath + doc.icon;
+                contactObj.src = a.defaultUrl; //k.spritePath + doc.icon;
             }
         },
         changedAt: function (id, fields) {
@@ -1006,30 +544,7 @@ Template.card_tacControl.rendered = function (e) {
                         contactsArray[id].contact = icon;
                         Session.set('selectedSymbol', id);
                     };
-                    contactObj.src = k.spritePath + doc.icon;
-                    // Ghost Contact
-                    /* var ghostObj = new Image();
-                    ghostObj.onload = function() {
-                    var icon = new Kinetic.Image({
-                    x: transformX(doc['X']),
-                    y: transformY(doc['Y']),
-                    image: ghostObj,
-                    width: 50,
-                    height: 50,
-                    opacity: 0.5,
-                    blurRadius: 2,
-                    red: k.filter.red,
-                    green: k.filter.green,
-                    blue: k.filter.blue
-                    });
-                    icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.Blur]);
-                    // add the shape to the layer
-                    ghostLayer.add(icon);
-                    icon.cache();
-                    icon.draw();
-                    contactsArray[id].ghost = icon;
-                    };
-                    ghostObj.src = k.spritePath + doc.icon;*/
+                    contactObj.src = doc.icon;
                 }
             }
             if (doc['type'] === 'bezier') {
@@ -1038,7 +553,7 @@ Template.card_tacControl.rendered = function (e) {
                 }
             }
             if (doc['type'] === 'label') {
-                if(!labelsArray[id]){
+                if (!labelsArray[id]) {
                     var label = new Kinetic.Text({
                         x: doc.x,
                         y: doc.y,
@@ -1053,14 +568,14 @@ Template.card_tacControl.rendered = function (e) {
                     label.on('mousedown', function (evt) {
                         Session.set('selectedSymbol', id);
                         contactsLayer.draw();
-                        });
+                    });
                     label.on('dragstart', function (evt) {
                         Session.set('selectedSymbol', id);
                         contactsLayer.draw();
                     });
                     label.on('dragmove', function (evt) {
-                            resetLocs();
-                        });
+                        resetLocs();
+                    });
                     label.on('dragend', function (evt) {
                         var x = this.getX(),
                             y = this.getY(),
@@ -1091,6 +606,7 @@ Template.card_tacControl.rendered = function (e) {
             }).type;
             // console.log("Changed", id, fields);
             if (fields['type'] === 'contact') {
+
                 var contact = contactsArray[id].contact;
                 if (contact) {
                     if (fields['X'] !== undefined) {
@@ -1117,20 +633,20 @@ Template.card_tacControl.rendered = function (e) {
                 var label = labelsArray[id];
                 if (fields['x'] !== undefined) {
                     label.setX(fields['x']);
-                 }
+                }
                 if (fields['y'] !== undefined) {
                     label.setY(fields['y']);
                 }
-                if (fields['text']){
+                if (fields['text']) {
                     label.text(fields['text']);
                 }
-                 if (fields['fontFamily']){
+                if (fields['fontFamily']) {
                     label.fontFamily(fields['fontFamily']);
                 }
-                 if (fields['fontSize']){
+                if (fields['fontSize']) {
                     label.fontSize(fields['fontSize']);
                 }
-                 if (fields['fill']){
+                if (fields['fill']) {
                     label.fill(fields['fill']);
                 }
                 resetLocs();
@@ -1157,7 +673,7 @@ Template.card_tacControl.rendered = function (e) {
                 anchorLayer.draw();
                 lineLayer.draw();
             }
-            if (labelsArray.hasOwnProperty(id)){
+            if (labelsArray.hasOwnProperty(id)) {
                 labelsArray[id].remove();
                 delete labelsArray[id];
                 contactsLayer.draw();
