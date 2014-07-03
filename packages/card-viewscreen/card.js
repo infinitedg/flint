@@ -232,37 +232,6 @@ Template.card_viewscreen.destroyed = function () {
           opacity: .5
         });
 
-        // add hover styling
-        anchor.on('mouseover', function() {
-          document.body.style.cursor = 'pointer';
-          this.setStrokeWidth(4);
-          anchorLayer.draw();
-        });
-        anchor.on('mouseout', function() {
-          document.body.style.cursor = 'default';
-          this.setStrokeWidth(2);
-          anchorLayer.draw();
-          
-        });
-
-        anchor.on('dragend', function() {
-          drawCurves();
-          updateDottedLines();
-        //debugger;
-          var curve = bezier[this.attrs.parentid];            
-          var updateObj = {
-                start: {x:curve.start.attrs.x, y:curve.start.attrs.y},
-                control1: {x:curve.control1.attrs.x, y:curve.control1.attrs.y},
-                control2: {x:curve.control2.attrs.x, y:curve.control2.attrs.y},
-                end: {x:curve.end.attrs.x, y:curve.end.attrs.y}
-            };
-            console.log(updateObj);
-                Flint.collection('tacticalContacts').update(id, {
-                $set: updateObj
-            });
-            /*}*/
-        });
-
         anchorLayer.add(anchor);
         return anchor;
       }
@@ -840,7 +809,7 @@ Template.Tactical.rendered = function (){
 
     var armyArray = {};
     var contactsArray = {};
-
+    var labelsArray = {};
     k.center = {
       x: k.width / 2,
       y: k.height / 2
@@ -909,10 +878,10 @@ Template.Tactical.rendered = function (){
 
           }
 
-    this.tacticalObserver = Flint.collection('tacticalContacts').find().observeChanges({
+    this.tacticalObserver = Flint.collection('tacticalScreenContacts').find().observeChanges({
         added: function(id, doc) {
           // console.log("Added", id, doc);
-          doc['type']= Flint.collection('tacticalContacts').findOne({_id: id}).type;
+          doc['type']= Flint.collection('tacticalScreenContacts').findOne({_id: id}).type;
         if (doc['type'] === 'contact'){
           if (!contactsArray[id]) {
             contactsArray[id] = {};
@@ -947,9 +916,28 @@ Template.Tactical.rendered = function (){
                 addBezier(id, doc);
             }
           }
+          if (doc['type'] === 'label') {
+                if(!labelsArray[id]){
+                    var label = new Kinetic.Text({
+                        x: doc.x*2,
+                        y: doc.y*2,
+                        text: doc.text,
+                        fontSize: doc.fontSize*2,
+                        fontFamily: doc.fontFamily,
+                        fill: doc.fill,
+                        align: doc.align,
+                        selected: true,
+                        draggable: true
+                    });
+                    labelsArray[id] = label;
+                    contactsLayer.add(label);
+                    Session.set('selectedSymbol', id);
+                    contactsLayer.draw();
+                }
+            }
         },
         changed: function(id, fields) {
-            fields['type']= Flint.collection('tacticalContacts').findOne({_id: id}).type;
+            fields['type']= Flint.collection('tacticalScreenContacts').findOne({_id: id}).type;
           // console.log("Changed", id, fields);
             if (fields['type'] === 'contact'){
               var contact = contactsArray[id].contact;
@@ -983,6 +971,28 @@ Template.Tactical.rendered = function (){
                 updateBezier(id, fields);
             }
           }
+          if (fields['type'] === 'label') {
+                var label = labelsArray[id];
+                if (fields['x'] !== undefined) {
+                    label.setX(fields['x']*2);
+                 }
+                if (fields['y'] !== undefined) {
+                    label.setY(fields['y']*2);
+                }
+                if (fields['text']){
+                    label.text(fields['text']);
+                }
+                 if (fields['fontFamily']){
+                    label.fontFamily(fields['fontFamily']);
+                }
+                 if (fields['fontSize']){
+                    label.fontSize(fields['fontSize']*2);
+                }
+                 if (fields['fill']){
+                    label.fill(fields['fill']);
+                }
+                contactsLayer.draw();
+            }
         },
         removed: function(id) {
                   // console.log("Removed", id);
@@ -1003,6 +1013,11 @@ Template.Tactical.rendered = function (){
                 curveLayer.draw();
                 anchorLayer.draw();
                 lineLayer.draw();     
+            }
+            if (labelsArray.hasOwnProperty(id)){
+                labelsArray[id].remove();
+                delete labelsArray[id];
+                contactsLayer.draw();
             }
         }
       });
