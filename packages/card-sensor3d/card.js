@@ -281,7 +281,7 @@ Template.card_sensor3d.rendered = function() {
 
 	this.sensorObserver = Flint.collection('sensorContacts').find().observe({
 		added: function(doc) {
-			var sprite = THREE.ImageUtils.loadTexture( "/packages/card-sensorGrid/sprites/" + doc.icon );
+			var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/' + doc.icon) );
 
 			var material = new THREE.SpriteMaterial( { map: sprite, useScreenCoordinates: false, color: 0x00ff00 } );
 

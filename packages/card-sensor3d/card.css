@@ -1,3 +1,24 @@
+#coreSensor3d{
+	background-color: #000;
+	height: 300px;
+}
+#coreSensor3d #sensorContacts{
+	float: left;
+	position: relative;
+}
+
+#coreSensor3d #sensorContacts .form-control{
+	height: 19px;
+	width: 120px;
+	background-color: #444444;
+	color: #fff;
+	border-color: #222222;
+	font-size: 12px;
+}
+#sensorGrid{
+	position: relative;
+	float: left;
+}
 .shown{opacity: 1 !important;}
 
 .sensorLabel{opacity:0;
@@ -5,4 +26,20 @@
 	position:absolute; 
 	font-size: 10px;
 	transition: opacity 0.5s ease;
+}
+#sensorContacts{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#sensorContacts li{
+	padding: 0;
+	margin: 0;
+}
+#sensorContacts li input{
+	float: right;
+}
+#sensorContacts li img{
+			float: left;
+
 }
