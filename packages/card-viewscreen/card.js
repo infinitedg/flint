@@ -7,7 +7,7 @@ var cameraZoom = 0;
 var planetMesh;
 var onRenderFcts = [];
 var hyperBox;
-var viewRadius = 20,
+viewRadius = 30,
 viewWidth = 500,
 viewHeight = 500;
 var hyperBox, boxTexture, hyperLight1, hyperLight2, hyperLight3, hyperLight4;
@@ -483,7 +483,6 @@ Template.Sandbox.rendered = function (){
 
     //scene.add(planetMesh);
 
-    var texture = new THREE.Texture();
     var imageLoader = new THREE.ImageLoader(manager);
 
 
@@ -619,17 +618,18 @@ Template.Sandbox.rendered = function (){
         scene.add(wormholeMesh4);
         */
     //Ship Textures
+    var texture = new THREE.Texture();
     var manager = new THREE.LoadingManager();
     manager.onProgress = function (item, loaded, total) {
         console.log(item, loaded, total);
     };
 
-    imageLoader.load('/packages/card-viewscreen/models/Battleship/battleship_elements2_c.png', function (image) {
+    imageLoader.load(Flint.a('/Sandbox Images/Battleship'), function (image) {
         texture.image = image;
         texture.needsUpdate = true;
     });
     var loader = new THREE.OBJMTLLoader();
-    loader.load('/packages/card-viewscreen/models/Battleship/_1.obj', '/packages/card-viewscreen/models/Battleship/_1.mtl', function (object) {
+    loader.load(Flint.a('/Sandbox Models/Battleship'), Flint.a('/Sandbox Materials/Battleship'), function (object) {
         object.scale.multiplyScalar(1 / 15);
         object.traverse(function (object3d) {
             if (object3d.material) {
@@ -641,40 +641,23 @@ Template.Sandbox.rendered = function (){
         battleShip = object;
         scene.add(object);
     });
-    loader.load('/packages/card-viewscreen/models/AstraHeavyCruiser/_1.obj', '/packages/card-viewscreen/models/AstraHeavyCruiser/_1.mtl', function (object)     {
-        object.scale.multiplyScalar(1 / 2);
-        object.traverse(function (object3d) {
-            if (object3d.material) {
-                object3d.material.map = texture;
-                object3d.material.emissive.set('white');
-                object3d.material.shininess = 3;
-            }
-        });
-        object.position.x = 0.25;
-        hvyCruiserShip = object;
-        scene.add(object);
-        object.rotSpeed = 2.5;
-        object.speed = 0.5;
-        object.closeEnough = 0.1;
-        object.dx = new THREE.Vector3();
-        animatingObjects.push(object);
-    });
 
    
 
     window.sceneContacts = {};
 
-
     //Sensor Stuff
     this.sensorObserver = Flint.collection('sensorContacts').find().observe({
         added: function(doc) {
-            imageLoader.load('/packages/card-viewscreen/models/Battleship/battleship_elements2_c.png', function (image) {
+            var texture = new THREE.Texture();
+            imageLoader.load(Flint.a('/Sandbox Images/' + doc.mesh), function (image) {
                 texture.image = image;
                 texture.needsUpdate = true;
             });
             if (doc.mesh) {
-            loader.load('/packages/card-viewscreen/models/' + doc.mesh + '/_1.obj', '/packages/card-viewscreen/models/' + doc.mesh + '/_1.mtl', function (object) {
-                object.scale.multiplyScalar(1);
+                debugger;
+            loader.load(Flint.a('/Sandbox Models/' + doc.mesh), Flint.a('/Sandbox Materials/' + doc.mesh), function (object) {
+                object.scale.multiplyScalar(1 / 15);
                 object.traverse(function (object3d) {
                     if (object3d.material) {
                         object3d.material.map = texture;
@@ -775,7 +758,6 @@ Template.Sandbox.rendered = function (){
 
 Template.Tactical.rendered = function (){
     var stage,symbolsLayer,contactsLayer,ghostLayer;
-
     window.currentDimensions = {
       x: 'x',
       y: 'y',

@@ -61,6 +61,9 @@ Template.core_sensor3d.listOfIcons = function(){return iconList()};
 function changeIcon(icon,id){
   Flint.collection('armyContacts').update(id, {$set: {icon: icon}});
 };
+function changeModel(model,id){
+  Flint.collection('armyContacts').update(id, {$set: {mesh: model}});
+};
 iconList = function(){
    var sel = {};
    var iconList = [];
@@ -70,6 +73,18 @@ iconList = function(){
     tacSymbolAssets = Flint.collection('flintAssets').find(sel);
     tacSymbolAssets.forEach(function(e){
       iconList.push({text: e.name, action: function(e){changeIcon(e.target.text,Session.get('currentSensorIcon'))}});
+    });
+    return iconList;
+};
+modelList = function(){
+   var sel = {};
+   var iconList = [];
+    sel.parentObject = Flint.collection('flintAssets').findOne({
+        fullPath: '/Sandbox Models'
+    })._id;
+    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+    tacSymbolAssets.forEach(function(e){
+      iconList.push({text: e.name, action: function(e){changeModel(e.target.text,Session.get('currentSensorIcon'))}});
     });
     return iconList;
 };
@@ -215,7 +230,7 @@ Template.core_sensor3d.created = function() {
           {header: 'Icon'},
           {text: 'Icons', subMenu: iconList()},
           {text: 'Pictures'},
-          {text: 'Models'},
+          {text: 'Models', subMenu: modelList()},
           {divider: true},
           {text: 'Behaviors'}
         ];
@@ -236,7 +251,7 @@ Template.core_sensor3d.created = function() {
                 z = 0,
                 d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
             if (d < 1.2) { // Only drop the contact if we are within 120% of the grid's radius
-              var updateObj = _.extend(cTmpl, {isMoving: true, isVisible: true, mesh: 'AstraShuttle', velocity: 0.05});
+              var updateObj = _.extend(cTmpl, {isMoving: true, isVisible: true, velocity: 0.05});
               updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
               updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
               updateObj['dst' + currentDimensions.otherDimension().toUpperCase()] = z;

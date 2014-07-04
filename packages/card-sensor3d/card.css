@@ -1,3 +1,31 @@
+#sensor_grid{
+}
+.sensor_box{
+	z-index: 1;
+	position: relative;
+	width: 580px;
+	margin-left: -290px;
+	left: 50%;
+	border-radius: 5000px;
+	border: solid 3px rgba(50,50,50,0.75);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 0%;
+	background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 10%,rgba(0,125,255,0.75) 60%,rgba(0,0,0,0) 70%);
+  	-webkit-animation: sensorPulse 7s infinite;
+    animation: sensorPulse 7s infinite;
+    box-shadow: inset 0px 0px 500px #000;
+}
+
+@-webkit-keyframes sensorPulse {
+  0% {background-size: 0%;}
+  100% {background-size: 500%;}
+}
+@keyframes sensorPulse {
+   0% {background-size: 0%;}
+   100% {background-size: 500%;}
+}
+
 #coreSensor3d{
 	background-color: #000;
 	height: 300px;
@@ -26,6 +54,7 @@
 	position:absolute; 
 	font-size: 10px;
 	transition: opacity 0.5s ease;
+	z-index: 1000;
 }
 #sensorContacts{
 	list-style: none;
@@ -40,6 +69,5 @@
 	float: right;
 }
 #sensorContacts li img{
-			float: left;
-
+	float: left;
 }

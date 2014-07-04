@@ -1,6 +1,6 @@
 var viewRadius = 100,
-viewWidth = 500,
-viewHeight = 500;
+viewWidth = 580, //500,
+viewHeight = 580; //500;
 
 function buildAxis( src, dst, colorHex, dashed ) {
     var geom = new THREE.Geometry(),
@@ -116,7 +116,7 @@ Template.card_sensor3d.rendered = function() {
 	var scene = new THREE.Scene();
 
 	// Debugging Axis
-	scene.add(debugAxes(viewRadius / 2));
+	//scene.add(debugAxes(viewRadius / 2));
 
 	//Ship Diagram
 	scene.add(shipDiagram());
@@ -173,14 +173,14 @@ Template.card_sensor3d.rendered = function() {
 			$('.sensorLabel').text(obj.name);
 		}
 	});
-	controls = new THREE.OrbitControls( camera );
+	controls = new THREE.OrbitControls( camera, $('.sensor_box')[0]);
+	controls.noZoom = true;
+	controls.noPan = true;
 
 	/*controls.rotateSpeed = 1.0;
 	controls.zoomSpeed = 1.2;
 	controls.panSpeed = 0.8;
 
-	controls.noZoom = true;
-	controls.noPan = true;
 
 	controls.staticMoving = true;
 	controls.dynamicDampingFactor = 0.3;
@@ -202,20 +202,20 @@ Template.card_sensor3d.rendered = function() {
 		radar_length = viewRadius / 2,
 		radar_rotation_speed = 0.01;
 
-	radar_x.add(buildHalo( radar_length, 0xFF0000, new THREE.Vector3(1, 0, 0))); // +X
-    radar_y.add(buildHalo( radar_length, 0x00FF00, new THREE.Vector3(0, 1, 0))); // +Y
-	radar_z.add(buildHalo( radar_length, 0x0000FF, new THREE.Vector3(0, 0, 1))); // +Z
+	//radar_x.add(buildHalo( radar_length, 0xFF0000, new THREE.Vector3(1, 0, 0))); // +X
+    //radar_y.add(buildHalo( radar_length, 0x00FF00, new THREE.Vector3(0, 1, 0))); // +Y
+	//radar_z.add(buildHalo( radar_length, 0x0000FF, new THREE.Vector3(0, 0, 1))); // +Z
 	
-	radar_x.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( radar_length, 0, 0 ), 0xFF0000, false ) ); // +X
-    radar_x.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( -radar_length, 0, 0 ), 0xFF0000, true) ); // -X
+	//radar_x.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( radar_length, 0, 0 ), 0xFF0000, false ) ); // +X
+    //radar_x.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( -radar_length, 0, 0 ), 0xFF0000, true) ); // -X
     
-    radar_y.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, radar_length, 0 ), 0x00FF00, false ) ); // +Y
-    radar_y.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, -radar_length, 0 ), 0x00FF00, true ) ); // -Y
+   // radar_y.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, radar_length, 0 ), 0x00FF00, false ) ); // +Y
+   // radar_y.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, -radar_length, 0 ), 0x00FF00, true ) ); // -Y
     
-    radar_z.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, radar_length ), 0x0000FF, false ) ); // +Z
-    radar_z.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -radar_length ), 0x0000FF, true ) ); // -Z
+   // radar_z.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, radar_length ), 0x0000FF, false ) ); // +Z
+   // radar_z.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -radar_length ), 0x0000FF, true ) ); // -Z
 
-
+/*
 	scene.add(radar_x);
 	scene.add(radar_y);
 	scene.add(radar_z);
@@ -232,7 +232,7 @@ Template.card_sensor3d.rendered = function() {
 		radar_z.rotation.x = radar_z.rotation.x + radar_rotation_speed;
 		radar_z.rotation.y = radar_z.rotation.y + radar_rotation_speed;
 		radar_z.rotation.z = radar_z.rotation.z + radar_rotation_speed;
-	});
+	});*/
 
 	// Animation Function
 	onRenderFcts.push(function(){
