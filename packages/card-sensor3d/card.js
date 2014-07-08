@@ -1,7 +1,14 @@
 var viewRadius = 100,
 viewWidth = 580, //500,
 viewHeight = 580; //500;
-
+Template.sonarControl.events = {
+	'click #ping': function(){
+		Flint.beep();
+		$('.sensor_box').removeClass('animating');
+		Meteor.setTimeout(function(){$('.sensor_box').addClass('animating');},200
+)
+	}
+};
 function buildAxis( src, dst, colorHex, dashed ) {
     var geom = new THREE.Geometry(),
         mat; 

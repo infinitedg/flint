@@ -8,22 +8,36 @@
 	left: 50%;
 	border-radius: 5000px;
 	border: solid 3px rgba(50,50,50,0.75);
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 0%;
-	background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 10%,rgba(0,125,255,0.75) 60%,rgba(0,0,0,0) 70%);
-  	-webkit-animation: sensorPulse 7s infinite;
-    animation: sensorPulse 7s infinite;
     box-shadow: inset 0px 0px 500px #000;
+    background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 10%,rgba(0,125,255,0.75) 60%,rgba(0,0,0,0) 70%);
+    background-size: 0%;
+   	background-position: center;
+	background-repeat: no-repeat;
+    transition: background-size ease-in;
+        transition-duration: 0s;
+
 }
 
+.sensor_box.animating{
+	background-size: 300%;
+	transition:background-size;
+	    transition-duration: 5s;
+
+}
+.blah {
+	//background-size: 0%;
+	-webkit-animation: sensorPulse 2s infinite;
+  	-webkit-animation-timing-function: ease-in;
+}
 @-webkit-keyframes sensorPulse {
-  0% {background-size: 0%;}
-  100% {background-size: 500%;}
+  0% {}
+  60% {background-size: 150%;}
+  100% {background-size: 300%;}
 }
 @keyframes sensorPulse {
    0% {background-size: 0%;}
-   100% {background-size: 500%;}
+     60% {background-size: 150%;}
+   100% {background-size: 300%;}
 }
 
 #coreSensor3d{
