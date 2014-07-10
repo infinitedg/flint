@@ -655,7 +655,6 @@ Template.Sandbox.rendered = function (){
                 texture.needsUpdate = true;
             });
             if (doc.mesh) {
-                debugger;
             loader.load(Flint.a('/Sandbox Models/' + doc.mesh), Flint.a('/Sandbox Materials/' + doc.mesh), function (object) {
                 object.scale.multiplyScalar(1 / 15);
                 object.traverse(function (object3d) {
