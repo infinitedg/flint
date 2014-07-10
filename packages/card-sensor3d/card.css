@@ -1,5 +1,20 @@
 #sensor_grid{
 }
+@media (min-width: 1025px){
+	.sensor_box{
+		background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%,rgba(0,125,255,0.75) 65%,rgba(0,0,0,0) 70%);
+	    background-size: 0%;
+	   	background-position: center;
+		background-repeat: no-repeat;
+	    transition: background-size ease-in;
+	    transition-duration: 0s;
+	}
+	.sensor_box.animating{
+		background-size: 300%;
+		transition:background-size;
+	    transition-duration: 5.5s;
+	}
+}
 .sensor_box{
 	z-index: 1;
 	position: relative;
@@ -9,35 +24,6 @@
 	border-radius: 5000px;
 	border: solid 3px rgba(50,50,50,0.75);
     box-shadow: inset 0px 0px 500px #000;
-    background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 10%,rgba(0,125,255,0.75) 60%,rgba(0,0,0,0) 70%);
-    background-size: 0%;
-   	background-position: center;
-	background-repeat: no-repeat;
-    transition: background-size ease-in;
-        transition-duration: 0s;
-
-}
-
-.sensor_box.animating{
-	background-size: 300%;
-	transition:background-size;
-	    transition-duration: 5s;
-
-}
-.blah {
-	//background-size: 0%;
-	-webkit-animation: sensorPulse 2s infinite;
-  	-webkit-animation-timing-function: ease-in;
-}
-@-webkit-keyframes sensorPulse {
-  0% {}
-  60% {background-size: 150%;}
-  100% {background-size: 300%;}
-}
-@keyframes sensorPulse {
-   0% {background-size: 0%;}
-     60% {background-size: 150%;}
-   100% {background-size: 300%;}
 }
 
 #coreSensor3d{
@@ -84,4 +70,35 @@
 }
 #sensorContacts li img{
 	float: left;
+}
+.pingOptions{
+	list-style: none;
+	width:  100%;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 10px;
+	text-align:center;
+	border: solid 2px rgba(255,255,255,0.4);
+}
+.pingOptions li{
+	margin: 5px;
+	padding: 7px;
+	border-radius: 2px;
+}
+#manualScan.manual{
+	background-color: rgba(255,255,255,0.30);
+}
+#passiveScan.passive{
+	background-color: rgba(255,255,255,0.30);
+}
+#activeScan.active{
+	background-color: rgba(255,255,255,0.30);
+}
+#ping.btn.manual{
+	opacity: 1 !important;
+}
+#ping.btn {
+	transition: opacity 0.5s ease-in;
+	opacity: 0;
+	width: 100%;
 }

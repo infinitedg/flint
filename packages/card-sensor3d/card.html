@@ -16,5 +16,12 @@
 </template>
 
 <template name="sonarControl">
-	<button class="btn btn-primary" id="ping">Ping</button>
+	<h4>Sensor Options</h4>
+	<ul class="pingOptions">
+		<li id="activeScan" class={{currentSensor}}>Active Scan</li>
+		<li id="passiveScan" class={{currentSensor}}>Passive Scan</li>
+		<li id="manualScan" class={{currentSensor}}>Manual Scan</li>
+	</ul>
+	<button class="btn btn-primary {{currentSensor}}" id="ping">Ping</button>
+
 </template>

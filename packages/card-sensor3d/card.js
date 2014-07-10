@@ -1,12 +1,63 @@
 var viewRadius = 100,
 viewWidth = 580, //500,
 viewHeight = 580; //500;
+function pausecomp(ms) {
+	ms += new Date().getTime();
+	while (new Date() < ms){}
+} 
+function ping(){
+	$('.sensor_box').removeClass('animating');
+	//The Following use of setTimeout is necessary, becasue Meteor
+	//Doesn't like doing timeouts when it comes to updating the 
+	//Local Cache.
+	setTimeout(function(){$('.sensor_box').addClass('animating');},200);
+}
+
+Template.sonarControl.currentSensor = function(sensor){
+	if (Flint.simulator('pingInterval').period == 5000){return 'active';}
+	else if (Flint.simulator('pingInterval').period == 10000){return 'passive';}
+	else {return 'manual';}
+};
 Template.sonarControl.events = {
 	'click #ping': function(){
 		Flint.beep();
-		$('.sensor_box').removeClass('animating');
-		Meteor.setTimeout(function(){$('.sensor_box').addClass('animating');},200
-)
+		var setter = {
+			pingInterval: {
+				triggered: 'manual',
+				period: Date.now()
+			}
+		}
+		Flint.simulators.update(Flint.simulatorId(), {$set: setter});
+		$("#ping").attr('disabled','disabled');
+		Meteor.setTimeout(function(){
+			$("#ping").removeAttr('disabled');
+		},3000);
+	},
+	'click #activeScan': function(){
+		Flint.beep();
+		var setter = {
+				updated: 'true',
+				triggered: Date.now(),
+				period: 5000
+		};
+		Flint.simulator('pingInterval',setter);
+	},
+	'click #passiveScan': function(){
+		Flint.beep();
+		var setter = {
+				updated: 'true',
+				triggered: Date.now(),
+				period: 10000
+		};
+		Flint.simulator('pingInterval',setter);
+	},
+	'click #manualScan': function(){
+		Flint.beep();
+		var setter = {
+				triggered: 'manual',
+				period: 'manual'
+		};
+		Flint.simulator('pingInterval',setter);	
 	}
 };
 function buildAxis( src, dst, colorHex, dashed ) {
@@ -68,7 +119,7 @@ function shipDiagram(){
 	geometry.faces.push( new THREE.Face3( 2, 4, 1 ) );
 	geometry.faces.push( new THREE.Face3( 2, 3, 4 ) );
 
-    var material = new THREE.MeshLambertMaterial({color : 0xCCCCCC});
+    var material = new THREE.MeshPhongMaterial({color : 0xCCCCCC});
     var ship = new THREE.Mesh(geometry,material);
     ship.scale.x = 6;
     ship.scale.y = 6;
@@ -130,6 +181,7 @@ Template.card_sensor3d.rendered = function() {
 
 	var light = new THREE.AmbientLight( 0xaaaaaa ); // soft white light
 	scene.add( light );
+
 	// Starfield
 	// var geometry  = new THREE.SphereGeometry(200, 32, 32);
 	// var material  = new THREE.MeshBasicMaterial();
@@ -165,7 +217,7 @@ Template.card_sensor3d.rendered = function() {
 			intersects = raycaster.intersectObjects( scene.children );
 
 		 scene.children.forEach(function( cube ) {
-		 	if (cube.material){
+		 if (cube.material){
 		 	cube.material.color.setRGB( 0, 1, 0 );}
 		 });
 		 $('.sensorLabel').removeClass('shown');
@@ -174,10 +226,12 @@ Template.card_sensor3d.rendered = function() {
 			obj = intersection.object;
 			obj.material.color.setRGB( 1.0 - i / intersects.length, 0, 0 );
 			var position = obj.position;
-			$('.sensorLabel').addClass('shown');
-			$('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y - sensorLabelOffset.top - 10);
-			$('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x - sensorLabelOffset.left + 30);
-			$('.sensorLabel').text(obj.name);
+			if (obj.material.opacity > 0.5){
+				$('.sensorLabel').addClass('shown');
+				$('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y - sensorLabelOffset.top - 10);
+				$('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x - sensorLabelOffset.left + 30);
+				$('.sensorLabel').text(obj.name);
+			}
 		}
 	});
 	controls = new THREE.OrbitControls( camera, $('.sensor_box')[0]);
@@ -265,7 +319,7 @@ Template.card_sensor3d.rendered = function() {
 
 	window.sceneSprites = {};
 
-	var spriteOpacity = function(sprite) {
+	var spriteOpacity = function(sprite,calculatedOpacity) {
 		var x = sprite.position.x * 2 / viewRadius,
 			y = sprite.position.y * 2 / viewRadius,
 			z = sprite.position.z * 2 / viewRadius,
@@ -279,12 +333,23 @@ Template.card_sensor3d.rendered = function() {
 		} else {
 			opacity = 1;
 		}
+		opacity = (opacity * calculatedOpacity);
 		return opacity;
 	};
 
 	var spriteTransparent = function(sprite) {
 		return (sprite.material.opacity == 1);
 	};
+
+	this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+		    changed: function(id, fields) {
+		    	if (id == Flint.simulatorId()){
+		    		if (fields.pingInterval){
+		    			ping();
+		    		}
+		    	}
+		    }
+	});
 
 	this.sensorObserver = Flint.collection('sensorContacts').find().observe({
 		added: function(doc) {
@@ -303,7 +368,7 @@ Template.card_sensor3d.rendered = function() {
 			sceneSprites[doc._id] = sprite;
 		}, changed: function(doc) {
 			sceneSprites[doc._id].position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
-			sceneSprites[doc._id].material.opacity = spriteOpacity(sceneSprites[doc._id]);
+			sceneSprites[doc._id].material.opacity = spriteOpacity(sceneSprites[doc._id],doc.opacity);
 			sceneSprites[doc._id].material.transparent = spriteTransparent(sceneSprites[doc._id]);
 		}, removed: function(doc) {
 			scene.remove(sceneSprites[doc._id]);
