@@ -14,8 +14,8 @@ function ping(){
 }
 
 Template.sonarControl.currentSensor = function(sensor){
-	if (Flint.simulator('pingInterval').period == 5000){return 'active';}
-	else if (Flint.simulator('pingInterval').period == 10000){return 'passive';}
+	if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 5000){return 'active';}
+	else if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 10000){return 'passive';}
 	else {return 'manual';}
 };
 Template.sonarControl.events = {

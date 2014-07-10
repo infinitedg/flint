@@ -55,7 +55,7 @@ var fadeContacts = function(doc){
 	}
 	d = Math.sqrt(Math.pow(doc.x, 2) + Math.pow(doc.y, 2) + Math.pow(doc.z, 2)) ;
 	var t = new TWEEN.Tween({opacity: 0.6 + Math.sqrt(d)*.9})
-	.to({opacity: 0}, 5000)
+	.to({opacity: 0}, 7000)
 	.easing(TWEEN.Easing.Linear.None)
 	.onUpdate(function(){
 		if (this.opacity < 1){

@@ -59,10 +59,18 @@ function transformY(y) {
 Template.core_sensor3d.listOfIcons = function(){return iconList()};
 
 function changeIcon(icon,id){
-  Flint.collection('armyContacts').update(id, {$set: {icon: icon}});
+if (id.kind == 'army'){
+    Flint.collection('armyContacts').update(id.which, {$set: {icon: icon}});
+  } else if (id.kind == 'grid') {
+    Flint.collection('sensorContacts').update(id.which, {$set: {icon: icon}});
+  }
 };
 function changeModel(model,id){
-  Flint.collection('armyContacts').update(id, {$set: {mesh: model}});
+  if (id.kind == 'army'){
+    Flint.collection('armyContacts').update(id.which, {$set: {mesh: model}});
+  } else if (id.kind == 'grid') {
+    Flint.collection('sensorContacts').update(id.which, {$set: {mesh: model}});
+  }
 };
 iconList = function(){
    var sel = {};
@@ -72,7 +80,9 @@ iconList = function(){
     })._id;
     tacSymbolAssets = Flint.collection('flintAssets').find(sel);
     tacSymbolAssets.forEach(function(e){
-      iconList.push({text: e.name, action: function(e){changeIcon(e.target.text,Session.get('currentSensorIcon'))}});
+      iconList.push({text: e.name, action: function(e){
+        changeIcon(e.target.text,Session.get('currentSensorIcon'));
+      }});
     });
     return iconList;
 };
@@ -109,14 +119,47 @@ Template.core_sensor3d.created = function() {
   });
   context.init({
     compact: true  });
-
   this.sensorObserver = Flint.collection('sensorContacts').find().observeChanges({
     added: function(id, doc) {
       // console.log("Added", id, doc);
       if (!contactsArray[id]) {
         contactsArray[id] = {};
+        //Create the draggable contact
+        var contactsContainer = d3.select('#gridContacts');
+        var contactInfo = contactsContainer.append('li');
+        var contactIcon = contactInfo.append('img').attr('src',Flint.a('/Sensor Icons/' + doc.icon));
+        contactIcon.attr('height',50 * k.scale);
+        contactInfo.attr('id',('contact-' + id));
+        contactInfo.attr('title',id);
+        var icon = $("#contact-" + id);
+        var transformation = (transformX(doc['dst' + currentDimensions.x.toUpperCase()]) + "px, " + transformY(doc['dst' + currentDimensions.y.toUpperCase()]) + "px, 0px");
+        TweenLite.to(icon, 0.0, {
+                transform: 'translate3d(' + transformation + ')'
+            });
+        var contextArray = [
+          {header: 'Icon'},
+          {text: 'Icons', subMenu: iconList()},
+          {text: 'Pictures'},
+          {text: 'Models', subMenu: modelList()},
+          {divider: true},
+          {text: 'Behaviors'}
+        ];
+        context.attach(('#contact-' + id),contextArray);
+         Draggable.create($("#contact-" + id), {
+        edgeResistance: 0.5,
+        bounds: $("#coreSensor3d"),
+        onDragEnd: function () {
+          var x = ( currentDimensions.flippedX * 2 * (this.x-this.minX) / k.width) + 1 * currentDimensions.flippedX * -1,
+              y = ( currentDimensions.flippedY * 2 * (this.y-this.minY) / k.height) + 1 * currentDimensions.flippedY * -1,
+            updateObj = {isMoving: true};
+            updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+            updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+            Flint.collection('sensorContacts').update(id, {$set: updateObj});
+          }
+        });
+        contactsArray[id].contact = contactInfo;
 
-        // Draggable Contact
+        /*// Draggable Contact
         var contactObj = new Image();
         contactObj.onload = function() {
           var icon = new Kinetic.Image({
@@ -151,7 +194,7 @@ Template.core_sensor3d.created = function() {
           contactsArray[id].contact = icon;
         };
         contactObj.src = Flint.a('/Sensor Icons/' + doc.icon);
-
+        */
         // Ghost Contact
         var ghostObj = new Image();
         ghostObj.onload = function() {
@@ -179,7 +222,6 @@ Template.core_sensor3d.created = function() {
       }
     },
     changed: function(id, fields) {
-      // console.log("Changed", id, fields);
       var contact = contactsArray[id].contact,
             ghost = contactsArray[id].ghost;
       if (contact && ghost) {
@@ -191,14 +233,24 @@ Template.core_sensor3d.created = function() {
         }
 
         if (fields['dst' + currentDimensions.x.toUpperCase()] !== undefined) {
-          contact.setX(transformX(fields['dst' + currentDimensions.x.toUpperCase()]));
+        //  contact.setX(transformX(fields['dst' + currentDimensions.x.toUpperCase()]));
         }
         if (fields['dst' + currentDimensions.y.toUpperCase()] !== undefined) {
-          contact.setY(transformY(fields['dst' + currentDimensions.y.toUpperCase()]));
+        //  contact.setY(transformY(fields['dst' + currentDimensions.y.toUpperCase()]));
+        }
+        if (fields['icon'] !== undefined){
+          $('#contact-' + id + ' img').attr('src', Flint.a('/Sensor Icons/' + fields.icon));
+
+           var ghostObj = new Image();
+           ghostObj.onload = function() {
+            ghost.setImage(ghostObj);
+            ghost.cache();
+            ghost.draw()
+           };
+           ghostObj.src = Flint.a('/Sensor Icons/' + fields.icon);
         }
 
-
-        contactsLayer.draw();
+      //  contactsLayer.draw();
         ghostLayer.draw();
       }
     },
@@ -236,15 +288,12 @@ Template.core_sensor3d.created = function() {
         ];
         context.attach(('#contact-' + atIndex),contextArray);
         Draggable.create($("#contact-" + atIndex + " img"), {
-        
         edgeResistance: 0.5,
         bounds: $("#coreSensor3d"),
         onDrag: function () {
           
         },
         onDragEnd: function () {
-           
-            debugger;
             var cTmpl = Flint.collection('armyContacts').findOne(id);
             var x = ( currentDimensions.flippedX * 2 * (this.x-this.minX) / k.width) + 1 * currentDimensions.flippedX * -1,
                 y = ( currentDimensions.flippedY * 2 * (this.y-this.minY) / k.height) + 1 * currentDimensions.flippedY * -1,
@@ -470,12 +519,17 @@ Template.core_sensor3d.destroyed = function() {
 
 function refreshGrid() {
   Flint.collection('sensorContacts').find().forEach(function(doc) {
-    contactsArray[doc._id].contact.setX(transformX(doc['dst' + currentDimensions.x.toUpperCase()]));
-    contactsArray[doc._id].contact.setY(transformY(doc['dst' + currentDimensions.y.toUpperCase()]));
+    var icon = $("#contact-" + doc._id);
+    var transformation = (transformX(doc['dst' + currentDimensions.x.toUpperCase()]) + "px, " + transformY(doc['dst' + currentDimensions.y.toUpperCase()]) + "px, 0px");
+        TweenLite.to(icon, 0.0, {
+                transform: 'translate3d(' + transformation + ')'
+            });
+   // contactsArray[doc._id].contact.setX(transformX(doc['dst' + currentDimensions.x.toUpperCase()]));
+   // contactsArray[doc._id].contact.setY(transformY(doc['dst' + currentDimensions.y.toUpperCase()]));
     contactsArray[doc._id].ghost.setX(transformX(doc[currentDimensions.x]));
     contactsArray[doc._id].ghost.setY(transformY(doc[currentDimensions.y]));
   });
-  contactsLayer.draw();
+ // contactsLayer.draw();
   ghostLayer.draw();
 };
 
@@ -495,7 +549,10 @@ Template.core_sensor3d.events({
     e.preventDefault();
   },
   'contextmenu #sensorContacts img': function(e,t){
-    Session.set('currentSensorIcon',e.target.parentElement.title)
+    Session.set('currentSensorIcon',{kind: 'army', which: e.target.parentElement.title})
+  },
+  'contextmenu #gridContacts': function(e,t){
+    Session.set('currentSensorIcon',{kind: 'grid', which: e.target.parentElement.title})
   },
   'click #sensorContacts': function(e, t){
    // console.log(e.which);

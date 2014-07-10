@@ -27,6 +27,7 @@
 }
 
 #coreSensor3d{
+	position: relative;
 	background-color: #000;
 	height: 300px;
 }
@@ -44,7 +45,6 @@
 	font-size: 12px;
 }
 #sensorGrid{
-	position: relative;
 	float: left;
 }
 .shown{opacity: 1 !important;}
@@ -56,12 +56,23 @@
 	transition: opacity 0.5s ease;
 	z-index: 1000;
 }
-#sensorContacts{
+#gridContacts{
+	position: absolute;
+	top: -3px;
+}
+whocares{
+	left: 117px;
+	top: 114px;
+}
+#gridContacts li{
+	position: absolute;
+}
+#sensorContacts, #gridContacts{
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-#sensorContacts li{
+#sensorContacts li, #gridContacts li{
 	padding: 0;
 	margin: 0;
 }
