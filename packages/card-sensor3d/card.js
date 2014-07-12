@@ -119,11 +119,11 @@ function shipDiagram(){
 	geometry.faces.push( new THREE.Face3( 2, 4, 1 ) );
 	geometry.faces.push( new THREE.Face3( 2, 3, 4 ) );
 
-    var material = new THREE.MeshPhongMaterial({color : 0xCCCCCC});
+    var material = new THREE.MeshPhongMaterial({wireframe: true, color : 0xCCCCCC});
     var ship = new THREE.Mesh(geometry,material);
-    ship.scale.x = 6;
-    ship.scale.y = 6;
-    ship.scale.z = 6;
+    ship.scale.x = 3;
+    ship.scale.y = 3;
+    ship.scale.z = 3;
     return ship;
 };
 Template.card_sensor3d.created = function() {

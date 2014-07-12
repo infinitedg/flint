@@ -696,7 +696,7 @@ Template.Sandbox.rendered = function (){
         var eye = fromObject.position;
         var center = toPosition;
         debugger;
-        if (eye == center){return false;}
+        if (eye.distanceTo(center) == 0){return false;}
         var mat = new THREE.Matrix4();
         mat.lookAt(center,eye,up);
         var quat1 = new THREE.Quaternion();
@@ -705,6 +705,7 @@ Template.Sandbox.rendered = function (){
         var frac = dTheta/deltaTheta;
         if (frac>1)  frac=1;
         fromObject.quaternion.slerp(quat1,frac);
+
     }
     function angleBetweenQuats(qBefore,qAfter) {
         q1 = new THREE.Quaternion();
