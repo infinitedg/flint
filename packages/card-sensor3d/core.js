@@ -273,6 +273,7 @@ Template.core_sensor3d.created = function() {
         var contactInfo = contactsContainer.append('li');
         var contactLabel = contactInfo.append('input').attr('type','text');
         var contactIcon = contactInfo.append('img').attr('src',Flint.a('/Sensor Icons/' + doc.icon));
+        var infaredIcon = contactInfo.append('input').attr('type','checkbox').attr('checked','true');
         contactIcon.attr('height',50 * k.scale);
         contactLabel.attr('class','form-control');
         contactLabel.attr('value',doc.name);
