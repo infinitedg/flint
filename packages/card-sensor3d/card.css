@@ -50,22 +50,37 @@
 #sensorGrid{
 	float: left;
 }
-.shown{opacity: 1 !important;}
+.shown{
+	height: auto !important;
+	opacity: 1 !important;
+	transition: opacity 0.0s ease;
+}
 
-.sensorLabel{opacity:0;
+.sensorLabel{
+	height: 0;
+	opacity:0;
 	color: #fff; 
 	position:absolute; 
 	font-size: 10px;
-	transition: opacity 0.5s ease;
 	z-index: 1000;
+	width: 250px;
+	background-color:rgba(0,0,0,0.5);
+	border: solid 2px rgba(255,255,255,0.2);
+	border-radius: 2px;
+}
+.sensorLabel img{
+	width: 75px;
+	float: left;
+	border-right: solid 1px rgba(255,255,255,0.1);
+	margin-right: 5px;
+}
+.sensorLabel p{
+	padding: 2.5px;
+	margin-left: 5px;
 }
 #gridContacts{
 	position: absolute;
 	top: -3px;
-}
-whocares{
-	left: 117px;
-	top: 114px;
 }
 #gridContacts li{
 	position: absolute;

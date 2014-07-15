@@ -18,6 +18,12 @@ Template.sonarControl.currentSensor = function(sensor){
 	else if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 10000){return 'passive';}
 	else {return 'manual';}
 };
+Template.card_sensor3d.events = {
+	'mousemove .sensorLabel': function(){
+		$('.sensorLabel').removeClass('shown');
+	}
+
+};
 Template.sonarControl.events = {
 	'click #ping': function(){
 		Flint.beep();
@@ -208,7 +214,7 @@ Template.card_sensor3d.rendered = function() {
 		camera.position.y += (mouse.y*10 - camera.position.y) * (delta*3);
 		camera.lookAt( scene.position );
 	});*/
-	$('.sensor_box canvas').on('mousemove', function(){
+	$('.sensor_box').on('mousemove', function(){
 		e = event;
 		mouseVector.x = 2 * (e.offsetX / viewWidth) - 1;
 		mouseVector.y = 1 - 2 * ( e.offsetY / viewHeight );
@@ -228,9 +234,11 @@ Template.card_sensor3d.rendered = function() {
 			var position = obj.position;
 			if (obj.material.opacity > 0.5){
 				$('.sensorLabel').addClass('shown');
+				$('#contactImage').attr('src',Flint.a('/Sensor Pictures/' + obj.picture));
 				$('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y - sensorLabelOffset.top - 10);
 				$('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x - sensorLabelOffset.left + 30);
-				$('.sensorLabel').text(obj.name);
+				$('.sensorLabel p').text(obj.name);
+				
 			}
 		}
 	});
@@ -362,11 +370,18 @@ Template.card_sensor3d.rendered = function() {
 			sprite.scale.set( 0.05 * viewRadius, 0.05 * viewRadius, 1.0 );
 			sprite.material.opacity = spriteOpacity(sprite);
 			sprite.material.transparent = spriteTransparent(sprite);
+			sprite.picture = doc.picture;
 			sprite.name = doc.name;
 			scene.add( sprite );
 
 			sceneSprites[doc._id] = sprite;
-		}, changed: function(doc) {
+		}, changed: function(doc, oldDoc) {
+			if (doc.icon != oldDoc.icon){
+				var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/' + doc.icon) );
+				sceneSprites[doc._id].material.map = sprite;
+			}
+			sceneSprites[doc._id].name = doc.name;
+			sceneSprites[doc._id].picture = doc.picture;
 			sceneSprites[doc._id].position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
 			sceneSprites[doc._id].material.opacity = spriteOpacity(sceneSprites[doc._id],doc.opacity);
 			sceneSprites[doc._id].material.transparent = spriteTransparent(sceneSprites[doc._id]);

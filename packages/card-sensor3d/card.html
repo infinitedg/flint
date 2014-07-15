@@ -1,18 +1,17 @@
 <template name="card_sensor3d">
-	<div class="sensorLabel">
-		<p>Contact</p>
-	</div>
+		<div class="sensorLabel">
+			<img id='contactImage' src='#' alt="contactImage" /><p>Contact</p>
+		</div>
 	<div class="row">
 		<div class="col-xs-3">
 			{{> card_scanner}}
-			{{> sonarControl}}
 		</div>
+
 		<div class="col-xs-6" id="sensor_grid">
 			<div class="sensor_box"></div>
 		</div>
 		<div class="col-xs-3">
-			<h4>Viewscreen Controls</h4>
-			{{> card_viewscreenControl}}
+			{{> sonarControl}}
 		</div>
 	</div>
 </template>
@@ -25,5 +24,4 @@
 		<li id="manualScan" class={{currentSensor}}>Manual Scan</li>
 	</ul>
 	<button class="btn btn-primary {{currentSensor}}" id="ping">Ping</button>
-
 </template>

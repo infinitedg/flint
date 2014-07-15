@@ -59,18 +59,33 @@ function transformY(y) {
 Template.core_sensor3d.listOfIcons = function(){return iconList()};
 
 function changeIcon(icon,id){
-if (id.kind == 'army'){
-    Flint.collection('armyContacts').update(id.which, {$set: {icon: icon}});
-  } else if (id.kind == 'grid') {
-    Flint.collection('sensorContacts').update(id.which, {$set: {icon: icon}});
-  }
+  var id = Session.get('currentSensorIcon');
+  if (id.kind == 'army'){
+      Flint.collection('armyContacts').update(id.which, {$set: {icon: icon}});
+    } else if (id.kind == 'grid') {
+      Flint.collection('sensorContacts').update(id.which, {$set: {icon: icon}});
+    }
 };
+function changePicture(icon,id){
+  var id = Session.get('currentSensorIcon');
+  if (id.kind == 'army'){
+    Flint.collection('armyContacts').update(id.which, {$set: {picture: icon}});
+  } else if (id.kind == 'grid'){
+    Flint.collection('sensorContacts').update(id.which, {$set: {picture: icon}});
+  }
+}
 function changeModel(model,id){
+  var id = Session.get('currentSensorIcon');
   if (id.kind == 'army'){
     Flint.collection('armyContacts').update(id.which, {$set: {mesh: model}});
   } else if (id.kind == 'grid') {
     Flint.collection('sensorContacts').update(id.which, {$set: {mesh: model}});
   }
+};
+function changeLabel(id){
+  var contact = Flint.collection('sensorContacts').findOne(id);
+  var newLabel = prompt("Please enter the new label", contact.name);
+  Flint.collection('sensorContacts').update(id, {$set: {name: newLabel}});
 };
 iconList = function(){
    var sel = {};
@@ -81,11 +96,25 @@ iconList = function(){
     tacSymbolAssets = Flint.collection('flintAssets').find(sel);
     tacSymbolAssets.forEach(function(e){
       iconList.push({text: e.name, action: function(e){
-        changeIcon(e.target.text,Session.get('currentSensorIcon'));
+        changeIcon(e.target.text);
       }});
     });
     return iconList;
 };
+pictureList = function(){
+  var sel = {},
+  pictureList = [];
+  sel.parentObject = Flint.collection('flintAssets').findOne({
+      fullPath: '/Sensor Pictures'
+  })._id;
+  tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+  tacSymbolAssets.forEach(function(e){
+    pictureList.push({text: e.name, action: function(e){
+      changePicture(e.target.text);
+    }});
+  });
+  return pictureList;
+}
 modelList = function(){
    var sel = {};
    var iconList = [];
@@ -94,7 +123,7 @@ modelList = function(){
     })._id;
     tacSymbolAssets = Flint.collection('flintAssets').find(sel);
     tacSymbolAssets.forEach(function(e){
-      iconList.push({text: e.name, action: function(e){changeModel(e.target.text,Session.get('currentSensorIcon'))}});
+      iconList.push({text: e.name, action: function(e){changeModel(e.target.text)}});
     });
     return iconList;
 };
@@ -138,8 +167,9 @@ Template.core_sensor3d.created = function() {
             });
         var contextArray = [
           {header: 'Icon'},
+          {text: 'Change Label', action: function(e){changeLabel(id)}},
           {text: 'Icons', subMenu: iconList()},
-          {text: 'Pictures'},
+          {text: 'Pictures', subMenu: pictureList()},
           {text: 'Models', subMenu: modelList()},
           {divider: true},
           {text: 'Behaviors'}
@@ -154,6 +184,7 @@ Template.core_sensor3d.created = function() {
             updateObj = {isMoving: true};
             updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
             updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+            updateObj.velocity = $('#speedSelect').val();
             Flint.collection('sensorContacts').update(id, {$set: updateObj});
           }
         });
@@ -282,7 +313,7 @@ Template.core_sensor3d.created = function() {
         var contextArray = [
           {header: 'Icon'},
           {text: 'Icons', subMenu: iconList()},
-          {text: 'Pictures'},
+          {text: 'Pictures', subMenu: pictureList()},
           {text: 'Models', subMenu: modelList()},
           {divider: true},
           {text: 'Behaviors'}
@@ -308,6 +339,7 @@ Template.core_sensor3d.created = function() {
               updateObj[currentDimensions.x] = x;
               updateObj[currentDimensions.y] = y;
               updateObj[currentDimensions.otherDimension()] = z;
+              updateObj.velocity = $('#speedSelect').val();
               delete updateObj['_id'];
               Flint.collection('sensorContacts').insert(updateObj);
             }
