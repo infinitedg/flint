@@ -18,7 +18,7 @@
 	width: 25%;
 	height: 25%;
 	border-radius: 25vw;
-background: -webkit-radial-gradient(center, ellipse cover, rgba(66,66,66,1) 1%,rgba(13,13,13,.5) 65%,rgba(1,1,1,.5) 68%,rgba(10,10,10,.5) 71%,rgba(73,73,73,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%);
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(66,66,66,1) 1%,rgba(13,13,13,.5) 65%,rgba(1,1,1,.5) 68%,rgba(10,10,10,.5) 71%,rgba(73,73,73,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%);
   /*Centering Method 2*/
  position:absolute;
   left: 37.5%;
@@ -47,7 +47,7 @@ background: -webkit-radial-gradient(center, ellipse cover, rgba(66,66,66,1) 1%,r
 	width: 18%;
 	height: 100%;
 	border-radius: 100%;
-background: -webkit-radial-gradient(center, ellipse cover, rgba(66,66,66,1) 1%,rgba(13,13,13,.5) 65%,rgba(1,1,1,.5) 68%,rgba(10,10,10,.5) 71%,rgba(73,73,73,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%);
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(66,66,66,1) 1%,rgba(13,13,13,.5) 65%,rgba(1,1,1,.5) 68%,rgba(10,10,10,.5) 71%,rgba(73,73,73,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%);
 	
 
   /*Centering Method 2*/

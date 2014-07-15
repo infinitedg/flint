@@ -355,7 +355,6 @@ Template.Sandbox.rendered = function (){
     /*Ships Scene*/
     scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.29, 10000);
-    camera.position.z = 1;
     cameras.push(camera);
 
     var camera1 = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
@@ -371,7 +370,6 @@ Template.Sandbox.rendered = function (){
     cameras.push(camera2);
 
     camera.position.z = 0;
-    camera.rotateY(Math.PI);
     controls = new THREE.FlyControls(camera);
 
     controls.movementSpeed = 0;
@@ -510,14 +508,14 @@ Template.Sandbox.rendered = function (){
     boxTexture.wrapT    = THREE.RepeatWrapping;
     var boxGeo = new THREE.SphereGeometry(5, 32, 32);
     var PlaneGeo = new THREE.PlaneGeometry(200,200);
-    var boxMat = new THREE.MeshLambertMaterial({color : 0xFFFFFF, map : boxTexture, side: THREE.BackSide});
+    var boxMat = new THREE.MeshLambertMaterial({transparent: true, color : 0xFFFFFF, map : boxTexture, side: THREE.BackSide});
     hyperBox = new THREE.Mesh(boxGeo,boxMat);
 
 
     hyperBox.name = 'cube';
     hyperBox.position.x = 0;
     hyperBox.position.y = 0;
-    hyperBox.position.z = 25;
+    hyperBox.position.z = -24;
     hyperBox.scale.y = 5;
     hyperBox.scale.z = .5;
     hyperBox.scale.x = .5;
@@ -590,18 +588,18 @@ Template.Sandbox.rendered = function (){
         wormholeMesh3 = new THREE.Mesh(geometry, material3);
         wormholeMesh4 = new THREE.Mesh(geometry, material4);
 
-        wormholeMesh1.position.z = 0.7;
-        wormholeMesh2.position.z = 0.2;
+        wormholeMesh1.position.z = -0.7;
+        wormholeMesh2.position.z = -0.2;
         wormholeMesh3.position.z = 0;
-        wormholeMesh4.position.z = 0.5;
+        wormholeMesh4.position.z = -0.5;
         wormholeMesh1.scale.x = 0.001;
-            wormholeMesh1.scale.y = 0.001;
-            wormholeMesh2.scale.x = 0.001;
-            wormholeMesh2.scale.y = 0.001;
-            wormholeMesh3.scale.x = 0.005;
-            wormholeMesh3.scale.y = 0.005;
-            wormholeMesh4.scale.x = 0.00125;
-            wormholeMesh4.scale.y = 0.00125;
+        wormholeMesh1.scale.y = 0.001;
+        wormholeMesh2.scale.x = 0.001;
+        wormholeMesh2.scale.y = 0.001;
+        wormholeMesh3.scale.x = 0.005;
+        wormholeMesh3.scale.y = 0.005;
+        wormholeMesh4.scale.x = 0.00125;
+        wormholeMesh4.scale.y = 0.00125;
         wormholeMesh1.rotateX(0);
 
         wormhole.add(wormholeMesh1);
@@ -617,6 +615,7 @@ Template.Sandbox.rendered = function (){
         scene.add(wormholeMesh3);
         scene.add(wormholeMesh4);
         */
+
     //Ship Textures
     var texture = new THREE.Texture();
     var manager = new THREE.LoadingManager();
@@ -638,6 +637,7 @@ Template.Sandbox.rendered = function (){
                 object3d.material.shininess = 3;
             }
         });
+        object.rotateY(Math.PI);
         battleShip = object;
         scene.add(object);
     });
@@ -695,7 +695,6 @@ Template.Sandbox.rendered = function (){
         var quat0 = fromObject.quaternion;
         var eye = fromObject.position;
         var center = toPosition;
-        debugger;
         if (eye.distanceTo(center) == 0){return false;}
         var mat = new THREE.Matrix4();
         mat.lookAt(center,eye,up);
@@ -723,7 +722,7 @@ Template.Sandbox.rendered = function (){
 
         controls.update(delta);
 
-        boxTexture.offset.y += 0.008;
+        boxTexture.offset.y -= 0.008;
         boxTexture.offset.y %= 1;
         boxTexture.needsUpdate  = true;
 
@@ -1017,112 +1016,189 @@ Template.card_viewscreen.rendered = function () {
     function onKeyDown(evt) {
         var result;
         switch (evt.keyCode) {
-          case 53: //'5'
-            currentCamera = 0;
-            
-            TweenLite.to(cameras[currentCamera], 1, {fov:140, onComplete: function(){
+          case 53:
+    //'5'
+    currentCamera = 0;
+    scaleValue = {
+        currentValue: 3,
+        part1Value: 1,
+        part2Value: 1,
+        part3Value: 0.5,
+        part4Value: 0.125,
+        currentPosition: 0,
+        hyperBoxOpacity: 1
+    };
+    TweenLite.to(scaleValue, 1, {
+        hyperBoxOpacity: 0,
+        onUpdate: function() {
+            hyperBox.material.opacity = scaleValue.hyperBoxOpacity;
+        },
+        onComplete: function() {
+            hyperspace = false;
+            hyperBox.visible = false;
+        }
+    });
+
+    TweenLite.to(cameras[currentCamera], 1, {
+        fov: 140,
+
+        onComplete: function () {
             hyperLight1.visible = false;
             hyperLight2.visible = false;
             hyperLight3.visible = false;
             hyperLight4.visible = false;
             scene.remove(hyperFlare);
-            hyperBox.visible = false;
-            hyperspace = false;
-            TweenLite.to(cameras[currentCamera], 7, {fov:45, ease: Expo.easeOut, onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});},
-            onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});
-            
-            break;
-          case 54: //'6'
-          currentCamera = 0;
-          scaleValue = {currentValue:0.001, part1Value: 0.001, part2Value: 0.001, part3Value:0.001, part4Value: 0.001, currentPosition: 43 };
-            hyperBox.visible = false;
-            wormhole.position.z = scaleValue.currentPosition;
-            wormholeMesh1.scale.x = 0.001;
-            wormholeMesh1.scale.y = 0.001;
-            wormholeMesh2.scale.x = 0.001;
-            wormholeMesh2.scale.y = 0.001;
-            wormholeMesh3.scale.x = 0.005;
-            wormholeMesh3.scale.y = 0.005;
-            wormholeMesh4.scale.x = 0.00125;
-            wormholeMesh4.scale.y = 0.00125;
-            //wormhole.scale.x = scaleValue.currentValue;
-            //wormhole.scale.y = scaleValue.currentValue;
-            TweenLite.to(scaleValue, 8, {
-                part1Value: 1,
-                ease:Elastic.easeOut,
-                onUpdate: function(){
-                    wormholeMesh1.scale.x = scaleValue.part1Value;
-                    wormholeMesh1.scale.y = scaleValue.part1Value;
-                },
-                onComplete: function(){
-                    hyperLight1.visible = true;
-                      hyperLight2.visible = true;
-                      hyperLight3.visible = true;
-                      hyperLight4.visible = true;
-                      //scene.add(hyperFlare);
-                      hyperBox.visible = true;
-                      hyperspace = true;
+            //hyperBox.visible = false;            
+             TweenLite.to(scaleValue, 2, {
+                currentPosition: -3,
+                ease: Power1.easeOut,
+                onUpdate: function () {
+                    wormhole.position.z = scaleValue.currentPosition;
                 }
             });
             TweenLite.to(scaleValue, 4, {
-                part2Value: 1,
+                part1Value: 0.0001,
+                ease: Power1.easeIn,
+                onUpdate: function () {
+                    wormholeMesh1.scale.x = scaleValue.part1Value;
+                    wormholeMesh1.scale.y = scaleValue.part1Value;
+                }
+            });
+            TweenLite.to(scaleValue, 4, {
+                part2Value: 0.0001,
                 delay: .5,
-                ease:Power4.easeOut,
-                onUpdate: function(){
+                ease: Power1.easeIn,
+                onUpdate: function () {
                     wormholeMesh2.scale.x = scaleValue.part2Value;
                     wormholeMesh2.scale.y = scaleValue.part2Value;
                 }
             });
             TweenLite.to(scaleValue, 6, {
-                part3Value: .5,
+                part3Value: 0.0001,
                 delay: 0.75,
-                ease:Power4.easeOut,
-                onUpdate: function(){
+                ease: Power1.easeIn,
+                onUpdate: function () {
                     wormholeMesh3.scale.x = scaleValue.part3Value;
                     wormholeMesh3.scale.y = scaleValue.part3Value;
                 }
             });
-            TweenLite.to(scaleValue, 8, {
-                part4Value: 1.25,
-                ease:Elastic.easeOut,
+            TweenLite.to(scaleValue, 6, {
+                part4Value: 0.0001,
+                ease: Power1.easeIn,
                 delay: 1,
-                onUpdate: function(){
+                onUpdate: function () {
                     wormholeMesh4.scale.x = scaleValue.part4Value;
                     wormholeMesh4.scale.y = scaleValue.part4Value;
                 }
             });
-            TweenLite.to(scaleValue, 12, {
-                currentValue: 15,
-                onUpdate: function(){
-                   // wormhole.scale.x = scaleValue.currentValue;
-                    //wormhole.scale.y = scaleValue.currentValue;
-                },
-                onComplete: function(){
-                    /*cameras[currentCamera].fov = 140;
-                    TweenLite.to(cameras[currentCamera], 3, {
-                        fov:45, 
-                        onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});*/
+            TweenLite.to(cameras[currentCamera], 7, {
+                fov: 45,
+                ease: Expo.easeOut,
+                onUpdate: function () {
+                    cameras[currentCamera].updateProjectionMatrix();
                 }
             });
+        },
+        onUpdate: function () {
+            cameras[currentCamera].updateProjectionMatrix();
+        }
+    });
 
-           TweenLite.to(scaleValue, 12, {
-                currentPosition:-3, 
-                delay:  4,
-                ease: Power4.easeInOut,
-                onUpdate: function(){
-                    wormhole.position.z = scaleValue.currentPosition;
+    break;
+case 54:
+    //'6'
+    currentCamera = 0;
+    scaleValue = {
+        currentValue: 0.001,
+        part1Value: 0.001,
+        part2Value: 0.001,
+        part3Value: 0.001,
+        part4Value: 0.001,
+        currentPosition: -33,
+        hyperBoxOpacity: 0
+    };
+    hyperBox.visible = false;
+    wormhole.position.z = scaleValue.currentPosition;
+    wormholeMesh1.scale.x = 0.001;
+    wormholeMesh1.scale.y = 0.001;
+    wormholeMesh2.scale.x = 0.001;
+    wormholeMesh2.scale.y = 0.001;
+    wormholeMesh3.scale.x = 0.005;
+    wormholeMesh3.scale.y = 0.005;
+    wormholeMesh4.scale.x = 0.00125;
+    wormholeMesh4.scale.y = 0.00125;
+    //wormhole.scale.x = scaleValue.currentValue;
+    //wormhole.scale.y = scaleValue.currentValue;
+    TweenLite.to(scaleValue, 8, {
+        part1Value: 1,
+        ease: Elastic.easeOut,
+        onUpdate: function () {
+            wormholeMesh1.scale.x = scaleValue.part1Value;
+            wormholeMesh1.scale.y = scaleValue.part1Value;
+        },
+        onComplete: function () {
+            hyperLight1.visible = true;
+            hyperLight2.visible = true;
+            hyperLight3.visible = true;
+            hyperLight4.visible = true;
+            hyperspace = true;
+            //scene.add(hyperFlare);
+           // hyperBox.visible = true;
+            TweenLite.to(scaleValue, 2, {
+                hyperBoxOpacity: 1,
+                onUpdate: function() {
+                    hyperBox.visible = true;
+                    console.log(scaleValue.hyperBoxOpacity);
+                    hyperBox.material.opacity = scaleValue.hyperBoxOpacity;
                 },
-                onComplete:function(){
-
+                onComplete: function() {
                 }
             });
+        }
+    });
+    TweenLite.to(scaleValue, 4, {
+        part2Value: 1,
+        delay: .5,
+        ease: Power4.easeOut,
+        onUpdate: function () {
+            wormholeMesh2.scale.x = scaleValue.part2Value;
+            wormholeMesh2.scale.y = scaleValue.part2Value;
+        }
+    });
+    TweenLite.to(scaleValue, 6, {
+        part3Value: .5,
+        delay: 0.75,
+        ease: Power4.easeOut,
+        onUpdate: function () {
+            wormholeMesh3.scale.x = scaleValue.part3Value;
+            wormholeMesh3.scale.y = scaleValue.part3Value;
+        }
+    });
+    TweenLite.to(scaleValue, 8, {
+        part4Value: 1.25,
+        ease: Elastic.easeOut,
+        delay: 1,
+        onUpdate: function () {
+            wormholeMesh4.scale.x = scaleValue.part4Value;
+            wormholeMesh4.scale.y = scaleValue.part4Value;
+        }
+    });
 
+    TweenLite.to(scaleValue, 12, {
+        currentPosition: 3,
+        delay: 4,
+        ease: Power4.easeInOut,
+        onUpdate: function () {
+            wormhole.position.z = scaleValue.currentPosition;
+        },
+        onComplete: function () {
 
-        
-
-            break;
+        }
+    });
+    break;
           case 55: // '7'
-            currentCamera = 2;  
+            currentCamera = 2;
+            break;  
           case 56: // '8'
             currentCamera = 0;
             break;
