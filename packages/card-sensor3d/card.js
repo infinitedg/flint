@@ -13,14 +13,35 @@ function ping(){
 	setTimeout(function(){$('.sensor_box').addClass('animating');},200);
 }
 
+
 Template.sonarControl.currentSensor = function(sensor){
 	if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 5000){return 'active';}
 	else if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 10000){return 'passive';}
 	else {return 'manual';}
 };
+
+Template.card_sensor3d.infaredSensors = function(context){
+
+	if (context == 'button'){
+		if (Flint.simulator('infaredSensors') == 'true'){return 'DEACTIVATE';}
+		else {return 'ACTIVATE';}
+	}
+	if (context == 'class'){
+		if (Flint.simulator('infaredSensors') == 'true'){console.log('on'); return 'infared';}
+		else {console.log('off'); return '';}
+	}
+};
 Template.card_sensor3d.events = {
 	'mousemove .sensorLabel': function(){
 		$('.sensorLabel').removeClass('shown');
+	},
+	'click #infared': function(){
+		Flint.beep();
+		if (Flint.simulator('infaredSensors') == 'true'){
+			Flint.simulator('infaredSensors','false');
+		} else {
+			Flint.simulator('infaredSensors','true');
+		}
 	}
 
 };
@@ -222,23 +243,25 @@ Template.card_sensor3d.rendered = function() {
 		var raycaster = projector.pickingRay( mouseVector.clone(), camera ),
 			intersects = raycaster.intersectObjects( scene.children );
 
-		 scene.children.forEach(function( cube ) {
+		 /*scene.children.forEach(function( cube ) {
 		 if (cube.material){
 		 	cube.material.color.setRGB( 0, 1, 0 );}
-		 });
-		 $('.sensorLabel').removeClass('shown');
-		for( var i = 0; i < intersects.length; i++ ) {
-			var intersection = intersects[ i ],
-			obj = intersection.object;
-			obj.material.color.setRGB( 1.0 - i / intersects.length, 0, 0 );
-			var position = obj.position;
-			if (obj.material.opacity > 0.5){
-				$('.sensorLabel').addClass('shown');
-				$('#contactImage').attr('src',Flint.a('/Sensor Pictures/' + obj.picture));
-				$('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y - sensorLabelOffset.top - 10);
-				$('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x - sensorLabelOffset.left + 30);
-				$('.sensorLabel p').text(obj.name);
-				
+		 });*/
+		$('.sensorLabel').removeClass('shown');
+		if (Flint.simulator('infaredSensors') != "true"){
+			for( var i = 0; i < intersects.length; i++ ) {
+				var intersection = intersects[ i ],
+				obj = intersection.object;
+				//obj.material.color.setRGB( 1.0 - i / intersects.length, 0, 0 );
+				var position = obj.position;
+				if (obj.material.opacity > 0.5){
+					$('.sensorLabel').addClass('shown');
+					$('#contactImage').attr('src',Flint.a('/Sensor Pictures/' + obj.picture));
+					$('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y - sensorLabelOffset.top - 10);
+					$('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x - sensorLabelOffset.left + 30);
+					$('.sensorLabel p').text(obj.name);
+					
+				}
 			}
 		}
 	});
@@ -356,16 +379,56 @@ Template.card_sensor3d.rendered = function() {
 		    			ping();
 		    		}
 		    	}
+		    	if (fields.infaredSensors) {
+					for (var key in sceneSprites) {
+						var obj = sceneSprites[key];
+						var doc = Flint.collection('sensorContacts').findOne(key);
+						if (fields.infaredSensors == 'true'){
+							if (!doc.infared){obj.visible = false;}
+							else {
+								obj.visible = true;
+								doc.color = "#f00";
+								var spriteColor = new THREE.Color(doc.color);
+								var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/Infared') );
+
+								sceneSprites[doc._id].material.map = sprite;
+								sceneSprites[doc._id].material.color = spriteColor;
+							}
+						} else {
+							if (doc.hasOwnProperty('infaredContact')){obj.visible = false;}
+							else {
+								obj.visible = doc.isVisible;
+								var doc = Flint.collection('sensorContacts').findOne(key);
+								doc.color = "#0f0";
+								var spriteColor = new THREE.Color(doc.color);
+								var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/' + doc.icon) );
+								
+								sceneSprites[doc._id].material.map = sprite;
+								sceneSprites[doc._id].material.color = spriteColor;
+							}
+						}
+	   					
+					}
+				}
 		    }
 	});
-
 	this.sensorObserver = Flint.collection('sensorContacts').find().observe({
 		added: function(doc) {
-			var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/' + doc.icon) );
-
-			var material = new THREE.SpriteMaterial( { map: sprite, useScreenCoordinates: false, color: 0x00ff00 } );
-
+			doc.color = "#0f0";
+			if (Flint.simulator('infaredSensors') == "true"){
+				var spriteColor = new THREE.Color('#f00');
+				var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/Infared') );
+			} else {
+				var spriteColor = new THREE.Color(doc.color);
+				var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/' + doc.icon) );
+			}
+			var material = new THREE.SpriteMaterial( { map: sprite, useScreenCoordinates: false, color: spriteColor } );
 			var sprite = new THREE.Sprite( material );
+			if (Flint.simulator('infaredSensors') == "true"){
+				if (!doc.infared){sprite.visible = false;}
+			} else {
+				if (doc.infaredContact){sprite.visible = false;}
+			}
 			sprite.position.set( doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
 			sprite.scale.set( 0.05 * viewRadius, 0.05 * viewRadius, 1.0 );
 			sprite.material.opacity = spriteOpacity(sprite);
@@ -377,7 +440,13 @@ Template.card_sensor3d.rendered = function() {
 			sceneSprites[doc._id] = sprite;
 		}, changed: function(doc, oldDoc) {
 			if (doc.icon != oldDoc.icon){
+				if (Flint.simulator('infaredSensors') == "true"){
+				//var color = "0xFF0000"
+				var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/Infared') );
+			} else {
+				//var color = doc.color;
 				var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/' + doc.icon) );
+			}
 				sceneSprites[doc._id].material.map = sprite;
 			}
 			sceneSprites[doc._id].name = doc.name;

@@ -139,6 +139,9 @@ var armyLayer  = new Kinetic.Layer({
 Standard sensor grid card for sensors stations
 @class core_sensor3d
 */
+Template.core_sensor3d.wormhole = function() {
+  return Flint.simulator('wormhole');
+}
 Template.core_sensor3d.created = function() {
   Session.set('currentDimension', currentDimensions.y);
 
@@ -304,7 +307,7 @@ Template.core_sensor3d.created = function() {
         var contactInfo = contactsContainer.append('li');
         var contactLabel = contactInfo.append('input').attr('type','text');
         var contactIcon = contactInfo.append('img').attr('src',Flint.a('/Sensor Icons/' + doc.icon));
-        var infaredIcon = contactInfo.append('input').attr('type','checkbox').attr('checked','true');
+        var infaredIcon = contactInfo.append('input').attr('type','checkbox').attr('checked',doc.infared);
         contactIcon.attr('height',50 * k.scale);
         contactLabel.attr('class','form-control');
         contactLabel.attr('value',doc.name);
@@ -448,6 +451,8 @@ Setup dependencies and observation loop for animating sensor contacts
 Template.core_sensor3d.rendered = function() {
   k.container = this.find('.sensorgrid-container');
 
+  
+
   var stage = new Kinetic.Stage({
     container: k.container,
     width: k.width + 30 + 50 * k.scale, // Provide room for 30 pixel margin between grid and army contacts, plus contact size.
@@ -589,6 +594,14 @@ Template.core_sensor3d.events({
   },
   'click #sensorContacts': function(e, t){
    // console.log(e.which);
+  },
+  'click #wormhole': function(e, t){
+    if (e.target.checked){
+      Flint.simulator('wormhole', 'true');
+    }
+    else {
+      Flint.simulator('wormhole', 'false');
+    }
   }
 });
 

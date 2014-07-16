@@ -15,7 +15,7 @@
 	    transition-duration: 5.5s;
 	}
 	.sensor_box.infared{
-		background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%,rgba(255,0,0,0.75) 65%,rgba(0,0,0,0) 70%);
+		background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%,rgba(255,0,0,0.75) 65%,rgba(0,0,0,0) 70%) !important;
 	}
 }
 .sensor_box{
@@ -130,4 +130,8 @@
 	transition: opacity 0.5s ease-in;
 	opacity: 0;
 	width: 100%;
+}
+#infared{
+	width: 100%;
+	margin-bottom: 10px;
 }

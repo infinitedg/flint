@@ -8,16 +8,17 @@
 		</div>
 
 		<div class="col-xs-6" id="sensor_grid">
-			<div class="sensor_box"></div>
+			<div class="sensor_box {{infaredSensors "class"}}"></div>
 		</div>
 		<div class="col-xs-3">
+			<h4>Sensor Options</h4>
+			<button class="btn btn-warning" id="infared">{{infaredSensors "button"}} Infared</button>
 			{{> sonarControl}}
 		</div>
 	</div>
 </template>
 
 <template name="sonarControl">
-	<h4>Sensor Options</h4>
 	<ul class="pingOptions">
 		<li id="activeScan" class={{currentSensor}}>Active Scan</li>
 		<li id="passiveScan" class={{currentSensor}}>Passive Scan</li>
