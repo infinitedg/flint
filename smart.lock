@@ -86,8 +86,8 @@
       },
       "kadira": {
         "git": "https://github.com/meteorhacks/kadira.git",
-        "tag": "v2.4.5",
-        "commit": "fa9a6446f6efb576953f99c01c03474f56f3852e"
+        "tag": "v2.4.8",
+        "commit": "5f4437af113537def34484c7b7a2a5e4d60847a9"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -102,7 +102,7 @@
       "gsap": {
         "git": "https://github.com/brentjanderson/meteor-gsap.git",
         "branch": "master",
-        "commit": "337696a8f5922102ec44d7491b7dc9d01d594c0f"
+        "commit": "cf4ee77f440f623ba613ae3d59ea4a89a15a466a"
       },
       "chosen-package": {
         "git": "https://github.com/Ore4444/chosen-package.git",
@@ -146,8 +146,8 @@
       },
       "cfs-file": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-file.git",
-        "tag": "v0.1.7",
-        "commit": "9fb8dcb9afd25c9f737497e102e266a2c81e481b"
+        "tag": "v0.1.8",
+        "commit": "0b576c546cc38efad02877d160c9852914574b02"
       },
       "cfs-collection": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-collection.git",
@@ -161,8 +161,8 @@
       },
       "cfs-access-point": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-access-point.git",
-        "tag": "v0.0.30",
-        "commit": "a1a02ef8d145aae414bf9fe483f5944a24e35bf5"
+        "tag": "v0.0.31",
+        "commit": "e2ccc9cdcfdf1a26d40acaeff3f3a6b5324e1ef6"
       },
       "cfs-worker": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-worker.git",
@@ -181,8 +181,8 @@
       },
       "cfs-storage-adapter": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-storage-adapter.git",
-        "tag": "v0.0.28",
-        "commit": "8e0513815501d79b3d531a64f80717b4e9a34a42"
+        "tag": "v0.0.29",
+        "commit": "2bcc5c730f7f4d2536af5bd8b0187a60feb1e0e8"
       },
       "http-methods": {
         "git": "https://github.com/CollectionFS/Meteor-http-methods.git",
@@ -197,7 +197,7 @@
       "data-man": {
         "git": "https://github.com/CollectionFS/Meteor-data-man.git",
         "branch": "master",
-        "commit": "c42e97728b38c29522d59db58d290e928df831ba"
+        "commit": "ec2034e133c3e27d770ecc4ad848089c66d2266c"
       },
       "cfs-upload-ddp": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-upload-ddp.git",
