@@ -800,7 +800,7 @@ Template.Tactical.rendered = function (){
 
 
     this.subscription = Deps.autorun(function() {
-        Meteor.subscribe('cards.card-tacControl.contacts', Flint.simulatorId());
+        Meteor.subscribe('cards.card-tacControl.screencontacts', Flint.simulatorId());
       });
 
       stage = new Kinetic.Stage({
@@ -809,7 +809,7 @@ Template.Tactical.rendered = function (){
             height: 630
           });
 
-          anchorLayer = new Kinetic.Layer();
+    anchorLayer = new Kinetic.Layer();
     lineLayer = new Kinetic.Layer();
     curveLayer = new Kinetic.Layer();
     contactsLayer = new Kinetic.Layer();
@@ -859,10 +859,10 @@ Template.Tactical.rendered = function (){
 
           }
 
-    this.tacticalObserver = Flint.collection('tacticalScreenContacts').find().observeChanges({
+    this.tacticalObserver = Flint.collection('tacticalscreencontacts').find().observeChanges({
         added: function(id, doc) {
           // console.log("Added", id, doc);
-          doc['type']= Flint.collection('tacticalScreenContacts').findOne({_id: id}).type;
+          doc['type']= Flint.collection('tacticalscreencontacts').findOne({_id: id}).type;
         if (doc['type'] === 'contact'){
           if (!contactsArray[id]) {
             contactsArray[id] = {};
@@ -889,7 +889,7 @@ Template.Tactical.rendered = function (){
               icon.draw();
               contactsArray[id].contact = icon;
             };
-            contactObj.src = k.spritePath + doc.icon;
+            contactObj.src = doc.icon;
           }
          }
          if (doc['type'] === 'bezier'){
@@ -1013,100 +1013,8 @@ Template.card_viewscreen.rendered = function () {
     //initSandbox();
     //initTactical();
     var lastTimeMsec = null;
-    function onKeyDown(evt) {
-        var result;
-        switch (evt.keyCode) {
-          case 53:
-    //'5'
-    currentCamera = 0;
-    scaleValue = {
-        currentValue: 3,
-        part1Value: 1,
-        part2Value: 1,
-        part3Value: 0.5,
-        part4Value: 0.125,
-        currentPosition: 0,
-        hyperBoxOpacity: 1
-    };
-    TweenLite.to(scaleValue, 1, {
-        hyperBoxOpacity: 0,
-        onUpdate: function() {
-            hyperBox.material.opacity = scaleValue.hyperBoxOpacity;
-        },
-        onComplete: function() {
-            hyperspace = false;
-            hyperBox.visible = false;
-        }
-    });
-
-    TweenLite.to(cameras[currentCamera], 1, {
-        fov: 140,
-
-        onComplete: function () {
-            hyperLight1.visible = false;
-            hyperLight2.visible = false;
-            hyperLight3.visible = false;
-            hyperLight4.visible = false;
-            scene.remove(hyperFlare);
-            //hyperBox.visible = false;            
-             TweenLite.to(scaleValue, 2, {
-                currentPosition: -3,
-                ease: Power1.easeOut,
-                onUpdate: function () {
-                    wormhole.position.z = scaleValue.currentPosition;
-                }
-            });
-            TweenLite.to(scaleValue, 4, {
-                part1Value: 0.0001,
-                ease: Power1.easeIn,
-                onUpdate: function () {
-                    wormholeMesh1.scale.x = scaleValue.part1Value;
-                    wormholeMesh1.scale.y = scaleValue.part1Value;
-                }
-            });
-            TweenLite.to(scaleValue, 4, {
-                part2Value: 0.0001,
-                delay: .5,
-                ease: Power1.easeIn,
-                onUpdate: function () {
-                    wormholeMesh2.scale.x = scaleValue.part2Value;
-                    wormholeMesh2.scale.y = scaleValue.part2Value;
-                }
-            });
-            TweenLite.to(scaleValue, 6, {
-                part3Value: 0.0001,
-                delay: 0.75,
-                ease: Power1.easeIn,
-                onUpdate: function () {
-                    wormholeMesh3.scale.x = scaleValue.part3Value;
-                    wormholeMesh3.scale.y = scaleValue.part3Value;
-                }
-            });
-            TweenLite.to(scaleValue, 6, {
-                part4Value: 0.0001,
-                ease: Power1.easeIn,
-                delay: 1,
-                onUpdate: function () {
-                    wormholeMesh4.scale.x = scaleValue.part4Value;
-                    wormholeMesh4.scale.y = scaleValue.part4Value;
-                }
-            });
-            TweenLite.to(cameras[currentCamera], 7, {
-                fov: 45,
-                ease: Expo.easeOut,
-                onUpdate: function () {
-                    cameras[currentCamera].updateProjectionMatrix();
-                }
-            });
-        },
-        onUpdate: function () {
-            cameras[currentCamera].updateProjectionMatrix();
-        }
-    });
-
-    break;
-case 54:
-    //'6'
+    function wormholeOpen() {
+          //'6'
     currentCamera = 0;
     scaleValue = {
         currentValue: 0.001,
@@ -1195,7 +1103,117 @@ case 54:
 
         }
     });
-    break;
+    };
+    function wormholeClose() {
+        //'5'
+    currentCamera = 0;
+    scaleValue = {
+        currentValue: 3,
+        part1Value: 1,
+        part2Value: 1,
+        part3Value: 0.5,
+        part4Value: 0.125,
+        currentPosition: 0,
+        hyperBoxOpacity: 1
+    };
+    TweenLite.to(scaleValue, 1, {
+        hyperBoxOpacity: 0,
+        onUpdate: function() {
+            hyperBox.material.opacity = scaleValue.hyperBoxOpacity;
+        },
+        onComplete: function() {
+            hyperspace = false;
+            hyperBox.visible = false;
+        }
+    });
+
+    TweenLite.to(cameras[currentCamera], 1, {
+        fov: 140,
+
+        onComplete: function () {
+            hyperLight1.visible = false;
+            hyperLight2.visible = false;
+            hyperLight3.visible = false;
+            hyperLight4.visible = false;
+            scene.remove(hyperFlare);
+            //hyperBox.visible = false;            
+             TweenLite.to(scaleValue, 2, {
+                currentPosition: -3,
+                ease: Power1.easeOut,
+                onUpdate: function () {
+                    wormhole.position.z = scaleValue.currentPosition;
+                }
+            });
+            TweenLite.to(scaleValue, 4, {
+                part1Value: 0.0001,
+                ease: Power1.easeIn,
+                onUpdate: function () {
+                    wormholeMesh1.scale.x = scaleValue.part1Value;
+                    wormholeMesh1.scale.y = scaleValue.part1Value;
+                }
+            });
+            TweenLite.to(scaleValue, 4, {
+                part2Value: 0.0001,
+                delay: .5,
+                ease: Power1.easeIn,
+                onUpdate: function () {
+                    wormholeMesh2.scale.x = scaleValue.part2Value;
+                    wormholeMesh2.scale.y = scaleValue.part2Value;
+                }
+            });
+            TweenLite.to(scaleValue, 6, {
+                part3Value: 0.0001,
+                delay: 0.75,
+                ease: Power1.easeIn,
+                onUpdate: function () {
+                    wormholeMesh3.scale.x = scaleValue.part3Value;
+                    wormholeMesh3.scale.y = scaleValue.part3Value;
+                }
+            });
+            TweenLite.to(scaleValue, 6, {
+                part4Value: 0.0001,
+                ease: Power1.easeIn,
+                delay: 1,
+                onUpdate: function () {
+                    wormholeMesh4.scale.x = scaleValue.part4Value;
+                    wormholeMesh4.scale.y = scaleValue.part4Value;
+                }
+            });
+            TweenLite.to(cameras[currentCamera], 7, {
+                fov: 45,
+                ease: Expo.easeOut,
+                onUpdate: function () {
+                    cameras[currentCamera].updateProjectionMatrix();
+                }
+            });
+        },
+        onUpdate: function () {
+            cameras[currentCamera].updateProjectionMatrix();
+        }
+    });
+    };
+    this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+            changed: function(id, fields) {
+                debugger;
+                    if (fields.wormhole){
+                        if (fields.wormhole == "true"){
+                            wormholeOpen();
+                        } else {
+                            wormholeClose();
+                        }
+                    }
+                }
+    });
+    function onKeyDown(evt) {
+        var result;
+        switch (evt.keyCode) {
+        case 53:
+            wormholeClose();
+
+            break;
+        case 54:
+              wormholeOpen();
+                break;
           case 55: // '7'
             currentCamera = 2;
             break;  

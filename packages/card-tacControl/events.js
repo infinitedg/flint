@@ -250,5 +250,8 @@ Template.card_tacControl.events = {
             simulatorId: Flint.simulatorId()
         };
         Flint.collection('tacticalContacts').insert(updateObj);
+    },
+    'click #updateViewscreen': function(e,context) {
+        Meteor.call('updateTacticalScreen');
     }
 };

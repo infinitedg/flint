@@ -71,7 +71,6 @@ function transformY(y) {
     //return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
     return y;
 }
-
 resetLocs = function() {
     if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {
         var target = contactsArray[Session.get('selectedSymbol')].contact;
