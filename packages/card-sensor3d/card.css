@@ -47,9 +47,38 @@
 	border-color: #222222;
 	font-size: 12px;
 }
-#sensorGrid{
+#coreSensor3d #sensorGrid{
 	float: left;
 }
+#coreSensor3d .sensorIFFOverlay{
+	background-blend-mode: overlay;
+	width: 75px;
+	height: 75px;	
+}
+#coreSensor3d #gridContacts{
+	position: absolute;
+	top: -3px;
+}
+#coreSensor3d #gridContacts li{
+	position: absolute;
+}
+#coreSensor3d #sensorContacts, #coreSensor3d #gridContacts{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#coreSensor3d #sensorContacts li, #coreSensor3d #gridContacts li{
+	padding: 0;
+	margin: 0;
+}
+#coreSensor3d #sensorContacts li input{
+	float: right;
+}
+#coreSensor3d #sensorContacts li img{
+	float: left;
+}
+
+
 .shown{
 	height: auto !important;
 	opacity: 1 !important;
@@ -77,28 +106,6 @@
 .sensorLabel p{
 	padding: 2.5px;
 	margin-left: 5px;
-}
-#gridContacts{
-	position: absolute;
-	top: -3px;
-}
-#gridContacts li{
-	position: absolute;
-}
-#sensorContacts, #gridContacts{
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-#sensorContacts li, #gridContacts li{
-	padding: 0;
-	margin: 0;
-}
-#sensorContacts li input{
-	float: right;
-}
-#sensorContacts li img{
-	float: left;
 }
 .pingOptions{
 	list-style: none;

@@ -87,6 +87,29 @@ function changeLabel(id){
   var newLabel = prompt("Please enter the new label", contact.name);
   Flint.collection('sensorContacts').update(id, {$set: {name: newLabel}});
 };
+function changeIFF(iff){
+  var id = Session.get('currentSensorIcon');
+  var color;
+  switch (iff){
+    case 'Friendly':
+      color = "#07f";
+    break;
+    case 'Neutral':
+      color = "#ff0";
+    break;
+    case 'Foe':
+      color = "#f00";
+    break;
+    case 'Unknown':
+      color = "#aaa";
+    break;
+  }
+  if (id.kind == 'army'){
+    Flint.collection('armyContacts').update(id.which, {$set: {color: color}});
+  } else if (id.kind == 'grid') {
+    Flint.collection('sensorContacts').update(id.which, {$set: {color: color}});
+  }
+};
 iconList = function(){
    var sel = {};
    var iconList = [];
@@ -127,7 +150,14 @@ modelList = function(){
     });
     return iconList;
 };
-
+iffList = function(){
+  var iffList = [];
+  iffList.push({text: "Friendly", action: function(e){changeIFF(e.target.text)}});
+  iffList.push({text: "Neutral", action: function(e){changeIFF(e.target.text)}});
+  iffList.push({text: "Foe", action: function(e){changeIFF(e.target.text)}});
+  iffList.push({text: "Unknown", action: function(e){changeIFF(e.target.text)}});
+  return iffList;
+}
 var contactsLayer = new Kinetic.Layer();
 var ghostLayer = new Kinetic.Layer();
 var armyLayer  = new Kinetic.Layer({
@@ -175,6 +205,7 @@ Template.core_sensor3d.created = function() {
           {text: 'Pictures', subMenu: pictureList()},
           {text: 'Models', subMenu: modelList()},
           {divider: true},
+          {text: 'IFF', subMenu: iffList()},
           {text: 'Behaviors'}
         ];
         context.attach(('#contact-' + id),contextArray);
@@ -308,17 +339,20 @@ Template.core_sensor3d.created = function() {
         var contactLabel = contactInfo.append('input').attr('type','text');
         var contactIcon = contactInfo.append('img').attr('src',Flint.a('/Sensor Icons/' + doc.icon));
         var infaredIcon = contactInfo.append('input').attr('type','checkbox').attr('checked',doc.infared);
+        var iffOverlay = contactIcon.append('div').attr('class', 'sensorIFFOverlay');
         contactIcon.attr('height',50 * k.scale);
         contactLabel.attr('class','form-control');
         contactLabel.attr('value',doc.name);
         contactInfo.attr('id',('contact-' + atIndex));
         contactInfo.attr('title',id);
+        $('#contact-' + atIndex + " .sensorIFFOverlay").css('background-color', doc.color);
         var contextArray = [
           {header: 'Icon'},
           {text: 'Icons', subMenu: iconList()},
           {text: 'Pictures', subMenu: pictureList()},
           {text: 'Models', subMenu: modelList()},
           {divider: true},
+          {text: 'IFF', subMenu: iffList()},
           {text: 'Behaviors'}
         ];
         context.attach(('#contact-' + atIndex),contextArray);

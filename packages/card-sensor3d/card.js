@@ -414,7 +414,7 @@ Template.card_sensor3d.rendered = function() {
 	});
 	this.sensorObserver = Flint.collection('sensorContacts').find().observe({
 		added: function(doc) {
-			doc.color = "#0f0";
+			//doc.color = "#0f0";
 			if (Flint.simulator('infaredSensors') == "true"){
 				var spriteColor = new THREE.Color('#f00');
 				var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/Infared') );
@@ -439,16 +439,20 @@ Template.card_sensor3d.rendered = function() {
 
 			sceneSprites[doc._id] = sprite;
 		}, changed: function(doc, oldDoc) {
+			if (Flint.simulator('infaredSensors') == "true"){
+				var color = "#f00"
+			} else {
+				var color = doc.color;
+			}
 			if (doc.icon != oldDoc.icon){
 				if (Flint.simulator('infaredSensors') == "true"){
-				//var color = "0xFF0000"
 				var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/Infared') );
 			} else {
-				//var color = doc.color;
 				var sprite = THREE.ImageUtils.loadTexture( Flint.a('/Sensor Icons/' + doc.icon) );
 			}
 				sceneSprites[doc._id].material.map = sprite;
 			}
+			sceneSprites[doc._id].material.color = new THREE.Color(color);
 			sceneSprites[doc._id].name = doc.name;
 			sceneSprites[doc._id].picture = doc.picture;
 			sceneSprites[doc._id].position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
