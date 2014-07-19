@@ -11,7 +11,12 @@ var k = {
   scale: 1, // Used to determine the sizing of contacts
   strokeWidth: 2,
   color: "00ff00",
-  spritePath: '/packages/card-sensorGrid/sprites/'
+  spritePath: '/packages/card-sensorGrid/sprites/',
+  filter: {
+    red: 0,
+    green: 255,
+    blue: 0
+  },
 }, 
 contactsArray = {};
 
@@ -27,7 +32,7 @@ function transformX(x) {
 };
 
 function transformY(y) {
-  return Math.round(k.height * ((y * -1) + 1) / 2); // Flip, translate, and scale to different coordinate system
+  return Math.round(k.height * ((y * 1) + 1) / 2); // Flip, translate, and scale to different coordinate system
 };
 
 /**
@@ -49,19 +54,24 @@ Template.card_sensorGrid.created = function() {
         imageObj.onload = function() {
           var icon = new Kinetic.Image({
             x: transformX(doc.x),
-            y: transformY(doc.y),
+            y: transformY(doc.z),
             image: imageObj,
-            width: 50,
-            height: 50
+            width: 30,
+            height: 30,
+            red: k.filter.red,
+            green: k.filter.green,
+            blue: k.filter.blue
           });
+          icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
 
           // add the shape to the layer
           contactsLayer.add(icon);
+          icon.cache();
           icon.draw();
           icon.visible(doc.isVisible);
           contactsArray[id] = icon;
         };
-        imageObj.src = k.spritePath + doc.icon;
+        imageObj.src = Flint.a('/Sensor Icons/' + doc.icon);
       }
     },
     changed: function(id, fields) {
@@ -71,8 +81,8 @@ Template.card_sensorGrid.created = function() {
         if (fields.x !== undefined) {
           icon.setX(transformX(fields.x));
         }
-        if (fields.y !== undefined) {
-          icon.setY(transformY(fields.y));
+        if (fields.z !== undefined) {
+          icon.setY(transformY(fields.z));
         }
 
         if (fields.isVisible !== undefined) {
