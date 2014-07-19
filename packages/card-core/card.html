@@ -1,8 +1,8 @@
 <template name="card_core">
 <h1>Card core</h1>
-	<div id="grid" class="span12" data-columns>
+	<div id="grid" class="coreFlex">
 		{{#each cards}}
-		<div id="{{cardId}}">
+		<div class="flexChild" id="{{cardId}}">
 		{{> addWidget}}
 		</div>
 		{{/each}}
