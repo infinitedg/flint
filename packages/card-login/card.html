@@ -1,12 +1,12 @@
 <template name="card_login">
   <div class="flexRow">
+  <img class="simLogo" src="/themes/default/public/svg/Vanguard2.svg" style="height: 250px;"/>
       {{#if client.name}}
         <div class="text-center">
           <h1>{{t "Welcome"}} {{client.name}}</h1>
           <a href="#" class="enderBtn {{alertLevel}} btn-logout">{{t "Logout"}}</a>
         </div>
-      {{else}}
-            <img class="simLogo" src="/themes/default/public/svg/Vanguard2.svg" style="height: 250px;"/>
+      {{else}}      
             <div class="login-group">
                 <label class="control-label">{{ t "Name" }}</label>
                 <input type="text" class="loginname login-input form-control {{alertLevel}}"/>
