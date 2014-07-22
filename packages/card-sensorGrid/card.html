@@ -1,9 +1,25 @@
 <template name="card_sensorGrid">
 	<div id="card_sensorGrid">
-	<div class="container-fluid">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="sensorgrid-container"></div>
+		<div class="row">
+			<div class="col-xs-3">
+				{{> card_scanner}}
+			</div>
+			<div class="col-xs-6">
+				<div class="sensorgrid-container"></div>
+			</div>
+			<div class="col-xs-3">
+				<h4>Processed Data</h4>
+				{{> processedData}}
+			</div>
 		</div>
 	</div>
-	</div>
+</template>
+
+<template name="sensorContactInfo">
+	<img src="#" class="contactPicture" />
+	<div class="contactInfo"></div>
+</template>
+
+<template name="processedData">
+
 </template>

@@ -2,7 +2,7 @@
 @module Templates
 @submodule Cards
 */
- 
+
 var contactsLayer = new Kinetic.Layer();
 
 var k = {

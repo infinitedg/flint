@@ -1194,7 +1194,6 @@ Template.card_viewscreen.rendered = function () {
     };
     this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
             changed: function(id, fields) {
-                debugger;
                     if (fields.wormhole){
                         if (fields.wormhole == "true"){
                             wormholeOpen();

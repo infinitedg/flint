@@ -50,6 +50,7 @@
 	width: 500px;
 	margin-left: -250px;
 	left: 50%;
+	top: 30px;
 }
 #card_sensorGrid .sensorgrid-container canvas{
 	/*It's a circle*/
