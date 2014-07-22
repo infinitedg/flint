@@ -4,14 +4,14 @@
       {{#if client.name}}
         <div class="text-center">
           <h1>{{t "Welcome"}} {{client.name}}</h1>
-          <a href="#" class="enderBtn {{alertLevel}} btn-logout">{{t "Logout"}}</a>
+          <a href="#" class="btn {{alertLevel}} btn-logout">{{t "Logout"}}</a>
         </div>
       {{else}}      
             <div class="login-group">
                 <label class="control-label">{{ t "Name" }}</label>
                 <input type="text" class="loginname login-input form-control {{alertLevel}}"/>
             </div>
-            <button class="enderBtn {{alertLevel}} btn-login">{{t "Login" }}</button>
+            <button class="btn btn-default {{alertLevel}} btn-login">{{t "Login" }}</button>
       {{/if}}
   </div>
 </template>
