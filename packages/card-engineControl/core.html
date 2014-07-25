@@ -18,4 +18,17 @@
 		<option value="1.9">Warp 9</option>
 		<option value="1.0">Warp 9.23</option>
 	</select>
+	{{> core_heatLevels}}
+</template>
+
+<template name="core_heatLevels">
+	<div data-type="impulse" class="heatBox">
+		<div class="heatBar" style='width: {{heatLevel "impulse"}};'></div>
+		<div class="heatDragger" style='left: calc({{heatLevel "impulse"}} - 4px);'></div>
+	</div>
+	<div data-type="warp" class="heatBox">
+		<div class="heatBar" style='width: {{heatLevel "warp"}};'></div>
+		<div class="heatDragger" style='left: calc({{heatLevel "warp"}} - 4px);'></div>
+	</div>
+	<div class="heatRate core-editable">{{heatRate}}</div>
 </template>
