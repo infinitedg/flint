@@ -1,0 +1,107 @@
+<template name="card_courseCalculation">
+	<div id="courseCalculation">
+		<div class="row">
+			<div class="col-xs-4 inputColumn">
+				<div class="destinationInput">
+					<div class="destinationLabel">
+						Desired Destination
+					</div>
+					<input type="text" class="courseInput" value={{desiredCourse}} />
+					<button class="{{buttonHidden 'calculate'}} btn btn-primary calculateCourse">Calculate Coordinates</button>
+					<button class="{{buttonHidden 'cancel'}} btn btn-primary cancelCalculation">Cancel Calculation</button>
+				</div>
+				<div class="starsMap">
+					<div class="starsBox">
+						<div class="stars"><img class="shipView" draggable=false src={{starsImage}} /></div>
+						<div class="crosshairs">
+							<div class="linex"></div>
+							<div class="liney"></div>
+							<div class="brackets">
+								<div class="ur"></div>
+								<div class="ul"></div>
+								<div class="br"></div>
+								<div class="bl"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-3 col-xs-offset-1">
+				<div class="calculatedCourse theme-backer">
+					<div class="calculatedLabel">Calculated Course</div>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">X:</label>
+							<div class="col-sm-10">
+								<div class="numBox calculatedX">{{desiredCoordinates 'x'}}</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Y:</label>
+							<div class="col-sm-10">
+								<div class="numBox calculatedY">{{desiredCoordinates 'y'}}</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Z:</label>
+							<div class="col-sm-10">
+								<div class="numBox calculatedZ">{{desiredCoordinates 'z'}}</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="currentCourse theme-backer">
+					<div class="currentCourseLabel">Current Course</div>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">X:</label>
+							<div class="col-sm-10">
+								<div class="numBox currentX">{{currentCoordinates 'x'}}</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Y:</label>
+							<div class="col-sm-10">
+								<div class="numBox currentY">{{currentCoordinates 'y'}}</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Z:</label>
+							<div class="col-sm-10">
+								<div class="numBox currentZ">{{currentCoordinates 'z'}}</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-xs-3 col-xs-offset-1 keypadButtons">
+
+					<div class="row">
+						<button type="button" class="btn keypad btn-default">7</button>
+						<button type="button" class="btn keypad btn-default">8</button>
+						<button type="button" class="btn keypad btn-default">9</button>
+					</div>
+					<div class="row">
+						<button type="button" class="btn keypad btn-default">4</button>
+						<button type="button" class="btn keypad btn-default">5</button>
+						<button type="button" class="btn keypad btn-default">6</button>
+					</div>
+					<div class="row">
+						<button type="button" class="btn keypad btn-default">1</button>
+						<button type="button" class="btn keypad btn-default">2</button>
+						<button type="button" class="btn keypad btn-default">3</button>
+					</div>     
+					<div class="row">
+						<button type="button" class="btn keypad btn-default">.</button>
+						<button type="button" class="btn keypad btn-default">0</button>
+						<button type="button" class="btn clearButton btn-default">C</button>
+					</div> 
+					<div class="row">
+						<button type="button" class="btn btn-default enter">Enter</button>
+					</div>
+
+			</div>
+		</div>
+	</div>
+</template>

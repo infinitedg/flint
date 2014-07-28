@@ -1,0 +1,26 @@
+<template name="core_courseCalculation">
+	<div class="courseCalculation">
+		<div class="row">
+			<div class="currentCourse currentX">{{currentCoordinates 'x'}}</div>
+			<label class="control-label">X</label>
+			<input type="text" class="calculatedX" value={{calculatedCoordinates 'x'}} />
+			<button class="btn btn-primary btn-sm sendCourse">Send</button>
+		</div>
+		<div class="row">
+			<div class="currentCourse currentY">{{currentCoordinates 'y'}}</div>
+			<label class="control-label">Y</label>
+			<input type="text" class="calculatedY" value={{calculatedCoordinates 'y'}} />
+			<button class="btn btn-primary btn-sm randomCourse">Random</button>
+		</div> 
+		<div class="row">
+			<div class="currentCourse currentZ">{{currentCoordinates 'z'}}</div>
+			<label class="control-label">Z</label>
+			<input type="text" class="calculatedZ" value={{calculatedCoordinates 'z'}} />
+			<button class="btn btn-primary btn-sm unknownCourse">Unknown</button>
+		</div> 
+		<div class="row">
+			<div class="col-xs-12 numBox desiredCourse">{{desiredCourse}}</div>
+		</div>  
+	</div>
+</template>
+
