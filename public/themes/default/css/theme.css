@@ -26,10 +26,7 @@
 margin: 0 auto;
 width: 530px;
 }
-.flexRow .login-group{
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+
 
 html,body{position: fixed;
   padding: 0px;
@@ -1630,12 +1627,6 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 ul.breadcrumb {background-color: rgba(0,0,0,0.3);}
 ul.breadcrumb li {text-shadow: rgba(255,255,254,0) 0 0 0;} 
 
-.text-center {
- margin-top: 100px;   
-}
-.text-center h1{
- margin: 50px;   
-}
 input[type="email"],input[type="text"],input[type="password"], textarea {
   color: #fff;
   border: 0px solid rgba(255,255,255,.5); 

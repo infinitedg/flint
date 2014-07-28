@@ -12,3 +12,7 @@
 .selectable::-moz-selection {
 	background: #ffb7b7; /* Firefox */
 }
+.flintassetbrowser{
+	height: 500px;
+	overflow-y: scroll;
+}

@@ -1,7 +1,5 @@
 .flexRow{
-    margin-top: 40px;
     margin: auto;
-    margin-top: 40px;
     top: 0; left: 0; bottom: 0; right: 0;
     position: relative;
     display: flex;
@@ -10,7 +8,7 @@
     -webkit-flex-direction: column;
     -webkit-justify-content: center;
       justify-content: center;
-    width:  400px;
+    width:  80vw;
  }
 .flexRow .login-group{
 	margin-top: 20px;
@@ -22,4 +20,15 @@
 }
 .flexRow .btn-login{
 	text-align:center;
+}
+.text-center {
+    width: 100%;
+}
+.text-center h1{
+ margin: 10px;
+ margin-bottom: 55px;
+ width: 100%;   
+}
+.flexRow .btn {
+    width: 100%;
 }
