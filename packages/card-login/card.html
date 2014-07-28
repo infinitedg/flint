@@ -1,6 +1,6 @@
 <template name="card_login">
   <div class="flexRow">
-  <img class="simLogo" src="/themes/default/public/svg/Vanguard2.svg" style="height: 250px;"/>
+  <img class="simLogo" draggable=false src={{loginImage}} />
       {{#if client.name}}
         <div class="text-center">
           <h1>{{t "Welcome"}} {{client.name}}</h1>

@@ -15,7 +15,7 @@
 	margin-bottom: 20px;
 }
 .flexRow .simLogo{
-	width: 250px;
+    max-height: 40vh;
 	margin: 0 auto;
 }
 .flexRow .btn-login{
