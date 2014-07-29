@@ -54,6 +54,7 @@ startScan = function(){
 } 
 stopScan = function(values,immediate){
 	starsLoop = '';
+	debugger;
 	clearInterval(randomLoopX);
 	clearInterval(randomLoopY);
 	clearInterval(randomLoopZ);
@@ -223,9 +224,7 @@ Template.card_courseCalculation.rendered = function(){
 			if (fields.desiredCourse) {
 				if (fields.desiredCourse.substr(-1,1) == '*'){startScan();}
 				else {
-					if (fields.desiredCoordinates) {
 						stopScan();}
-					}
 				}
 				if (fields.desiredCoordinates) {
 					var obj = {

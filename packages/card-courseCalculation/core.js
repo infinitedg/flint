@@ -11,15 +11,16 @@ Template.core_courseCalculation.desiredCourse = function(which){
 }
 Template.core_courseCalculation.events = {
 	'click .sendCourse': function(){
+		if (Flint.simulator('desiredCourse').substr(-1,1) == '*'){
+			var course = Flint.simulator('desiredCourse').slice(0,-1);
+			Flint.simulator('desiredCourse', course);
+		}
 		var obj = {};
 		obj.x = $('.calculatedX').val();
 		obj.y = $('.calculatedY').val();
 		obj.z = $('.calculatedZ').val();
 		Flint.simulator('desiredCoordinates',obj);
-		if (Flint.simulator('desiredCourse').substr(-1,1) == '*'){
-			var course = Flint.simulator('desiredCourse').slice(0,-1);
-			Flint.simulator('desiredCourse', course);
-		}
+		
 	},
 	'click .randomCourse': function(){
 		$('.calculatedX').val(getRandomInt(1,99999)/100);

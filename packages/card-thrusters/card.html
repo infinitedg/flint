@@ -1,6 +1,6 @@
 <template name="card_thrusters">
-  <div id="thruster-card">
-    <div id="thrusters" class="col-lg-offset-2 col-lg-8">
+  <div id="thruster-card" class="row">
+    <div id="thrusters" class="col-sm-8 col-xs-12">
      <div id="directional-thrusters">
       <div id="forward" class="directional-thruster box white" data-direction="forward">FORWARD</div>
       <div id="up" class="directional-thruster box white" data-direction="up">UP</div>
@@ -8,32 +8,46 @@
       <div id="starboard" class="directional-thruster left-round white" data-direction="starboard"><div class="inner-text-sides">STARBOARD</div></div>
       <div id="down" class="directional-thruster box white" data-direction="down">DOWN</div>
       <div id="reverse" class="directional-thruster box white" data-direction="reverse">REVERSE</div>
-     </div>
+    </div>
     
-     <div id="rotational-thrusters">
+    <div id="rotational-thrusters">
       <div id="port-yaw" class="top-left yellow" data-direction="port" data-axis="yaw"><div class="inner-text-top">PORT YAW</div></div>
       <div id="port-roll" class="bottom-left yellow" data-direction="port" data-axis="roll"><div class="inner-text-bottom">PORT ROLL</div></div>
       <div id="starboard-yaw" class="top-right yellow" data-direction="starboard" data-axis="yaw"><div class="inner-text-top">STARBOARD YAW</div></div>
       <div id="starboard-roll" class="bottom-right yellow" data-direction="starboard" data-axis="roll"><div class="inner-text-bottom">STARBOARD ROLL</div></div>
       <div id="pitch-up" class="box yellow" data-direction="up" data-axis="pitch">PITCH UP</div>
       <div id="pitch-down" class="box yellow" data-direction="down" data-axis="pitch">PITCH DOWN</div>
-     </div>
+    </div>
     
+  </div>
+  <div class="col-sm-4 col-sm-offset-2 thrusterNumbers theme-backer">
+    <div class="requiredThrusters active">
+      <div class="row">
+        <div class="offset-box">
+          <div class="x"></div>
+          <div class="crosshairs">
+            <div class="ur"></div>
+            <div class="ul"></div>
+            <div class="br"></div>
+            <div class="bl"></div>
+          </div>
+        </div>
+      </div>
+      <h4>Required Thrusters</h4>
+      <div class="row">
+        <div class="col-xs-4">Yaw: <span class="thrusterNum">{{requiredValue 'yaw'}} </span> </div>
+        <div class="col-xs-4">Pitch: <span class="thrusterNum">{{requiredValue 'pitch'}} </span> </div>
+        <div class="col-xs-4">Roll: <span class="thrusterNum">{{requiredValue 'roll'}} </span> </div>
+      </div>
     </div>
-  <div id="rotation-numbers" class="col-lg-4">
-    <div id="yaw" class="col-lg-4">
-      <h3>YAW</h3>
-      <span class="yaw-value">0</span>
-    </div>
-    <div id="pitch" class="col-lg-4">
-      <h3>PITCH</h3>
-      <span class="pitch-value">0</span>
-    </div>
-    <div id="roll" class="col-lg-4">
-      <h3>ROLL</h3>
-      <span class="roll-value">0</span>
+    <div class="currentThrusters">
+      <h4>Current Thrusters</h4>
+      <div class="row">
+        <div class="col-xs-4">Yaw: <span class="thrusterNum">{{rotationValue 'yaw'}} </span> </div>
+        <div class="col-xs-4">Pitch: <span class="thrusterNum">{{rotationValue 'pitch'}} </span> </div>
+        <div class="col-xs-4">Roll: <span class="thrusterNum">{{rotationValue 'roll'}} </span> </div>
+      </div>
     </div>
   </div>
-      <div class="shipView"></div>
- </div>
+</div>
 </template>
