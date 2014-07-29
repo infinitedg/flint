@@ -10,14 +10,24 @@ var convertToRadian = function(degrees){
 Card for manipulating the thrusters. Also shows ship orientation (Yaw, pitch roll).
 @class card_thrusters
 */
-Template.card_thrusters.created = function() {
-
+Template.card_thrusters.rendered = function() {
+      //startOffset();
+}
+Template.card_thrusters.manualThrustersRequired = function(){
+  var requiredThrusters = Flint.simulator('requiredThrusters');
+  var currentThrusters = Flint.simulator('thrusterRotation');
+  //Long if statement warning//
+  if ((requiredThrusters.yaw != currentThrusters.yaw || requiredThrusters.pitch != currentThrusters.pitch || requiredThrusters.roll != currentThrusters.roll) && Flint.simulator('manualThruster') == 'true'){
+    return "active";
+  } else {
+    return '';
+  }
 }
 Template.card_thrusters.rotationValue = function(which) {
   return Flint.simulator('thrusterRotation')[which];
 }
 Template.card_thrusters.requiredValue = function(which) {
-  return Flint.simulator('thrusterRotation')[which];
+  return Flint.simulator('requiredThrusters')[which];
 }
 Template.card_thrusters.events = {
   /**
@@ -77,8 +87,9 @@ function animLoop( render, element ) {
       loop( lastFrame );
     }
 
-var crossX, crossY;
-Template.card_thrusters.startOffset = function(){
+    var crossX, crossY;
+    startOffset = function(){
+      if (Template.card_thrusters.manualThrustersRequired() == 'active'){
   //thrusterLoop = animLoop(function( deltaT ) {
     var cross = $('.crosshairs')
     if (false){
@@ -89,7 +100,7 @@ Template.card_thrusters.startOffset = function(){
         y: (newY + "px"), 
         ease: Linear.easeNone,
         onComplete:function(){
-          Template.card_thrusters.startOffset();
+          startOffset();
         }});
     } else {
       var currentX = cross.position().left + cross.width();
@@ -106,9 +117,10 @@ Template.card_thrusters.startOffset = function(){
         y: (crossY + "px"), 
         ease: Linear.easeNone,
         onComplete:function(){
-          Template.card_thrusters.startOffset();
+          startOffset();
         }});
     }
-     console.log(distance + "%");
+    console.log(distance + "%");
    // });
+}
 }
