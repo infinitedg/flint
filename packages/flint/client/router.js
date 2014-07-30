@@ -56,7 +56,8 @@ Router.map(function () {
     onBeforeAction: function() {
       this.subscribe('flint.picker.simulator', this.params.simulatorId).wait();
       this.subscribe('flint.picker.station', this.params.stationId).wait();
-      
+      this.subscribe('flint.picker.systems', this.params.simulatorId).wait();
+
       Session.set("flint.simulatorId", this.params.simulatorId);
       Session.set("flint.stationId", this.params.stationId);
       Session.set("flint.cardNumber", this.params.cardId);
