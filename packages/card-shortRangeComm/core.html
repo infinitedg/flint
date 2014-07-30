@@ -1,6 +1,17 @@
 <template name="core_shortRangeComm">
-    
-
-
+	<div class="commInfo">
+		<span class="commStatus">{{commStatus}}</span><span class="commOpen">{{commOpen}}</span>
+		<div class="commButton">
+			<button class="btn btn-primary btn-sm commConnect">{{commConnect}}</button>
+		</div>
+		<div class="hailSelect">
+			<select class="hailSelect">
+			{{#each commList}}
+				<option value={{this}}>{{this}}</option>
+			{{/each}}
+			</select>
+			<button class="btn btn-info btn-sm commHail">{{selectedHail}}</button>
+		</div>
+	</div>
 </template>
 

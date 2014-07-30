@@ -7,14 +7,9 @@
 	flex-direction: column;
 	-webkit-flex-direction: column;
 	justify-content: space-around;
-   	-webkit-justify-content: space-around;
-   	height: 68vh;
+    -webkit-justify-content: space-around;
+    height: 68vh;
 
-}
-#card-shortRangeComm .commControls img{
-	flex: 1;
-	height: 22vw;
-	width: 22vw;
 }
 #card-shortRangeComm .frequencySelect{
 	height: 68vh;
@@ -25,7 +20,7 @@
     position: absolute;
     right: 4vw;
     background-image: url(/packages/card-shortRangeComm/svg/freqBar.svg);
-        background-repeat:repeat;
+    background-repeat:repeat;
 }
 #card-shortRangeComm .ampBar{
     height: 64vh;
@@ -34,7 +29,7 @@
     top:2.5vh;
     right: 4vw;
     background-image: url(/packages/card-shortRangeComm/svg/ampBar.svg);
-        background-repeat:repeat;
+    background-repeat:repeat;
 }
 #card-shortRangeComm .amplitudeSelect{
     height: 68vh;   
@@ -51,15 +46,15 @@
 }
 
 #card-shortRangeComm .slider.slider-vertical{
- height: 65vh;   
-    position: absolute;
-    right: 30px;
+   height: 65vh;   
+   position: absolute;
+   right: 30px;
 }
 
 #card-shortRangeComm .slider.slider-horizontal{
- height: 65vh;   
-    position: absolute;
-    right: 60px;  
+   height: 65vh;   
+   position: absolute;
+   right: 60px;  
 
 }
 
@@ -108,37 +103,52 @@
 	font-family: 'Steelfish';
 }
 #card-shortRangeComm .commList p:nth-child(1){
- height: 10vh;
- line-height: 10vh;
+   height: 10vh;
+   line-height: 10vh;
 }
 #card-shortRangeComm .commList p:nth-child(2){
- height: 8vh;
- line-height: 8vh;
+   height: 8vh;
+   line-height: 8vh;
 
 }
 #card-shortRangeComm .commList p:nth-child(3){
 	height: 7vh;
- line-height: 7vh;
+   line-height: 7vh;
 
 }
 #card-shortRangeComm .commList p:nth-child(4){
- height: 11vh;
-  line-height: 11vh;
+   height: 11vh;
+   line-height: 11vh;
 
 }
 #card-shortRangeComm .commList p:nth-child(5){
 	height: 14vh;
-	  line-height: 14vh;
+ line-height: 14vh;
 
 }
 #card-shortRangeComm .commList p:nth-child(6){
 	height: 8vh;
-	  line-height: 8vh;
+ line-height: 8vh;
 
 }
 #card-shortRangeComm .commList p:nth-child(7){
- height: 6.5vh;
+   height: 6.5vh;
    line-height: 6.5vh;
- 	border-bottom: solid 1px #fff;
-
+   border-bottom: solid 1px #fff;
+}
+.imageBox{
+    width: auto;
+    height: 22vw;
+    background-color: rgba(0,0,0,0.5);
+    border: 1px solid #fff;
+    position: a;
+    padding: 5px;
+    overflow: hidden;
+    text-align:center;
+}
+.commImage{
+    max-height: auto;
+    max-width: 100%;
+    text-align:center;
+    position: relative;
 }
