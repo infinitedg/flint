@@ -15,14 +15,3 @@
     "voyager"
   ]
 }
-
-db.allcards                   
-db.armycontacts              
-db.chatmessages                
-db.lrmessages
-db.sensorcontacts
-db.flintassets                 
-db.systems
-db.tacsymbols
-db.tacticalcontacts
-db.tacticalscreencontacts
