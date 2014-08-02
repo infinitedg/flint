@@ -1,8 +1,12 @@
-Template.core_shortRangeComm.commList = function(){
-      var commList = Flint.system('Short Range Communications','commList');
-      return commList;
+Template.core_shortRangeComm.created = function(){
+  this.subscription = Deps.autorun(function() {
+    Meteor.subscribe('cards.shortRangeComm.hails', Flint.simulatorId());
+  });
 }
-
+Template.core_shortRangeComm.commList = function(){
+  var commList = Flint.system('Short Range Communications','commList');
+  return commList;
+}
 Template.core_shortRangeComm.commStatus = function(){
 	if (Flint.system('Short Range Communications', 'commHail') == 'idle'){
 		var status = "Disconnected";
@@ -26,6 +30,42 @@ Template.core_shortRangeComm.commConnect = function(){
 		return "Disconnect";
 	}
 }
-Template.core_shortRangeComm.selectedHail = function(){
-	return "Hail - ";
+Template.core_shortRangeComm.currentHails = function(){
+  return Flint.collection('currentHails').find();
+}
+Template.core_shortRangeComm.events = {
+  'click .commHail': function(e,t){
+    var obj = {};
+    obj.name = t.find('.hailSelect').value;
+    obj.frequency = commFrequency(obj.name);
+    obj.amplitude = Math.floor(Math.random() * 100);
+    obj.simulatorId = Flint.simulatorId();
+    Flint.collection('currentHails').insert(obj);
+  },
+  'click .removeHail': function(e, t){
+    Flint.collection('currentHails').remove(t.find('.currentHails').value);
+  }
+}
+function commFrequency(commName){
+	if (commName == Template.core_shortRangeComm.commList()[0]){
+    return Math.floor((Math.random() * 18.125) * 10)/10;
+  }
+  if (commName == Template.core_shortRangeComm.commList()[1]){
+    return Math.floor((Math.random() * (30.625 - 18.125) + 18.125) * 10)/10;
+  }
+  if (commName == Template.core_shortRangeComm.commList()[2]){
+    return Math.floor((Math.random() * (40.625 - 30.625) + 30.625) * 10)/10;
+  }
+  if (commName == Template.core_shortRangeComm.commList()[3]){
+    return Math.floor((Math.random() * (56.875 - 40.625) + 40.625) * 10)/10;
+  }
+  if (commName == Template.core_shortRangeComm.commList()[4]){
+    return Math.floor((Math.random() * (77.5 - 56.875) + 56.875) * 10)/10;
+  }
+  if (commName == Template.core_shortRangeComm.commList()[5]){
+    return Math.floor((Math.random() * (90.625 - 77.5) + 77.5) * 10)/10;
+  }
+  if (commName == Template.core_shortRangeComm.commList()[6]){
+    return Math.floor((Math.random() * (100 - 90.625) + 90.25) * 10)/10;
+  }
 }

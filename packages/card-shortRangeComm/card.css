@@ -1,3 +1,8 @@
+.btn{
+    -webkit-touch-callout: none;
+-webkit-user-select: none;
+user-select: none;
+}
 #card-shortRangeComm{
 	margin-top: 45px;
 }
@@ -28,6 +33,7 @@
     position: absolute;
     top:2.5vh;
     right: 4vw;
+
     background-image: url(/packages/card-shortRangeComm/svg/ampBar.svg);
     background-repeat:repeat;
 }
@@ -42,9 +48,17 @@
     border-radius: 5px;
 }
 #card-shortRangeComm .canvasCandy{
-
+  height: 100%;
 }
-
+#card-shortRangeComm .commArrow{
+    margin-top: 11px;
+    position: absolute;
+    right: 8.5vw;
+    width: 40px;
+    height: 15px;
+    background: #0f70ff;
+    -webkit-clip-path: polygon(0 40%, 100% 40%, 80% 0, 0 0, 0 100%, 80% 100%, 100% 60%, 0 60%)
+}
 #card-shortRangeComm .slider.slider-vertical{
    height: 65vh;   
    position: absolute;
@@ -59,6 +73,9 @@
 }
 
 #card-shortRangeComm .slider.slider-vertical .slider-handle{
+  -webkit-touch-callout: none;
+-webkit-user-select: none;
+user-select: none;
     background-image: url(/themes/default/public/svg/default.png);
     -webkit-border-radius: 0px;
     border-radius: 0px;
@@ -69,6 +86,9 @@
 }
 
 #card-shortRangeComm .slider.slider-horizontal .slider-handle{
+  -webkit-touch-callout: none;
+-webkit-user-select: none;
+user-select: none;
     background-image: url(/themes/default/public/svg/default.png);
     -webkit-border-radius: 0px;
     border-radius: 0px;

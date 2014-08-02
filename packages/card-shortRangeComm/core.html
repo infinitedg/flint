@@ -2,15 +2,23 @@
 	<div class="commInfo">
 		<span class="commStatus">{{commStatus}}</span><span class="commOpen">{{commOpen}}</span>
 		<div class="commButton">
-			<button class="btn btn-primary btn-sm commConnect">{{commConnect}}</button>
+			<button class="btn btn-primary btn-xs commConnect">{{commConnect}}</button>
 		</div>
-		<div class="hailSelect">
+		<div class="hailPicker">
 			<select class="hailSelect">
-			{{#each commList}}
+				{{#each commList}}
 				<option value={{this}}>{{this}}</option>
-			{{/each}}
+				{{/each}}
 			</select>
-			<button class="btn btn-info btn-sm commHail">{{selectedHail}}</button>
+			<button class="btn btn-info btn-xs commHail">Hail</button>
+		</div>
+		<div class="hailList">
+			<select class="currentHails">
+				{{#each currentHails}}
+				<option value={{_id}}>{{name}} - {{frequency}} MHz</option>
+				{{/each}}
+			</select>
+			<button class="btn btn-danger btn-xs removeHail">Remove</button>
 		</div>
 	</div>
 </template>
