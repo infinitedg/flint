@@ -7,7 +7,7 @@
                 </div>
                 <span class="textbox">Frequency:<br />Comm Name</span>
                 <a href="#" class="btn btn-default hail">{{hailLabel}}</a>
-                <a href="#" class="btn btn-default mute">MUTE COMMUNICATION</a>
+                <a href="#" {{muteEnabled}} class="btn btn-default mute">{{muteLabel}}</a>
 
             </div>
             <div class="well frequencySelect col-sm-3 col-sm-offset-1">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="freqControl">
                     <div class="freqBar"></div>
-                    <input type="text" id="frequency" value="1" data-slider-min="4" data-slider-max="160" data-slider-step="1" data-slider-value="5" data-slider-orientation="vertical" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden;">
+                    <input type="text" id="frequency" value="1" data-slider-min="4" data-slider-max="320" data-slider-step="1" data-slider-value="5" data-slider-orientation="vertical" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden;">
                 </div>
             </div>
             <div class="well amplitudeSelect col-sm-1">

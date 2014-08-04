@@ -8,21 +8,25 @@ Template.core_shortRangeComm.commList = function(){
   return commList;
 }
 Template.core_shortRangeComm.commStatus = function(){
-	if (Flint.system('Short Range Communications', 'commHail') == 'idle'){
+	if (Flint.system('Short Range Communications', 'commHail') == 'idle' || Flint.system('Short Range Communications', 'commHail') == 'connectable'){
 		var status = "Disconnected";
 	} else if (Flint.system('Short Range Communications', 'commHail') == 'hailing'){
 		var status = "Hailing";
-	} else {
-		var status = "Connected";
-	}
-	var frequency = Math.floor(parseInt(Flint.system('Short Range Communications','commFrequency')) * 1.25*4.25*10)/10 + " MHz"
-	return status + " " + frequency;
+  }
+  else {
+    var status = "Connected";
+  }
+  if (Flint.system('Short Range Communications', 'commMute') == 'true'){
+    status = "Muted";
+  }
+  var frequency = Math.floor(parseInt(Flint.system('Short Range Communications','commFrequency')) * 1.25*4.25*10)/10 + " MHz"
+  return status + " - " + Flint.system('Short Range Communications','commName') + " - " + frequency;
 }
 Template.core_shortRangeComm.commOpen = function(){
 	return Flint.system('Short Range Communications','commOpen'); //Returns Open or Muted
 }
 Template.core_shortRangeComm.commConnect = function(){
-	if (Flint.system('Short Range Communications', 'commHail') == 'idle'){
+	if (Flint.system('Short Range Communications', 'commHail') == 'idle' || Flint.system('Short Range Communications', 'commHail') == 'connectable'){
 		return "---";
 	} else if (Flint.system('Short Range Communications', 'commHail') == 'hailing'){
 		return "Connect " + Flint.system('Short Range Communications', 'commName');
@@ -34,6 +38,15 @@ Template.core_shortRangeComm.currentHails = function(){
   return Flint.collection('currentHails').find();
 }
 Template.core_shortRangeComm.events = {
+  'click .commConnect': function(e,t){
+    if (Flint.system('Short Range Communications', 'commHail') == 'idle' || Flint.system('Short Range Communications', 'commHail') == 'connectable'){
+      return false;
+    } else if (Flint.system('Short Range Communications', 'commHail') == 'hailing'){
+      Flint.system('Short Range Communications', 'commHail', 'connected');
+    } else {
+      Flint.system('Short Range Communications', 'commHail', 'idle');
+    }
+  },
   'click .commHail': function(e,t){
     var obj = {};
     obj.name = t.find('.hailSelect').value;
