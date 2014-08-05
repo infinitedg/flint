@@ -16,9 +16,7 @@ underscore
 bootstrap-growl
 buzz.js
 kinetic.js
-blaze-layout
 kadira
-bootstrap-3
 font-awesome
 gsap
 bootstrap3-slider-touch
@@ -88,3 +86,5 @@ card-navigation
 card-engineControl
 card-courseCalculation
 bootstrap-slider
+less
+bootstrap3-less
