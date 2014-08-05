@@ -49,3 +49,6 @@
 /cfs-filesystem
 /reactive-property
 /micro-queue
+/iron-layout
+/iron-core
+/iron-dynamic-template
