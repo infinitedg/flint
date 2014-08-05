@@ -15,7 +15,7 @@ Template.layout_voyager_messageBox.helpers({
            //  $(".chat").scrollTop($(".chat")[0].scrollHeight);
 
 Template.layout_voyager_messageBox.rendered = function(){
-     Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},1000);     
+     //Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},1000);     
 }
 
 Template.layout_voyager_messageBox.events({
@@ -47,7 +47,7 @@ Template.layout_voyager_messageBox.events({
         document.getElementById("message").value = "";
         message.value = "";
         if (newMessage != "") {
-            Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},100);     
+            //Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},100);     
             return Flint.collection('ChatMessages').insert(newMessage);
         }
       }

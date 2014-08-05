@@ -7,7 +7,6 @@
 #Mainly packages not designed specifically for Flint
 standard-app-packages
 insecure
-iron-router
 accounts-ui
 accounts-password
 nprogress
@@ -16,9 +15,7 @@ underscore
 bootstrap-growl
 buzz.js
 kinetic.js
-blaze-layout
 kadira
-bootstrap-3
 font-awesome
 gsap
 bootstrap3-slider-touch
@@ -31,6 +28,12 @@ cfs-filesystem
 cfs-ejson-file
 ejson
 d3
+bootstrap-slider
+bootstrap-contextmenu
+bootstrap-contextjs
+assets-voyager
+card-flintLibrary
+card-flintStations
 
 #Flint Base
 flint
@@ -50,6 +53,7 @@ layout-blackout
 layout-viewscreen
 layout-core
 layout-tacControl
+layout-voyager
 
 #Cards
 #These can be differentiated by station later
@@ -79,12 +83,10 @@ card-security-brig
 card-security-escapepods
 card-security-teams
 card-security-decks
-assets-voyager
-card-flintLibrary
-bootstrap-contextmenu
-bootstrap-contextjs
-card-flintStations
 card-navigation
 card-engineControl
 card-courseCalculation
-bootstrap-slider
+card-decoding
+less
+iron-router
+iron-layout
