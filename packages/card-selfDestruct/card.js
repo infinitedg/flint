@@ -58,11 +58,6 @@ Template.card_selfDestruct.isOn = function(){
      else {return 'animating';} 
 }
 
-Template.card_selfDestruct.alertLevel = function() {
-    return Template.layout_default.alertLevel();   
-                                         
-}
-
 function parseTimer(currentTime){
     var hours = Math.floor(currentTime/(60*60));
     var minutes = Math.floor((currentTime - (hours*60*60))/60);

@@ -14,7 +14,7 @@ The current alert condition. Also has a side-effect where it issues a notificati
 @type Number
 */
 Template.core_alertCondition.alertCondition = function() {
-  return Flint.simulator().alertCondition;
+  return Flint.simulator('alertCondition');
 };
 
 Template.core_alertCondition.events = {
@@ -34,7 +34,7 @@ Template.core_alertCondition.events = {
         
         Flint.simulators.update({ _id: Flint.simulatorId() },{$set: {alertCondition: result}});
       }
-    }, Flint.simulator().alertCondition);
+    }, Flint.simulator('alertCondition'));
     e.preventDefault();
   }
 };

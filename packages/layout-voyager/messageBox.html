@@ -1,7 +1,7 @@
 <template name="layout_voyager_messageBox">
 <div class="messageBox {{messageBoxAnimate}}">
 	<div class="messageBoxBezel"></div>
-<div class="messageBoxHeader {{alertLevel}}">{{newMessage}} {{t "Messages"}}</div>
+<div class="messageBoxHeader {{alertStyle}}">{{newMessage}} {{t "Messages"}}</div>
 	    <div class="chat textbox">
 	        {{#each messages}}
 	            <p><strong>{{name}}:</strong> {{message}}</p>

@@ -1,5 +1,5 @@
 <template name="layout_default">
-    <div id="perspective" class="{{alertLevel}} perspective effect-movedown">
+    <div id="perspective" class="{{alertStyle}} perspective effect-movedown">
         <div class="pageContent">
         <!-- Insert Grid Here -->
             <div id="grid-background"></div>
@@ -8,9 +8,9 @@
                 
                 <div class="container-fluid" style="padding:0px;">
      
-                    <header class="row-fluid {{alertLevel}}">
+                    <header class="row-fluid {{alertStyle}}">
                        <div class="backgroundBezel"></div>
-                       <div class="background {{alertLevel}}"></div>
+                       <div class="background {{alertStyle}}"></div>
                         <div class="col-xs-4 sim-name">
                             <h2>{{ t simulator.name}}</h2>
                             <h3>{{ t station.name}}</h3>
@@ -34,7 +34,7 @@
 			</div><!-- wrapper -->
            <div class="footer">
                     <div class="backgroundBezel"></div>
-                    <div class="footerBackground {{alertLevel}}"></div>
+                    <div class="footerBackground {{alertStyle}}"></div>
                     {{> layout_default_messageBox}}
             </div>
         </div><!-- /container -->

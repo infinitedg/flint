@@ -15,29 +15,6 @@ The alert condtion for the simulator
 */
 Template.card_alertCondition.cardName = "Alert Condition";
 
-Template.card_alertCondition.alertCondition = function() {
-  var a = Flint.simulator().alertCondition;
-  return a;
-};
-
-/**
-The bootstrap styling for a given alert condition level
-@property alertStyle
-@type String
-*/
-Template.card_alertCondition.alertStyle = function() {
-  var a = Flint.simulator().alertCondition;
-  switch (a) {
-  case 4:
-    return 'success';
-  case 3:
-    return 'info';
-  case 2:
-    return 'block';
-  case 1:
-    return 'error';
-  }
-};
 
 /**
 When you click one of the alertCondition buttons, change the alert condition to the `data-alert` attribute of the containing box

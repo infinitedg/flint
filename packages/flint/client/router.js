@@ -94,7 +94,6 @@ Flint.layout = Utils.memoize(function() {
     } else {
       layout = 'flint_layout';
     }
-    console.log(layout);
     return layout;
   }
 });

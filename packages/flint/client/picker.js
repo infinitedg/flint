@@ -13,10 +13,17 @@ Template.flint_theme.theme = function() {
 Flint.theme = Utils.memoize(function() {
   if (Flint.station() && Flint.simulator()) {
   	var theme = Flint.client('theme') || Flint.station().theme || Flint.simulator().theme || 'default';
-      if (Flint.station().name != "Flight Director"){
-  	return '/themes/' + theme + '/css/theme.css';
-      } else {
-          return '/themes/' + theme + '/css/core.css';
-      }
+    if (Flint.station().name != "Flight Director"){
+      return '/themes/' + theme + '/css/theme.css';
+    } else {
+      return '/themes/' + theme + '/css/core.css';
+    }
   }
 });
+
+/*Flint.less = Utils.memoize(function(){
+  if (Flint.station() && Flint.simulator()) {
+    var lessTheme = Flint.client('theme') || Flint.station().theme || Flint.simulator().theme || 'default';
+    return '/themes/' + theme + '/css/less.less';
+  }
+});*/

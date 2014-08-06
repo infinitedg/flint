@@ -55,7 +55,3 @@ Template.card_login.loginImage = function(){
 Template.card_login.client = function() {
   return Flint.client();
 }
-
-Template.card_login.alertLevel = function() {
- return Template.layout_default.alertLevel();   
-}
