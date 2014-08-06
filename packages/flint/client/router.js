@@ -75,7 +75,7 @@ Router.map(function () {
       Session.set("flint.stationId", undefined);
       Session.set("flint.cardNumber", undefined);
     },
-    layoutTemplate: function() {
+    layoutTemplate: function(){
       return Flint.layout();
     }
   });
@@ -94,7 +94,6 @@ Flint.layout = Utils.memoize(function() {
     } else {
       layout = 'flint_layout';
     }
-    
     return layout;
   }
 });

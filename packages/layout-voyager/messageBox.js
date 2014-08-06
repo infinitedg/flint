@@ -1,4 +1,4 @@
-Template.layout_default_messageBox.helpers({
+Template.layout_voyager_messageBox.helpers({
     messages: function() {
         return Flint.collection('ChatMessages').find({simId: Flint.simulatorId()}, { sort: [['time', 'desc']]}); 
     },
@@ -14,11 +14,11 @@ Template.layout_default_messageBox.helpers({
 
            //  $(".chat").scrollTop($(".chat")[0].scrollHeight);
 
-Template.layout_default_messageBox.rendered = function(){
-     Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},1000);     
+Template.layout_voyager_messageBox.rendered = function(){
+     //Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},1000);     
 }
 
-Template.layout_default_messageBox.events({
+Template.layout_voyager_messageBox.events({
     "click .messageBoxHeader": function(event){
         if (!Session.get('messageBoxOpen')){Session.set('newMessage', false);}
         Session.set('messageBoxOpen', (!Session.get('messageBoxOpen')));
@@ -47,10 +47,10 @@ Template.layout_default_messageBox.events({
         document.getElementById("message").value = "";
         message.value = "";
         if (newMessage != "") {
-            Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},100);     
+            //Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},100);     
             return Flint.collection('ChatMessages').insert(newMessage);
         }
       }
     }
     }
-});    
+}); 

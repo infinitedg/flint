@@ -51,6 +51,8 @@
 /cfs-filesystem
 /reactive-property
 /micro-queue
+/bootstrap-contextmenu
+/bootstrap3-less
 /iron-layout
 /iron-core
 /iron-dynamic-template

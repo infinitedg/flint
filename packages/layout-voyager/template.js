@@ -5,7 +5,7 @@
  
 /**
 Default station layout
-@class layout_default
+@class layout_voyager
 */
 
 /**
@@ -13,7 +13,7 @@ Returns a class to either show or hide the cardList if the user is logged in or 
 @property hideCardlistCSS
 @type String
 */
-Template.layout_viewscreen.hideCardlistCSS = function() {
+Template.layout_voyager.hideCardlistCSS = function() {
   if (Flint.client('name')) {
     return '';
   } else {
@@ -27,7 +27,7 @@ Template.layout_viewscreen.hideCardlistCSS = function() {
 // @type Number
 // @default 200
 // */
-// Template.layout_default.transitionSpeed = 200;
+// Template.layout_voyager.transitionSpeed = 200;
 // 
 // // @TODO: Consider moving these to being variables on "this"
 // var cardTransitionAutorun, stationActionObserver;
@@ -41,11 +41,11 @@ implemented similarly or through [meteor-streams](https://atmosphere.meteor.com/
 Most importantly, this will also play the "sciences.wav" sound effect for old times' sake.
 @method created
 */
-// Template.layout_default.created = function() {
+// Template.layout_voyager.created = function() {
 //   cardTransitionAutorun = Deps.autorun(function() {
 //     if ('card-' + Flint.cardId() !== $('div.card:visible').attr('id')) {
-//       $('div.card:visible').fadeOut(Template.layout_default.transitionSpeed, function() {
-//         $('div.card#card-' + Flint.cardId()).fadeIn(Template.layout_default.transitionSpeed);
+//       $('div.card:visible').fadeOut(Template.layout_voyager.transitionSpeed, function() {
+//         $('div.card#card-' + Flint.cardId()).fadeIn(Template.layout_voyager.transitionSpeed);
 //       });
 //     } else {
 //       $('div.card').not('#card-' + Flint.cardId()).hide();
@@ -89,7 +89,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 // When rendered, perform some magic to properly manage card transitions using dependencies
 // @method rendered
 // */
-// Template.layout_default.rendered = function() {
+// Template.layout_voyager.rendered = function() {
 //   if (!$('div.card:visible')) {
 //     $('div.card:first').show();
 //     $('div.card').not(':first').hide();
@@ -102,19 +102,19 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 // Cleanup dependencies
 // @method destroyed
 // */
-// Template.layout_default.destroyed = function() {
+// Template.layout_voyager.destroyed = function() {
 //   cardTransitionAutorun.stop();
 //   stationActionObserver.stop();
 // };
-Template.layout_viewscreen.destroyed = function() {
+Template.layout_voyager.destroyed = function() {
    this.subComputation.stop();  
 };
-Template.layout_viewscreen.alertCondition = function() {
+Template.layout_voyager.alertCondition = function() {
   var a = Flint.simulator('alertCondition');
   return a;
 };
 
-Template.layout_viewscreen.alertColor = function() {
+Template.layout_voyager.alertColor = function() {
     var a = Flint.simulator('alertCondition');
   switch (a) {
   case 'c':
@@ -133,20 +133,56 @@ Template.layout_viewscreen.alertColor = function() {
     return '#995353';
   }
 }
-Template.layout_viewscreen.simulator = function() {
+Template.layout_voyager.simulator = function() {
   return Flint.simulator();
 }
 
-Template.layout_viewscreen.station = function() {
+Template.layout_voyager.station = function() {
   return Flint.station();
 }
-Template.layout_viewscreen.cardName = function() {
+Template.layout_voyager.cardName = function() {
     return Flint.card().name;   
 }
-Template.layout_viewscreen.created = function() {
+Template.layout_voyager.cardId = function() {
+    return Flint.card().cardId;
+};
+Template.layout_voyager.created = function() {
     this.subComputation = Deps.autorun(function() {
-       // console.log("PING");
         Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
     });
 	//Flint.play('sciences');
+}
+
+Template.layout_voyager.events = {
+  'click div.pageContent, touchstart div.pageContent': function(e, context) {
+           if ($('.animate').length > 0) {
+              var showMenu = document.getElementById( 'showMenu' ),
+			 perspectiveWrapper = document.getElementById( 'perspective' ),
+			 container = perspectiveWrapper.querySelector( '.pageContent' ),
+			 contentWrapper = container.querySelector( '.wrapper' );
+        
+            $(perspectiveWrapper).removeClass('animate');
+            Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 400);
+               
+           }
+      
+  },
+
+  'click header, touchstart header': function(e, context) {
+            console.log('Ping!')
+            if (Flint.client().name){
+            var showMenu = document.getElementById( 'showMenu' ),
+			 perspectiveWrapper = document.getElementById( 'perspective' ),
+			 container = perspectiveWrapper.querySelector( '.pageContent' ),
+			 contentWrapper = container.querySelector( '.wrapper' );
+            docscroll = window.pageYOffset || window.document.documentElement.scrollTop; //Finds the yScoll
+			// change top of contentWrapper
+			contentWrapper.style.top = docscroll * -1 + 'px';
+			// mac chrome issue:
+			document.body.scrollTop = document.documentElement.scrollTop = 0;
+			// add modalview class
+			$(perspectiveWrapper).addClass('modalview');
+			// animate..
+			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
+            },
 }

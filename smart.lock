@@ -30,7 +30,8 @@
       },
       "bootstrap-colorpicker-2": {},
       "collectionFS": {},
-      "bootstrap-contextmenu": {}
+      "bootstrap-contextmenu": {},
+      "bootstrap3-less": {}
     },
     "packages": {
       "iron-router": {
@@ -128,6 +129,16 @@
         "tag": "v0.4.8",
         "commit": "fea890b1e27799ccc9f71046748fb23a84330a16"
       },
+      "bootstrap-contextmenu": {
+        "git": "https://github.com/pascoual/meteor-bootstrap-contextmenu.git",
+        "tag": "v0.2.0",
+        "commit": "f8f0c6625a96b398297954f47eaf20070e8858a6"
+      },
+      "bootstrap3-less": {
+        "git": "https://github.com/simison/bootstrap3-less",
+        "tag": "v0.2.1",
+        "commit": "dc94a51ed00d7de6d6f2b6d65107a876d849ad61"
+      },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",
         "tag": "v0.2.0",
@@ -173,10 +184,15 @@
         "tag": "v0.0.13",
         "commit": "c27760e668099f2a07f77c3dfad8319f3326e31c"
       },
-      "blaze-layout": {
-        "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.5",
-        "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
+      "iron-core": {
+        "git": "https://github.com/EventedMind/iron-core.git",
+        "tag": "v0.2.0",
+        "commit": "0e48b5dc50d03f01025b7b900fb5ce2f13d52cad"
+      },
+      "iron-dynamic-template": {
+        "git": "https://github.com/EventedMind/iron-dynamic-template.git",
+        "tag": "v0.2.1",
+        "commit": "4dd1185c4d9d616c9abdb3f33e4a7d5a88db7e18"
       },
       "iron-core": {
         "git": "https://github.com/EventedMind/iron-core.git",
@@ -213,6 +229,11 @@
         "branch": "master",
         "commit": "ec2034e133c3e27d770ecc4ad848089c66d2266c"
       },
+      "emitter": {
+        "git": "https://github.com/Meteor-Reaction/meteor-emitter.git",
+        "tag": "v0.1.0",
+        "commit": "849a91bbe4e1e0636f49fa2e5141e74ed5137a27"
+      },
       "cfs-upload-ddp": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-upload-ddp.git",
         "tag": "v0.0.10",
@@ -222,11 +243,6 @@
         "git": "https://github.com/CollectionFS/Meteor-cfs-tempstore.git",
         "tag": "v0.0.27",
         "commit": "d8fe0422b2767391738ab537bf6749395e4030a0"
-      },
-      "emitter": {
-        "git": "https://github.com/Meteor-Reaction/meteor-emitter.git",
-        "tag": "v0.1.0",
-        "commit": "849a91bbe4e1e0636f49fa2e5141e74ed5137a27"
       },
       "http-publish": {
         "git": "https://github.com/CollectionFS/Meteor-http-publish.git",
