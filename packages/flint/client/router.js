@@ -73,6 +73,9 @@ Router.map(function () {
       Session.set("flint.simulatorId", undefined);
       Session.set("flint.stationId", undefined);
       Session.set("flint.cardNumber", undefined);
+    },
+    layoutTemplate: function() {
+      return Flint.layout();
     }
   });
 });
@@ -92,14 +95,5 @@ Flint.layout = Utils.memoize(function() {
     }
     
     return layout;
-  }
-});
-
-Deps.autorun(function() {
-  if (Router.current()) {
-    var layout = Flint.layout();
-    if (Router.current().layoutTemplate !== layout) {
-      Router.layout(layout);
-    }
   }
 });
