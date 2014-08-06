@@ -13,6 +13,8 @@ The alert condtion for the simulator
 @property alertCondition
 @type Number
 */
+Template.card_alertCondition.cardName = "Alert Condition";
+
 Template.card_alertCondition.alertCondition = function() {
   var a = Flint.simulator().alertCondition;
   return a;

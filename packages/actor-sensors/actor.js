@@ -46,6 +46,45 @@ var updateTweener = function(doc) {
 	tweenBank[doc._id] = t;
 }
 
+var fadeContacts = function(doc){
+	var oldTween = tweenBank[doc._id + "o"]; //Add on the 'o' do differentiate from movement tweens
+	if (oldTween) {
+		oldTween.stop();
+		TWEEN.remove(oldTween);
+		delete tweenBank[doc._id + "o"];
+	}
+	d = Math.sqrt(Math.pow(doc.x, 2) + Math.pow(doc.y, 2) + Math.pow(doc.z, 2)) ;
+	var t = new TWEEN.Tween({opacity: 0.6 + Math.sqrt(d)*.9})
+	.to({opacity: 0}, 7000)
+	.easing(TWEEN.Easing.Linear.None)
+	.onUpdate(function(){
+		if (this.opacity < 1){
+			Flint.collection('sensorContacts').update(doc._id, {$set: {opacity: this.opacity}});
+		}
+	})
+	.start();
+	tweenBank[doc._id + "o"] = t;
+
+}
+var intervalObserver = Flint.simulators.find().observe({
+	changed: function(newDoc, oldDoc){
+		if (newDoc.pingInterval != oldDoc.pingInterval){
+			/*if (newDoc.pingInterval.updated == 'true'){
+				console.log('changing');
+				var setter = {
+					triggered: oldDoc.pingInterval.triggered,
+					period: newDoc.pingInterval.period
+				};
+				Flint.simulators.update(newDoc._id, {$set: setter});
+			}
+			else{*/
+				Flint.collection('sensorContacts').find({simulatorId: newDoc._id}).forEach(function(doc){
+					fadeContacts(doc);
+				});
+			//}
+		}
+	}
+});
 var observer = Flint.collection('sensorContacts').find({isMoving: true}).observe({
 	added: function(doc) {
 		if (doc.x !== doc.dstX || doc.y !== doc.dstY || doc.z !== doc.dstZ) {

@@ -23,6 +23,8 @@
 /bootstrap3-slider-touch
 /three.js
 /tween
+/kadira
+/bootstrap-colorpicker-2
 /apm
 /collectionFS
 /cfs-base-package
@@ -52,3 +54,4 @@
 /iron-layout
 /iron-core
 /iron-dynamic-template
+/bootstrap-contextmenu

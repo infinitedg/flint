@@ -1,10 +1,28 @@
 <template name="card_sensor3d">
-	<div class="sensorLabel">
-		<p>Contact</p>
-	</div>
+		<div class="sensorLabel">
+			<img id='contactImage' src='#' alt="contactImage" /><p>Contact</p>
+		</div>
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="sensor_box"></div>
+		<div class="col-xs-3">
+			{{> card_scanner}}
+		</div>
+
+		<div class="col-xs-6" id="sensor_grid">
+			<div class="sensor_box {{infaredSensors "class"}}"></div>
+		</div>
+		<div class="col-xs-3">
+			<h4>Sensor Options</h4>
+			<button class="btn btn-warning" id="infared">{{infaredSensors "button"}} Infared</button>
+			{{> sonarControl}}
 		</div>
 	</div>
+</template>
+
+<template name="sonarControl">
+	<ul class="pingOptions">
+		<li id="activeScan" class={{currentSensor}}>Active Scan</li>
+		<li id="passiveScan" class={{currentSensor}}>Passive Scan</li>
+		<li id="manualScan" class={{currentSensor}}>Manual Scan</li>
+	</ul>
+	<button class="btn btn-primary {{currentSensor}}" id="ping">Ping</button>
 </template>

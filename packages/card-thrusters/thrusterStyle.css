@@ -15,6 +15,14 @@
     }
     
 /* Card Styling */    
+#thruster-card{
+	-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
 #thruster-card #thrusters{
     position: relative;
 	/*The Ratio of the width to the height is .97101449275
@@ -80,13 +88,16 @@
 #thruster-card .inner-text-top{
 	top: 50%;
 	position: relative;
+	pointer-events: none;
 }
 #thruster-card .inner-text-bottom{
 	top: 25%;
 	position: relative;
+	pointer-events: none;
 }
 #thruster-card .inner-text-sides{
 	position: relative;
+	pointer-events: none;
 	top: 25%;
 }
 #thruster-card #forward {
@@ -149,5 +160,85 @@
 	position: absolute;
 	top: 49.7%;
 }
-
-
+#thruster-card #rotation-numbers div{
+	float: left;
+}
+#thruster-card .thrusterNumbers{
+	position: relative;
+	top: 30px;
+	overflow: hidden;
+}
+#thruster-card .offset-box{
+background-color: rgba(0,0,0,0.5);
+border: 1px solid #333;
+margin: 0 auto;
+text-align: center;
+	height: 300px;
+	width: 300px;
+	position: relative;
+	overflow: hidden;
+}
+#thruster-card .requiredThrusters{
+		margin-top: -359px;
+		transition: margin-top 1s ease-in-out;
+}
+#thruster-card .requiredThrusters.active{
+		margin-top: -300px;
+	
+}
+#thruster-card .currentThrusters{
+margin-bottom: 10px;
+}
+.x{
+width: 40px;
+height: 40px;
+	float:right;
+	   color: #fff;
+	   font-size: 40px;
+	   font-weight: bold;
+	   display: inline-block;
+	   line-height: 1;
+	   position: absolute;
+	margin: -20px 0 0 -20px;
+	left: 50%;
+	top: 50%;
+}
+.x:before {
+    content: "X";
+}
+.crosshairs{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	left: 123px;
+	top: 123px;
+}
+.crosshairs div{
+	position: absolute;
+	width: 17px;
+	height: 17px;
+}
+.crosshairs .ul{
+	left: 0;
+	top: 0;
+	border-top: 2px solid #f00;
+	border-left: 2px solid #f00;
+}
+.crosshairs .ur{
+	right: 0;
+	top: 0;
+	border-top: 2px solid #f00;
+	border-right: 2px solid #f00;
+}
+.crosshairs .bl{
+	left: 0;
+	bottom: 0;
+	border-bottom: 2px solid #f00;
+	border-left: 2px solid #f00;
+}
+.crosshairs .br{
+	right: 0;
+	bottom: 0;
+	border-bottom: 2px solid #f00;
+	border-right: 2px solid #f00;
+}

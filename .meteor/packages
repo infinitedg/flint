@@ -24,6 +24,12 @@ bootstrap3-slider-touch
 three.js
 tween
 bootboxjs
+bootstrap-colorpicker-2
+collectionFS
+cfs-filesystem
+cfs-ejson-file
+ejson
+d3
 
 #Flint Base
 flint
@@ -35,6 +41,7 @@ flint-speech
 flint-drama
 flint-utils
 actor-sensors
+flint-files
 
 #Layouts
 layout-default
@@ -73,8 +80,10 @@ card-security-teams
 card-security-decks
 assets-voyager
 card-flintLibrary
-collectionFS
-cfs-filesystem
-flint-files
-cfs-ejson-file
-ejson
+bootstrap-contextmenu
+bootstrap-contextjs
+card-flintStations
+card-navigation
+card-engineControl
+card-courseCalculation
+bootstrap-slider

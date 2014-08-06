@@ -1,4 +1,24 @@
 <template name="core_sensor3d">
-  <div class="sensorgrid-container"></div>
-  <button class="btn flipper">{{{buttonLabel}}}</button>
+<div id="coreSensor3d">
+	<div id="sensorGrid">
+	  <div class="sensorgrid-container"></div>
+	  <button class="btn flipper">{{{buttonLabel}}}</button>
+	  <select id="speedSelect">
+	  		<option value="100000">Instant</option>
+	  		<option value="0.5">Warp</option>
+	  		<option value="0.25">Very Fast</option>
+	  		<option value="0.125">Fast</option>
+	  		<option value="0.0625">Moderate</option>
+	  		<option value="0.03125">Slow</option>
+	  		<option value="0.015625">Very Slow</option>
+	  </select>
+	  <label>
+	  <input type="checkbox" id="wormhole" checked={{wormhole}} />
+	  Wormhole
+	  </label>
+	 </div>
+	 <div id="gridContacts"></div>
+	  <div id="sensorContacts">
+	  </div>
+  </div>
 </template>

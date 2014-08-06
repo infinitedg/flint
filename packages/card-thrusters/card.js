@@ -2,85 +2,33 @@
 @module Templates
 @submodule Cards
 */
-
+var interval;
 var convertToRadian = function(degrees){
-    return degrees * (Math.PI/180);
+  return degrees * (Math.PI/180);
 }
 /**
 Card for manipulating the thrusters. Also shows ship orientation (Yaw, pitch roll).
 @class card_thrusters
 */
-Template.card_thrusters.created = function() {
-   /* debugger;
-    var renderer	= new THREE.WebGLRenderer();
-	renderer.setSize( 500, 375 );
-	document.getElementsByClassName('shipView').item().appendChild( renderer.domElement );
-    var scene	= new THREE.Scene();
-	var camera	= new THREE.PerspectiveCamera(45, 500 / 375, 0.01, 10000);
-    
-    var onRenderFcts= [];
-    
-    var ambientLight= new THREE.AmbientLight( 0x020202 );
-	scene.add( ambientLight);
-	var frontLight	= new THREE.DirectionalLight('white', 1);
-	frontLight.position.set(0.5, 0.5, 2);
-	scene.add( frontLight );
-	var backLight	= new THREE.DirectionalLight('white', 0.75);
-	backLight.position.set(-0.5, -0.5, -2);
-	scene.add( backLight );
-    
-    var geometry  = new THREE.SphereGeometry(900, 32, 32);
-    var url   = '/packages/card-thrusters/threeRequires/images/galaxy_starfield.png';
-    var material  = new THREE.MeshBasicMaterial({
-        map : THREE.ImageUtils.loadTexture(url),
-        side  : THREE.BackSide
-    });
-    var starSphere  = new THREE.Mesh(geometry, material);
-    scene.add(starSphere);
-    
-   var spaceship   = null;
-        THREEx.SpaceShips.loadSpaceFighter03(function(object3d){
-        spaceship   = object3d;
-        spaceship.rotateY(Math.PI/2);
-        scene.add(spaceship);
-    })
-    onRenderFcts.push(function(){
-       spaceship.rotation.y = -1 * convertToRadian(Flint.simulator('thrusterRotationYaw'));
-        spaceship.rotation.x = -1 * convertToRadian(Flint.simulator('thrusterRotationPitch'));
-        spaceship.rotation.z = -1 * convertToRadian(Flint.simulator('thrusterRotationRoll'));
-          
-    })
-        
-    var mouse	= {x : 0, y : 0}
-	document.addEventListener('mousemove', function(event){
-		mouse.x	= (event.clientX / window.innerWidth ) - 0.5;
-		mouse.y	= (event.clientY / window.innerHeight) - 0.5;
-	}, false)
-	onRenderFcts.push(function(delta, now){
-		camera.position.x = spaceship.position.x; // + ((mouse.x*10 - camera.position.x) * (delta*3))
-		camera.position.y = spaceship.position.y + 2;// + ((mouse.y*10 - camera.position.y) * (delta*3))
-        camera.position.z = spaceship.position.z + 3;
-		camera.lookAt( spaceship.position );
-	})
-    
-    onRenderFcts.push(function(){
-		renderer.render( scene, camera );		
-	})
-    var lastTimeMsec= null
-	requestAnimationFrame(function animate(nowMsec){
-		// keep looping
-		requestAnimationFrame( animate );
-		// measure time
-		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60;
-		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec);
-		lastTimeMsec	= nowMsec;
-		// call each update function
-		onRenderFcts.forEach(function(onRenderFct){
-			onRenderFct(deltaMsec/1000, nowMsec/1000);
-		});
-	});*/
+Template.card_thrusters.rendered = function() {
+      //startOffset();
 }
-
+Template.card_thrusters.manualThrustersRequired = function(){
+  var requiredThrusters = Flint.simulator('requiredThrusters');
+  var currentThrusters = Flint.simulator('thrusterRotation');
+  //Long if statement warning//
+  if ((requiredThrusters.yaw != currentThrusters.yaw || requiredThrusters.pitch != currentThrusters.pitch || requiredThrusters.roll != currentThrusters.roll) && Flint.simulator('manualThruster') == 'true'){
+    return "active";
+  } else {
+    return '';
+  }
+}
+Template.card_thrusters.rotationValue = function(which) {
+  return Flint.simulator('thrusterRotation')[which];
+}
+Template.card_thrusters.requiredValue = function(which) {
+  return Flint.simulator('requiredThrusters')[which];
+}
 Template.card_thrusters.events = {
   /**
   Show whether the thruster buttons are being depressed.
@@ -102,23 +50,77 @@ Template.card_thrusters.events = {
     var a = e.target.textContent.toLowerCase();
     var d = e.target.dataset['direction'];
     var a = e.target.dataset['axis'];
-    int = Meteor.setInterval(function() {
-
+    interval = Meteor.setInterval(function() {
+      obj = Flint.simulator('thrusterRotation');
       if (d=="port" || d=="down") {
-            $("." + a + "-value").text(parseInt($("." + a + "-value").text()) - 5);
-            if (parseInt($("." + a + "-value").text()) < 0) {$("." + a + "-value").text("355");}
+        obj[a] = parseInt(obj[a] - 1);
+        if (obj[a] < 0) {obj[a] = 359;}
       } else if (d="starboard" || d=="up"){
-            $("." + a + "-value").text(parseInt($("." + a + "-value").text()) + 5);
-            if (parseInt($("." + a + "-value").text()) > 355) {$("." + a + "-value").text("0");}
+        obj[a] = parseInt(obj[a] + 1);
+        if (obj[a] > 359) {obj[a] = 0;}
       }
-      Flint.simulators.update(Flint.simulatorId(), {$set: {thrusterRotationYaw: ($('.yaw-value').text())}});
-      Flint.simulators.update(Flint.simulatorId(), {$set: {thrusterRotationPitch: ($('.pitch-value').text())}});
-      Flint.simulators.update(Flint.simulatorId(), {$set: {thrusterRotationRoll: ($('.roll-value').text())}});
-    }, 400);
+      Flint.simulator('thrusterRotation',obj)
+      
+    }, 75);
+    $(document).bind('mouseup', function() {
+      Meteor.clearInterval(interval);
+      interval = null;
+    });
+    e.preventDefault();
   },
-    
+
   'mouseup div#rotational-thrusters': function(e, context) {
-    Meteor.clearInterval(int);
-    int = null;
+    Meteor.clearInterval(interval);
+    interval = null;
   }
 };
+function animLoop( render, element ) {
+  var running, lastFrame = +new Date;
+  function loop( now ) {
+        // stop the loop if render returned false
+        if ( running !== false ) {
+          requestAnimationFrame( loop, element );
+          running = render( now - lastFrame );
+          lastFrame = now;
+        }
+      }
+      loop( lastFrame );
+    }
+
+    var crossX, crossY;
+    startOffset = function(){
+      if (Template.card_thrusters.manualThrustersRequired() == 'active'){
+  //thrusterLoop = animLoop(function( deltaT ) {
+    var cross = $('.crosshairs')
+    if (false){
+      var newX = Math.round(Math.random() * 5) * Math.round((Math.random(3) - 2));
+      var newY = Math.round(Math.random() * 5) * Math.round((Math.random(3) - 2));
+      TweenLite.to(cross,(Math.random()*4 + 2), {
+        x: (newX + "px"), 
+        y: (newY + "px"), 
+        ease: Linear.easeNone,
+        onComplete:function(){
+          startOffset();
+        }});
+    } else {
+      var currentX = cross.position().left + cross.width();
+      var currentY = cross.position().top + cross.height();
+      var boxWidth = $('.offset-box').width();
+      var boxHeight = $('.offset-box').height();
+
+      crossX = Math.random()*(boxWidth - cross.width()) - boxWidth/2;
+      crossY = Math.random()*(boxHeight - cross.height()) - boxHeight/2;
+
+      distance = (Math.round(Math.sqrt((crossX - currentX)^2 + (crossY - currentY)^2)))
+      TweenLite.to(cross,(distance), {
+        x: (crossX + "px"), 
+        y: (crossY + "px"), 
+        ease: Linear.easeNone,
+        onComplete:function(){
+          startOffset();
+        }});
+    }
+    console.log(distance + "%");
+   // });
+}
+}

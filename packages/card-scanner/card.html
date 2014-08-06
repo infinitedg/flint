@@ -1,25 +1,24 @@
 <template name="card_scanner">
-  {{#if scanning}}
-  <h1>Scanning...</h1>
-  {{else}}
+ 
   <div class="row-fluid {{css_input}}">
     <div class="span12">
       <div class="row-fluid">
         <div class="span12 scanning_input">
-        <h2>Scan</h2>
-        {{#constant}}
-          <textarea rows="5" class="span12 input-field">This is where scans go in</textarea>
-        {{/constant}}
+         {{#if scanning}}
+  <h3>Scanning...</h3>
+  {{else}}
+          <h4>Scan</h4>
+          <textarea rows="5" class="span12 input-field"></textarea>
           <button class="scan-btn btn-block btn btn-success" {{scan_disabled}}>Begin Scan</button>
+            {{/if}}
         </div>
       </div>
       <div class="row-fluid">
         <div class="span12 scanning_output">
-        <h2>Scan Response</h2>
+        <h4>Scan Response</h4>
           <textarea rows="5" disabled class="span12">{{scannerResponse}}</textarea>
         </div>
       </div>
     </div>
   </div>
-  {{/if}}
 </template>

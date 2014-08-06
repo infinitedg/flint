@@ -26,6 +26,8 @@ Flint.collection = function(name) {
 
 Flint.stations = Flint.collection("stations");
 Flint.simulators = Flint.collection("simulators");
+Flint.systems = Flint.collection("systems");
+
 
 Flint.simulator = function(p, v) {
   if (!p && !v)
@@ -36,6 +38,21 @@ Flint.simulator = function(p, v) {
     var setter = {};
     setter[p] = v;
     return Flint.simulators.update(Flint.simulatorId(), {$set: setter});
+  }
+};
+Flint.system = function(p, q, v) {
+  if (!p && !q && !v)
+    return Flint.systems.find({'simulatorId': Session.get("flint.simulatorId")}).fetch();
+  if (p && !q && !v)
+    return Flint.systems.findOne({'simulatorId': Session.get("flint.simulatorId"), 'name': p});
+  if (p && q && !v)
+    return Flint.systems.findOne({'simulatorId': Session.get("flint.simulatorId"), 'name': p})[q];
+  if (p && q && v) {
+    var setter = Flint.systems.findOne({'simulatorId': Session.get("flint.simulatorId"), 'name': p});
+    setter[q] = v;
+    var id = setter._id;
+    delete setter._id;
+    return Flint.systems.update(id, {$set: setter});
   }
 };
 

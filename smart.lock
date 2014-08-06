@@ -28,7 +28,9 @@
         "git": "https://github.com/farpoint/meteor-tween",
         "tag": "v0.13.1"
       },
-      "collectionFS": {}
+      "bootstrap-colorpicker-2": {},
+      "collectionFS": {},
+      "bootstrap-contextmenu": {}
     },
     "packages": {
       "iron-router": {
@@ -116,6 +118,11 @@
         "tag": "v0.13.1",
         "commit": "ea218fe9f498191c7679a7dad29df180fb37b402"
       },
+      "bootstrap-colorpicker-2": {
+        "git": "https://github.com/sclausen/meteor-bootstrap-colorpicker-2.git",
+        "tag": "v0.1.1",
+        "commit": "5252e088e48230c81a7b5f1c4b1afe4fbc674383"
+      },
       "collectionFS": {
         "git": "https://github.com/CollectionFS/Meteor-CollectionFS.git",
         "tag": "v0.4.8",
@@ -125,6 +132,11 @@
         "git": "https://github.com/EventedMind/iron-layout.git",
         "tag": "v0.2.0",
         "commit": "4a2d53e35ba036b0c189c7ceca34be494d4c6c97"
+      },
+      "bootstrap-contextmenu": {
+        "git": "https://github.com/pascoual/meteor-bootstrap-contextmenu.git",
+        "tag": "v0.2.0",
+        "commit": "f8f0c6625a96b398297954f47eaf20070e8858a6"
       },
       "cfs-base-package": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-base-package.git",

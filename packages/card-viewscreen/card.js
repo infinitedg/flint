@@ -7,11 +7,12 @@ var cameraZoom = 0;
 var planetMesh;
 var onRenderFcts = [];
 var hyperBox;
-var viewRadius = 20,
+viewRadius = 30,
 viewWidth = 500,
 viewHeight = 500;
 var hyperBox, boxTexture, hyperLight1, hyperLight2, hyperLight3, hyperLight4;
 var Examples;
+var curveLayer, lineLayer, anchorLayer, quad, bezier = {};
 
 Template.card_viewscreen.dynamicTemplate = function () {
   return Template[Flint.simulator().currentScreen];
@@ -132,6 +133,216 @@ Template.card_viewscreen.destroyed = function () {
     }
 };
 
+// Bezier
+  
+  bezierFunc = function (t, p0, p1, p2, p3) {
+        var cX = 3 * (p1.x - p0.x),
+            bX = 3 * (p2.x - p1.x) - cX,
+            aX = p3.x - p0.x - cX - bX;
+
+        var cY = 3 * (p1.y - p0.y),
+            bY = 3 * (p2.y - p1.y) - cY,
+            aY = p3.y - p0.y - cY - bY;
+
+        var x = (aX * Math.pow(t, 3)) + (bX * Math.pow(t, 2)) + (cX * t) + p0.x;
+        var y = (aY * Math.pow(t, 3)) + (bY * Math.pow(t, 2)) + (cY * t) + p0.y;
+
+        return {
+            x: x,
+            y: y
+        };
+    };
+
+  function updateDottedLines() {
+        for (var curveid in bezier){
+            var b = bezier[curveid];
+            var bezierLine = b.bezierLine;
+            bezierLine.setPoints([b.start.attrs.x, b.start.attrs.y, b.control1.attrs.x, b.control1.attrs.y, b.control2.attrs.x, b.control2.attrs.y, b.end.attrs.x, b.end.attrs.y]);
+       };
+       // }; 
+        lineLayer.draw();
+      };
+      
+       drawCurves = function() {
+        for (var curveid in bezier){
+            var curve = bezier[curveid];
+            var accuracy = 0.01, //this'll give the bezier 100 segments
+            p0 = {
+                x: curve.start.attrs.x,
+                y: curve.start.attrs.y
+            }, 
+            p1 = {
+                x: curve.control1.attrs.x,
+                y: curve.control1.attrs.y
+            },
+            p2 = {
+                x: curve.control2.attrs.x,
+                y: curve.control2.attrs.y
+            },
+            p3 = {
+                x: curve.end.attrs.x,
+                y: curve.end.attrs.y
+            },
+            linePoints = [];
+            
+            for (var i = 0; i < 1; i += accuracy) {
+                var p = bezierFunc(i, p0, p1, p2, p3);
+                linePoints.push(p.x);
+                linePoints.push(p.y);
+            }
+            curve.curveLine.attrs.points = linePoints;
+           
+           var headlen = 13;   // length of head in pixels
+            var angle = Math.atan2(curve.end.attrs.y-curve.control2.attrs.y,curve.end.attrs.x-curve.control2.attrs.x);
+            var ax = curve.end.attrs.x-headlen*Math.cos(angle-Math.PI/6);
+            var ay = curve.end.attrs.y-headlen*Math.sin(angle-Math.PI/6);
+            var arrowPoints = [curve.end.attrs.x, curve.end.attrs.y, curve.end.attrs.x-headlen*Math.cos(angle+Math.PI/6),curve.end.attrs.y-headlen*Math.sin(angle+Math.PI/6),ax,ay];
+            curve.arrow.attrs.points = arrowPoints;
+         };
+        curveLayer.draw();
+
+      }
+
+      function buildBezierLine() {
+        var bezierLine = new Kinetic.Line({
+          dashArray: [10, 10, 0, 10],
+          strokeWidth: 3,
+          stroke: 'gray',
+          lineCap: 'round',
+          id: 'bezierLine',
+          opacity: 0.3,
+          points: [0, 0]
+        });
+
+        lineLayer.add(bezierLine);
+        return bezierLine;
+      };
+
+      
+      function buildAnchor(x, y, id) {
+        var anchor = new Kinetic.Circle({
+          x: x,
+          y: y,
+          radius: 5,
+          stroke: '#666',
+          fill: '#ddd',
+          strokeWidth: 1,
+          draggable: true,
+          parentid: id,
+          opacity: .5
+        });
+
+        anchorLayer.add(anchor);
+        return anchor;
+      }
+      function buildArrow(options){
+            var headlen = 13;   // length of head in pixels
+            var angle = Math.atan2(options.end.y-options.control2.y,options.end.x-options.control2.x);
+
+            var ax = options.end.x-headlen*Math.cos(angle-Math.PI/6);
+            var ay = options.end.y-headlen*Math.sin(angle-Math.PI/6);
+            var arrowPoints = [options.end.x, options.end.y, options.end.x-headlen*Math.cos(angle+Math.PI/6),options.end.y-headlen*Math.sin(angle+Math.PI/6),ax,ay];
+            
+            var lineArrow = new Kinetic.Line({
+                points: arrowPoints,
+                stroke: options.color,
+                fill: options.color,
+                strokeWidth: 5,
+                lineCap: 'round',
+                lineJoin: 'round',
+                closed: true
+            });
+        if(!options.hasArrow) {
+            lineArrow.attrs.opacity = 0;
+        }
+        curveLayer.add(lineArrow);
+        return lineArrow;
+    };  
+
+        // add dotted line connectors
+    var addBezier = function(id, options) {
+        var curveLine = new Kinetic.Line({
+            //points: linePoints,
+            stroke: options.color,
+            strokeWidth: 5,
+            lineCap: 'round',
+            lineJoin: 'round',
+            draggable: false
+        });
+
+            // add hover styling
+        curveLine.on('mouseover', function() {
+          document.body.style.cursor = 'pointer';
+          this.setStrokeWidth(6);
+          anchorLayer.draw();
+        });
+        curveLine.on('mouseout', function() {
+          document.body.style.cursor = 'default';
+          this.setStrokeWidth(5);
+          anchorLayer.draw();
+          
+        });
+
+        curveLine.on('dragend', function() {
+          drawCurves();
+          updateDottedLines();
+        });
+
+        curveLayer.add(curveLine);
+
+        var newBezier = {
+
+          start: buildAnchor(options.start.x*2, options.start.y*2, id),
+          control1: buildAnchor(options.control1.x*2, options.control1.y*2, id),
+          control2: buildAnchor(options.control2.x*2, options.control2.y*2, id),
+          end: buildAnchor(options.end.x*2, options.end.y*2, id),
+          bezierLine: buildBezierLine(),
+          arrow: buildArrow(options),
+          curveLine: curveLine
+        };
+
+
+        bezier[id] = newBezier;
+        drawCurves();
+        updateDottedLines();
+        anchorLayer.draw();
+      };
+
+      function updateBezier(id, options){
+        curve = bezier[id];
+        if (options.start !== undefined) {
+        curve.start.attrs.x = options.start.x*2;
+        curve.start.attrs.y = options.start.y*2;
+        }
+        if (options.control1 !== undefined){
+        curve.control1.attrs.x = options.control1.x*2;
+        curve.control1.attrs.y = options.control1.y*2;
+        }
+        if (options.control2 !== undefined){
+        curve.control2.attrs.x = options.control2.x*2;
+        curve.control2.attrs.y = options.control2.y*2;
+        }
+        if (options.end !== undefined){
+        curve.end.attrs.x = options.end.x*2;
+        curve.end.attrs.y = options.end.y*2;
+        }
+        if (options.color !== undefined){
+        curve.curveLine.attrs.stroke = options.color;
+        curve.arrow.attrs.stroke = options.color;
+        curve.arrow.attrs.fill = options.color;
+        }
+        if (options.hasArrow !== undefined){
+            if (options.hasArrow === true){
+                curve.arrow.attrs.opacity = 1;
+            } else {
+                curve.arrow.attrs.opaticy = 0;
+            }
+        }
+        drawCurves();
+        updateDottedLines();
+        anchorLayer.draw();
+      };
+
 Template.Sandbox.rendered = function (){
     var up = new THREE.Vector3(0,1,0);
     var clock = new THREE.Clock();
@@ -144,7 +355,6 @@ Template.Sandbox.rendered = function (){
     /*Ships Scene*/
     scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.29, 10000);
-    camera.position.z = 1;
     cameras.push(camera);
 
     var camera1 = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
@@ -160,7 +370,6 @@ Template.Sandbox.rendered = function (){
     cameras.push(camera2);
 
     camera.position.z = 0;
-    camera.rotateY(Math.PI);
     controls = new THREE.FlyControls(camera);
 
     controls.movementSpeed = 0;
@@ -272,7 +481,6 @@ Template.Sandbox.rendered = function (){
 
     //scene.add(planetMesh);
 
-    var texture = new THREE.Texture();
     var imageLoader = new THREE.ImageLoader(manager);
 
 
@@ -300,14 +508,14 @@ Template.Sandbox.rendered = function (){
     boxTexture.wrapT    = THREE.RepeatWrapping;
     var boxGeo = new THREE.SphereGeometry(5, 32, 32);
     var PlaneGeo = new THREE.PlaneGeometry(200,200);
-    var boxMat = new THREE.MeshLambertMaterial({color : 0xFFFFFF, map : boxTexture, side: THREE.BackSide});
+    var boxMat = new THREE.MeshLambertMaterial({transparent: true, color : 0xFFFFFF, map : boxTexture, side: THREE.BackSide});
     hyperBox = new THREE.Mesh(boxGeo,boxMat);
 
 
     hyperBox.name = 'cube';
     hyperBox.position.x = 0;
     hyperBox.position.y = 0;
-    hyperBox.position.z = 25;
+    hyperBox.position.z = -24;
     hyperBox.scale.y = 5;
     hyperBox.scale.z = .5;
     hyperBox.scale.x = .5;
@@ -380,18 +588,18 @@ Template.Sandbox.rendered = function (){
         wormholeMesh3 = new THREE.Mesh(geometry, material3);
         wormholeMesh4 = new THREE.Mesh(geometry, material4);
 
-        wormholeMesh1.position.z = 0.7;
-        wormholeMesh2.position.z = 0.2;
+        wormholeMesh1.position.z = -0.7;
+        wormholeMesh2.position.z = -0.2;
         wormholeMesh3.position.z = 0;
-        wormholeMesh4.position.z = 0.5;
+        wormholeMesh4.position.z = -0.5;
         wormholeMesh1.scale.x = 0.001;
-            wormholeMesh1.scale.y = 0.001;
-            wormholeMesh2.scale.x = 0.001;
-            wormholeMesh2.scale.y = 0.001;
-            wormholeMesh3.scale.x = 0.005;
-            wormholeMesh3.scale.y = 0.005;
-            wormholeMesh4.scale.x = 0.00125;
-            wormholeMesh4.scale.y = 0.00125;
+        wormholeMesh1.scale.y = 0.001;
+        wormholeMesh2.scale.x = 0.001;
+        wormholeMesh2.scale.y = 0.001;
+        wormholeMesh3.scale.x = 0.005;
+        wormholeMesh3.scale.y = 0.005;
+        wormholeMesh4.scale.x = 0.00125;
+        wormholeMesh4.scale.y = 0.00125;
         wormholeMesh1.rotateX(0);
 
         wormhole.add(wormholeMesh1);
@@ -407,18 +615,20 @@ Template.Sandbox.rendered = function (){
         scene.add(wormholeMesh3);
         scene.add(wormholeMesh4);
         */
+
     //Ship Textures
+    var texture = new THREE.Texture();
     var manager = new THREE.LoadingManager();
     manager.onProgress = function (item, loaded, total) {
         console.log(item, loaded, total);
     };
 
-    imageLoader.load('/packages/card-viewscreen/models/Battleship/battleship_elements2_c.png', function (image) {
+    imageLoader.load(Flint.a('/Sandbox Images/Battleship'), function (image) {
         texture.image = image;
         texture.needsUpdate = true;
     });
     var loader = new THREE.OBJMTLLoader();
-    loader.load('/packages/card-viewscreen/models/Battleship/_1.obj', '/packages/card-viewscreen/models/Battleship/_1.mtl', function (object) {
+    loader.load(Flint.a('/Sandbox Models/Battleship'), Flint.a('/Sandbox Materials/Battleship'), function (object) {
         object.scale.multiplyScalar(1 / 15);
         object.traverse(function (object3d) {
             if (object3d.material) {
@@ -427,43 +637,26 @@ Template.Sandbox.rendered = function (){
                 object3d.material.shininess = 3;
             }
         });
+        object.rotateY(Math.PI);
         battleShip = object;
         scene.add(object);
-    });
-    loader.load('/packages/card-viewscreen/models/AstraHeavyCruiser/_1.obj', '/packages/card-viewscreen/models/AstraHeavyCruiser/_1.mtl', function (object)     {
-        object.scale.multiplyScalar(1 / 2);
-        object.traverse(function (object3d) {
-            if (object3d.material) {
-                object3d.material.map = texture;
-                object3d.material.emissive.set('white');
-                object3d.material.shininess = 3;
-            }
-        });
-        object.position.x = 0.25;
-        hvyCruiserShip = object;
-        scene.add(object);
-        object.rotSpeed = 2.5;
-        object.speed = 0.5;
-        object.closeEnough = 0.1;
-        object.dx = new THREE.Vector3();
-        animatingObjects.push(object);
     });
 
    
 
     window.sceneContacts = {};
 
-
     //Sensor Stuff
     this.sensorObserver = Flint.collection('sensorContacts').find().observe({
         added: function(doc) {
-            imageLoader.load('/packages/card-viewscreen/models/Battleship/battleship_elements2_c.png', function (image) {
+            var texture = new THREE.Texture();
+            imageLoader.load(Flint.a('/Sandbox Images/' + doc.mesh), function (image) {
                 texture.image = image;
                 texture.needsUpdate = true;
             });
             if (doc.mesh) {
-            loader.load('/packages/card-viewscreen/models/' + doc.mesh + '/_1.obj', '/packages/card-viewscreen/models/' + doc.mesh + '/_1.mtl', function (object) {
-                object.scale.multiplyScalar(1);
+            loader.load(Flint.a('/Sandbox Models/' + doc.mesh), Flint.a('/Sandbox Materials/' + doc.mesh), function (object) {
+                object.scale.multiplyScalar(1 / 15);
                 object.traverse(function (object3d) {
                     if (object3d.material) {
                         object3d.material.map = texture;
@@ -502,8 +695,7 @@ Template.Sandbox.rendered = function (){
         var quat0 = fromObject.quaternion;
         var eye = fromObject.position;
         var center = toPosition;
-        debugger;
-        if (eye == center){return false;}
+        if (eye.distanceTo(center) == 0){return false;}
         var mat = new THREE.Matrix4();
         mat.lookAt(center,eye,up);
         var quat1 = new THREE.Quaternion();
@@ -512,6 +704,7 @@ Template.Sandbox.rendered = function (){
         var frac = dTheta/deltaTheta;
         if (frac>1)  frac=1;
         fromObject.quaternion.slerp(quat1,frac);
+
     }
     function angleBetweenQuats(qBefore,qAfter) {
         q1 = new THREE.Quaternion();
@@ -529,7 +722,7 @@ Template.Sandbox.rendered = function (){
 
         controls.update(delta);
 
-        boxTexture.offset.y += 0.008;
+        boxTexture.offset.y -= 0.008;
         boxTexture.offset.y %= 1;
         boxTexture.needsUpdate  = true;
 
@@ -564,7 +757,6 @@ Template.Sandbox.rendered = function (){
 
 Template.Tactical.rendered = function (){
     var stage,symbolsLayer,contactsLayer,ghostLayer;
-
     window.currentDimensions = {
       x: 'x',
       y: 'y',
@@ -598,7 +790,7 @@ Template.Tactical.rendered = function (){
 
     var armyArray = {};
     var contactsArray = {};
-
+    var labelsArray = {};
     k.center = {
       x: k.width / 2,
       y: k.height / 2
@@ -608,7 +800,7 @@ Template.Tactical.rendered = function (){
 
 
     this.subscription = Deps.autorun(function() {
-        Meteor.subscribe('cards.card-tacControl.contacts', Flint.simulatorId());
+        Meteor.subscribe('cards.card-tacControl.screencontacts', Flint.simulatorId());
       });
 
       stage = new Kinetic.Stage({
@@ -617,12 +809,21 @@ Template.Tactical.rendered = function (){
             height: 630
           });
 
-          
+    anchorLayer = new Kinetic.Layer();
+    lineLayer = new Kinetic.Layer();
+    curveLayer = new Kinetic.Layer();
+    contactsLayer = new Kinetic.Layer();
+    symbolsLayer = new Kinetic.Layer();
+    ghostLayer = new Kinetic.Layer();
+    gridLayer = new Kinetic.Layer();
+    backgroundLayer = new Kinetic.Layer();
+    // keep curves insync with the lines
+    anchorLayer.on('beforeDraw', function() {
+      drawCurves();
+      updateDottedLines();
+    });
 
-               contactsLayer = new Kinetic.Layer();
-               symbolsLayer = new Kinetic.Layer();
-              ghostLayer = new Kinetic.Layer();
-              backgroundLayer = new Kinetic.Layer();
+            
 
 
           var box = new Kinetic.Rect({
@@ -658,9 +859,11 @@ Template.Tactical.rendered = function (){
 
           }
 
-    this.tacticalObserver = Flint.collection('tacticalContacts').find().observeChanges({
+    this.tacticalObserver = Flint.collection('tacticalscreencontacts').find().observeChanges({
         added: function(id, doc) {
           // console.log("Added", id, doc);
+          doc['type']= Flint.collection('tacticalscreencontacts').findOne({_id: id}).type;
+        if (doc['type'] === 'contact'){
           if (!contactsArray[id]) {
             contactsArray[id] = {};
             // Draggable Contact
@@ -671,10 +874,10 @@ Template.Tactical.rendered = function (){
                 y: transformY(doc['Y']),
                 image: contactObj,
                 width: (doc['width']*2),
-                 height: (doc['height']*2),
-                red: k.filter.red,
-                green: k.filter.green,
-                blue: k.filter.blue
+                height: (doc['height']*2),
+                red: doc['red'],
+                green: doc['green'],
+                blue: doc['blue']
               });
 
               // Setup filters
@@ -686,156 +889,333 @@ Template.Tactical.rendered = function (){
               icon.draw();
               contactsArray[id].contact = icon;
             };
-            contactObj.src = k.spritePath + doc.icon;
+            contactObj.src = doc.icon;
           }
+         }
+         if (doc['type'] === 'bezier'){
+            if (!bezier[id]){
+                addBezier(id, doc);
+            }
+          }
+          if (doc['type'] === 'label') {
+                if(!labelsArray[id]){
+                    var label = new Kinetic.Text({
+                        x: doc.x*2,
+                        y: doc.y*2,
+                        text: doc.text,
+                        fontSize: doc.fontSize*2,
+                        fontFamily: doc.fontFamily,
+                        fill: doc.fill,
+                        align: doc.align,
+                        selected: true,
+                        draggable: true
+                    });
+                    labelsArray[id] = label;
+                    contactsLayer.add(label);
+                    Session.set('selectedSymbol', id);
+                    contactsLayer.draw();
+                }
+            }
         },
         changed: function(id, fields) {
+            fields['type']= Flint.collection('tacticalScreenContacts').findOne({_id: id}).type;
           // console.log("Changed", id, fields);
-          var contact = contactsArray[id].contact
-          if (contact) {
+            if (fields['type'] === 'contact'){
+              var contact = contactsArray[id].contact;
+              
+              if (contact) {
 
-            if (fields['X'] !== undefined) {
-              contact.setX(transformX(fields['X']));
-            }
-            if (fields['Y'] !== undefined) {
-              contact.setY(transformY(fields['Y']));
-            }
-            if (fields['width'] !== undefined){
-                debugger;
-                contact.attrs.width = (fields['width']*2);
-                contact.attrs.height = (fields['height']*2);
-                contact.cache();
+                if (fields['X'] !== undefined) {
+                  contact.setX(transformX(fields['X']));
+                }
+                if (fields['Y'] !== undefined) {
+                  contact.setY(transformY(fields['Y']));
+                }
+                if (fields['width'] !== undefined){
+                    contact.attrs.width = (fields['width']*2);
+                    contact.attrs.height = (fields['height']*2);
+                    contact.cache();
 
-            }
-            contactsLayer.draw();
+                }
+                if (fields['red'] !== undefined) {
+                  contact.attrs.red = fields['red'];
+                  contact.attrs.green = fields['green'];
+                  contact.attrs.blue = fields['blue'];
+                  contact.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
+                  contact.cache();
+                }
+                contactsLayer.draw();
+              }
           }
+          if (fields['type'] === 'bezier'){
+            if (bezier[id]){
+                updateBezier(id, fields);
+            }
+          }
+          if (fields['type'] === 'label') {
+                var label = labelsArray[id];
+                if (fields['x'] !== undefined) {
+                    label.setX(fields['x']*2);
+                 }
+                if (fields['y'] !== undefined) {
+                    label.setY(fields['y']*2);
+                }
+                if (fields['text']){
+                    label.text(fields['text']);
+                }
+                 if (fields['fontFamily']){
+                    label.fontFamily(fields['fontFamily']);
+                }
+                 if (fields['fontSize']){
+                    label.fontSize(fields['fontSize']*2);
+                }
+                 if (fields['fill']){
+                    label.fill(fields['fill']);
+                }
+                contactsLayer.draw();
+            }
         },
         removed: function(id) {
-          // console.log("Removed", id);
+                  // console.log("Removed", id);
+        if (contactsArray.hasOwnProperty(id)){
           contactsArray[id].contact.remove();
           delete contactsArray[id];
           contactsLayer.draw();
+        }
+        if (bezier.hasOwnProperty(id)){
+                 bezier[id].start.remove();
+                bezier[id].control1.remove();
+                bezier[id].control2.remove();
+                bezier[id].end.remove();
+                bezier[id].curveLine.remove();
+                bezier[id].bezierLine.remove();
+                bezier[id].arrow.remove();  
+                delete bezier[id];
+                curveLayer.draw();
+                anchorLayer.draw();
+                lineLayer.draw();     
+            }
+            if (labelsArray.hasOwnProperty(id)){
+                labelsArray[id].remove();
+                delete labelsArray[id];
+                contactsLayer.draw();
+            }
         }
       });
 
               
 
       stage.add(backgroundLayer);
+      stage.add(curveLayer);
       stage.add(contactsLayer); // Uppermost layer
 };
 Template.card_viewscreen.rendered = function () {
     //initSandbox();
     //initTactical();
     var lastTimeMsec = null;
-    function onKeyDown(evt) {
-        var result;
-        switch (evt.keyCode) {
-          case 53: //'5'
-            currentCamera = 0;
-            
-            TweenLite.to(cameras[currentCamera], 1, {fov:140, onComplete: function(){
+    function wormholeOpen() {
+          //'6'
+    currentCamera = 0;
+    scaleValue = {
+        currentValue: 0.001,
+        part1Value: 0.001,
+        part2Value: 0.001,
+        part3Value: 0.001,
+        part4Value: 0.001,
+        currentPosition: -33,
+        hyperBoxOpacity: 0
+    };
+    hyperBox.visible = false;
+    wormhole.position.z = scaleValue.currentPosition;
+    wormholeMesh1.scale.x = 0.001;
+    wormholeMesh1.scale.y = 0.001;
+    wormholeMesh2.scale.x = 0.001;
+    wormholeMesh2.scale.y = 0.001;
+    wormholeMesh3.scale.x = 0.005;
+    wormholeMesh3.scale.y = 0.005;
+    wormholeMesh4.scale.x = 0.00125;
+    wormholeMesh4.scale.y = 0.00125;
+    //wormhole.scale.x = scaleValue.currentValue;
+    //wormhole.scale.y = scaleValue.currentValue;
+    TweenLite.to(scaleValue, 8, {
+        part1Value: 1,
+        ease: Elastic.easeOut,
+        onUpdate: function () {
+            wormholeMesh1.scale.x = scaleValue.part1Value;
+            wormholeMesh1.scale.y = scaleValue.part1Value;
+        },
+        onComplete: function () {
+            hyperLight1.visible = true;
+            hyperLight2.visible = true;
+            hyperLight3.visible = true;
+            hyperLight4.visible = true;
+            hyperspace = true;
+            //scene.add(hyperFlare);
+           // hyperBox.visible = true;
+            TweenLite.to(scaleValue, 2, {
+                hyperBoxOpacity: 1,
+                onUpdate: function() {
+                    hyperBox.visible = true;
+                    console.log(scaleValue.hyperBoxOpacity);
+                    hyperBox.material.opacity = scaleValue.hyperBoxOpacity;
+                },
+                onComplete: function() {
+                }
+            });
+        }
+    });
+    TweenLite.to(scaleValue, 4, {
+        part2Value: 1,
+        delay: .5,
+        ease: Power4.easeOut,
+        onUpdate: function () {
+            wormholeMesh2.scale.x = scaleValue.part2Value;
+            wormholeMesh2.scale.y = scaleValue.part2Value;
+        }
+    });
+    TweenLite.to(scaleValue, 6, {
+        part3Value: .5,
+        delay: 0.75,
+        ease: Power4.easeOut,
+        onUpdate: function () {
+            wormholeMesh3.scale.x = scaleValue.part3Value;
+            wormholeMesh3.scale.y = scaleValue.part3Value;
+        }
+    });
+    TweenLite.to(scaleValue, 8, {
+        part4Value: 1.25,
+        ease: Elastic.easeOut,
+        delay: 1,
+        onUpdate: function () {
+            wormholeMesh4.scale.x = scaleValue.part4Value;
+            wormholeMesh4.scale.y = scaleValue.part4Value;
+        }
+    });
+
+    TweenLite.to(scaleValue, 12, {
+        currentPosition: 3,
+        delay: 4,
+        ease: Power4.easeInOut,
+        onUpdate: function () {
+            wormhole.position.z = scaleValue.currentPosition;
+        },
+        onComplete: function () {
+
+        }
+    });
+    };
+    function wormholeClose() {
+        //'5'
+    currentCamera = 0;
+    scaleValue = {
+        currentValue: 3,
+        part1Value: 1,
+        part2Value: 1,
+        part3Value: 0.5,
+        part4Value: 0.125,
+        currentPosition: 0,
+        hyperBoxOpacity: 1
+    };
+    TweenLite.to(scaleValue, 1, {
+        hyperBoxOpacity: 0,
+        onUpdate: function() {
+            hyperBox.material.opacity = scaleValue.hyperBoxOpacity;
+        },
+        onComplete: function() {
+            hyperspace = false;
+            hyperBox.visible = false;
+        }
+    });
+
+    TweenLite.to(cameras[currentCamera], 1, {
+        fov: 140,
+
+        onComplete: function () {
             hyperLight1.visible = false;
             hyperLight2.visible = false;
             hyperLight3.visible = false;
             hyperLight4.visible = false;
             scene.remove(hyperFlare);
-            hyperBox.visible = false;
-            hyperspace = false;
-            TweenLite.to(cameras[currentCamera], 7, {fov:45, ease: Expo.easeOut, onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});},
-            onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});
-            
-            break;
-          case 54: //'6'
-          currentCamera = 0;
-          scaleValue = {currentValue:0.001, part1Value: 0.001, part2Value: 0.001, part3Value:0.001, part4Value: 0.001, currentPosition: 43 };
-            hyperBox.visible = false;
-            wormhole.position.z = scaleValue.currentPosition;
-            wormholeMesh1.scale.x = 0.001;
-            wormholeMesh1.scale.y = 0.001;
-            wormholeMesh2.scale.x = 0.001;
-            wormholeMesh2.scale.y = 0.001;
-            wormholeMesh3.scale.x = 0.005;
-            wormholeMesh3.scale.y = 0.005;
-            wormholeMesh4.scale.x = 0.00125;
-            wormholeMesh4.scale.y = 0.00125;
-            //wormhole.scale.x = scaleValue.currentValue;
-            //wormhole.scale.y = scaleValue.currentValue;
-            TweenLite.to(scaleValue, 8, {
-                part1Value: 1,
-                ease:Elastic.easeOut,
-                onUpdate: function(){
-                    wormholeMesh1.scale.x = scaleValue.part1Value;
-                    wormholeMesh1.scale.y = scaleValue.part1Value;
-                },
-                onComplete: function(){
-                    hyperLight1.visible = true;
-                      hyperLight2.visible = true;
-                      hyperLight3.visible = true;
-                      hyperLight4.visible = true;
-                      //scene.add(hyperFlare);
-                      hyperBox.visible = true;
-                      hyperspace = true;
+            //hyperBox.visible = false;            
+             TweenLite.to(scaleValue, 2, {
+                currentPosition: -3,
+                ease: Power1.easeOut,
+                onUpdate: function () {
+                    wormhole.position.z = scaleValue.currentPosition;
                 }
             });
             TweenLite.to(scaleValue, 4, {
-                part2Value: 1,
+                part1Value: 0.0001,
+                ease: Power1.easeIn,
+                onUpdate: function () {
+                    wormholeMesh1.scale.x = scaleValue.part1Value;
+                    wormholeMesh1.scale.y = scaleValue.part1Value;
+                }
+            });
+            TweenLite.to(scaleValue, 4, {
+                part2Value: 0.0001,
                 delay: .5,
-                ease:Power4.easeOut,
-                onUpdate: function(){
+                ease: Power1.easeIn,
+                onUpdate: function () {
                     wormholeMesh2.scale.x = scaleValue.part2Value;
                     wormholeMesh2.scale.y = scaleValue.part2Value;
                 }
             });
             TweenLite.to(scaleValue, 6, {
-                part3Value: .5,
+                part3Value: 0.0001,
                 delay: 0.75,
-                ease:Power4.easeOut,
-                onUpdate: function(){
+                ease: Power1.easeIn,
+                onUpdate: function () {
                     wormholeMesh3.scale.x = scaleValue.part3Value;
                     wormholeMesh3.scale.y = scaleValue.part3Value;
                 }
             });
-            TweenLite.to(scaleValue, 8, {
-                part4Value: 1.25,
-                ease:Elastic.easeOut,
+            TweenLite.to(scaleValue, 6, {
+                part4Value: 0.0001,
+                ease: Power1.easeIn,
                 delay: 1,
-                onUpdate: function(){
+                onUpdate: function () {
                     wormholeMesh4.scale.x = scaleValue.part4Value;
                     wormholeMesh4.scale.y = scaleValue.part4Value;
                 }
             });
-            TweenLite.to(scaleValue, 12, {
-                currentValue: 15,
-                onUpdate: function(){
-                   // wormhole.scale.x = scaleValue.currentValue;
-                    //wormhole.scale.y = scaleValue.currentValue;
-                },
-                onComplete: function(){
-                    /*cameras[currentCamera].fov = 140;
-                    TweenLite.to(cameras[currentCamera], 3, {
-                        fov:45, 
-                        onUpdate: function(){cameras[currentCamera].updateProjectionMatrix();}});*/
+            TweenLite.to(cameras[currentCamera], 7, {
+                fov: 45,
+                ease: Expo.easeOut,
+                onUpdate: function () {
+                    cameras[currentCamera].updateProjectionMatrix();
                 }
             });
-
-           TweenLite.to(scaleValue, 12, {
-                currentPosition:-3, 
-                delay:  4,
-                ease: Power4.easeInOut,
-                onUpdate: function(){
-                    wormhole.position.z = scaleValue.currentPosition;
-                },
-                onComplete:function(){
-
+        },
+        onUpdate: function () {
+            cameras[currentCamera].updateProjectionMatrix();
+        }
+    });
+    };
+    this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+            changed: function(id, fields) {
+                    if (fields.wormhole){
+                        if (fields.wormhole == "true"){
+                            wormholeOpen();
+                        } else {
+                            wormholeClose();
+                        }
+                    }
                 }
-            });
-
-
-        
+    });
+    function onKeyDown(evt) {
+        var result;
+        switch (evt.keyCode) {
+        case 53:
+            wormholeClose();
 
             break;
+        case 54:
+              wormholeOpen();
+                break;
           case 55: // '7'
-            currentCamera = 2;  
+            currentCamera = 2;
+            break;  
           case 56: // '8'
             currentCamera = 0;
             break;
