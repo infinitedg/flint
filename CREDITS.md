@@ -1,4 +1,4 @@
-Flint is a work by the Space EdVentures Foundation, Inc.
+Flint is a work by Infinite Development Group.
 
 # Contributors
 Brent Anderson & Danny Shields provided the initial design and development of Flint.

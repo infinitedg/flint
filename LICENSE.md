@@ -1,6 +1,2 @@
 # Main flint source code
-All code not otherwise licensed is Copyright the Space EdVentures Foundation, Inc., a domestic Utah nonprofit. All rights reserved worldwide.
-
-## meSpeak
-meSpeak is licensed under the GPL. Please refer to http://www.masswerk.at/mespeak/ for more information.
-
+All code not otherwise licensed is Copyright the Infinite Development Group, a domestic Utah for-profit corporation. All rights reserved worldwide.
