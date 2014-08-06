@@ -110,12 +110,12 @@ Template.layout_viewscreen.destroyed = function() {
    this.subComputation.stop();  
 };
 Template.layout_viewscreen.alertCondition = function() {
-  var a = Flint.simulator().alertCondition;
+  var a = Flint.simulator('alertCondition');
   return a;
 };
 
 Template.layout_viewscreen.alertColor = function() {
-    var a = Flint.simulator().alertCondition;
+    var a = Flint.simulator('alertCondition');
   switch (a) {
   case 'c':
   case 'cloak':
@@ -150,26 +150,3 @@ Template.layout_viewscreen.created = function() {
     });
 	//Flint.play('sciences');
 }
-//Gives the EnderLayout color classes for different alert levels
-Template.layout_viewscreen.alertLevel = function() {
-  var a = Flint.simulator().alertCondition;
-  switch (a) {
-  case 'c':
-  case 'cloak':
-  case 'purple':
-    return 'cloakColor';
-  case 5:
-    return 'nominalColor';
-  case 4:
-    return 'attentionColor';
-  case 3:
-    return 'cautionColor';
-  case 2:
-    return 'warningColor';
-  case 1:
-    return 'dangerColor';
-  }
-    
-}
-    
-

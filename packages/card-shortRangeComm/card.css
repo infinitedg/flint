@@ -1,3 +1,8 @@
+#card-shortRangeComm *{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 #card-shortRangeComm{
 	margin-top: 45px;
 }
@@ -7,85 +12,100 @@
 	flex-direction: column;
 	-webkit-flex-direction: column;
 	justify-content: space-around;
-   	-webkit-justify-content: space-around;
-   	height: 68vh;
+  -webkit-justify-content: space-around;
+  height: 68vh;
 
-}
-#card-shortRangeComm .commControls img{
-	flex: 1;
-	height: 22vw;
-	width: 22vw;
 }
 #card-shortRangeComm .frequencySelect{
 	height: 68vh;
 }
 #card-shortRangeComm .freqBar{
-    height: 64vh;
-    width: 3vw;
-    position: absolute;
-    right: 4vw;
-    background-image: url(/packages/card-shortRangeComm/svg/freqBar.svg);
-        background-repeat:repeat;
+  height: 64vh;
+  width: 3vw;
+  position: absolute;
+  right: 4vw;
+  background-image: url(/packages/card-shortRangeComm/svg/freqBar.svg);
+  background-repeat:repeat;
 }
 #card-shortRangeComm .ampBar{
-    height: 64vh;
-    width: 3vw;
-    position: absolute;
-    top:2.5vh;
-    right: 4vw;
-    background-image: url(/packages/card-shortRangeComm/svg/ampBar.svg);
-        background-repeat:repeat;
+  height: 64vh;
+  width: 3vw;
+  position: absolute;
+  top:2.5vh;
+  right: 4vw;
+
+  background-image: url(/packages/card-shortRangeComm/svg/ampBar.svg);
+  background-repeat:repeat;
 }
 #card-shortRangeComm .amplitudeSelect{
-    height: 68vh;   
+  height: 68vh;   
 }
 #card-shortRangeComm .commCandy{
 	height: 68vh;
-    padding: 0;
-    border: solid 1px #666;
-    background-color: #333;
-    border-radius: 5px;
+  padding: 0;
+  border: solid 1px #666;
+  background-color: #333;
+  border-radius: 5px;
 }
 #card-shortRangeComm .canvasCandy{
-
+  height: 100%;
 }
-
+#card-shortRangeComm .commArrows{
+  width: 100%;
+  height: 65vh;
+  position: absolute;
+}
+#card-shortRangeComm .commArrow{
+  margin-top: 11px;
+  position: absolute;
+  right: 10vw;
+  width: 40px;
+  height: 15px;
+  background: #0f70ff;
+  -webkit-clip-path: polygon(0 40%, 100% 40%, 80% 0, 0 0, 0 100%, 80% 100%, 100% 60%, 0 60%)
+}
 #card-shortRangeComm .slider.slider-vertical{
  height: 65vh;   
-    position: absolute;
-    right: 30px;
+ position: absolute;
+ right: 30px;
 }
 
 #card-shortRangeComm .slider.slider-horizontal{
  height: 65vh;   
-    position: absolute;
-    right: 60px;  
+ position: absolute;
+ right: 60px;  
 
 }
 
 #card-shortRangeComm .slider.slider-vertical .slider-handle{
-    background-image: url(/themes/default/public/svg/default.png);
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-    width: 40px;
-    height: 15px;
-    -webkit-clip-path: polygon(100% 0%, 20% 0%, 0% 40%, 100% 40%, 100% 60%, 0% 60%, 20% 100%, 100% 100%); 
-    
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  background-image: url(/themes/default/public/svg/default.png);
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  width: 40px;
+  height: 15px;
+  -webkit-clip-path: polygon(100% 0%, 20% 0%, 0% 40%, 100% 40%, 100% 60%, 0% 60%, 20% 100%, 100% 100%); 
+
 }
 
 #card-shortRangeComm .slider.slider-horizontal .slider-handle{
-    background-image: url(/themes/default/public/svg/default.png);
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-    width: 15px;
-    height: 40px;
-    -webkit-clip-path: polygon(40% 0%, 0% 0%, 0% 80%, 40% 100%, 40% 0%, 60% 0%, 60% 100%, 100% 80%, 100% 0%); 
-    
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  background-image: url(/themes/default/public/svg/default.png);
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  width: 15px;
+  height: 40px;
+  -webkit-clip-path: polygon(40% 0%, 0% 0%, 0% 80%, 40% 100%, 40% 0%, 60% 0%, 60% 100%, 100% 80%, 100% 0%); 
+
 }
 
 #card-shortRangeComm .slider-track, #card-shortRangeComm  .slider-selection  {
-    background-image: url() ;
-    background-color: transparent;
+  background-image: url() ;
+  background-color: transparent;
 }
 
 #card-shortRangeComm .freqControl{
@@ -123,22 +143,52 @@
 }
 #card-shortRangeComm .commList p:nth-child(4){
  height: 11vh;
-  line-height: 11vh;
+ line-height: 11vh;
 
 }
 #card-shortRangeComm .commList p:nth-child(5){
 	height: 14vh;
-	  line-height: 14vh;
+ line-height: 14vh;
 
 }
 #card-shortRangeComm .commList p:nth-child(6){
 	height: 8vh;
-	  line-height: 8vh;
+ line-height: 8vh;
 
 }
 #card-shortRangeComm .commList p:nth-child(7){
  height: 6.5vh;
-   line-height: 6.5vh;
- 	border-bottom: solid 1px #fff;
+ line-height: 6.5vh;
+ border-bottom: solid 1px #fff;
+}
+.imageBox{
+  width: auto;
+  height: 22vw;
+  background-color: rgba(0,0,0,0.5);
+  border: 1px solid #fff;
+  position: a;
+  padding: 5px;
+  overflow: hidden;
+  text-align:center;
+}
+.commImage{
+  max-height: auto;
+  max-width: 100%;
+  text-align:center;
+  position: relative;
+}
+.commButton .commConnect{
+  width: 100%;
+}
 
+.hailPicker, .hailList{
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
+  -webkit-justify-content: space-between;
+}
+.hailSelect, .hailList{
+  width: 100%;
+}
+.hailPicker .commHail, .hailList .removeHail{
+  width: 33%;
 }

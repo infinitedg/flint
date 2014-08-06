@@ -3,17 +3,5 @@
   
   
   "sensorContacts": [
-    {
-      "name":"USS Voyager",
-      "icon":"planet.png",
-      "x":0.6,
-      "y":0.3,
-      "z":0.0,
-      "dstX":0.6,
-      "dstY":0.3,
-      "dstZ":0.0,
-        "mesh": "AstraShuttle",
-      "_id":"voyager-contact"
-    }
   ]
 }

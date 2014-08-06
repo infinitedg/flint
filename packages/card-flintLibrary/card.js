@@ -19,6 +19,8 @@ flintAssets collection object schema
 	}
 }
 */
+Template.card_flintlibrary.cardName = "Flint Library";
+
 Template.comp_flintassetbrowser.assets = function() {
 	var sel = {};
 	if (!Session.equals('comp.flintassetbrowser.currentDirectory', undefined)) {

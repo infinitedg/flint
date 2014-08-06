@@ -4,28 +4,28 @@
   
   "armyContacts": [
     {
-      "name":"Earth",
-      "icon":"planet.png",
+      "name":"Spaceship",
+      "icon":"Spaceship",
       "_id":"voyager-army-1"
     },
     {
       "name":"Black Hole",
-      "icon":"blackhole.png",
+      "icon":"Blackhole",
       "_id":"voyager-army-2"
     },
     {
       "name":"Starbase",
-      "icon":"starbase.png",
+      "icon":"Starbase",
       "_id":"voyager-army-3"
     },
     {
       "name":"Earth",
-      "icon":"planet.png",
+      "icon":"Planet",
       "_id":"voyager-army-4"
     },
     {
       "name":"Earth",
-      "icon":"planet.png",
+      "icon":"IO",
       "_id":"voyager-army-5"
     }
     

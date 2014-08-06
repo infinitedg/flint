@@ -1,0 +1,36 @@
+<template name="card_flintstations">
+	<div class="row-fluid" id="flintStations">
+		<div class="col-sm-3 stations">
+			<div class="well">
+				{{#each stations}}
+					<p class="station">{{name}}</p>
+				{{/each}}
+			</div>
+			<button class="btn btn-primary" id="addStation">Add</button>
+			{{#if selectedStation}}
+			<button class="btn btn-default" id="renameStation">Rename</button>
+			<button class="btn btn-danger" id = "deleteStation">Delete</button>
+			{{/if}}
+		</div>
+
+
+		<div class="col-sm-3 col-sm-offset-1 well cardList">
+		{{#each cards}}
+			<p draggable="true" id={{cardId}} class="card">{{name}}</p>
+		{{/each}}
+		</div>
+		<div class="col-sm-2 cardButtons">
+			{{#if selectedAllCard}}
+			<button class="btn btn-default" id="addCard">&#8647; Add</button>
+			{{/if}}
+			{{#if selectedCard}}
+			<button class="btn btn-danger" id = "removeCard">Remove &#8649;</button>
+			{{/if}}
+		</div>
+		<div class="col-sm-3 well allCards">
+		{{#each allCards}}
+			<p draggable="true" id={{id}} class="allCard">{{name}}</p>
+		{{/each}}
+		</div>
+	</div>
+</template>

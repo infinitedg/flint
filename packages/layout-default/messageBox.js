@@ -53,27 +53,4 @@ Template.layout_default_messageBox.events({
       }
     }
     }
-});
-
-//Gives the EnderLayout color classes for different alert levels
-Template.layout_default_messageBox.alertLevel = function() {
-  var a = Flint.simulator().alertCondition;
-  switch (a) {
-  case 'c':
-  case 'cloak':
-  case 'purple':
-    return 'cloakColor';
-  case 5:
-    return 'nominalColor';
-  case 4:
-    return 'attentionColor';
-  case 3:
-    return 'cautionColor';
-  case 2:
-    return 'warningColor';
-  case 1:
-    return 'dangerColor';
-  }
-    
-}
-    
+});    

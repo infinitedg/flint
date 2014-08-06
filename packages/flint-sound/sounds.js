@@ -11,7 +11,7 @@ _.extend(Flint, {
    * @method beep
    */
   beep: function() {
-    Flint.play('chime'+(Math.floor(Math.random()*6)+1));
+    Flint.play(soundPrefix + 'chime'+(Math.floor(Math.random()*6)+1));
   },
 
   /**
@@ -33,7 +33,9 @@ _.extend(Flint, {
    * @param {String} snd The sound file to play without the full relative path
    */
   play: function(snd) {
-    Flint.playRaw(soundPrefix + snd);
+    var n = snd.indexOf('?');
+    snd = snd.substring(0, n != -1 ? n : snd.length); //Remove the token from the URL
+    Flint.playRaw(snd);
   },
 
   /**

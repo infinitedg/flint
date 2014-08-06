@@ -1,0 +1,166 @@
+.inputColumn{
+  margin-top: 50px;
+}
+.courseInput{height: 24px;}
+.destinationInput div, .destinationInput input, .destinationInput button{
+  width: 100%;
+}
+.destinationInput button{
+  margin-bottom: 20px;
+}
+#courseCalculation .destinationInput input{
+  margin-bottom: 5px;
+}
+#courseCalculation .starsMap{
+  padding: 2px;
+  border: solid 1px #fff;
+  background-color: #000;
+}
+#courseCalculation .starsBox{
+  height: 300px;
+  position: relative;
+}
+#courseCalculation .stars{
+	position: absolute;
+  background-position: 0px, 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#courseCalculation .stars img{
+  width: auto;
+  height: auto;
+  position: absolute;
+}
+#courseCalculation .crosshairs{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+#courseCalculation .brackets{
+  position: absolute;
+    top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+}
+#courseCalculation .brackets div{
+	display: block;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+}
+#courseCalculation .linex{
+	position: relative;
+  top: 7px;
+  width: 100%;
+  height: 2px;
+  background-color: #666;
+}
+#courseCalculation .liney{
+	position: relative;
+  left: 7px;
+  height: 100%;
+  width: 2px;
+  background-color: #666;
+}
+#courseCalculation .ur{
+	top: 0;
+  right: 0;
+  border-right: solid 1px #666;
+  border-top: solid 1px #666;
+}
+#courseCalculation .ul{
+	top: 0;
+  left: 0;
+  border-left: solid 1px #666;
+  border-top: solid 1px #666;
+}
+#courseCalculation .br{
+	bottom: 0;
+  right: 0;
+  border-right: solid 1px #666;
+  border-bottom: solid 1px #666;
+}
+#courseCalculation .bl{
+	bottom: 0;
+  left: 0;
+  border-left: solid 1px #666;
+  border-bottom: solid 1px #666;
+}
+.calculatedCourse, .currentCourse{
+  margin-top: 70px;
+  padding: 10px;
+}
+.numBox{
+    background-color: #333;
+    border: solid 1px #454545;
+    border-radius: 0px;
+    color: #fff;
+    height: 36px;
+    font-size: 20px;
+    padding: 3px;
+  }
+.keypadButtons{
+  padding: 50px;
+  text-align: center;
+  position: absolute;
+  top: 6.2vw;
+}
+.keypadButtons button{
+  font-size: 36px;
+  height: 60px;
+  width: 60px;
+}
+.keypadButtons button.btn.enter{
+  width: 180px;
+}
+.invalid{
+  background-color: #711;
+  border-color: #a11;
+}
+.hilited{
+  background-color: #666;
+  color: #fff;
+}
+.selected{
+  background-color: #666;
+  border-color: #888;
+}
+.courseCalculation {
+  text-align: center;
+  width: 200px;
+}
+.courseCalculation .currentCourse{
+    background-color: #4077ff;
+    border: 1px solid #159;
+    line-height: 3px;
+}
+.courseCalculation input{
+  background-color: #E9C617;
+  border: 1px solid #A2890C;
+}
+.courseCalculation .currentCourse, .courseCalculation input{
+  width: 37%;
+  margin: 0px;
+  float: left;
+  height: 24px;
+  color: #000;
+}
+.courseCalculation .control-label{
+  float: left;
+  width: 4%;
+}
+.courseCalculation .btn{
+  width: 20%;
+  height: 25px;
+  padding: 0px;
+  font-size: 10px;
+}
+.courseCalculation .desiredCourse{
+  height: 24px;
+  width: 100%;
+  background-color: #4077ff;
+  border: 1px solid #159;
+  
+}

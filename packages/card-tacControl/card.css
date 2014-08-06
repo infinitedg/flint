@@ -1,3 +1,24 @@
+#upLeftView{
+	position: absolute;
+	top: 22px;
+	left: 0;
+}
+#upRightView{
+	position: absolute;
+	top: 22px;
+	right: 0;
+}
+#lowerLeftView{
+	position: absolute;
+	top: 50%;
+	left: 0;
+}
+#lowerRightView{
+	position: absolute;
+	top: 50%;
+	right: 0;
+}
+
 #slider{
     width: 700px;
     height:15px;
@@ -12,10 +33,6 @@
 	box-shadow: inset 0px -3px 5px rgba(0,0,0,.5);
 }
 
-#timelineControls{
-	width: 700px;
-	margin-left: 20px;
-}
 input[type="button"]{
 	font-family: "Gill Sans";
 	font-size: 16px;

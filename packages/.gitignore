@@ -23,6 +23,8 @@
 /bootstrap3-slider-touch
 /three.js
 /tween
+/kadira
+/bootstrap-colorpicker-2
 /apm
 /collectionFS
 /cfs-base-package
@@ -49,6 +51,8 @@
 /cfs-filesystem
 /reactive-property
 /micro-queue
+/bootstrap-contextmenu
+/bootstrap3-less
 /iron-layout
 /iron-core
 /iron-dynamic-template

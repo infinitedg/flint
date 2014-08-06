@@ -29,3 +29,8 @@ Meteor.publish("flint.picker.station", function(stationId) {
   
   return Flint.collection("stations").find({_id: stationId});
 });
+
+Meteor.publish('flint.picker.systems', function(simulatorId) {
+  return Flint.collection('systems').find(
+    { simulatorId: simulatorId});
+});

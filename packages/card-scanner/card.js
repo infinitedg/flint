@@ -23,5 +23,8 @@ Template.card_scanner.events({
 		var v = t.find('.input-field').value;
 		Flint.simulator('scannerInput', v);
 		Flint.simulator('scannerStatus', 'scanning');
+	},
+	'click .scanning_output': function(e,t){
+		e.preventDefault();
 	}
 });

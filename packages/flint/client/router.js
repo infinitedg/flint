@@ -56,7 +56,8 @@ Router.map(function () {
     onBeforeAction: function() {
       this.subscribe('flint.picker.simulator', this.params.simulatorId).wait();
       this.subscribe('flint.picker.station', this.params.stationId).wait();
-      
+      this.subscribe('flint.picker.systems', this.params.simulatorId).wait();
+
       Session.set("flint.simulatorId", this.params.simulatorId);
       Session.set("flint.stationId", this.params.stationId);
       Session.set("flint.cardNumber", this.params.cardId);
@@ -74,7 +75,7 @@ Router.map(function () {
       Session.set("flint.stationId", undefined);
       Session.set("flint.cardNumber", undefined);
     },
-    layoutTemplate: function() {
+    layoutTemplate: function(){
       return Flint.layout();
     }
   });
@@ -93,7 +94,6 @@ Flint.layout = Utils.memoize(function() {
     } else {
       layout = 'flint_layout';
     }
-    
     return layout;
   }
 });

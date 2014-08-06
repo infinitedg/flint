@@ -1,0 +1,34 @@
+<template name="core_engineControl">
+	<div class="engineSpeed">{{engineSpeed}}</div>
+	<select class="engineController">
+		<option value="0.0">Full Stop</option>
+		<option value="0.1">1/4 Impulse</option>
+		<option value="0.2">1/2 Impulse</option>
+		<option value="0.3">3/4 Impulse</option>
+		<option value="0.4">1 Impulse</option>
+		<option value="0.5">Destructive Impulse</option>
+		<option value="1.1">Warp 1</option>
+		<option value="1.2">Warp 2</option>
+		<option value="1.3">Warp 3</option>
+		<option value="1.4">Warp 4</option>
+		<option value="1.5">Warp 5</option>
+		<option value="1.6">Warp 6</option>
+		<option value="1.7">Warp 7</option>
+		<option value="1.8">Warp 8</option>
+		<option value="1.9">Warp 9</option>
+		<option value="1.0">Warp 9.23</option>
+	</select>
+	{{> core_heatLevels}}
+</template>
+
+<template name="core_heatLevels">
+	<div data-type="impulse" class="heatBox">
+		<div class="heatBar" style='width: {{heatLevel "impulse"}};'></div>
+		<div class="heatDragger" style='left: calc({{heatLevel "impulse"}} - 4px);'></div>
+	</div>
+	<div data-type="warp" class="heatBox">
+		<div class="heatBar" style='width: {{heatLevel "warp"}};'></div>
+		<div class="heatDragger" style='left: calc({{heatLevel "warp"}} - 4px);'></div>
+	</div>
+	<div class="heatRate core-editable">{{heatRate}}</div>
+</template>

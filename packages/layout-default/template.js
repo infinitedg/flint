@@ -110,12 +110,12 @@ Template.layout_default.destroyed = function() {
    this.subComputation.stop();  
 };
 Template.layout_default.alertCondition = function() {
-  var a = Flint.simulator().alertCondition;
+  var a = Flint.simulator('alertCondition');
   return a;
 };
 
 Template.layout_default.alertColor = function() {
-    var a = Flint.simulator().alertCondition;
+    var a = Flint.simulator('alertCondition');
   switch (a) {
   case 'c':
   case 'cloak':
@@ -151,27 +151,6 @@ Template.layout_default.created = function() {
         Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
     });
 	//Flint.play('sciences');
-}
-//Gives the EnderLayout color classes for different alert levels
-Template.layout_default.alertLevel = function() {
-  var a = Flint.simulator().alertCondition;
-  switch (a) {
-  case 'c':
-  case 'cloak':
-  case 'purple':
-    return 'cloakColor';
-  case 5:
-    return 'nominalColor';
-  case 4:
-    return 'attentionColor';
-  case 3:
-    return 'cautionColor';
-  case 2:
-    return 'warningColor';
-  case 1:
-    return 'dangerColor';
-  }
-    
 }
 
 Template.layout_default.events = {

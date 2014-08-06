@@ -25,6 +25,9 @@
       "tag": "v0.13.1",
       "git": "https://github.com/farpoint/meteor-tween"
     },
-    "collectionFS": {}
+    "bootstrap-colorpicker-2": {},
+    "collectionFS": {},
+    "bootstrap-contextmenu": {},
+    "bootstrap3-less": {}
   }
 }

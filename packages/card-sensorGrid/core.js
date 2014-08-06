@@ -1,410 +1,648 @@
 /**
 @module Templates
-@submodule Core
-*/
- 
-/**
-Core controls for the sensor grid
-@class core_sensorGrid
+@submodule Cards
 */
 
-Template.core_sensorGrid.events = {
-  /**
-  Update the current sensorInformation
-  @method click a.sensor-info
-  */
-  'click a.sensor-info': function(e, t) {
-    e.preventDefault();
-    var s = $(t.find('textarea.sensor-info')).val();
-    Flint.simulators.update({ _id: Flint.simulatorId() }, {$set:{sensorText: s}});
+window.currentDimensions = {
+  x: 'x',
+  y: 'z',
+  flippedX: 1,
+  flippedY: 1,
+  otherDimension: function() { // Returns the dimension currently not being viewed
+    var dims = {
+      x: this.x === 'x' || this.y === 'y',
+      y: this.x === 'y' || this.y === 'y',
+      z: this.x === 'z' || this.y === 'z'
+    };
+    if (!dims.x) {
+      return 'x';
+    } else if (!dims.y) {
+      return 'y';
+    } else if (!dims.z) {
+      return 'z';
+    }
   }
 };
 
-/**
-The current sensor text (Ancilary information about current sensor data)
-@property sensorText
-@type String
-*/
-Template.core_sensorGrid.sensorText = function() {
-  return Flint.simulator().sensorText;
+var k = {
+  width: 250,
+  height: 250,
+  scale: 0.3, // Used to determine the sizing of contacts
+  strokeWidth: 2,
+  color: "00ff00",
+  filter: {
+    red: 0,
+    green: 255,
+    blue: 0
+  },
+  spritePath: '/packages/card-sensorGrid/sprites/'
 };
 
-// @TODO: Consider using D3 for sensors, or at the very least using the DOM instead of the canvas for rendering sensor data?
+var contactsArray = {};
+var armyArray = {};
+
+k.center = {
+  x: k.width / 2,
+  y: k.height / 2
+};
+
+k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
+
+function transformX(x) {
+  return k.width * ((x * currentDimensions.flippedX) + 1) / 2; // Translate and scale to different coordinate system
+};
+
+function transformY(y) {
+  return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
+};
+
+Template.core_sensorGrid.listOfIcons = function(){return iconList()};
+
+function changeIcon(icon,id){
+  var id = Session.get('currentSensorIcon');
+  if (id.kind == 'army'){
+      Flint.collection('armyContacts').update(id.which, {$set: {icon: icon}});
+    } else if (id.kind == 'grid') {
+      Flint.collection('sensorContacts').update(id.which, {$set: {icon: icon}});
+    }
+};
+function changePicture(icon,id){
+  var id = Session.get('currentSensorIcon');
+  if (id.kind == 'army'){
+    Flint.collection('armyContacts').update(id.which, {$set: {picture: icon}});
+  } else if (id.kind == 'grid'){
+    Flint.collection('sensorContacts').update(id.which, {$set: {picture: icon}});
+  }
+}
+function changeModel(model,id){
+  var id = Session.get('currentSensorIcon');
+  if (id.kind == 'army'){
+    Flint.collection('armyContacts').update(id.which, {$set: {mesh: model}});
+  } else if (id.kind == 'grid') {
+    Flint.collection('sensorContacts').update(id.which, {$set: {mesh: model}});
+  }
+};
+function changeLabel(id){
+  var contact = Flint.collection('sensorContacts').findOne(id);
+  var newLabel = prompt("Please enter the new label", contact.name);
+  Flint.collection('sensorContacts').update(id, {$set: {name: newLabel}});
+};
+function changeIFF(iff){
+  var id = Session.get('currentSensorIcon');
+  var color;
+  switch (iff){
+    case 'Friendly':
+      color = "#07f";
+    break;
+    case 'Neutral':
+      color = "#ff0";
+    break;
+    case 'Foe':
+      color = "#f00";
+    break;
+    case 'Unknown':
+      color = "#aaa";
+    break;
+  }
+  if (id.kind == 'army'){
+    Flint.collection('armyContacts').update(id.which, {$set: {color: color}});
+  } else if (id.kind == 'grid') {
+    Flint.collection('sensorContacts').update(id.which, {$set: {color: color}});
+  }
+};
+iconList = function(){
+   var sel = {};
+   var iconList = [];
+    sel.parentObject = Flint.collection('flintAssets').findOne({
+        fullPath: '/Sensor Icons'
+    })._id;
+    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+    tacSymbolAssets.forEach(function(e){
+      iconList.push({text: e.name, action: function(e){
+        changeIcon(e.target.text);
+      }});
+    });
+    return iconList;
+};
+pictureList = function(){
+  var sel = {},
+  pictureList = [];
+  sel.parentObject = Flint.collection('flintAssets').findOne({
+      fullPath: '/Sensor Pictures'
+  })._id;
+  tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+  tacSymbolAssets.forEach(function(e){
+    pictureList.push({text: e.name, action: function(e){
+      changePicture(e.target.text);
+    }});
+  });
+  return pictureList;
+}
+modelList = function(){
+   var sel = {};
+   var iconList = [];
+    sel.parentObject = Flint.collection('flintAssets').findOne({
+        fullPath: '/Sandbox Models'
+    })._id;
+    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+    tacSymbolAssets.forEach(function(e){
+      iconList.push({text: e.name, action: function(e){changeModel(e.target.text)}});
+    });
+    return iconList;
+};
+iffList = function(){
+  var iffList = [];
+  iffList.push({text: "Friendly", action: function(e){changeIFF(e.target.text)}});
+  iffList.push({text: "Neutral", action: function(e){changeIFF(e.target.text)}});
+  iffList.push({text: "Foe", action: function(e){changeIFF(e.target.text)}});
+  iffList.push({text: "Unknown", action: function(e){changeIFF(e.target.text)}});
+  return iffList;
+}
+var contactsLayer = new Kinetic.Layer();
+var ghostLayer = new Kinetic.Layer();
+var armyLayer  = new Kinetic.Layer({
+    x: k.width + 30,
+    y: 0
+  });
 
 /**
-Setup grid and animation loop
-@method created
+Standard sensor grid card for sensors stations
+@class core_sensorGrid
 */
+Template.core_sensorGrid.wormhole = function() {
+  return Flint.simulator('wormhole');
+}
 Template.core_sensorGrid.created = function() {
-  var that = this;
-  Meteor.defer(function(){
-  
-    var k;
-    var observeLoop;
-    var sensorContactAnimationLoop; 
-    var sensorContactsCache = {};
-  
-    k = {
-      width: 200,
-      height: 200,
-      scale: 200 / 600, // Used to determine contact scaling
-      strokeWidth: 2,
-      color: "00ff00",
-      container: that.find('.sensorgrid-container'),
-      spritePath: '/packages/card-sensorGrid/sprites/',
-      shadowInterval: 1000,
-      contactSize: 32 // The standard size in pixels for a contact
-    };
-    k.armyDrawerOffsetX = 20 * k.scale;
-    k.armyDrawerOffsetY = 20 * k.scale;
-    k.center = {
-      x: k.width / 2,
-      y: k.height / 2
-    };
-    k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
+  Session.set('currentDimension', currentDimensions.y);
 
-    var stage = new Kinetic.Stage({
-      container: k.container,
-      width: k.width + k.armyDrawerOffsetX * 2 + k.contactSize * k.scale,
-      height: k.height + k.armyDrawerOffsetY
-    });
+  this.subscription = Deps.autorun(function() {
+    Meteor.subscribe('cards.core-sensor3d.contacts', Flint.simulatorId());
+    Meteor.subscribe('cards.core-sensor3d.armies', Flint.simulatorId());
+  });
+  context.init({
+    compact: true  });
+  this.sensorObserver = Flint.collection('sensorContacts').find().observeChanges({
+    added: function(id, doc) {
+      // console.log("Added", id, doc);
+      if (!contactsArray[id]) {
+        contactsArray[id] = {};
+        //Create the draggable contact
+        var contactsContainer = d3.select('#gridContacts');
+        var contactInfo = contactsContainer.append('li');
+        var contactIcon = contactInfo.append('img').attr('src',Flint.a('/Sensor Icons/' + doc.icon));
+        contactIcon.attr('height',50 * k.scale);
+        contactInfo.attr('id',('contact-' + id));
+        contactInfo.attr('title',id);
+        var icon = $("#contact-" + id);
+        var transformation = (transformX(doc['dst' + currentDimensions.x.toUpperCase()]) + "px, " + transformY(doc['dst' + currentDimensions.y.toUpperCase()]) + "px, 0px");
+        TweenLite.to(icon, 0.0, {
+                transform: 'translate3d(' + transformation + ')'
+            });
+        var contextArray = [
+          {header: 'Icon'},
+          {text: 'Change Label', action: function(e){changeLabel(id)}},
+          {text: 'Icons', subMenu: iconList()},
+          {text: 'Pictures', subMenu: pictureList()},
+          {text: 'Models', subMenu: modelList()},
+          {divider: true},
+          {text: 'IFF', subMenu: iffList()},
+          {text: 'Behaviors'}
+        ];
+        context.attach(('#contact-' + id),contextArray);
+         Draggable.create($("#contact-" + id), {
+        edgeResistance: 0.5,
+        bounds: $("#coreSensorGrid"),
+        onDragEnd: function () {
+          var x = ( currentDimensions.flippedX * 2 * (this.x-this.minX) / k.width) + 1 * currentDimensions.flippedX * -1,
+              y = ( currentDimensions.flippedY * 2 * (this.y-this.minY) / k.height) + 1 * currentDimensions.flippedY * -1,
+            updateObj = {isMoving: true};
+            updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+            updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+            updateObj.velocity = $('#speedSelect').val();
+            Flint.collection('sensorContacts').update(id, {$set: updateObj});
+          }
+        });
+        contactsArray[id].contact = contactInfo;
 
-    var outerCircle = new Kinetic.Circle({
-      x: k.radius + k.strokeWidth,
-      y: k.radius + k.strokeWidth,
-      radius: k.radius,
-      fill: 'black',
-      stroke: k.color,
-      strokeWidth: k.strokeWidth
-    });
-
-    var middleCircle = new Kinetic.Circle({
-      x: k.radius + k.strokeWidth,
-      y: k.radius + k.strokeWidth,
-      radius: k.radius * 2 / 3,
-      stroke: k.color,
-      strokeWidth: k.strokeWidth
-    });
-
-    var innerCircle = new Kinetic.Circle({
-      x: k.radius + k.strokeWidth,
-      y: k.radius + k.strokeWidth,
-      radius: k.radius * 1 / 3,
-      stroke: k.color,
-      strokeWidth: k.strokeWidth
-    });
-
-    // Draw lines
-    var linepoints = function(angle, inverted) {
-      // angle in degrees converted to radians
-      angle = 2 * Math.PI * angle / 360;
-      // x1/y1 point on left
-      // x2/y2 point on right
-      var x1 = k.center.x - k.radius * Math.cos(angle);
-      var y1 = k.center.y + k.radius * Math.sin(angle);
-      var x2 = k.center.x + k.radius * Math.cos(angle);
-      var y2 = k.center.y - k.radius * Math.sin(angle);
-
-      // inverted flips the line across the horizontal axis
-      if (inverted) {
-        var iy1 = y2;
-        var iy2 = y1;
-        y1 = iy1;
-        y2 = iy2;
-      }
-      return [[x1, y1], [x2, y2]];
-    };
-
-    /// lineHigh a line through the origin terminating on the circle at 75 degrees
-    var linePrototype = {
-      stroke: k.color,
-      strokeWidth: k.strokeWidth,
-      lineCap: 'round',
-      lineJoin: 'round'
-    };
-
-    var lineHigh = new Kinetic.Line(_.extend(linePrototype, {points: linepoints(75)}));
-
-    /// lineMid a line through the origin terminating on the circle at 45 degrees
-    var lineMid = new Kinetic.Line(_.extend(linePrototype, {points: linepoints(45)}));
-
-    /// lineLow a line through the origin terminating on the circle at 15 degrees
-    var lineLow = new Kinetic.Line(_.extend(linePrototype, {points: linepoints(15)}));
-
-    /// lineHighInv a line through the origin terminating on the circle at 75 degrees
-    var lineHighInv = new Kinetic.Line(_.extend(linePrototype, {points: linepoints(75, true)}));
-
-    /// lineMidInv a line through the origin terminating on the circle at 45 degrees
-    var lineMidInv = new Kinetic.Line(_.extend(linePrototype, {points: linepoints(45, true)}));
-
-    /// lineLowInv a line through the origin terminating on the circle at 15 degrees
-    var lineLowInv = new Kinetic.Line(_.extend(linePrototype, {points: linepoints(15, true)}));
-
-    // Create backdropLayer for sensors grid
-    var backdropLayer = new Kinetic.Layer();
-
-    // add the shape to the layer
-    backdropLayer.add(outerCircle);
-    backdropLayer.add(middleCircle);
-    backdropLayer.add(innerCircle);
-
-    backdropLayer.add(lineHigh);
-    backdropLayer.add(lineMid);
-    backdropLayer.add(lineLow);
-
-    backdropLayer.add(lineHighInv);
-    backdropLayer.add(lineMidInv);
-    backdropLayer.add(lineLowInv);
-
-    Flint.Log.verbose('Base grid drawn', 'Sensors');
-
-    // Setup sensor contacts
-    var contactsLayer = new Kinetic.Layer();
-    var shadowContactsLayer = new Kinetic.Layer();
-    
-    var addContact = function(contact) {
-      if (sensorContactsCache[contact._id] === undefined) {
-
-        // Store the contact in our cache
-        sensorContactsCache[contact._id] = contact;
-
-        // Create the visible, draggable contact
-        var contactImage = new Image();
-        contactImage.onload = function() {
-          var image = new Kinetic.Image({
-            x: contact.x * k.width,
-            y: contact.y * k.height,
-            image: contactImage,
-            width: k.contactSize * k.scale,
-            height: k.contactSize * k.scale,
-            draggable: true
-          });
-          
-          image.on('dragend', function(e){
-            Flint.collection('sensorContacts').update(contact._id, { $set: {x: e.shape.getX() / k.width, y: e.shape.getY() / k.height }});
+        /*// Draggable Contact
+        var contactObj = new Image();
+        contactObj.onload = function() {
+          var icon = new Kinetic.Image({
+            x: transformX(doc['dst' + currentDimensions.x.toUpperCase()]),
+            y: transformY(doc['dst' + currentDimensions.y.toUpperCase()]),
+            image: contactObj,
+            width: 50 * k.scale,
+            height: 50 * k.scale,
+            draggable: true,
+            red: k.filter.red,
+            green: k.filter.green,
+            blue: k.filter.blue
           });
 
-          contactsLayer.add(image).draw();
-          sensorContactsCache[contact._id]._sprite = image;
+          // Setup filters
+          icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
+
+          // Dragging handler
+          icon.on('dragend', function(evt) {
+            var x = ( currentDimensions.flippedX * 2 * (this.getX()) / k.width) + 1 * currentDimensions.flippedX * -1,
+                y = ( currentDimensions.flippedY * 2 * (this.getY()) / k.height) + 1 * currentDimensions.flippedY * -1,
+            updateObj = {isMoving: true};
+            updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+            updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+            Flint.collection('sensorContacts').update(id, {$set: updateObj});
+          });
+
+          // add the shape to the layer
+          contactsLayer.add(icon);
+          icon.cache();
+          icon.draw();
+          contactsArray[id].contact = icon;
         };
-        contactImage.src = k.spritePath + contact.icon;
-        
-        
-        // Create the invisible, shadow contact
-        var shadowImage = new Image();
-        shadowImage.onload = function() {
-          var image = new Kinetic.Image({
-            x: contact.x * k.width,
-            y: contact.y * k.height,
-            image: shadowImage,
-            width: k.contactSize * k.scale,
-            height: k.contactSize * k.scale
+        contactObj.src = Flint.a('/Sensor Icons/' + doc.icon);
+        */
+        // Ghost Contact
+        var ghostObj = new Image();
+        ghostObj.onload = function() {
+          var icon = new Kinetic.Image({
+            x: transformX(doc[currentDimensions.x]),
+            y: transformY(doc[currentDimensions.y]),
+            image: ghostObj,
+            width: 50 * k.scale,
+            height: 50 * k.scale,
+            opacity: 0.5,
+            blurRadius: 2,
+            red: k.filter.red,
+            green: k.filter.green,
+            blue: k.filter.blue
           });
+          icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.Blur]);
 
-          // Make the shadow contact look a little darker
-          image.applyFilter(Kinetic.Filters.Brighten, { val: -100 });
-          
-          shadowContactsLayer.add(image);
-          sensorContactsCache[contact._id]._shadowSprite = image;
+          // add the shape to the layer
+          ghostLayer.add(icon);
+          icon.cache();
+          icon.draw();
+          contactsArray[id].ghost = icon;
         };
-        shadowImage.src = k.spritePath + contact.icon;
-    
-        
-        Flint.Log.verbose('Added contact ' + contact._id, 'Sensors');
+        ghostObj.src = Flint.a('/Sensor Icons/' + doc.icon);
       }
-    };
+    },
+    changed: function(id, fields) {
+      var contact = contactsArray[id].contact,
+            ghost = contactsArray[id].ghost;
+      if (contact && ghost) {
+        if (fields[currentDimensions.x] !== undefined) {
+          ghost.setX(transformX(fields[currentDimensions.x]));
+        }
+        if (fields[currentDimensions.y] !== undefined) {
+          ghost.setY(transformY(fields[currentDimensions.y]));
+        }
 
-    // Add currently available contacts to the simulation
-    Flint.collection('sensorContacts').find().forEach(addContact);
+        if (fields['dst' + currentDimensions.x.toUpperCase()] !== undefined) {
+        //  contact.setX(transformX(fields['dst' + currentDimensions.x.toUpperCase()]));
+        }
+        if (fields['dst' + currentDimensions.y.toUpperCase()] !== undefined) {
+        //  contact.setY(transformY(fields['dst' + currentDimensions.y.toUpperCase()]));
+        }
+        if (fields['icon'] !== undefined){
+          $('#contact-' + id + ' img').attr('src', Flint.a('/Sensor Icons/' + fields.icon));
 
-    // Observe changes to collection
-    if (observeLoop === undefined) {
-      observeLoop = Flint.collection('sensorContacts').find().observe({
-        added: addContact,
-        changed: function(contact, oldContact) {
-          Flint.Log.verbose('Changed contact ' + contact._id, 'Sensors');
-          var shadowSprite = sensorContactsCache[contact._id]._shadowSprite;
-          var sprite = sensorContactsCache[contact._id]._sprite;
-          contact._shadowSprite = shadowSprite;
-          contact._sprite = sprite;
-          sensorContactsCache[contact._id] = contact;
+           var ghostObj = new Image();
+           ghostObj.onload = function() {
+            ghost.setImage(ghostObj);
+            ghost.cache();
+            ghost.draw()
+           };
+           ghostObj.src = Flint.a('/Sensor Icons/' + fields.icon);
+        }
+
+      //  contactsLayer.draw();
+        ghostLayer.draw();
+      }
+    },
+    removed: function(id) {
+      // console.log("Removed", id);
+      contactsArray[id].contact.remove();
+      contactsArray[id].ghost.remove();
+      delete contactsArray[id];
+      contactsLayer.draw();
+      ghostLayer.draw();
+    }
+  });
+  this.armyObserver = Flint.collection('armyContacts').find().observe({
+    addedAt: function(doc, atIndex){
+      var id = doc._id;
+      if (!armyArray[id]) {
+        armyArray[id] = {};
+        //Create the draggable contact
+        var contactsContainer = d3.select('#sensorContacts');
+        var contactInfo = contactsContainer.append('li');
+        var contactLabel = contactInfo.append('input').attr('type','text');
+        var contactIcon = contactInfo.append('img').attr('src',Flint.a('/Sensor Icons/' + doc.icon));
+        var infaredIcon = contactInfo.append('input').attr('type','checkbox').attr('checked',doc.infared);
+        var iffOverlay = contactIcon.append('div').attr('class', 'sensorIFFOverlay');
+        contactIcon.attr('height',50 * k.scale);
+        contactLabel.attr('class','form-control');
+        contactLabel.attr('value',doc.name);
+        contactInfo.attr('id',('contact-' + atIndex));
+        contactInfo.attr('title',id);
+        $('#contact-' + atIndex + " .sensorIFFOverlay").css('background-color', doc.color);
+        var contextArray = [
+          {header: 'Icon'},
+          {text: 'Icons', subMenu: iconList()},
+          {text: 'Pictures', subMenu: pictureList()},
+          {text: 'Models', subMenu: modelList()},
+          {divider: true},
+          {text: 'IFF', subMenu: iffList()},
+          {text: 'Behaviors'}
+        ];
+        context.attach(('#contact-' + atIndex),contextArray);
+        Draggable.create($("#contact-" + atIndex + " img"), {
+        edgeResistance: 0.5,
+        bounds: $("#coreSensorGrid"),
+        onDrag: function () {
           
-          contactsLayer.draw();
         },
-        removed: function(contact) {
-          Flint.Log.verbose('Removed contact ' + contact._id, 'Sensors');
-          sensorContactsCache[contact._id]._shadowSprite.remove();
-          sensorContactsCache[contact._id]._sprite.remove();
-          delete sensorContactsCache[contact._id];
-          contactsLayer.draw();
+        onDragEnd: function () {
+            var cTmpl = Flint.collection('armyContacts').findOne(id);
+            var x = ( currentDimensions.flippedX * 2 * (this.x-this.minX) / k.width) + 1 * currentDimensions.flippedX * -1,
+                y = ( currentDimensions.flippedY * 2 * (this.y-this.minY) / k.height) + 1 * currentDimensions.flippedY * -1,
+                z = 0,
+                d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+            if (d < 1.2) { // Only drop the contact if we are within 120% of the grid's radius
+              var updateObj = _.extend(cTmpl, {isMoving: true, isVisible: true, velocity: 0.05});
+              updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+              updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+              updateObj['dst' + currentDimensions.otherDimension().toUpperCase()] = z;
+              updateObj[currentDimensions.x] = x;
+              updateObj[currentDimensions.y] = y;
+              updateObj[currentDimensions.otherDimension()] = z;
+              updateObj.velocity = $('#speedSelect').val();
+              delete updateObj['_id'];
+              Flint.collection('sensorContacts').insert(updateObj);
+            }
+              // Move back to the origin
+            var icon = $("#contact-" + atIndex + " img");
+            TweenLite.to(icon, 0.0, {
+                transform: 'translate3d(0px,0px,0px)'
+            });
         }
-      });
-    }
-
-    // For the core, this animation loop runs behind the scenes only when clicked
-    sensorContactAnimationLoop = new Kinetic.Animation(function(frame) {
-      var dt = frame.timeDiff / 1000; // Change in time between this frame and the prior frame
-  
-      for (var i in sensorContactsCache) {
-        if (sensorContactsCache[i]._shadowSprite === undefined) { // Ignore contacts with undefined sprites - they may be loading
-          continue;
-        }
-    
-        var contact = sensorContactsCache[i];
-        var sprite = contact._shadowSprite;
-        var v = contact.velocity * k.width || 0.01 * k.width; // Defaults to 1/100 grid/second
-        var x0 = sprite.getX();
-        var y0 = sprite.getY();
-        var x  = contact.x * k.width;
-        var y  = contact.y * k.height;
-    
-        if ((x0 === x && y0 === y) || sprite.isDragging()) {
-          sensorContactsCache[i].isMoving = false;
-          continue;
-        }
-    
-        // First, if the velocity is zero then move the contact there immediately
-        sensorContactsCache[i].isMoving = true;
-        if (v === 0) {
-          sensorContactsCache[i]._shadowSprite.setPosition(x, y);
-          continue;
-        }
-    
-        // 1. Calculate the distance in x, y, and direct (h)
-        var dx = Math.abs(x - x0); // Distance between current sprite location and intended location on the x-axis
-        var dy = Math.abs(y - y0); // Distance between current sprite location and intended location on the y-axis
-        var h  = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)); // Distance between current sprite location and intended location (the hypotenuse)
-    
-        // 2. Calculate angle theta
-        var th  = Math.acos(dx / h);
-
-        
-        // IF the distance between the sprite and its 
-        // target destination is less than the distance between 
-        // the sprite and it's planned location,
-        // THEN set the planned location to its target location
-        
-        var vdt; // Velocity * change in time
-        if (v * dt > h) {
-          vdt = h;
-        } else {
-          vdt = v * dt;
-        }
-
-        var x1, y1;
-        if (x0 - x < 0) {
-          x1 = x0 + vdt * Math.cos(th);
-        } else {
-          x1 = x0 - vdt * Math.cos(th);
-        }
-    
-        if (y0 - y < 0) {
-          y1 = y0 + v * dt * Math.sin(th);
-        } else {
-          y1 = y0 - v * dt * Math.sin(th);
-        }
-    
-        // If the difference between the new point and the target point is within our threshhold, then set it to the new location
-        var threshhold = 0.2;
-        if (Math.abs(x1-x) < threshhold) {
-          x1 = x;
-        }
-        if (Math.abs(y1-y) < threshhold) {
-          y1 = y;
-        }
-      
-        // 3. Set the location of this sprite to the new location
-        sensorContactsCache[i]._shadowSprite.setPosition(x1, y1);
-      }
-    }, shadowContactsLayer);
-
-    // add the layer to the stage
-    stage.add(backdropLayer);
-    stage.add(shadowContactsLayer);
-    stage.add(contactsLayer);
-    
-    // Hide the shadowContactsLayer
-    shadowContactsLayer.hide();
-
-    Flint.Log.verbose('Layers attached to stage', 'Sensors');
-
-    // Start our animations
-    sensorContactAnimationLoop.start();
-    Flint.Log.verbose('Animation loop started', 'Sensors');
-    
-    // Display shadowContacts for k.shadowInterval when we click the black grid
-    backdropLayer.on('click tap', function(e) {
-      if (!shadowContactsLayer.isVisible()) {
-        Flint.Log.verbose("Shadow contacts revealed", "Sensors");
-        shadowContactsLayer.show();
-        Meteor.setTimeout(function(){
-          Flint.Log.verbose("Shadow contacts concealed", "Sensors");
-          shadowContactsLayer.hide();
-        }, k.shadowInterval);
-      }
     });
-    
-    // Setup army contacts //
-    var armyContactsDrawerLayer = new Kinetic.Layer();
-    
-    // Create draggable sensor contacts for the drawer //
-    // For now, we statically declare the available army contacts
-    // In the future, this may be driven by a simulator-wide mission object that configures our presets
-    var armyContacts = [
-      {
-        name: "USS Voyager",
-        icon: "planet.png"
-      },
-      {
-        name: "Earth",
-        icon: "planet.png"
+      armyArray[id].contact = contactInfo;
       }
-    ];
-    var armyContactsDrawerCache = [];
-    
-    var armyImageOnload = function() {
-      var that = this;
-      var image = new Kinetic.Image({
-        x: k.width + k.armyDrawerOffsetX,
-        y: k.armyDrawerOffsetY + (1.1 * that.height * k.scale) * that.drawerIndex,
-        image: this,
-        width: k.contactSize * k.scale,
-        height: k.contactSize * k.scale,
-        draggable: true
-      });
-      
-      image.on('dragend', function(e){
-        var x = e.shape.getX();
-        var y = e.shape.getY();
-        
-        // If we're within the outerCircle...
-        if (outerCircle.intersects([x,y])) {
-          Flint.collection('sensorContacts').insert({
-            x: e.shape.getX() / k.width,
-            y: e.shape.getY() / k.width,
-            icon: armyContactsDrawerCache[that.drawerIndex].icon,
-            velocity: 0.01,
-            name: armyContactsDrawerCache[that.drawerIndex].name
-          });
-        }
-        
-        e.shape.setPosition(k.width + k.armyDrawerOffsetX, k.armyDrawerOffsetY + (1.1 * that.height * k.scale) * that.drawerIndex);
-        armyContactsDrawerLayer.draw();
-      });
 
-      armyContactsDrawerLayer.add(image).draw();
-      armyContactsDrawerCache[that.drawerIndex]._sprite = image;
-    };
-    
-    for (var i = 0; i < armyContacts.length; i++) {
-      armyContactsDrawerCache[i] = armyContacts[i];
-      var armyImage = new Image();
-      armyImage.drawerIndex = i; // So that the armyImageOnload function knows which index we're working with
-      armyImage.onload = armyImageOnload;
-      armyImage.src = k.spritePath + armyContactsDrawerCache[i].icon;
+    },
+    changedAt: function(doc, oldDoc, atIndex){
+      $('#contact-' + atIndex + ' img').attr('src', Flint.a('/Sensor Icons/' + doc.icon));
     }
-    
-    stage.add(armyContactsDrawerLayer);
-    window.acdl = armyContactsDrawerLayer;
-  }); // Meteor.defer
-}; // Template.created
+
+  });
+  /*this.armyObserver = Flint.collection('armyContacts').find().observe({
+    addedAt: function(doc, atIndex) {
+      var id = doc._id;
+      // console.log("Added", id, doc);
+      if (!armyArray[id]) {
+        armyArray[id] = {};
+
+        // Draggable Contact
+        var contactObj = new Image();
+        contactObj.onload = function() {
+          var icon = new Kinetic.Image({
+            x: 0,
+            y: atIndex * (50 * k.scale + 5),
+            image: contactObj,
+            width: 50 * k.scale,
+            height: 50 * k.scale,
+            draggable: true,
+            red: 242,
+            green: 174,
+            blue: 67
+          });
+
+          // Setup filters
+          icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
+
+          // Dragging handler
+          icon.on('dragend', function(evt) {
+            var cTmpl = Flint.collection('armyContacts').findOne(id);
+            var x = ( currentDimensions.flippedX * 2 * (this.getX() + k.width + 30) / k.width) + 1 * currentDimensions.flippedX * -1,
+                y = ( currentDimensions.flippedY * 2 * (this.getY()) / k.height) + 1 * currentDimensions.flippedY * -1,
+                z = 0,
+                d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+            if (d < 1.2) { // Only drop the contact if we are within 120% of the grid's radius
+              var updateObj = _.extend(cTmpl, {isMoving: true, isVisible: true, mesh: 'AstraShuttle', velocity: 0.05});
+              updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+              updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+              updateObj['dst' + currentDimensions.otherDimension().toUpperCase()] = z;
+              updateObj[currentDimensions.x] = x;
+              updateObj[currentDimensions.y] = y;
+              updateObj[currentDimensions.otherDimension()] = z;
+              delete updateObj['_id'];
+              Flint.collection('sensorContacts').insert(updateObj);
+            }
+              // Move back to the origin
+              this.setX(0);
+              this.setY(atIndex * (50 * k.scale + 5));
+              armyLayer.draw();
+          });
+          icon.on('mousedown', function(evt){
+            console.log(evt);
+            if (evt.evt.button == 2) {
+               alert('rightclick');
+               var node = evt.targetNode;
+               console.log(node);
+            }
+            evt.evt.preventDefault();
+            return false();
+          });
+          icon.on('mouseup', function(evt){
+            evt.evt.preventDefault();
+          });
+          icon.on('contextmenu', function(evt){
+            evt.evt.preventDefault();
+          });
+          // add the shape to the layer
+          armyLayer.add(icon);
+          icon.cache();
+          icon.draw();
+          armyArray[id].contact = icon;
+        };
+        contactObj.src = k.spritePath + doc.icon;
+      }
+    },
+    changedAt: function(id, fields) {
+      // Update kinetic image properties
+    },
+    removedAt: function(id) {
+
+    }
+  })*/
+};
+
+/**
+Setup dependencies and observation loop for animating sensor contacts
+@method rendered
+*/
+Template.core_sensorGrid.rendered = function() {
+  k.container = this.find('.sensorgrid-container');
+
+  
+
+  var stage = new Kinetic.Stage({
+    container: k.container,
+    width: k.width + 30 + 50 * k.scale, // Provide room for 30 pixel margin between grid and army contacts, plus contact size.
+    height: k.height
+  });
+
+  var circlePrototype = {
+    x: k.width / 2,
+    y: k.height / 2,
+    radius: k.radius,
+    stroke: k.color,
+    strokeWidth: k.strokeWidth
+  };
+
+  var blackBack = new Kinetic.Circle(_.extend({}, circlePrototype, {fill: 'black'}))
+  var outerCircle = new Kinetic.Circle(_.extend({}, circlePrototype));
+  var middleCircle = new Kinetic.Circle(_.extend({}, circlePrototype, {radius: k.radius * 2 / 3}));
+  var innerCircle = new Kinetic.Circle(_.extend({}, circlePrototype, {radius: k.radius * 1 / 3}));
+
+  // Draw lines
+  var linepoints = function(angle, inverted) {
+    // angle in degrees converted to radians
+    angle = 2 * Math.PI * angle / 360;
+    // x1/y1 point on left
+    // x2/y2 point on right
+    var x1 = Math.round(k.center.x - k.radius * Math.cos(angle));
+    var y1 = Math.round(k.center.y + k.radius * Math.sin(angle));
+    var x2 = Math.round(k.center.x + k.radius * Math.cos(angle));
+    var y2 = Math.round(k.center.y - k.radius * Math.sin(angle));
+
+    // inverted flips the line across the horizontal axis
+    if (inverted) {
+      var iy1 = y2;
+      var iy2 = y1;
+      y1 = iy1;
+      y2 = iy2;
+    }
+
+    return [x1, y1, x2, y2];
+  };
+
+  /// lineHigh a line through the origin terminating on the circle at 75 degrees
+  var linePrototype = {
+    stroke: k.color,
+    strokeWidth: k.strokeWidth,
+    lineCap: 'round',
+    lineJoin: 'round',
+  };
+
+  /// lineMid a line through the origin terminating on the circle at 75 degrees
+  var lineHigh = new Kinetic.Line(_.extend(linePrototype, { points: linepoints(75) }));
+
+  /// lineMid a line through the origin terminating on the circle at 45 degrees
+  var lineMid = new Kinetic.Line(_.extend(linePrototype, { points: linepoints(45) }));
+
+  /// lineLow a line through the origin terminating on the circle at 15 degrees
+  var lineLow = new Kinetic.Line(_.extend(linePrototype, { points: linepoints(15)}));
+
+  /// lineHighInv a line through the origin terminating on the circle at 75 degrees
+  var lineHighInv = new Kinetic.Line(_.extend(linePrototype, { points: linepoints(75, true) }));
+
+  /// lineMidInv a line through the origin terminating on the circle at 45 degrees
+  var lineMidInv = new Kinetic.Line(_.extend(linePrototype, { points: linepoints(45, true) }));
+
+  /// lineLowInv a line through the origin terminating on the circle at 15 degrees
+  var lineLowInv = new Kinetic.Line(_.extend(linePrototype, { points: linepoints(15, true) }));
+
+  // Create backdrop for sensors grid
+  var backdrop = new Kinetic.Layer();
+
+  // add the shape to the layer
+  backdrop.add(blackBack);
+
+  backdrop.add(lineHigh);
+  backdrop.add(lineMid);
+  backdrop.add(lineLow);
+
+  backdrop.add(lineHighInv);
+  backdrop.add(lineMidInv);
+  backdrop.add(lineLowInv);
+
+  backdrop.add(outerCircle);
+  backdrop.add(middleCircle);
+  backdrop.add(innerCircle);
+
+  Flint.Log.verbose('Base grid drawn', 'Sensors');
+
+  // add the layer to the stage
+  stage.add(backdrop); // Lowest layer
+
+  Flint.Log.verbose('Layers attached to stage', 'Sensors');
+  stage.add(ghostLayer);
+  stage.add(armyLayer);
+  stage.add(contactsLayer); // Uppermost layer
+};
+
+Template.core_sensorGrid.destroyed = function() {
+  this.sensorObserver.stop();
+  this.armyObserver.stop();
+  this.subscription.stop();
+};
+
+function refreshGrid() {
+  Flint.collection('sensorContacts').find().forEach(function(doc) {
+    var icon = $("#contact-" + doc._id);
+    var transformation = (transformX(doc['dst' + currentDimensions.x.toUpperCase()]) + "px, " + transformY(doc['dst' + currentDimensions.y.toUpperCase()]) + "px, 0px");
+        TweenLite.to(icon, 0.0, {
+                transform: 'translate3d(' + transformation + ')'
+            });
+   // contactsArray[doc._id].contact.setX(transformX(doc['dst' + currentDimensions.x.toUpperCase()]));
+   // contactsArray[doc._id].contact.setY(transformY(doc['dst' + currentDimensions.y.toUpperCase()]));
+    contactsArray[doc._id].ghost.setX(transformX(doc[currentDimensions.x]));
+    contactsArray[doc._id].ghost.setY(transformY(doc[currentDimensions.y]));
+  });
+ // contactsLayer.draw();
+  ghostLayer.draw();
+};
+
+Template.core_sensorGrid.events({
+  'click .flipper': function(e ,t) {
+    if (currentDimensions.y === 'z') {
+      currentDimensions.y = 'y';
+      currentDimensions.flippedY = -1;
+    } else {
+      currentDimensions.y = 'z';
+      currentDimensions.flippedY = 1;
+    }
+    Session.set('currentDimension', currentDimensions.y);
+    refreshGrid();
+  },
+  'contextmenu .sensorgrid-container': function(e,t){
+    e.preventDefault();
+  },
+  'contextmenu #sensorContacts img': function(e,t){
+    Session.set('currentSensorIcon',{kind: 'army', which: e.target.parentElement.title})
+  },
+  'contextmenu #gridContacts': function(e,t){
+    Session.set('currentSensorIcon',{kind: 'grid', which: e.target.parentElement.title})
+  },
+  'click #sensorContacts': function(e, t){
+   // console.log(e.which);
+  },
+  'click #wormhole': function(e, t){
+    if (e.target.checked){
+      Flint.simulator('wormhole', 'true');
+    }
+    else {
+      Flint.simulator('wormhole', 'false');
+    }
+  }
+});
+
+Template.core_sensorGrid.buttonLabel = function() {
+  if (Session.get('currentDimension') === 'z') {
+    return 'Viewing From Top';
+  } else {
+    return 'Viewing From Side';
+  }
+};

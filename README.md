@@ -147,7 +147,7 @@ The following is an example of how to document a template
     @type Number
     */
     Template.card_alertCondition.alertCondition = function() {
-      var a = Flint.simulator().alertCondition;
+      var a = Flint.simulator('alertCondition');
       return a;
     };
     
@@ -157,7 +157,7 @@ The following is an example of how to document a template
     @type String
     */
     Template.card_alertCondition.alertStyle = function() {
-      var a = Flint.simulator().alertCondition;
+      var a = Flint.simulator('alertCondition');
       switch (a) {
       case 4:
         return 'success';
