@@ -15,6 +15,7 @@ nprogress
 winston-client
 underscore
 less
+bootstrap-3
 bootstrap3-less
 bootstrap-growl
 buzz.js
