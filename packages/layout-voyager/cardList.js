@@ -37,7 +37,7 @@ Template.layout_voyager_cardList.events = {
 			 contentWrapper = container.querySelector( '.wrapper' );
         
         $(perspectiveWrapper).removeClass('animate');
-		Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 1000);   
+		    Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 1000);   
         
         $('.card-area').fadeOut(function(){
         Router.go('flint_station', {

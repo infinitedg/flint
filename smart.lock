@@ -11,7 +11,6 @@
       "buzz.js": {},
       "kinetic.js": {},
       "bootboxjs": {},
-      "blaze-layout": {},
       "kadira": {},
       "bootstrap-3": {},
       "font-awesome": {},
@@ -79,11 +78,6 @@
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
         "tag": "v4.2.1-master.1",
         "commit": "c125969c1f3aef30e2a2ff20252bd3b2e4014b2f"
-      },
-      "blaze-layout": {
-        "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.5",
-        "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
       },
       "kadira": {
         "git": "https://github.com/meteorhacks/kadira.git",
