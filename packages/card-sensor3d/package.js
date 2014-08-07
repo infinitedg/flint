@@ -1,5 +1,6 @@
 Package.describe({
-  "summary": "3D sensor grid"
+  "summary": "3D sensor grid",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {

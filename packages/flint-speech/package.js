@@ -1,5 +1,6 @@
 Package.describe({
-  summary: 'Adds speech to flint capabilities'
+  summary: 'Adds speech to flint capabilities',
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

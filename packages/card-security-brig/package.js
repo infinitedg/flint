@@ -1,5 +1,6 @@
 Package.describe({
-  "summary": "Security Brig Screen"
+  "summary": "Security Brig Screen",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

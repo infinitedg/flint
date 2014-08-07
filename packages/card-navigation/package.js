@@ -1,5 +1,6 @@
 Package.describe({
-  "summary": "Sandbox-Universe based navigation."
+  "summary": "Sandbox-Universe based navigation.",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

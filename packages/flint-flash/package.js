@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Flash a client's screen."
+  summary: "Flash a client's screen.",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) { 

@@ -1,5 +1,6 @@
 Package.describe({
-  "summary": "Standard sensor grid card for sensors stations"
+  "summary": "Standard sensor grid card for sensors stations",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

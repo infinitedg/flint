@@ -1,5 +1,6 @@
 Package.describe({
-  summary: 'Core Flint library'
+  summary: 'Core Flint library',
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

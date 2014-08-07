@@ -1,5 +1,6 @@
 Package.describe({
-  summary: 'Basic flint sound library'
+  summary: 'Basic flint sound library',
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

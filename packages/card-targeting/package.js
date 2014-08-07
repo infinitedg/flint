@@ -1,5 +1,6 @@
 Package.describe({
-  "summary": "A targeting grid for gaining a target lock on enemy starships and other things to shoot at."
+  "summary": "A targeting grid for gaining a target lock on enemy starships and other things to shoot at.",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

@@ -3,8 +3,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-#Meteor Base Packages
-#Mainly packages not designed specifically for Flint
 standard-app-packages
 insecure
 accounts-ui
@@ -40,30 +38,21 @@ assets-voyager
 card-flintLibrary
 card-flintStations
 bootstrap-slider
-
-
-#Flint Base
 flint
 flint-debug
 flint-flash
 flint-sound
 flint-speech
-#flint-touch
 flint-drama
 flint-utils
 actor-sensors
 flint-files
-
-#Layouts
 layout-default
 layout-blackout
 layout-viewscreen
 layout-core
 layout-tacControl
 layout-voyager
-
-#Cards
-#These can be differentiated by station later
 card-login
 card-power
 card-alertCondition

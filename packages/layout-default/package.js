@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Default layout."
+  summary: "Default layout.",
+  version: "0.0.1"
 });
 
 Package.on_use(function(api) { 

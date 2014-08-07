@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Basic tools for managing remote clients"
+  summary: "Basic tools for managing remote clients",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

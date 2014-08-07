@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Viewscreen layout."
+  summary: "Viewscreen layout.",
+  version: "0.0.1"
 });
 
 Package.on_use(function(api) { 

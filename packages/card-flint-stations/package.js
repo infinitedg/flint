@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Flint station management system"
+  summary: "Flint station management system",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  

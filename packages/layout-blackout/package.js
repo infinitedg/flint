@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Blackout the screen"
+  summary: "Blackout the screen",
+  version: "0.0.1"
 });
 
 Package.on_use(function(api) { 

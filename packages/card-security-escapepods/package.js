@@ -1,5 +1,6 @@
 Package.describe({
-  "summary": "Security Escape Pods Screen"
+  "summary": "Security Escape Pods Screen",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  
