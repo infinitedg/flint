@@ -5,14 +5,18 @@ Package.describe({
 
 Package.on_use(function(api) {  
   
-  api.use(['iron-router', 'underscore']);
-  api.use(['winston', 'winston-loggly'], ['server']);
-	api.use(['templating', 'winston-client', 'bootstrap-growl'], ['client']);
+  api.use(['cmather:iron-router', 'underscore']);
+  // api.use(['infinitedg:winston', 'infinitedg:winston-loggly'], ['server']);
+  // api.use(['brentjanderson:winston-client'], ['client']);
+	api.use(['templating', 'mrt:bootstrap-growl'], ['client']);
   api.use(['deps'], 'client'); // @TODO Evaluate - see if we can use Utils.memoize
   api.use('flint-utils');
-  
-  api.add_files(['flint.js', 'logger.js', 'collection.js'], ['server', 'client']);
+
+  api.add_files(['flint.js'], ['client', 'server']);
+  api.add_files(['logger.js'], ['client', 'server']);
+  api.add_files(['collection.js'], ['client', 'server']);
   api.add_files(['server/fixture.js', 'server/reset.js', 'server/picker.js'], 'server');
+
   
   api.add_files(['client/notifications.js', 'client/flint.html', 'client/picker.js', 'client/router.js'], 'client');
   api.add_files('client/assets.js', ['client', 'server']);

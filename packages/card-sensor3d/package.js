@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {
-  api.use(['templating', 'flint', 'flint-drama', 'kinetic.js', 'underscore', 'jquery']);
+  api.use(['templating', 'flint', 'flint-drama', 'brentjanderson:kinetic', 'underscore', 'jquery']);
 
   api.add_files(['publish.js', 'actor.js'], 'server');
   api.add_files(['core.html', 'core.js', 'card.css', 'stars.png'], 'client');

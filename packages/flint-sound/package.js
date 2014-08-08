@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-	api.use(['flint', 'buzz.js', 'underscore'], ['client']);
+	api.use(['flint', 'brentjanderson:buzz', 'underscore'], ['client']);
   
   api.add_files(['sounds.js'], 'client');
   api.add_files([

@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use(['flint', 'templating', 'iron-router']);
+  api.use(['flint', 'templating', 'cmather:iron-router']);
   
     api.add_files(['model.js'], ['server', 'client']);
     api.add_files([

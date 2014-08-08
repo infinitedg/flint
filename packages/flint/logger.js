@@ -8,7 +8,39 @@ Logging object from [`winston-client`](https://atmosphere.meteor.com/package/win
 @property Log
 @type Object
 */
-Flint.Log = Winston;
+// Flint.Log = Winston;
+Flint.Log = {
+	error: function(str) {
+		console.log(str);
+	},
+	warn: function(str) {
+		console.log(str);
+	},
+	help: function(str) {
+		console.log(str);
+	},
+	data: function(str) {
+		console.log(str);
+	},
+	info: function(str) {
+		console.log(str);
+	},
+	debug: function(str) {
+		console.log(str);
+	},
+	prompt: function(str) {
+		console.log(str);
+	},
+	verbose: function(str) {
+		console.log(str);
+	},
+	input: function(str) {
+		console.log(str);
+	},
+	silly: function(str) {
+		console.log(str);
+	},
+};
 
 /**
 1st priority logging - reserved for fatal/critical errors
@@ -71,17 +103,17 @@ Flint.Log = Winston;
 */
 
 
-var options = {
-  "level": "info",
-  "subdomain": "flint",
-  "inputToken":"38b1d170-38dc-45fb-9e9b-f815211c5359",
-  "json": true,
-  "handleExceptions": true
-};
+// var options = {
+//   "level": "info",
+//   "subdomain": "flint",
+//   "inputToken":"38b1d170-38dc-45fb-9e9b-f815211c5359",
+//   "json": true,
+//   "handleExceptions": true
+// };
 
-// Configure the server's logging behavior and transports
-if (Meteor.isServer) {
-  Winston.cli({colorize: true});
-  Winston.add(Winston_Loggly, options);
-  Winston.info('Added winston loggly transport');
-}
+// // Configure the server's logging behavior and transports
+// if (Meteor.isServer) {
+//   Winston.cli({colorize: true});
+//   Winston.add(Winston_Loggly, options);
+//   Winston.info('Added winston loggly transport');
+// }

@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-  api.use(['templating', 'flint', 'bootboxjs']);
+  api.use(['templating', 'flint', 'mizzao:bootboxjs']);
   api.add_files(['publish.js'], 'server');
   api.add_files(['model.js'], ['server', 'client']);
   api.add_files(['core.html', 'core.js'], 'client');
