@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use(['flint', 'raix:collectionfs', 'raix:cfs-filesystem', 'underscore']);
+  api.use(['flint', 'raix:collection-fs', 'raix:cfs-filesystem', 'underscore']);
    
   api.add_files('common.js', ['server', 'client']);
 });

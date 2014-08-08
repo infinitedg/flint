@@ -1,6 +1,14 @@
 {
   "dependencies": [
     [
+      "aldeed:cfs-collection-filters",
+      "0.1.1"
+    ],
+    [
+      "aldeed:cfs-upload-http",
+      "0.0.13"
+    ],
+    [
       "application-configuration",
       "1.0.0"
     ],
@@ -133,8 +141,20 @@
       "1.0.0"
     ],
     [
+      "raix:cfs-access-point",
+      "0.0.33"
+    ],
+    [
       "raix:cfs-base-package",
       "0.0.24"
+    ],
+    [
+      "raix:cfs-collection",
+      "0.4.11"
+    ],
+    [
+      "raix:cfs-file",
+      "0.1.10"
     ],
     [
       "raix:cfs-filesystem",
@@ -145,8 +165,40 @@
       "0.0.30"
     ],
     [
-      "raix:collectionfs",
-      "0.1.0"
+      "raix:cfs-tempstore",
+      "0.0.27"
+    ],
+    [
+      "raix:cfs-worker",
+      "0.0.16"
+    ],
+    [
+      "raix:collection-fs",
+      "0.4.8"
+    ],
+    [
+      "raix:data-man",
+      "0.0.0"
+    ],
+    [
+      "raix:http-methods",
+      "0.0.22"
+    ],
+    [
+      "raix:http-publish",
+      "0.0.10"
+    ],
+    [
+      "raix:power-queue",
+      "0.9.9"
+    ],
+    [
+      "raix:reactive-list",
+      "0.0.7"
+    ],
+    [
+      "raix:reactive-property",
+      "0.0.1"
     ],
     [
       "random",

@@ -37,7 +37,7 @@ flint-sound
 flint-speech
 flint-touch
 flint-utils
-#flint-files
+flint-files
 
 layout-default
 layout-blackout
@@ -45,6 +45,8 @@ layout-core
 layout-tac-control
 layout-viewscreen
 layout-voyager
+
+assets-voyager
 
 card-3d-car-demo
 card-3d-stars-demo
@@ -55,6 +57,7 @@ card-core-station-utility
 card-course-calculation
 card-decoding
 card-engine-control
+card-flint-library
 card-flint-stations
 card-login
 card-mario
