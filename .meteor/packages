@@ -17,12 +17,12 @@ brentjanderson:buzz
 brentjanderson:kinetic
 mizzao:bootboxjs
 arunoda:kadira
-mrt:gsap
+infinitedg:gsap
 mrt:bootstrap-growl
 mrt:tween
 raix:collection-fs
 natestrauser:font-awesome
-ldk:three
+infinitedg:three
 mrt:chosen-package
 foldor:bootstrap-3
 mrt:bootstrap-colorpicker-2
@@ -50,7 +50,7 @@ assets-voyager
 
 card-3d-car-demo
 card-3d-stars-demo
-card-alertcondition
+card-alert-condition
 card-comm-shortrange
 card-core
 card-core-station-utility
