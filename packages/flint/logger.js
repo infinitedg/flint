@@ -11,34 +11,34 @@ Logging object from [`winston-client`](https://atmosphere.meteor.com/package/win
 // Flint.Log = Winston;
 Flint.Log = {
 	error: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 	warn: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 	help: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 	data: function(str) {
-		console.log(str);
+	///	console.log(str);
 	},
 	info: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 	debug: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 	prompt: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 	verbose: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 	input: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 	silly: function(str) {
-		console.log(str);
+	//	console.log(str);
 	},
 };
 
