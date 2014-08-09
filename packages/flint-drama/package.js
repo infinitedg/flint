@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Setup and manage distributed, periodic processes"
+  summary: "Setup and manage distributed, periodic processes",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) { 

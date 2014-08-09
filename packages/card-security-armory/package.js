@@ -1,5 +1,6 @@
 Package.describe({
-  "summary": "Security Armory Screen"
+  "summary": "Security Armory Screen",
+  version: "0.1.0"
 });
 
 Package.on_use(function(api) {  
