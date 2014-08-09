@@ -11,6 +11,7 @@ autoupdate@1.0.1
 binary-heap@1.0.0
 blaze-tools@1.0.0
 blaze@1.0.1
+bootstrap-contextjs@0.1.0
 brentjanderson:buzz@1.1.4
 brentjanderson:kinetic@5.1.0
 callback-hook@1.0.0
@@ -117,6 +118,7 @@ raix:collection-fs@0.4.8
 raix:data-man@0.0.0
 raix:http-methods@0.0.22
 raix:http-publish@0.0.10
+raix:micro-queue@0.0.3
 raix:power-queue@0.9.9
 raix:reactive-list@0.0.7
 raix:reactive-property@0.0.1

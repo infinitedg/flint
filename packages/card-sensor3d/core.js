@@ -3,7 +3,7 @@
 @submodule Cards
 */
 
-window.currentDimensions = {
+currentDimensions = {
   x: 'x',
   y: 'z',
   flippedX: 1,
@@ -23,7 +23,20 @@ window.currentDimensions = {
     }
   }
 };
-
+currentDimensions.otherDimension = function() { // Returns the dimension currently not being viewed
+  var dims = {
+    x: this.x === 'x' || this.y === 'y',
+    y: this.x === 'y' || this.y === 'y',
+    z: this.x === 'z' || this.y === 'z'
+  };
+  if (!dims.x) {
+    return 'x';
+  } else if (!dims.y) {
+    return 'y';
+  } else if (!dims.z) {
+    return 'z';
+  }
+};
 var k = {
   width: 250,
   height: 250,
@@ -61,10 +74,10 @@ Template.core_sensor3d.listOfIcons = function(){return iconList()};
 function changeIcon(icon,id){
   var id = Session.get('currentSensorIcon');
   if (id.kind == 'army'){
-      Flint.collection('armyContacts').update(id.which, {$set: {icon: icon}});
-    } else if (id.kind == 'grid') {
-      Flint.collection('sensorContacts').update(id.which, {$set: {icon: icon}});
-    }
+    Flint.collection('armyContacts').update(id.which, {$set: {icon: icon}});
+  } else if (id.kind == 'grid') {
+    Flint.collection('sensorContacts').update(id.which, {$set: {icon: icon}});
+  }
 };
 function changePicture(icon,id){
   var id = Session.get('currentSensorIcon');
@@ -92,16 +105,16 @@ function changeIFF(iff){
   var color;
   switch (iff){
     case 'Friendly':
-      color = "#07f";
+    color = "#07f";
     break;
     case 'Neutral':
-      color = "#ff0";
+    color = "#ff0";
     break;
     case 'Foe':
-      color = "#f00";
+    color = "#f00";
     break;
     case 'Unknown':
-      color = "#aaa";
+    color = "#aaa";
     break;
   }
   if (id.kind == 'army'){
@@ -111,24 +124,24 @@ function changeIFF(iff){
   }
 };
 iconList = function(){
-   var sel = {};
-   var iconList = [];
-    sel.parentObject = Flint.collection('flintAssets').findOne({
-        fullPath: '/Sensor Icons'
-    })._id;
-    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
-    tacSymbolAssets.forEach(function(e){
-      iconList.push({text: e.name, action: function(e){
-        changeIcon(e.target.text);
-      }});
-    });
-    return iconList;
+ var sel = {};
+ var iconList = [];
+ sel.parentObject = Flint.collection('flintAssets').findOne({
+  fullPath: '/Sensor Icons'
+})._id;
+ tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+ tacSymbolAssets.forEach(function(e){
+  iconList.push({text: e.name, action: function(e){
+    changeIcon(e.target.text);
+  }});
+});
+ return iconList;
 };
 pictureList = function(){
   var sel = {},
   pictureList = [];
   sel.parentObject = Flint.collection('flintAssets').findOne({
-      fullPath: '/Sensor Pictures'
+    fullPath: '/Sensor Pictures'
   })._id;
   tacSymbolAssets = Flint.collection('flintAssets').find(sel);
   tacSymbolAssets.forEach(function(e){
@@ -139,16 +152,16 @@ pictureList = function(){
   return pictureList;
 }
 modelList = function(){
-   var sel = {};
-   var iconList = [];
-    sel.parentObject = Flint.collection('flintAssets').findOne({
-        fullPath: '/Sandbox Models'
-    })._id;
-    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
-    tacSymbolAssets.forEach(function(e){
-      iconList.push({text: e.name, action: function(e){changeModel(e.target.text)}});
-    });
-    return iconList;
+ var sel = {};
+ var iconList = [];
+ sel.parentObject = Flint.collection('flintAssets').findOne({
+  fullPath: '/Sandbox Models'
+})._id;
+ tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+ tacSymbolAssets.forEach(function(e){
+  iconList.push({text: e.name, action: function(e){changeModel(e.target.text)}});
+});
+ return iconList;
 };
 iffList = function(){
   var iffList = [];
@@ -161,9 +174,9 @@ iffList = function(){
 var contactsLayer = new Kinetic.Layer();
 var ghostLayer = new Kinetic.Layer();
 var armyLayer  = new Kinetic.Layer({
-    x: k.width + 30,
-    y: 0
-  });
+  x: k.width + 30,
+  y: 0
+});
 
 /**
 Standard sensor grid card for sensors stations
@@ -196,30 +209,36 @@ Template.core_sensor3d.created = function() {
         var icon = $("#contact-" + id);
         var transformation = (transformX(doc['dst' + currentDimensions.x.toUpperCase()]) + "px, " + transformY(doc['dst' + currentDimensions.y.toUpperCase()]) + "px, 0px");
         TweenLite.to(icon, 0.0, {
-                transform: 'translate3d(' + transformation + ')'
-            });
+          transform: 'translate3d(' + transformation + ')'
+        });
         var contextArray = [
-          {header: 'Icon'},
-          {text: 'Change Label', action: function(e){changeLabel(id)}},
-          {text: 'Icons', subMenu: iconList()},
-          {text: 'Pictures', subMenu: pictureList()},
-          {text: 'Models', subMenu: modelList()},
-          {divider: true},
-          {text: 'IFF', subMenu: iffList()},
-          {text: 'Behaviors'}
+        {header: 'Icon'},
+        {text: 'Change Label', action: function(e){changeLabel(id)}},
+        {text: 'Icons', subMenu: iconList()},
+        {text: 'Pictures', subMenu: pictureList()},
+        {text: 'Models', subMenu: modelList()},
+        {divider: true},
+        {text: 'IFF', subMenu: iffList()},
+        {text: 'Behaviors'}
         ];
         context.attach(('#contact-' + id),contextArray);
-         Draggable.create($("#contact-" + id), {
-        edgeResistance: 0.5,
-        bounds: $("#coreSensor3d"),
-        onDragEnd: function () {
-          var x = ( currentDimensions.flippedX * 2 * (this.x-this.minX) / k.width) + 1 * currentDimensions.flippedX * -1,
-              y = ( currentDimensions.flippedY * 2 * (this.y-this.minY) / k.height) + 1 * currentDimensions.flippedY * -1,
-            updateObj = {isMoving: true};
-            updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
-            updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
-            updateObj.velocity = $('#speedSelect').val();
-            Flint.collection('sensorContacts').update(id, {$set: updateObj});
+        Draggable.create($("#contact-" + id), {
+          edgeResistance: 0.5,
+          bounds: $("#coreSensor3d"),
+          onDragEnd: function () {
+            var x = ( currentDimensions.flippedX * 2 * (this.x-this.minX) / k.width) + 1 * currentDimensions.flippedX * -1,
+            y = ( currentDimensions.flippedY * 2 * (this.y-this.minY) / k.height) + 1 * currentDimensions.flippedY * -1,
+            z = 0,
+            updateObj = {isMoving: true},
+            d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+            if (d > 1.2) { 
+              Flint.collection('sensorContacts').remove(id);
+            } else {
+              updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+              updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+              updateObj.velocity = $('#speedSelect').val();
+              Flint.collection('sensorContacts').update(id, {$set: updateObj});
+            }
           }
         });
         contactsArray[id].contact = contactInfo;
@@ -288,7 +307,7 @@ Template.core_sensor3d.created = function() {
     },
     changed: function(id, fields) {
       var contact = contactsArray[id].contact,
-            ghost = contactsArray[id].ghost;
+      ghost = contactsArray[id].ghost;
       if (contact && ghost) {
         if (fields[currentDimensions.x] !== undefined) {
           ghost.setX(transformX(fields[currentDimensions.x]));
@@ -299,27 +318,27 @@ Template.core_sensor3d.created = function() {
 
         if (fields['dst' + currentDimensions.x.toUpperCase()] !== undefined) {
         //  contact.setX(transformX(fields['dst' + currentDimensions.x.toUpperCase()]));
-        }
-        if (fields['dst' + currentDimensions.y.toUpperCase()] !== undefined) {
+      }
+      if (fields['dst' + currentDimensions.y.toUpperCase()] !== undefined) {
         //  contact.setY(transformY(fields['dst' + currentDimensions.y.toUpperCase()]));
-        }
-        if (fields['icon'] !== undefined){
-          $('#contact-' + id + ' img').attr('src', Flint.a('/Sensor Icons/' + fields.icon));
+      }
+      if (fields['icon'] !== undefined){
+        $('#contact-' + id + ' img').attr('src', Flint.a('/Sensor Icons/' + fields.icon));
 
-           var ghostObj = new Image();
-           ghostObj.onload = function() {
-            ghost.setImage(ghostObj);
-            ghost.cache();
-            ghost.draw()
-           };
-           ghostObj.src = Flint.a('/Sensor Icons/' + fields.icon);
-        }
+        var ghostObj = new Image();
+        ghostObj.onload = function() {
+          ghost.setImage(ghostObj);
+          ghost.cache();
+          ghost.draw()
+        };
+        ghostObj.src = Flint.a('/Sensor Icons/' + fields.icon);
+      }
 
       //  contactsLayer.draw();
-        ghostLayer.draw();
-      }
-    },
-    removed: function(id) {
+      ghostLayer.draw();
+    }
+  },
+  removed: function(id) {
       // console.log("Removed", id);
       contactsArray[id].contact.remove();
       contactsArray[id].ghost.remove();
@@ -328,11 +347,11 @@ Template.core_sensor3d.created = function() {
       ghostLayer.draw();
     }
   });
-  this.armyObserver = Flint.collection('armyContacts').find().observe({
-    addedAt: function(doc, atIndex){
-      var id = doc._id;
-      if (!armyArray[id]) {
-        armyArray[id] = {};
+this.armyObserver = Flint.collection('armyContacts').find().observe({
+  addedAt: function(doc, atIndex){
+    var id = doc._id;
+    if (!armyArray[id]) {
+      armyArray[id] = {};
         //Create the draggable contact
         var contactsContainer = d3.select('#sensorContacts');
         var contactInfo = contactsContainer.append('li');
@@ -347,55 +366,55 @@ Template.core_sensor3d.created = function() {
         contactInfo.attr('title',id);
         $('#contact-' + atIndex + " .sensorIFFOverlay").css('background-color', doc.color);
         var contextArray = [
-          {header: 'Icon'},
-          {text: 'Icons', subMenu: iconList()},
-          {text: 'Pictures', subMenu: pictureList()},
-          {text: 'Models', subMenu: modelList()},
-          {divider: true},
-          {text: 'IFF', subMenu: iffList()},
-          {text: 'Behaviors'}
+        {header: 'Icon'},
+        {text: 'Icons', subMenu: iconList()},
+        {text: 'Pictures', subMenu: pictureList()},
+        {text: 'Models', subMenu: modelList()},
+        {divider: true},
+        {text: 'IFF', subMenu: iffList()},
+        {text: 'Behaviors'}
         ];
         context.attach(('#contact-' + atIndex),contextArray);
         Draggable.create($("#contact-" + atIndex + " img"), {
-        edgeResistance: 0.5,
-        bounds: $("#coreSensor3d"),
-        onDrag: function () {
-          
-        },
-        onDragEnd: function () {
+          edgeResistance: 0.5,
+          bounds: $("#coreSensor3d"),
+          onDrag: function () {
+
+          },
+          onDragEnd: function () {
             var cTmpl = Flint.collection('armyContacts').findOne(id);
             var x = ( currentDimensions.flippedX * 2 * (this.x-this.minX) / k.width) + 1 * currentDimensions.flippedX * -1,
-                y = ( currentDimensions.flippedY * 2 * (this.y-this.minY) / k.height) + 1 * currentDimensions.flippedY * -1,
-                z = 0,
-                d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+            y = ( currentDimensions.flippedY * 2 * (this.y-this.minY) / k.height) + 1 * currentDimensions.flippedY * -1,
+            z = 0,
+            d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
             if (d < 1.2) { // Only drop the contact if we are within 120% of the grid's radius
               var updateObj = _.extend(cTmpl, {isMoving: true, isVisible: true, velocity: 0.05});
-              updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
-              updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
-              updateObj['dst' + currentDimensions.otherDimension().toUpperCase()] = z;
-              updateObj[currentDimensions.x] = x;
-              updateObj[currentDimensions.y] = y;
-              updateObj[currentDimensions.otherDimension()] = z;
-              updateObj.velocity = $('#speedSelect').val();
-              delete updateObj['_id'];
-              Flint.collection('sensorContacts').insert(updateObj);
-            }
+            updateObj['dst'+ currentDimensions.x.toUpperCase()] = x;
+            updateObj['dst' + currentDimensions.y.toUpperCase()] = y;
+            updateObj['dst' + currentDimensions.otherDimension().toUpperCase()] = z;
+            updateObj[currentDimensions.x] = x;
+            updateObj[currentDimensions.y] = y;
+            updateObj[currentDimensions.otherDimension()] = z;
+            updateObj.velocity = $('#speedSelect').val();
+            delete updateObj['_id'];
+            Flint.collection('sensorContacts').insert(updateObj);
+          }
               // Move back to the origin
-            var icon = $("#contact-" + atIndex + " img");
-            TweenLite.to(icon, 0.0, {
+              var icon = $("#contact-" + atIndex + " img");
+              TweenLite.to(icon, 0.0, {
                 transform: 'translate3d(0px,0px,0px)'
-            });
-        }
-    });
-      armyArray[id].contact = contactInfo;
-      }
+              });
+            }
+          });
+armyArray[id].contact = contactInfo;
+}
 
-    },
-    changedAt: function(doc, oldDoc, atIndex){
-      $('#contact-' + atIndex + ' img').attr('src', Flint.a('/Sensor Icons/' + doc.icon));
-    }
+},
+changedAt: function(doc, oldDoc, atIndex){
+  $('#contact-' + atIndex + ' img').attr('src', Flint.a('/Sensor Icons/' + doc.icon));
+}
 
-  });
+});
   /*this.armyObserver = Flint.collection('armyContacts').find().observe({
     addedAt: function(doc, atIndex) {
       var id = doc._id;
@@ -593,16 +612,16 @@ function refreshGrid() {
   Flint.collection('sensorContacts').find().forEach(function(doc) {
     var icon = $("#contact-" + doc._id);
     var transformation = (transformX(doc['dst' + currentDimensions.x.toUpperCase()]) + "px, " + transformY(doc['dst' + currentDimensions.y.toUpperCase()]) + "px, 0px");
-        TweenLite.to(icon, 0.0, {
-                transform: 'translate3d(' + transformation + ')'
-            });
+    TweenLite.to(icon, 0.0, {
+      transform: 'translate3d(' + transformation + ')'
+    });
    // contactsArray[doc._id].contact.setX(transformX(doc['dst' + currentDimensions.x.toUpperCase()]));
    // contactsArray[doc._id].contact.setY(transformY(doc['dst' + currentDimensions.y.toUpperCase()]));
-    contactsArray[doc._id].ghost.setX(transformX(doc[currentDimensions.x]));
-    contactsArray[doc._id].ghost.setY(transformY(doc[currentDimensions.y]));
-  });
+   contactsArray[doc._id].ghost.setX(transformX(doc[currentDimensions.x]));
+   contactsArray[doc._id].ghost.setY(transformY(doc[currentDimensions.y]));
+ });
  // contactsLayer.draw();
-  ghostLayer.draw();
+ ghostLayer.draw();
 };
 
 Template.core_sensor3d.events({
@@ -628,15 +647,15 @@ Template.core_sensor3d.events({
   },
   'click #sensorContacts': function(e, t){
    // console.log(e.which);
-  },
-  'click #wormhole': function(e, t){
-    if (e.target.checked){
-      Flint.simulator('wormhole', 'true');
-    }
-    else {
-      Flint.simulator('wormhole', 'false');
-    }
+ },
+ 'click #wormhole': function(e, t){
+  if (e.target.checked){
+    Flint.simulator('wormhole', 'true');
   }
+  else {
+    Flint.simulator('wormhole', 'false');
+  }
+}
 });
 
 Template.core_sensor3d.buttonLabel = function() {

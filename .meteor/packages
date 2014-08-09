@@ -20,6 +20,8 @@ arunoda:kadira
 infinitedg:gsap
 mrt:bootstrap-growl
 mrt:tween
+raix:micro-queue
+raix:reactive-list
 raix:collection-fs
 natestrauser:font-awesome
 infinitedg:three
@@ -28,6 +30,7 @@ foldor:bootstrap-3
 mrt:bootstrap-colorpicker-2
 simison:bootstrap3-less
 pascoual:bootstrap-contextmenu
+bootstrap-contextjs
 
 flint
 flint-debug
