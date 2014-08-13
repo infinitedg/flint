@@ -13,6 +13,7 @@ blaze-tools@1.0.0
 blaze@1.0.1
 brentjanderson:buzz@1.1.4
 brentjanderson:kinetic@5.1.0
+brentjanderson:winston-client@0.1.1
 callback-hook@1.0.0
 card-3d-car-demo@0.1.0
 card-3d-stars-demo@0.1.0
@@ -75,6 +76,8 @@ http@1.0.0
 id-map@1.0.0
 infinitedg:gsap@1.11.5
 infinitedg:three@68.0.1
+infinitedg:winston-loggly@1.0.1
+infinitedg:winston@0.7.3
 insecure@1.0.0
 jquery@1.0.0
 json@1.0.0

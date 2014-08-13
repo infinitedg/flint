@@ -21,6 +21,10 @@
       "5.1.0"
     ],
     [
+      "brentjanderson:winston-client",
+      "0.1.1"
+    ],
+    [
       "callback-hook",
       "1.0.0"
     ],
@@ -83,6 +87,14 @@
     [
       "id-map",
       "1.0.0"
+    ],
+    [
+      "infinitedg:winston",
+      "0.7.3"
+    ],
+    [
+      "infinitedg:winston-loggly",
+      "1.0.1"
     ],
     [
       "jquery",
