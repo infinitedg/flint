@@ -5,7 +5,7 @@ Package.describe({
 
 Package.on_use(function(api) {  
   
-  api.use(['cmather:iron-router', 'underscore']);
+  api.use(['iron:router', 'underscore']);
   api.use(['infinitedg:winston', 'infinitedg:winston-loggly'], ['server']);
   api.use(['brentjanderson:winston-client'], ['client']);
 	api.use(['templating', 'mrt:bootstrap-growl'], ['client']);
