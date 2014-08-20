@@ -82,4 +82,6 @@ card-viewscreen-control
 card-thrusters
 infinitedg:winston-loggly
 brentjanderson:winston-client
+card-brig-controller
+flint-server-monitor
 
