@@ -21,3 +21,7 @@
 .size-1of3 { width: 33.333%; }
 
 [data-columns]::before { display: none; }*/
+#layout_core{
+	margin: 0;
+	padding: 0;
+}
