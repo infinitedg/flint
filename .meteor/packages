@@ -31,6 +31,7 @@ mrt:bootstrap-colorpicker-2
 simison:bootstrap3-less
 pascoual:bootstrap-contextmenu
 bootstrap-contextjs
+infinitedg:bootstrap-slider-touch
 
 flint
 flint-debug
@@ -83,3 +84,4 @@ card-targeting
 card-viewscreen
 card-viewscreen-control
 card-thrusters
+card-damage-control
