@@ -18,7 +18,7 @@
     ],
     [
       "blaze",
-      "1.0.1"
+      "1.0.3"
     ],
     [
       "blaze-tools",
@@ -50,7 +50,7 @@
     ],
     [
       "deps",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "ejson",
@@ -86,7 +86,7 @@
     ],
     [
       "http",
-      "1.0.0"
+      "1.0.2"
     ],
     [
       "id-map",
@@ -106,11 +106,11 @@
     ],
     [
       "livedata",
-      "1.0.1"
+      "1.0.6"
     ],
     [
       "logging",
-      "1.0.0"
+      "1.0.2"
     ],
     [
       "meteor",
@@ -118,7 +118,7 @@
     ],
     [
       "minifiers",
-      "1.0.0"
+      "1.0.2"
     ],
     [
       "minimongo",
@@ -126,7 +126,7 @@
     ],
     [
       "mongo-livedata",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "mrt:bootstrap-growl",
@@ -226,7 +226,7 @@
     ],
     [
       "templating",
-      "1.0.2"
+      "1.0.4"
     ],
     [
       "ui",
@@ -238,10 +238,10 @@
     ],
     [
       "webapp",
-      "1.0.0"
+      "1.0.2"
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.8",
+  "toolVersion": "meteor-tool@1.0.14",
   "format": "1.0"
 }
