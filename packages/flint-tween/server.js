@@ -1,7 +1,26 @@
+var tweenBank = {};
+
 Meteor.startup(function(){
+	// @TODO Get this observer to re-run reactively when the server ID changes
 	Flint.collection('flintTweens').find({serverId: Flint.serverId()}).observe({
 		added: function(doc) {
-			// console.log(doc);
+			var sourceObj = Flint.collection(doc.collection).findOne({_id: doc.objId}) || {},
+			gsVars = doc.tweenVars || {};
+			if (gsVars.ease) {
+				try {
+					gsVars.ease = EaseLookup.find(gsVars.ease);
+				} catch (e) {
+					Flint.Log.error('Failed to config tween ' + doc.tweenVars.ease);
+				}
+			}
+
+			gsVars.onUpdate = function() {
+				var newValues = this.target;
+				console.log(newValues);
+				// Flint.collection(doc.collection).update({_id: doc.objId}, {$set: })
+			};
+
+			tweenBank[doc._id] = TweenLite.to(sourceObj, doc.duration, gsVars);
 		},
 		changed: function(newDoc, oldDoc) {
 
