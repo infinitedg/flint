@@ -84,3 +84,18 @@ Meteor.startup(function() {
 	}, 1000);
 
 });
+
+Meteor.methods({
+	/**
+	Get server instance ID for assigning a distributed task
+	*/
+	nextServer: function() {
+		// @TODO: Implement real server health checking
+		// Or at least roundrobin
+
+		var servers = Flint.collection('flintServers').find({},{sort: ["heartbeatCounter"]}).fetch();
+		if (servers.length > 0) { 
+			return servers[0].serverId;
+		}
+	}
+});

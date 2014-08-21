@@ -17,10 +17,6 @@
       "1.0.0"
     ],
     [
-      "brentjanderson:kinetic",
-      "5.1.0"
-    ],
-    [
       "brentjanderson:winston-client",
       "0.1.2"
     ],
@@ -42,6 +38,10 @@
     ],
     [
       "flint",
+      "0.1.0"
+    ],
+    [
+      "flint-server-monitor",
       "0.1.0"
     ],
     [

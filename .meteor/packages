@@ -82,4 +82,5 @@ infinitedg:winston-loggly
 brentjanderson:winston-client
 iron:router
 flint-server-monitor
+flint-tween
 

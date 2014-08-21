@@ -73,6 +73,10 @@
       "1.0.0"
     ],
     [
+      "infinitedg:gsap",
+      "1.11.5"
+    ],
+    [
       "infinitedg:winston",
       "0.7.3"
     ],
