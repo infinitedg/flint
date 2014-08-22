@@ -83,6 +83,7 @@ insecure@1.0.0
 jquery@1.0.0
 json@1.0.0
 kestanous:emitter@0.1.0
+layout-admin@0.0.1
 layout-blackout@0.0.1
 layout-core@0.0.1
 layout-default@0.0.1
@@ -91,7 +92,7 @@ layout-viewscreen@0.0.1
 layout-voyager@0.0.1
 ldk:three@0.57.0
 less@1.0.4
-livedata@1.0.6
+livedata@1.0.7
 localstorage@1.0.0
 logging@1.0.2
 meteor@1.0.2

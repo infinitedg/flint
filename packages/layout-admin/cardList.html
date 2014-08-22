@@ -1,0 +1,9 @@
+<template name="layout_admin_cardList">
+	<ul class="nav" id="side-menu">
+		{{#each cards}}
+		<li>
+			<a href="{{pathFor 'flint_station'}}" class="{{#if isCurrentCard}}active{{/if}}">{{name}}</a>
+		</li>
+		{{/each}}
+	</ul>
+</template>
