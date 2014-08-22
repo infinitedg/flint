@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use(['flint', 'flint-drama', 'tween', 'underscore']);
+  api.use(['flint', 'flint-drama', 'infinitedg:tween', 'underscore']);
    
   api.add_files(['actor.js'], ['server']);
 });

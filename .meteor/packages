@@ -17,8 +17,6 @@ brentjanderson:kinetic
 mizzao:bootboxjs
 arunoda:kadira
 mrt:bootstrap-growl
-mrt:tween
-raix:collection-fs
 natestrauser:font-awesome
 infinitedg:three
 mrt:chosen-package
@@ -82,3 +80,7 @@ infinitedg:winston-loggly
 iron:router
 flint-server-monitor
 flint-tween
+actor-sensors
+bootstrap-contextjs
+bootstrap-slider
+
