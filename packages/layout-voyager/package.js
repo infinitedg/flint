@@ -1,9 +1,10 @@
 Package.describe({
-  summary: "Voyager layout."
+  summary: "Voyager layout.",
+  version: "0.0.1"
 });
 
 Package.on_use(function(api) { 
-  api.use(['flint', 'templating', 'iron-router']);
+  api.use(['flint', 'templating', 'iron:router']);
   
     api.add_files(['model.js'], ['server', 'client']);
     api.add_files([

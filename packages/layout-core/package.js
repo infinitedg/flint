@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Core card layout."
+  summary: "Core card layout.",
+  version: "0.0.1"
 });
 
 Package.on_use(function(api) { 
