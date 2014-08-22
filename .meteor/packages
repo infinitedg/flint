@@ -16,7 +16,6 @@ brentjanderson:buzz
 brentjanderson:kinetic
 mizzao:bootboxjs
 arunoda:kadira
-infinitedg:gsap
 mrt:bootstrap-growl
 mrt:tween
 raix:collection-fs
@@ -80,6 +79,6 @@ card-viewscreen
 card-viewscreen-control
 card-thrusters
 infinitedg:winston-loggly
-brentjanderson:winston-client
 iron:router
-
+flint-server-monitor
+flint-tween
