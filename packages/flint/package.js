@@ -7,7 +7,6 @@ Package.on_use(function(api) {
   
   api.use(['iron:router', 'underscore']);
   api.use(['infinitedg:winston', 'infinitedg:winston-loggly'], ['server']);
-  api.use(['brentjanderson:winston-client'], ['client']);
 	api.use(['templating', 'mrt:bootstrap-growl'], ['client']);
   api.use(['deps'], 'client'); // @TODO Evaluate - see if we can use Utils.memoize
   api.use('flint-utils');

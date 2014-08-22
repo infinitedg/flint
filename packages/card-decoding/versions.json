@@ -17,10 +17,6 @@
       "1.0.0"
     ],
     [
-      "brentjanderson:winston-client",
-      "0.1.2"
-    ],
-    [
       "callback-hook",
       "1.0.0"
     ],
@@ -98,7 +94,7 @@
     ],
     [
       "livedata",
-      "1.0.6"
+      "1.0.7"
     ],
     [
       "logging",
@@ -178,6 +174,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.14",
+  "toolVersion": "meteor-tool@1.0.15",
   "format": "1.0"
 }
