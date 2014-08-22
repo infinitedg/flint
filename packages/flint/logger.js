@@ -16,8 +16,7 @@ function checkLevel(str) {
 };
 
 /**
-Logging object from [`winston-client`](https://atmosphere.meteor.com/package/winston-client) for the client,
-[`winston`](https://atmosphere.meteor.com/package/winston) for the server.
+Centralized logger, modeled after Winston
 @property Log
 @type Object
 */
