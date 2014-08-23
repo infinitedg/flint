@@ -39,7 +39,6 @@ _.extend(Flint, {
       msg.volume = voiceSettings.volume;
       msg.pitch = voiceSettings.pitch;
       msg.lang = voiceSettings.lang;
-      console.log(msg);
       
       spokenPhrases[txt] = (new Date()).getTime();
       speechSynthesis.speak(msg);
