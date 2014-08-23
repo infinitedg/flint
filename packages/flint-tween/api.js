@@ -18,7 +18,7 @@
 Flint.tween = function(collectionName, objectId, duration, vars, beginningState) {
 	/* Vars can consist of the following:
 	* ease: Name of Ease passed to EaseLookup
-	* easeConfig: Config passed to ease
+	* easeConfig: Array of arguments to pass to easing function, in order
 	* delay: Seconds before starting
 	* immediateRender: t/f whether the tween should start immediately
 	* overwrite: Control overwrite behavior for conflicting tweens

@@ -23,7 +23,7 @@ Meteor.startup(function(){
 				try {
 					var ease = EaseLookup.find(gsVars.ease);
 					if (ease.config && gsVars.easeConfig) {
-						ease = ease.config(gsVars.easeConfig);
+						ease = ease.config.apply(undefined, gsVars.easeConfig);
 					}
 					gsVars.ease = ease;
 				} catch (e) {
