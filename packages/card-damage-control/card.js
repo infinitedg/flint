@@ -3,21 +3,20 @@ Template.card_damageControl.shipDiagram = function(){
 };
 
 Template.card_damageControl.damagedSystems = function(){
-	return Flint.collection('systems').find({'simulatorId' : Flint.simulatorId(), 'damageStatus' : 'damaged'})
-}
+	return Flint.collection('systems').find({'simulatorId' : Flint.simulatorId(), 'damageStatus' : 'damaged'});
+};
 Template.card_damageControl.damageSteps = function(){
 	var report = Flint.collection('damageReports').findOne(Session.get('damageControl.selectedSystem').currentDamageReport);
 	return report.report.steps;
-}
+};
 Template.card_damageControl.created = function() {
 
   this.subscription = Deps.autorun(function() {
     Meteor.subscribe('cards.card-damageReports.damageReports', Flint.simulatorId());
   });
-}
+};
 Template.card_damageControl.events = {
 	'click .damagedSystem' : function(e,context){
-		debugger;
 		Flint.beep();
 		Session.set('damageControl.selectedSystem',this);
 	},
@@ -25,6 +24,6 @@ Template.card_damageControl.events = {
 		$('.damageStep').removeClass('selectedStep');
 		Meteor.setTimeout(function(){
 			$(e.target.parentElement).addClass('selectedStep');
-		},10)
+		},10);
 	}
-}
+};

@@ -17,7 +17,7 @@ Template.card_tacControl.events = {
         });
         e.preventDefault();
     },
-    'change #previewSelectUR': function (e, context) {
+        'change #previewSelectUR': function (e, context) {
         var target = e.target.value;
         Flint.simulators.update(Flint.simulatorId(), {
             $set: {
@@ -38,18 +38,19 @@ Template.card_tacControl.events = {
         'click body': function (e, context) {
         Session.set('selectedSymbol', '');
     },
-        'click updateViewscreen': function(e, context){
-            tacContacts = Flint.collection('racticalContacts')
+        'click updateViewscreen': function (e, context) {
+        tacContacts = Flint.collection('racticalContacts');
     },
         'click #clearAll': function (e, context) {
         Session.set('selectedSymbol', '');
-        for (var id in contactsArray) {
+            var id;
+        for (id in contactsArray) {
             Flint.collection('tacticalContacts').remove(id);
         }
-        for (var id in bezier) {
+        for (id in bezier) {
             Flint.collection('tacticalContacts').remove(id);
         }
-        for (var id in labelsArray) {
+        for (id in labelsArray) {
             Flint.collection('tacticalContacts').remove(id);
         }
     },
@@ -96,8 +97,8 @@ Template.card_tacControl.events = {
         var updateObj = {};
         var id = Session.get('selectedSymbol');
         var target = contactsArray[Session.get('selectedSymbol')].contact;
-        updateObj['width'] = target.attrs.width;
-        updateObj['height'] = target.attrs.height;
+        updateObj.width = target.attrs.width;
+        updateObj.height = target.attrs.height;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -114,8 +115,8 @@ Template.card_tacControl.events = {
         contactsLayer.draw();
         var updateObj = {};
         var id = Session.get('selectedSymbol');
-        updateObj['width'] = target.attrs.width;
-        updateObj['height'] = target.attrs.height;
+        updateObj.width = target.attrs.width;
+        updateObj.height = target.attrs.height;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -138,9 +139,9 @@ Template.card_tacControl.events = {
         var colors = e.color.toRGB();
         var updateObj = {};
         var id = Session.get('selectedSymbol');
-        updateObj['red'] = colors.r;
-        updateObj['green'] = colors.g;
-        updateObj['blue'] = colors.b;
+        updateObj.red = colors.r;
+        updateObj.green = colors.g;
+        updateObj.blue = colors.b;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -149,9 +150,9 @@ Template.card_tacControl.events = {
         var updateObj = {};
         var id = Session.get('selectedSymbol');
         if (e.target.checked) {
-            updateObj['hasArrow'] = true;
+            updateObj.hasArrow = true;
         } else {
-            updateObj['hasArrow'] = false;
+            updateObj.hasArrow = false;
         }
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
@@ -161,7 +162,7 @@ Template.card_tacControl.events = {
         var colors = e.color.toHex();
         var updateObj = {};
         var id = Session.get('selectedSymbol');
-        updateObj['color'] = colors;
+        updateObj.color = colors;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -170,7 +171,7 @@ Template.card_tacControl.events = {
         var colors = e.color.toHex();
         var updateObj = {};
         var id = Session.get('selectedSymbol');
-        updateObj['fill'] = colors;
+        updateObj.fill = colors;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -178,7 +179,7 @@ Template.card_tacControl.events = {
         'change #LabelFont': function (e, context) {
         var updateObj = {};
         var id = Session.get('selectedSymbol');
-        updateObj['fontFamily'] = e.target.value;
+        updateObj.fontFamily = e.target.value;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -186,7 +187,7 @@ Template.card_tacControl.events = {
         'change #LabelFunction': function (e, context) {
         var updateObj = {};
         var id = Session.get('selectedSymbol');
-        updateObj['labelFunction'] = e.target.value;
+        updateObj.labelFunction = e.target.value;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -194,7 +195,7 @@ Template.card_tacControl.events = {
         'keyup #labelContent': function (e, context) {
         var updateObj = {};
         var id = Session.get('selectedSymbol');
-        updateObj['text'] = e.target.value;
+        updateObj.text = e.target.value;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -203,7 +204,7 @@ Template.card_tacControl.events = {
         var value = (e.value);
         var updateObj = {};
         var id = Session.get('selectedSymbol');
-        updateObj['fontSize'] = value;
+        updateObj.fontSize = value;
         Flint.collection('tacticalContacts').update(id, {
             $set: updateObj
         });
@@ -251,7 +252,7 @@ Template.card_tacControl.events = {
         };
         Flint.collection('tacticalContacts').insert(updateObj);
     },
-    'click #updateViewscreen': function(e,context) {
+        'click #updateViewscreen': function (e, context) {
         Meteor.call('updateTacticalScreen');
     }
 };

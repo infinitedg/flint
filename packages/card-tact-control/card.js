@@ -1,7 +1,7 @@
-stage, symbolsLayer, contactsLayer, ghostLayer;
-backBox;
-curveLayer, lineLayer, anchorLayer, bezier = {};
-ULLoc = '',
+var stage, symbolsLayer, contactsLayer, ghostLayer;
+var backBox;
+var curveLayer, lineLayer, anchorLayer, bezier = {};
+var ULLoc = '',
 URLoc = '',
 BLLoc = '',
 BRLoc = '';
@@ -24,9 +24,9 @@ k = {
     },
     spritePath: '/packages/card-sensorGrid/sprites/'
 };
- armyArray = {};
- contactsArray = {};
- labelsArray = {};
+armyArray = {};
+contactsArray = {};
+labelsArray = {};
 k.center = {
     x: k.width / 2,
     y: k.height / 2
@@ -71,9 +71,10 @@ function transformY(y) {
     //return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
     return y;
 }
-resetLocs = function() {
+resetLocs = function () {
+    var target;
     if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {
-        var target = contactsArray[Session.get('selectedSymbol')].contact;
+        target = contactsArray[Session.get('selectedSymbol')].contact;
         URLoc.setX(target.attrs.x + target.attrs.width - 10);
         URLoc.setY(target.attrs.y - 9);
         ULLoc.setX(target.attrs.x - 9);
@@ -83,7 +84,7 @@ resetLocs = function() {
         BLLoc.setX(target.attrs.x + 10);
         BLLoc.setY(target.attrs.y + target.attrs.height + 9);
     } else {
-        var target = labelsArray[Session.get('selectedSymbol')];
+        target = labelsArray[Session.get('selectedSymbol')];
         URLoc.setX(target.attrs.x + target.getWidth() - 10);
         URLoc.setY(target.attrs.y - 9);
         ULLoc.setX(target.attrs.x - 9);
@@ -93,7 +94,7 @@ resetLocs = function() {
         BLLoc.setX(target.attrs.x + 10);
         BLLoc.setY(target.attrs.y + target.getHeight() + 9);
     }
-}
+};
 
 
 //
@@ -103,7 +104,7 @@ Template.tacticalScreen.stage = function (e) {
 
 Template.card_tacControl.destroyed = function (e) {};
 Template.tactical_controls.rendered = function (e) {
-$('#symbolSize').slider({
+    $('#symbolSize').slider({
         range: true,
         tooltip: false,
         value: 100,
@@ -123,7 +124,7 @@ $('#symbolSize').slider({
     $('#labelControls').addClass('hidden');
     $('.colorpicker').colorpicker();
 };
-Template.tacticalScreen.rendered = function(e) {
+Template.tacticalScreen.rendered = function (e) {
     screenStage = new Kinetic.Stage({
         container: 'tacScreen',
         width: 720,
@@ -135,7 +136,7 @@ Template.tacticalScreen.rendered = function(e) {
     screenContactsLayer = new Kinetic.Layer();
     screenGridLayer = new Kinetic.Layer();
 
-backBox = new Kinetic.Rect({
+    backBox = new Kinetic.Rect({
         x: 1,
         y: 1,
         width: 718,
@@ -147,8 +148,9 @@ backBox = new Kinetic.Rect({
     backBox.on('mousedown', function (e) {
         Session.set('selectedSymbol', '');
     });
+    var line;
     for (i = 1; i < 24; i++) {
-        var line = new Kinetic.Line({
+        line = new Kinetic.Line({
             points: [i * 60, 0, i * 60, 315],
             dash: [10, 5],
             fill: 'green',
@@ -158,7 +160,7 @@ backBox = new Kinetic.Rect({
         screenGridLayer.add(line);
     }
     for (i = 1; i < 5; i++) {
-        var line = new Kinetic.Line({
+        line = new Kinetic.Line({
             points: [0, i * 60, 720, i * 60],
             dash: [10, 5],
             fill: 'green',
@@ -166,7 +168,7 @@ backBox = new Kinetic.Rect({
             strokeWidth: 1
         });
         screenGridLayer.add(line);
-    }    
+    }
     screenStage.add(screenGridLayer);
     screenStage.add(screenSymbolsLayer);
     screenStage.add(screenLineLayer);
@@ -182,25 +184,25 @@ Template.tacticalPreview.rendered = function (e) {
             var updateObj = {};
             if (e.which == 87) { //'w'
                 //updateObj['X'] = target.attrs.x + 1;
-                updateObj['Y'] = target.attrs.y - 1;
+                updateObj.Y = target.attrs.y - 1;
                 Flint.collection('tacticalContacts').update(id, {
                     $set: updateObj
                 });
             }
             if (e.which == 83) { //'s'
-                updateObj['Y'] = target.attrs.y + 1;
+                updateObj.Y = target.attrs.y + 1;
                 Flint.collection('tacticalContacts').update(id, {
                     $set: updateObj
                 });
             }
             if (e.which == 65) { //'a'
-                updateObj['X'] = target.attrs.x - 1;
+                updateObj.X = target.attrs.x - 1;
                 Flint.collection('tacticalContacts').update(id, {
                     $set: updateObj
                 });
             }
             if (e.which == 68) { //'d'
-                updateObj['X'] = target.attrs.x + 1;
+                updateObj.X = target.attrs.x + 1;
                 Flint.collection('tacticalContacts').update(id, {
                     $set: updateObj
                 });
@@ -319,6 +321,7 @@ Template.tacticalPreview.rendered = function (e) {
         Meteor.subscribe('cards.card-tacControl.contacts', Flint.simulatorId());
     });
     this.selectionWatcher = Deps.autorun(function (c) {
+        var target;
         if (Session.get('selectedSymbol') !== '') {
             if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {
                 $('#symbolControls').removeClass('hidden');
@@ -329,7 +332,7 @@ Template.tacticalPreview.rendered = function (e) {
                 ULLoc.opacity = 1;
                 BRLoc.opacity = 1;
                 BLLoc.opacity = 1;
-                var target = contactsArray[Session.get('selectedSymbol')].contact;
+                target = contactsArray[Session.get('selectedSymbol')].contact;
                 $('#symbolSize').slider('setValue', (target.attrs.width * 4));
                 //$('#symbolRotation').slider('setValue', (target.rotation()));
             }
@@ -347,7 +350,7 @@ Template.tacticalPreview.rendered = function (e) {
                 ULLoc.opacity = 1;
                 BRLoc.opacity = 1;
                 BLLoc.opacity = 1;
-                var target = labelsArray[Session.get('selectedSymbol')];
+                target = labelsArray[Session.get('selectedSymbol')];
                 $('#labelContent').text(target.text());
 
             }
@@ -379,8 +382,9 @@ Template.tacticalPreview.rendered = function (e) {
     backBox.on('mousedown', function (e) {
         Session.set('selectedSymbol', '');
     });
+    var line;
     for (i = 1; i < 24; i++) {
-        var line = new Kinetic.Line({
+        line = new Kinetic.Line({
             points: [i * 60, 0, i * 60, 315],
             dash: [10, 5],
             fill: 'green',
@@ -390,7 +394,7 @@ Template.tacticalPreview.rendered = function (e) {
         gridLayer.add(line);
     }
     for (i = 1; i < 5; i++) {
-        var line = new Kinetic.Line({
+        line = new Kinetic.Line({
             points: [0, i * 60, 720, i * 60],
             dash: [10, 5],
             fill: 'green',
@@ -457,11 +461,11 @@ Template.tacticalPreview.rendered = function (e) {
                                 icon: a.defaultUrl,
                                 simulatorId: Flint.simulatorId()
                             };
-                            updateObj['X'] = x;
-                            updateObj['Y'] = y;
-                            updateObj['width'] = 50;
-                            updateObj['height'] = (height / width) * 50;
-                            delete updateObj['_id'];
+                            updateObj.X = x;
+                            updateObj.Y = y;
+                            updateObj.width = 50;
+                            updateObj.height = (height / width) * 50;
+                            delete updateObj._id;
                             Flint.collection('tacticalContacts').insert(updateObj);
                         }
                         // Move back to the origin
@@ -486,7 +490,7 @@ Template.tacticalPreview.rendered = function (e) {
     this.tacticalObserver = Flint.collection('tacticalContacts').find().observeChanges({
         added: function (id, doc) {
             // console.log("Added", id, doc);
-            if (doc['type'] === 'contact') {
+            if (doc.type === 'contact') {
                 if (!contactsArray[id]) {
 
                     contactsArray[id] = {};
@@ -494,16 +498,16 @@ Template.tacticalPreview.rendered = function (e) {
                     var contactObj = new Image();
                     contactObj.onload = function () {
                         var icon = new Kinetic.Image({
-                            x: transformX(doc['X']),
-                            y: transformY(doc['Y']),
+                            x: transformX(doc.X),
+                            y: transformY(doc.Y),
                             selected: true,
                             image: contactObj,
-                            width: (doc['width']),
-                            height: (doc['height']),
+                            width: (doc.width),
+                            height: (doc.height),
                             draggable: true,
-                            red: doc['red'],
-                            green: doc['green'],
-                            blue: doc['blue']
+                            red: doc.red,
+                            green: doc.green,
+                            blue: doc.blue
                         });
                         // Setup filters
                         icon.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
@@ -529,8 +533,8 @@ Template.tacticalPreview.rendered = function (e) {
                                 Flint.collection('tacticalContacts').remove(id);
                                 Session.set('selectedSymbol', '');
                             } else {
-                                updateObj['X'] = x;
-                                updateObj['Y'] = y;
+                                updateObj.X = x;
+                                updateObj.Y = y;
                                 Flint.collection('tacticalContacts').update(id, {
                                     $set: updateObj
                                 });
@@ -546,12 +550,12 @@ Template.tacticalPreview.rendered = function (e) {
                     contactObj.src = doc.icon;
                 }
             }
-            if (doc['type'] === 'bezier') {
+            if (doc.type === 'bezier') {
                 if (!bezier[id]) {
                     addBezier(id, doc);
                 }
             }
-            if (doc['type'] === 'label') {
+            if (doc.type === 'label') {
                 if (!labelsArray[id]) {
                     var label = new Kinetic.Text({
                         x: doc.x,
@@ -585,8 +589,8 @@ Template.tacticalPreview.rendered = function (e) {
                             Flint.collection('tacticalContacts').remove(id);
                             Session.set('selectedSymbol', '');
                         } else {
-                            updateObj['x'] = x;
-                            updateObj['y'] = y;
+                            updateObj.x = x;
+                            updateObj.y = y;
                             Flint.collection('tacticalContacts').update(id, {
                                 $set: updateObj
                             });
@@ -600,24 +604,24 @@ Template.tacticalPreview.rendered = function (e) {
             }
         },
         changed: function (id, fields) {
-            fields['type'] = Flint.collection('tacticalContacts').findOne({
+            fields.type = Flint.collection('tacticalContacts').findOne({
                 _id: id
             }).type;
             // console.log("Changed", id, fields);
-            if (fields['type'] === 'contact') {
+            if (fields.type === 'contact') {
 
                 var contact = contactsArray[id].contact;
                 if (contact) {
-                    if (fields['X'] !== undefined) {
-                        contact.setX(transformX(fields['X']));
+                    if (fields.X !== undefined) {
+                        contact.setX(transformX(fields.X));
                     }
-                    if (fields['Y'] !== undefined) {
-                        contact.setY(transformY(fields['Y']));
+                    if (fields.Y !== undefined) {
+                        contact.setY(transformY(fields.Y));
                     }
-                    if (fields['red'] !== undefined) {
-                        contact.attrs.red = fields['red'];
-                        contact.attrs.green = fields['green'];
-                        contact.attrs.blue = fields['blue'];
+                    if (fields.red !== undefined) {
+                        contact.attrs.red = fields.red;
+                        contact.attrs.green = fields.green;
+                        contact.attrs.blue = fields.blue;
                         contact.filters([Kinetic.Filters.RGB, Kinetic.Filters.HSL]);
                         contact.cache();
                     }
@@ -625,28 +629,28 @@ Template.tacticalPreview.rendered = function (e) {
                     contactsLayer.draw();
                 }
             }
-            if (fields['type'] === 'bezier') {
+            if (fields.type === 'bezier') {
                 updateBezier(id, fields);
             }
-            if (fields['type'] === 'label') {
+            if (fields.type === 'label') {
                 var label = labelsArray[id];
-                if (fields['x'] !== undefined) {
-                    label.setX(fields['x']);
+                if (fields.x !== undefined) {
+                    label.setX(fields.x);
                 }
-                if (fields['y'] !== undefined) {
-                    label.setY(fields['y']);
+                if (fields.y !== undefined) {
+                    label.setY(fields.y);
                 }
-                if (fields['text']) {
-                    label.text(fields['text']);
+                if (fields.text) {
+                    label.text(fields.text);
                 }
-                if (fields['fontFamily']) {
-                    label.fontFamily(fields['fontFamily']);
+                if (fields.fontFamily) {
+                    label.fontFamily(fields.fontFamily);
                 }
-                if (fields['fontSize']) {
-                    label.fontSize(fields['fontSize']);
+                if (fields.fontSize) {
+                    label.fontSize(fields.fontSize);
                 }
-                if (fields['fill']) {
-                    label.fill(fields['fill']);
+                if (fields.fill) {
+                    label.fill(fields.fill);
                 }
                 resetLocs();
                 contactsLayer.draw();

@@ -77,7 +77,7 @@ Template.card_shortRangeComm.muteLabel = function(){
   } else {
     return 'Unmute Communication';
   }
-}
+};
 Template.card_shortRangeComm.currentHails = function () {
   return Flint.collection('currentHails').find();
 };
@@ -193,7 +193,7 @@ getCommName = function () {
       return '';
     else
       return 'disabled';  
-  }
+  };
   Template.card_shortRangeComm.vh = function (perc) {
     var windowHeight = window.innerHeight;
     return windowHeight * (perc / 100);
@@ -211,7 +211,6 @@ getCommName = function () {
     Comm = "Short Range Communications";
     this.conditionObserver = Flint.collection('systems').find({'simulatorId': Flint.simulatorId(), 'name': Comm}).observeChanges({
       added: function (id, fields) {
-        debugger;
         if (fields.commFrequency && fields.commAmplitude){
           $('#frequency').slider();
           $('#amplitude').slider();
@@ -238,6 +237,9 @@ getCommName = function () {
         }
       },
       changed: function (id, fields) {
+        var canvas = document.getElementById('canvasCandy');
+          var theta = 0;
+          var time = (new Date()).getTime();
         if (fields.commFrequency){
           var frequencyVal = fields.commFrequency/ 4 * 1.25;
           Flint.collection('currentHails').find().forEach(function (h) {
@@ -249,9 +251,6 @@ getCommName = function () {
           });
         }
         if (fields.commAmplitude || fields.commFrequency) {
-          var canvas = document.getElementById('canvasCandy');
-          var theta = 0;
-          var time = (new Date()).getTime();
           animate(canvas, theta, time);
         }
         if (fields.commHail) {
@@ -271,9 +270,6 @@ getCommName = function () {
             $('#frequency').slider('enable');
             $('#amplitude').slider('enable');
           }
-          var canvas = document.getElementById('canvasCandy');
-          var theta = 0;
-          var time = (new Date()).getTime();
           animate(canvas, theta, time);
         }
       }

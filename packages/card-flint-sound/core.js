@@ -13,7 +13,7 @@ Template.core_flint_sound.created = function(){
 
 		}
 	});
-}
+};
 /*
 
 *** denotes a collection
