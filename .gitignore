@@ -1,4 +1,3 @@
 .build
 *DS_Store
-packages/card-thrusters/.DS_Store
-test/fix_blaze.patch
+flint.sublime-*
