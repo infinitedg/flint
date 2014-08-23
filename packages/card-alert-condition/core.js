@@ -46,7 +46,7 @@ Template.core_alertCondition.created = function() {
           Flint.notify('Alert condition ' + fields.alertCondition);
       }
     }
-  })
+  });
 };
 
 Template.core_alertCondition.destroyed = function() {

@@ -33,22 +33,6 @@
       "1.0.0"
     ],
     [
-      "cmather:iron-core",
-      "0.2.0"
-    ],
-    [
-      "cmather:iron-dynamic-template",
-      "0.2.1"
-    ],
-    [
-      "cmather:iron-layout",
-      "0.2.0"
-    ],
-    [
-      "cmather:iron-router",
-      "0.8.2"
-    ],
-    [
       "deps",
       "1.0.1"
     ],
@@ -87,6 +71,30 @@
     [
       "id-map",
       "1.0.0"
+    ],
+    [
+      "infinitedg:winston",
+      "0.7.3"
+    ],
+    [
+      "infinitedg:winston-loggly",
+      "1.0.1"
+    ],
+    [
+      "iron:core",
+      "0.3.2"
+    ],
+    [
+      "iron:dynamic-template",
+      "0.3.0"
+    ],
+    [
+      "iron:layout",
+      "0.3.0"
+    ],
+    [
+      "iron:router",
+      "0.9.1"
     ],
     [
       "jquery",
@@ -238,6 +246,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.15",
+  "toolVersion": "meteor-tool@1.0.16",
   "format": "1.0"
 }
