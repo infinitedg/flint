@@ -17,7 +17,11 @@ Package.on_use(function(api) {
   api.add_files(['server/fixture.js', 'server/reset.js', 'server/picker.js'], 'server');
 
   
-  api.add_files(['client/notifications.js', 'client/flint.html', 'client/picker.js', 'client/router.js'], 'client');
+  api.add_files(['client/notifications.js', 
+    'client/flint.html', 
+    'client/picker.js', 
+    'client/router.js'], 
+  'client');
   api.add_files('client/assets.js', ['client', 'server']);
   api.add_files('server/assets.js', 'server');
   api.add_files(['client/client.js'], 'client');
