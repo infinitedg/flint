@@ -16,7 +16,7 @@ function generateObservers() {
 		},
 		removed: function(id) {
 			Flint.Log.info('Ouch! Kicked out of server pool for lagging. Regenerating...', 'server-monitor');
-			Flint.serverId(true);
+			Flint.serverIdReset();
 		}
 	});
 
@@ -51,28 +51,25 @@ function stopObservers() {
 	}
 };
 
-// Pass true value in newId to trigger an ID refresh
-Flint.serverId = function(newId) {
-	if (newId === undefined) {
-		return _serverId;
-	} else {
-		stopObservers();
-		_serverId = new Meteor.Collection.ObjectID()._str;
-		
-		// Insert new server instance
-		Flint.collection('flintServers').insert({
-			'serverId': _serverId
-		});
-
-		generateObservers();
-	}
+Flint.serverId = function() {
+	return _serverId;
 };
 
+Flint.serverIdReset = function() {
+	stopObservers();
+	_serverId = new Meteor.Collection.ObjectID()._str;
+	
+	// Insert new server instance
+	Flint.collection('flintServers').insert({
+		'serverId': _serverId
+	});
 
+	generateObservers();
+};
 
 Meteor.startup(function() {
 	// Setup this server instance in the flint servers pool
-	Flint.serverId(true);
+	Flint.serverIdReset();
 
 	// Each second, reset this server's counter
 	// Also increment the other servers at the same time
