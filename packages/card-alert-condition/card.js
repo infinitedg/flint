@@ -37,4 +37,4 @@ Template.card_alertCondition.events = {
 
 Template.card_alertCondition.alertLevel = function() {
  return Template.layout_default.alertLevel();   
-}
+};
