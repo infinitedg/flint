@@ -143,6 +143,7 @@ spacebars@1.0.0
 srp@1.0.0
 standard-app-packages@1.0.0
 templating@1.0.4
+theme-default@0.1.0
 ui@1.0.0
 underscore@1.0.0
 webapp@1.0.2

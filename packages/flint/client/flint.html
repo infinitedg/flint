@@ -8,14 +8,13 @@
 </head>
 
 <body>
-  {{> flint_theme}}
-  {{> flint_debugging}}
+  {{> flint_components}}
 </body>
 
-<template name="flint_theme">
-  {{#if theme}}
-  <link rel="stylesheet" type="text/css" href="{{theme}}">
-  {{/if}}
+<template name="flint_components">
+  {{#each components}}
+    {{> UI.dynamic template=this}}
+  {{/each}}
 </template>
 
 <template name="flint_layout">
