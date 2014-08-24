@@ -92,3 +92,5 @@ actor-sensors
 bootstrap-contextjs
 bootstrap-slider
 flint-heartbeat
+flint-audio-engine
+
