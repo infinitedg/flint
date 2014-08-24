@@ -64,6 +64,7 @@ flint-heartbeat@0.1.0
 flint-server-monitor@0.1.0
 flint-sound@0.1.0
 flint-speech@0.1.0
+flint-theme-engine@0.1.0
 flint-touch@0.1.0
 flint-tween@0.1.0
 flint-utils@0.1.0
