@@ -45,7 +45,6 @@ card-security@0.1.0
 card-self-destruct@0.1.0
 card-sensor-grid@0.1.0
 card-sensor3d@0.1.0
-card-shields@0.1.0
 card-speed@0.1.0
 card-tact-control@0.1.0
 card-targeting@0.1.0
@@ -68,7 +67,6 @@ flint-server-monitor@0.1.0
 flint-sound@0.1.0
 flint-speech@0.1.0
 flint-theme-engine@0.1.0
-flint-touch@0.1.0
 flint-tween@0.1.0
 flint-utils@0.1.0
 flint@0.1.0
@@ -150,6 +148,7 @@ srp@1.0.0
 standard-app-packages@1.0.0
 templating@1.0.4
 theme-default@0.1.0
+theme-odyssey@0.1.0
 ui@1.0.0
 underscore@1.0.0
 webapp@1.0.2
