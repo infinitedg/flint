@@ -91,4 +91,5 @@ actor-sensors
 bootstrap-contextjs
 bootstrap-slider
 flint-heartbeat
-card-shields
+flint-theme-engine
+theme-default

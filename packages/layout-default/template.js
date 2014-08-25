@@ -141,10 +141,10 @@ Template.layout_default.station = function() {
   return Flint.station();
 }
 Template.layout_default.cardName = function() {
-    return Flint.card().name;   
+    return Flint.card().name;
 }
 Template.layout_default.cardId = function() {
-    return Flint.card().cardId;
+    return Flint.cardId();
 };
 Template.layout_default.created = function() {
     this.subComputation = Deps.autorun(function() {
