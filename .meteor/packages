@@ -36,7 +36,6 @@ flint-drama
 flint-flash
 flint-sound
 flint-speech
-flint-touch
 flint-utils
 flint-files
 
@@ -92,3 +91,4 @@ actor-sensors
 bootstrap-contextjs
 bootstrap-slider
 flint-heartbeat
+card-shields
