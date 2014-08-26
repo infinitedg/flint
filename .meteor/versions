@@ -64,9 +64,11 @@ flint-drama@0.1.0
 flint-files@0.1.0
 flint-flash@0.1.0
 flint-heartbeat@0.1.0
+flint-macro-engine@0.1.0
 flint-server-monitor@0.1.0
 flint-sound@0.1.0
 flint-speech@0.1.0
+flint-theme-engine@0.1.0
 flint-touch@0.1.0
 flint-tween@0.1.0
 flint-utils@0.1.0
@@ -148,6 +150,7 @@ spacebars@1.0.0
 srp@1.0.0
 standard-app-packages@1.0.0
 templating@1.0.4
+theme-default@0.1.0
 ui@1.0.0
 underscore@1.0.0
 webapp@1.0.2

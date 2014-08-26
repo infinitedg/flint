@@ -101,8 +101,23 @@ Flint.simulatorId = function() {
   return Session.get("flint.simulatorId");
 };
 
-Flint.station = function() {
-  return Flint.stations.findOne(Session.get("flint.stationId"));
+Flint.station = function(key, val) {
+  var station = Flint.stations.findOne(Session.get("flint.stationId"));
+  if (arguments.length == 2 && station) { // Update/unset
+    var updateObj = {}, statement;
+    if (val === undefined) { // Remove the key
+      updateObj[key] = "";
+      statement = {$unset: updateObj};
+    } else {
+      updateObj[key] = val;
+      statement = {$set: updateObj};
+    }
+    Flint.stations.update({_id: station._id}, statement);
+  } else if (arguments.length == 1 && station) {
+    return station[key];
+  } else {
+    return station;
+  }
 };
 
 Flint.stationId = function() {
