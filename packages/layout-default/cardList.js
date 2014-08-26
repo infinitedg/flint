@@ -74,7 +74,7 @@ Template.layout_default_cardList.destroyed = function() {
 };
 
 Template.layout_default_cardList.cards = function() {
-  var cards = Flint.station().cards;
+  var cards = Flint.station('cards');
   var x = _.map(cards, function(card, i) {
     return _.extend(card, {simulatorId: Flint.simulator()._id, stationId: Flint.station()._id, cardId: i });
   });
