@@ -14,6 +14,7 @@ sounds:
 	soundGroups			- Array of sound groups (Converted into soundPlayers when inserted) (Optional)
 	keyId:				- key that originally scheduled this sound (Optional)
 	clientId:			- Client that originally scheduled this sound (Optional)
+	groupReady: 		- Boolean - If false, sound is ignored
 */
 
 // Used to track individual sounds playing back

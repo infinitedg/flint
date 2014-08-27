@@ -55,8 +55,23 @@ Flint.collection('flintSounds').find({soundGroups: {$exists: false},
 		}
 	});
 
-// Prune removed sounds from the parentKeys of all other sounds
 Flint.collection('flintSounds').find({}).observe({
+		added: function(sound) {
+			// Prune sounds with non-existent parents after a delay
+			// The delay allows time for parents to arrive in the collection
+			if (sound.parentSounds) {
+				Meteor.setTimeout(function() {
+						var parents = _.pluck(Flint.collection('flintSounds').find({parentKey: {$in: sound.parentSounds}}), "parentKey");
+						var missingParents = _.difference(sound.parentSounds, parents);
+						if (missingParents.length > 0) {
+							Flint.Log.warn("Removing non-existent parents from sound " + sound._id + " after delay", "flint-audio-engine");
+							Flint.collection('flintSounds').update({parentKeys: {$in: missingParents}}, {$pullAll: {parentKeys: missingParents}});
+						}
+				}, 2000);
+			}
+		},
+
+		// Prune removed sounds from the parentKeys of all other sounds
 		removed: function(sound) {
 			Flint.collection('flintSounds').update({}, {$pull: {parentSounds: sound.parentKey}}, {multi: true});
 		}
