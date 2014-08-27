@@ -29,11 +29,11 @@ k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height
 
 function transformX(x) {
   return Math.round(k.width * ((x * 1) + 1) / 2); // Translate and scale to different coordinate system
-};
+}
 
 function transformY(y) {
   return Math.round(k.height * ((y * 1) + 1) / 2); // Flip, translate, and scale to different coordinate system
-};
+}
 
 /**
 Standard sensor grid card for sensors stations
@@ -120,7 +120,7 @@ Template.card_sensorGrid.rendered = function() {
     strokeWidth: k.strokeWidth
   };
 
-  var blackBack = new Kinetic.Circle(_.extend({}, circlePrototype, {fill: 'black'}))
+  var blackBack = new Kinetic.Circle(_.extend({}, circlePrototype, {fill: 'black'}));
   var outerCircle = new Kinetic.Circle(_.extend({}, circlePrototype));
   var middleCircle = new Kinetic.Circle(_.extend({}, circlePrototype, {radius: k.radius * 2 / 3}));
   var innerCircle = new Kinetic.Circle(_.extend({}, circlePrototype, {radius: k.radius * 1 / 3}));

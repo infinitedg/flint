@@ -1,0 +1,15 @@
+<template name="card_shields">
+	<div class="card-shields row">
+		<div class="col-xs-6 col-xs-offset-1">
+			<img class="shipImage" draggable="false" src={{topView}} style={{shieldStyle}} />
+		</div>
+		<div class="col-xs-4">
+			<button type="button" class="btn btn-primary shieldChange">{{shieldState}}</button>
+			<label>Shield Strength: {{shieldLevel}}</label>
+			<div class="shieldStrengthBack">
+				<div class="shieldStrengthBar" style={{shieldStrengthStyle}}>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

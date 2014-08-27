@@ -1,14 +1,6 @@
 {
   "dependencies": [
     [
-      "aldeed:cfs-collection-filters",
-      "0.1.1"
-    ],
-    [
-      "aldeed:cfs-upload-http",
-      "0.0.13"
-    ],
-    [
       "application-configuration",
       "1.0.0"
     ],
@@ -29,8 +21,56 @@
       "1.0.0"
     ],
     [
+      "cfs-access-point",
+      "0.0.0"
+    ],
+    [
+      "cfs-base-package",
+      "0.0.0"
+    ],
+    [
+      "cfs-collection",
+      "0.0.0"
+    ],
+    [
+      "cfs-collection-filters",
+      "0.0.0"
+    ],
+    [
+      "cfs-file",
+      "0.0.0"
+    ],
+    [
+      "cfs-filesystem",
+      "0.0.0"
+    ],
+    [
+      "cfs-storage-adapter",
+      "0.0.0"
+    ],
+    [
+      "cfs-tempstore",
+      "0.0.0"
+    ],
+    [
+      "cfs-upload-http",
+      "0.0.0"
+      "cfs-worker",
+    ],
+    [
+      "0.0.0"
+    ],
+    [
       "check",
       "1.0.0"
+    ],
+    [
+      "collectionfs",
+      "0.0.0"
+    ],
+    [
+      "data-man",
+      "0.0.0"
     ],
     [
       "deps",
@@ -39,6 +79,10 @@
     [
       "ejson",
       "1.0.0"
+    ],
+    [
+      "emitter",
+      "0.0.0"
     ],
     [
       "flint",
@@ -71,6 +115,14 @@
     [
       "http",
       "1.0.2"
+    ],
+    [
+      "http-methods",
+      "0.0.23"
+    ],
+    [
+      "http-publish",
+      "0.0.0"
     ],
     [
       "id-map",
@@ -109,10 +161,6 @@
       "1.0.0"
     ],
     [
-      "kestanous:emitter",
-      "0.1.0"
-    ],
-    [
       "livedata",
       "1.0.7"
     ],
@@ -149,64 +197,8 @@
       "1.0.0"
     ],
     [
-      "raix:cfs-access-point",
-      "0.0.33"
-    ],
-    [
-      "raix:cfs-base-package",
-      "0.0.24"
-    ],
-    [
-      "raix:cfs-collection",
-      "0.4.11"
-    ],
-    [
-      "raix:cfs-file",
-      "0.1.10"
-    ],
-    [
-      "raix:cfs-filesystem",
-      "0.0.27"
-    ],
-    [
-      "raix:cfs-storage-adapter",
-      "0.0.30"
-    ],
-    [
-      "raix:cfs-tempstore",
-      "0.0.27"
-    ],
-    [
-      "raix:cfs-worker",
-      "0.0.16"
-    ],
-    [
-      "raix:collection-fs",
-      "0.4.8"
-    ],
-    [
-      "raix:data-man",
+      "power-queue",
       "0.0.0"
-    ],
-    [
-      "raix:http-methods",
-      "0.0.22"
-    ],
-    [
-      "raix:http-publish",
-      "0.0.10"
-    ],
-    [
-      "raix:power-queue",
-      "0.9.9"
-    ],
-    [
-      "raix:reactive-list",
-      "0.0.7"
-    ],
-    [
-      "raix:reactive-property",
-      "0.0.1"
     ],
     [
       "random",
@@ -215,6 +207,14 @@
     [
       "reactive-dict",
       "1.0.0"
+    ],
+    [
+      "reactive-list",
+      "0.0.0"
+    ],
+    [
+      "reactive-property",
+      "0.0.0"
     ],
     [
       "retry",
@@ -250,6 +250,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.23",
+  "toolVersion": "meteor-tool@1.0.25",
   "format": "1.0"
 }

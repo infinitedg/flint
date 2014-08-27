@@ -4,6 +4,6 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-	api.use(['templating']);
-	api.add_files(['theme.html'], ['client']);
+	api.use(['templating','flint']);
+	api.add_files(['theme.html','theme.js'], ['client']);
 });

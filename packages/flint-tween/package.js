@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use(['flint', 'infinitedg:gsap@1.13.2-beta2', 'underscore', 'flint-server-monitor']);
+  api.use(['flint', 'infinitedg:gsap@1.13.2-beta3', 'underscore', 'flint-server-monitor']);
    
   api.add_files(['server.js'], ['server']);
   api.add_files(['api.js'], ['client', 'server']);
