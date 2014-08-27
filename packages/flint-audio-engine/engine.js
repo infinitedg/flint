@@ -1,6 +1,6 @@
-// Convert soundGroups into soundPlayers on new objects
-
 Flint.Log.verbose("Observing flintSounds to prepare for playback", "flint-audio-engine");
+
+// Convert soundGroups into soundPlayers on new objects
 Flint.collection('flintSounds').find({soundGroups: {$not: { $size: 0 }}}).observe({
 	added: function(doc) {
 		// Map groups to specific players
@@ -18,13 +18,49 @@ Flint.collection('flintSounds').find({soundGroups: {$not: { $size: 0 }}}).observ
 			$set: {soundPlayers: newPlayers}, 
 			$unset: {soundGroups: ""}
 		});
+	}
+});
 
+// Pruning players from sounds when the players don't exist
+// Look only at sounds that have been rendered into groups
+Flint.collection('flintSounds').find({soundGroups: {$exists: false}}, {fields: {soundPlayers: 1}}).observe({
+	added: function(sound) {
+		var prunedPlayers = [];
+		for (var i = sound.soundPlayers.length - 1; i >= 0; i--) {
+			if (!Flint.collection('flintSoundPlayers').findOne({playerId: sound.soundPlayers[i]})) {
+				prunedPlayers.push(sound.soundPlayers[i]);
+			}
+		};
+
+		Flint.collection('flintSounds').update(sound._id, {$pullAll: {soundPlayers: prunedPlayers}}, {multi: true});
+	}
+});
+
+// General sound preparation
+Flint.collection('flintSounds').find({}).observe({
+	added: function(doc) {
 		// ParentKeys must be an empty array, if nothing at all
 		if (!Array.isArray(doc.parentSounds)) {
 			Flint.collection('flintSounds').update(doc._id, {$set: {parentSounds: []}});
 		}
 	}
 });
+
+// Remove sound objects with no players, no groups, and no parents
+Flint.collection('flintSounds').find({soundGroups: {$exists: false}, 
+	soundPlayers: {$size: 0}, 
+	parentSounds: {$size: 0}}).observe({
+		added: function(sound) {
+			Flint.collection('flintSounds').remove(sound._id);
+		}
+	});
+
+// Prune removed sounds from the parentKeys of all other sounds
+Flint.collection('flintSounds').find({}).observe({
+		removed: function(sound) {
+			Flint.collection('flintSounds').update({}, {$pull: {parentSounds: sound.parentKey}}, {multi: true});
+		}
+	});
 
 // Watch for incoming clients, setup/takedown players where appropriate
 Flint.Log.verbose("Observing flintClients for new players", "flint-audio-engine");
@@ -95,11 +131,18 @@ Flint.stations.find({}, {fields: {soundPlayerGroups: 1, _id: 1}}).observe({
 	}
 });
 
+// Prune sound players that don't exist anymore from sounds
+Flint.collection('flintSoundPlayers').find({}).observe({
+	removed: function(doc) {
+		Flint.collection('flintSounds').update({soundPlayers: {$in: [doc.playerId]}}, {$pull: {soundPlayers: doc.playerId}}, {multi: true});
+	}
+});
+
 Meteor.publish("flint.audio-engine.selfPlayer", function() {
 	// Based on the connection, send back this player
 	return Flint.collection('flintSoundPlayers').find({playerId: this.connection.id});
 });
 
 Meteor.publish("flint.audio-engine.sounds", function() {
-	return Flint.collection('flintSounds').find({playerId: {$in: [this.connection.id]}});
+	return Flint.collection('flintSounds').find({soundPlayers: {$in: [this.connection.id]}});
 });

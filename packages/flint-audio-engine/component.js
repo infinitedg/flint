@@ -38,7 +38,7 @@ Template.comp_flint_player.created = function() {
 	this.playerSub = Flint.collection('flintSounds').find({ soundPlayers: { $in: [Flint.clientId()] }, parentSounds: {$size: 0} }).observe({
 		added: function(doc) {
 			// Play sounds
-			
+			console.log(doc);
 		}
 	});
 };
