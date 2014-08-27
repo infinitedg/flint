@@ -61,7 +61,7 @@ Flint.collection('flintSounds').find({}).observe({
 			// The delay allows time for parents to arrive in the collection
 			if (sound.parentSounds) {
 				Meteor.setTimeout(function() {
-						var parents = _.pluck(Flint.collection('flintSounds').find({parentKey: {$in: sound.parentSounds}}), "parentKey");
+						var parents = _.pluck(Flint.collection('flintSounds').find({parentKey: {$in: sound.parentSounds}}).fetch(), "parentKey");
 						var missingParents = _.difference(sound.parentSounds, parents);
 						if (missingParents.length > 0) {
 							Flint.Log.warn("Removing non-existent parents from sound " + sound._id + " after delay", "flint-audio-engine");
