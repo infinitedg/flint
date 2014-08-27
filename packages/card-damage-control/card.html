@@ -1,0 +1,22 @@
+<template name="card_damageControl">
+	<div class="row damageControl">
+		<div class="col-sm-4">
+			<img src={{shipDiagram}} class="shipDiagram" draggable='false' />
+		</div>
+		<div class="col-sm-3 damagedSystems">
+			{{#each damagedSystems}}
+			<p class="damagedSystem">{{name}}</p>
+			{{/each}}
+		</div>
+		<div class="col-sm-5 damageReport theme-backer">
+			<ul>
+				{{#each damageSteps}}
+				<li class="damageStep">
+					<span class="stepDescription"><div class="indicator {{complete}}"></div> {{textshort}}</span>
+					<div class="stepInstructions">{{textfull}}</div>
+				</li>
+				{{/each}}
+				</ul>
+		</div>
+	</div>
+</template>

@@ -50,24 +50,24 @@ k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height
 
 function transformX(x) {
   return k.width * ((x * currentDimensions.flippedX) + 1) / 2; // Translate and scale to different coordinate system
-};
+}
 
 function transformY(y) {
   return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
-};
+}
 
-Template.core_sensorGrid.listOfIcons = function(){return iconList()};
+Template.core_sensorGrid.listOfIcons = function(){return iconList();};
 
 function changeIcon(icon,id){
-  var id = Session.get('currentSensorIcon');
+  id = Session.get('currentSensorIcon');
   if (id.kind == 'army'){
       Flint.collection('armyContacts').update(id.which, {$set: {icon: icon}});
     } else if (id.kind == 'grid') {
       Flint.collection('sensorContacts').update(id.which, {$set: {icon: icon}});
     }
-};
+}
 function changePicture(icon,id){
-  var id = Session.get('currentSensorIcon');
+  id = Session.get('currentSensorIcon');
   if (id.kind == 'army'){
     Flint.collection('armyContacts').update(id.which, {$set: {picture: icon}});
   } else if (id.kind == 'grid'){
@@ -75,18 +75,18 @@ function changePicture(icon,id){
   }
 }
 function changeModel(model,id){
-  var id = Session.get('currentSensorIcon');
+  id = Session.get('currentSensorIcon');
   if (id.kind == 'army'){
     Flint.collection('armyContacts').update(id.which, {$set: {mesh: model}});
   } else if (id.kind == 'grid') {
     Flint.collection('sensorContacts').update(id.which, {$set: {mesh: model}});
   }
-};
+}
 function changeLabel(id){
   var contact = Flint.collection('sensorContacts').findOne(id);
   var newLabel = prompt("Please enter the new label", contact.name);
   Flint.collection('sensorContacts').update(id, {$set: {name: newLabel}});
-};
+}
 function changeIFF(iff){
   var id = Session.get('currentSensorIcon');
   var color;
@@ -109,7 +109,7 @@ function changeIFF(iff){
   } else if (id.kind == 'grid') {
     Flint.collection('sensorContacts').update(id.which, {$set: {color: color}});
   }
-};
+}
 iconList = function(){
    var sel = {};
    var iconList = [];
@@ -137,7 +137,7 @@ pictureList = function(){
     }});
   });
   return pictureList;
-}
+};
 modelList = function(){
    var sel = {};
    var iconList = [];
@@ -146,18 +146,18 @@ modelList = function(){
     })._id;
     tacSymbolAssets = Flint.collection('flintAssets').find(sel);
     tacSymbolAssets.forEach(function(e){
-      iconList.push({text: e.name, action: function(e){changeModel(e.target.text)}});
+      iconList.push({text: e.name, action: function(e){changeModel(e.target.text);}});
     });
     return iconList;
 };
 iffList = function(){
   var iffList = [];
-  iffList.push({text: "Friendly", action: function(e){changeIFF(e.target.text)}});
-  iffList.push({text: "Neutral", action: function(e){changeIFF(e.target.text)}});
-  iffList.push({text: "Foe", action: function(e){changeIFF(e.target.text)}});
-  iffList.push({text: "Unknown", action: function(e){changeIFF(e.target.text)}});
+  iffList.push({text: "Friendly", action: function(e){changeIFF(e.target.text);}});
+  iffList.push({text: "Neutral", action: function(e){changeIFF(e.target.text);}});
+  iffList.push({text: "Foe", action: function(e){changeIFF(e.target.text);}});
+  iffList.push({text: "Unknown", action: function(e){changeIFF(e.target.text);}});
   return iffList;
-}
+};
 var contactsLayer = new Kinetic.Layer();
 var ghostLayer = new Kinetic.Layer();
 var armyLayer  = new Kinetic.Layer({
@@ -171,7 +171,7 @@ Standard sensor grid card for sensors stations
 */
 Template.core_sensorGrid.wormhole = function() {
   return Flint.simulator('wormhole');
-}
+};
 Template.core_sensorGrid.created = function() {
   Session.set('currentDimension', currentDimensions.y);
 
@@ -200,7 +200,7 @@ Template.core_sensorGrid.created = function() {
             });
         var contextArray = [
           {header: 'Icon'},
-          {text: 'Change Label', action: function(e){changeLabel(id)}},
+          {text: 'Change Label', action: function(e){changeLabel(id);}},
           {text: 'Icons', subMenu: iconList()},
           {text: 'Pictures', subMenu: pictureList()},
           {text: 'Models', subMenu: modelList()},
@@ -303,14 +303,14 @@ Template.core_sensorGrid.created = function() {
         if (fields['dst' + currentDimensions.y.toUpperCase()] !== undefined) {
         //  contact.setY(transformY(fields['dst' + currentDimensions.y.toUpperCase()]));
         }
-        if (fields['icon'] !== undefined){
+        if (fields.icon !== undefined){
           $('#contact-' + id + ' img').attr('src', Flint.a('/Sensor Icons/' + fields.icon));
 
            var ghostObj = new Image();
            ghostObj.onload = function() {
             ghost.setImage(ghostObj);
             ghost.cache();
-            ghost.draw()
+            ghost.draw();
            };
            ghostObj.src = Flint.a('/Sensor Icons/' + fields.icon);
         }
@@ -377,7 +377,7 @@ Template.core_sensorGrid.created = function() {
               updateObj[currentDimensions.y] = y;
               updateObj[currentDimensions.otherDimension()] = z;
               updateObj.velocity = $('#speedSelect').val();
-              delete updateObj['_id'];
+              delete updateObj._id;
               Flint.collection('sensorContacts').insert(updateObj);
             }
               // Move back to the origin
@@ -501,7 +501,7 @@ Template.core_sensorGrid.rendered = function() {
     strokeWidth: k.strokeWidth
   };
 
-  var blackBack = new Kinetic.Circle(_.extend({}, circlePrototype, {fill: 'black'}))
+  var blackBack = new Kinetic.Circle(_.extend({}, circlePrototype, {fill: 'black'}));
   var outerCircle = new Kinetic.Circle(_.extend({}, circlePrototype));
   var middleCircle = new Kinetic.Circle(_.extend({}, circlePrototype, {radius: k.radius * 2 / 3}));
   var innerCircle = new Kinetic.Circle(_.extend({}, circlePrototype, {radius: k.radius * 1 / 3}));
@@ -533,7 +533,7 @@ Template.core_sensorGrid.rendered = function() {
     stroke: k.color,
     strokeWidth: k.strokeWidth,
     lineCap: 'round',
-    lineJoin: 'round',
+    lineJoin: 'round'
   };
 
   /// lineMid a line through the origin terminating on the circle at 75 degrees
@@ -603,7 +603,7 @@ function refreshGrid() {
   });
  // contactsLayer.draw();
   ghostLayer.draw();
-};
+}
 
 Template.core_sensorGrid.events({
   'click .flipper': function(e ,t) {
@@ -621,10 +621,10 @@ Template.core_sensorGrid.events({
     e.preventDefault();
   },
   'contextmenu #sensorContacts img': function(e,t){
-    Session.set('currentSensorIcon',{kind: 'army', which: e.target.parentElement.title})
+    Session.set('currentSensorIcon',{kind: 'army', which: e.target.parentElement.title});
   },
   'contextmenu #gridContacts': function(e,t){
-    Session.set('currentSensorIcon',{kind: 'grid', which: e.target.parentElement.title})
+    Session.set('currentSensorIcon',{kind: 'grid', which: e.target.parentElement.title});
   },
   'click #sensorContacts': function(e, t){
    // console.log(e.which);

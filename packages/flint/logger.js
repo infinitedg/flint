@@ -26,58 +26,58 @@ if (Meteor.isServer){
 	Winston.add(Winston_Loggly, options);
 	Winston.info('Added winston loggly transport');
 } else {
-	Flint.Log = {
-		error: function(str) {
+Flint.Log = {
+	error: function(str) {
 			if (checkLevel('error')) {
 				console.error(str);
 			}
-		},
-		warn: function(str) {
+	},
+	warn: function(str) {
 			if (checkLevel('warn')) {
 				console.warn(str);
 			}
-		},
-		help: function(str) {
+	},
+	help: function(str) {
 			if (checkLevel('error')) {
-				console.log(str);
+	//	console.log(str);
 			}
-		},
-		data: function(str) {
+	},
+	data: function(str) {
 			if (checkLevel('data')) {
-				console.log(str);
+	///	console.log(str);
 			}
-		},
-		info: function(str) {
+	},
+	info: function(str) {
 			if (checkLevel('info')) {
 				console.info(str);
 			}
-		},
-		debug: function(str) {
+	},
+	debug: function(str) {
 			if (checkLevel('debug')) {
 				console.debug(str);
 			}
-		},
-		prompt: function(str) {
+	},
+	prompt: function(str) {
 			if (checkLevel('prompt')) {
-				console.log(str);
+	//	console.log(str);
 			}
-		},
-		verbose: function(str) {
+	},
+	verbose: function(str) {
 			if (checkLevel('verbose')) {
-				console.log(str);
+	//	console.log(str);
 			}
-		},
-		input: function(str) {
+	},
+	input: function(str) {
 			if (checkLevel('input')) {
-				console.log(str);
+	//	console.log(str);
 			}
-		},
-		silly: function(str) {
+	},
+	silly: function(str) {
 			if (checkLevel('silly')) {
-				console.log(str);
+	//	console.log(str);
 			}
-		},
-	};
+	},
+};
 }
 
 /**

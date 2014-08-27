@@ -18,7 +18,7 @@ bezierFunc = function (t, p0, p1, p2, p3) {
     };
 };
 
-updateDottedLines = function() {
+updateDottedLines = function () {
     for (var curveid in bezier) {
         var b = bezier[curveid];
         var bezierLine = b.bezierLine;
@@ -26,7 +26,7 @@ updateDottedLines = function() {
     }
     // }; 
     lineLayer.draw();
-}
+};
 
 drawCurves = function () {
     for (var curveid in bezier) {
@@ -68,7 +68,7 @@ drawCurves = function () {
 
 };
 
-buildBezierLine = function() {
+buildBezierLine = function () {
     var bezierLine = new Kinetic.Line({
         dashArray: [10, 10, 0, 10],
         strokeWidth: 3,
@@ -81,10 +81,10 @@ buildBezierLine = function() {
 
     lineLayer.add(bezierLine);
     return bezierLine;
-}
+};
 
 
-buildAnchor = function(x, y, id) {
+buildAnchor = function (x, y, id) {
     var anchor = new Kinetic.Circle({
         x: x,
         y: y,
@@ -155,9 +155,9 @@ buildAnchor = function(x, y, id) {
 
     anchorLayer.add(anchor);
     return anchor;
-}
+};
 
-buildArrow = function(options) {
+buildArrow = function (options) {
     var headlen = 13; // length of head in pixels
     var angle = Math.atan2(options.end.y - options.control2.y, options.end.x - options.control2.x);
 
@@ -179,7 +179,7 @@ buildArrow = function(options) {
     }
     curveLayer.add(lineArrow);
     return lineArrow;
-}
+};
 
 // add dotted line connectors
 addBezier = function (id, options) {
@@ -230,7 +230,7 @@ addBezier = function (id, options) {
     anchorLayer.draw();
 };
 
-updateBezier = function(id, options) {
+updateBezier = function (id, options) {
     curve = bezier[id];
     if (options.start !== undefined) {
         curve.start.attrs.x = options.start.x;
@@ -263,4 +263,4 @@ updateBezier = function(id, options) {
     drawCurves();
     updateDottedLines();
     anchorLayer.draw();
-}
+};

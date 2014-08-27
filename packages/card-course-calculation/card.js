@@ -5,7 +5,7 @@ var TimeoutX;
 var TimeoutY;
 var TimeoutZ;
 var starsLoop;
-xStars = 0, yStars = 0, xPos = 0, yPos = 0, xBracket = 0, yBracket = 0, xCrosshairs = 0, yCrosshairs = 0;
+var xStars = 0, yStars = 0, xPos = 0, yPos = 0, xBracket = 0, yBracket = 0, xCrosshairs = 0, yCrosshairs = 0;
 getRandomInt = function(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -51,26 +51,25 @@ startScan = function(){
 		$('.linex').css('top',yCrosshairs + 7);
 		$('.liney').css('left',xCrosshairs + 7);	
 	});
-} 
+};
 stopScan = function(values,immediate){
 	starsLoop = '';
-	debugger;
 	clearInterval(randomLoopX);
 	clearInterval(randomLoopY);
 	clearInterval(randomLoopZ);
-	if (immediate == undefined){
-		if (values != undefined) {$(".calculatedX").text(values.x);}
-		else {$(".calculatedX").text('')}
+	if (immediate === undefined){
+		if (values !== undefined) {$(".calculatedX").text(values.x);}
+		else {$(".calculatedX").text('');}
 			$(".calculatedX").addClass("hilited"); 
 		TimeoutY = setTimeout(function() {
-			if (values != undefined) {$(".calculatedY").text(values.y);}
-			else {$(".calculatedY").text('')}
-				$(".calculatedX").removeClass("hilited");   
+			if (values !== undefined) {$(".calculatedY").text(values.y);}
+			else {$(".calculatedY").text('');}
+			$(".calculatedX").removeClass("hilited");   
 			$(".calculatedY").addClass("hilited");   
 		},250);
 		TimeoutZ = setTimeout(function() {
-			if (values != undefined) {$(".calculatedZ").text(values.z);}
-			else {$(".calculatedZ").text('')}
+			if (values !== undefined) {$(".calculatedZ").text(values.z);}
+			else {$(".calculatedZ").text('');}
 				$(".calculatedY").removeClass("hilited");   
 			$(".calculatedZ").addClass("hilited"); 
 		},500);
@@ -79,18 +78,18 @@ stopScan = function(values,immediate){
 		},750);
 	} else {
 		
-		if (values != undefined) {$(".calculatedX").text(values.x);}
-		if (values != undefined) {$(".calculatedY").text(values.y);}
-		if (values != undefined) {$(".calculatedZ").text(values.z);}
+		if (values !== undefined) {$(".calculatedX").text(values.x);}
+		if (values !== undefined) {$(".calculatedY").text(values.y);}
+		if (values !== undefined) {$(".calculatedZ").text(values.z);}
 
 	}
-}
+};
 selectField = function(whichField) {
 	if (whichField == "next") {
 		if (Session.get('selectedCourseField') == 'X') {whichField = 'Y';}
 		if (Session.get('selectedCourseField') == 'Y') {whichField = 'Z';}
-        if (Session.get('selectedCourseField') == 'Z') {submitCoordinates()}//Template.card_targeting.lockTarget();}
-        if (Session.get('selectedCourseField') == undefined)  {whichField = undefined;}
+        if (Session.get('selectedCourseField') == 'Z') {submitCoordinates();}//Template.card_targeting.lockTarget();}
+        if (Session.get('selectedCourseField') === undefined)  {whichField = undefined;}
     }
     $(".currentX").removeClass("selected");
     $(".currentY").removeClass("selected");
@@ -104,7 +103,7 @@ submitCoordinates = function(){
 		'x': $(".currentX").text(),
 		'y': $(".currentY").text(),
 		'z': $(".currentZ").text()
-	}
+	};
 	Flint.simulator('currentCoordinates',obj);
 	$(".currentX").addClass("hilited"); 
 	TimeoutY = setTimeout(function() {
@@ -136,28 +135,28 @@ Template.card_courseCalculation.buttonHidden = function(which){
 		if (course.substr(-1,1) == '*'){return null;} //Asterisk means calculating
 		else {return 'hidden';}
 	}
-}
+};
 Template.card_courseCalculation.starsImage = function(){
 	return Flint.a('/Stars');
-}
+};
 Template.card_courseCalculation.desiredCourse = function(){
 	var course = Flint.simulator('desiredCourse');
 	if (course.substr(-1,1) == '*'){return course.slice(0,-1);}
 	else {return course;}
-}
+};
 Template.card_courseCalculation.desiredCoordinates = function(axis){
 	return Flint.simulator('desiredCoordinates')[axis];
-}
+};
 Template.card_courseCalculation.currentCoordinates = function(axis){
 	return Flint.simulator('currentCoordinates')[axis];
-}
+};
 Template.card_courseCalculation.events = {
 	'keydown window': function(e,context){
 		console.log(e);
 	},
 	'click .calculateCourse': function(e,context){
-		if ($('.courseInput').val() != ''){
-			Flint.beep()
+		if ($('.courseInput').val() !== ''){
+			Flint.beep();
 			$(".currentX").removeClass("invalid");
 			$(".currentY").removeClass("invalid");
 			$(".currentZ").removeClass("invalid");
@@ -165,7 +164,7 @@ Template.card_courseCalculation.events = {
 		}
 	},
 	'click .cancelCalculation': function(e,context){
-		Flint.beep()
+		Flint.beep();
 		var course = Flint.simulator('desiredCourse').slice(0,-1);
 		Flint.simulator('desiredCourse', course);
 	},
@@ -179,18 +178,16 @@ Template.card_courseCalculation.events = {
 		$('.selected').text($('.selected').text() + a);
 		e.preventDefault();
 	},
-
 	"click .btn.enter": function(e, context) {
 		Flint.beep();
 		selectField('next');
 
 	},
-
 	"click .clearButton": function(e, context) {
 		Flint.beep();
-		if ($('.selected').text() != '') {
+		if ($('.selected').text() !== '') {
 			$('.selected').text('');
-		} else if ($('.selected').text() == '') {
+		} else if ($('.selected').text() === '') {
 			$(".currentX").text("");
 			$(".currentY").text("");
 			$(".currentZ").text("");
@@ -224,14 +221,14 @@ Template.card_courseCalculation.rendered = function(){
 			if (fields.desiredCourse) {
 				if (fields.desiredCourse.substr(-1,1) == '*'){startScan();}
 				else {
-						stopScan();}
+					stopScan();}
 				}
 				if (fields.desiredCoordinates) {
 					var obj = {
 						'x':(fields.desiredCoordinates.x),
 						'y':(fields.desiredCoordinates.y),
 						'z':(fields.desiredCoordinates.z)
-					}
+					};
 					stopScan(obj);
 				//$(".calculatedX").text(fields.desiredCoordinates.x);
 				//$(".calculatedY").text(fields.desiredCoordinates.y);
@@ -242,7 +239,7 @@ Template.card_courseCalculation.rendered = function(){
 	if (Flint.simulator('desiredCourse').substr(-1,1) == '*'){
 		startScan();
 	}
-	a;
+	var a;
 	$(window).on('keydown', function(e){
 		a = (e.which);
 		/*Number Row keys*/
@@ -267,8 +264,8 @@ Template.card_courseCalculation.rendered = function(){
 		else if (a == 13) {selectField('next');}
 		/*Delete & Backspace & clear*/
 		else if (a == 8 || a == 46 || a == 12){
-			if ($('.selected').text() != '') {$('.selected').text('');}
-			else if ($('.selected').text() == '') {
+			if ($('.selected').text() !== '') {$('.selected').text('');}
+			else if ($('.selected').text() === '') {
 				$(".currentX").text("");
 				$(".currentY").text("");
 				$(".currentZ").text("");
@@ -281,12 +278,11 @@ Template.card_courseCalculation.rendered = function(){
 		}
 
 		return;
-	}),
-	$(window).on('keydown', function(e){})
-}
+	});
+};
 
 function animLoop( render, element ) {
-	var running, lastFrame = +new Date;
+	var running, lastFrame = new Date();
 	function loop( now ) {
         // stop the loop if render returned false
         if ( running !== false ) {

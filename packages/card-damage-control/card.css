@@ -1,0 +1,60 @@
+.damageControl .damageStep{
+  list-style: none;
+}
+.damageControl .damageStep{
+  margin-bottom: 2px;
+}
+.damageControl .indicator{
+  display: block;
+  float: left;
+  width: 15px;
+  height: 15px;
+  margin: 3px;
+  border-radius: 20px;
+  border: solid 1px rgba(255,255,255,0.5);
+  background-color: #999;
+}
+.damageControl .stepInstructions{
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  max-height: 0px;
+  overflow: hidden;
+}
+.damageControl .selectedStep .stepInstructions{
+  max-height: 500px;
+}
+.damageControl .shipDiagram{
+  min-height: 100%;
+}
+
+#core_damageControl .damageControl p{
+  padding: 0 !important;
+}
+.damageControl .damaged{
+  color: #f00 !important;
+}
+
+.damageControl .templateList, .damageControl .systemList{
+  max-height: 65vh;
+  overflow: scroll;
+}
+.damageControl .stepList{
+  max-height: 150px;
+  overflow: scroll;
+}
+.damageControl .completionCriteria{
+  max-height: 15vh;
+  overflow: scroll;
+}
+.damageControl .completionCriteria p{
+  margin-bottom: 0;
+}
+.damageControl .criteriaValue{
+  width: 20%;
+}
+.damageControl .systemSelect{
+  width: 30%;
+}
+.damageControl .systemValueSelect{
+  width: 25%;
+}

@@ -1,0 +1,11 @@
+{
+	"name": "http-publish",
+	"description": "Adds HTTP server publish - HTTP.publish RESTful",
+	"homepage": "https://github.com/CollectionFS/Meteor-http-publish",
+	"author": "Eric Dobbertin (https://github.com/aldeed), Morten Henriksen (https://github.com/raix)",
+	"version": "0.0.10",
+	"git": "https://github.com/CollectionFS/Meteor-http-publish.git",
+	"packages": {
+		"http-methods": {}
+	}
+}
