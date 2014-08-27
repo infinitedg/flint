@@ -55,9 +55,9 @@
     [
       "cfs-upload-http",
       "0.0.0"
-      "cfs-worker",
     ],
     [
+      "cfs-worker",
       "0.0.0"
     ],
     [

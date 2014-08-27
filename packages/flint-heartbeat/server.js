@@ -21,6 +21,7 @@ Meteor.startup(function() {
             Flint.collection('flintClients').remove({connectionId: connectionId});
         });
         Flint.collection('flintClients').insert({
+            _id: connectionId,
             connectionId: connectionId,
             createdOn: (new Date()).getTime(),
             clientAddress: conn.clientAddress,

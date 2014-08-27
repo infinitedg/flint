@@ -17,18 +17,32 @@ sounds:
 	_soundState			- Internal flag used to determine the sound's state
 */
 
+// Used to track individual sounds playing back
+var _buzzSoundCache = {};
 
 Meteor.startup(function() {
-	Deps.autorun(function() {
-		var groups = Flint.station('playerGroups');
-		if (groups && groups.length && groups.length > 0) {
-			Flint.addComponent("comp_flint_player");
+	Deps.autorun(function(){
+		var player = Flint.collection('flintSoundPlayers').findOne({playerId: Flint.clientId()});
+		if (player) {
+			Flint.addComponent('comp_flint_player');
 		} else {
-			Flint.removeComponent("comp_flint_player");
+			Flint.removeComponent('comp_flint_player');
 		}
 	});
+
+	Meteor.subscribe('flint.audio-engine.selfPlayer');
+	Meteor.subscribe('flint.audio-engine.sounds');
 });
 
 Template.comp_flint_player.created = function() {
+	this.playerSub = Flint.collection('flintSounds').find({ soundPlayers: { $in: [Flint.clientId()] }, parentSounds: {$size: 0} }).observe({
+		added: function(doc) {
+			// Play sounds
+			
+		}
+	});
+};
 
+Template.comp_flint_player.destroyed = function() {
+	this.playerSub.stop();
 };
