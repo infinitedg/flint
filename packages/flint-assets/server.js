@@ -16,34 +16,34 @@ Meteor.publish('flint.flint-assets.simulator', function(simulatorId) {
 		.forEach(function(obj) {
 			if (!mappedObjects[obj.containerPath]) {
 				mappedObjects[obj.containerPath] = {
-					objectId: obj._id,
+					// objectId: obj._id,
 					containerId: obj.containerId,
 				};
 			} else if (mappedObjects[obj.containerPath] && obj.simulatorId) {
 				mappedObjects[obj.containerPath] = {
-					objectId: obj._id,
+					// objectId: obj._id,
 					containerId: obj.containerId,
 				};
 			}
 		});
 
 	// Use this list to get all our folders too
-	mappedObjects = _.map(mappedObjects, function(obj, key) {
-		var container = Flint.collection('flintAssetContainers').findOne({_id: obj.containerId});
-		return _.extend(obj, {folderId: container.folderId});
-	});
+	// mappedObjects = _.map(mappedObjects, function(obj, key) {
+	// 	var container = Flint.collection('flintAssetContainers').findOne({_id: obj.containerId});
+	// 	return _.extend(obj, {folderId: container.folderId});
+	// });
 
 	// Convert to an array
 	var condensedObjects = _.values(mappedObjects);
 
 	// Create arrays to hold the IDs of the appropriate objects
-	var containerIds 	= _.pluck(condensedObjects, "containerId");
 	var objectIds 		= _.pluck(condensedObjects, "objectId");
-	var folderIds 		= _.pluck(condensedObjects, "folderId");
+	// var containerIds 	= _.pluck(condensedObjects, "containerId");
+	// var folderIds 		= _.pluck(condensedObjects, "folderId");
 	
 	return [
-		Flint.collection('flintAssetFolders').find({_id: {$in: folderIds}}), 
-		Flint.collection('flintAssetContainers').find({_id: {$in: containerIds}}),
+		Flint.collection('flintAssetFolders').find(), 
+		Flint.collection('flintAssetContainers').find(),
 		Flint.collection('flintAssetObjects').find({_id: {$in: objectIds}})
 	];
 });
@@ -200,9 +200,9 @@ function updateObjectDependencies(id) {
 
 Flint.collection('flintAssetObjects').find().observeChanges({
 	added: function(id, fields) {
-		updateObjectDependencies(id)
+		updateObjectDependencies(id);
 	},
 	changed: function(id, fields) {
-		updateObjectDependencies(id)
+		updateObjectDependencies(id);
 	}
 });

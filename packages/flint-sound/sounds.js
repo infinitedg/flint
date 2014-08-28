@@ -2,8 +2,7 @@
 @class Flint
 */
 
-var soundPrefix = '/sounds/chimes/',
-    flintFormats = ['wav', 'ogg', 'mp3'];
+var soundPrefix = '/sounds/chimes';
 
 _.extend(Flint, {
   /**
@@ -11,7 +10,11 @@ _.extend(Flint, {
    * @method beep
    */
   beep: function() {
-    Flint.play(soundPrefix + 'chime'+(Math.floor(Math.random()*6)+1));
+    var chimes = Flint.Asset.listFolder(soundPrefix),
+    chime = chimes.containers[Math.floor(Math.random()*chimes.containers.length)+1];
+    if (chime) {
+      Flint.play(chime.fullPath);
+    }
   },
 
   playRaw: function(sound) {

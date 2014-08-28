@@ -30,7 +30,7 @@ Flint.collection('flintSounds').find({soundGroups: {$exists: false}}, {fields: {
 			if (!Flint.collection('flintSoundPlayers').findOne({playerId: sound.soundPlayers[i]})) {
 				prunedPlayers.push(sound.soundPlayers[i]);
 			}
-		};
+		}
 
 		Flint.collection('flintSounds').update(sound._id, {$pullAll: {soundPlayers: prunedPlayers}}, {multi: true});
 	}

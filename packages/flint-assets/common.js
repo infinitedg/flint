@@ -1,11 +1,3 @@
-var objIdForAsset = function(a) {
-	if (a.objects && a.objects[Flint.simulatorId()]) {
-		return a.objects[Flint.simulatorId()];
-	} else {
-		return a.defaultObject;
-	}
-}
-
 Flint.Asset = {
 	// Return URL of asset for key
 	urlForKey: function(assetKey) {
@@ -48,7 +40,7 @@ Flint.Asset = {
 
 				return assetObj;
 			} else {
-				Flint.Log.error("Asset " + assetPath + " has no object")
+				Flint.Log.error("Asset " + assetPath + " has no object");
 			}
 		}
 	},
@@ -59,7 +51,7 @@ Flint.Asset = {
 			var object = Flint.Asset.objectForKey(folderKey) || {};
 			folder = Flint.collection('flintAssetFolders').findOne({fullPath: object.folderPath});
 		}
-		if (!folder && folderKey !== "/") {
+		if (!folder && folderKey !== "/" && folderKey !== "") {
 			Flint.Log.error("Unknown folder for key " + folderKey, "flint-assets");
 			return;
 		}
@@ -117,13 +109,13 @@ Flint.Asset = {
 		if (!folderName) { // Assume the last item in this is what we're going for
 			var basePathParts = basePath.split('/');
 			folderName = basePathParts.pop();
-			basePath = "/" + basePathParts.join('/');
+			basePath = basePathParts.join('/');
 		}
 
 		// Existing folder search
 		var existingPath = basePath.split('/');
 		existingPath.push(folderName);
-		existingPath = "/" + existingPath.join('/');
+		existingPath = existingPath.join('/');
 		if (Flint.collection('flintAssetFolders').find({fullPath: existingPath}).count() > 0) {
 			Flint.Log.error("Folder at " + existingPath + " already exists", "flint-assets");
 			return;
@@ -133,7 +125,7 @@ Flint.Asset = {
 		statement = {
 			name: folderName
 		};
-		if (parentFolder) { // Root folder
+		if (parentFolder) { // Not root folder
 			statement.parentFolderId = parentFolder._id;
 		}
 		return Flint.collection('flintAssetFolders').insert(statement);
