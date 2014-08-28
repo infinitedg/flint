@@ -1,5 +1,3 @@
-/// NOTE -- This documentation is more notes, and may not be entirely correct
-/// Review the code to determine full accuracy and implications
 Flint.assetUrl('/path/to/asset/keyname')
 	Returns the URL to the asset
 	If it's a directory, return undefined
@@ -24,7 +22,7 @@ Flint.assetObject('/path/keyname')
 {
 	_id: 
 	@name: "sounds"
-	@parentFolder: _id of parent folder, unset if at root
+	@parentFolderId: _id of parent folder, unset if at root
 	@fullPath* // folderPath + / + name
 	@folderPath* // Same as parent's path, or / for root
 }
@@ -47,8 +45,9 @@ Flint.assetObject('/path/keyname')
 	objectId: // ID of object in CFS
 	containerPath* // The path to this container of objects
 	folderPath* // The path to the parent folder of this container
+	objectPath* // The path to this object+simulator
 	mimeType*
-	objUrl*
+	url*
 }
 
 

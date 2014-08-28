@@ -1,9 +1,71 @@
 // @TODO Focus down to assets for a given simulator
-Meteor.publish("fs.flintassets", function() {
+Meteor.publish("fs.flint-assets.all", function() {
 	return Flint.FS.collection('flintAssets').find();
 });
-Meteor.publish("flint.flintassets", function() {
+Meteor.publish("flint.flint-assets.all", function() {
 	return Flint.collection('flintAssets').find();
+});
+
+// Return only the folders, containers, and objects for this simulator
+Meteor.publish('flint.flint-assets.simulator', function(simulatorId) {
+	var mappedObjects = {};
+
+	// Make a list of all objects and their containers
+	Flint.collection('flintAssetObjects')
+		.find({$or: [{simulatorId: {$exists: false}}, {simulatorId: simulatorId}]})
+		.forEach(function(obj) {
+			if (!mappedObjects[obj.containerPath]) {
+				mappedObjects[obj.containerPath] = {
+					objectId: obj._id,
+					containerId: obj.containerId,
+				};
+			} else if (mappedObjects[obj.containerPath] && obj.simulatorId) {
+				mappedObjects[obj.containerPath] = {
+					objectId: obj._id,
+					containerId: obj.containerId,
+				};
+			}
+		});
+
+	// Use this list to get all our folders too
+	mappedObjects = _.map(mappedObjects, function(obj, key) {
+		var container = Flint.collection('flintAssetContainers').findOne({_id: obj.containerId});
+		return _.extend(obj, {folderId: container.folderId});
+	});
+
+	// Convert to an array
+	var condensedObjects = _.values(mappedObjects);
+
+	// Create arrays to hold the IDs of the appropriate objects
+	var containerIds 	= _.pluck(condensedObjects, "containerId");
+	var objectIds 		= _.pluck(condensedObjects, "objectId");
+	var folderIds 		= _.pluck(condensedObjects, "folderId");
+	
+	return [
+		Flint.collection('flintAssetFolders').find({_id: {$in: folderIds}}), 
+		Flint.collection('flintAssetContainers').find({_id: {$in: containerIds}}),
+		Flint.collection('flintAssetObjects').find({_id: {$in: objectIds}})
+	];
+});
+
+// Return only the asset objects for this simulator
+Meteor.publish('fs.flint-assets.simulator', function(simulatorId) {
+	var mappedObjects = {};
+
+	// Make a list of all objects and their containers
+	Flint.collection('flintAssetObjects')
+		.find({$or: [{simulatorId: {$exists: false}}, {simulatorId: simulatorId}]})
+		.forEach(function(obj) {
+			// Setup objects, replacing if we find a simulator-specific default
+			if (!mappedObjects[obj.containerPath]) {
+				mappedObjects[obj.containerPath] = obj.objectId;
+			} else if (mappedObjects[obj.containerPath] && obj.simulatorId) {
+				mappedObjects[obj.containerPath] = obj.objectId;
+			}
+		});
+
+	// Return the values that we get back
+	return Flint.FS.collection('flintAssets').find({_id: {$in: _.values(mappedObjects)}});
 });
 
 // Recursive function to walk up the tree to the parent object

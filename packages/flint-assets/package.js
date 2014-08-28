@@ -5,7 +5,7 @@ Package.describe({
 
 Package.on_use(function(api) {  
   
-  api.use(['flint']);
+  api.use(['flint', 'underscore', 'deps']);
   
   api.addFiles('client.js', 'client');
   api.addFiles('server.js', 'server');
