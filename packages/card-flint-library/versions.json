@@ -55,9 +55,9 @@
     [
       "cfs-upload-http",
       "0.0.0"
-      "cfs-worker",
     ],
     [
+      "cfs-worker",
       "0.0.0"
     ],
     [
@@ -114,7 +114,7 @@
     ],
     [
       "http",
-      "1.0.2"
+      "1.0.3"
     ],
     [
       "http-methods",
@@ -250,6 +250,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.25",
+  "toolVersion": "meteor-tool@1.0.26",
   "format": "1.0"
 }
