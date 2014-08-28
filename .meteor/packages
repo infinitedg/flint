@@ -120,6 +120,7 @@ actor-sensors
 bootstrap-contextjs
 bootstrap-slider
 flint-heartbeat
+flint-macro-engine
 flint-theme-engine
 theme-default
 theme-odyssey

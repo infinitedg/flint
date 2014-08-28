@@ -17,10 +17,6 @@
       "1.0.0"
     ],
     [
-      "brentjanderson:kinetic",
-      "5.1.0"
-    ],
-    [
       "callback-hook",
       "1.0.0"
     ],
@@ -38,6 +34,10 @@
     ],
     [
       "flint",
+      "0.1.0"
+    ],
+    [
+      "flint-server-monitor",
       "0.1.0"
     ],
     [
@@ -63,10 +63,6 @@
     [
       "id-map",
       "1.0.0"
-    ],
-    [
-      "infinitedg:gsap",
-      "1.13.2-beta3"
     ],
     [
       "infinitedg:winston",
@@ -178,6 +174,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.25",
+  "toolVersion": "meteor-tool@1.0.23",
   "format": "1.0"
 }
