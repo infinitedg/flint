@@ -1,0 +1,333 @@
+<!--
+Variables used: 
+
+{{alertColor}}
+{{alertColora}} //Same as above, with an alpha value
+{{alertColorDarka}} //darker, with an alpha value
+-->
+
+<template name="theme_font_audiowide">
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Audiowide);
+    html, body{
+      text-transform:uppercase;
+      font-family: "Audiowide";
+    }
+  </style>
+</template>
+
+<template name="theme_bodyReset">
+  <style>
+    html,body{
+      position: fixed;
+      padding: 0px;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+    .hidden{
+      display: none;
+    }
+  </style>
+</template>
+
+<template name="theme_styledSelect">
+  <style>
+    .select {
+      position: relative;
+      display: inline-block;
+      color: #555;
+    }
+    .select select {
+      display: inline-block;
+      width: 100%;
+      margin: 0;
+      padding: .5rem 2.25rem .5rem 1rem;
+      line-height: 1.5;
+      color: #555;
+      background-color: #eee;
+      border: 0;
+      border-radius: .25rem;
+      cursor: pointer;
+      outline: 0;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    /* Undo the Firefox inner focus ring */
+    .select select:focus:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 #000;
+    }
+    /* Dropdown arrow */
+    .select:after {
+      position: absolute;
+      top: 50%;
+      right: 1.25rem;
+      display: inline-block;
+      content: "";
+      width: 0;
+      height: 0;
+      margin-top: -.15rem;
+      pointer-events: none;
+      border-top: .35rem solid;
+      border-right: .35rem solid transparent;
+      border-bottom: .35rem solid transparent;
+      border-left: .35rem solid transparent;
+    }
+
+    /* Hover state */
+/* Uncomment if you need it, but be aware of the sticky iOS states.
+.select select:hover {
+background-color: #ddd;
+}
+*/
+
+/* Focus */
+.select select:focus {
+  box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem #0074d9;
+}
+
+/* Active/open */
+.select select:active {
+  color: #fff;
+  background-color: #0074d9;
+}
+
+/* Hide the arrow in IE10 and up */
+.select select::-ms-expand {
+  display: none;
+}
+
+/* Media query to target Firefox only */
+@-moz-document url-prefix() {
+  /* Firefox hack to hide the arrow */
+  .select select {
+    text-indent: 0.01px;
+    text-overflow: '';
+    padding-right: 1rem;
+  }
+
+  .select option {
+    background-color: white;
+  }
+}
+
+/* IE9 hack to hide the arrow */
+@media screen and (min-width:0\0) {
+  .select select {
+    z-index: 1;
+    padding: .5rem 1.5rem .5rem 1rem;
+  }
+  .select:after {
+    z-index: 5;
+  }
+  .select:before {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    bottom: 0;
+    z-index: 2;
+    content: "";
+    display: block;
+    width: 1.5rem;
+    background-color: #eee;
+  }
+  .select select:hover,
+  .select select:focus,
+  .select select:active {
+    color: #555;
+    background-color: #eee;
+  }
+}
+</style>
+</template>
+
+<template name="theme_odysseyButtons">
+  <style>
+    /* @group Reset Bootstrap Buttons */
+
+    .btn{
+      color: #fff;
+      background-image: url(/themes/odyssey/public/background.png);
+      background-size: 1px 2px;
+      background-repeat: repeat;
+      background-color: {{alertColora "1"}};
+      transition: all 0.5s ease;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 4px rgba(255,255,255,1), 0px 0px 3px rgba(255,255,255,1);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .btn:hover{
+      background-image: url(/themes/odyssey/public/background.png);
+      background-size: 1px 3px;
+      background-repeat: repeat;
+      background-color: {{alertColora "1"}};
+      transition: all 0.5s ease;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 4px rgba(255,255,255,1), 0px 0px 3px rgba(255,255,255,1);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+  </style>
+</template>
+
+<template name="theme_odysseyFrame">
+  <style>
+  body, html{
+    color: #fff;
+  }
+    #perspective{
+      height:100%; 
+      background: rgb(69,72,77);
+      background: -moz-linear-gradient(top, rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,1)), color-stop(100%,rgba(0,0,0,1)));
+      background: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%);
+      background: -o-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%);
+      background: -ms-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%);
+      background: linear-gradient(to bottom, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); 
+      background: rgb(0,0,0);
+
+    }
+    header{
+      z-index: 1;
+      position: absolute;
+      width:  100%;
+      height: 7.7vw;
+      background-color: #fff;
+      -webkit-clip-path: polygon(0 0, 0 65%, 70% 65%, 75% 93%, 100% 93%, 100% 0);
+
+    }
+    header .background{
+      height:  6.9vw;
+      position: absolute;
+      width: 100%;
+      transition: all 0.5s ease;
+      background-color: {{alertColora "1"}};
+      -webkit-clip-path: polygon(0 0, 0 70%, 70% 70%, 75% 100%, 100% 100%, 100% 0);
+    }
+
+    header .sim-name{
+      position: absolute;
+      top: -2.5vw;
+      right: 0px;
+    }
+    header h2{
+      display: none;
+    }
+    header h3{
+      position: absolute;
+      top: 1vw;
+      right: 10%;
+      font-size: 4vw;
+    }
+    .card-area{
+      -webkit-clip-path: polygon(70px 0, 20px 50px, 20px calc(100% - 50px),70px  100%, calc(100% - 70px) 100%, calc(100% - 70px) 100%, calc(100% - 20px) calc(100% - 50px), calc(100% - 20px) 50px, calc(100% - 70px) 0px);
+      position: absolute;
+      top: 6.2vw;
+      height: calc(100vh - 117px);
+      background-color: rgba(255,255,255,0.4);
+      padding: 60px !important;
+      padding-top: 25px !important;
+    }
+    .card-area:before{
+      margin: 0;
+      padding: 0;
+      top: 0;
+      left: 0;
+      position: absolute;
+      background: rgba(30,30,30,1);
+      -webkit-clip-path: polygon(72px 8px, 28px 52px, 28px calc(100% - 170px),75px  calc(100% - 124px), calc(100% - 74px) calc(100% - 123px), calc(100% - 28px) calc(100% - 168px), calc(100% - 28px) 53px, calc(100% - 74px) 8px);
+      width: 100vw;
+      height: 100vh;
+      content: '';
+      display: block;
+    }
+    .footer{
+      position: fixed;
+      bottom: 0px;
+      left: 0;
+      height: 50px;
+      width: 100%;
+    }
+    .footerBackground{
+      bottom: 0px;
+      position: absolute;
+      background-color: {{alertColora "1"}};
+      transition: all 0.5s ease;
+      height: 58px;
+      width: 100vw;
+      -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 45%, 40% 45%, 30% 0%, 0 0%);
+    }
+    .footer .backgroundBezel{
+      bottom: 0px;
+      position: absolute;
+      background-color: #fff;
+      height: 60px;
+      width: 100vw;
+      -webkit-clip-path: polygon(0 100%, 100% 100%, 100% 43%, 40% 43%, 30% 0%, 0 0%);
+    }
+    /* @end */
+    .theme-backer{
+      background-image: url(/themes/odyssey/public/background.png);
+      background-size: 1px 2px;
+      background-repeat: repeat;
+      background-color: {{alertColora 1}};
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 4px rgba(255,255,255,1), 0px 0px 3px rgba(255,255,255,1);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+  </style>
+</template>
+
+<template name="theme_odysseyTextInputs">
+  <style>
+    input[type="email"],input[type="text"],input[type="password"] {
+      color: #fff;
+      border: 0px solid rgba(255,255,255,.5); 
+      padding: 1px 5px 1px 5px;
+      border-radius: 2px;
+      background: rgba(255,255,255,.10);
+      box-shadow: 0px 0px 5px rgba(255,255,255,.75);
+      margin: 0 0 10px 0; 
+      width: 100%;
+    }
+    input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+      box-shadow: 0px 0px 5px B; 
+    }
+    .textbox:focus, textarea:focus{
+      outline: none;
+      border: 1px solid {{alertColorDesat}};
+      box-shadow: inset 0px 0px 4px {{alertColorDesat}}, 0px 0px 3px {{alertColorDesat}};
+
+    }
+    .textbox, textarea{
+      transition: box-shadow 0.5s ease;
+      transition: border 0.5s ease;
+      background-image: url(/themes/odyssey/public/background.png);
+      background-size: 1px 2px;
+      background-repeat: repeat;
+      background-color: #005;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 4px rgba(255,255,255,1), 0px 0px 3px rgba(255,255,255,1);
+      border: 1px solid rgba(255,255,255,0.5);
+      -webkit-box-shadow: rgba(255, 255, 255, 0.74902) 0px 0px 5px 0px;
+      background-attachment: scroll;
+      color: rgb(255, 255, 255);
+      display: inline-block;
+      font-size: 14px;
+      margin-bottom: 10px;
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 0px;
+      overflow-x: auto;
+      overflow-y: auto;
+      padding-bottom: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 15px;
+      width: 100%;
+    }
+  </style>
+</template>
+
