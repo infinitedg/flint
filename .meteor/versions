@@ -76,8 +76,6 @@ deps@1.0.1
 ejson@1.0.0
 email@1.0.2
 emitter@0.0.0
-flint-assets@0.1.0
-flint-audio-engine@0.1.0
 flint-debug@0.1.0
 flint-drama@0.1.0
 flint-files@0.1.0
