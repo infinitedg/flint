@@ -9,8 +9,8 @@ Template.core_shields.rendered = function(){
 		type:"x", 
 		bounds:{
 			top:0, 
-			left:-5, 
-			width:($(".shieldBox").width() + 8 + 5), 
+			left:-4, 
+			width:($(".coreShields").width()*2 + 8), 
 			height:$(".shieldBox").height()},
 		onDragEnd: function(){
 			TweenLite.to(this.target, 0.0, {
@@ -19,6 +19,8 @@ Template.core_shields.rendered = function(){
             var shieldLevel = Flint.system('Shields','level');
 			var delta = (this.x / this.target.parentElement.clientWidth)*100;
 			shieldLevel += delta;
+			if (shieldLevel > 100) shieldLevel = 100;
+			if (shieldLevel < 0) shieldLevel = 0;
 			Flint.system('Shields','level',shieldLevel);
 			if (Flint.system('Shields','state') == "raised"){
 				Flint.tween('systems','systems-odyssey-shields',2,{'strength':shieldLevel, 'overwrite':'concurrent'});
@@ -26,4 +28,12 @@ Template.core_shields.rendered = function(){
 		}
 	});
 };
-
+Template.core_shields.events = {
+	'click .hitShields' : function(e,t){
+		var shieldLevel = Flint.system('Shields','level');
+		shieldLevel -= Math.random()*10;
+		if (shieldLevel < 0) shieldLevel = 0;
+		Flint.system('Shields','level',shieldLevel);
+				Flint.tween('systems','systems-odyssey-shields',1,{'strength':shieldLevel, 'overwrite':'concurrent'});
+	}
+};

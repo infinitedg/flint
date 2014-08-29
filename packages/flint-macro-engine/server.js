@@ -1,3 +1,4 @@
+var _flintMacros = {};
 Meteor.startup(function() {
 	Flint.collection('flintMacros').find({serverId: Flint.serverId()}).observe({
 		added: function(doc) {
