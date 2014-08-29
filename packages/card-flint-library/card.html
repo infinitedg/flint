@@ -1,18 +1,18 @@
 <template name="card_flintlibrary">
 	<div class="row">
 		<div class="col-md-4">
-			{{> comp_flintassetbrowser}}
+			{{> comp_flintAssetBrowser}}
 		</div>
 		<div class="col-md-8">
-			{{#if assetSelected}}
-				{{> comp_flintassetview}}
+			{{#if containerSelected}}
+				{{> comp_flintContainerView}}
 			{{/if}}
 		</div>
 	</div>
 </template>
 
-<template name="comp_flintassetbrowser">
-	<p><strong>Path: {{currentDirectory.fullPath}}</strong></p>
+<template name="comp_flintAssetBrowser">
+	<p><strong>Path: {{currentDirectory}}</strong></p>
 	<p>
 	<div class="btn-group">
 		<button class="add-folder btn btn-primary">
@@ -31,21 +31,23 @@
 				<a href="#" class="cd-dot-dot"><span class="glyphicon-class">&laquo; Back</span></a>
 			</li>
 			{{/if}}
-			{{#each assets}}
+			{{#each folders}}
+			<li>
+				<span class="glyphicon glyphicon-folder-close"></span>
+				<a href="#" class="folder"><span class="glyphicon-class">{{name}}</span></a>
+			</li>
+			{{/each}}
+			{{#each containers}}
 			<li class="{{assetClass}}">
-				{{#if assetType "folder"}}
-					<span class="glyphicon glyphicon-folder-close"></span>
-				{{else}}
-					<span class="glyphicon glyphicon-file"></span>
-				{{/if}}
-				<a href="#" class="asset"><span class="glyphicon-class">{{name}}</span></a>
+				<span class="glyphicon glyphicon-file"></span>
+				<a href="#" class="container"><span class="glyphicon-class">{{name}}</span></a>
 			</li>
 			{{/each}}
 		</ul>
 	</div>
 </template>
 
-<template name="comp_flintassetview">
+<template name="comp_flintContainerView">
 	<h2>Asset: {{asset.name}}</h2>
 	<h3 class="selectable">Asset Path: {{asset.fullPath}}</h3>
 	<h3>Default Value</h3>
