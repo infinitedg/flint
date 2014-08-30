@@ -27,3 +27,7 @@ Template.flint_debugging.events = {
     e.preventDefault();
   }
 };
+
+Meteor.startup(function() {
+  Flint.addComponent('flint_debugging');
+});

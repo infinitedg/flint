@@ -24,7 +24,7 @@ Flint.collection('systems').find().observeChanges({
 		}
 
 	}
-})
+});
 Meteor.publish('cards.card-damageReports.damageReports', function(simulatorId) {
 	return Flint.collection('damageReports').find({ simulatorId: simulatorId});
 });

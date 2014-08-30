@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-    api.use(['templating', 'flint']);
+    api.use(['templating', 'flint', 'infinitedg:gsap']);
   
     api.add_files(['card.html', 'card.js', 'card.css'], 'client');
     api.add_files(['model.js'], ['server', 'client']);

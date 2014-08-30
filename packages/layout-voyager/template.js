@@ -169,7 +169,6 @@ Template.layout_voyager.events = {
   },
 
   'click header, touchstart header': function(e, context) {
-            console.log('Ping!')
             if (Flint.client().name){
             var showMenu = document.getElementById( 'showMenu' ),
 			 perspectiveWrapper = document.getElementById( 'perspective' ),

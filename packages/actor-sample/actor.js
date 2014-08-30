@@ -30,12 +30,12 @@ Meteor.setTimeout(function(){
 
 Meteor.setTimeout(function(){
 	console.log("Changing period");
-	a.period = 500
+	a.period = 500;
 }, 15000);
 
 Meteor.setTimeout(function(){
 	console.log("Restoring period");
-	a.period = 1000
+	a.period = 1000;
 }, 20000);
 
 Meteor.setTimeout(function(){

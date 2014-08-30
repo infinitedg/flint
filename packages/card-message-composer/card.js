@@ -19,7 +19,7 @@ Template.card_messageComposer.events = {
                     }
                     j++;
                     if (j > i) {Meteor.clearInterval(encoder);}
-                },10)
+                },10);
             $(context.find('.body-text')).attr('disabled', 'disabled');
             Flint.collection('lrmessages').update(Session.get('currentLRMessage'),{$set: {encoded: true}});
  
@@ -83,15 +83,16 @@ Template.card_messageComposer.events = {
 };
 
 Template.card_messageComposer.saveMessage = function(context){
-    if (Session.get('currentLRMessage') == '') {return null;}
+    var bodytext;
+    if (Session.get('currentLRMessage') === '') {return null;}
     var message = Flint.collection('lrmessages').find({_id: Session.get('currentLRMessage')}).fetch();
     var senderName = Flint.station().name;
     console.log(message);
-    if (message.encoded == true) { var bodyText = message.body;}
-    else {var bodyText = context.find('.body-text').value;}
+    if (message.encoded === true) {bodyText = message.body;}
+    else {bodyText = context.find('.body-text').value;}
     var toText = context.find('.to-input').value;
-    if (bodyText == null) {bodyText = '';}
-    if (toText == null || toText == '') {toText == '<<NEW MESSAGE>>';}
+    if (bodyText === null) {bodyText = '';}
+    if (toText === null || toText === '') {toText = '<<NEW MESSAGE>>';}
     Flint.collection('lrmessages').update(
         Session.get('currentLRMessage'),
         {
@@ -131,4 +132,4 @@ Template.card_messageComposer.messageList = function(){
 function setCharAt(str,index,chr) {
     if(index > str.length-1) return str;
     return str.substr(0,index) + chr + str.substr(index+1);
-};
+}
