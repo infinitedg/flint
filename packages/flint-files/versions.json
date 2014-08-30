@@ -110,7 +110,7 @@
     ],
     [
       "http",
-      "1.0.2"
+      "1.0.3"
     ],
     [
       "http-methods",
@@ -246,6 +246,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.25",
+  "toolVersion": "meteor-tool@1.0.26",
   "format": "1.0"
 }
