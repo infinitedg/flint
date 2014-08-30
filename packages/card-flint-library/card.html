@@ -18,7 +18,7 @@
 		<button class="add-folder btn btn-primary">
 			<span class="glyphicon glyphicon-folder-open"></span>
 		</button>
-		<button class="add-asset btn btn-primary">
+		<button class="add-container btn btn-primary">
 			<span class="glyphicon glyphicon-file"></span>
 		</button>
 	</div>
@@ -48,20 +48,14 @@
 </template>
 
 <template name="comp_flintContainerView">
-	<h2>Asset: {{asset.name}}</h2>
-	<h3 class="selectable">Asset Path: {{asset.fullPath}}</h3>
-	<h3>Default Value</h3>
-	{{#if asset.defaultUrl}}
-		<img src="{{asset.defaultUrl}}" class="img-responsive">
-	{{/if}}
+	<h2>Asset: {{container.name}}</h2>
+	<h3 class="selectable">Asset Path: {{container.fullPath}}</h3>
 	<h3>Objects:</h3>
-	{{#if asset.objects}}
-		<ul>
-			{{#each objects}}
-				<li>{{simulatorId}} <img src="{{url}}" class="img-responsive"/></li>
-			{{/each}}
-		</ul>
-	{{/if}}
+	<ul>
+		{{#each objects}}
+			<li>{{simulatorId}} <img src="{{url}}" class="img-responsive"/></li>
+		{{/each}}
+	</ul>
 	<select>
 	{{#each simulators}}
 		<option value="{{_id}}">{{name}}</option>

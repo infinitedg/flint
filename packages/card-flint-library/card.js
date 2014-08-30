@@ -59,78 +59,84 @@ Template.comp_flintAssetBrowser.events({
 	'click button.add-folder': function(e, t) {
 		var n = prompt("Name this folder:");
 		if (n) {
-			var parent = Flint.collection('flintAssets').findOne(Session.get('comp.flintAssetBrowser.currentDirectory')) || {fullPath: ''};
+			var parentFolder = Flint.collection('flintAssetFolders').findOne({fullPath: Session.get('comp.flintAssetBrowser.currentDirectory')});
 			var obj = {
-				type: "folder",
-				name: n,
-				fullPath: parent.fullPath + '/' + n,
-				basePath: parent.fullPath
+				name: n
 			};
-			if (!Session.equals('comp.flintAssetBrowser.currentDirectory', undefined)) {
-				obj.parentObject = Session.get('comp.flintAssetBrowser.currentDirectory');
+			if (parentFolder) {
+				obj.parentFolderId = parentFolder._id;
 			}
-			Flint.collection('flintAssets').insert(obj);
+			Flint.collection('flintAssetFolders').insert(obj);
 		}
 	},
 	'click button.add-container': function(e, t) {
 		var n = prompt("Name this container:");
 		if (n) {
-			var parent = Flint.collection('flintAssets').findOne(Session.get('comp.flintAssetBrowser.currentDirectory')) || {fullPath: ''};
+			var parentFolder = Flint.collection('flintAssetFolders').findOne({fullPath: Session.get('comp.flintAssetBrowser.currentDirectory')});
 			var obj = {
-				type: "asset",
-				name: n,
-				fullPath: parent.fullPath + '/' + n,
-				basePath: parent.fullPath,
-				objects: {}
+				name: n
 			};
-			if (!Session.equals('comp.flintAssetBrowser.currentDirectory', undefined)) {
-				obj.parentObject = Session.get('comp.flintAssetBrowser.currentDirectory');
+			if (parentFolder) {
+				obj.folderId = parentFolder._id;
 			}
-			Flint.collection('flintAssets').insert(obj);
+			Flint.collection('flintAssetContainers').insert(obj);
 		}
 	}
 });
 
 /// comp_flintContainerView
 Template.comp_flintContainerView.created = function() {
-	// Deps.autorun(function() {
-	// 	Meteor.subscribe("flint.assets.simulators");
-	// 	Meteor.subscribe('flint.assets.objects', Session.get('comp.flintAssetBrowser.selectedContainer'));
-	// });
+	Meteor.subscribe("flint.assets.simulators");
 };
 
-Template.comp_flintContainerView.asset = function() {
-	var a = Flint.collection('flintAssets').findOne(Session.get('comp.flintAssetBrowser.selectedContainer'));
-	if (a.defaultObject) {
-		var f = Flint.FS.collection('flintAssets').findOne(a.defaultObject);
-		if (f) {
-			a.defaultUrl = f.url();
-		}
-	}
-	return a;
+Template.comp_flintContainerView.container = function() {
+	return Flint.collection('flintAssetContainers').findOne(Session.get('comp.flintAssetBrowser.selectedContainer'));
+};
+
+Template.comp_flintContainerView.objects = function() {
+	return Flint.collection('flintAssetObjects').find({containerId: Session.get('comp.flintAssetBrowser.selectedContainer')});
+	return objects;
 };
 
 Template.comp_flintContainerView.simulators = function() {
-	var asset = Flint.collection('flintAssets').findOne(Session.get('comp.flintAssetBrowser.selectedContainer'));
+	var objects = Flint.collection('flintAssetObjects').find({containerId: Session.get('comp.flintAssetBrowser.selectedContainer')}).fetch();
 
-	if (asset) {
-		// The difference between all simulators and those already defined
-		var objectSimulators = _.keys(asset.objects || {});
-		var allSimulators = _.pluck(Flint.simulators.find().fetch(), "simulatorId");
-		var diffSimulators = _.difference(allSimulators, objectSimulators);
-		return Flint.simulators.find({ simulatorId: {$in: diffSimulators}});
-	}
+	// The difference between all simulators and those already defined
+	var objectSimulators = _.pluck(objects, "simulatorId");
+	var allSimulators = _.pluck(_.union(Flint.simulators.find().fetch()), "simulatorId");
+	var diffSimulators = _.difference(allSimulators, objectSimulators);
+	return Flint.simulators.find({ simulatorId: {$in: diffSimulators}});
 };
 
 Template.comp_flintContainerView.events({
 	'click .add-object': function(e, t) {
 		var files = t.find('input[type=file]').files; // FileList object
 		var uploadObject = function (err, fileObj) {
-	        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-	        var a = Flint.collection('flintAssets').findOne(Session.get('comp.flintAssetBrowser.selectedContainer'));
-	        var newObjects = a.objects;
-	        newObjects[t.find('select :selected').value] = fileObj._id;
-	        Flint.collection('flintAssets').update(a._id, {$set: {objects: newObjects}});
+			if (!err) {
+		        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+		        var simulatorId = t.find('select :selected').value;
+		        var object = Flint.collection('flintAssetObjects').findOne({
+					containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
+		        	simulatorId: simulatorId
+		        });
+
+		        // We have to do the following rigamarole since upserts are frowned upon
+		        // on the client
+		        if (object) {
+		        	Flint.collection('flintAssetObjects').update(object._id,
+		        	{
+			        	objectId: fileObj._id
+			        });
+		        } else {
+		        	Flint.collection('flintAssetObjects').insert({
+		        		simulatorId: simulatorId,
+		        		containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
+		        		objectId: fileObj._id
+		        	});
+		        }
+		    } else {
+		    	Flint.Log.error(err);
+		    }
 	    };
 	    for (var i = 0, ln = files.length; i < ln; i++) {
 	    	Flint.FS.collection('flintAssets').insert(files[i], uploadObject);
@@ -139,8 +145,30 @@ Template.comp_flintContainerView.events({
 	'click .set-default': function(e, t) {
 		var files = t.find('input[type=file]').files; // FileList object
 		var uploadDefault = function (err, fileObj) {
-	        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-	        Flint.collection('flintAssets').update(Session.get('comp.flintAssetBrowser.selectedContainer'), {$set: {defaultObject: fileObj._id}});
+			if (!err) {
+		        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+		        var simulatorId = t.find('select :selected').value;
+		        var object = Flint.collection('flintAssetObjects').findOne({
+					containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
+					simulatorId: {$exists: false},
+		        });
+
+		        // We have to do the following rigamarole since upserts are frowned upon
+		        // on the client
+		        if (object) {
+		        	Flint.collection('flintAssetObjects').update(object._id,
+		        	{
+			        	objectId: fileObj._id
+			        });
+		        } else {
+		        	Flint.collection('flintAssetObjects').insert({
+		        		containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
+		        		objectId: fileObj._id
+		        	});
+		        }
+		    } else {
+		    	Flint.Log.error(err);
+		    }
 	    };
 		for (var i = 0, ln = files.length; i < ln; i++) {
 			Flint.FS.collection('flintAssets').insert(files[i], uploadDefault);
@@ -150,15 +178,3 @@ Template.comp_flintContainerView.events({
 		$(e.target).toggleClass('enlarged');
 	}
 });
-
-Template.comp_flintContainerView.objects = function() {
-	var asset = Flint.collection('flintAssets').findOne(Session.get('comp.flintAssetBrowser.selectedContainer')),
-	objectKeys = _.values(asset.objects),
-	objects = [];
-	simulatorMapping = _.invert(asset.objects);
-	Flint.FS.collection('flintAssets').find({_id: {$in: objectKeys}}).forEach(function(file) {
-		objects.push({url: file.url(), simulatorId: simulatorMapping[file._id]});
-	});
-
-	return objects;
-};
