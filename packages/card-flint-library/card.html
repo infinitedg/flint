@@ -1,24 +1,24 @@
 <template name="card_flintlibrary">
 	<div class="row">
 		<div class="col-md-4">
-			{{> comp_flintassetbrowser}}
+			{{> comp_flintAssetBrowser}}
 		</div>
 		<div class="col-md-8">
-			{{#if assetSelected}}
-				{{> comp_flintassetview}}
+			{{#if containerSelected}}
+				{{> comp_flintContainerView}}
 			{{/if}}
 		</div>
 	</div>
 </template>
 
-<template name="comp_flintassetbrowser">
-	<p><strong>Path: {{currentDirectory.fullPath}}</strong></p>
+<template name="comp_flintAssetBrowser">
+	<p><strong>Path: {{currentDirectory}}</strong></p>
 	<p>
 	<div class="btn-group">
 		<button class="add-folder btn btn-primary">
 			<span class="glyphicon glyphicon-folder-open"></span>
 		</button>
-		<button class="add-asset btn btn-primary">
+		<button class="add-container btn btn-primary">
 			<span class="glyphicon glyphicon-file"></span>
 		</button>
 	</div>
@@ -31,35 +31,31 @@
 				<a href="#" class="cd-dot-dot"><span class="glyphicon-class">&laquo; Back</span></a>
 			</li>
 			{{/if}}
-			{{#each assets}}
+			{{#each folders}}
+			<li>
+				<span class="glyphicon glyphicon-folder-close"></span>
+				<a href="#" class="folder"><span class="glyphicon-class">{{name}}</span></a>
+			</li>
+			{{/each}}
+			{{#each containers}}
 			<li class="{{assetClass}}">
-				{{#if assetType "folder"}}
-					<span class="glyphicon glyphicon-folder-close"></span>
-				{{else}}
-					<span class="glyphicon glyphicon-file"></span>
-				{{/if}}
-				<a href="#" class="asset"><span class="glyphicon-class">{{name}}</span></a>
+				<span class="glyphicon glyphicon-file"></span>
+				<a href="#" class="container"><span class="glyphicon-class">{{name}}</span></a>
 			</li>
 			{{/each}}
 		</ul>
 	</div>
 </template>
 
-<template name="comp_flintassetview">
-	<h2>Asset: {{asset.name}}</h2>
-	<h3 class="selectable">Asset Path: {{asset.fullPath}}</h3>
-	<h3>Default Value</h3>
-	{{#if asset.defaultUrl}}
-		<img src="{{asset.defaultUrl}}" class="img-responsive">
-	{{/if}}
+<template name="comp_flintContainerView">
+	<h2>Asset: {{container.name}}</h2>
+	<h3 class="selectable">Asset Path: {{container.fullPath}}</h3>
 	<h3>Objects:</h3>
-	{{#if asset.objects}}
-		<ul>
-			{{#each objects}}
-				<li>{{simulatorId}} <img src="{{url}}" class="img-responsive"/></li>
-			{{/each}}
-		</ul>
-	{{/if}}
+	<ul>
+		{{#each objects}}
+			<li>{{simulatorId}} <img src="{{url}}" class="img-responsive"/></li>
+		{{/each}}
+	</ul>
 	<select>
 	{{#each simulators}}
 		<option value="{{_id}}">{{name}}</option>
