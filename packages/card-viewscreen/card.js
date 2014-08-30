@@ -632,7 +632,7 @@ Template.Sandbox.rendered = function () {
         laserCooked.update(delta, now);
         //lookTowards(laserBeam.object3d, sceneContacts[laserTarget].position , 1);
     });
-    var object3d = laserBeam.object3d();
+    var object3d = laserBeam.object3d;
     object3d.position.x = 0;
     object3d.position.y = 0.08;
     object3d.position.z = 0.08;
