@@ -1,0 +1,40 @@
+#card-transporters .powerUp{
+	height: 65vh;
+	margin-top:  5vh;
+	background-color: #000;
+	position: relative;
+}
+#card-transporters .powerUpCover{
+position: absolute;
+	width: 98%;
+	margin-left: 1%;
+	margin-top: 1%;
+	height: 50%;
+	background-color: #000;
+	border-radius: 10px;
+}
+#card-transporters .powerBar{
+	background-color: #ffff00;
+	width: 29%;
+	float: left;
+	margin-top: 3%;
+	margin-left: 3.3%;
+	height: 94%;
+	background-image: url(/themes/odyssey/public/background.png);
+	background-size: 1px 2px;
+	background-repeat: repeat;
+	border-radius: 15px;
+}
+#card-transporters .targetBox{
+margin-top: 9px;
+	height: 45vh;
+	background-color: #000;
+}
+#card-transporters .transportPossible{
+color: #ffff00;
+font-size: 30px;
+	text-align: center;
+}
+#card-transporters .btn{
+	width: 100%;
+}

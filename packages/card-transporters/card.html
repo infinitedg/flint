@@ -1,0 +1,28 @@
+<template name="card_transporters">
+	<div id="card-transporters" class="row">
+		<div class="col-xs-5">
+			<p>Target
+				<input type="text" class="form-control" id="transDesiredTarget" />
+			</p>
+			<p>Destination
+				<input type="text" class="form-control" id="transDesiredDestination" />
+			</p>
+			<button class="btn">Scan for Transporter Target</button>
+			<div class="targetBox theme-backer">
+				<div class="crossHairs"></div>
+				{{#each transporterTarget}}
+				<div class="transTarget" style={{targetStyle}} ></div>
+				{{/each}}
+			</div>
+			<div class="transportPossible {{possible}}">Transport Possible</div>
+		</div>
+		<div class="col-xs-5 col-xs-offset-2">
+			<div class="powerUp theme-backer">
+				<div class="powerUpCover"></div>
+				<div class="powerBar"></div>
+				<div class="powerBar"></div>
+				<div class="powerBar"></div>
+			</div>
+		</div>
+	</div>
+</template>
