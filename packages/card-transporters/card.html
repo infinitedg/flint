@@ -2,23 +2,24 @@
 	<div id="card-transporters" class="row">
 		<div class="col-xs-5">
 			<p>Target
-				<input type="text" class="form-control" id="transDesiredTarget" />
+				<input type="text" class="form-control" {{fieldsDisabled}} id="transDesiredTarget" />
 			</p>
 			<p>Destination
-				<input type="text" class="form-control" id="transDesiredDestination" />
+				<input type="text" class="form-control" {{fieldsDisabled}} id="transDesiredDestination" />
 			</p>
-			<button class="btn">Scan for Transporter Target</button>
+			<button class="btn transScan">{{scanBtnLabel}}</button>
 			<div class="targetBox theme-backer">
-				<div class="crossHairs"></div>
 				{{#each transporterTarget}}
-				<div class="transTarget" style={{targetStyle}} ></div>
+				<div class="transTarget" id={{targetId}} style={{targetStyle}} ></div>
 				{{/each}}
+				<div class="crossHairs"></div>
+				<div class="scanOverlay {{isScanning}}"></div>
 			</div>
 			<div class="transportPossible {{possible}}">Transport Possible</div>
 		</div>
 		<div class="col-xs-5 col-xs-offset-2">
 			<div class="powerUp theme-backer">
-				<div class="powerUpCover"></div>
+				<div class="powerUpCover" style={{powerUpStyle}}></div>
 				<div class="powerBar"></div>
 				<div class="powerBar"></div>
 				<div class="powerBar"></div>
@@ -26,3 +27,4 @@
 		</div>
 	</div>
 </template>
+

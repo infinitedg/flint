@@ -3,13 +3,14 @@
 	margin-top:  5vh;
 	background-color: #000;
 	position: relative;
+	overflow: hidden;
 }
 #card-transporters .powerUpCover{
-position: absolute;
+	position: absolute;
 	width: 98%;
 	margin-left: 1%;
 	margin-top: 1%;
-	height: 50%;
+	height: 98%;
 	background-color: #000;
 	border-radius: 10px;
 }
@@ -26,15 +27,61 @@ position: absolute;
 	border-radius: 15px;
 }
 #card-transporters .targetBox{
-margin-top: 9px;
+	margin-top: 9px;
 	height: 45vh;
 	background-color: #000;
+	position: relative;
+	overflow: hidden;
 }
 #card-transporters .transportPossible{
-color: #ffff00;
-font-size: 30px;
+	color: #ffff00;
+	font-size: 30px;
 	text-align: center;
 }
 #card-transporters .btn{
 	width: 100%;
+}
+#card-transporters .crossHairs{
+	height: 32px;
+	width: 32px;
+	transform: translate3d(0,0,1);
+	display: block;
+	position: absolute;
+	background-image: url(/packages/card-transporters/img/crosshairs.svg);
+}
+#card-transporters .transTarget{
+	height: 32px;
+	width: 32px;
+	transform: translate3d(0,0,1);
+	display: block;
+	position: absolute;
+	background-image: url(/packages/card-transporters/img/crosstarget.svg);
+}
+#card-transporters .scanOverlay{
+	width: 100%;
+	height: 100%;
+}
+#card-transporters .scan{
+	background-repeat: no-repeat;
+	background-color: #000;
+	background-image: -moz-linear-gradient(left, #000000 0%, #00ff00 5%, #000000 6%); /* FF3.6+ */
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(0%,#000000), color-stop(5%,#00ff00), color-stop(6%,#000000)); /* Chrome,Safari4+ */
+	background-image: -webkit-linear-gradient(left, #000000 0%,#00ff00 5%,#000000 6%); /* Chrome10+,Safari5.1+ */
+	background-image: -o-linear-gradient(left, #000000 0%,#00ff00 5%,#000000 6%); /* Opera 11.10+ */
+	background-image: -ms-linear-gradient(left, #000000 0%,#00ff00 5%,#000000 6%); /* IE10+ */
+	background-image: linear-gradient(to right, #000000 0%,#00ff00 5%,#000000 6%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+	animation-duration: 2.5s;
+	animation-name: transScan;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes transScan {
+	0% {
+		background-position: -100px 0;
+	}
+	100% {
+		background-position: 700px 0;
+	}
 }
