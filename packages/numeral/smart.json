@@ -1,9 +1,0 @@
-{
-  "name": "numeral",
-  "description": "Package to wrap numeral-js, a library for formatting and manipulating numbers",
-  "homepage": "https://github.com/vsivsi/meteor-numeral",
-  "author": "Vaughn Iverson (https://github.com/vsivsi)",
-  "version": "1.5.3",
-  "git": "https://github.com/vsivsi/meteor-numeral.git",
-  "packages" : {}
-}
