@@ -1,0 +1,6 @@
+<template name="flint_theme_engine">
+	<!-- Theme Engine -->
+	{{#each themes}}
+		{{> UI.dynamic template=this}}
+	{{/each}}
+</template>

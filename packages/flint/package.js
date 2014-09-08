@@ -22,9 +22,8 @@ Package.on_use(function(api) {
     'client/picker.js', 
     'client/router.js'], 
   'client');
-  api.add_files('client/assets.js', ['client', 'server']);
-  api.add_files('server/assets.js', 'server');
-  api.add_files(['client/client.js'], 'client');
+  
+  api.add_files(['client/client.js', 'client/components.js'], 'client');
   api.add_files('server/heartbeat.js', 'server');
 
   api.add_files('localization.js', ['client', 'server']);

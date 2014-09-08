@@ -2,17 +2,19 @@
 @class Flint
 */
 
-var options = {
-  "level": "info",
+var logglyOptions = {
+  "level": "verbose",
   "subdomain": "flint",
   "inputToken":"38b1d170-38dc-45fb-9e9b-f815211c5359",
   "json": true,
   "handleExceptions": true
 },
-logLevels = {"error":0,"warn":1,"help":2,"data":3,"info":4,"debug":5,"prompt":6,"verbose":7,"input":8,"silly":9};
-
-function checkLevel(str) {
-	return (logLevels[str] <= logLevels[options["level"]]);
+clientOptions = {
+	"level": "info"
+},
+serverOptions = {
+	"level": "verbose",
+	"colorize": true
 };
 
 /**
@@ -22,60 +24,67 @@ Centralized logger, modeled after Winston
 */
 if (Meteor.isServer){
 	Flint.Log = Winston;
-	Winston.cli({colorize: true});
-	Winston.add(Winston_Loggly, options);
-	Winston.info('Added winston loggly transport');
+	Flint.Log.cli(serverOptions);
+	Flint.Log.add(Winston_Loggly, logglyOptions);
+	Flint.Log.info('Added winston loggly transport');
 } else {
+	logLevels = {"error":0,"warn":1,"help":2,"data":3,"info":4,"debug":5,"prompt":6,"verbose":7,"input":8,"silly":9};
+
+	function checkLevel(str) {
+		return (logLevels[str] <= logLevels[clientOptions["level"]]);
+	};
+
+
 	Flint.Log = {
 		error: function(str) {
-			if (checkLevel('error')) {
-				console.error(str);
-			}
+				if (checkLevel('error')) {
+					console.error(str);
+				}
 		},
 		warn: function(str) {
-			if (checkLevel('warn')) {
-				console.warn(str);
-			}
+				if (checkLevel('warn')) {
+					console.warn(str);
+				}
 		},
 		help: function(str) {
-			if (checkLevel('error')) {
-				console.log(str);
-			}
+				if (checkLevel('error')) {
+		//	console.log(str);
+				}
 		},
 		data: function(str) {
-			if (checkLevel('data')) {
-				console.log(str);
-			}
+				if (checkLevel('data')) {
+		///	console.log(str);
+				}
 		},
 		info: function(str) {
-			if (checkLevel('info')) {
-				console.info(str);
-			}
+				if (checkLevel('info')) {
+					console.info(str);
+				}
 		},
 		debug: function(str) {
-			if (checkLevel('debug')) {
-				console.debug(str);
-			}
+				if (checkLevel('debug')) {
+					console.debug(str);
+				}
 		},
 		prompt: function(str) {
-			if (checkLevel('prompt')) {
-				console.log(str);
-			}
+				if (checkLevel('prompt')) {
+		//	console.log(str);
+				}
 		},
 		verbose: function(str) {
-			if (checkLevel('verbose')) {
-				console.log(str);
-			}
+				if (checkLevel('verbose')) {
+		//	console.log(str);
+				}
 		},
 		input: function(str) {
-			if (checkLevel('input')) {
-				console.log(str);
-			}
+				if (checkLevel('input')) {
+		//	console.log(str);
+				}
 		},
 		silly: function(str) {
-			if (checkLevel('silly')) {
-				console.log(str);
-			}
+				if (checkLevel('silly')) {
+		//	console.log(str);
+				}
 		},
 	};
 }

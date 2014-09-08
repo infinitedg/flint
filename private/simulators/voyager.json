@@ -6,8 +6,7 @@
             "power": 120,
             "alertCondition": 4,
             "sensorText": "Important sensor information, Captain.",
-            "_id": "voyager",
-            "stardate": "var d = new Date();var stardate = d.getMinutes() * d.getHours() + Math.floor(d.getSeconds()).toString() + '.''  + d.getMilliseconds(); return stardate;"
+            "_id": "voyager"
         }
     ]
 }
