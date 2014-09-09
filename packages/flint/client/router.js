@@ -65,8 +65,13 @@ Router.map(function () {
     action: function() {
       if (!Flint.station())
         return;
+
       // If we're not logged in, then take us to card 0 (presumably login)
-      var cardId = (Flint.client() && Flint.client().name) ? this.params.cardId : 0;
+      if (Flint.station().name != "Flint Admin"){
+        var cardId = (Flint.client() && Flint.client().name) ? this.params.cardId : 0;
+      } else {
+        var cardId = this.params.cardId;
+      }
       var card = (Flint.station().cards) ? Flint.station().cards[cardId] : {cardId: 'flint_404'};
       this.render(card.cardId);
     },
@@ -81,19 +86,4 @@ Router.map(function () {
   });
 });
 
-// Automatically change layouts based on current selection
-Flint.layout = Utils.memoize(function() {
-  if (Router.current()) {
-    var layout,
-    params = Router.current().params, 
-    station = Flint.stations.findOne(params.stationId), 
-    simulator = Flint.simulators.findOne(params.simulatorId);
 
-    if (station && simulator) { // If we haven't loaded anything, then use our default layout
-      layout = Flint.client('layout') || station.layout || simulator.layout || 'layout_default';
-    } else {
-      layout = 'flint_layout';
-    }
-    return layout;
-  }
-});

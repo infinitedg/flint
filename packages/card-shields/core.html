@@ -1,0 +1,10 @@
+<template name="core_shields">
+	<div class="coreShields">
+		Shields: {{raised}}
+		<div class="shieldBox">
+		<div class="shieldBar" style='width: {{shieldLevel}};'></div>
+			<div class="shieldDragger" style='left: calc({{shieldLevel}} - 4px);'></div>
+		</div>
+	</div>
+	<button class="btn btn-danger hitShields">Hit</button>
+</template>

@@ -1,0 +1,10 @@
+{
+  "name": "reactive-property",
+  "description": "Reactive Property is a small, fast reative property class",
+  "homepage": "https://github.com/CollectionFS/Meteor-reactive-property",
+  "author": "CollectionFS core @aldeed & @raix",
+  "version": "0.0.1",
+  "git": "https://github.com/CollectionFS/Meteor-reactive-property.git",
+  "packages": {
+  }
+}

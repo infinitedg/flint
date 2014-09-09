@@ -9,7 +9,7 @@ var a = Flint.actor({
 							triggered: doc.pingInterval.triggered,
 							period: doc.pingInterval.period
 						}
-					}
+					};
 				if (doc.pingInterval.triggered + doc.pingInterval.period < Date.now()){
 					setter.pingInterval.triggered = Date.now();
 				}

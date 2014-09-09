@@ -1,4 +1,4 @@
-var countdownEnd = new Date;
+var countdownEnd = new Date();
 
 Template.card_selfDestruct.events = {
     'mouseup .modalOpen': function(e, context) {
@@ -45,18 +45,18 @@ Template.card_selfDestruct.events = {
             return true;
         }
     
-}
+};
 
 Template.card_selfDestruct.currentCountdown = function(){
     var t = Flint.simulator().selfDestructCountdown;
     if (t == '00:00:00'){t = '';}
     return t;
-}
+};
 Template.card_selfDestruct.isOn = function(){
        var t = Flint.simulator().selfDestructCountdown; 
-     if (t == '00:00:00' || t == '' || t == null) { return '';}
+     if (t == '00:00:00' || t === '' || t === null) { return '';}
      else {return 'animating';} 
-}
+};
 
 function parseTimer(currentTime){
     var hours = Math.floor(currentTime/(60*60));

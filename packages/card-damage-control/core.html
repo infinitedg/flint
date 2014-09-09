@@ -1,0 +1,10 @@
+<template name="core_damageControl">
+	<div class="damageControl">
+		<div class="systems">
+			{{#each systems}}
+			<p class="system {{isDamaged}}" >{{name}}</p>
+			{{/each}}
+		</div>
+	</div>
+</template>
+

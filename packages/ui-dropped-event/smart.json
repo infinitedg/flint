@@ -1,0 +1,9 @@
+{
+	"name": "ui-dropped-event",
+	"description": "Add dropped event to Meteor UI Templates",
+	"homepage": "https://github.com/CollectionFS/Meteor-ui-dropped-event",
+	"author": "Eric Dobbertin (https://github.com/aldeed), Morten Henriksen (https://github.com/raix)",
+	"version": "0.0.7",
+	"git": "https://github.com/CollectionFS/Meteor-ui-dropped-event.git",
+	"packages": {}
+}

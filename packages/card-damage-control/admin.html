@@ -1,0 +1,93 @@
+<template name="card_flintdamagecontrol">
+	<div class="damageControl row">
+		<div class="col-sm-3">
+			<h4>Systems</h4>
+			<div class="systemList theme-backer">
+				{{#each systems}}
+				<p class="system">
+					{{name}}
+				</p>
+				{{/each}}
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<h4>Templates</h4>
+			<div class="templateList theme-backer">
+				{{#each damageTemplates}}
+				<p class="damageTemplate {{typeStyle}}">
+					{{name}}
+				</p>
+				{{/each}}
+			</div>
+			<button class="btn btn-primary addDamageTemplate {{templateBtnHidden}}">Add</button>
+			<button class="btn btn-warning removeDamageTemplate {{templateBtnHidden}}">Remove</button>
+		</div>
+		<div class="col-sm-7">
+			<div class="row">
+				<div class="col-sm-8">
+					<h4>Report Name</h4>
+					<input class="form-control reportName" type="text" value={{reportName}} />
+				</div>
+				<div class="col-sm-4">
+					<h4>Type</h4>
+					<label class="select reportType">
+						<select>
+							<option value="short">Short</option>
+							<option value="long">Long</option>
+							<option value="impossible">Impossible</option>
+						</select>
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-5">
+					<h4>Steps</h4>
+					<div class="stepList theme-backer">
+						{{#each damageSteps}}
+						<p id={{id}} class="damageStep">
+							{{textshort}}
+						</p>
+						{{/each}}
+					</div>
+					<button class="btn btn-primary addDamageStep {{stepBtnHidden}}">Add</button>
+					<button class="btn btn-warning removeDamageStep {{stepBtnHidden}}">Remove</button>
+				</div>
+				<div class="col-sm-7">
+					<h4>Short Description</h4>
+					<input class="shortName" type="text" value={{damageStepInfo "textshort"}} />
+					<h4>Completion Criteria</h4>
+					<ul class="completionCriteria">
+						{{#each damageStepCriteria}}
+						<li id={{criteriaId}} >
+						<p>
+						<select value={{systemSelect}} class="select systemSelect">
+							<option value="simulator">Simulator</option>
+							{{#each systems}}
+							<option value={{name}}>{{name}}</option>
+							{{/each}}
+						</select>
+						<select value={{systemValueSelect}} class="systemValueSelect">
+							{{#each systemValue}}
+							<option value={{name}}>{{name}}</option>
+							{{/each}}
+						</select>
+						= 
+						<input type="text" value={{criteriaValue}} class="criteriaValue" /></p>
+						<button class="btn btn-info btn-xs updateCriteria">Update</button>
+						<button class="btn btn-info btn-xs removeCriteria">Remove</button>
+
+					</li>
+					{{/each}}
+					<button class="btn btn-primary addCriteriaItem">Add</button>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<h4>Step Instructions</h4>
+				<textarea class="theme-backer stepInstructions">{{damageStepInfo "textfull"}}</textarea>
+			</div>
+		</div>
+	</div>
+</div>
+</template>

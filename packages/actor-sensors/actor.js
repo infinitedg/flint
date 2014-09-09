@@ -44,7 +44,7 @@ var updateTweener = function(doc) {
 		})
 		.start();
 	tweenBank[doc._id] = t;
-}
+};
 
 var fadeContacts = function(doc){
 	var oldTween = tweenBank[doc._id + "o"]; //Add on the 'o' do differentiate from movement tweens
@@ -53,19 +53,20 @@ var fadeContacts = function(doc){
 		TWEEN.remove(oldTween);
 		delete tweenBank[doc._id + "o"];
 	}
-	d = Math.sqrt(Math.pow(doc.x, 2) + Math.pow(doc.y, 2) + Math.pow(doc.z, 2)) ;
-	var t = new TWEEN.Tween({opacity: 0.6 + Math.sqrt(d)*.9})
-	.to({opacity: 0}, 7000)
-	.easing(TWEEN.Easing.Linear.None)
-	.onUpdate(function(){
-		if (this.opacity < 1){
-			Flint.collection('sensorContacts').update(doc._id, {$set: {opacity: this.opacity}});
-		}
-	})
-	.start();
+	var d = Math.sqrt(Math.pow(doc.x, 2) + Math.pow(doc.y, 2) + Math.pow(doc.z, 2));
+	var t = new TWEEN.Tween({opacity: 0.6 + Math.sqrt(d)*0.9})
+		.to({opacity: 0}, 7000)
+		.easing(TWEEN.Easing.Linear.None)
+		.onUpdate(function(){
+			if (this.opacity < 1){
+				Flint.collection('sensorContacts').update(doc._id, {$set: {opacity: this.opacity}});
+			}
+		})
+		.start();
 	tweenBank[doc._id + "o"] = t;
 
-}
+};
+
 var intervalObserver = Flint.simulators.find().observe({
 	changed: function(newDoc, oldDoc){
 		if (newDoc.pingInterval != oldDoc.pingInterval){

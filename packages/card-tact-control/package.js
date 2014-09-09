@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {
-  api.use(['templating', 'flint', 'brentjanderson:kinetic', 'underscore', 'jquery']);
+  api.use(['templating', 'flint', 'brentjanderson:kinetic', 'underscore', 'jquery', 'infinitedg:gsap']);
 
   api.add_files(['publish.js', 'model.js'], 'server');
   api.add_files(['core.html', 'core.js', 'card.css'], 'client');

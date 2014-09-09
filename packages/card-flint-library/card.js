@@ -46,7 +46,7 @@ Template.comp_flintassetbrowser.assetClass = function() {
 Template.comp_flintassetbrowser.currentDirectory = function() {
 	var d = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.currentDirectory'));
 	if (!d) {
-		return {basePath: "/", name: "root", fullPath: "/"}
+		return {basePath: "/", name: "root", fullPath: "/"};
 	} else {
 		return d;
 	}
@@ -149,26 +149,26 @@ Template.comp_flintassetview.simulators = function() {
 Template.comp_flintassetview.events({
 	'click .add-object': function(e, t) {
 		var files = t.find('input[type=file]').files; // FileList object
-        
-        for (var i = 0, ln = files.length; i < ln; i++) {
-	      Flint.FS.collection('flintAssets').insert(files[i], function (err, fileObj) {
+		var uploadObject = function (err, fileObj) {
 	        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
 	        var a = Flint.collection('flintAssets').findOne(Session.get('comp.flintassetbrowser.selectedAsset'));
-			var newObjects = a.objects;
-			newObjects[t.find('select :selected').value] = fileObj._id;
-			Flint.collection('flintAssets').update(a._id, {$set: {objects: newObjects}});
-	      });
+	        var newObjects = a.objects;
+	        newObjects[t.find('select :selected').value] = fileObj._id;
+	        Flint.collection('flintAssets').update(a._id, {$set: {objects: newObjects}});
+	    };
+	    for (var i = 0, ln = files.length; i < ln; i++) {
+	    	Flint.FS.collection('flintAssets').insert(files[i], uploadObject);
 	    }
 	},
 	'click .set-default': function(e, t) {
 		var files = t.find('input[type=file]').files; // FileList object
-        
-        for (var i = 0, ln = files.length; i < ln; i++) {
-	      Flint.FS.collection('flintAssets').insert(files[i], function (err, fileObj) {
+		var uploadDefault = function (err, fileObj) {
 	        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-	       Flint.collection('flintAssets').update(Session.get('comp.flintassetbrowser.selectedAsset'), {$set: {defaultObject: fileObj._id}});
-	      });
-	    }
+	        Flint.collection('flintAssets').update(Session.get('comp.flintassetbrowser.selectedAsset'), {$set: {defaultObject: fileObj._id}});
+	    };
+		for (var i = 0, ln = files.length; i < ln; i++) {
+			Flint.FS.collection('flintAssets').insert(files[i], uploadDefault);
+		}
 	},
 	'click img': function(e, t) {
 		$(e.target).toggleClass('enlarged');
