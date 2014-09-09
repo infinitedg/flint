@@ -1,9 +1,13 @@
+Template.core_transporters.alert = function(){
+	if (Flint.system('Transporters','state') == 'scanning'){
+		return "alert";
+	}
+}
 Template.core_transporters.information = function(){
-
+	return Flint.system('Transporters','state') + ": " + Flint.system('Transporters','target');
 };
 Template.core_transporters.targetNum = function(){
 	return Flint.system('Transporters','targets').length;
-
 };
 Template.core_transporters.events = {
 	'click .transporterTargetNum' : function(e,t){
@@ -27,5 +31,10 @@ Template.core_transporters.events = {
 			}
 		}
 		Flint.system('Transporters','targets',newArray);
+		if (num == 0) {
+			Flint.system('Transporters','state','idle');
+		}else {
+			Flint.system('Transporters','state','targets');
+		}
 	}
 }

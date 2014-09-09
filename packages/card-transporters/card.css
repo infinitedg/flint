@@ -1,3 +1,24 @@
+
+#core-transporters .transporterInfo{
+	width: 150px;
+	height: 22px;
+	border: solid 2px #3E95CF;
+	background-color: #0099ff;
+	color: #000;
+}
+#core-transporters .transporterTargetNum{
+	width: 30px;
+	height: 22px;
+	border: solid 2px #CFB23E;
+	background-color: #CFBA62;
+	color: #000;
+	text-align: center;
+}
+#core-transporters .alert{
+	background-color: #f00;
+	color: #000;
+	border: solid 2px #CF3E3E;
+}
 #card-transporters .powerUp{
 	height: 65vh;
 	margin-top:  5vh;
