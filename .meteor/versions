@@ -46,6 +46,7 @@ card-sensor-grid@0.1.0
 card-sensor3d@0.1.0
 card-shields@0.1.0
 card-speed@0.1.0
+card-status@0.1.0
 card-tact-control@0.1.0
 card-targeting@0.1.0
 card-thrusters@0.1.0

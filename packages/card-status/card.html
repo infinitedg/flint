@@ -1,0 +1,12 @@
+<template name="card_status">
+	<div class="card_status row">
+	{{#each listStatus}}
+		<h4>{{name}}</h4>
+		{{#each statusCounter}}
+			<div style="width: 10px; height: 10px; background-color: {{this}}"></div>
+		{{/each}}
+	{{/each}}
+	</div>
+</template>
+
+
