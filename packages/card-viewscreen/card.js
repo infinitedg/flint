@@ -8,7 +8,6 @@ var planetMesh;
 var onRenderFcts = [];
 var hyperBox;
 var laserBeam;
-var laserTarget = "s3g9SNNseYcv53F46";
 var viewRadius = 30,
 viewWidth = 500,
 viewHeight = 500;
@@ -357,6 +356,7 @@ Template.Sandbox.rendered = function () {
     document.getElementById('viewscreen').appendChild(renderer.domElement);
     /*Ships Scene*/
     scene = new THREE.Scene();
+    window.scene = scene;
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.29, 10000);
     cameras.push(camera);
 
@@ -624,14 +624,65 @@ Template.Sandbox.rendered = function () {
         scene.add(wormholeMesh4);
         */
 
+        window.laserHolder = new THREE.Object3D;
+laserMaker = laserMaker || {}
 
-    laserBeam = new THREEx.LaserBeam(0xAB4444);
-    scene.add(laserBeam.object3d);
+laserMaker.LaserBeam    = function(color){
+    color = color || 0x4444aa;
+    var object3d    = new THREE.Object3D()
+    this.object3d   = object3d
+    // generate the texture
+    var canvas  = generateLaserBodyCanvas()
+    var texture = new THREE.Texture( canvas )
+    texture.needsUpdate = true;
+    // do the material  
+    var material    = new THREE.MeshBasicMaterial({
+        map     : texture,
+        blending    : THREE.AdditiveBlending,
+        color       : color,
+        side        : THREE.DoubleSide,
+        depthWrite  : false,
+        transparent : true
+    })
+    var geometry    = new THREE.PlaneGeometry(1, 0.05)
+    var nPlanes = 16;
+    for(var i = 0; i < nPlanes; i++){
+        var mesh    = new THREE.Mesh(geometry, material)
+        mesh.position.x = 1/2
+        mesh.rotation.x = i/nPlanes * Math.PI
+        object3d.add(mesh)
+    }
+    return
+    
+    function generateLaserBodyCanvas(){
+        // init canvas
+        var canvas  = document.createElement( 'canvas' );
+        var context = canvas.getContext( '2d' );
+        canvas.width    = 1;
+        canvas.height   = 64;
+        // set gradient
+        var gradient    = context.createLinearGradient(0, 0, canvas.width, canvas.height);      
+        gradient.addColorStop( 0  , 'rgba(  0,  0,  0,0.1)' );
+        gradient.addColorStop( 0.1, 'rgba(160,160,160,0.3)' );
+        gradient.addColorStop( 0.5, 'rgba(255,255,255,0.5)' );
+        gradient.addColorStop( 0.9, 'rgba(160,160,160,0.3)' );
+        gradient.addColorStop( 1.0, 'rgba(  0,  0,  0,0.1)' );
+        // fill the rectangle
+        context.fillStyle   = gradient;
+        context.fillRect(0,0, canvas.width, canvas.height);
+        // return the just built canvas 
+        return canvas;  
+    }
+}
+
+
+    laserBeam = new laserMaker.LaserBeam(0xAB4444);
     var laserCooked = new THREEx.LaserCooked(laserBeam, scene);
     onRenderFcts.push(function (delta, now) {
         laserCooked.update(delta, now);
         //lookTowards(laserBeam.object3d, sceneContacts[laserTarget].position , 1);
     });
+    window.laserBeam = laserBeam;
     var object3d = laserBeam.object3d;
     object3d.position.x = 0;
     object3d.position.y = 0.08;
@@ -642,6 +693,9 @@ Template.Sandbox.rendered = function () {
         //object3d.rotation.x = (laserX);          
         //object3d.rotation.z = (laserY);
     });
+    window.laserHolder.add(laserBeam);
+    scene.add(laserHolder);
+
 
     //Ship Textures
     var texture = new THREE.Texture();
