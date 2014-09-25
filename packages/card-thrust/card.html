@@ -1,0 +1,44 @@
+<template name="card_thrust">
+	<div class="row card-thrust">
+		<div class="col-sm-6">
+		<div class="speedLabels">
+			{{#each speedNums}}
+			<div>{{this}}</div>
+			{{/each}}
+			</div>
+			<input type="text" id="thrust" value="1" data-slider-min="-3" data-slider-max="6" data-slider-step="1" data-slider-value="0" data-slider-orientation="vertical" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden;">
+
+		</div>
+		<div class="col-sm-6">
+			<div class="gaugeGroup">
+				<div class="gauge">
+					<img src="/packages/card-thrust/img/gauge.svg" />
+
+					<div class="arrow" style={{velocityArrow}}>
+					</div>
+				</div>
+				<span class="gaugeLabel">Velocity: {{velocity}} km/s</span>
+			</div>
+			<div class="gaugeGroup">
+				<div class="gauge">
+
+					<img src="/packages/card-thrust/img/gauge.svg" />
+
+					<div class="arrow" style={{heatArrow}}>
+					</div>
+				</div>
+				<span class="gaugeLabel">Heat: {{heat}}K</span>
+			</div>
+			<div class="gaugeGroup">
+				<div class="gauge">
+					<img src="/packages/card-thrust/img/gauge.svg" />
+
+					<div class="arrow" style={{efficiencyArrow}}>
+					</div>
+					
+				</div>
+				<span class="gaugeLabel">Efficiency: {{efficiency}} E</span>
+			</div>
+		</div>
+	</div>
+</template>
