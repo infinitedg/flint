@@ -2,6 +2,10 @@
   "dependencies": [
     [
       "application-configuration",
+      "1.0.2"
+    ],
+    [
+      "base64",
       "1.0.0"
     ],
     [
@@ -33,12 +37,16 @@
       "0.0.0"
     ],
     [
+      "ddp",
+      "1.0.8"
+    ],
+    [
       "deps",
-      "1.0.1"
+      "1.0.3"
     ],
     [
       "ejson",
-      "1.0.0"
+      "1.0.2"
     ],
     [
       "emitter",
@@ -46,7 +54,7 @@
     ],
     [
       "follower-livedata",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "geojson-utils",
@@ -54,7 +62,7 @@
     ],
     [
       "http",
-      "1.0.3"
+      "1.0.5"
     ],
     [
       "id-map",
@@ -70,23 +78,27 @@
     ],
     [
       "livedata",
-      "1.0.7"
+      "1.0.9"
     ],
     [
       "logging",
-      "1.0.2"
+      "1.0.3"
     ],
     [
       "meteor",
-      "1.0.2"
+      "1.1.0"
     ],
     [
       "minimongo",
-      "1.0.1"
+      "1.0.3"
+    ],
+    [
+      "mongo",
+      "1.0.5"
     ],
     [
       "mongo-livedata",
-      "1.0.3"
+      "1.0.4"
     ],
     [
       "ordered-dict",
@@ -101,11 +113,19 @@
       "1.0.0"
     ],
     [
+      "tracker",
+      "1.0.2"
+    ],
+    [
       "underscore",
+      "1.0.0"
+    ],
+    [
+      "url",
       "1.0.0"
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.26",
+  "toolVersion": "meteor-tool@1.0.31",
   "format": "1.0"
 }
