@@ -1,9 +1,7 @@
 Template.card_status.listStatus = function(){
-	debugger;
 	return Flint.card().status;
 }
 Template.card_status.statusCounter = function(){
-	debugger;
 	var collection = Flint.collection(this.collection);
 	var doc = collection.findOne(this.document);
 	if (this.type == "bar"){
@@ -20,11 +18,11 @@ Template.card_status.statusCounter = function(){
 		} else {
 			max = this.max
 		}
-		var value = Math.round(((doc[this.key] - min) / (max - min))*10);
+		var value = Math.round((doc[this.key] - min) / (max - min)*10);
 		for (i = 0; i < value; i++){
-			if (i < 4){
+			if (i < 2){
 				returner.push('red');
-			} else if (i < 7){
+			} else if (i < 8){
 				returner.push('blue');
 			} else {
 				returner.push('green');
@@ -33,3 +31,4 @@ Template.card_status.statusCounter = function(){
 	}
 	return returner;
 }
+
