@@ -1,0 +1,53 @@
+.card-wormhole .slider{
+	margin-left: 50%;
+	margin-top: 50px;
+	height: 65vh !important;
+}
+.card-wormhole .slider .slider-selection{
+	background: transparent;
+}
+.card-wormhole .slider .slider-track{
+	width: 20px !important;
+	background: rgba(255,255,255,0.1);
+	box-shadow: inset -2px -3px 10px rgba(255,255,255,0.25), inset 2px 3px 10px rgba(0,0,0,0.25), 0px 0px 5px rgba(0,0,0,0.25);
+}
+.card-wormhole .slider .slider-handle{
+	width: 2000%;
+	height: 40px;
+	border-radius: 4px;
+	left: -1000%;
+}
+
+.gauge{
+	position: relative;
+	width: 50%;
+	overflow: hidden;
+}
+.gauge img{
+	width: 100%;
+	position: relative;
+}
+.gauge .arrow{
+	position: absolute;
+	width:  1.1%;
+	height: 240%;
+	background-color: #f00;
+	left: 49.555%;
+	bottom: -175%;
+	-webkit-transform-origin-y: bottom;
+}
+.gauge .gaugeLabel{
+	width: 50%;
+	position: absolute;
+	text-align: center;
+	margin-top: 5px;
+}
+.speedLabels{
+	position:absolute;
+	top: 48px;
+	left: 45%;
+	text-align: center;
+}
+.speedLabels div{
+margin-bottom: 4.65vh;
+}
