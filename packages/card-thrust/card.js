@@ -12,7 +12,7 @@ Template.card_thrust.rendered = function () {
         },
         changed: function(id, fields) {
             if (typeof fields.thrust != undefined) {
-                $('#thrust').slider('setValue', Math.abs(parseInt(fields.thrust,10)-9)-6);
+            //    $('#thrust').slider('setValue', Math.abs(parseInt(fields.thrust,10)-9)-6);
             }
         }
     });
@@ -27,7 +27,7 @@ Template.card_thrust.velocity = function(){
     return Flint.system('Engines','velocity');
 }
 Template.card_thrust.heat = function(){
-    return Flint.system('Engines','heat');
+    return Flint.system('Engines','heat') + 293.2;
 }
 Template.card_thrust.efficiency = function(){
     return Flint.system('Engines','efficiency');

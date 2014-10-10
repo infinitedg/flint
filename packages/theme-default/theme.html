@@ -126,8 +126,8 @@ header.row-fluid .alertLevelNum{
  text-shadow: 3px 3px 5px rgba(0,0,0,.7);
 }
 
-header.row-fluid h2{font-size: 30px; font-size: 2.2vw; position: relative; top: -3px}
-header.row-fluid h3{font-size: 24px; font-size: 2.2vw; position: relative; top: 13px;}
+header.row-fluid h2{font-size: 30px; font-size: 2.2vw; position: relative; line-height: .5;}
+header.row-fluid h3{font-size: 24px; font-size: 2.2vw; position: relative; top: 18px;}
 
 header .background{-webkit-clip-path: polygon(.3% 2%, .3% 97%, 30.5% 97%, 34.1% 57%, .3% 57%, .3% 45%, 34.9% 45%, 38.6% 2%, 40.1% 2%, 36.4% 45%, 89.6% 45%, 85.9% 2%, 87.4% 2%, 94.3% 83% , 99.8% 83%, 99.8% 2%, .4% 2%  );} 
 header .backgroundBezel{
@@ -677,6 +677,9 @@ html, body, .perspective {
 
 <template name="theme_vangaurdButtons">
   <style>
+    .btn{
+      text-transform:uppercase;
+    }
     .btn-default:active,
     .btn-default.active {
       background-color: transparent;
@@ -692,7 +695,7 @@ html, body, .perspective {
       background: url(/themes/default/public/svg/default.svg);
       background-color: transparent;
       *background-color: transparent;
-      color: #ccc;
+      color: #f0f0f0;
       text-shadow: 0px 0px 5px rgba(255, 255, 255, 1); 
     }
     .btn.btn-default, .btn.null{
@@ -728,7 +731,7 @@ html, body, .perspective {
       background: url(/themes/default/public/svg/attention.svg);
       background-color: transparent;
       *background-color: transparent;
-      color: #ccc;
+      color: #f0f0f0;
       text-shadow: 0px 0px 5px rgba(255, 255, 255, 1); 
     }
     .btn.btn-primary{
@@ -764,7 +767,7 @@ html, body, .perspective {
       background: url(/themes/default/public/svg/nominal.svg);
       background-color: transparent;
       *background-color: transparent;
-      color: #ccc;
+      color: #f0f0f0;
       text-shadow: 0px 0px 5px rgba(255, 255, 255, 1); 
     }
     .btn.btn-info{
@@ -836,7 +839,7 @@ html, body, .perspective {
       background: url(/themes/default/public/svg/warning.svg);
       background-color: transparent;
       *background-color: transparent;
-      color: #ccc;
+      color: #f0f0f0;
       text-shadow: 0px 0px 5px rgba(255, 255, 255, 1); 
     }
     .btn.btn-warning{
@@ -872,7 +875,7 @@ html, body, .perspective {
       background: url(/themes/default/public/svg/danger.svg);
       background-color: transparent;
       *background-color: transparent;
-      color: #ccc;
+      color: #f0f0f0;
       text-shadow: 0px 0px 5px rgba(255, 255, 255, 1); 
     }
     .btn.btn-danger{

@@ -30,6 +30,10 @@
       "maxPower": 20,
       "power": 7,
       "_id": "systems-voyager-warpCore"
+    },
+    {
+      "name" : "Efficiency",
+      "_id": "systems-voygaer-efficiency"
     }
   ]
 }
