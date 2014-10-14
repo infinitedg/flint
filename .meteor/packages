@@ -26,8 +26,6 @@ bootstrap-contextjs
 infinitedg:bootstrap-slider-touch
 
 ui-dropped-event
-http-publish
-http-methods
 
 flint
 flint-debug
@@ -101,4 +99,5 @@ flint-assets
 macro-sounds
 cfs:standard-packages
 cfs:filesystem
+cfs:gridfs
 
