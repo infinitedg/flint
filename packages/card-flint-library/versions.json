@@ -73,11 +73,7 @@
       "0.0.0"
     ],
     [
-<<<<<<< HEAD
-      "cfs-worker",
-=======
       "cfs:reactive-property",
->>>>>>> d0920a55082db28ba96006863323f650d37098ac
       "0.0.0"
     ],
     [
@@ -142,15 +138,7 @@
     ],
     [
       "htmljs",
-<<<<<<< HEAD
-      "1.0.0"
-    ],
-    [
-      "http",
-      "1.0.3"
-=======
       "1.0.2"
->>>>>>> d0920a55082db28ba96006863323f650d37098ac
     ],
     [
       "http",
@@ -294,10 +282,6 @@
     ]
   ],
   "pluginDependencies": [],
-<<<<<<< HEAD
-  "toolVersion": "meteor-tool@1.0.26",
-=======
   "toolVersion": "meteor-tool@1.0.34",
->>>>>>> d0920a55082db28ba96006863323f650d37098ac
   "format": "1.0"
 }

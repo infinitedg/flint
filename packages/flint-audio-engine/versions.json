@@ -93,13 +93,8 @@
       "1.0.1"
     ],
     [
-<<<<<<< HEAD:packages/collectionfs/versions.json
-      "http",
-      "1.0.3"
-=======
       "iron:core",
       "0.3.4"
->>>>>>> d0920a55082db28ba96006863323f650d37098ac:packages/flint-audio-engine/versions.json
     ],
     [
       "iron:dynamic-template",
@@ -207,10 +202,6 @@
     ]
   ],
   "pluginDependencies": [],
-<<<<<<< HEAD:packages/collectionfs/versions.json
-  "toolVersion": "meteor-tool@1.0.26",
-=======
   "toolVersion": "meteor-tool@1.0.34",
->>>>>>> d0920a55082db28ba96006863323f650d37098ac:packages/flint-audio-engine/versions.json
   "format": "1.0"
 }

@@ -2,7 +2,7 @@
 @module Templates
 @submodule Cards
 */
- 
+
 /**
 Station card for logging the user in by name (No authentication)
 @class card_login
@@ -49,9 +49,11 @@ Template.card_login.events = {
   }
 };
 
-Template.card_login.loginImage = function(){
-  return Flint.a("/Login");
-};
-Template.card_login.client = function() {
-  return Flint.client();
-};
+Template.card_login.helpers({
+  loginImage: function(){
+    return Flint.a("/Login");
+  },
+  client: function() {
+    return Flint.client();
+  }
+});

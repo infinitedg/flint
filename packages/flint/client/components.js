@@ -1,9 +1,11 @@
-Template.flint_components.components = function() {
-	return Flint.components();
-};
+Template.flint_components.helpers({
+	components: function() {
+		return Flint.components();
+	}
+});
 
 var _componentDep = new Deps.Dependency,
-	_components = {};
+_components = {};
 
 Flint.addComponent = function(compName) {
 	_components[compName] = 1;
