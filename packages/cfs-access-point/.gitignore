@@ -1,5 +1,0 @@
-.build*
-.npm*
-/nbproject*
-/packages/
-*.DS_Store
