@@ -1,14 +1,17 @@
-Template.core_damageControl.systems = function(){
-	return Flint.system();
-};
-Template.core_damageControl.isDamaged = function(){
-	if (this.damageStatus == "damaged"){
-		return "damaged";
+Template.core_damageControl.helpers({
+	systems: function(){
+		return Flint.system();
+	},
+	isDamaged: function(){
+		if (this.damageStatus == "damaged"){
+			return "damaged";
+		}
+		else {
+			return false;
+		}
 	}
-	else {
-		return false;
-	}
-};
+});
+
 Template.core_damageControl.events = {
 	'click .system' : function(e){
 		if (Flint.system(this.name,'damageStatus') == "damaged"){
@@ -20,6 +23,7 @@ Template.core_damageControl.events = {
 		e.preventDefault();
 	}
 };
+
 Template.core_damageControl.created = function() {
 
   this.subscription = Deps.autorun(function() {

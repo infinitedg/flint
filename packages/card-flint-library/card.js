@@ -1,36 +1,48 @@
-Template.card_flintlibrary.cardName = "Flint Library";
+Template.card_flintlibrary.helpers({
+	cardName: "Flint Library",
+	containers: function() {
+		var sel = {
+			folderPath: Session.get('comp.flintAssetBrowser.currentDirectory') || '/'
+		};
+		return Flint.collection('flintAssetContainers').find(sel);
+	},
+	folders: function() {
+		var sel = {
+			folderPath: Session.get('comp.flintAssetBrowser.currentDirectory') || '/'
+		};
+		return Flint.collection('flintAssetFolders').find(sel);
+	},
+	containerSelected: function() {
+		return (!Session.equals('comp.flintAssetBrowser.selectedContainer', undefined));
+	},
+	assetClass: function() {
+		if (Session.equals('comp.flintAssetBrowser.selectedContainer', this._id)) {
+			return "selected-container";
+		}
+	},
+	currentDirectory: function() {
+		return Session.get('comp.flintAssetBrowser.currentDirectory');
+	},
+	notRoot: function() {
+		return !Session.equals('comp.flintAssetBrowser.currentDirectory', '/');
+	},
+	container: function() {
+		return Flint.collection('flintAssetContainers').findOne(Session.get('comp.flintAssetBrowser.selectedContainer'));
+	},
+	objects: function() {
+		return Flint.collection('flintAssetObjects').find({containerId: Session.get('comp.flintAssetBrowser.selectedContainer')});
+		return objects;
+	},
+	simulators: function() {
+		var objects = Flint.collection('flintAssetObjects').find({containerId: Session.get('comp.flintAssetBrowser.selectedContainer')}).fetch();
 
-Template.comp_flintAssetBrowser.containers = function() {
-	var sel = {
-		folderPath: Session.get('comp.flintAssetBrowser.currentDirectory') || '/'
-	};
-	return Flint.collection('flintAssetContainers').find(sel);
-};
-
-Template.comp_flintAssetBrowser.folders = function() {
-	var sel = {
-		folderPath: Session.get('comp.flintAssetBrowser.currentDirectory') || '/'
-	};
-	return Flint.collection('flintAssetFolders').find(sel);
-};
-
-Template.card_flintlibrary.containerSelected = function() {
-	return (!Session.equals('comp.flintAssetBrowser.selectedContainer', undefined));
-};
-
-Template.comp_flintAssetBrowser.assetClass = function() {
-	if (Session.equals('comp.flintAssetBrowser.selectedContainer', this._id)) {
-		return "selected-container";
+		// The difference between all simulators and those already defined
+		var objectSimulators = _.pluck(objects, "simulatorId");
+		var allSimulators = _.pluck(_.union(Flint.simulators.find().fetch()), "simulatorId");
+		var diffSimulators = _.difference(allSimulators, objectSimulators);
+		return Flint.simulators.find({ simulatorId: {$in: diffSimulators}});
 	}
-};
-
-Template.comp_flintAssetBrowser.currentDirectory = function() {
-	return Session.get('comp.flintAssetBrowser.currentDirectory');
-};
-
-Template.comp_flintAssetBrowser.notRoot = function() {
-	return !Session.equals('comp.flintAssetBrowser.currentDirectory', '/');
-};
+});
 
 Template.comp_flintAssetBrowser.created = function() {
 	Session.set('comp.flintAssetBrowser.currentDirectory', "/"); // Root view
@@ -87,25 +99,6 @@ Template.comp_flintAssetBrowser.events({
 /// comp_flintContainerView
 Template.comp_flintContainerView.created = function() {
 	Meteor.subscribe("flint.assets.simulators");
-};
-
-Template.comp_flintContainerView.container = function() {
-	return Flint.collection('flintAssetContainers').findOne(Session.get('comp.flintAssetBrowser.selectedContainer'));
-};
-
-Template.comp_flintContainerView.objects = function() {
-	return Flint.collection('flintAssetObjects').find({containerId: Session.get('comp.flintAssetBrowser.selectedContainer')});
-	return objects;
-};
-
-Template.comp_flintContainerView.simulators = function() {
-	var objects = Flint.collection('flintAssetObjects').find({containerId: Session.get('comp.flintAssetBrowser.selectedContainer')}).fetch();
-
-	// The difference between all simulators and those already defined
-	var objectSimulators = _.pluck(objects, "simulatorId");
-	var allSimulators = _.pluck(_.union(Flint.simulators.find().fetch()), "simulatorId");
-	var diffSimulators = _.difference(allSimulators, objectSimulators);
-	return Flint.simulators.find({ simulatorId: {$in: diffSimulators}});
 };
 
 Template.comp_flintContainerView.events({

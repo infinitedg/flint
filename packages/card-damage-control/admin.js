@@ -71,6 +71,7 @@ saveStep = function (context) {
     Session.set('selectedDamageStep', step);
     Session.set('selectedDamageReport', report);
 };
+
 Template.card_flintdamagecontrol.rendered = function () {
     var context = this;
     $(this.find('.stepList')).sortable({ // uses the 'sortable' interaction from jquery ui
@@ -80,91 +81,93 @@ Template.card_flintdamagecontrol.rendered = function () {
     });
 };
 
-Template.card_flintdamagecontrol.systems = function () {
-    return Flint.system();
-};
-Template.card_flintdamagecontrol.systemValue = function () {
-    if (Session.get('selectedSystem-damageSteps')) {
-        var system = Session.get('selectedSystem-damageSteps');
-        var output = [];
-        for (var key in system) {
-            var obj = {
-                'name': key
-            };
-            output.push(obj);
+Template.card_flintdamagecontrol.helpers({
+    systems: function () {
+        return Flint.system();
+    },
+    systemValue: function () {
+        if (Session.get('selectedSystem-damageSteps')) {
+            var system = Session.get('selectedSystem-damageSteps');
+            var output = [];
+            for (var key in system) {
+                var obj = {
+                    'name': key
+                };
+                output.push(obj);
+            }
+            return output;
+        } else {
+            return ["--"];
         }
-        return output;
-    } else {
-        return ["--"];
-    }
-};
-Template.card_flintdamagecontrol.damageTemplates = function () {
-    if (Session.get('selectedSystem-damage') !== undefined) {
+    },
+    damageTemplates: function () {
+        if (Session.get('selectedSystem-damage') !== undefined) {
 
-        if (Flint.system(Session.get('selectedSystem-damage').name).damageReportTemplates === undefined) {
-            Flint.system(Session.get('selectedSystem-damage').name, 'damageReportTemplates', []);
+            if (Flint.system(Session.get('selectedSystem-damage').name).damageReportTemplates === undefined) {
+                Flint.system(Session.get('selectedSystem-damage').name, 'damageReportTemplates', []);
+            }
+            return Flint.system(Session.get('selectedSystem-damage').name, "damageReportTemplates");
+        } else {
+            return false;
         }
-        return Flint.system(Session.get('selectedSystem-damage').name, "damageReportTemplates");
-    } else {
-        return false;
-    }
-};
-Template.card_flintdamagecontrol.reportName = function () {
-    if (Session.get('selectedDamageReport') !== undefined) {
+    },
+    reportName: function () {
         if (Session.get('selectedDamageReport') !== undefined) {
-            return Session.get('selectedDamageReport').name;
+            if (Session.get('selectedDamageReport') !== undefined) {
+                return Session.get('selectedDamageReport').name;
+            }
+        } else {
+            return false;
         }
-    } else {
-        return false;
-    }
-};
-Template.card_flintdamagecontrol.damageSteps = function () {
-    if (Session.get('selectedDamageReport') !== undefined) {
+    },
+    damageSteps: function () {
         if (Session.get('selectedDamageReport') !== undefined) {
-            return Session.get('selectedDamageReport').steps;
+            if (Session.get('selectedDamageReport') !== undefined) {
+                return Session.get('selectedDamageReport').steps;
+            }
+        } else {
+            return false;
         }
-    } else {
-        return false;
+    },
+    damageStepInfo: function (which) {
+        if (Session.get('selectedDamageStep') !== undefined) {
+            return Session.get('selectedDamageStep')[which];
+        }
+    },
+    damageStepCriteria: function () {
+        if (Session.get('selectedDamageStep') !== undefined) {
+            return Session.get('selectedDamageStep').completionCriteria;
+        }
+    },
+    criteriaId: function (e) {
+        return this.id;
+    },
+    systemSelect: function (e) {
+        return this.system;
+    },
+    systemValueSelect: function (e) {
+        return this.systemValue;
+    },
+    criteriaValue: function (e) {
+        return this.value;
+    },
+    templateBtnHidden: function () {
+        if (Session.get('selectedSystem-damage') !== undefined) {
+            return false;
+        } else {
+            return 'hidden';
+        }
+    },
+    stepBtnHidden: function () {
+        if (Session.get('selectedDamageReport') !== undefined) {
+            return false;
+        } else {
+            return 'hidden';
+        }
     }
-};
-Template.card_flintdamagecontrol.damageStepInfo = function (which) {
-    if (Session.get('selectedDamageStep') !== undefined) {
-        return Session.get('selectedDamageStep')[which];
-    }
-};
-Template.card_flintdamagecontrol.damageStepCriteria = function () {
-    if (Session.get('selectedDamageStep') !== undefined) {
-        return Session.get('selectedDamageStep').completionCriteria;
-    }
-};
-Template.card_flintdamagecontrol.criteriaId = function (e) {
-    return this.id;
-};
-Template.card_flintdamagecontrol.systemSelect = function (e) {
-    return this.system;
-};
-Template.card_flintdamagecontrol.systemValueSelect = function (e) {
-    return this.systemValue;
-};
-Template.card_flintdamagecontrol.criteriaValue = function (e) {
-    return this.value;
-};
-Template.card_flintdamagecontrol.templateBtnHidden = function () {
-    if (Session.get('selectedSystem-damage') !== undefined) {
-        return false;
-    } else {
-        return 'hidden';
-    }
-};
-Template.card_flintdamagecontrol.stepBtnHidden = function () {
-    if (Session.get('selectedDamageReport') !== undefined) {
-        return false;
-    } else {
-        return 'hidden';
-    }
-};
+});
 
-Template.card_flintdamagecontrol.events = {
+Template.card_flintdamagecontrol.events({
     'click .system': function (e) {
         Flint.beep();
         Session.set('selectedSystem-damage', this);
@@ -423,4 +426,4 @@ Template.card_flintdamagecontrol.events = {
         Session.set('selectedDamageReport', report);
     }
 
-};
+});
