@@ -1,15 +1,18 @@
-Template.core_courseCalculation.currentCoordinates = function(axis) {
-	return Flint.simulator('currentCoordinates')[axis];
-};
-Template.core_courseCalculation.calculatedCoordinates = function(axis){
-	return Flint.simulator('desiredCoordinates')[axis];
-};
-Template.core_courseCalculation.desiredCourse = function(which){
-	var course = Flint.simulator('desiredCourse');
-	if (course.substr(-1,1) == '*'){return course.slice(0,-1);}
-	else {return course;}
-};
-Template.core_courseCalculation.events = {
+Template.core_courseCalculation.helpers({
+	currentCoordinates: function(axis) {
+		return Flint.simulator('currentCoordinates')[axis];
+	},
+	calculatedCoordinates: function(axis){
+		return Flint.simulator('desiredCoordinates')[axis];
+	},
+	desiredCourse: function(which){
+		var course = Flint.simulator('desiredCourse');
+		if (course.substr(-1,1) == '*'){return course.slice(0,-1);}
+		else {return course;}
+	}
+});
+
+Template.core_courseCalculation.events({
 	'click .sendCourse': function(){
 		if (Flint.simulator('desiredCourse').substr(-1,1) == '*'){
 			var course = Flint.simulator('desiredCourse').slice(0,-1);
@@ -32,7 +35,8 @@ Template.core_courseCalculation.events = {
 		$('.calculatedY').val('Course');
 		$('.calculatedZ').val('Available');
 	}
-};
+});
+
 getRandomInt = function(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };

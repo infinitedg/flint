@@ -13,8 +13,23 @@ The current alert condition. Also has a side-effect where it issues a notificati
 @property alertCondition
 @type Number
 */
-Template.core_alertCondition.alertCondition = function() {
-  return Flint.simulator('alertCondition');
+Template.core_alertCondition.helpers({
+  alertCondition: function() {
+    Flint.simulator('alertCondition');
+  },
+  destroyed: function() {
+    this.conditionObserver.stop();
+  }
+});
+
+Template.core_alertCondition.created = function() {
+  this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+    changed: function(id, fields) {
+      if (fields.alertCondition) {
+          Flint.notify('Alert condition ' + fields.alertCondition);
+      }
+    }
+  });
 };
 
 Template.core_alertCondition.events = {
@@ -37,18 +52,4 @@ Template.core_alertCondition.events = {
     }, Flint.simulator('alertCondition'));
     e.preventDefault();
   }
-};
-
-Template.core_alertCondition.created = function() {
-  this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
-    changed: function(id, fields) {
-      if (fields.alertCondition) {
-          Flint.notify('Alert condition ' + fields.alertCondition);
-      }
-    }
-  });
-};
-
-Template.core_alertCondition.destroyed = function() {
-  this.conditionObserver.stop();
 };

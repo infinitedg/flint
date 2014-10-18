@@ -3,42 +3,46 @@ Template.core_shortRangeComm.created = function(){
     Meteor.subscribe('cards.shortRangeComm.hails', Flint.simulatorId());
   });
 };
-Template.core_shortRangeComm.commList = function(){
-  var commList = Flint.system('Short Range Communications','commList');
-  return commList;
-};
-Template.core_shortRangeComm.commStatus = function(){
-  var status;
-  if (Flint.system('Short Range Communications', 'commHail') == 'idle' || Flint.system('Short Range Communications', 'commHail') == 'connectable'){
-    status = "Disconnected";
-  } else if (Flint.system('Short Range Communications', 'commHail') == 'hailing'){
-   status = "Hailing";
- }
- else {
-   status = "Connected";
- }
- if (Flint.system('Short Range Communications', 'commMute') == 'true'){
-  status = "Muted";
-}
-var frequency = Math.floor(parseInt(Flint.system('Short Range Communications','commFrequency')) * 1.25*4.25*10)/10 + " MHz";
-return status + " - " + Flint.system('Short Range Communications','commName') + " - " + frequency;
-};
-Template.core_shortRangeComm.commOpen = function(){
-	return Flint.system('Short Range Communications','commOpen'); //Returns Open or Muted
-};
-Template.core_shortRangeComm.commConnect = function(){
-	if (Flint.system('Short Range Communications', 'commHail') == 'idle' || Flint.system('Short Range Communications', 'commHail') == 'connectable'){
-		return "---";
-	} else if (Flint.system('Short Range Communications', 'commHail') == 'hailing'){
-		return "Connect " + Flint.system('Short Range Communications', 'commName');
-	} else {
-		return "Disconnect";
-	}
-};
-Template.core_shortRangeComm.currentHails = function(){
-  return Flint.collection('currentHails').find();
-};
-Template.core_shortRangeComm.events = {
+
+Template.core_shortRangeComm.helpers({
+  commList: function(){
+    var commList = Flint.system('Short Range Communications','commList');
+    return commList;
+  },
+  commStatus: function(){
+    var status;
+    if (Flint.system('Short Range Communications', 'commHail') == 'idle' || Flint.system('Short Range Communications', 'commHail') == 'connectable'){
+      status = "Disconnected";
+    } else if (Flint.system('Short Range Communications', 'commHail') == 'hailing'){
+     status = "Hailing";
+    }
+    else {
+     status = "Connected";
+    }
+    if (Flint.system('Short Range Communications', 'commMute') == 'true'){
+    status = "Muted";
+    }
+    var frequency = Math.floor(parseInt(Flint.system('Short Range Communications','commFrequency')) * 1.25*4.25*10)/10 + " MHz";
+    return status + " - " + Flint.system('Short Range Communications','commName') + " - " + frequency;
+  },
+  commOpen: function(){
+    return Flint.system('Short Range Communications','commOpen'); //Returns Open or Muted
+  },
+  commConnect: function(){
+    if (Flint.system('Short Range Communications', 'commHail') == 'idle' || Flint.system('Short Range Communications', 'commHail') == 'connectable'){
+      return "---";
+    } else if (Flint.system('Short Range Communications', 'commHail') == 'hailing'){
+      return "Connect " + Flint.system('Short Range Communications', 'commName');
+    } else {
+      return "Disconnect";
+    }
+  },
+  currentHails: function(){
+    return Flint.collection('currentHails').find();
+  }
+});
+
+Template.core_shortRangeComm.events({
   'click .commConnect': function(e,t){
     if (Flint.system('Short Range Communications', 'commHail') == 'idle' || Flint.system('Short Range Communications', 'commHail') == 'connectable'){
       return false;
@@ -59,7 +63,8 @@ Template.core_shortRangeComm.events = {
   'click .removeHail': function(e, t){
     Flint.collection('currentHails').remove(t.find('.currentHails').value);
   }
-};
+});
+
 function commFrequency(commName){
 	if (commName == Template.core_shortRangeComm.commList()[0]){
     return Math.floor((Math.random() * 18.125) * 10)/10;
@@ -82,4 +87,4 @@ function commFrequency(commName){
   if (commName == Template.core_shortRangeComm.commList()[6]){
     return Math.floor((Math.random() * (100 - 90.625) + 90.25) * 10)/10;
   }
-}
+};

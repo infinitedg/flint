@@ -13,8 +13,13 @@ The alert condtion for the simulator
 @property alertCondition
 @type Number
 */
-Template.card_alertCondition.cardName = "Alert Condition";
 
+Template.card_alertCondition.helpers({
+  cardName: "Alert Condition",
+  alertLevel: function() {
+   return Template.layout_default.alertLevel();   
+  }
+})
 
 /**
 When you click one of the alertCondition buttons, change the alert condition to the `data-alert` attribute of the containing box
@@ -33,8 +38,4 @@ Template.card_alertCondition.events = {
   'mouseleave .alerts li': function(e) {
     $('.alertInfo').text('');
   }
-};
-
-Template.card_alertCondition.alertLevel = function() {
- return Template.layout_default.alertLevel();   
 };
