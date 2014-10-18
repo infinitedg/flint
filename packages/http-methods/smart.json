@@ -1,9 +1,0 @@
-{
-	"name": "http-methods",
-	"description": "Adds HTTP server methods - HTTP.methods RESTful",
-	"homepage": "https://github.com/CollectionFS/Meteor-http-methods",
-	"author": "Eric Dobbertin (https://github.com/aldeed), Morten Henriksen (https://github.com/raix)",
-	"version": "0.0.23",
-	"git": "https://github.com/CollectionFS/Meteor-http-methods.git",
-	"packages": {}
-}

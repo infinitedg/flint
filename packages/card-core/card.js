@@ -37,13 +37,14 @@ Setup a 5 column JQuery Masonry layout
 // 	Handlebars.registerHelper('render', _render);
 // });
 
-Template.card_core.cards = function() {
-	return Flint.station().coreWidgets;
-};
-
-Template.card_core.addWidget = function() {
-	if (Template[this.cardId])
-		return Template[this.cardId];
-	else
-		return null;
-};
+Template.card_core.helpers({
+	cards: function() {
+		return Flint.station().coreWidgets;
+	},
+	addWidget: function() {
+		if (Template[this.cardId])
+			return Template[this.cardId];
+		else
+			return null;
+	}
+});

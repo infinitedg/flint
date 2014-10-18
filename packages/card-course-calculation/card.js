@@ -125,32 +125,36 @@ submitCoordinates = function(){
 	},750);
 	selectField('');
 };
-Template.card_courseCalculation.buttonHidden = function(which){
-	var course = Flint.simulator('desiredCourse');
-	if (which == "calculate"){
-		if (course.substr(-1,1) == '*'){return 'hidden';} //Asterisk means calculating
-		else {return null;}
+
+Template.card_courseCalculation.helpers({
+	buttonHidden: function(which){
+		var course = Flint.simulator('desiredCourse');
+		if (which == "calculate"){
+			if (course.substr(-1,1) == '*'){return 'hidden';} //Asterisk means calculating
+			else {return null;}
+		}
+		if (which == "cancel"){
+			if (course.substr(-1,1) == '*'){return null;} //Asterisk means calculating
+			else {return 'hidden';}
+		}
+	},
+	starsImage: function(){
+		return Flint.a('/Stars');
+	},
+	desiredCourse: function(){
+		var course = Flint.simulator('desiredCourse');
+		if (course.substr(-1,1) == '*'){return course.slice(0,-1);}
+		else {return course;}
+	},
+	desiredCoordinates: function(axis){
+		return Flint.simulator('desiredCoordinates')[axis];
+	},
+	currentCoordinates: function(axis){
+		return Flint.simulator('currentCoordinates')[axis];
 	}
-	if (which == "cancel"){
-		if (course.substr(-1,1) == '*'){return null;} //Asterisk means calculating
-		else {return 'hidden';}
-	}
-};
-Template.card_courseCalculation.starsImage = function(){
-	return Flint.a('/Stars');
-};
-Template.card_courseCalculation.desiredCourse = function(){
-	var course = Flint.simulator('desiredCourse');
-	if (course.substr(-1,1) == '*'){return course.slice(0,-1);}
-	else {return course;}
-};
-Template.card_courseCalculation.desiredCoordinates = function(axis){
-	return Flint.simulator('desiredCoordinates')[axis];
-};
-Template.card_courseCalculation.currentCoordinates = function(axis){
-	return Flint.simulator('currentCoordinates')[axis];
-};
-Template.card_courseCalculation.events = {
+});
+
+Template.card_courseCalculation.events({
 	'keydown window': function(e,context){
 		console.log(e);
 	},
@@ -211,7 +215,7 @@ Template.card_courseCalculation.events = {
 		Flint.beep();
 		selectField('Z');
 	}
-};
+});
 
 
 Template.card_courseCalculation.rendered = function(){
