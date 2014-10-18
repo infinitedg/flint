@@ -35,6 +35,7 @@ flint-sound
 flint-speech
 flint-utils
 flint-files
+flint-assets
 
 layout-default
 layout-blackout

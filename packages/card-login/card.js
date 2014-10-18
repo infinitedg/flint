@@ -51,7 +51,7 @@ Template.card_login.events = {
 
 Template.card_login.helpers({
   loginImage: function(){
-    return Flint.a("/Login");
+    //return Flint.a("/Login");
   },
   client: function() {
     return Flint.client();

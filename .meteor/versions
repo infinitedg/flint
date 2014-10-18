@@ -81,6 +81,7 @@ deps@1.0.5
 ejson@1.0.4
 email@1.0.4
 fastclick@1.0.1
+flint-assets@0.1.0
 flint-audio-engine@0.1.0
 flint-debug@0.1.0
 flint-drama@0.1.0
