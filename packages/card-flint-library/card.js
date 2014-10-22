@@ -1,5 +1,13 @@
 Template.card_flintlibrary.helpers({
 	cardName: "Flint Library",
+	containerSelected: function() {
+		return (!Session.equals('comp.flintAssetBrowser.selectedContainer', undefined));
+	}
+});
+Template.comp_flintAssetBrowser.helpers({
+	notRoot: function() {
+		return !Session.equals('comp.flintAssetBrowser.currentDirectory', '/');
+	},
 	containers: function() {
 		var sel = {
 			folderPath: Session.get('comp.flintAssetBrowser.currentDirectory') || '/'
@@ -12,9 +20,6 @@ Template.card_flintlibrary.helpers({
 		};
 		return Flint.collection('flintAssetFolders').find(sel);
 	},
-	containerSelected: function() {
-		return (!Session.equals('comp.flintAssetBrowser.selectedContainer', undefined));
-	},
 	assetClass: function() {
 		if (Session.equals('comp.flintAssetBrowser.selectedContainer', this._id)) {
 			return "selected-container";
@@ -22,10 +27,9 @@ Template.card_flintlibrary.helpers({
 	},
 	currentDirectory: function() {
 		return Session.get('comp.flintAssetBrowser.currentDirectory');
-	},
-	notRoot: function() {
-		return !Session.equals('comp.flintAssetBrowser.currentDirectory', '/');
-	},
+	}
+});
+Template.comp_flintContainerView.helpers({
 	container: function() {
 		return Flint.collection('flintAssetContainers').findOne(Session.get('comp.flintAssetBrowser.selectedContainer'));
 	},
@@ -42,6 +46,12 @@ Template.card_flintlibrary.helpers({
 		var diffSimulators = _.difference(allSimulators, objectSimulators);
 		return Flint.simulators.find({ simulatorId: {$in: diffSimulators}});
 	}
+});
+
+
+
+
+
 });
 
 Template.comp_flintAssetBrowser.created = function() {
@@ -109,7 +119,7 @@ Template.comp_flintContainerView.events({
 		        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
 		        var simulatorId = t.find('select :selected').value;
 		        var object = Flint.collection('flintAssetObjects').findOne({
-					containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
+		        	containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
 		        	simulatorId: simulatorId
 		        });
 
@@ -118,8 +128,8 @@ Template.comp_flintContainerView.events({
 		        if (object) {
 		        	Flint.collection('flintAssetObjects').update(object._id,
 		        	{
-			        	objectId: fileObj._id
-			        });
+		        		objectId: fileObj._id
+		        	});
 		        } else {
 		        	Flint.collection('flintAssetObjects').insert({
 		        		simulatorId: simulatorId,
@@ -130,10 +140,10 @@ Template.comp_flintContainerView.events({
 		    } else {
 		    	Flint.Log.error(err);
 		    }
-	    };
-	    for (var i = 0, ln = files.length; i < ln; i++) {
-	    	Flint.FS.collection('flintAssets').insert(files[i], uploadObject);
-	    }
+		};
+		for (var i = 0, ln = files.length; i < ln; i++) {
+			Flint.FS.collection('flintAssets').insert(files[i], uploadObject);
+		}
 	},
 	'click .set-default': function(e, t) {
 		var files = t.find('input[type=file]').files; // FileList object
@@ -142,8 +152,8 @@ Template.comp_flintContainerView.events({
 		        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
 		        var simulatorId = t.find('select :selected').value;
 		        var object = Flint.collection('flintAssetObjects').findOne({
-					containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
-					simulatorId: {$exists: false},
+		        	containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
+		        	simulatorId: {$exists: false},
 		        });
 
 		        // We have to do the following rigamarole since upserts are frowned upon
@@ -151,8 +161,8 @@ Template.comp_flintContainerView.events({
 		        if (object) {
 		        	Flint.collection('flintAssetObjects').update(object._id,
 		        	{
-			        	objectId: fileObj._id
-			        });
+		        		objectId: fileObj._id
+		        	});
 		        } else {
 		        	Flint.collection('flintAssetObjects').insert({
 		        		containerId: Session.get('comp.flintAssetBrowser.selectedContainer'),
@@ -162,7 +172,7 @@ Template.comp_flintContainerView.events({
 		    } else {
 		    	Flint.Log.error(err);
 		    }
-	    };
+		};
 		for (var i = 0, ln = files.length; i < ln; i++) {
 			Flint.FS.collection('flintAssets').insert(files[i], uploadDefault);
 		}
