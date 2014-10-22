@@ -48,12 +48,6 @@ Template.comp_flintContainerView.helpers({
 	}
 });
 
-
-
-
-
-});
-
 Template.comp_flintAssetBrowser.created = function() {
 	Session.set('comp.flintAssetBrowser.currentDirectory', "/"); // Root view
 	Session.set('comp.flintAssetBrowser.selectedContainer', undefined);
