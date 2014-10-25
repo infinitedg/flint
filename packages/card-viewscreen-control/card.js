@@ -78,9 +78,9 @@ Template.card_viewscreenControl.rendered = function () {
 };
 
 
-Template.card_viewscreenControl.events = {
+Template.card_viewscreenControl.events({
 
-};
+});
 
 function newPoints(pos) {
     var x = $('.joystick-back').width() / 2; // your center point

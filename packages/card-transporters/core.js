@@ -1,15 +1,18 @@
-Template.core_transporters.alert = function(){
-	if (Flint.system('Transporters','state') == 'scanning'){
-		return "alert";
+Template.core_transporters.helpers({
+	alert: function(){
+		if (Flint.system('Transporters','state') == 'scanning'){
+			return "alert";
+		}
+	},
+	information: function(){
+		return Flint.system('Transporters','state') + ": " + Flint.system('Transporters','target');
+	},
+	targetNum: function(){
+		return Flint.system('Transporters','targets').length;
 	}
-}
-Template.core_transporters.information = function(){
-	return Flint.system('Transporters','state') + ": " + Flint.system('Transporters','target');
-};
-Template.core_transporters.targetNum = function(){
-	return Flint.system('Transporters','targets').length;
-};
-Template.core_transporters.events = {
+});
+
+Template.core_transporters.events({
 	'click .transporterTargetNum' : function(e,t){
 		var num = prompt("How many transporter targets?");
 		var currentTargets = Flint.system('Transporters','targets');
@@ -37,4 +40,4 @@ Template.core_transporters.events = {
 			Flint.system('Transporters','state','targets');
 		}
 	}
-}
+});

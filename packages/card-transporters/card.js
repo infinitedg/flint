@@ -1,16 +1,47 @@
-Template.card_transporters.transporterTarget = function(){
-	return Flint.system('Transporters','targets');
-};
-Template.card_transporters.targetStyle = function(){
-	return 'top: ' + this.top + "%; left: " + this.left + "%;";
-};
-Template.card_transporters.possible = function(){
-	if (Flint.system('Transporters','locked') != 'false'){
-		return '';
-	} else {
-		return 'hidden';
-	};
-};
+Template.card_transporters.helpers({
+	transporterTarget: function(){
+		return Flint.system('Transporters','targets');
+	},
+	targetStyle: function(){
+		return 'top: ' + this.top + "%; left: " + this.left + "%;";
+	},
+	possible: function(){
+		if (Flint.system('Transporters','locked') != 'false'){
+			return '';
+		} else {
+			return 'hidden';
+		};
+	},
+	scanBtnLabel: function(){
+		if (Flint.system('Transporters','state') == 'idle'){
+			return "Scan for Transporter Target";
+		}
+		if (Flint.system('Transporters','state') == 'scanning'){
+			return "Cancel Transporter Scan";
+		}
+		if (Flint.system('Transporters','state') == 'targets'){
+			return 'Cancel Transport';
+		}
+	},
+	fieldsDisabled: function(){
+		if (Flint.system('Transporters','state') == 'idle'){
+			return '';
+		} else {
+			return 'disabled';
+		}
+	},
+	isScanning: function(){
+		if (Flint.system('Transporters','state') == 'scanning'){
+			return 'scan';
+		} else {
+			return false;
+		}
+	},
+	powerUpStyle: function(){
+		return "height: " + Flint.system('Transporters','powerUp') + "%;";
+	}
+});
+
 Template.card_transporters.rendered = function(){
 	Draggable.create($(".crossHairs"), {
 		type: "x,y",
@@ -31,35 +62,8 @@ Template.card_transporters.rendered = function(){
 		}
 	});
 };
-Template.card_transporters.scanBtnLabel = function(){
-	if (Flint.system('Transporters','state') == 'idle'){
-		return "Scan for Transporter Target";
-	}
-	if (Flint.system('Transporters','state') == 'scanning'){
-		return "Cancel Transporter Scan";
-	}
-	if (Flint.system('Transporters','state') == 'targets'){
-		return 'Cancel Transport';
-	}
-};
-Template.card_transporters.fieldsDisabled = function(){
-	if (Flint.system('Transporters','state') == 'idle'){
-		return '';
-	} else {
-		return 'disabled';
-	}
-}
-Template.card_transporters.isScanning = function(){
-	if (Flint.system('Transporters','state') == 'scanning'){
-		return 'scan';
-	} else {
-		return false;
-	}
-}
-Template.card_transporters.powerUpStyle = function(){
-	return "height: " + Flint.system('Transporters','powerUp') + "%;";
-}
-Template.card_transporters.events = {
+
+Template.card_transporters.events({
 	'mousemove .powerUp' : function(e,t){
 		var cover = t.find('.powerUpCover')
 		if (Flint.system('Transporters','locked') != 'false' && (cover.clientHeight - e.offsetY) < 10){
@@ -83,4 +87,4 @@ Template.card_transporters.events = {
 			Flint.system('Transporters','targets',[]);
 		}
 	}
-}
+});

@@ -13,13 +13,25 @@ Returns if a given card is the currently visible card
 @property isCurrentCard
 @type Boolean
 */
-Template.layout_voyager_cardList.isCurrentCard = function() {
-  return Flint.cardNumber() === this.cardId;
-};
 
-Template.layout_voyager_cardList.station = function() {
-  return Flint.station();
-};
+Template.layout_voyager_cardList.helpers({
+  isCurrentCard: function() {
+    return Flint.cardNumber() === this.cardId;
+  },
+  station: function() {
+    return Flint.station();
+  },
+  cards: function() {
+    var cards = Flint.station().cards;
+    var x = _.map(cards, function(card, i) {
+      return _.extend(card, {simulatorId: Flint.simulator()._id, stationId: Flint.station()._id, cardId: i });
+    });
+
+    return x;
+  }
+});
+
+
 
 Template.layout_voyager_cardList.events = {
   /**
@@ -72,12 +84,3 @@ Template.layout_voyager_cardList.destroyed = function() {
   // Splice it!
   Router._globalHooks.onAfterAction.splice(i, 1);
 };
-
-Template.layout_voyager_cardList.cards = function() {
-  var cards = Flint.station().cards;
-  var x = _.map(cards, function(card, i) {
-    return _.extend(card, {simulatorId: Flint.simulator()._id, stationId: Flint.station()._id, cardId: i });
-  });
-
-  return x;
-}
