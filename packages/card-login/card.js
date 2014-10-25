@@ -2,7 +2,7 @@
 @module Templates
 @submodule Cards
 */
- 
+
 /**
 Station card for logging the user in by name (No authentication)
 @class card_login

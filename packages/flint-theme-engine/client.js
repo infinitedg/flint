@@ -2,7 +2,7 @@ Flint.themes = function() {
 	if (Flint.client() && Flint.station() && Flint.simulator()) {
 		// Start with Clients
 		var appliedThemes = Flint.client('themes') || [],
-			restrictedThemes = Flint.client('restrictedThemes') || [];
+		restrictedThemes = Flint.client('restrictedThemes') || [];
 
 		// Stations
 		restrictedThemes = _.union(restrictedThemes, Flint.station('restrictedThemes') || []);
@@ -18,9 +18,11 @@ Flint.themes = function() {
 	}
 };
 
-Template.flint_theme_engine.themes = function() {
-	return Flint.themes();
-}
+Template.flint_theme_engine.helpers({
+	themes: function() {
+		return Flint.themes();
+	}
+});
 
 Meteor.startup(function() {
 	Flint.addComponent('flint_theme_engine')

@@ -1,15 +1,16 @@
 <template name="card_viewscreen">
-	{{> dynamicTemplate}}
+	<div class="viewscreen" style="position:absolute; z-index: 1; top:0px; left:0; display: inline; min-width: 100vw;"> 
+		{{> dynamicTemplate}}
+	</div>
 </template>
-
 
 
 <template name="Sandbox">
-    <div id="viewscreen" style="position: absolute; top: 0; left: 0; margin: 0; padding: 0;"></div>
+	<div id="viewscreen" style="position: absolute; top: 0; left: 0; margin: 0; padding: 0;"></div>
 </template>
 
 <template name="Tactical">
-    <div id="tacView" style="position: absolute; top: 110px; left: 0; margin: 0; padding: 0;"></div>
+	<div id="tacView" style="position: absolute; top: 110px; left: 0; margin: 0; padding: 0;"></div>
 </template>
 
 <template name="Communications">
@@ -21,8 +22,10 @@
 </template>
 
 <template name="Video">
-	<video src={{tacticalVideo}} autoplay preload="auto" width="100%" height="100%" style="max-height: 600px; margin-top: 120px;" loop muted>
-</video>
+	<div class="viewscreenVideo">
+		<video src={{tacticalVideo}} autoplay preload="auto" style="width: 100%;" loop muted>
+		</video>
+	</div>
 </template>
 
 <template name="Shields">

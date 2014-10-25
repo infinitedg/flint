@@ -108,9 +108,9 @@ Flint.Asset = {
 	addFolder: function(basePath, folderName) {
 		if (!folderName) { // Assume the last item in this is what we're going for
 			var basePathParts = basePath.split('/');
-			folderName = basePathParts.pop();
-			basePath = basePathParts.join('/');
-		}
+		folderName = basePathParts.pop();
+		basePath = basePathParts.join('/');
+	}
 
 		// Existing folder search
 		var existingPath = basePath.split('/');
@@ -142,11 +142,11 @@ Flint.Asset = {
 		if (Flint.collection('flintAssetContainers').find({folderId: folder._id}).count() > 0 ||
 			Flint.collection('flintAssetFolders').find({parentFolderId: folder._id}).count() > 0) {
 			Flint.Log.error("Attempting to remove folder " + basePath + " when not empty", "flint-assets");
-			return;
-		}
-
-		Flint.collection('flintAssetContainers').remove({_id: folder._id});
+		return;
 	}
+
+	Flint.collection('flintAssetContainers').remove({_id: folder._id});
+}
 };
 
 Flint.a = Flint.Asset.urlForKey;
@@ -159,6 +159,11 @@ Meteor.startup(function(){
 	if (Meteor.isClient) {
 		Meteor.subscribe('fs.flintassets');
 		Meteor.subscribe('flint.flintassets');
+		Meteor.subscribe('flint.flint-assets.all');
+		Meteor.subscribe("flint.assets.objects.all");
+		Meteor.subscribe("flint.assets.containers.all");
+		Meteor.subscribe("flint.assets.folders.all");
+		Meteor.subscribe("fs.flint-assets.all");
 	}
 });
 

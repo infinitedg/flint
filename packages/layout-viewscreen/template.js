@@ -2,7 +2,7 @@
 @module Templates
 @submodule Layouts
 */
- 
+
 /**
 Default station layout
 @class layout_default
@@ -13,13 +13,15 @@ Returns a class to either show or hide the cardList if the user is logged in or 
 @property hideCardlistCSS
 @type String
 */
-Template.layout_viewscreen.hideCardlistCSS = function() {
-  if (Flint.client('name')) {
-    return '';
-  } else {
-    return 'hide';
+Template.layout_default.helpers({
+  hideCardlistCSS: function() {
+    if (Flint.client('name')) {
+      return '';
+    } else {
+      return 'hide';
+    }
   }
-};
+});
 
 // /**
 // Constant speed for transitioning between cards
@@ -107,46 +109,42 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   stationActionObserver.stop();
 // };
 Template.layout_viewscreen.destroyed = function() {
-   this.subComputation.stop();  
+ this.subComputation.stop();  
 };
-Template.layout_viewscreen.alertCondition = function() {
-  var a = Flint.simulator('alertCondition');
-  return a;
-};
-
-Template.layout_viewscreen.alertColor = function() {
+Template.layout_viewscreen.helpers({
+  alertCondition: function() {
     var a = Flint.simulator('alertCondition');
-  switch (a) {
-  case 'c':
-  case 'cloak':
-  case 'purple':
-    return '#7D5399';
-  case 5:
-    return '#487599';
-  case 4:
-    return '#487599';
-  case 3:
-    return '#998E53';
-  case 2:
-    return '#997D53';
-  case 1:
-    return '#995353';
-  }
-}
-Template.layout_viewscreen.simulator = function() {
-  return Flint.simulator();
-}
-
-Template.layout_viewscreen.station = function() {
-  return Flint.station();
-}
-Template.layout_viewscreen.cardName = function() {
-    return Flint.card().name;   
-}
-Template.layout_viewscreen.created = function() {
-    this.subComputation = Deps.autorun(function() {
-       // console.log("PING");
-        Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
-    });
-	//Flint.play('sciences');
-}
+    return a;
+  },
+  alertColor: function() {
+    var a = Flint.simulator('alertCondition');
+    switch (a) {
+      case 'c':
+      case 'cloak':
+      case 'purple':
+      return '#7D5399';
+      case 5:
+      return '#487599';
+      case 4:
+      return '#487599';
+      case 3:
+      return '#998E53';
+      case 2:
+      return '#997D53';
+      case 1:
+      return '#995353';
+    }
+  },
+  simulator: function() {
+    return Flint.simulator();
+  },
+  station: function() {
+    return Flint.station();
+  },
+  cardName: function() {
+    return Flint.card().name;
+  },
+  cardId: function() {
+    return Flint.cardId();
+  },
+});

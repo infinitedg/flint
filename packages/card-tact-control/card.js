@@ -182,6 +182,7 @@ Template.tacticalScreen.rendered = function (e) {
     screenStage.add(screenContactsLayer); // Uppermost layer
 };
 
+
 Template.tacticalPreview.rendered = function (e) {
     $(window).on('keydown', function (e) {
         if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {
