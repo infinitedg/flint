@@ -2,7 +2,7 @@
 @module Templates
 @submodule Layouts
 */
- 
+
 /**
 Default station layout
 @class layout_default
@@ -13,13 +13,15 @@ Returns a class to either show or hide the cardList if the user is logged in or 
 @property hideCardlistCSS
 @type String
 */
-Template.layout_viewscreen.hideCardlistCSS = function() {
-  if (Flint.client('name')) {
-    return '';
-  } else {
-    return 'hide';
+Template.layout_default.helpers({
+  hideCardlistCSS: function() {
+    if (Flint.client('name')) {
+      return '';
+    } else {
+      return 'hide';
+    }
   }
-};
+});
 
 // /**
 // Constant speed for transitioning between cards
@@ -106,47 +108,83 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   cardTransitionAutorun.stop();
 //   stationActionObserver.stop();
 // };
-Template.layout_viewscreen.destroyed = function() {
-   this.subComputation.stop();  
+Template.layout_default.destroyed = function() {
+ this.subComputation.stop();  
 };
-Template.layout_viewscreen.alertCondition = function() {
-  var a = Flint.simulator('alertCondition');
-  return a;
-};
-
-Template.layout_viewscreen.alertColor = function() {
+Template.layout_default.helpers({
+  alertCondition: function() {
     var a = Flint.simulator('alertCondition');
-  switch (a) {
-  case 'c':
-  case 'cloak':
-  case 'purple':
-    return '#7D5399';
-  case 5:
-    return '#487599';
-  case 4:
-    return '#487599';
-  case 3:
-    return '#998E53';
-  case 2:
-    return '#997D53';
-  case 1:
-    return '#995353';
-  }
-}
-Template.layout_viewscreen.simulator = function() {
-  return Flint.simulator();
-}
+    return a;
+  },
+  alertColor: function() {
+    var a = Flint.simulator('alertCondition');
+    switch (a) {
+      case 'c':
+      case 'cloak':
+      case 'purple':
+      return '#7D5399';
+      case 5:
+      return '#487599';
+      case 4:
+      return '#487599';
+      case 3:
+      return '#998E53';
+      case 2:
+      return '#997D53';
+      case 1:
+      return '#995353';
+    }
+  },
+  simulator: function() {
+    return Flint.simulator();
+  },
+  station: function() {
+    return Flint.station();
+  },
+  cardName: function() {
+    return Flint.card().name;
+  },
+  cardId: function() {
+    return Flint.cardId();
+  },
+});
 
-Template.layout_viewscreen.station = function() {
-  return Flint.station();
-}
-Template.layout_viewscreen.cardName = function() {
-    return Flint.card().name;   
-}
-Template.layout_viewscreen.created = function() {
-    this.subComputation = Deps.autorun(function() {
-       // console.log("PING");
-        Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
-    });
+Template.layout_default.created = function() {
+  this.subComputation = Deps.autorun(function() {
+    Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
+  });
 	//Flint.play('sciences');
 }
+
+Template.layout_default.events = {
+  'click div.pageContent, touchstart div.pageContent': function(e, context) {
+   if ($('.animate').length > 0) {
+    var showMenu = document.getElementById( 'showMenu' ),
+    perspectiveWrapper = document.getElementById( 'perspective' ),
+    container = perspectiveWrapper.querySelector( '.pageContent' ),
+    contentWrapper = container.querySelector( '.wrapper' );
+
+    $(perspectiveWrapper).removeClass('animate');
+    Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 400);
+
+  }
+
+},
+
+'click header, touchstart header': function(e, context) {
+  if (Flint.client().name){
+    var showMenu = document.getElementById( 'showMenu' ),
+    perspectiveWrapper = document.getElementById( 'perspective' ),
+    container = perspectiveWrapper.querySelector( '.pageContent' ),
+    contentWrapper = container.querySelector( '.wrapper' );
+            docscroll = window.pageYOffset || window.document.documentElement.scrollTop; //Finds the yScoll
+			// change top of contentWrapper
+			contentWrapper.style.top = docscroll * -1 + 'px';
+			// mac chrome issue:
+			document.body.scrollTop = document.documentElement.scrollTop = 0;
+			// add modalview class
+			$(perspectiveWrapper).addClass('modalview');
+			// animate..
+			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
+    },
+  }

@@ -1,0 +1,29 @@
+.flexParent{
+    display: flex;
+}
+.flexParent.rowStatic{
+    flex-flow: row nowrap;}
+.flexParent.rowWrap{
+    flex-flow: row wrap   
+}
+.flexParent.columnStatic{
+    flex-flow: column nowrap;}
+}
+.flexParent.columnWrap{
+ flex-flow: column wrap;
+}
+.flexParent.alignRight{
+    justify-content: flex-start;
+}
+.flexParent.alignLeft{
+    justify-content: flex-end;
+}
+.flexParent.alignCenter{
+    justify-content: center;
+}
+.flexParent.alignAround{
+    justify-content: space-around;
+}
+.flexParent.alignBetween{
+    justify-content: space-between;
+}

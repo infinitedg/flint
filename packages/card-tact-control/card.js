@@ -34,31 +34,33 @@ k.center = {
 k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
 
 Template.card_tacControl.dynamicTemplateUL = function () {
-    if (!Flint.simulator().tacScreenUL) {
+    if (!Flint.system('Tactical Control').tacScreenUL) {
         return null;
+    } else if (Flint.system('Tactical Control').tacScreenUL == 'Preview'){
+        return Template[Flint.system('Viewscreen','currentScreen')];
     } else {
-        return Template[Flint.simulator().tacScreenUL];
+        return Template[Flint.system('Tactical Control').tacScreenUL];
     }
 };
 Template.card_tacControl.dynamicTemplateBL = function () {
-    if (!Flint.simulator().tacScreenBL) {
+    if (!Flint.system('Tactical Control').tacScreenBL) {
         return null;
     } else {
-        return Template[Flint.simulator().tacScreenBL];
+        return Template[Flint.system('Tactical Control').tacScreenBL];
     }
 };
 Template.card_tacControl.dynamicTemplateBR = function () {
-    if (!Flint.simulator().tacScreenBR) {
+    if (!Flint.system('Tactical Control').tacScreenBR) {
         return null;
     } else {
-        return Template[Flint.simulator().tacScreenBR];
+        return Template[Flint.system('Tactical Control').tacScreenBR];
     }
 };
 Template.card_tacControl.dynamicTemplateUR = function () {
-    if (!Flint.simulator().tacScreenUR) {
+    if (!Flint.system('Tactical Control').tacScreenUR) {
         return null;
     } else {
-        return Template[Flint.simulator().tacScreenUR];
+        return Template[Flint.system('Tactical Control').tacScreenUR];
     }
 };
 
@@ -176,6 +178,8 @@ Template.tacticalScreen.rendered = function (e) {
     screenStage.add(screenAnchorLayer);
     screenStage.add(screenContactsLayer); // Uppermost layer
 };
+
+
 Template.tacticalPreview.rendered = function (e) {
     $(window).on('keydown', function (e) {
         if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {

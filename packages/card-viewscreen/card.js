@@ -15,34 +15,39 @@ var hyperBox, boxTexture, hyperLight1, hyperLight2, hyperLight3, hyperLight4;
 var Examples;
 var curveLayer, lineLayer, anchorLayer, quad, bezier = {};
 
-Template.card_viewscreen.dynamicTemplate = function () {
-    return Template[Flint.simulator().currentScreen];
-};
-Template.Video.tacticalVideo = function () {
-    return Flint.simulator().tacticalVideo;
-};
-Template.card_viewscreen.scene = function () {
+Template.card_viewscreen.helpers({
+    dynamicTemplate: function () {
+    return Template[Flint.system('Viewscreen','currentScreen')];
+},
+scene: function () {
     return scene;
-};
-Template.card_viewscreen.examples = function () {
+},
+examples: function () {
     return Examples;
-};
-Template.card_viewscreen.controls = function () {
+},
+controls: function () {
     return controls;
-};
-Template.card_viewscreen.currentCamera = function (num) {
+},
+currentCamera: function (num) {
     if (num) {
         currentCamera = num;
     }
     return currentCamera;
 
-};
-Template.card_viewscreen.hyperBox = function () {
+},
+hyperBox: function () {
     return hyperBox;
-};
-Template.card_viewscreen.cameras = function () {
+},
+cameras: function () {
     return cameras;
+}
+
+});
+
+Template.Video.tacticalVideo = function () {
+    return Flint.a(Flint.system('Viewscreen','video'));
 };
+
 
 function loadObject(objModel, objMtl, objTexture, options) {
     //Possible Options:

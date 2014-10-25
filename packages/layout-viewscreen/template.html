@@ -1,14 +1,15 @@
 <template name="layout_viewscreen">
-    {{> yield}}
-
-<div class="pageContent" style="position: absolute; top:0; left:0; margin:0; padding:0; width:100%">
+                            {{> yield}}
+    <div id="perspective" class="backgroundColor perspective effect-movedown">
+        <div class="pageContent" style="position: absolute; top:0; left:0; margin:0; padding:0; width:100%">
+        <!-- Insert Grid Here -->
             <div class="wrapper"><!-- wrapper needed for scroll -->
                 
                 <div class="container-fluid" style="padding:0px;">
      
-                    <header class="row-fluid {{alertStyle}}">
+                    <header class="row-fluid backgroundColor">
                        <div class="backgroundBezel"></div>
-                       <div class="background {{alertStyle}}"></div>
+                       <div class="background backgroundColor"></div>
                         <div class="col-xs-4 sim-name">
                             <h2>{{ t simulator.name}}</h2>
                             <h3>{{ t station.name}}</h3>
@@ -20,13 +21,13 @@
                             {{t alertCondition}}   
                         </div>
                     </header>
-                
 
                 </div>
-            </div><!-- wrapper -->
+			</div><!-- wrapper -->
            <div class="footer">
                     <div class="backgroundBezel"></div>
-                    <div class="footerBackground {{alertStyle}}"></div>
+                    <div class="footerBackground backgroundColor"></div>
             </div>
         </div><!-- /container -->
+    </div><!-- /perspective -->
 </template>
