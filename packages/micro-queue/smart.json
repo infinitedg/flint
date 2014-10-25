@@ -1,9 +1,0 @@
-{
-	"name": "micro-queue",
-	"description": "Micro-queue provides a small, fast queue/list built for Power-Queue",
-	"homepage": "https://github.com/CollectionFS/Meteor-micro-queue",
-	"author": "CollectionFS core @aldeed & @raix",
-	"version": "0.0.3",
-	"git": "https://github.com/CollectionFS/Meteor-micro-queue.git",
-	"packages": {}
-}

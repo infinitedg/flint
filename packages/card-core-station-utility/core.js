@@ -31,27 +31,30 @@ The list of stations for this simulator.
 @property stations
 @type Meteor.Collection
 */
-Template.core_stationUtility.stations = function() {
-  return Flint.stations.find({simulatorId: Flint.simulatorId()});
-};
+Template.core_stationUtility.helpers({
+  stations: function() {
+    return Flint.stations.find({simulatorId: Flint.simulatorId()});
+  },
+  clients: Utils.memoize(function() {
+    return _.flatten(
+      Flint.stations.find().map(function(station) {
+        return Flint.clients.find({ stationId: station._id, _id: { $ne: Flint.clientId() } }, { transform: function(doc) {
+          delete doc.heartbeat;
+          return doc;
+        }}).map(function(client) { 
+          client.stationName = station.name;
+          return client;
+        });
+      }), true);
+  }),
+
+});
 
 /**
 The list of clients in this simulator. Memoized.
 @property clients
 @type Meteor.Collection
 */
-Template.core_stationUtility.clients = Utils.memoize(function() {
-  return _.flatten(
-    Flint.stations.find().map(function(station) {
-      return Flint.clients.find({ stationId: station._id, _id: { $ne: Flint.clientId() } }, { transform: function(doc) {
-        delete doc.heartbeat;
-        return doc;
-      }}).map(function(client) { 
-        client.stationName = station.name;
-        return client;
-      });
-    }), true);
-});
 
 Template.core_stationUtility.events = {
   /**
