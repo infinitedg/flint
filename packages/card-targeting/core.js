@@ -1,7 +1,9 @@
-Template.core_targeting.chooseTarget = function() {
-    var choiceList=document.getElementById("targetChoice");
-    Flint.simulators.update(Flint.simulatorId(), {$set: {tacticalTarget: ({image: (choiceList.options[choiceList.selectedIndex].value)})}});
-};
+Template.core_targeting.helpers({
+  chooseTarget: function() {
+      var choiceList=document.getElementById("targetChoice");
+      Flint.simulators.update(Flint.simulatorId(), {$set: {tacticalTarget: ({image: (choiceList.options[choiceList.selectedIndex].value)})}});
+  }
+});
 
 Template.core_targeting.created = function() {
   this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({

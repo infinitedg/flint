@@ -56,8 +56,6 @@ function transformY(y) {
   return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
 }
 
-Template.core_sensorGrid.listOfIcons = function(){return iconList();};
-
 function changeIcon(icon,id){
   id = Session.get('currentSensorIcon');
   if (id.kind == 'army'){
@@ -169,9 +167,22 @@ var armyLayer  = new Kinetic.Layer({
 Standard sensor grid card for sensors stations
 @class core_sensorGrid
 */
-Template.core_sensorGrid.wormhole = function() {
-  return Flint.simulator('wormhole');
-};
+Template.core_sensorGrid.helpers({
+  wormhole: function() {
+    return Flint.simulator('wormhole');
+  },
+  buttonLabel: function() {
+    if (Session.get('currentDimension') === 'z') {
+      return 'Viewing From Top';
+    } else {
+      return 'Viewing From Side';
+    }
+  },
+  listOfIcons: function(){
+    return iconList();
+  }
+});
+
 Template.core_sensorGrid.created = function() {
   Session.set('currentDimension', currentDimensions.y);
 
@@ -639,10 +650,4 @@ Template.core_sensorGrid.events({
   }
 });
 
-Template.core_sensorGrid.buttonLabel = function() {
-  if (Session.get('currentDimension') === 'z') {
-    return 'Viewing From Top';
-  } else {
-    return 'Viewing From Side';
-  }
-};
+

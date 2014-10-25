@@ -33,34 +33,36 @@ k.center = {
 };
 k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
 
-Template.card_tacControl.dynamicTemplateUL = function () {
-    if (!Flint.simulator().tacScreenUL) {
-        return null;
-    } else {
-        return Template[Flint.simulator().tacScreenUL];
+Template.card_tacControl.helpers({
+    dynamicTemplateUL: function () {
+        if (!Flint.simulator().tacScreenUL) {
+            return null;
+        } else {
+            return Template[Flint.simulator().tacScreenUL];
+        }
+    },
+    dynamicTemplateBL: function () {
+        if (!Flint.simulator().tacScreenBL) {
+            return null;
+        } else {
+            return Template[Flint.simulator().tacScreenBL];
+        }
+    },
+    dynamicTemplateBR: function () {
+        if (!Flint.simulator().tacScreenBR) {
+            return null;
+        } else {
+            return Template[Flint.simulator().tacScreenBR];
+        }
+    },
+    dynamicTemplateUR: function () {
+        if (!Flint.simulator().tacScreenUR) {
+            return null;
+        } else {
+            return Template[Flint.simulator().tacScreenUR];
+        }
     }
-};
-Template.card_tacControl.dynamicTemplateBL = function () {
-    if (!Flint.simulator().tacScreenBL) {
-        return null;
-    } else {
-        return Template[Flint.simulator().tacScreenBL];
-    }
-};
-Template.card_tacControl.dynamicTemplateBR = function () {
-    if (!Flint.simulator().tacScreenBR) {
-        return null;
-    } else {
-        return Template[Flint.simulator().tacScreenBR];
-    }
-};
-Template.card_tacControl.dynamicTemplateUR = function () {
-    if (!Flint.simulator().tacScreenUR) {
-        return null;
-    } else {
-        return Template[Flint.simulator().tacScreenUR];
-    }
-};
+});
 
 function transformX(x) {
     //return k.width * ((x * currentDimensions.flippedX) + 1) / 2; // Translate and scale to different coordinate system
@@ -98,11 +100,14 @@ resetLocs = function () {
 
 
 //
-Template.tacticalScreen.stage = function (e) {
-    return stage;
-};
+Template.tacticalScreen.helpers({
+    stage: function (e) {
+        return stage;
+    }
+});
 
 Template.card_tacControl.destroyed = function (e) {};
+
 Template.tactical_controls.rendered = function (e) {
     $('#symbolSize').slider({
         range: true,
@@ -176,6 +181,7 @@ Template.tacticalScreen.rendered = function (e) {
     screenStage.add(screenAnchorLayer);
     screenStage.add(screenContactsLayer); // Uppermost layer
 };
+
 Template.tacticalPreview.rendered = function (e) {
     $(window).on('keydown', function (e) {
         if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {

@@ -16,36 +16,40 @@ function ping() {
     }, 200);
 }
 
-
-Template.sonarControl.currentSensor = function (sensor) {
-    if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 5000) {
-        return 'active';
-    } else if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 10000) {
-        return 'passive';
-    } else {
-        return 'manual';
-    }
-};
-
-Template.card_sensor3d.infaredSensors = function (context) {
-
-    if (context == 'button') {
-        if (Flint.simulator('infaredSensors') == 'true') {
-            return 'DEACTIVATE';
+Template.sonarControl.helpers({
+    currentSensor: function (sensor) {
+        if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 5000) {
+            return 'active';
+        } else if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 10000) {
+            return 'passive';
         } else {
-            return 'ACTIVATE';
+            return 'manual';
         }
     }
-    if (context == 'class') {
-        if (Flint.simulator('infaredSensors') == 'true') {
-            console.log('on');
-            return 'infared';
-        } else {
-            console.log('off');
-            return '';
+});
+
+Template.card_sensor3d.helpers({
+    infaredSensors: function (context) {
+
+        if (context == 'button') {
+            if (Flint.simulator('infaredSensors') == 'true') {
+                return 'DEACTIVATE';
+            } else {
+                return 'ACTIVATE';
+            }
+        }
+        if (context == 'class') {
+            if (Flint.simulator('infaredSensors') == 'true') {
+                console.log('on');
+                return 'infared';
+            } else {
+                console.log('off');
+                return '';
+            }
         }
     }
-};
+});
+
 Template.card_sensor3d.events = {
     'mousemove .sensorLabel': function () {
         $('.sensorLabel').removeClass('shown');

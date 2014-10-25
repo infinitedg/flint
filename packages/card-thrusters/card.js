@@ -13,22 +13,25 @@ Card for manipulating the thrusters. Also shows ship orientation (Yaw, pitch rol
 Template.card_thrusters.rendered = function () {
     //startOffset();
 };
-Template.card_thrusters.manualThrustersRequired = function () {
-    var requiredThrusters = Flint.simulator('requiredThrusters');
-    var currentThrusters = Flint.simulator('thrusterRotation');
-    //Long if statement warning//
-    if ((requiredThrusters.yaw != currentThrusters.yaw || requiredThrusters.pitch != currentThrusters.pitch || requiredThrusters.roll != currentThrusters.roll) && Flint.simulator('manualThruster') == 'true') {
-        return "active";
-    } else {
-        return '';
+Template.card_thrusters.helpers({
+    manualThrustersRequired: function () {
+        var requiredThrusters = Flint.simulator('requiredThrusters');
+        var currentThrusters = Flint.simulator('thrusterRotation');
+        //Long if statement warning//
+        if ((requiredThrusters.yaw != currentThrusters.yaw || requiredThrusters.pitch != currentThrusters.pitch || requiredThrusters.roll != currentThrusters.roll) && Flint.simulator('manualThruster') == 'true') {
+            return "active";
+        } else {
+            return '';
+        }
+    },
+    rotationValue: function (which) {
+        return Flint.simulator('thrusterRotation')[which];
+    },
+    requiredValue: function (which) {
+        return Flint.simulator('requiredThrusters')[which];
     }
-};
-Template.card_thrusters.rotationValue = function (which) {
-    return Flint.simulator('thrusterRotation')[which];
-};
-Template.card_thrusters.requiredValue = function (which) {
-    return Flint.simulator('requiredThrusters')[which];
-};
+});
+
 Template.card_thrusters.events = {
     /**
   Show whether the thruster buttons are being depressed.
