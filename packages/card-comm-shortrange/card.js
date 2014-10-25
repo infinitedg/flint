@@ -1,3 +1,32 @@
+getCommName = function () {
+    var commName;
+    Yloc = (Flint.system('Short Range Communications', 'commFrequency') / 4 * 1.25); //Makes it into a number out of 100.
+    if (Yloc > 0 && Yloc <= 18.125) {
+        commName = Template.card_shortRangeComm.commList()[0];
+    }
+    if (Yloc > 18.125 && Yloc <= 30.625) {
+        commName = Template.card_shortRangeComm.commList()[1];
+    }
+    if (Yloc > 30.625 && Yloc <= 40.625) {
+        commName = Template.card_shortRangeComm.commList()[2];
+    }
+    if (Yloc > 40.625 && Yloc <= 56.875) {
+        commName = Template.card_shortRangeComm.commList()[3];
+    }
+    if (Yloc > 56.875 && Yloc <= 77.5) {
+        commName = Template.card_shortRangeComm.commList()[4];
+    }
+    if (Yloc > 77.5 && Yloc <= 90.625) {
+        commName = Template.card_shortRangeComm.commList()[5];
+    }
+    if (Yloc > 90.625 && Yloc <= 100) {
+        commName = Template.card_shortRangeComm.commList()[6];
+    }
+    $('.commControls .textbox').html("FREQUENCY: " + (Math.floor(parseInt(Flint.system('Short Range Communications', 'commFrequency'),10) * 1.25 * 4.25 * 10) / 10) + " MHz" + '</br>' + commName);
+    $('.commImage').attr('src', Flint.a('/Comm Images/' + commName));
+    Flint.system('Short Range Communications', 'commName', commName);
+};
+
 Template.card_shortRangeComm.events = {
     'click .mute': function (e) {
         Flint.beep();
@@ -57,74 +86,72 @@ Template.card_shortRangeComm.events = {
         }
     }
 };
-Template.card_shortRangeComm.hailLabel = function () {
-    if (Flint.system('Short Range Communications', 'commHail') == "hailing") {
-        return 'CANCEL HAIL';
+
+Template.card_shortRangeComm.helpers({
+    hailLabel: function () {
+        if (Flint.system('Short Range Communications', 'commHail') == "hailing") {
+            return 'CANCEL HAIL';
+        }
+        if (Flint.system('Short Range Communications', 'commHail') == "connected") {
+            return 'DISCONNECT';
+        }
+        if (Flint.system('Short Range Communications', 'commHail') == "idle") {
+            return 'HAIL';
+        }
+        if (Flint.system('Short Range Communications', 'commHail') == "connectable") {
+            return 'CONNECT - ' + Flint.system('Short Range Communications', 'commName');
+        }
+    },
+    muteLabel: function () {
+        if (Flint.system('Short Range Communications', 'commMute') == 'false') {
+            return 'Mute Communication';
+        } else {
+            return 'Unmute Communication';
+        }
+    },
+    currentHails: function () {
+        return Flint.collection('currentHails').find();
+    },
+    arrowLocation: function () {
+        var frequency = this.frequency;
+        var value = 'top: calc(' + frequency + '% - 26px);';
+        return value;
+    },
+    amplitudeValue: function () {
+        Comm = "Short Range Communications";
+        var canvas = document.getElementById('canvasCandy');
+        var theta = 0;
+        var time = (new Date()).getTime();
+        animate(canvas, theta, time);
+        return Flint.collection('systems').find({
+            'simulatorId': Flint.simulatorId(),
+            'name': Comm
+        }).fetch()[0].commAmplitude;
+    },
+    stardate: function () {
+        var calculatedDate = new Date().getTime() / 1000 / 60 / 60 / 30 / 2;
+        var subtraction = Math.floor(calculatedDate);
+        var finalDate = (calculatedDate - subtraction) * 100000;
+        return Math.floor(finalDate) / 10;
+
+    },
+    muteEnabled: function () {
+        if (Flint.system('Short Range Communications', 'commHail') == 'connected') return '';
+        else return 'disabled';
+    },
+    vh: function (perc) {
+        var windowHeight = window.innerHeight;
+        return windowHeight * (perc / 100);
+    },
+    vw: function (perc) {
+        var windowWidth = window.innerWidth;
+        return windowWidth * (perc / 100);
+    },
+    commList: function () {
+        var commList = Flint.system('Short Range Communications', 'commList');
+        return commList;
     }
-    if (Flint.system('Short Range Communications', 'commHail') == "connected") {
-        return 'DISCONNECT';
-    }
-    if (Flint.system('Short Range Communications', 'commHail') == "idle") {
-        return 'HAIL';
-    }
-    if (Flint.system('Short Range Communications', 'commHail') == "connectable") {
-        return 'CONNECT - ' + Flint.system('Short Range Communications', 'commName');
-    }
-};
-Template.card_shortRangeComm.muteLabel = function () {
-    if (Flint.system('Short Range Communications', 'commMute') == 'false') {
-        return 'Mute Communication';
-    } else {
-        return 'Unmute Communication';
-    }
-};
-Template.card_shortRangeComm.currentHails = function () {
-    return Flint.collection('currentHails').find();
-};
-Template.card_shortRangeComm.arrowLocation = function () {
-    var frequency = this.frequency;
-    var value = 'top: calc(' + frequency + '% - 26px);';
-    return value;
-};
-getCommName = function () {
-    var commName;
-    Yloc = (Flint.system('Short Range Communications', 'commFrequency') / 4 * 1.25); //Makes it into a number out of 100.
-    if (Yloc > 0 && Yloc <= 18.125) {
-        commName = Template.card_shortRangeComm.commList()[0];
-    }
-    if (Yloc > 18.125 && Yloc <= 30.625) {
-        commName = Template.card_shortRangeComm.commList()[1];
-    }
-    if (Yloc > 30.625 && Yloc <= 40.625) {
-        commName = Template.card_shortRangeComm.commList()[2];
-    }
-    if (Yloc > 40.625 && Yloc <= 56.875) {
-        commName = Template.card_shortRangeComm.commList()[3];
-    }
-    if (Yloc > 56.875 && Yloc <= 77.5) {
-        commName = Template.card_shortRangeComm.commList()[4];
-    }
-    if (Yloc > 77.5 && Yloc <= 90.625) {
-        commName = Template.card_shortRangeComm.commList()[5];
-    }
-    if (Yloc > 90.625 && Yloc <= 100) {
-        commName = Template.card_shortRangeComm.commList()[6];
-    }
-    $('.commControls .textbox').html("FREQUENCY: " + (Math.floor(parseInt(Flint.system('Short Range Communications', 'commFrequency'),10) * 1.25 * 4.25 * 10) / 10) + " MHz" + '</br>' + commName);
-    $('.commImage').attr('src', Flint.a('/Comm Images/' + commName));
-    Flint.system('Short Range Communications', 'commName', commName);
-};
-Template.card_shortRangeComm.amplitudeValue = function () {
-    Comm = "Short Range Communications";
-    var canvas = document.getElementById('canvasCandy');
-    var theta = 0;
-    var time = (new Date()).getTime();
-    animate(canvas, theta, time);
-    return Flint.collection('systems').find({
-        'simulatorId': Flint.simulatorId(),
-        'name': Comm
-    }).fetch()[0].commAmplitude;
-};
+});
 
 function drawSpring(canvas, context) {
     var c = $('#canvasCandy');
@@ -141,8 +168,7 @@ function drawSpring(canvas, context) {
         var x = Math.sin(y * Math.PI / 180 * f) * a + p;
         context.lineTo(x, y);
     }
-}
-
+};
 
 function animate(canvas, theta, lastTime) {
     var context = canvas.getContext('2d');
@@ -181,28 +207,8 @@ function animate(canvas, theta, lastTime) {
     //drawWeight(canvas, context);
     context.restore();
 
-}
+};
 
-
-Template.card_shortRangeComm.stardate = function () {
-    var calculatedDate = new Date().getTime() / 1000 / 60 / 60 / 30 / 2;
-    var subtraction = Math.floor(calculatedDate);
-    var finalDate = (calculatedDate - subtraction) * 100000;
-    return Math.floor(finalDate) / 10;
-
-};
-Template.card_shortRangeComm.muteEnabled = function () {
-    if (Flint.system('Short Range Communications', 'commHail') == 'connected') return '';
-    else return 'disabled';
-};
-Template.card_shortRangeComm.vh = function (perc) {
-    var windowHeight = window.innerHeight;
-    return windowHeight * (perc / 100);
-};
-Template.card_shortRangeComm.vw = function (perc) {
-    var windowWidth = window.innerWidth;
-    return windowWidth * (perc / 100);
-};
 Template.card_shortRangeComm.created = function () {
     this.subscription = Deps.autorun(function () {
         Meteor.subscribe('cards.shortRangeComm.hails', Flint.simulatorId());
@@ -304,9 +310,4 @@ Template.card_shortRangeComm.rendered = function () {
     var theta = 0;
     var time = (new Date()).getTime();
     animate(canvas, theta, time);
-};
-
-Template.card_shortRangeComm.commList = function () {
-    var commList = Flint.system('Short Range Communications', 'commList');
-    return commList;
 };

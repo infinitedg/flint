@@ -1,9 +1,0 @@
-{
-	"name": "reactive-list",
-	"description": "Reactive List provides a small, fast and reactive key +  value list",
-	"homepage": "https://github.com/CollectionFS/Meteor-reactive-list",
-	"author": "Eric Dobbertin (https://github.com/aldeed), Morten Henriksen (https://github.com/raix)",
-	"version": "0.0.7",
-	"git": "https://github.com/CollectionFS/Meteor-reactive-list.git",
-	"packages": {}
-}

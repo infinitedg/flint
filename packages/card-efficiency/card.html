@@ -1,0 +1,48 @@
+<template name="card_efficiency">
+	<div class="card-efficiency">
+		<div class="row">
+			<div class="col-sm-3 efficiencyControl">
+			{{#each dialControls}}
+			<div class="dialHolder">
+			<h6>{{name}}</h6>
+			<img class="dial" id={{dialId}} draggable='false' src="/packages/card-efficiency/img/dial.svg" />
+			</div>
+			{{/each}}
+			<div class="dial">
+
+			</div>
+			<!--
+				Gravity Output
+				Speed
+				Emitter Power
+				Deflector Power
+			-->
+			</div>
+			<div class="col-sm-6 efficiencyGraphs">
+				<div class="row">
+					<div class="col-sm-3 small-boxes distance">
+					<h6>Distance:</h6>
+					{{distance}}
+					</div>
+					<div class="col-sm-3 col-sm-offset-1 small-boxes energyUse"><h6>Speed:</h6>{{speed}}
+					</div>
+					<div class="col-sm-3 col-sm-offset-1 small-boxes travelTime"><h6>Travel Time:</h6>{{travelTime}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-11 wormholeLength">
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-11 efficiencyGraph">
+
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3 efficiencyData">
+
+			</div>
+		</div>
+	</div>
+</template>

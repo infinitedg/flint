@@ -6,6 +6,7 @@ Package.describe({
 Package.on_use(function(api) { 
   api.use(['flint', 'templating', 'iron:router']);
   
-    api.add_files(['template.html', 'template.js'], 'client');
+    api.add_files([
+    'template.html', 'template.js','layout.css'], 'client');
     
 });

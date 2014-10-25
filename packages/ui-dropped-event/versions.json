@@ -2,6 +2,7 @@
   "dependencies": [
     [
       "base64",
+<<<<<<< HEAD
       "1.0.0"
     ],
     [
@@ -15,29 +16,49 @@
     [
       "ejson",
       "1.0.3"
-    ],
-    [
-      "geojson-utils",
-      "1.0.0"
-    ],
-    [
-      "htmljs",
+=======
       "1.0.1"
     ],
     [
+      "blaze",
+      "2.0.2"
+    ],
+    [
+      "deps",
+      "1.0.5"
+    ],
+    [
+      "ejson",
+      "1.0.4"
+>>>>>>> alex-temp
+    ],
+    [
+      "geojson-utils",
+      "1.0.1"
+    ],
+    [
+      "htmljs",
+<<<<<<< HEAD
+      "1.0.1"
+=======
+      "1.0.2"
+>>>>>>> alex-temp
+    ],
+    [
       "id-map",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "jquery",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "json",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "meteor",
+<<<<<<< HEAD
       "1.1.1"
     ],
     [
@@ -47,14 +68,29 @@
     [
       "observe-sequence",
       "1.0.2"
+=======
+      "1.1.2"
+    ],
+    [
+      "minimongo",
+      "1.0.4"
+    ],
+    [
+      "observe-sequence",
+      "1.0.3"
+>>>>>>> alex-temp
     ],
     [
       "ordered-dict",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "random",
-      "1.0.0"
+      "1.0.1"
+    ],
+    [
+      "reactive-var",
+      "1.0.3"
     ],
     [
       "reactive-var",
@@ -62,6 +98,7 @@
     ],
     [
       "templating",
+<<<<<<< HEAD
       "1.0.7"
     ],
     [
@@ -71,13 +108,28 @@
     [
       "ui",
       "1.0.3"
+=======
+      "1.0.8"
+    ],
+    [
+      "tracker",
+      "1.0.3"
+    ],
+    [
+      "ui",
+      "1.0.4"
+>>>>>>> alex-temp
     ],
     [
       "underscore",
-      "1.0.0"
+      "1.0.1"
     ]
   ],
   "pluginDependencies": [],
+<<<<<<< HEAD
   "toolVersion": "meteor-tool@1.0.32",
+=======
+  "toolVersion": "meteor-tool@1.0.34",
+>>>>>>> alex-temp
   "format": "1.0"
 }

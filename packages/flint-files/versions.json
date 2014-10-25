@@ -2,23 +2,39 @@
   "dependencies": [
     [
       "application-configuration",
+<<<<<<< HEAD
       "1.0.2"
     ],
     [
       "base64",
       "1.0.0"
+=======
+      "1.0.3"
+    ],
+    [
+      "base64",
+      "1.0.1"
+>>>>>>> alex-temp
     ],
     [
       "binary-heap",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "blaze",
+<<<<<<< HEAD
       "2.0.1"
+=======
+      "2.0.2"
+>>>>>>> alex-temp
     ],
     [
       "blaze-tools",
-      "1.0.0"
+      "1.0.1"
+    ],
+    [
+      "boilerplate-generator",
+      "1.0.1"
     ],
     [
       "boilerplate-generator",
@@ -26,61 +42,83 @@
     ],
     [
       "callback-hook",
-      "1.0.0"
-    ],
-    [
-      "cfs-access-point",
-      "0.0.0"
-    ],
-    [
-      "cfs-base-package",
-      "0.0.0"
-    ],
-    [
-      "cfs-collection",
-      "0.0.0"
-    ],
-    [
-      "cfs-collection-filters",
-      "0.0.0"
-    ],
-    [
-      "cfs-file",
-      "0.0.0"
-    ],
-    [
-      "cfs-filesystem",
-      "0.0.0"
-    ],
-    [
-      "cfs-storage-adapter",
-      "0.0.0"
-    ],
-    [
-      "cfs-tempstore",
-      "0.0.0"
-    ],
-    [
-      "cfs-upload-http",
-      "0.0.0"
-    ],
-    [
-      "cfs-worker",
-      "0.0.0"
-    ],
-    [
-      "check",
       "1.0.1"
     ],
     [
-      "collectionfs",
+      "cfs:access-point",
       "0.0.0"
     ],
     [
-      "data-man",
+      "cfs:base-package",
       "0.0.0"
     ],
     [
+      "cfs:collection",
+      "0.0.0"
+    ],
+    [
+      "cfs:collection-filters",
+      "0.0.0"
+    ],
+    [
+      "cfs:data-man",
+      "0.0.0"
+    ],
+    [
+      "cfs:file",
+      "0.0.0"
+    ],
+    [
+      "cfs:filesystem",
+      "0.0.0"
+    ],
+    [
+      "cfs:http-methods",
+      "0.0.24"
+    ],
+    [
+      "cfs:http-publish",
+      "0.0.0"
+    ],
+    [
+      "cfs:power-queue",
+      "0.0.1"
+    ],
+    [
+      "cfs:reactive-list",
+      "0.0.0"
+    ],
+    [
+      "cfs:reactive-property",
+      "0.0.0"
+    ],
+    [
+<<<<<<< HEAD
+      "check",
+      "1.0.1"
+=======
+      "cfs:standard-packages",
+      "0.0.2"
+>>>>>>> alex-temp
+    ],
+    [
+      "cfs:storage-adapter",
+      "0.0.0"
+    ],
+    [
+      "cfs:tempstore",
+      "0.0.2"
+    ],
+    [
+      "cfs:upload-http",
+      "0.0.2"
+    ],
+    [
+      "cfs:worker",
+      "0.0.0"
+    ],
+    [
+<<<<<<< HEAD
       "ddp",
       "1.0.9"
     ],
@@ -91,10 +129,22 @@
     [
       "ejson",
       "1.0.3"
+=======
+      "check",
+      "1.0.2"
     ],
     [
-      "emitter",
-      "0.0.0"
+      "ddp",
+      "1.0.10"
+>>>>>>> alex-temp
+    ],
+    [
+      "deps",
+      "1.0.5"
+    ],
+    [
+      "ejson",
+      "1.0.4"
     ],
     [
       "flint",
@@ -106,14 +156,19 @@
     ],
     [
       "follower-livedata",
+<<<<<<< HEAD
       "1.0.1"
+=======
+      "1.0.2"
+>>>>>>> alex-temp
     ],
     [
       "geojson-utils",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "html-tools",
+<<<<<<< HEAD
       "1.0.1"
     ],
     [
@@ -131,10 +186,21 @@
     [
       "http-publish",
       "0.0.0"
+=======
+      "1.0.2"
+    ],
+    [
+      "htmljs",
+      "1.0.2"
+    ],
+    [
+      "http",
+      "1.0.7"
+>>>>>>> alex-temp
     ],
     [
       "id-map",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "infinitedg:winston",
@@ -158,18 +224,23 @@
     ],
     [
       "iron:router",
+<<<<<<< HEAD
       "0.9.3"
+=======
+      "0.9.4"
+>>>>>>> alex-temp
     ],
     [
       "jquery",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "json",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "livedata",
+<<<<<<< HEAD
       "1.0.10"
     ],
     [
@@ -195,6 +266,33 @@
     [
       "mongo-livedata",
       "1.0.5"
+=======
+      "1.0.11"
+    ],
+    [
+      "logging",
+      "1.0.4"
+    ],
+    [
+      "meteor",
+      "1.1.2"
+    ],
+    [
+      "minifiers",
+      "1.1.1"
+    ],
+    [
+      "minimongo",
+      "1.0.4"
+    ],
+    [
+      "mongo",
+      "1.0.7"
+    ],
+    [
+      "mongo-livedata",
+      "1.0.6"
+>>>>>>> alex-temp
     ],
     [
       "mrt:bootstrap-growl",
@@ -202,31 +300,39 @@
     ],
     [
       "observe-sequence",
+<<<<<<< HEAD
       "1.0.2"
+=======
+      "1.0.3"
+>>>>>>> alex-temp
     ],
     [
       "ordered-dict",
-      "1.0.0"
+      "1.0.1"
     ],
     [
-      "power-queue",
-      "0.0.0"
+      "raix:eventemitter",
+      "0.0.1"
     ],
     [
       "random",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "reactive-dict",
+<<<<<<< HEAD
       "1.0.3"
     ],
     [
       "reactive-list",
       "0.0.0"
+=======
+      "1.0.4"
+>>>>>>> alex-temp
     ],
     [
-      "reactive-property",
-      "0.0.0"
+      "reactive-var",
+      "1.0.3"
     ],
     [
       "reactive-var",
@@ -234,10 +340,11 @@
     ],
     [
       "retry",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "routepolicy",
+<<<<<<< HEAD
       "1.0.1"
     ],
     [
@@ -259,10 +366,37 @@
     [
       "ui",
       "1.0.3"
+=======
+      "1.0.2"
+    ],
+    [
+      "spacebars",
+      "1.0.3"
+    ],
+    [
+      "spacebars-compiler",
+      "1.0.3"
+    ],
+    [
+      "templating",
+      "1.0.8"
+    ],
+    [
+      "tracker",
+      "1.0.3"
+    ],
+    [
+      "ui",
+      "1.0.4"
+>>>>>>> alex-temp
     ],
     [
       "underscore",
-      "1.0.0"
+      "1.0.1"
+    ],
+    [
+      "url",
+      "1.0.1"
     ],
     [
       "url",
@@ -270,6 +404,7 @@
     ],
     [
       "webapp",
+<<<<<<< HEAD
       "1.1.2"
     ],
     [
@@ -279,5 +414,16 @@
   ],
   "pluginDependencies": [],
   "toolVersion": "meteor-tool@1.0.32",
+=======
+      "1.1.3"
+    ],
+    [
+      "webapp-hashing",
+      "1.0.1"
+    ]
+  ],
+  "pluginDependencies": [],
+  "toolVersion": "meteor-tool@1.0.34",
+>>>>>>> alex-temp
   "format": "1.0"
 }

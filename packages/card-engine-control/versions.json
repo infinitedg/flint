@@ -2,23 +2,39 @@
   "dependencies": [
     [
       "application-configuration",
+<<<<<<< HEAD
       "1.0.2"
     ],
     [
       "base64",
       "1.0.0"
+=======
+      "1.0.3"
+    ],
+    [
+      "base64",
+      "1.0.1"
+>>>>>>> alex-temp
     ],
     [
       "binary-heap",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "blaze",
+<<<<<<< HEAD
       "2.0.1"
+=======
+      "2.0.2"
+>>>>>>> alex-temp
     ],
     [
       "blaze-tools",
-      "1.0.0"
+      "1.0.1"
+    ],
+    [
+      "boilerplate-generator",
+      "1.0.1"
     ],
     [
       "boilerplate-generator",
@@ -26,10 +42,11 @@
     ],
     [
       "callback-hook",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "check",
+<<<<<<< HEAD
       "1.0.1"
     ],
     [
@@ -43,6 +60,21 @@
     [
       "ejson",
       "1.0.3"
+=======
+      "1.0.2"
+    ],
+    [
+      "ddp",
+      "1.0.10"
+    ],
+    [
+      "deps",
+      "1.0.5"
+    ],
+    [
+      "ejson",
+      "1.0.4"
+>>>>>>> alex-temp
     ],
     [
       "flint",
@@ -54,23 +86,35 @@
     ],
     [
       "follower-livedata",
+<<<<<<< HEAD
       "1.0.1"
+=======
+      "1.0.2"
+>>>>>>> alex-temp
     ],
     [
       "geojson-utils",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "html-tools",
+<<<<<<< HEAD
       "1.0.1"
     ],
     [
       "htmljs",
       "1.0.1"
+=======
+      "1.0.2"
+    ],
+    [
+      "htmljs",
+      "1.0.2"
+>>>>>>> alex-temp
     ],
     [
       "id-map",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "infinitedg:gsap",
@@ -98,14 +142,19 @@
     ],
     [
       "iron:router",
+<<<<<<< HEAD
       "0.9.3"
+=======
+      "0.9.4"
+>>>>>>> alex-temp
     ],
     [
       "jquery",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "json",
+<<<<<<< HEAD
       "1.0.0"
     ],
     [
@@ -123,6 +172,25 @@
     [
       "minimongo",
       "1.0.3"
+=======
+      "1.0.1"
+    ],
+    [
+      "logging",
+      "1.0.4"
+    ],
+    [
+      "meteor",
+      "1.1.2"
+    ],
+    [
+      "minifiers",
+      "1.1.1"
+    ],
+    [
+      "minimongo",
+      "1.0.4"
+>>>>>>> alex-temp
     ],
     [
       "mizzao:bootboxjs",
@@ -130,7 +198,11 @@
     ],
     [
       "mongo",
+<<<<<<< HEAD
       "1.0.6"
+=======
+      "1.0.7"
+>>>>>>> alex-temp
     ],
     [
       "mrt:bootstrap-growl",
@@ -138,30 +210,43 @@
     ],
     [
       "observe-sequence",
+<<<<<<< HEAD
       "1.0.2"
+=======
+      "1.0.3"
+>>>>>>> alex-temp
     ],
     [
       "ordered-dict",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "random",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "reactive-dict",
+<<<<<<< HEAD
       "1.0.3"
     ],
     [
       "reactive-var",
       "1.0.2"
+=======
+      "1.0.4"
+    ],
+    [
+      "reactive-var",
+      "1.0.3"
+>>>>>>> alex-temp
     ],
     [
       "retry",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "routepolicy",
+<<<<<<< HEAD
       "1.0.1"
     ],
     [
@@ -183,13 +268,37 @@
     [
       "ui",
       "1.0.3"
+=======
+      "1.0.2"
+    ],
+    [
+      "spacebars",
+      "1.0.3"
+    ],
+    [
+      "spacebars-compiler",
+      "1.0.3"
+    ],
+    [
+      "templating",
+      "1.0.8"
+    ],
+    [
+      "tracker",
+      "1.0.3"
+    ],
+    [
+      "ui",
+      "1.0.4"
+>>>>>>> alex-temp
     ],
     [
       "underscore",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "webapp",
+<<<<<<< HEAD
       "1.1.2"
     ],
     [
@@ -199,5 +308,16 @@
   ],
   "pluginDependencies": [],
   "toolVersion": "meteor-tool@1.0.32",
+=======
+      "1.1.3"
+    ],
+    [
+      "webapp-hashing",
+      "1.0.1"
+    ]
+  ],
+  "pluginDependencies": [],
+  "toolVersion": "meteor-tool@1.0.34",
+>>>>>>> alex-temp
   "format": "1.0"
 }

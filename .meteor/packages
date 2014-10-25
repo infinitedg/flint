@@ -17,13 +17,8 @@ brentjanderson:kinetic
 mizzao:bootboxjs
 arunoda:kadira
 mrt:bootstrap-growl
-#raix:micro-queue
-#raix:reactive-list
-#raix:collection-fs
 natestrauser:font-awesome
 infinitedg:three
-mrt:chosen-package
-#foldor:bootstrap-3
 mrt:bootstrap-colorpicker-2
 simison:bootstrap3-less
 pascoual:bootstrap-contextmenu
@@ -31,33 +26,6 @@ bootstrap-contextjs
 infinitedg:bootstrap-slider-touch
 
 ui-dropped-event
-reactive-property
-reactive-list
-power-queue
-numeral
-micro-queue
-http-publish
-http-methods
-emitter
-data-man
-collectionfs
-cfs-worker
-cfs-upload-http
-cfs-upload-ddp
-cfs-ui
-cfs-tempstore
-cfs-storage-adapter
-cfs-s3
-cfs-gridfs
-#cfs-graphicsmagick
-cfs-filesystem
-cfs-filesaver
-cfs-file
-cfs-ejson-file
-cfs-collection-filters
-cfs-collection
-cfs-base-package
-cfs-access-point
 
 flint
 flint-debug
@@ -67,6 +35,7 @@ flint-sound
 flint-speech
 flint-utils
 flint-files
+flint-assets
 
 layout-default
 layout-blackout
@@ -121,13 +90,19 @@ bootstrap-contextjs
 bootstrap-slider
 flint-heartbeat
 flint-macro-engine
+flint-audio-engine
 flint-theme-engine
 theme-default
 theme-odyssey
 card-shields
 mizzao:bootstrap-3
+macro-sounds
 card-coolant
 card-status
 card-thrust
 card-wormhole
 card-efficiency
+card-transporters
+cfs:standard-packages
+cfs:filesystem
+cfs:gridfs

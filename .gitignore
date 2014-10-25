@@ -1,3 +1,4 @@
 .build*
+.npm*
 *DS_Store
 flint.sublime-*
