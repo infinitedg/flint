@@ -1,3 +1,29 @@
+Template.theme_headerGlow.helpers({
+	alertColora: function(level){
+		var alertNum = Flint.simulator('alertCondition');
+
+		var colorval;
+		if (alertNum == 5 || alertNum == 4){
+			colorval = '48,88,138';
+		} else 
+		if (alertNum == 3){
+			colorval = '138,127,48';
+		} else
+		if (alertNum == 2){
+			colorval = '138,100,48';
+		} else
+		if (alertNum == 1){
+			colorval = '138,48,48';
+		} else
+		if (alertNum == 'c' || alertNum == 'cloak' || alertNum == 'p'){
+			colorval = '100,48,138';
+		} else {
+			colorval = '138,138,138';
+		}
+		return 'rgba(' + colorval + ',' + level + ')';
+	}
+});
+
 Template.theme_vanguard_frame.helpers({
 	alertName: function(){
 		var alertNum = Flint.simulator('alertCondition');
