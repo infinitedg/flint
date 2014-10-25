@@ -16,6 +16,9 @@ Meteor.startup(function(){
 	// @TODO Get this observer to re-run reactively when the server ID changes
 	Flint.collection('flintTweens').find({serverId: Flint.serverId()}).observe({
 		added: function(doc) {
+			// Remove tween objects that already exist for this collection and document ID
+			Flint.collection('flintTweens').remove({collection: doc.collection, objId: doc.objId, _id: {$ne: doc._id}});
+
 			var gsVars = doc.tweenVars || {};
 
 			// Configure easing
@@ -106,9 +109,10 @@ Meteor.startup(function(){
 			tweenBank[doc._id] = TweenLite.to(sourceObj, doc.duration, gsVars);
 		},
 		changed: function(newDoc, oldDoc) {
-
+			// Update tween to reflect new animation?
 		},
 		removed: function(doc) {
+			tweenBank[doc._id].pause();
 			delete tweenBank[doc._id];
 		}
 	});
