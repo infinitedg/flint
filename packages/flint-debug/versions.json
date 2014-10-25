@@ -2,21 +2,6 @@
   "dependencies": [
     [
       "base64",
-<<<<<<< HEAD
-      "1.0.0"
-    ],
-    [
-      "blaze",
-      "2.0.1"
-    ],
-    [
-      "deps",
-      "1.0.4"
-    ],
-    [
-      "ejson",
-      "1.0.3"
-=======
       "1.0.1"
     ],
     [
@@ -30,7 +15,6 @@
     [
       "ejson",
       "1.0.4"
->>>>>>> alex-temp
     ],
     [
       "geojson-utils",
@@ -38,11 +22,7 @@
     ],
     [
       "htmljs",
-<<<<<<< HEAD
-      "1.0.1"
-=======
       "1.0.2"
->>>>>>> alex-temp
     ],
     [
       "id-map",
@@ -58,17 +38,6 @@
     ],
     [
       "meteor",
-<<<<<<< HEAD
-      "1.1.1"
-    ],
-    [
-      "minimongo",
-      "1.0.3"
-    ],
-    [
-      "observe-sequence",
-      "1.0.2"
-=======
       "1.1.2"
     ],
     [
@@ -78,7 +47,6 @@
     [
       "observe-sequence",
       "1.0.3"
->>>>>>> alex-temp
     ],
     [
       "ordered-dict",
@@ -93,24 +61,12 @@
       "1.0.3"
     ],
     [
-      "reactive-var",
-      "1.0.2"
-    ],
-    [
       "templating",
-<<<<<<< HEAD
-      "1.0.7"
-    ],
-    [
-      "tracker",
-      "1.0.2"
-=======
       "1.0.8"
     ],
     [
       "tracker",
       "1.0.3"
->>>>>>> alex-temp
     ],
     [
       "underscore",
@@ -118,14 +74,6 @@
     ]
   ],
   "pluginDependencies": [],
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "toolVersion": "meteor-tool@1.0.32",
-=======
   "toolVersion": "meteor-tool@1.0.34",
->>>>>>> alex-temp
-=======
-  "toolVersion": "meteor-tool@1.0.33",
->>>>>>> alex-engines
   "format": "1.0"
 }

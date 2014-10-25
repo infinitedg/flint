@@ -202,10 +202,6 @@
     ]
   ],
   "pluginDependencies": [],
-<<<<<<< HEAD:packages/flint-audio-engine/versions.json
   "toolVersion": "meteor-tool@1.0.34",
-=======
-  "toolVersion": "meteor-tool@1.0.33",
->>>>>>> alex-engines:packages/collectionfs/versions.json
   "format": "1.0"
 }

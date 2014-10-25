@@ -6,11 +6,7 @@
     ],
     [
       "meteor",
-<<<<<<< HEAD
-      "1.1.1"
-=======
       "1.1.2"
->>>>>>> alex-temp
     ],
     [
       "underscore",
@@ -18,14 +14,6 @@
     ]
   ],
   "pluginDependencies": [],
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "toolVersion": "meteor-tool@1.0.32",
-=======
   "toolVersion": "meteor-tool@1.0.34",
->>>>>>> alex-temp
-=======
-  "toolVersion": "meteor-tool@1.0.33",
->>>>>>> alex-engines
   "format": "1.0"
 }

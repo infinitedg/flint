@@ -2,19 +2,11 @@
   "dependencies": [
     [
       "application-configuration",
-<<<<<<< HEAD
-      "1.0.2"
-    ],
-    [
-      "base64",
-      "1.0.0"
-=======
       "1.0.3"
     ],
     [
       "base64",
       "1.0.1"
->>>>>>> alex-temp
     ],
     [
       "binary-heap",
@@ -22,11 +14,7 @@
     ],
     [
       "blaze",
-<<<<<<< HEAD
-      "2.0.1"
-=======
       "2.0.2"
->>>>>>> alex-temp
     ],
     [
       "blaze-tools",
@@ -35,10 +23,6 @@
     [
       "boilerplate-generator",
       "1.0.1"
-    ],
-    [
-      "boilerplate-generator",
-      "1.0.0"
     ],
     [
       "brentjanderson:kinetic",
@@ -50,21 +34,6 @@
     ],
     [
       "check",
-<<<<<<< HEAD
-      "1.0.1"
-    ],
-    [
-      "ddp",
-      "1.0.9"
-    ],
-    [
-      "deps",
-      "1.0.4"
-    ],
-    [
-      "ejson",
-      "1.0.3"
-=======
       "1.0.2"
     ],
     [
@@ -78,7 +47,6 @@
     [
       "ejson",
       "1.0.4"
->>>>>>> alex-temp
     ],
     [
       "flint",
@@ -90,11 +58,7 @@
     ],
     [
       "follower-livedata",
-<<<<<<< HEAD
-      "1.0.1"
-=======
       "1.0.2"
->>>>>>> alex-temp
     ],
     [
       "geojson-utils",
@@ -102,19 +66,11 @@
     ],
     [
       "html-tools",
-<<<<<<< HEAD
-      "1.0.1"
-    ],
-    [
-      "htmljs",
-      "1.0.1"
-=======
       "1.0.2"
     ],
     [
       "htmljs",
       "1.0.2"
->>>>>>> alex-temp
     ],
     [
       "id-map",
@@ -142,15 +98,7 @@
     ],
     [
       "iron:router",
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "0.9.3"
-=======
       "0.9.4"
->>>>>>> alex-temp
-=======
-      "0.9.4"
->>>>>>> alex-engines
     ],
     [
       "jquery",
@@ -158,29 +106,6 @@
     ],
     [
       "json",
-<<<<<<< HEAD
-      "1.0.0"
-    ],
-    [
-      "logging",
-      "1.0.3"
-    ],
-    [
-      "meteor",
-      "1.1.1"
-    ],
-    [
-      "minifiers",
-      "1.1.0"
-    ],
-    [
-      "minimongo",
-      "1.0.3"
-    ],
-    [
-      "mongo",
-      "1.0.6"
-=======
       "1.0.1"
     ],
     [
@@ -202,7 +127,6 @@
     [
       "mongo",
       "1.0.7"
->>>>>>> alex-temp
     ],
     [
       "mrt:bootstrap-growl",
@@ -210,11 +134,7 @@
     ],
     [
       "observe-sequence",
-<<<<<<< HEAD
-      "1.0.2"
-=======
       "1.0.3"
->>>>>>> alex-temp
     ],
     [
       "ordered-dict",
@@ -226,19 +146,11 @@
     ],
     [
       "reactive-dict",
-<<<<<<< HEAD
-      "1.0.3"
-    ],
-    [
-      "reactive-var",
-      "1.0.2"
-=======
       "1.0.4"
     ],
     [
       "reactive-var",
       "1.0.3"
->>>>>>> alex-temp
     ],
     [
       "retry",
@@ -246,29 +158,6 @@
     ],
     [
       "routepolicy",
-<<<<<<< HEAD
-      "1.0.1"
-    ],
-    [
-      "spacebars",
-      "1.0.2"
-    ],
-    [
-      "spacebars-compiler",
-      "1.0.2"
-    ],
-    [
-      "templating",
-      "1.0.7"
-    ],
-    [
-      "tracker",
-      "1.0.2"
-    ],
-    [
-      "ui",
-      "1.0.3"
-=======
       "1.0.2"
     ],
     [
@@ -290,7 +179,6 @@
     [
       "ui",
       "1.0.4"
->>>>>>> alex-temp
     ],
     [
       "underscore",
@@ -298,18 +186,6 @@
     ],
     [
       "webapp",
-<<<<<<< HEAD
-      "1.1.2"
-    ],
-    [
-      "webapp-hashing",
-      "1.0.0"
-    ]
-  ],
-  "pluginDependencies": [],
-<<<<<<< HEAD
-  "toolVersion": "meteor-tool@1.0.32",
-=======
       "1.1.3"
     ],
     [
@@ -319,9 +195,5 @@
   ],
   "pluginDependencies": [],
   "toolVersion": "meteor-tool@1.0.34",
->>>>>>> alex-temp
-=======
-  "toolVersion": "meteor-tool@1.0.33",
->>>>>>> alex-engines
   "format": "1.0"
 }
