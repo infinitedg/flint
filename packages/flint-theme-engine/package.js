@@ -7,6 +7,5 @@ Package.on_use(function(api) {
   
   api.use(['flint', 'underscore', 'templating'], ['server', 'client']);
 
-  api.add_files(['server.js'], ['server']);
   api.add_files(['client.html', 'client.js'], ['client']);
 });
