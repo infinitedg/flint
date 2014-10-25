@@ -44,7 +44,7 @@ Template.comp_flintContainerView.helpers({
 		var objectSimulators = _.pluck(objects, "simulatorId");
 		var allSimulators = _.pluck(_.union(Flint.simulators.find().fetch()), "simulatorId");
 		var diffSimulators = _.difference(allSimulators, objectSimulators);
-		return Flint.simulators.find({ simulatorId: {$in: diffSimulators}});
+		return Flint.simulators.find({ simulatorId: {$in: allSimulators}});
 	}
 });
 
@@ -62,7 +62,7 @@ Template.comp_flintAssetBrowser.events({
 		Session.set('comp.flintAssetBrowser.selectedContainer', undefined);
 		Session.set('comp.flintAssetBrowser.currentDirectory', this.fullPath);
 	},
-	'click a.container': function(e, t) {
+	'click a.containerLink': function(e, t) {
 		Flint.beep();
 		Session.set('comp.flintAssetBrowser.selectedContainer', this._id);
 	},
@@ -120,10 +120,7 @@ Template.comp_flintContainerView.events({
 		        // We have to do the following rigamarole since upserts are frowned upon
 		        // on the client
 		        if (object) {
-		        	Flint.collection('flintAssetObjects').update(object._id,
-		        	{
-		        		objectId: fileObj._id
-		        	});
+		        	Flint.collection('flintAssetObjects').update(object._id, {$set : {objectId: fileObj._id}} );
 		        } else {
 		        	Flint.collection('flintAssetObjects').insert({
 		        		simulatorId: simulatorId,
@@ -173,5 +170,14 @@ Template.comp_flintContainerView.events({
 	},
 	'click img': function(e, t) {
 		$(e.target).toggleClass('enlarged');
+	},
+	'click .delete-object': function(e, t){
+		debugger;
+		var containerId = Session.get('comp.flintAssetBrowser.selectedContainer');
+		Flint.collection('flintassetcontainers').remove({'_id' : containerId});
+		Flint.collection('flintassetobjects').find({'containerId' : containerId}).forEach(function(e){
+			Flint.collection('flintassetcontainers').remove({'_id': e._id});
+		});
+		Session.set('comp.flintAssetBrowser.selectedContainer',undefined);
 	}
 });
