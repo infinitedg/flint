@@ -1,22 +1,22 @@
-Template.card_scanner.scan_disabled = function() {
-	if (Flint.simulator('scannerStatus') === 'scanning') {
-		return 'disabled';
-	} else {
-		return '';
+Template.card_scanner.helpers({
+	scan_disabled: function() {
+		if (Flint.simulator('scannerStatus') === 'scanning') {
+			return 'disabled';
+		} else {
+			return '';
+		}
+	},
+	scanning: function() {
+		if (Flint.simulator('scannerStatus') === 'scanning') {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	scannerResponse: function() {
+		return Flint.simulator('scannerResponse');
 	}
-};
-
-Template.card_scanner.scanning = function() {
-	if (Flint.simulator('scannerStatus') === 'scanning') {
-		return true;
-	} else {
-		return false;
-	}
-};
-
-Template.card_scanner.scannerResponse = function() {
-	return Flint.simulator('scannerResponse');
-};
+});
 
 Template.card_scanner.events({
 	'click .scan-btn': function(e, t) {

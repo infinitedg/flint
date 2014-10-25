@@ -1,0 +1,11 @@
+img.dial{
+	width: 25%;
+}
+.dialHolder{
+	float: left;
+}
+.small-boxes{
+	background-color: rgba(255,255,255,0.25);
+	border: solid 1px rgba(255,255,255,0.75);
+	padding: 5px;
+}

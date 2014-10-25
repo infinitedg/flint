@@ -4,6 +4,8 @@ Template.card_speed.events({
   }
 });
 
-Template.card_speed.currentSpeed = function() {
-  return Flint.simulator().speed;
-};
+Template.card_speed.helpers({
+	currentSpeed: function() {
+	  return Flint.simulator().speed;
+	}
+});

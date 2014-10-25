@@ -7,9 +7,12 @@
 Thruster card. Directional and Rotational thrusters.
 @class core_thrusters
 */
-Template.core_thrusters.rotationValue = function (which) {
-    return Flint.simulator('thrusterRotation')[which];
-};
+Template.core_thrusters.helpers({
+    rotationValue: function (which) {
+        return Flint.simulator('thrusterRotation')[which];
+    }
+});
+
 Template.core_thrusters.created = function () {
     this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
         changed: function (id, fields) {
@@ -29,6 +32,7 @@ Template.core_thrusters.created = function () {
 Template.core_thrusters.destroyed = function () {
     this.conditionObserver.stop();
 };
+
 Template.core_thrusters.events = {
     'click .manual-thrusters': function (e) {
         var obj = {

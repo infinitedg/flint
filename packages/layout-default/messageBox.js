@@ -12,7 +12,7 @@ Template.layout_default_messageBox.helpers({
     }
 });
 
-           //  $(".chat").scrollTop($(".chat")[0].scrollHeight);
+//  $(".chat").scrollTop($(".chat")[0].scrollHeight);
 
 Template.layout_default_messageBox.rendered = function(){
      Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},1000);     

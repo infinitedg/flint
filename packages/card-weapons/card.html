@@ -1,0 +1,89 @@
+<template name="card_weapons">
+	<div class="card-weapons">
+		<div class="row">
+			<div class="col-xs-5 targetingBox">
+				<div class="targetGrid">
+
+				</div>
+				<div class="targetOptions row">
+					<div class="col-xs-6">
+						<label class="control radio">
+							<input type="radio" id="general" name="radio">
+							<span class="control-indicator"></span>
+							General
+						</label>
+						<label class="control radio">
+							<input type="radio" id="weapons" name="radio">
+							<span class="control-indicator"></span>
+							Weapons
+						</label>
+						<label class="control radio">
+							<input type="radio" id="engines" name="radio">
+							<span class="control-indicator"></span>
+							Engines
+						</label>
+						<label class="control radio">
+							<input type="radio" id="shields" name="radio">
+							<span class="control-indicator"></span>
+							Shields
+						</label>
+					</div>
+					<div class="col-xs-6">
+						<label class="control radio">
+							<input type="radio" id="general" name="radio">
+							<span class="control-indicator"></span>
+							Communications
+						</label>
+						<label class="control radio">
+							<input type="radio" id="weapons" name="radio">
+							<span class="control-indicator"></span>
+							Life Support
+						</label>
+						<label class="control radio">
+							<input type="radio" id="engines" name="radio">
+							<span class="control-indicator"></span>
+							Tractor Beam
+						</label>
+						<label class="control radio">
+							<input type="radio" id="shields" name="radio">
+							<span class="control-indicator"></span>
+							Other
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-7 weaponsLoading">
+				<div class="row phaser1">
+					<h6>Phaser Bank 1</h6>
+					<div class="row">
+						<div class="col-xs-11 phaser1 energyBox">
+							<div class="phaser1 energyBar" style={{phaserEnergy '1'}} ></div>
+						</div>
+						<button id="charge1" class="col-xs-1 btn btn-danger charge">Charge</button>
+					</div>
+					<div class="row">
+						<div class="col-xs-11 phaser1 heatBox">
+							<div class="phaser1 heatBar" style={{phaserHeat '1'}} ></div>
+						</div>
+						<button id="fire1" class="col-xs-1 btn btn-danger fire">Fire</button>
+					</div>
+				</div>
+				<div class="row phaser2">
+					<h6>Phaser Bank 2</h6>
+					<div class="row">
+						<div class="col-xs-11 phaser2 energyBox">
+							<div class="phaser2 energyBar" style={{phaserEnergy '2'}} ></div>
+						</div>
+						<button id="charge2" class="col-xs-1 btn btn-danger charge">Charge</button>
+					</div>
+					<div class="row">
+						<div class="col-xs-11 phaser2 heatBox">
+							<div class="phaser2 heatBar" style={{phaserHeat '1'}} ></div>
+						</div>
+						<button id="fire2" class="col-xs-1 btn btn-danger fire">Fire</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

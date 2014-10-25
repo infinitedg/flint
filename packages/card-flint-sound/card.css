@@ -9,7 +9,7 @@
     width: 671px;
     height: 200px;
     font: 1em/1.5 Verdana, Sans-Serif;
-    background: #fff;
+    background: #333;
     border: 1px solid #f9f9f9;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -20,6 +20,7 @@
 }
 
 #keyboard {
+    font-family: 'Veranda', Sans-Serif;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -31,7 +32,7 @@
     height: 40px;
     line-height: 40px;
     text-align: center;
-    background: #fff;
+    background: #333;
     border: 1px solid #f9f9f9;
     border-radius: 5px;
     -moz-border-radius: 5px;

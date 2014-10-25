@@ -39,50 +39,54 @@ Template.card_flintstations.rendered = function () {
         }
     });
 };
-Template.card_flintstations.stations = function () {
-    return Flint.collection('stations').find();
-};
-Template.card_flintstations.cards = function () {
-    var station = Session.get('selectedStation');
-    var cards;
-    if (station !== undefined && station.hasOwnProperty('cards')) {
-        cards = station.cards;
-    }
-    return cards;
-};
-Template.card_flintstations.selectedStation = function () {
-    return Session.get('selectedStation').name !== undefined;
-};
-Template.card_flintstations.selectedCard = function () {
-    if (Session.get('selectedStation').name !== undefined) {
-        return Session.get('selectedCard').id !== undefined;
-    }
-};
-Template.card_flintstations.selectedAllCard = function () {
-    if (Session.get('selectedStation').name !== undefined) {
-        return Session.get('selectedAllCard').id !== undefined;
-    }
-};
-Template.card_flintstations.allCards = function () {
-    Templates = Template;
-    var obj = [];
-    for (var key in Templates) {
-        if (key.substring(0, 5) == "card_") {
-            var cardname;
-            if (Template[key].cardName !== undefined) {
-                cardname = Template[key].cardName;
-            } else {
-                cardname = key.substring(5);
-            }
-            obj.push({
-                'name': cardname,
-                    'id': key
-            });
-        }
 
+Template.card_flintstations.helpers({
+    stations: function () {
+        return Flint.collection('stations').find();
+    },
+    cards: function () {
+        var station = Session.get('selectedStation');
+        var cards;
+        if (station !== undefined && station.hasOwnProperty('cards')) {
+            cards = station.cards;
+        }
+        return cards;
+    },
+    selectedStation: function () {
+        return Session.get('selectedStation').name !== undefined;
+    },
+    selectedCard: function () {
+        if (Session.get('selectedStation').name !== undefined) {
+            return Session.get('selectedCard').id !== undefined;
+        }
+    },
+    selectedAllCard: function () {
+        if (Session.get('selectedStation').name !== undefined) {
+            return Session.get('selectedAllCard').id !== undefined;
+        }
+    },
+    allCards: function () {
+        Templates = Template;
+        var obj = [];
+        for (var key in Templates) {
+            if (key.substring(0, 5) == "card_") {
+                var cardname;
+                if (Template[key].cardName !== undefined) {
+                    cardname = Template[key].cardName;
+                } else {
+                    cardname = key.substring(5);
+                }
+                obj.push({
+                    'name': cardname,
+                        'id': key
+                });
+            }
+
+        }
+        return (obj);
     }
-    return (obj);
-};
+})
+
 Template.card_flintstations.events = {
     'click .station': function (e, t) {
         $(t.findAll('.stations .station')).removeClass('lineSelected');

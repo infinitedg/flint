@@ -82,28 +82,33 @@ Template.card_messageComposer.events = {
     }
 };
 
-Template.card_messageComposer.saveMessage = function(context){
-    var bodytext;
-    if (Session.get('currentLRMessage') === '') {return null;}
-    var message = Flint.collection('lrmessages').find({_id: Session.get('currentLRMessage')}).fetch();
-    var senderName = Flint.station().name;
-    console.log(message);
-    if (message.encoded === true) {bodyText = message.body;}
-    else {bodyText = context.find('.body-text').value;}
-    var toText = context.find('.to-input').value;
-    if (bodyText === null) {bodyText = '';}
-    if (toText === null || toText === '') {toText = '<<NEW MESSAGE>>';}
-    Flint.collection('lrmessages').update(
-        Session.get('currentLRMessage'),
-        {
-            sender: senderName,
-            to: toText,
-            body: bodyText,
-            encoded: message.encoded,
-            status: 'draft',
-            simulatorId: Flint.simulatorId()
-        });
-};
+Template.card_messageComposer.helpers({
+    saveMessage: function(context){
+        var bodytext;
+        if (Session.get('currentLRMessage') === '') {return null;}
+        var message = Flint.collection('lrmessages').find({_id: Session.get('currentLRMessage')}).fetch();
+        var senderName = Flint.station().name;
+        console.log(message);
+        if (message.encoded === true) {bodyText = message.body;}
+        else {bodyText = context.find('.body-text').value;}
+        var toText = context.find('.to-input').value;
+        if (bodyText === null) {bodyText = '';}
+        if (toText === null || toText === '') {toText = '<<NEW MESSAGE>>';}
+        Flint.collection('lrmessages').update(
+            Session.get('currentLRMessage'),
+            {
+                sender: senderName,
+                to: toText,
+                body: bodyText,
+                encoded: message.encoded,
+                status: 'draft',
+                simulatorId: Flint.simulatorId()
+            });
+    },
+    messageList: function(){
+        return Flint.collection('lrmessages').find({status: 'draft', sender: Flint.station().name, simulatorId: Flint.simulatorId()});
+    }
+});
 
 
 /**
@@ -126,9 +131,6 @@ Template.card_messageComposer.destroyed = function() {
     //Session.set('currentLRMessage','');
 };
 
-Template.card_messageComposer.messageList = function(){
-    return Flint.collection('lrmessages').find({status: 'draft', sender: Flint.station().name, simulatorId: Flint.simulatorId()});
-};
 function setCharAt(str,index,chr) {
     if(index > str.length-1) return str;
     return str.substr(0,index) + chr + str.substr(index+1);

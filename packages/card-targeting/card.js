@@ -18,9 +18,76 @@ var TimeoutY;
 var TimeoutZ;
 var TimeoutEnd;
 
-Template.card_targeting.getRandomInt = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+Template.card_targeting.helpers({
+    getRandomInt: function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    selectField: function (whichField) {
+        if (whichField == "next") {
+            if (selectedTargetingField == 'x') {
+                whichField = 'y';
+            }
+            if (selectedTargetingField == 'y') {
+                whichField = 'z';
+            }
+            if (selectedTargetingField == 'z') {
+                Template.card_targeting.lockTarget();
+            }
+            if (selectedTargetingField === '') {
+                whichField = '';
+            }
+        }
+        $(".lock-x").removeClass("selected");
+        $(".lock-y").removeClass("selected");
+        $(".lock-z").removeClass("selected");
+        $(".lock-" + whichField).addClass("selected");
+        $(".lock-" + whichField).text("");
+        selectedTargetingField = whichField;
+    },
+    lockTarget: function () {
+        if ($('.calculated-x').text() !== ('') && $('.lock-x').text() == $('.calculated-x').text() && $('.lock-y').text() == $('.calculated-y').text() && $('.lock-z').text() == $('.calculated-z').text()) {
+            setTimeout(function () {
+                clearInterval(randomLoopX);
+                $(".lock-x").addClass("selected");
+            }, 0);
+            setTimeout(function () {
+                clearInterval(randomLoopY);
+                $(".lock-x").removeClass("selected");
+                $(".lock-y").addClass("selected");
+            }, 250);
+            setTimeout(function () {
+                clearInterval(randomLoopZ);
+                $(".lock-y").removeClass("selected");
+                $(".lock-z").addClass("selected");
+            }, 500);
+            setTimeout(function () {
+                $(".lock-z").removeClass("selected");
+            }, 750);
+            $(".current-target-image").attr("src", ($(".target-image").attr("src")));
+            a = Flint.simulator().tacticalTarget;
+            a.targeted = true;
+            Flint.simulators.update(Flint.simulatorId(), {
+                $set: {
+                    tacticalTarget: (a)
+                }
+            });
+
+        } else {
+            $(".current-target-image").attr("src", (imagePath + "notTargeting.png"));
+            a = Flint.simulator().tacticalTarget;
+            a.targeted = false;
+            Flint.simulators.update(Flint.simulatorId(), {
+                $set: {
+                    tacticalTarget: (a)
+                }
+            });
+        }
+
+
+        Template.card_targeting.selectField('');
+    },
+    
+});
 
 /*This changes the image of the current target currently. It could do more, since the key it is observing is an array.*/
 Template.card_targeting.created = function () {
@@ -64,74 +131,6 @@ Template.card_targeting.created = function () {
             }
         }
     });
-};
-
-
-
-Template.card_targeting.selectField = function (whichField) {
-    if (whichField == "next") {
-        if (selectedTargetingField == 'x') {
-            whichField = 'y';
-        }
-        if (selectedTargetingField == 'y') {
-            whichField = 'z';
-        }
-        if (selectedTargetingField == 'z') {
-            Template.card_targeting.lockTarget();
-        }
-        if (selectedTargetingField === '') {
-            whichField = '';
-        }
-    }
-    $(".lock-x").removeClass("selected");
-    $(".lock-y").removeClass("selected");
-    $(".lock-z").removeClass("selected");
-    $(".lock-" + whichField).addClass("selected");
-    $(".lock-" + whichField).text("");
-    selectedTargetingField = whichField;
-};
-
-Template.card_targeting.lockTarget = function () {
-    if ($('.calculated-x').text() !== ('') && $('.lock-x').text() == $('.calculated-x').text() && $('.lock-y').text() == $('.calculated-y').text() && $('.lock-z').text() == $('.calculated-z').text()) {
-        setTimeout(function () {
-            clearInterval(randomLoopX);
-            $(".lock-x").addClass("selected");
-        }, 0);
-        setTimeout(function () {
-            clearInterval(randomLoopY);
-            $(".lock-x").removeClass("selected");
-            $(".lock-y").addClass("selected");
-        }, 250);
-        setTimeout(function () {
-            clearInterval(randomLoopZ);
-            $(".lock-y").removeClass("selected");
-            $(".lock-z").addClass("selected");
-        }, 500);
-        setTimeout(function () {
-            $(".lock-z").removeClass("selected");
-        }, 750);
-        $(".current-target-image").attr("src", ($(".target-image").attr("src")));
-        a = Flint.simulator().tacticalTarget;
-        a.targeted = true;
-        Flint.simulators.update(Flint.simulatorId(), {
-            $set: {
-                tacticalTarget: (a)
-            }
-        });
-
-    } else {
-        $(".current-target-image").attr("src", (imagePath + "notTargeting.png"));
-        a = Flint.simulator().tacticalTarget;
-        a.targeted = false;
-        Flint.simulators.update(Flint.simulatorId(), {
-            $set: {
-                tacticalTarget: (a)
-            }
-        });
-    }
-
-
-    Template.card_targeting.selectField('');
 };
 
 Template.card_targeting.events = {

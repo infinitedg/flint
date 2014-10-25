@@ -13,13 +13,50 @@ Returns a class to either show or hide the cardList if the user is logged in or 
 @property hideCardlistCSS
 @type String
 */
-Template.layout_voyager.hideCardlistCSS = function() {
-  if (Flint.client('name')) {
-    return '';
-  } else {
-    return 'hide';
+Template.layout_voyager.helpers({
+  hideCardlistCSS: function() {
+    if (Flint.client('name')) {
+      return '';
+    } else {
+      return 'hide';
+    }
+  },
+  alertCondition: function() {
+    var a = Flint.simulator('alertCondition');
+    return a;
+  },
+  alertColor: function() {
+      var a = Flint.simulator('alertCondition');
+    switch (a) {
+    case 'c':
+    case 'cloak':
+    case 'purple':
+      return '#7D5399';
+    case 5:
+      return '#487599';
+    case 4:
+      return '#487599';
+    case 3:
+      return '#998E53';
+    case 2:
+      return '#997D53';
+    case 1:
+      return '#995353';
+    }
+  },
+  simulator: function() {
+    return Flint.simulator();
+  },
+  station: function() {
+    return Flint.station();
+  },
+  cardName: function() {
+      return Flint.card().name;   
+  },
+  cardId: function() {
+      return Flint.card().cardId;
   }
-};
+});
 
 // /**
 // Constant speed for transitioning between cards
@@ -109,43 +146,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 Template.layout_voyager.destroyed = function() {
    this.subComputation.stop();  
 };
-Template.layout_voyager.alertCondition = function() {
-  var a = Flint.simulator('alertCondition');
-  return a;
-};
 
-Template.layout_voyager.alertColor = function() {
-    var a = Flint.simulator('alertCondition');
-  switch (a) {
-  case 'c':
-  case 'cloak':
-  case 'purple':
-    return '#7D5399';
-  case 5:
-    return '#487599';
-  case 4:
-    return '#487599';
-  case 3:
-    return '#998E53';
-  case 2:
-    return '#997D53';
-  case 1:
-    return '#995353';
-  }
-}
-Template.layout_voyager.simulator = function() {
-  return Flint.simulator();
-}
-
-Template.layout_voyager.station = function() {
-  return Flint.station();
-}
-Template.layout_voyager.cardName = function() {
-    return Flint.card().name;   
-}
-Template.layout_voyager.cardId = function() {
-    return Flint.card().cardId;
-};
 Template.layout_voyager.created = function() {
     this.subComputation = Deps.autorun(function() {
         Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
@@ -153,7 +154,7 @@ Template.layout_voyager.created = function() {
 	//Flint.play('sciences');
 }
 
-Template.layout_voyager.events = {
+Template.layout_voyager.events({
   'click div.pageContent, touchstart div.pageContent': function(e, context) {
            if ($('.animate').length > 0) {
               var showMenu = document.getElementById( 'showMenu' ),
@@ -184,4 +185,4 @@ Template.layout_voyager.events = {
 			// animate..
 			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
             },
-}
+});

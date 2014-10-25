@@ -1,6 +1,8 @@
-Template.core_speed.currentSpeed = function() {
-  return Flint.simulator().speed;
-};
+Template.core_speed.helpers({
+	currentSpeed: function() {
+	  return Flint.simulator().speed;
+	}
+});
 
 Template.core_speed.created = function() {
   this.observer = Flint.simulators.find(Flint.simulatorId(), {fields: {speed: 1} }).observeChanges({

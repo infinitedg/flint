@@ -69,9 +69,21 @@ function transformY(y) {
     return k.height * ((y * currentDimensions.flippedY) + 1) / 2; // Flip, translate, and scale to different coordinate system
 }
 
-Template.core_sensor3d.listOfIcons = function () {
-    return iconList();
-};
+Template.core_sensor3d.helpers({
+    listOfIcons: function () {
+        return iconList();
+    },
+    wormhole: function () {
+        return Flint.simulator('wormhole');
+    },
+    buttonLabel: function () {
+        if (Session.get('currentDimension') === 'z') {
+            return 'Viewing From Top';
+        } else {
+            return 'Viewing From Side';
+        }
+    }
+});
 
 function changeIcon(icon, id) {
     id = Session.get('currentSensorIcon');
@@ -255,9 +267,6 @@ var armyLayer = new Kinetic.Layer({
 Standard sensor grid card for sensors stations
 @class core_sensor3d
 */
-Template.core_sensor3d.wormhole = function () {
-    return Flint.simulator('wormhole');
-};
 Template.core_sensor3d.created = function () {
     Session.set('currentDimension', currentDimensions.y);
 
@@ -610,8 +619,6 @@ Setup dependencies and observation loop for animating sensor contacts
 Template.core_sensor3d.rendered = function () {
     k.container = this.find('.sensorgrid-container');
 
-
-
     var stage = new Kinetic.Stage({
         container: k.container,
         width: k.width + 30 + 50 * k.scale, // Provide room for 30 pixel margin between grid and army contacts, plus contact size.
@@ -786,11 +793,3 @@ Template.core_sensor3d.events({
         }
     }
 });
-
-Template.core_sensor3d.buttonLabel = function () {
-    if (Session.get('currentDimension') === 'z') {
-        return 'Viewing From Top';
-    } else {
-        return 'Viewing From Side';
-    }
-};

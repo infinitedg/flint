@@ -8,7 +8,13 @@
       "minPower": 5,
       "maxPower": 20,
       "power": 7,
-      "_id": "systems-odyssey-srCommunications"
+      "_id": "systems-odyssey-srCommunications",
+      "commList" : ["Cardassian","Klingon","Romulan","Starfleet","General Use","Orion","Ferengi"],
+      "commMute" : false,
+      "commHail" : "idle",
+      "commFrequency" : 50,
+      "commAmplitude" : 50,
+      "commName" : "Cardassian"
     },
     {
       "name": "Torpedo Launchers",
