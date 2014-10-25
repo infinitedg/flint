@@ -108,10 +108,10 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   cardTransitionAutorun.stop();
 //   stationActionObserver.stop();
 // };
-Template.layout_default.destroyed = function() {
+Template.layout_viewscreen.destroyed = function() {
  this.subComputation.stop();  
 };
-Template.layout_default.helpers({
+Template.layout_viewscreen.helpers({
   alertCondition: function() {
     var a = Flint.simulator('alertCondition');
     return a;
@@ -148,43 +148,3 @@ Template.layout_default.helpers({
     return Flint.cardId();
   },
 });
-
-Template.layout_default.created = function() {
-  this.subComputation = Deps.autorun(function() {
-    Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
-  });
-	//Flint.play('sciences');
-}
-
-Template.layout_default.events = {
-  'click div.pageContent, touchstart div.pageContent': function(e, context) {
-   if ($('.animate').length > 0) {
-    var showMenu = document.getElementById( 'showMenu' ),
-    perspectiveWrapper = document.getElementById( 'perspective' ),
-    container = perspectiveWrapper.querySelector( '.pageContent' ),
-    contentWrapper = container.querySelector( '.wrapper' );
-
-    $(perspectiveWrapper).removeClass('animate');
-    Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 400);
-
-  }
-
-},
-
-'click header, touchstart header': function(e, context) {
-  if (Flint.client().name){
-    var showMenu = document.getElementById( 'showMenu' ),
-    perspectiveWrapper = document.getElementById( 'perspective' ),
-    container = perspectiveWrapper.querySelector( '.pageContent' ),
-    contentWrapper = container.querySelector( '.wrapper' );
-            docscroll = window.pageYOffset || window.document.documentElement.scrollTop; //Finds the yScoll
-			// change top of contentWrapper
-			contentWrapper.style.top = docscroll * -1 + 'px';
-			// mac chrome issue:
-			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			// add modalview class
-			$(perspectiveWrapper).addClass('modalview');
-			// animate..
-			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
-    },
-  }

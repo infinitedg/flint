@@ -17,36 +17,38 @@ var curveLayer, lineLayer, anchorLayer, quad, bezier = {};
 
 Template.card_viewscreen.helpers({
     dynamicTemplate: function () {
-    return Template[Flint.system('Viewscreen','currentScreen')];
-},
-scene: function () {
-    return scene;
-},
-examples: function () {
-    return Examples;
-},
-controls: function () {
-    return controls;
-},
-currentCamera: function (num) {
-    if (num) {
-        currentCamera = num;
-    }
-    return currentCamera;
+        return Template[Flint.system('Viewscreen','currentScreen')];
+    },
+    scene: function () {
+        return scene;
+    },
+    examples: function () {
+        return Examples;
+    },
+    controls: function () {
+        return controls;
+    },
+    currentCamera: function (num) {
+        if (num) {
+            currentCamera = num;
+        }
+        return currentCamera;
 
-},
-hyperBox: function () {
-    return hyperBox;
-},
-cameras: function () {
-    return cameras;
-}
+    },
+    hyperBox: function () {
+        return hyperBox;
+    },
+    cameras: function () {
+        return cameras;
+    }
 
 });
 
-Template.Video.tacticalVideo = function () {
-    return Flint.a(Flint.system('Viewscreen','video'));
-};
+Template.Video.helpers({
+    tacticalVideo: function () {
+        return Flint.a(Flint.system('Viewscreen','video'));
+    }
+});
 
 
 function loadObject(objModel, objMtl, objTexture, options) {
@@ -143,12 +145,12 @@ Template.card_viewscreen.destroyed = function () {
 
 bezierFunc = function (t, p0, p1, p2, p3) {
     var cX = 3 * (p1.x - p0.x),
-        bX = 3 * (p2.x - p1.x) - cX,
-        aX = p3.x - p0.x - cX - bX;
+    bX = 3 * (p2.x - p1.x) - cX,
+    aX = p3.x - p0.x - cX - bX;
 
     var cY = 3 * (p1.y - p0.y),
-        bY = 3 * (p2.y - p1.y) - cY,
-        aY = p3.y - p0.y - cY - bY;
+    bY = 3 * (p2.y - p1.y) - cY,
+    aY = p3.y - p0.y - cY - bY;
 
     var x = (aX * Math.pow(t, 3)) + (bX * Math.pow(t, 2)) + (cX * t) + p0.x;
     var y = (aY * Math.pow(t, 3)) + (bY * Math.pow(t, 2)) + (cY * t) + p0.y;
@@ -173,23 +175,23 @@ drawCurves = function () {
     for (var curveid in bezier) {
         var curve = bezier[curveid];
         var accuracy = 0.01, //this'll give the bezier 100 segments
-            p0 = {
-                x: curve.start.attrs.x,
-                y: curve.start.attrs.y
-            },
-            p1 = {
-                x: curve.control1.attrs.x,
-                y: curve.control1.attrs.y
-            },
-            p2 = {
-                x: curve.control2.attrs.x,
-                y: curve.control2.attrs.y
-            },
-            p3 = {
-                x: curve.end.attrs.x,
-                y: curve.end.attrs.y
-            },
-            linePoints = [];
+        p0 = {
+            x: curve.start.attrs.x,
+            y: curve.start.attrs.y
+        },
+        p1 = {
+            x: curve.control1.attrs.x,
+            y: curve.control1.attrs.y
+        },
+        p2 = {
+            x: curve.control2.attrs.x,
+            y: curve.control2.attrs.y
+        },
+        p3 = {
+            x: curve.end.attrs.x,
+            y: curve.end.attrs.y
+        },
+        linePoints = [];
 
         for (var i = 0; i < 1; i += accuracy) {
             var p = bezierFunc(i, p0, p1, p2, p3);
@@ -356,7 +358,8 @@ Template.Sandbox.rendered = function () {
     var renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true
-    }); // to get smoother output});
+    });
+    // to get smoother output
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('viewscreen').appendChild(renderer.domElement);
     /*Ships Scene*/
@@ -571,7 +574,7 @@ Template.Sandbox.rendered = function () {
 
     hyperFlare.visible = false;
 
-     geometry = new THREE.PlaneGeometry(10, 10);
+    geometry = new THREE.PlaneGeometry(10, 10);
     var material1 = new THREE.MeshLambertMaterial({
         map: THREE.ImageUtils.loadTexture('/packages/card-viewscreen/textures/planar001.png'),
         transparent: true,
@@ -630,12 +633,12 @@ Template.Sandbox.rendered = function () {
         */
 
         window.laserHolder = new THREE.Object3D;
-laserMaker = laserMaker || {}
+        laserMaker = laserMaker || {}
 
-laserMaker.LaserBeam    = function(color){
-    color = color || 0x4444aa;
-    var object3d    = new THREE.Object3D()
-    this.object3d   = object3d
+        laserMaker.LaserBeam    = function(color){
+            color = color || 0x4444aa;
+            var object3d    = new THREE.Object3D()
+            this.object3d   = object3d
     // generate the texture
     var canvas  = generateLaserBodyCanvas()
     var texture = new THREE.Texture( canvas )
@@ -681,17 +684,17 @@ laserMaker.LaserBeam    = function(color){
 }
 
 
-    laserBeam = new laserMaker.LaserBeam(0xAB4444);
-    var laserCooked = new THREEx.LaserCooked(laserBeam, scene);
-    onRenderFcts.push(function (delta, now) {
-        laserCooked.update(delta, now);
+laserBeam = new laserMaker.LaserBeam(0xAB4444);
+var laserCooked = new THREEx.LaserCooked(laserBeam, scene);
+onRenderFcts.push(function (delta, now) {
+    laserCooked.update(delta, now);
         //lookTowards(laserBeam.object3d, sceneContacts[laserTarget].position , 1);
     });
-    window.laserBeam = laserBeam;
-    var object3d = laserBeam.object3d;
-    object3d.position.x = 0;
-    object3d.position.y = 0.08;
-    object3d.position.z = 0.08;
+window.laserBeam = laserBeam;
+var object3d = laserBeam.object3d;
+object3d.position.x = 0;
+object3d.position.y = 0.08;
+object3d.position.z = 0.08;
     //object3d.rotation.z = -Math.PI/2      
     onRenderFcts.push(function (delta, now) {
         //var object3d        = laserBeam.object3d
@@ -769,7 +772,7 @@ laserMaker.LaserBeam    = function(color){
             delete sceneContacts[doc._id];
         }
     });
-    var currentScene = scene;
+var currentScene = scene;
     //var currentCamera = camera;
     function moveToPoint(fromObject, toPosition, dTheta) {
         fromObject.dx.subVectors(toPosition, fromObject.position);
@@ -937,29 +940,29 @@ Template.Tactical.rendered = function () {
     backgroundLayer.add(box);
     var line;
     for (i = 1; i < 24; i++) {
-         line = new Kinetic.Line({
-            points: [i * 120, 0, i * 120, 630],
-            dash: [20, 10],
-            fill: 'green',
-            stroke: 'green',
-            strokeWidth: 2
-        });
-        backgroundLayer.add(line);
-    }
-    for (i = 1; i < 5; i++) {
-         line = new Kinetic.Line({
-            points: [0, i * 120, 1440, i * 120],
-            dash: [20, 10],
-            fill: 'green',
-            stroke: 'green',
-            strokeWidth: 2
-        });
-        backgroundLayer.add(line);
+       line = new Kinetic.Line({
+        points: [i * 120, 0, i * 120, 630],
+        dash: [20, 10],
+        fill: 'green',
+        stroke: 'green',
+        strokeWidth: 2
+    });
+       backgroundLayer.add(line);
+   }
+   for (i = 1; i < 5; i++) {
+       line = new Kinetic.Line({
+        points: [0, i * 120, 1440, i * 120],
+        dash: [20, 10],
+        fill: 'green',
+        stroke: 'green',
+        strokeWidth: 2
+    });
+       backgroundLayer.add(line);
 
-    }
+   }
 
-    this.tacticalObserver = Flint.collection('tacticalscreencontacts').find().observeChanges({
-        added: function (id, doc) {
+   this.tacticalObserver = Flint.collection('tacticalscreencontacts').find().observeChanges({
+    added: function (id, doc) {
             // console.log("Added", id, doc);
             doc.type = Flint.collection('tacticalscreencontacts').findOne({
                 _id: id
@@ -1108,8 +1111,8 @@ Template.Tactical.rendered = function () {
 
 
 
-    stage.add(backgroundLayer);
-    stage.add(curveLayer);
+stage.add(backgroundLayer);
+stage.add(curveLayer);
     stage.add(contactsLayer); // Uppermost layer
 };
 Template.card_viewscreen.rendered = function () {
@@ -1167,48 +1170,48 @@ Template.card_viewscreen.rendered = function () {
                 });
             }
         });
-        TweenLite.to(scaleValue, 4, {
-            part2Value: 1,
-            delay: 0.5,
-            ease: Power4.easeOut,
-            onUpdate: function () {
-                wormholeMesh2.scale.x = scaleValue.part2Value;
-                wormholeMesh2.scale.y = scaleValue.part2Value;
-            }
-        });
-        TweenLite.to(scaleValue, 6, {
-            part3Value: 0.5,
-            delay: 0.75,
-            ease: Power4.easeOut,
-            onUpdate: function () {
-                wormholeMesh3.scale.x = scaleValue.part3Value;
-                wormholeMesh3.scale.y = scaleValue.part3Value;
-            }
-        });
-        TweenLite.to(scaleValue, 8, {
-            part4Value: 1.25,
-            ease: Elastic.easeOut,
-            delay: 1,
-            onUpdate: function () {
-                wormholeMesh4.scale.x = scaleValue.part4Value;
-                wormholeMesh4.scale.y = scaleValue.part4Value;
-            }
-        });
-
-        TweenLite.to(scaleValue, 12, {
-            currentPosition: 3,
-            delay: 4,
-            ease: Power4.easeInOut,
-            onUpdate: function () {
-                wormhole.position.z = scaleValue.currentPosition;
-            },
-            onComplete: function () {
-
-            }
-        });
+TweenLite.to(scaleValue, 4, {
+    part2Value: 1,
+    delay: 0.5,
+    ease: Power4.easeOut,
+    onUpdate: function () {
+        wormholeMesh2.scale.x = scaleValue.part2Value;
+        wormholeMesh2.scale.y = scaleValue.part2Value;
     }
+});
+TweenLite.to(scaleValue, 6, {
+    part3Value: 0.5,
+    delay: 0.75,
+    ease: Power4.easeOut,
+    onUpdate: function () {
+        wormholeMesh3.scale.x = scaleValue.part3Value;
+        wormholeMesh3.scale.y = scaleValue.part3Value;
+    }
+});
+TweenLite.to(scaleValue, 8, {
+    part4Value: 1.25,
+    ease: Elastic.easeOut,
+    delay: 1,
+    onUpdate: function () {
+        wormholeMesh4.scale.x = scaleValue.part4Value;
+        wormholeMesh4.scale.y = scaleValue.part4Value;
+    }
+});
 
-    function wormholeClose() {
+TweenLite.to(scaleValue, 12, {
+    currentPosition: 3,
+    delay: 4,
+    ease: Power4.easeInOut,
+    onUpdate: function () {
+        wormhole.position.z = scaleValue.currentPosition;
+    },
+    onComplete: function () {
+
+    }
+});
+}
+
+function wormholeClose() {
         //'5'
         currentCamera = 0;
         scaleValue = {
@@ -1295,63 +1298,63 @@ Template.card_viewscreen.rendered = function () {
                 cameras[currentCamera].updateProjectionMatrix();
             }
         });
-    }
-    this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
-        changed: function (id, fields) {
-            if (fields.wormhole) {
-                if (fields.wormhole == "true") {
-                    wormholeOpen();
-                } else {
-                    wormholeClose();
-                }
+}
+this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+    changed: function (id, fields) {
+        if (fields.wormhole) {
+            if (fields.wormhole == "true") {
+                wormholeOpen();
+            } else {
+                wormholeClose();
             }
         }
-    });
+    }
+});
 
-    laserX = 0;
-    laserY = 0;
+laserX = 0;
+laserY = 0;
 
-    function onKeyDown(evt) {
-        var result;
-        switch (evt.keyCode) {
-            case 72:
-                laserBeam.object3d.lookAt(sceneContacts[laserTarget].position);
-                break;
-            case 74:
-                laserX -= 0.05;
-                break;
-            case 73:
-                laserY += 0.05;
-                break;
-            case 76:
-                laserX += 0.05;
-                break;
-            case 75:
-                laserY -= 0.05;
-                break;
-            case 53:
-                wormholeClose();
-                break;
-            case 54:
-                wormholeOpen();
-                break;
-            case 55:
+function onKeyDown(evt) {
+    var result;
+    switch (evt.keyCode) {
+        case 72:
+        laserBeam.object3d.lookAt(sceneContacts[laserTarget].position);
+        break;
+        case 74:
+        laserX -= 0.05;
+        break;
+        case 73:
+        laserY += 0.05;
+        break;
+        case 76:
+        laserX += 0.05;
+        break;
+        case 75:
+        laserY -= 0.05;
+        break;
+        case 53:
+        wormholeClose();
+        break;
+        case 54:
+        wormholeOpen();
+        break;
+        case 55:
                 // '7'
                 currentCamera = 2;
                 break;
-            case 56:
+                case 56:
                 // '8'
                 currentCamera = 0;
                 break;
-            case 57:
+                case 57:
                 // '9'
                 currentCamera = 1;
                 break;
+            }
         }
-    }
 
-    window.addEventListener('keydown', onKeyDown, false);
-    requestAnimationFrame(function animate(nowMsec) {
+        window.addEventListener('keydown', onKeyDown, false);
+        requestAnimationFrame(function animate(nowMsec) {
         // keep looping
         requestAnimationFrame(animate);
         // measure time
@@ -1365,4 +1368,4 @@ Template.card_viewscreen.rendered = function () {
             });
         }
     });
-};
+    };
