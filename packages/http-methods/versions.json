@@ -195,10 +195,14 @@
     ]
   ],
   "pluginDependencies": [],
+<<<<<<< HEAD:packages/http-methods/versions.json
 <<<<<<< HEAD:packages/cfs-upload-http/versions.json
   "toolVersion": "meteor-tool@1.0.32",
 =======
   "toolVersion": "meteor-tool@1.0.25",
 >>>>>>> alex-temp:packages/http-methods/versions.json
+=======
+  "toolVersion": "meteor-tool@1.0.33",
+>>>>>>> alex-engines:packages/cfs-upload-http/versions.json
   "format": "1.0"
 }
