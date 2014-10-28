@@ -21,6 +21,15 @@ Router.onBeforeAction(function (pause) {
   }
 });
 
+function currentCardId() {
+  // If we're not logged in, then take us to card 0 (presumably login)
+  if (Flint.station() && Flint.station().name != "Flint Admin"){
+    return (Flint.client() && Flint.client().name) ? this.params.cardId : 0;
+  } else {
+    return this.params.cardId;
+  }
+}
+
 Router.map(function () {
   this.route('flint_simulatorPicker', {
     path: '/',
@@ -66,14 +75,20 @@ Router.map(function () {
       if (!Flint.station())
         return;
 
-      // If we're not logged in, then take us to card 0 (presumably login)
-      if (Flint.station().name != "Flint Admin"){
-        var cardId = (Flint.client() && Flint.client().name) ? this.params.cardId : 0;
-      } else {
-        var cardId = this.params.cardId;
-      }
+      var cardId = currentCardId.apply(this);
+
       var card = (Flint.station().cards) ? Flint.station().cards[cardId] : {cardId: 'flint_404'};
       this.render(card.cardId);
+    },
+    data: function() {
+      var cardId = currentCardId.apply(this);
+      if (cardId && Flint.station()) {
+        var context = (Flint.station().cards) ? Flint.station().cards[cardId].context : undefined;
+        if (!context) {
+          context = {};
+        }
+        return context;
+      }
     },
     onStop: function() {
       Session.set("flint.simulatorId", undefined);
