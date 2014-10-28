@@ -19,7 +19,7 @@ Template.card_alertCondition.helpers({
   alertLevel: function() {
    return Template.layout_default.alertLevel();   
   }
-})
+});
 
 /**
 When you click one of the alertCondition buttons, change the alert condition to the `data-alert` attribute of the containing box

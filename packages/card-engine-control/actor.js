@@ -12,14 +12,14 @@ var a = Flint.actor({
 				var speed = doc.speed;
 				var d = 0;
 
-				if (speed.substr(0,1) == 0){ //Impulse Speed
+				if (speed.substr(0,1) === 0){ //Impulse Speed
 					wDelta = -0.5;
 					iDelta = speed.substr(2,1);
 				}
 				if (speed.substr(0,1) === 1){ //Warp Speed
 					iDelta = -0.5;
 					wDelta = speed.substr(2,1) / 2;
-					if (wDelta == 0){wDelta = 10;}
+					if (wDelta === 0){wDelta = 10;}
 				}
 				if (speed == "0.0"){
 					wDelta = -0.5;

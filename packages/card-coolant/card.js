@@ -1,7 +1,10 @@
-Template.coolantTank.coolantHeight = function(){
-	return Math.abs(Flint.simulator('coolant') - 100)*.56 + "%";
-}
-Template.coolantTank.events = {
+Template.coolantTank.helpers({
+	coolantHeight: function() {
+		return Math.abs(Flint.simulator('coolant') - 100) * 0.56 + "%";
+	}
+});
+
+Template.coolantTank.events({
 	'mousedown .valve' : function(e,t){
 		e.target.className.baseVal = "valve open";
 		var id=e.target.id;
@@ -20,4 +23,4 @@ Template.coolantTank.events = {
 		})
 		e.preventDefault();
 	}
-}
+});

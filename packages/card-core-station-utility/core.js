@@ -74,9 +74,10 @@ Template.core_stationUtility.events = {
 
     Flint.clients.find(searchParams).forEach(function(client, i){
       Flint.clients.update(client._id, {$set: {remoteAction: action, remoteActionSeed: Math.random(), remoteActionOptions: opts}});
-    }), 
+    });
 
     e.preventDefault();
+
     return false;
   }
 };

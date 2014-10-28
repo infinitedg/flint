@@ -168,7 +168,7 @@ function drawSpring(canvas, context) {
         var x = Math.sin(y * Math.PI / 180 * f) * a + p;
         context.lineTo(x, y);
     }
-};
+}
 
 function animate(canvas, theta, lastTime) {
     var context = canvas.getContext('2d');
@@ -207,7 +207,7 @@ function animate(canvas, theta, lastTime) {
     //drawWeight(canvas, context);
     context.restore();
 
-};
+}
 
 Template.card_shortRangeComm.created = function () {
     this.subscription = Deps.autorun(function () {

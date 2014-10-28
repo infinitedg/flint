@@ -87,4 +87,4 @@ function commFrequency(commName){
   if (commName == Template.core_shortRangeComm.commList()[6]){
     return Math.floor((Math.random() * (100 - 90.625) + 90.25) * 10)/10;
   }
-};
+}
