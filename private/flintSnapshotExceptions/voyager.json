@@ -1,0 +1,6 @@
+{ 
+  "flintSnapshotExceptions": [
+  	{ "name": "flintSnapshotExceptions" },
+    { "name": "flintSnapshots" }
+  ]
+}

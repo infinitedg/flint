@@ -106,3 +106,5 @@ card-transporters
 cfs:standard-packages
 cfs:filesystem
 cfs:gridfs
+flint-snapshot
+

@@ -94,6 +94,7 @@ flint-flash@0.1.0
 flint-heartbeat@0.1.0
 flint-macro-engine@0.1.0
 flint-server-monitor@0.1.0
+flint-snapshot@0.1.0
 flint-sound@0.1.0
 flint-speech@0.1.0
 flint-theme-engine@0.1.0
