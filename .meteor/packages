@@ -107,4 +107,5 @@ cfs:standard-packages
 cfs:filesystem
 cfs:gridfs
 flint-snapshot
+card-core-timeline
 

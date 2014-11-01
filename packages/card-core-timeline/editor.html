@@ -1,0 +1,41 @@
+<template name="card_timelineEditor">
+	<button class="btn btn-primary">Create Timeline</button>
+
+	<select>
+	{{#each timelines}}
+		<option>{{name}}</option>
+	{{/each}}
+	</select>
+
+	{{#if selectedTimeline}}
+		{{#with selectedTimeline}}
+			{{> timelineEditor_timeline}}
+		{{/with}}
+		
+		{{#if selectedCue}}
+			{{#with selectedCue}}
+				{{> timelineEditor_cue}}
+			{{/with}}
+		{{/if}}
+	{{/if}}
+</template>
+
+<template name="timelineEditor_timeline">
+	<h1>{{name}}</h1>
+	<div></div>
+</template>
+
+<template name="timelineEditor_cue">
+	<h1>Cue</h1>
+	<label>Notes
+		<textarea>{{notes}}</textarea>
+	</label>
+
+	<label>Primary Branch:
+		<select>
+			{{#each macros}}
+				<option>{{readableText}}</option>
+			{{/each}}
+		</select>
+	</label>
+</template>

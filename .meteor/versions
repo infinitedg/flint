@@ -23,6 +23,7 @@ card-alert-condition@0.1.0
 card-comm-shortrange@0.1.0
 card-coolant@0.1.0
 card-core-station-utility@0.1.0
+card-core-timeline@0.1.0
 card-core@0.1.0
 card-course-calculation@0.1.0
 card-damage-control@0.1.0
@@ -102,6 +103,7 @@ flint-tween@0.1.0
 flint-utils@0.1.0
 flint@0.1.0
 follower-livedata@1.0.2
+garrilla:d3@3.4.12
 geojson-utils@1.0.1
 html-tools@1.0.2
 htmljs@1.0.2
