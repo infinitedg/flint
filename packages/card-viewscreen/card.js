@@ -14,10 +14,72 @@ viewHeight = 500;
 var hyperBox, boxTexture, hyperLight1, hyperLight2, hyperLight3, hyperLight4;
 var Examples;
 var curveLayer, lineLayer, anchorLayer, quad, bezier = {};
+var viewscreenInputs = [{   name: 'Downloading',
+weight: 0.75,
+priority: true,
+timeCreated: Date.now(),
+template: {
+    name: 'viewscreen_video',
+    context: {
+        video: '/Videos/Stars',
+        looping: true,
 
+    }
+}
+
+},
+{   name: 'Stars',
+weight: 0.75,
+priority: false,
+timeCreated: Date.now(),
+template: {
+    name: 'viewscreen_video',
+    context: {
+        video: '/Videos/Stars',
+        looping: true,
+    }
+}
+
+},
+{   name: 'Tactical Failure',
+weight: 0.55,
+priority: false,
+timeCreated: Date.now(),
+template: {
+    name: 'viewscreen_video',
+    context: {
+       video: '/Videos/Stars',
+       looping: true
+   }
+}
+},
+{   name: 'Tactical Failure',
+weight: 0.55,
+priority: false,
+timeCreated: Date.now(),
+template: {
+    name: 'viewscreen_video',
+    context: {
+       video: '/Videos/Stars',
+       looping: true
+   }
+}
+
+}]
 Template.card_viewscreen.helpers({
-    dynamicTemplate: function () {
-        return Template[Flint.system('Viewscreen','currentScreen')];
+    viewscreenInputs: viewscreenInputs,
+    viewscreenStyle: function (e,t) {
+        var priority = 0, secondary = 0;
+        viewscreenInputs.forEach(function(e){
+            if (e.priority){
+                priority ++;
+            } else {
+                secondary ++;
+            }
+        });
+        //return priority + ", " + secondary;
+        console.log('theme_viewscreen_' + priority + "p" + secondary + "s");
+        return Template['theme_viewscreen_' + priority + "p" + secondary + "s"];
     },
     scene: function () {
         return scene;
@@ -44,9 +106,16 @@ Template.card_viewscreen.helpers({
 
 });
 
-Template.Video.helpers({
+Template.viewscreen_video.helpers({
     tacticalVideo: function () {
-        return Flint.a(Flint.system('Viewscreen','video'));
+        return Flint.a(this.video);
+    },
+    videoLooping: function(){
+        if (this.looping === true){
+            return 'loop';
+        } else {
+            return null;
+        }
     }
 });
 
@@ -352,7 +421,7 @@ function updateBezier(id, options) {
     anchorLayer.draw();
 }
 
-Template.Sandbox.rendered = function () {
+Template.viewscreen_sandbox.rendered = function () {
     var up = new THREE.Vector3(0, 1, 0);
     var clock = new THREE.Clock();
     var renderer = new THREE.WebGLRenderer({
@@ -857,7 +926,7 @@ var currentScene = scene;
 
 };
 
-Template.Tactical.rendered = function () {
+Template.viewscreen_tactical.rendered = function () {
     var stage, symbolsLayer, contactsLayer, ghostLayer;
     window.currentDimensions = {
         x: 'x',

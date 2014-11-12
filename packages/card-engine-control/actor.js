@@ -1,4 +1,4 @@
-var a = Flint.actor({
+/*var a = Flint.actor({
 	_id:"engineHeat-actor",
 	period: function() {
 		return 200;
@@ -40,4 +40,4 @@ var a = Flint.actor({
 		console.log("ERROR");
 		console.log(exc);
 	}
-});
+});*/

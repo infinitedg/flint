@@ -35,31 +35,33 @@ k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height
 
 Template.card_tacControl.helpers({
     dynamicTemplateUL: function () {
-        if (!Flint.simulator().tacScreenUL) {
+        if (!Flint.system('Tactical Control').tacScreenUL) {
             return null;
+        } else if (Flint.system('Tactical Control').tacScreenUL == 'Preview'){
+            return Template[Flint.system('Viewscreen','currentScreen')];
         } else {
-            return Template[Flint.simulator().tacScreenUL];
+            return Template[Flint.system('Tactical Control').tacScreenUL];
         }
     },
     dynamicTemplateBL: function () {
-        if (!Flint.simulator().tacScreenBL) {
+        if (!Flint.system('Tactical Control').tacScreenBL) {
             return null;
         } else {
-            return Template[Flint.simulator().tacScreenBL];
+            return Template[Flint.system('Tactical Control').tacScreenBL];
         }
     },
     dynamicTemplateBR: function () {
-        if (!Flint.simulator().tacScreenBR) {
+        if (!Flint.system('Tactical Control').tacScreenBR) {
             return null;
         } else {
-            return Template[Flint.simulator().tacScreenBR];
+            return Template[Flint.system('Tactical Control').tacScreenBR];
         }
     },
     dynamicTemplateUR: function () {
-        if (!Flint.simulator().tacScreenUR) {
+        if (!Flint.system('Tactical Control').tacScreenUR) {
             return null;
         } else {
-            return Template[Flint.simulator().tacScreenUR];
+            return Template[Flint.system('Tactical Control').tacScreenUR];
         }
     }
 });
@@ -191,45 +193,45 @@ Template.tacticalPreview.rendered = function (e) {
             var updateObj = {};
             if (e.which == 87) { //'w'
                 //updateObj['X'] = target.attrs.x + 1;
-                updateObj.Y = target.attrs.y - 1;
-                Flint.collection('tacticalContacts').update(id, {
-                    $set: updateObj
-                });
-            }
+            updateObj.Y = target.attrs.y - 1;
+            Flint.collection('tacticalContacts').update(id, {
+                $set: updateObj
+            });
+        }
             if (e.which == 83) { //'s'
                 updateObj.Y = target.attrs.y + 1;
-                Flint.collection('tacticalContacts').update(id, {
-                    $set: updateObj
-                });
-            }
+            Flint.collection('tacticalContacts').update(id, {
+                $set: updateObj
+            });
+        }
             if (e.which == 65) { //'a'
                 updateObj.X = target.attrs.x - 1;
-                Flint.collection('tacticalContacts').update(id, {
-                    $set: updateObj
-                });
-            }
+            Flint.collection('tacticalContacts').update(id, {
+                $set: updateObj
+            });
+        }
             if (e.which == 68) { //'d'
                 updateObj.X = target.attrs.x + 1;
-                Flint.collection('tacticalContacts').update(id, {
-                    $set: updateObj
-                });
-            }
+            Flint.collection('tacticalContacts').update(id, {
+                $set: updateObj
+            });
         }
-        console.log(e.which);
-    });
-    Session.set('selectedSymbol', '');
-    stage = new Kinetic.Stage({
-        container: 'tacPreview',
-        width: 720,
-        height: 380
-    });
-    anchorLayer = new Kinetic.Layer();
-    lineLayer = new Kinetic.Layer();
-    curveLayer = new Kinetic.Layer();
-    contactsLayer = new Kinetic.Layer();
-    symbolsLayer = new Kinetic.Layer();
-    ghostLayer = new Kinetic.Layer();
-    gridLayer = new Kinetic.Layer();
+    }
+    console.log(e.which);
+});
+Session.set('selectedSymbol', '');
+stage = new Kinetic.Stage({
+    container: 'tacPreview',
+    width: 720,
+    height: 380
+});
+anchorLayer = new Kinetic.Layer();
+lineLayer = new Kinetic.Layer();
+curveLayer = new Kinetic.Layer();
+contactsLayer = new Kinetic.Layer();
+symbolsLayer = new Kinetic.Layer();
+ghostLayer = new Kinetic.Layer();
+gridLayer = new Kinetic.Layer();
 
     // keep curves insync with the lines
     anchorLayer.on('beforeDraw', function () {
@@ -377,58 +379,58 @@ Template.tacticalPreview.rendered = function (e) {
         contactsLayer.draw();
         // c.stop();
     });
-    backBox = new Kinetic.Rect({
-        x: 1,
-        y: 1,
-        width: 718,
-        height: 313,
-        fill: 'black',
-        stroke: 'green'
+backBox = new Kinetic.Rect({
+    x: 1,
+    y: 1,
+    width: 718,
+    height: 313,
+    fill: 'black',
+    stroke: 'green'
+});
+gridLayer.add(backBox);
+backBox.on('mousedown', function (e) {
+    Session.set('selectedSymbol', '');
+});
+var line;
+for (i = 1; i < 24; i++) {
+    line = new Kinetic.Line({
+        points: [i * 60, 0, i * 60, 315],
+        dash: [10, 5],
+        fill: 'green',
+        stroke: 'green',
+        strokeWidth: 1
     });
-    gridLayer.add(backBox);
-    backBox.on('mousedown', function (e) {
-        Session.set('selectedSymbol', '');
+    gridLayer.add(line);
+}
+for (i = 1; i < 5; i++) {
+    line = new Kinetic.Line({
+        points: [0, i * 60, 720, i * 60],
+        dash: [10, 5],
+        fill: 'green',
+        stroke: 'green',
+        strokeWidth: 1
     });
-    var line;
-    for (i = 1; i < 24; i++) {
-        line = new Kinetic.Line({
-            points: [i * 60, 0, i * 60, 315],
-            dash: [10, 5],
-            fill: 'green',
-            stroke: 'green',
-            strokeWidth: 1
-        });
-        gridLayer.add(line);
-    }
-    for (i = 1; i < 5; i++) {
-        line = new Kinetic.Line({
-            points: [0, i * 60, 720, i * 60],
-            dash: [10, 5],
-            fill: 'green',
-            stroke: 'green',
-            strokeWidth: 1
-        });
-        gridLayer.add(line);
-    }
-    var sel = {};
-    sel.parentObject = Flint.collection('flintAssets').findOne({
-        fullPath: '/Tactical Contacts'
-    })._id;
-    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
+    gridLayer.add(line);
+}
+var sel = {};
+sel.parentObject = Flint.collection('flintAssets').findOne({
+    fullPath: '/Tactical Contacts'
+})._id;
+tacSymbolAssets = Flint.collection('flintAssets').find(sel);
 
-    this.tacSymbolsObserver = tacSymbolAssets.observe({
-        addedAt: function (doc, atIndex) {
-            var id = doc._id;
-            var a = doc;
-            if (a.defaultObject) {
-                var f = Flint.FS.collection('flintAssets').findOne(a.defaultObject);
-                if (f) {
-                    a.defaultUrl = f.url();
-                }
+this.tacSymbolsObserver = tacSymbolAssets.observe({
+    addedAt: function (doc, atIndex) {
+        var id = doc._id;
+        var a = doc;
+        if (a.defaultObject) {
+            var f = Flint.FS.collection('flintAssets').findOne(a.defaultObject);
+            if (f) {
+                a.defaultUrl = f.url();
             }
+        }
 
-            if (!armyArray[id]) {
-                armyArray[id] = {};
+        if (!armyArray[id]) {
+            armyArray[id] = {};
                 // Draggable Contact
                 var contactObj = new Image();
                 contactObj.onload = function () {
@@ -451,10 +453,10 @@ Template.tacticalPreview.rendered = function (e) {
                         var //x = ( currentDimensions.flippedX * 2 * (this.getX() + k.width + 30) / k.width) + 1 * currentDimensions.flippedX * -1,
                         //y = ( currentDimensions.flippedY * 2 * (this.getY()) / k.height) + 1 * currentDimensions.flippedY * -1,
                         x = this.getX(),
-                            y = this.getY(),
-                            width = this.attrs.image.width,
-                            height = this.attrs.image.height,
-                            d = true;
+                        y = this.getY(),
+                        width = this.attrs.image.width,
+                        height = this.attrs.image.height,
+                        d = true;
                         if (d) { // Only drop the contact if we are within 120% of the grid's radius
                             var updateObj = {
                                 red: 0,
@@ -494,8 +496,8 @@ Template.tacticalPreview.rendered = function (e) {
         },
         removedAt: function (id) {}
     });
-    this.tacticalObserver = Flint.collection('tacticalContacts').find().observeChanges({
-        added: function (id, doc) {
+this.tacticalObserver = Flint.collection('tacticalContacts').find().observeChanges({
+    added: function (id, doc) {
             // console.log("Added", id, doc);
             if (doc.type === 'contact') {
                 if (!contactsArray[id]) {
@@ -532,10 +534,10 @@ Template.tacticalPreview.rendered = function (e) {
                         });
                         icon.on('dragend', function (evt) {
                             var x = this.getX(),
-                                y = this.getY(),
-                                updateObj = {
-                                    isMoving: true
-                                };
+                            y = this.getY(),
+                            updateObj = {
+                                isMoving: true
+                            };
                             if (x > 660 && x < 720 && y > 305 && y < 380) {
                                 Flint.collection('tacticalContacts').remove(id);
                                 Session.set('selectedSymbol', '');
@@ -588,10 +590,10 @@ Template.tacticalPreview.rendered = function (e) {
                     });
                     label.on('dragend', function (evt) {
                         var x = this.getX(),
-                            y = this.getY(),
-                            updateObj = {
-                                isMoving: true
-                            };
+                        y = this.getY(),
+                        updateObj = {
+                            isMoving: true
+                        };
                         if (x > 660 && x < 720 && y > 305 && y < 380) {
                             Flint.collection('tacticalContacts').remove(id);
                             Session.set('selectedSymbol', '');
@@ -690,11 +692,11 @@ Template.tacticalPreview.rendered = function (e) {
             }
         }
     });
-    stage.add(gridLayer);
-    stage.add(ghostLayer);
-    stage.add(symbolsLayer);
-    stage.add(lineLayer);
-    stage.add(curveLayer);
-    stage.add(anchorLayer);
+stage.add(gridLayer);
+stage.add(ghostLayer);
+stage.add(symbolsLayer);
+stage.add(lineLayer);
+stage.add(curveLayer);
+stage.add(anchorLayer);
     stage.add(contactsLayer); // Uppermost layer
 };
