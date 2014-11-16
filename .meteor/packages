@@ -108,4 +108,7 @@ cfs:standard-packages
 cfs:filesystem
 cfs:gridfs
 flint-snapshot
+theme-viewscreen
+accounts-facebook
+accounts-google
 

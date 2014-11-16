@@ -2,32 +2,22 @@
     {{> yield}}
     <div id="perspective" class="backgroundColor perspective effect-movedown">
         <div class="pageContent" style="position: absolute; top:0; left:0; margin:0; padding:0; width:100%">
-            <!-- Insert Grid Here -->
-            <div class="wrapper"><!-- wrapper needed for scroll -->
-
+            <div class="wrapper">
                 <div class="container-fluid" style="padding:0px;">
-
                     <header class="row-fluid backgroundColor">
-                     <div class="backgroundBezel"></div>
-                     <div class="background backgroundColor"></div>
-                     <div class="col-xs-4 sim-name">
-                     <h2>{{simulator.name}}</h2>
-                        <h3>{{station.name}}</h3>
-                    </div>
-                    <div class="cardName">
-                        {{cardName}}
-                    </div>
-                    <div class="alertLevelNum">
-                        {{alertCondition}}   
-                    </div>
-                </header>
-
+                        <div class="backgroundBezel bezel"></div>
+                        <div class="background backgroundColor"></div>
+                    </header>
+                </div>
+            </div><!-- wrapper -->
+            <div class="leftChromeBezel bezel"></div>
+            <div class="leftChrome backgroundColor"></div>
+            <div class="rightChromeBezel bezel"></div>
+            <div class="rightChrome backgroundColor"></div>
+            <div class="footer">
+                <div class="backgroundBezel bezel"></div>
+                <div class="footerBackground backgroundColor"></div>
             </div>
-        </div><!-- wrapper -->
-        <div class="footer">
-            <div class="backgroundBezel"></div>
-            <div class="footerBackground backgroundColor"></div>
-        </div>
-    </div><!-- /container -->
-</div><!-- /perspective -->
+        </div><!-- /container -->
+    </div><!-- /perspective -->
 </template>
