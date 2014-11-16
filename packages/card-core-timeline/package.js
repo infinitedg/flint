@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-  api.use(['garrilla:d3', 'underscore', 'templating', 'flint']);
+  api.use(['brentjanderson:kinetic', 'underscore', 'templating', 'flint']);
 
   api.add_files(['server.js'], 'server');
   

@@ -22,7 +22,18 @@
 
 <template name="timelineEditor_timeline">
 	<h1>{{name}}</h1>
-	<div></div>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default btn-small">
+			<span class="glyphicon glyphicon-transfer"></span>
+		</button>
+		<button type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-edit"></span>
+		</button>
+	</div>
+	
+	<div class="timelineEditorWindow" style="width: 600px; height: 338px; overflow: scroll;">
+		<div class="timelineEditor" style=""></div>
+	</div>
 </template>
 
 <template name="timelineEditor_cue">
