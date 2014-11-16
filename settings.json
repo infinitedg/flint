@@ -1,0 +1,11 @@
+{
+	"assets": {
+		"accessKeyId": "AKIAIIFZRX3TIXC7WGKA",
+		"secretAccessKey": "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",
+		"bucket": "infinitedev-flint"
+	},
+	"kadira": {
+		"appId": "wrZXoP4tWKSzPvLmv",
+		"appSecret": "e81d8ecb-1195-4794-8014-0cd855073802"
+	}
+}

@@ -15,7 +15,6 @@ mrt:nprogress
 brentjanderson:buzz
 brentjanderson:kinetic
 mizzao:bootboxjs
-arunoda:kadira
 mrt:bootstrap-growl
 natestrauser:font-awesome
 infinitedg:three
@@ -26,6 +25,8 @@ bootstrap-contextjs
 infinitedg:bootstrap-slider-touch
 
 ui-dropped-event
+
+meteorhacks:kadira
 
 flint
 flint-debug

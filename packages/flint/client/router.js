@@ -4,20 +4,21 @@ Router.configure({
   loadingTemplate: 'flint_loading'
 });
 
-Router.onBeforeAction(function(pause){
+Router.onBeforeAction(function(){
   if (!Meteor.user()) {
     this.render('flint_login');
-    pause();
+  } else {
+    this.next();
   }
 });
 
-Router.onBeforeAction(function (pause) {
+Router.onBeforeAction(function () {
   // we're done waiting on all subs
   if (this.ready()) {
     NProgress.done(); 
+    this.next(); // Permit downstream functions
   } else {
     NProgress.start();
-    pause(); // stop downstream funcs from running
   }
 });
 
@@ -35,11 +36,14 @@ Router.map(function () {
     path: '/',
     layoutTemplate: 'flint_layout',
     template: 'flint_simulatorPicker',
+    subscriptions: function() {
+      return [ Meteor.subscribe('flint.picker.simulators') ];
+    },
     onBeforeAction: function () {
-      this.s = this.subscribe('flint.picker.simulators').wait();
       Session.set("flint.simulatorId", undefined);
       Session.set("flint.stationId", undefined);
       Session.set("flint.cardNumber", undefined);
+      this.next();
     }
   });
   
@@ -50,26 +54,34 @@ Router.map(function () {
     data: function() {
       return Flint.collection("simulators").findOne(this.params.simulatorId) || {};
     },
+    subscriptions: function() {
+      return [
+        Meteor.subscribe('flint.picker.simulator', this.params.simulatorId),
+        Meteor.subscribe('flint.picker.stations', this.params.simulatorId),
+      ];
+    },
     onBeforeAction: function () {
-      this.subscribe('flint.picker.simulator', this.params.simulatorId).wait();
-      this.subscribe('flint.picker.stations', this.params.simulatorId).wait();
-
       Session.set("flint.simulatorId", this.params.simulatorId);
       Session.set("flint.stationId", undefined);
       Session.set("flint.cardNumber", undefined);
+      this.next()
     }
   });
   
   this.route('flint_station', {
     path: '/simulator/:simulatorId/station/:stationId/card/:cardId',
+    subscriptions: function() {
+      return [
+        Meteor.subscribe('flint.picker.simulator', this.params.simulatorId),
+        Meteor.subscribe('flint.picker.station', this.params.stationId),
+        Meteor.subscribe('flint.picker.systems', this.params.simulatorId)
+      ];
+    },
     onBeforeAction: function() {
-      this.subscribe('flint.picker.simulator', this.params.simulatorId).wait();
-      this.subscribe('flint.picker.station', this.params.stationId).wait();
-      this.subscribe('flint.picker.systems', this.params.simulatorId).wait();
-
       Session.set("flint.simulatorId", this.params.simulatorId);
       Session.set("flint.stationId", this.params.stationId);
       Session.set("flint.cardNumber", this.params.cardId);
+      this.next();
     },
     action: function() {
       if (!Flint.station())
