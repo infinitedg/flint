@@ -73,7 +73,7 @@ cfs:http-publish@0.0.0
 cfs:power-queue@0.0.1
 cfs:reactive-list@0.0.0
 cfs:reactive-property@0.0.0
-cfs:s3@0.0.0
+cfs:s3@0.0.1
 cfs:standard-packages@0.0.2
 cfs:storage-adapter@0.0.0
 cfs:tempstore@0.0.2

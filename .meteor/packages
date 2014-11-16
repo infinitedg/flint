@@ -106,9 +106,10 @@ card-efficiency
 card-transporters
 cfs:standard-packages
 cfs:filesystem
-cfs:gridfs
 flint-snapshot
 theme-viewscreen
 accounts-facebook
 accounts-google
+cfs:gridfs
+cfs:s3
 

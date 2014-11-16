@@ -78,7 +78,7 @@
     ],
     [
       "cfs:s3",
-      "0.0.0"
+      "0.0.1"
     ],
     [
       "cfs:standard-packages",

@@ -8,5 +8,10 @@
 	"kadira": {
 		"appId": "wrZXoP4tWKSzPvLmv",
 		"appSecret": "e81d8ecb-1195-4794-8014-0cd855073802"
+	},
+	"public": {
+		"assets": {
+			"s3base": "https://infinitedev-flint.s3.amazonaws.com/"
+		}
 	}
 }

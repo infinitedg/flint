@@ -27,7 +27,9 @@ Flint.Asset = {
 			var obj = Flint.FS.collection('flintAssets').findOne(assetObj.objectId);
 			
 			if (obj) {
-				assetObj.url = obj.url();
+				// @TODO use obj.url() or other CFS-internal mechanism to retrieve non-proxied URL
+				assetObj.url = Meteor.settings.public.assets.s3base + obj.copies.flintassets.key;
+				
 				if (obj.isVideo()) {
 					assetObj.mimeType = "video";
 				} else if (obj.isImage()) {
