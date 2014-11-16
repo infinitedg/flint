@@ -2,7 +2,8 @@
 	"assets": {
 		"accessKeyId": "AKIAIIFZRX3TIXC7WGKA",
 		"secretAccessKey": "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",
-		"bucket": "infinitedev-flint"
+		"bucket": "infinitedev-flint",
+		"ACL": "public-read"
 	},
 	"kadira": {
 		"appId": "wrZXoP4tWKSzPvLmv",

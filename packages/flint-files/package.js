@@ -6,6 +6,5 @@ Package.describe({
 Package.on_use(function(api) { 
   api.use(['flint', 'cfs:standard-packages', 'cfs:filesystem', 'cfs:s3', 'underscore']);
    
-  api.add_files(['common.js'], ['server', 'client']);
-  api.add_files(['stores.js'], ['server']);
+  api.add_files(['common.js', 'stores.js'], ['server', 'client']);
 });
