@@ -1,39 +1,163 @@
-{
-  "simulatorId": "voyager",
-  
-  
-  "systems": [
-    {
-      "name": "Short Range Communications",
-      "minPower": 5,
-      "maxPower": 20,
-      "power": 7,
-      "_id": "systems-voyager-srCommunications"
-    },
-    {
-      "name": "Torpedo Launchers",
-      "minPower": 7,
-      "maxPower": 30,
-      "power": 10,
-      "_id": "systems-voyager-torpedoes"
-    },
-    {
-      "name": "Phasers",
-      "minPower": 7,
-      "maxPower": 30,
-      "power": 10,
-      "_id": "systems-voyager-phasers"
-    },
-    {
-      "name": "Warp Core",
-      "minPower": 5,
-      "maxPower": 20,
-      "power": 7,
-      "_id": "systems-voyager-warpCore"
-    },
-    {
-      "name" : "Efficiency",
-      "_id": "systems-voygaer-efficiency"
-    }
-  ]
+{  
+   "simulatorId":"voyager",
+   "systems":[  
+      {  
+         "name":"Short Range Communications",
+         "minPower":5,
+         "maxPower":20,
+         "power":7,
+         "commMute":"false",
+         "commFrequency":300,
+         "commAmplitude":50,
+         "commHail":"idle",
+         "commList":[  
+            "Cardassian",
+            "Romulan",
+            "Klingon",
+            "General Use",
+            "Federation",
+            "Orion Pirate",
+            "Ferengi"
+         ],
+         "commName":"",
+         "_id":"systems-voyager-srCommunications"
+      },
+      {  
+         "_id":"systems-voyager-internalComm",
+         "name":"Internal Communications",
+         "state":"idle",
+         "currentCall":"",
+         "connectionType":""
+      },
+      {  
+         "name":"Torpedo Launchers",
+         "minPower":7,
+         "maxPower":30,
+         "power":10,
+         "_id":"systems-voyager-torpedoes"
+      },
+      {  
+         "_id":"systems-voyager-coursecalculation",
+         "name":"Course Calculation",
+         "desiredCourse":"",
+         "currentCoordinates":{  
+            "x":"",
+            "y":"",
+            "z":""
+         },
+         "desiredCoordinates":{  
+            "x":"",
+            "y":"",
+            "z":""
+         }
+      },
+      {  
+         "_id":"systems-voyager-scanner",
+         "name":"Scanner",
+         "status":"idle",
+         "input":"",
+         "output":""
+      },
+      {  
+         "_id":"systems-voyager-sensors",
+         "name":"Sensors",
+         "infared":"false",
+         "pingInterval":{  
+            "triggered":"manual",
+            "period":"manual"
+         },
+         "wormhole":"false"
+      },
+      {  
+         "_id":"systems-voyager-shields",
+         "name":"Shields",
+         "strength":100,
+         "level":0,
+         "state":"lowered"
+      },
+      {  
+         "_id":"systems-voyager-shields",
+         "name":"Shields",
+         "state":"idle",
+         "locked":"false",
+         "powerUp":0,
+         "target":"",
+         "destination":"",
+         "targets":[  
+
+         ]
+      },
+      {  
+         "name":"Phasers",
+         "minPower":7,
+         "maxPower":30,
+         "power":10,
+         "_id":"systems-voyager-phasers"
+      },
+      {  
+         "name":"Warp Core",
+         "minPower":5,
+         "maxPower":20,
+         "power":7,
+         "_id":"systems-voyager-warpCore"
+      },
+      {  
+         "name":"Efficiency",
+         "_id":"systems-voygaer-efficiency",
+         "distance":"78",
+         "gravity":0.210098590598232,
+         "speed":0.7034840371812491
+      },
+      {  
+         "_id":"systems-voyager-tacticalControl",
+         "name":"Tactical Control",
+         "tacScreenUL":"Preview",
+         "tacScreenUR":"playlistPlayer"
+      },
+      {  
+         "_id":"systems-voyager-viewscreen",
+         "currentScreen":"Video",
+         "name":"Viewscreen",
+         "tacticalVideo":"computers",
+         "video":"/Videos/Library/Tactical Failure"
+      },
+      {  
+         "_id":"systems-voyager-thrust",
+         "efficiency":0,
+         "heat":0,
+         "name":"Thrust",
+         "thrust":0,
+         "velocity":0
+      },
+      {  
+         "name":"Engines",
+         "_id":"systems-voyager-engines",
+         "heatRate":1,
+         "heat":{  
+            "warp":0,
+            "impulse":0
+         },
+         "speed":"0,0"
+      },
+      {  
+         "_id":"systems-voyager-thrusters",
+         "name":"Thrusters",
+         "manualThrusters":false,
+         "direction":"none",
+         "required":{  
+            "yaw":0,
+            "pitch":0,
+            "roll":0
+         },
+         "current":{  
+            "yaw":0,
+            "pitch":0,
+            "roll":0
+         },
+         "minPower":7,
+         "maxPower":30,
+         "power":10,
+         "simulatorId":"voyager"
+      }
+   ]
 }

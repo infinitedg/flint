@@ -1,26 +1,27 @@
 getCommName = function () {
     var commName;
+    var commList = Flint.system('Short Range Communications', 'commList');
     Yloc = (Flint.system('Short Range Communications', 'commFrequency') / 4 * 1.25); //Makes it into a number out of 100.
     if (Yloc > 0 && Yloc <= 18.125) {
-        commName = Template.card_shortRangeComm.commList()[0];
+        commName = commList[0];
     }
     if (Yloc > 18.125 && Yloc <= 30.625) {
-        commName = Template.card_shortRangeComm.commList()[1];
+        commName = commList[1];
     }
     if (Yloc > 30.625 && Yloc <= 40.625) {
-        commName = Template.card_shortRangeComm.commList()[2];
+        commName = commList[2];
     }
     if (Yloc > 40.625 && Yloc <= 56.875) {
-        commName = Template.card_shortRangeComm.commList()[3];
+        commName = commList[3];
     }
     if (Yloc > 56.875 && Yloc <= 77.5) {
-        commName = Template.card_shortRangeComm.commList()[4];
+        commName = commList[4];
     }
     if (Yloc > 77.5 && Yloc <= 90.625) {
-        commName = Template.card_shortRangeComm.commList()[5];
+        commName = commList[5];
     }
     if (Yloc > 90.625 && Yloc <= 100) {
-        commName = Template.card_shortRangeComm.commList()[6];
+        commName = commList[6];
     }
     $('.commControls .textbox').html("FREQUENCY: " + (Math.floor(parseInt(Flint.system('Short Range Communications', 'commFrequency'),10) * 1.25 * 4.25 * 10) / 10) + " MHz" + '</br>' + commName);
     $('.commImage').attr('src', Flint.a('/Comm Images/' + commName));
@@ -36,16 +37,16 @@ Template.card_shortRangeComm.events = {
             Flint.system('Short Range Communications', 'commMute', 'true');
         }
     },
-        'click .submit': function (e) {
+    'click .submit': function (e) {
         var canvas = document.getElementById('canvasCandy');
         var theta = 0;
         var time = (new Date()).getTime();
         animate(canvas, theta, time);
     },
-        'slideStart #frequency': function (e) {
+    'slideStart #frequency': function (e) {
 
     },
-        'slide #frequency': function (e) {
+    'slide #frequency': function (e) {
         getCommName();
         Flint.system('Short Range Communications', 'commFrequency', e.target.value);
         var frequencyVal = (e.target.value / 4 * 1.25);
@@ -57,10 +58,10 @@ Template.card_shortRangeComm.events = {
             }
         });
     },
-        'slide #amplitude': function (e) {
+    'slide #amplitude': function (e) {
         Flint.system('Short Range Communications', 'commAmplitude', e.target.value);
     },
-        'click .hail': function (e) {
+    'click .hail': function (e) {
         Flint.beep();
         var frequencyVal = Flint.system('Short Range Communications', 'commFrequency') / 4 * 1.25;
         if (Flint.system('Short Range Communications', 'commHail') == "hailing") {
@@ -287,9 +288,9 @@ Template.card_shortRangeComm.rendered = function () {
 
 
 
-    var c = $('#canvasCandy');
-    var ct = c.get(0).getContext('2d');
-    var container = $(c).parent();
+var c = $('#canvasCandy');
+var ct = c.get(0).getContext('2d');
+var container = $(c).parent();
 
     //Run function when browser resizes
     $(window).resize(respondCanvas);

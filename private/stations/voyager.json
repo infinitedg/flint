@@ -1,44 +1,287 @@
-{
-	"simulatorId": "voyager",
-	
-    "stations": [
-        {   "name": "Tactical Control",
-            "cards": [
-                {
-                    "name": "Tactical Control",
-                    "cardId": "card_tacControl"
-                }
-            ],
-           "layout": "layout_tacControl", 
-         "_id": "voyager-tacControl"
-        },
-        {   "name": "Viewscreen",
-            "cards": [
-                {
-                    "name": "Viewscreen",
-                    "cardId": "card_viewscreen"
-                }
-            ],
-         "_id": "voyager-viewscreen",
-         "layout": "layout_viewscreen"
-        },
-        {
-            "name": "Flint Admin",
-            "cards": [
-                {
-                    "name": "Login",
-                    "cardId": "card_login"
-                },
-                {
-                    "name": "Asset Manager",
-                    "cardId": "card_flintlibrary"
-                },
-                {
-                    "name" : "Station Manager",
-                    "cardId" : "card_flintstations"
-                }
-            ],
-            "_id": "flint-assetmanager"
-        }
-    ]
+{  
+   "simulatorId":"voyager",
+   "stations":[  
+      {  
+         "name":"Tactical Control",
+         "cards":[  
+            {  
+               "name":"Tactical Control",
+               "cardId":"card_tacControl"
+            }
+         ],
+         "layout":"layout_tacControl",
+         "_id":"voyager-tacControl",
+         "simulatorId":"voyager"
+      },
+      {  
+         "_id":"voyager-captain",
+         "name":"Captain",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            },
+            {
+               "cardId":"card_selfDestruct",
+               "name":"Self Destruct"
+            },
+            {  
+               "cardId":"card_alertCondition",
+               "name":"ALERT CONDITION"
+            },
+            {  
+               "cardId":"card_status",
+               "name":"STATUS"
+            }
+         ]
+      },
+      {  
+         "_id":"voyager-damage",
+         "name":"Damage Control",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            }
+         ]
+      },
+      {  
+         "_id":"voyager-engineering",
+         "name":"Engineering",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            }
+         ]
+      },
+      {  
+         "_id":"voyager-medical",
+         "name":"Medical",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            }
+         ]
+      },
+      {  
+         "_id":"voyager-science",
+         "name":"Science",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            }
+         ]
+      },
+      {  
+         "_id":"voyager-security",
+         "name":"Security",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            }
+         ]
+      },
+      {  
+         "_id":"voyager-sensors",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            },
+            {  
+               "cardId":"card_sensor3d",
+               "name":"SENSOR3D"
+            }
+         ],
+         "name":"Sensors",
+         "simulatorId":"voyager"
+      },
+      {  
+         "_id":"voyager-flightDirector",
+         "cards":[  
+            {  
+               "name":"Core",
+               "cardId":"card_core"
+            }
+         ],
+         "coreWidgets":[  
+            {  
+               "name":"Stations",
+               "cardId":"core_login"
+            },
+            {  
+               "name":"Station Utilities",
+               "cardId":"core_stationUtility"
+            },
+            {  
+               "name":"Power Distribution",
+               "cardId":"core_power"
+            },
+            {  
+               "cardId":"core_alertCondition",
+               "name":"Alert Condition"
+            },
+            {  
+               "cardId":"core_sensor3d",
+               "name":"Sensor Grid"
+            },
+            {  
+               "cardId":"core_speed",
+               "name":"Speed"
+            },
+            {  
+               "cardId":"core_scanner",
+               "name":"Scanner"
+            },
+            {  
+               "name":"Thrusters",
+               "cardId":"core_thrusters"
+            },
+            {  
+               "name":"Targeting",
+               "cardId":"core_targeting"
+            },
+            {  
+               "name":"Shields",
+               "cardId":"core_shields"
+            }
+         ],
+         "layout":"layout_core",
+         "name":"Flight Director",
+         "restrictedThemes":[  
+            "theme_vanguard_frame",
+            "theme_bodyReset",
+            "theme_font_gamecuben",
+            "theme_font_readable",
+            "theme_vanguardTextInputs",
+            "theme_cursor",
+            "theme_styledRadioCheck",
+            "theme_vanguardButtons"
+         ],
+         "sensorText":"Mission critical sensor information goes here.",
+         "simulatorId":"voyager"
+      },
+      {  
+         "_id":"voyager-operations",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            },
+            {  
+               "cardId":"card_weapons",
+               "name":"WEAPONS"
+            },
+            {  
+               "cardId":"card_viewscreenControl",
+               "name":"viewscreenControl"
+            }
+         ],
+         "name":"Operations",
+         "simulatorId":"voyager"
+      },
+      {  
+         "_id":"voyager-communications",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            },
+            {  
+               "cardId":"card_shortRangeComm",
+               "name":"SHORTRANGECOMM"
+            },
+            {  
+               "cardId":"card_messageComposer",
+               "name":"MESSAGECOMPOSER"
+            },
+            {
+               "cardId":"card_internalComm",
+               "name":"Telephone"
+            }
+         ],
+         "name":"Communications",
+         "simulatorId":"voyager"
+      },
+      {  
+         "_id":"voyager-navigation",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            },
+            {  
+               "cardId":"card_engineControl",
+               "name":"ENGINECONTROL"
+            },
+            {  
+               "cardId":"card_thrusters",
+               "name":"THRUSTERS"
+            },
+            {
+               "cardId":"card_courseCalculation",
+               "name":"Course Calculation"
+            }
+         ],
+         "name":"Navigation",
+         "simulatorId":"voyager"
+      },
+      {  
+         "_id":"flint-admin",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            },
+            {  
+               "cardId":"card_flintlibrary",
+               "name":"ASSET MANAGER"
+            },
+            {  
+               "cardId":"card_flintstations",
+               "name":"STATION MANAGER"
+            },
+            {  
+               "cardId":"card_flint_sound",
+               "name":"FLINT_SOUND"
+            }
+         ],
+         "name":"Flint Admin",
+         "restrictedThemes":[  
+            "theme_vanguard_frame",
+            "theme_bodyReset",
+            "theme_font_gamecuben",
+            "theme_font_readable",
+            "theme_vanguardTextInputs",
+            "theme_cursor",
+            "theme_styledRadioCheck",
+            "theme_vanguardButtons",
+            "theme_vangaurdButtons"
+         ],
+         "simulatorId":"voyager"
+      },
+      {  
+         "_id":"voyager-viewscreen",
+         "cards":[  
+            {  
+               "name":"Viewscreen",
+               "cardId":"card_viewscreen"
+            }
+         ],
+         "layout":"layout_viewscreen",
+         "name":"Viewscreen",
+         "restrictedThemes":[  
+            "theme_vanguard_frame"
+         ],
+         "simulatorId":"voyager",
+         "themes":[  
+            "theme_viewscreen_base",
+            "theme_viewscreen_1p"
+         ]
+      }
+   ]
 }

@@ -1,0 +1,55 @@
+{
+  "simulatorId": "voyager",
+  
+  
+  "phasers": [
+  {
+  	"_id": "voyager-phaser-1",
+  	"number":1,
+    "charge":0,
+    "heat":0
+  },
+  {
+  	"_id": "voyager-phaser-2",
+  	"number":2,
+    "charge":0,
+    "heat":0
+  },
+  {
+  	"_id": "voyager-phaser-3",
+  	"number":3,
+    "charge":0,
+    "heat":0
+  },
+  {
+  	"_id": "voyager-phaser-4",
+  	"number":4,
+    "charge":0,
+    "heat":0
+  },
+  {
+  	"_id": "voyager-phaser-5",
+  	"number":5,
+    "charge":0,
+    "heat":0
+  },
+  {
+  	"_id": "voyager-phaser-6",
+  	"number":6,
+    "charge":0,
+    "heat":0
+  },
+  {
+  	"_id": "voyager-phaser-7",
+  	"number":7,
+    "charge":0,
+    "heat":0
+  },
+  {
+  	"_id": "voyager-phaser-8",
+  	"number":8,
+    "charge":0,
+    "heat":0
+  }
+  ]
+}

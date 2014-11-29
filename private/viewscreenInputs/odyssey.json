@@ -1,0 +1,16 @@
+{
+  "simulatorId": "odyssey",
+  
+  
+  "viewscreeninputs": [
+  { 
+    "name" : "Sandbox", 
+    "weight" : 0.75, 
+    "priority" : true, 
+    "timeCreated" : 1416030696498, 
+    "template" : { 
+      "name" : "viewscreen_sandbox" 
+    }
+  }
+  ]
+}

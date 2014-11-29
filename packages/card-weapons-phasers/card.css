@@ -1,0 +1,51 @@
+.phaserHeader{
+padding-left: 45px;
+margin-left: 35px;
+	display: -webkit-flex;
+	-webkit-justify-content: space-between;
+	border-bottom: 1px solid #fff;
+}
+.phaserHeader :first-child{
+display: none;
+}
+.phaserHeader *{
+	border-right: 1px solid #ddd;
+}
+.phaserSelector{
+	-webkit-transitiion: opacity 0.5s ease;
+}
+.selectedPhaser{
+	opacity: 0.75;
+}
+.phaserContainer{
+	margin-top: 15px;
+}
+.phaserContainer button{
+	clear: both;
+}
+.phaserEnergy{
+	height: 38px;
+	left: 0;
+	top: 0;
+	background-image: url(/themes/odyssey/public/background.png);
+	background-size: 1px 2px;
+	background-color: #ff0;
+}
+.phaserEnergyHolder{
+	border: 1px solid #fff;
+	background-color: rgba(0,0,0,0.75);
+	height: 40px;
+	margin-right: 2%;
+	width: 93%;
+	float: right;
+	position: relative;
+}
+.phaserButtons .row{
+	display: -webkit-flex;
+	-webkit-justify-content:space-around;
+	margin: 0 50px;
+}
+.phaserButtons .row button{
+	-webkit-flex-grow:1;
+	margin: 10px;
+}

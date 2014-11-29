@@ -1,10 +1,10 @@
 var viewRadius = 100,
     viewWidth = 580, //500,
     viewHeight = 580; //500;
-function pausecomp(ms) {
-    ms += new Date().getTime();
-    while (new Date() < ms) {}
-}
+    function pausecomp(ms) {
+        ms += new Date().getTime();
+        while (new Date() < ms) {}
+    }
 
 function ping() {
     $('.sensor_box').removeClass('animating');
@@ -18,9 +18,9 @@ function ping() {
 
 Template.sonarControl.helpers({
     currentSensor: function (sensor) {
-        if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 5000) {
+        if (Flint.system('Sensors','pingInterval') && Flint.system('Sensors','pingInterval').period == 5000) {
             return 'active';
-        } else if (Flint.simulator('pingInterval') && Flint.simulator('pingInterval').period == 10000) {
+        } else if (Flint.system('Sensors','pingInterval') && Flint.system('Sensors','pingInterval').period == 10000) {
             return 'passive';
         } else {
             return 'manual';
@@ -32,14 +32,14 @@ Template.card_sensor3d.helpers({
     infaredSensors: function (context) {
 
         if (context == 'button') {
-            if (Flint.simulator('infaredSensors') == 'true') {
+            if (Flint.system('Sensors','infrared') == 'true') {
                 return 'DEACTIVATE';
             } else {
                 return 'ACTIVATE';
             }
         }
         if (context == 'class') {
-            if (Flint.simulator('infaredSensors') == 'true') {
+            if (Flint.system('Sensors','infrared') == 'true') {
                 console.log('on');
                 return 'infared';
             } else {
@@ -54,12 +54,12 @@ Template.card_sensor3d.events = {
     'mousemove .sensorLabel': function () {
         $('.sensorLabel').removeClass('shown');
     },
-        'click #infared': function () {
+    'click #infared': function () {
         Flint.beep();
-        if (Flint.simulator('infaredSensors') == 'true') {
-            Flint.simulator('infaredSensors', 'false');
+        if (Flint.system('Sensors','infrared') == 'true') {
+            Flint.system('Sensors','infrared', 'false');
         } else {
-            Flint.simulator('infaredSensors', 'true');
+            Flint.system('Sensors','infrared', 'true');
         }
     }
 
@@ -68,50 +68,46 @@ Template.sonarControl.events = {
     'click #ping': function () {
         Flint.beep();
         var setter = {
-            pingInterval: {
-                triggered: 'manual',
-                period: Date.now()
-            }
+            triggered: 'manual',
+            period: Date.now()
         };
-        Flint.simulators.update(Flint.simulatorId(), {
-            $set: setter
-        });
+        Flint.system('Sensors','pingInterval',setter);
         $("#ping").attr('disabled', 'disabled');
         Meteor.setTimeout(function () {
             $("#ping").removeAttr('disabled');
         }, 3000);
     },
-        'click #activeScan': function () {
+    'click #activeScan': function () {
         Flint.beep();
         var setter = {
             updated: 'true',
             triggered: Date.now(),
             period: 5000
         };
-        Flint.simulator('pingInterval', setter);
+        Flint.system('Sensors','pingInterval', setter);
     },
-        'click #passiveScan': function () {
+    'click #passiveScan': function () {
         Flint.beep();
         var setter = {
             updated: 'true',
             triggered: Date.now(),
             period: 10000
         };
-        Flint.simulator('pingInterval', setter);
+        Flint.system('Sensors','pingInterval', setter);
     },
-        'click #manualScan': function () {
+    'click #manualScan': function () {
         Flint.beep();
         var setter = {
             triggered: 'manual',
             period: 'manual'
         };
-        Flint.simulator('pingInterval', setter);
+        Flint.system('Sensors','pingInterval', setter);
     }
 };
 
 function buildAxis(src, dst, colorHex, dashed) {
     var geom = new THREE.Geometry(),
-        mat;
+    mat;
 
     if (dashed) {
         mat = new THREE.LineDashedMaterial({
@@ -138,10 +134,10 @@ function buildAxis(src, dst, colorHex, dashed) {
 
 function buildHalo(radius, color, axis) {
     var segments = 64,
-        material = new THREE.LineBasicMaterial({
-            color: color
-        }),
-        geometry = new THREE.CircleGeometry(radius, segments);
+    material = new THREE.LineBasicMaterial({
+        color: color
+    }),
+    geometry = new THREE.CircleGeometry(radius, segments);
     geometry.vertices.shift();
     var l = new THREE.Line(geometry, material);
     l.rotateOnAxis(axis, Math.PI / 2);
@@ -224,6 +220,7 @@ function findOffset(element) {
 }
 
 Template.card_sensor3d.rendered = function () {
+    THREE.ImageUtils.crossOrigin = "";
     var sensorLabelOffset = $('.sensorLabel').offset();
     var onRenderFcts = [];
     var mouseVector = new THREE.Vector3();
@@ -275,23 +272,23 @@ Template.card_sensor3d.rendered = function () {
 		camera.position.y += (mouse.y*10 - camera.position.y) * (delta*3);
 		camera.lookAt( scene.position );
 	});*/
-    $('.sensor_box').on('mousemove', function () {
-        e = event;
-        mouseVector.x = 2 * (e.offsetX / viewWidth) - 1;
-        mouseVector.y = 1 - 2 * (e.offsetY / viewHeight);
+$('.sensor_box').on('mousemove', function () {
+    e = event;
+    mouseVector.x = 2 * (e.offsetX / viewWidth) - 1;
+    mouseVector.y = 1 - 2 * (e.offsetY / viewHeight);
 
-        var raycaster = projector.pickingRay(mouseVector.clone(), camera),
-            intersects = raycaster.intersectObjects(scene.children);
+    var raycaster = projector.pickingRay(mouseVector.clone(), camera),
+    intersects = raycaster.intersectObjects(scene.children);
 
         /*scene.children.forEach(function( cube ) {
         if (cube.material){
             cube.material.color.setRGB( 0, 1, 0 );}
-            });*/
-        $('.sensorLabel').removeClass('shown');
-        if (Flint.simulator('infaredSensors') != "true") {
-            for (var i = 0; i < intersects.length; i++) {
-                var intersection = intersects[i],
-                    obj = intersection.object;
+        });*/
+$('.sensorLabel').removeClass('shown');
+if (Flint.system('Sensors','infrared') != "true") {
+    for (var i = 0; i < intersects.length; i++) {
+        var intersection = intersects[i],
+        obj = intersection.object;
                 //obj.material.color.setRGB( 1.0 - i / intersects.length, 0, 0 );
                 var position = obj.position;
                 if (obj.material.opacity > 0.5) {
@@ -305,9 +302,9 @@ Template.card_sensor3d.rendered = function () {
             }
         }
     });
-    controls = new THREE.OrbitControls(camera, $('.sensor_box')[0]);
-    controls.noZoom = true;
-    controls.noPan = true;
+controls = new THREE.OrbitControls(camera, $('.sensor_box')[0]);
+controls.noZoom = true;
+controls.noPan = true;
 
     /*controls.rotateSpeed = 1.0;
 	controls.zoomSpeed = 1.2;
@@ -323,16 +320,16 @@ Template.card_sensor3d.rendered = function () {
 		renderer.render(scene, camera);
 	});*/
 
-    onRenderFcts.push(function () {
-        controls.update();
-    });
+onRenderFcts.push(function () {
+    controls.update();
+});
 
     // "Radar" axes
     var radar_x = new THREE.Object3D(),
-        radar_y = new THREE.Object3D(),
-        radar_z = new THREE.Object3D(),
-        radar_length = viewRadius / 2,
-        radar_rotation_speed = 0.01;
+    radar_y = new THREE.Object3D(),
+    radar_z = new THREE.Object3D(),
+    radar_length = viewRadius / 2,
+    radar_rotation_speed = 0.01;
 
     //radar_x.add(buildHalo( radar_length, 0xFF0000, new THREE.Vector3(1, 0, 0))); // +X
     //radar_y.add(buildHalo( radar_length, 0x00FF00, new THREE.Vector3(0, 1, 0))); // +Y
@@ -392,10 +389,10 @@ Template.card_sensor3d.rendered = function () {
 
     var spriteOpacity = function (sprite, calculatedOpacity) {
         var x = sprite.position.x * 2 / viewRadius,
-            y = sprite.position.y * 2 / viewRadius,
-            z = sprite.position.z * 2 / viewRadius,
-            d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)),
-            opacity;
+        y = sprite.position.y * 2 / viewRadius,
+        z = sprite.position.z * 2 / viewRadius,
+        d = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)),
+        opacity;
         if (d > 0.9) {
             opacity = (1 - d) / 0.1;
             if (opacity < 0) {
@@ -455,71 +452,87 @@ Template.card_sensor3d.rendered = function () {
             }
         }
     });
-    this.sensorObserver = Flint.collection('sensorContacts').find().observe({
-        added: function (doc) {
-            var spriteColor;
-            var sprite;
+
+loadTexture = function(url, uniform, cb){
+    var image = document.createElement( 'img' );
+    image.crossOrigin = '';
+    var texture = new THREE.Texture( image );
+    image.onload = function()  {
+        texture.needsUpdate = true;
+        uniform.value = texture;
+        if (typeof(cb) !== 'undefined'){
+            cb(this);
+        }
+    };
+    image.src = url;
+}
+
+this.sensorObserver = Flint.collection('sensorContacts').find().observe({
+    added: function (doc) {
+        var spriteColor;
+        var sprite;
             //doc.color = "#0f0";
-            if (Flint.simulator('infaredSensors') == "true") {
+            if (Flint.system('Sensors','infrared') == "true") {
                 spriteColor = new THREE.Color('#f00');
                 sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/Infared'));
             } else {
                 spriteColor = new THREE.Color(doc.color);
+               // sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
+               sprite = loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
+           }
+           var material = new THREE.SpriteMaterial({
+            map: sprite,
+            useScreenCoordinates: false,
+            color: spriteColor
+        });
+           sprite = new THREE.Sprite(material);
+           if (Flint.system('Sensors','infrared') == "true") {
+            if (!doc.infared) {
+                sprite.visible = false;
+            }
+        } else {
+            if (doc.infaredContact) {
+                sprite.visible = false;
+            }
+        }
+        sprite.position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
+        sprite.scale.set(0.05 * viewRadius, 0.05 * viewRadius, 1.0);
+        sprite.material.opacity = spriteOpacity(sprite);
+        sprite.material.transparent = spriteTransparent(sprite);
+        sprite.picture = doc.picture;
+        sprite.name = doc.name;
+        scene.add(sprite);
+
+        sceneSprites[doc._id] = sprite;
+    },
+    changed: function (doc, oldDoc) {
+        var color;
+        if (Flint.system('Sensors','infrared') == "true") {
+            color = "#f00";
+        } else {
+            color = doc.color;
+        }
+        if (doc.icon != oldDoc.icon) {
+            var sprite;
+            if (Flint.system('Sensors','infrared') == "true") {
+                sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/Infared'));
+            } else {
                 sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
             }
-            var material = new THREE.SpriteMaterial({
-                map: sprite,
-                useScreenCoordinates: false,
-                color: spriteColor
-            });
-            sprite = new THREE.Sprite(material);
-            if (Flint.simulator('infaredSensors') == "true") {
-                if (!doc.infared) {
-                    sprite.visible = false;
-                }
-            } else {
-                if (doc.infaredContact) {
-                    sprite.visible = false;
-                }
-            }
-            sprite.position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
-            sprite.scale.set(0.05 * viewRadius, 0.05 * viewRadius, 1.0);
-            sprite.material.opacity = spriteOpacity(sprite);
-            sprite.material.transparent = spriteTransparent(sprite);
-            sprite.picture = doc.picture;
-            sprite.name = doc.name;
-            scene.add(sprite);
-
-            sceneSprites[doc._id] = sprite;
-        },
-        changed: function (doc, oldDoc) {
-            var color;
-            if (Flint.simulator('infaredSensors') == "true") {
-                color = "#f00";
-            } else {
-                color = doc.color;
-            }
-            if (doc.icon != oldDoc.icon) {
-                var sprite;
-                if (Flint.simulator('infaredSensors') == "true") {
-                    sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/Infared'));
-                } else {
-                    sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
-                }
-                sceneSprites[doc._id].material.map = sprite;
-            }
-            sceneSprites[doc._id].material.color = new THREE.Color(color);
-            sceneSprites[doc._id].name = doc.name;
-            sceneSprites[doc._id].picture = doc.picture;
-            sceneSprites[doc._id].position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
-            sceneSprites[doc._id].material.opacity = spriteOpacity(sceneSprites[doc._id], doc.opacity);
-            sceneSprites[doc._id].material.transparent = spriteTransparent(sceneSprites[doc._id]);
-        },
-        removed: function (doc) {
-            scene.remove(sceneSprites[doc._id]);
-            delete sceneSprites[doc._id];
+            sceneSprites[doc._id].material.map = sprite;
         }
-    });
+        sceneSprites[doc._id].material.color = new THREE.Color(color);
+        sceneSprites[doc._id].name = doc.name;
+        sceneSprites[doc._id].picture = doc.picture;
+        sceneSprites[doc._id].position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
+        sceneSprites[doc._id].material.opacity = spriteOpacity(sceneSprites[doc._id], doc.opacity);
+        sceneSprites[doc._id].material.transparent = spriteTransparent(sceneSprites[doc._id]);
+    },
+    removed: function (doc) {
+        scene.remove(sceneSprites[doc._id]);
+        delete sceneSprites[doc._id];
+    }
+});
 };
 
 Template.card_sensor3d.destroyed = function () {

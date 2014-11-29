@@ -2,7 +2,7 @@ var a = Flint.actor({
 	_id:"sensor-ping",
 	period: 500,
 	action: function(ticks) {
-		Flint.collection('simulators').find().forEach(function(doc){
+		Flint.collection('systems').find({'name':'Sensors'}).forEach(function(doc){
 			if (!_.isEmpty(doc.pingInterval) && doc.pingInterval.period != 'manual'){
 				var setter = {
 						pingInterval: {
@@ -13,7 +13,7 @@ var a = Flint.actor({
 				if (doc.pingInterval.triggered + doc.pingInterval.period < Date.now()){
 					setter.pingInterval.triggered = Date.now();
 				}
-				Flint.simulators.update(doc._id, {$set: setter});
+				Flint.systems.update(doc._id, {$set: setter});
 			}
 			//console.log(doc.pingInterval.triggered + doc.pingInterval.period - Date.now());
 		});

@@ -26,7 +26,6 @@ infinitedg:bootstrap-slider-touch
 
 ui-dropped-event
 
-meteorhacks:kadira
 
 flint
 flint-debug
@@ -73,7 +72,6 @@ card-security-teams
 card-self-destruct
 card-sensor-grid
 card-sensor3d
-card-speed
 card-tact-control
 card-targeting
 card-viewscreen
@@ -112,4 +110,7 @@ accounts-facebook
 accounts-google
 cfs:gridfs
 cfs:s3
-
+meteorhacks:kadira
+card-videochat
+card-comm-internal
+card-weapons-phasers

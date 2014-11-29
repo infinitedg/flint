@@ -1,0 +1,41 @@
+<template name="card_phasers">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<div class="phaserHeader">
+				<span>Phaser Energy:</span>
+				<span>10</span>
+				<span>20</span>
+				<span>30</span>
+				<span>40</span>
+				<span>50</span>
+				<span>60</span>
+				<span>70</span>
+				<span>80</span>
+				<span>90</span>
+				<span>100</span>
+			</div>
+			<div class="phaserBody">
+				<div class="phaserGroup">
+					{{#each phasers}}
+					<div class="row phaserContainer">
+						<button class="btn btn-warning phaserSelector {{selectedPhaser}}" data-phaserNumber={{number}}>{{number}}</button>
+						<span class="phaserEnergyHolder">
+							<div class="phaserEnergy" style={{phaserEnergy}}></div>
+						</span>
+					</div>
+					{{/each}}
+				</div>
+				<div class="phaserButtons">
+					<div class="row upperButtons">
+						<button class="btn btn-warning dischargeOne">Discharge Phaser Bank {{phaserNumber}}</button>
+						<button class="btn btn-warning chargeOne">Charge Phaser Bank {{phaserNumber}}</button>
+					</div>
+					<div class="row lowerButtons">
+						<button class="btn btn-warning dischargeAll">Discharge All Phaser Banks</button>
+						<button class="btn btn-warning chargeAll">Charge All Phaser Banks</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
