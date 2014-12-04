@@ -1,0 +1,31 @@
+<template name="card_internalComm">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2 connectionBox">
+			<div class="row form form-inline {{connected}}">
+				<button class="allDecks btn {{alertStyle}} {{showAllDecks}}">ALL DECKS</button>
+				<label class="select deckSelect {{alertStyle}} {{showDeckSelect}}">
+					<select class="deck">
+						<option disabled>Deck</option>
+						{{#each decks}}
+						<option value={{number}}>Deck {{number}}</option>
+						{{/each}}
+					</select>
+				</label>
+				<label class="select {{alertStyle}} {{showRooms}}">
+					<select class="room">
+					<option></option>
+						{{#each rooms}}
+						<option>{{name}}</option>
+						{{/each}}
+					</select>
+				</label>
+				<button class="connect btn {{alertStyle}} ">{{connectionState}}</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<p class="connectionText {{connected}}">Connected: {{currentConnection}}</p>
+		</div>
+	</div>
+</template>

@@ -9,12 +9,16 @@ Thruster card. Directional and Rotational thrusters.
 */
 Template.core_thrusters.helpers({
     rotationValue: function (which) {
-        return Flint.simulator('thrusterRotation')[which];
-    }
-});
+        return Flint.system('Thrusters','current')[which];
+    },
+    directionHilight: function(which){
+        if (which === Flint.system('Thrusters','direction')){
+            return 'highlight'};
+        }
+    });
 
-Template.core_thrusters.created = function () {
-    this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+/*Template.core_thrusters.created = function () {
+    this.conditionObserver = Flint.collection('systems').find(Flint.simulatorId()).observeChanges({
         changed: function (id, fields) {
             if (fields.thrusterDirection) {
                 if (fields.thrusterDirection !== 'none') {
@@ -32,15 +36,15 @@ Template.core_thrusters.created = function () {
 Template.core_thrusters.destroyed = function () {
     this.conditionObserver.stop();
 };
-
+*/
 Template.core_thrusters.events = {
     'click .manual-thrusters': function (e) {
         var obj = {
             'yaw': Math.round(Math.random() * 359),
-                'pitch': Math.round(Math.random() * 359),
-                'roll': Math.round(Math.random() * 359)
+            'pitch': Math.round(Math.random() * 359),
+            'roll': Math.round(Math.random() * 359)
         };
-        Flint.simulator('requiredThrusters', obj);
-        Flint.simulator('manualThruster', String(e.target.checked));
+        Flint.system('Thrusters','required', obj);
+        Flint.system('Thrusters','manualThruster', String(e.target.checked));
     }
 };

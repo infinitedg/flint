@@ -20,7 +20,7 @@ startScan = function(){
 		$(".calculatedZ").text(getRandomInt(1,99999)/100);
 	}, 40);
 	starsLoop = animLoop(function( deltaT ) {
-		if (Flint.simulator('desiredCourse').substr(-1,1) != '*'){return false;}
+		if (Flint.system('Course Calculation','desiredCourse').substr(-1,1) != '*'){return false;}
 		var stars = $('.stars img');
 		var starbox = $('.starsBox');
 		var starHeight = stars.height();
@@ -104,22 +104,22 @@ submitCoordinates = function(){
 		'y': $(".currentY").text(),
 		'z': $(".currentZ").text()
 	};
-	Flint.simulator('currentCoordinates',obj);
+	Flint.system('Course Calculation','currentCoordinates',obj);
 	$(".currentX").addClass("hilited"); 
 	TimeoutY = setTimeout(function() {
-		if (obj.x != Flint.simulator('desiredCoordinates').x){$(".currentX").addClass("invalid");}
+		if (obj.x != Flint.system('Course Calculation','desiredCoordinates').x){$(".currentX").addClass("invalid");}
 		else {$(".currentX").removeClass("invalid");}
 		$(".currentX").removeClass("hilited");   
 		$(".currentY").addClass("hilited");   
 	},250);
 	TimeoutZ = setTimeout(function() {
-		if (obj.y != Flint.simulator('desiredCoordinates').y){$(".currentY").addClass("invalid");}
+		if (obj.y != Flint.system('Course Calculation','desiredCoordinates').y){$(".currentY").addClass("invalid");}
 		else {$(".currentY").removeClass("invalid");}
 		$(".currentY").removeClass("hilited");   
 		$(".currentZ").addClass("hilited"); 
 	},500);
 	TimeoutEnd = setTimeout(function() {
-		if (obj.z != Flint.simulator('desiredCoordinates').z){$(".currentZ").addClass("invalid");}
+		if (obj.z != Flint.system('Course Calculation','desiredCoordinates').z){$(".currentZ").addClass("invalid");}
 		else {$(".currentZ").removeClass("invalid");}
 		$(".currentZ").removeClass("hilited");  
 	},750);
@@ -128,7 +128,7 @@ submitCoordinates = function(){
 
 Template.card_courseCalculation.helpers({
 	buttonHidden: function(which){
-		var course = Flint.simulator('desiredCourse');
+		var course = Flint.system('Course Calculation','desiredCourse');
 		if (which == "calculate"){
 			if (course.substr(-1,1) == '*'){return 'hidden';} //Asterisk means calculating
 			else {return null;}
@@ -142,15 +142,15 @@ Template.card_courseCalculation.helpers({
 		return Flint.a('/Stars');
 	},
 	desiredCourse: function(){
-		var course = Flint.simulator('desiredCourse');
+		var course = Flint.system('Course Calculation','desiredCourse');
 		if (course.substr(-1,1) == '*'){return course.slice(0,-1);}
 		else {return course;}
 	},
 	desiredCoordinates: function(axis){
-		return Flint.simulator('desiredCoordinates')[axis];
+		return Flint.system('Course Calculation','desiredCoordinates')[axis];
 	},
 	currentCoordinates: function(axis){
-		return Flint.simulator('currentCoordinates')[axis];
+		return Flint.system('Course Calculation','currentCoordinates')[axis];
 	}
 });
 
@@ -164,13 +164,13 @@ Template.card_courseCalculation.events({
 			$(".currentX").removeClass("invalid");
 			$(".currentY").removeClass("invalid");
 			$(".currentZ").removeClass("invalid");
-			Flint.simulator('desiredCourse', $('.courseInput').val() + "*");
+			Flint.system('Course Calculation','desiredCourse', $('.courseInput').val() + "*");
 		}
 	},
 	'click .cancelCalculation': function(e,context){
 		Flint.beep();
-		var course = Flint.simulator('desiredCourse').slice(0,-1);
-		Flint.simulator('desiredCourse', course);
+		var course = Flint.system('Course Calculation','desiredCourse').slice(0,-1);
+		Flint.system('Course Calculation','desiredCourse', course);
 	},
 	"click .keypad": function(e, context) {
 		var a;
@@ -220,7 +220,11 @@ Template.card_courseCalculation.events({
 
 Template.card_courseCalculation.rendered = function(){
 	Session.set('selectedCourseField',undefined);
-	this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+	var system = "Course Calculation"
+	this.conditionObserver = Flint.collection('systems').find({
+        'simulatorId': Flint.simulatorId(),
+        'name': system
+    }).observeChanges({
 		changed: function(id, fields) {
 			if (fields.desiredCourse) {
 				if (fields.desiredCourse.substr(-1,1) == '*'){startScan();}
@@ -240,7 +244,7 @@ Template.card_courseCalculation.rendered = function(){
 			}
 		}
 	});
-	if (Flint.simulator('desiredCourse').substr(-1,1) == '*'){
+	if (Flint.system('Course Calculation','desiredCourse').substr(-1,1) == '*'){
 		startScan();
 	}
 	var a;

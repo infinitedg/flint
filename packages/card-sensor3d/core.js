@@ -74,7 +74,7 @@ Template.core_sensor3d.helpers({
         return iconList();
     },
     wormhole: function () {
-        return Flint.simulator('wormhole');
+        return Flint.system('Sensors','wormhole');
     },
     buttonLabel: function () {
         if (Session.get('currentDimension') === 'z') {
@@ -180,52 +180,43 @@ function changeIFF(iff) {
 iconList = function () {
     var sel = {};
     var iconList = [];
-    sel.parentObject = Flint.collection('flintAssets').findOne({
-        fullPath: '/Sensor Icons'
-    })._id;
-    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
-    tacSymbolAssets.forEach(function (e) {
+    var folderList = Flint.Asset.listFolder('/Sensor Icons');
+    folderList.containers.forEach(function(e){
         iconList.push({
             text: e.name,
             action: function (e) {
                 changeIcon(e.target.text);
             }
         });
-    });
+    })
     return iconList;
 };
 pictureList = function () {
     var sel = {},
     pictureList = [];
-    sel.parentObject = Flint.collection('flintAssets').findOne({
-        fullPath: '/Sensor Pictures'
-    })._id;
-    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
-    tacSymbolAssets.forEach(function (e) {
+    var folderList = Flint.Asset.listFolder('/Sensor Pictures');
+    folderList.containers.forEach(function(e){
         pictureList.push({
             text: e.name,
             action: function (e) {
                 changePicture(e.target.text);
             }
         });
-    });
+    })
     return pictureList;
 };
 modelList = function () {
     var sel = {};
     var iconList = [];
-    sel.parentObject = Flint.collection('flintAssets').findOne({
-        fullPath: '/Sandbox Models'
-    })._id;
-    tacSymbolAssets = Flint.collection('flintAssets').find(sel);
-    tacSymbolAssets.forEach(function (e) {
+    var folderList = Flint.Asset.listFolder('/Sandbox Models');
+    folderList.containers.forEach(function(e){
         iconList.push({
             text: e.name,
             action: function (e) {
                 changeModel(e.target.text);
             }
         });
-    });
+    })
     return iconList;
 };
 iffList = function () {
@@ -273,6 +264,9 @@ Template.core_sensor3d.created = function () {
     this.subscription = Deps.autorun(function () {
         Meteor.subscribe('cards.core-sensor3d.contacts', Flint.simulatorId());
         Meteor.subscribe('cards.core-sensor3d.armies', Flint.simulatorId());
+        Meteor.subscribe("flint.assets.objects.all");
+    Meteor.subscribe("flint.assets.containers.all");
+    Meteor.subscribe("flint.assets.folders.all");
     });
     context.init({
         compact: true
@@ -450,6 +444,7 @@ Template.core_sensor3d.created = function () {
     });
     this.armyObserver = Flint.collection('armyContacts').find().observe({
         addedAt: function (doc, atIndex) {
+            debugger;
             var id = doc._id;
             if (!armyArray[id]) {
                 armyArray[id] = {};
@@ -787,9 +782,9 @@ Template.core_sensor3d.events({
     },
         'click #wormhole': function (e, t) {
         if (e.target.checked) {
-            Flint.simulator('wormhole', 'true');
+            Flint.system('Sensors','wormhole', 'true');
         } else {
-            Flint.simulator('wormhole', 'false');
+            Flint.system('Sensors','wormhole', 'false');
         }
     }
 });

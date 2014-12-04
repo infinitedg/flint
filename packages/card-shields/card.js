@@ -49,10 +49,10 @@ Template.card_shields.events({
 	'click .shieldChange': function(){
 		if (Flint.system('Shields','state') == "raised"){
 			Flint.system('Shields','state','lowered');
-			Flint.tween('systems','systems-odyssey-shields',5,{'strength':0, 'overwrite':'concurrent'});
+			Flint.tween('systems','systems-' + Flint.simulatorId() + '-shields',5,{'strength':0, 'overwrite':'concurrent'});
 		} else {
 			Flint.system('Shields','state','raised');
-			Flint.tween('systems','systems-odyssey-shields',5,{'strength': Flint.system('Shields','level'), 'overwrite':'concurrent'});
+			Flint.tween('systems','systems-' + Flint.simulatorId() + '-shields',5,{'strength': Flint.system('Shields','level'), 'overwrite':'concurrent'});
 		}
 	}
 });

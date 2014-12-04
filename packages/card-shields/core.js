@@ -23,7 +23,7 @@ Template.core_shields.rendered = function(){
 			if (shieldLevel < 0) shieldLevel = 0;
 			Flint.system('Shields','level',shieldLevel);
 			if (Flint.system('Shields','state') == "raised"){
-				Flint.tween('systems','systems-odyssey-shields',2,{'strength':shieldLevel, 'overwrite':'concurrent'});
+				Flint.tween('systems','systems-' + Flint.simulatorId() + '-shields',2,{'strength':shieldLevel, 'overwrite':'concurrent'});
 			}
 		}
 	});
@@ -34,6 +34,6 @@ Template.core_shields.events = {
 		shieldLevel -= Math.random()*10;
 		if (shieldLevel < 0) shieldLevel = 0;
 		Flint.system('Shields','level',shieldLevel);
-				Flint.tween('systems','systems-odyssey-shields',1,{'strength':shieldLevel, 'overwrite':'concurrent'});
+				Flint.tween('systems','systems-' + Flint.simulatorId() + '-shields',1,{'strength':shieldLevel, 'overwrite':'concurrent'});
 	}
 };

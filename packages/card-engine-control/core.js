@@ -1,17 +1,17 @@
 Template.core_engineControl.events = {
 	'change .engineController': function(e){
 		var newSpeed = e.target.value;
-		Flint.simulator('speed', newSpeed);
+		Flint.system('Engines','speed', newSpeed);
 	},
 	'click .heatRate': function(e){
 		var value = prompt("What is the new heat rate? 1 is base.");
-		Flint.simulator('heatRate', value);
+		Flint.system('Engines','heatRate', value);
 	}
 };
 
 Template.core_engineControl.helpers({
 	engineSpeed: function(){
-		var speed = Flint.simulator('speed');
+		var speed = Flint.system('Engines','speed');
 		var speedVal;
 		if (speed.substr(0,1) === 0){
 			if (speed.substr(2,1) === 0){speedVal = "Full Stop";}
@@ -28,10 +28,10 @@ Template.core_engineControl.helpers({
 		return speedVal;
 	},
 	heatRate: function(){
-		return Flint.simulator('heatRate');
+		return Flint.system('Engines','heatRate');
 	},
 	heatLevel: function(heatType){
-		var engineHeat = Flint.simulator('engineHeat');
+		var engineHeat = Flint.system('Engines','heat');
 		if (heatType == "warp" || heatType == "impulse"){return engineHeat[heatType] + "%";}
 	}
 });
@@ -44,10 +44,10 @@ Template.core_heatLevels.rendered = function(){
 			TweenLite.to(this.target, 0.0, {
                 transform: 'translate3d(0px,0px,0px)'
             });			
-            var heatLevels = Flint.simulator('engineHeat');
+            var heatLevels = Flint.system('Engines','heat');
 			var delta = (this.x / this.target.parentElement.clientWidth)*100;
 			heatLevels.impulse += delta;
-			Flint.simulator('engineHeat',heatLevels);
+			Flint.system('Engines','heat',heatLevels);
 		}
 	});
 	Draggable.create("div[data-type='warp'] .heatDragger", {
@@ -58,10 +58,10 @@ Template.core_heatLevels.rendered = function(){
 			TweenLite.to(this.target, 0.0, {
                 transform: 'translate3d(0px,0px,0px)'
             });	
-			var heatLevels = Flint.simulator('engineHeat');
+			var heatLevels = Flint.system('Engines','heat');
 			var delta = (this.x / this.target.parentElement.clientWidth)*100;
 			heatLevels.warp += delta;
-			Flint.simulator('engineHeat',heatLevels);
+			Flint.system('Engines','heat',heatLevels);
 		}
 	});
 };

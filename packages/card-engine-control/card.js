@@ -3,7 +3,7 @@ Template.card_engineControl.helpers({
 		return Flint.a('/Ship Views/Top');
 	},
 	currentSpeed: function(engine){
-		var data = Flint.simulator('speed');
+		var data = Flint.system('Engines','speed');
 		var activeEngine = data.substr(0,1);
 		var speed = data.substr(2,1);
 		if (engine == 'impulse'){
@@ -26,7 +26,7 @@ Template.card_engineControl.helpers({
 	},
 
 	heatLevel: function(engine){
-		var heat = Flint.simulator('engineHeat')[engine];
+		var heat = Flint.system('Engines','heat')[engine];
 		return "height: " + heat + "%;";
 	}
 });
@@ -35,6 +35,6 @@ Template.card_engineControl.events({
 	'mouseup .speedBtn': function(e,t){
 		Flint.beep();
 		var data = e.target.dataset.speed;
-		Flint.simulator('speed',data);
+		Flint.system('Engines','speed',data);
 	}
 });

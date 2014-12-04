@@ -10,9 +10,9 @@ Template.coolantTank.events({
 		var id=e.target.id;
 		var interval = Meteor.setInterval(function(){
 			if (id == "warp" || id == "impulse"){
-				var heatLevel = Flint.simulator('engineHeat');
+				var heatLevel = Flint.system('Engines','heat');
 				heatLevel[id] -= 0.4;
-				Flint.simulator('engineHeat',heatLevel);
+				Flint.system('Engines','heat',heatLevel);
 				Flint.simulator('coolant',(Flint.simulator('coolant') - 0.01));
 			}
 		},10)
