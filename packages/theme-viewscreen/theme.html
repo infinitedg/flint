@@ -1,0 +1,355 @@
+<template name="theme_viewscreen_base">
+	<style>
+		html, body{
+			color: #fff;
+		}
+		.bezel {
+			background: rgb(70,70,70);
+			background: linear-gradient(135deg, rgba(170,170,170,1) 0%,rgba(61,61,61,1) 12%,rgba(170,170,170,1) 25%,rgba(56,56,56,1) 50%,rgba(170,170,170,1) 75%,rgba(56,56,56,1) 99%);
+		}
+		.well{
+			background-color: rgba(10,10,10,0.75);
+			border-color: rgba(245,245,245,0.5);
+		}
+		header{
+			width: 100%;
+			text-shadow: 0px 0px 3px rgba(255, 255, 255, 1); 
+			background: transparent;
+			background-image:url();
+			margin-bottom: 20px;
+
+		}
+
+		header .background{
+			height:120px;
+			position: absolute;
+			width: 100%;
+		}
+		header.row-fluid .alertLevelNum{
+			font-size: 70px;
+			font-size: 6vw;
+			line-height: 100px;
+			position: absolute;
+			right: 0px;
+			text-shadow: 3px 3px 5px rgba(0,0,0,.7);
+		}
+
+		#grid-background{
+			display: block;
+			background-image: url(/themes/default/public/grid.png);
+			background-repeat: repeat-x;
+			position: fixed;
+			left: 0px;
+			bottom: 0px;
+			margin: 0px;
+			padding: 0px;
+			width: 100vw;
+			height: 100vh;
+			z-index: -2;
+		}
+
+		#perspective{
+			height:100%;   
+		}
+
+		#perspective{background: linear-gradient(to bottom, #000000 32%,{{alertColorDesat}} 100%);
+		transition: background-color 0.5s ease;
+	}
+
+	.backgroundColor:not(textarea):not(header):not([type="text"]),.btn {background: url(/themes/default/public/svg/speckles.png);
+		background-size: 100%;
+		background-color: {{alertColora "1"}};
+		transition: background-color 0.5s ease;
+	}
+
+	header{
+		width: 100%;
+		text-shadow: 0px 0px 3px rgba(255, 255, 255, 1); 
+		background: transparent;
+		background-image:url();
+		margin-bottom: 20px;
+
+	}
+
+	header .background{
+		height:120px;
+		position: absolute;
+		width: 100%;
+	}
+	header.row-fluid .alertLevelNum{
+		font-size: 70px;
+		font-size: 6vw;
+		line-height: 100px;
+		position: absolute;
+		right: 0px;
+		text-shadow: 3px 3px 5px rgba(0,0,0,.7);
+	}
+
+	header.row-fluid h2{font-size: 30px; font-size: 2.2vw; position: relative; line-height: .5;}
+	header.row-fluid h3{font-size: 24px; font-size: 2.2vw; position: relative; top: 18px;}
+
+	header .sim-name{
+		width:  30%;
+	}
+
+	header.row-fluid .cardName{
+		font-size: 30px;
+		line-height: 30px;
+		position: absolute;
+		margin-right: 100px;
+		left: 38.88%;
+		top: 70px;
+	}
+	header .background{
+		height: 50px !important;
+	}
+	header .background{-webkit-clip-path: polygon(.3% 2%, .3% 97%, 30.5% 97%, 34.1% 57%, .3% 57%, .3% 45%, 34.9% 45%, 38.6% 2%, 40.1% 2%, 36.4% 45%, 89.6% 45%, 85.9% 2%, 87.4% 2%, 94.3% 83% , 99.8% 83%, 99.8% 2%, .4% 2%  ) !important;} 
+	header .backgroundBezel{
+		width: 100%;
+		height: 50px !important;
+		position: absolute;
+		-webkit-clip-path: polygon(0% 0%, 0% 100%, 30.5% 100%, 34.5% 55%, 0% 55%, 0% 47%, 35% 47%, 39% 0%, 40% 0%, 36% 47%, 90% 47%, 86% 0%, 87% 0%, 91% 47% , 94.2% 85% , 100% 85%, 100% 0%, 0% 0%) !important;
+	}
+
+	.footer .backgroundBezel{
+		width: 100%;
+		height:50px !important;
+		position: absolute;
+		bottom: 0px;
+		-webkit-clip-path: polygon(0% 75%, 22.5% 75%, 20.5% 100%, 21.5% 100%, 26% 40%, 87.9% 40%, 84.5% 100%, 85.5% 100%, 87.5% 65%, 100% 65%, 100% 100%, 0% 100%);
+	}
+	.footerBackground{
+		height:50px !important;
+		width: 100%;
+		position: absolute;
+		bottom: 0px;
+		-webkit-clip-path: polygon(.2% 78%, 22% 78%, 20.6% 96%, 22.1% 96%, 26% 43%, 87.5% 43%, 84.5% 96%, 85.9% 96%, 87.5% 68%, 99.8% 68%, 99.8% 96%, .2% 96%);
+	}
+
+	video{
+		border: solid 1px rgba(255,255,255,0.1);
+	}
+	.viewscreen ul li.viewscreenOutput {
+		position: absolute;
+		list-style: none;
+	}
+
+</style>
+
+</template>
+<template name="theme_viewscreen_0p0s">
+
+</template>
+<template name="theme_viewscreen_1p0s">
+	<style>
+		.bezel {
+			background: rgb(70,70,70);
+			background: linear-gradient(135deg, rgba(170,170,170,1) 0%,rgba(61,61,61,1) 12%,rgba(170,170,170,1) 25%,rgba(56,56,56,1) 50%,rgba(170,170,170,1) 75%,rgba(56,56,56,1) 99%);
+		}
+		
+
+		.leftChromeBezel,.leftChrome{
+			left: 0vh;
+		}
+		.rightChrome,.rightChromeBezel{
+			right: 0vh;
+		}
+		.leftChromeBezel, .rightChromeBezel{
+			height: 75vh;
+			width: 1vw;
+			position: absolute;
+			top: 12.5vh;
+			-webkit-clip-path: polygon(100% 0%, 0% 10%, 0% 45%, 100% 35%, 100% 55%, 0% 65%, 0% 100%, 100% 90%);
+		}
+		.leftChrome, .rightChrome{
+			height: 75vh;
+			width: 1vw;
+			position: absolute;
+			top: 12.5vh;
+			background-color: #f00;
+			-webkit-clip-path: polygon(90% 2%, 10% 10%, 10% 43.5%, 90% 35%, 90% 57%, 10% 65%, 10% 98%, 90% 90%);
+		}
+	</style>
+</template>
+<template name="theme_viewscreen_1p1s">
+	<style>
+		.rightChromeBezel{
+			height: 89vh;
+			width: 100vw;
+			position: absolute;
+			top: 6vh;
+			-webkit-clip-path: polygon(62% 0%, 34% 0%, 32% 3%, 60% 3%, 62% 0%, 62% 1%, 62% 1.3%, 60.3% 4%, 60.3% 54%, 62% 52%, 62% 1%);
+		}
+		.leftChromeBezel{
+			height: 89vh;
+			width: 100vw;
+			position: absolute;
+			top: 7vh;
+			-webkit-clip-path: polygon(100% 100%, 35% 70%, 0 70%, 2% 73%, 33% 73%, 35% 70%, 37% 70%, 35% 73%, 58% 73%, 60% 70%, 35% 70%);
+		}
+		.rightChrome{
+			height: 89vh;
+			width: 100vw;
+			position: absolute;
+			top: 6vh;
+			-webkit-clip-path: polygon(62.2% 0.2%, 34.1% 0.2%, 32.3% 2.8%, 59.9% 2.8%, 61.7% 0.2%, 61.85% 0.2%, 61.85% 2%, 60.5% 4.3%, 60.5% 53.3%, 61.85% 51.7%, 61.85% 1.3%, 61.85% 0.2%);
+		}
+		.leftChrome{
+			height: 89vh;
+			width: 100vw;
+			position: absolute;
+			top: 7vh;
+			-webkit-clip-path: polygon(34.9% 70.2%, 0.2% 70.1%, 2.1% 72.9%, 32.9% 72.9%, 34.9% 70.2%, 37.1% 70.2%, 35.2% 72.8%, 57.9% 72.8%, 59.8% 70.2%, 34.9% 70.2%);
+		}
+		.viewscreenOutput[data-priority="true"]:nth-child(1){
+			left: 0;
+			top: 9vh;
+			width: 60vw;	
+
+		}
+		.viewscreenOutput:nth-child(2){
+			position: absolute;
+			right: 0;
+			top: 55vh;
+			height: 9vh;
+			width: 40vw;
+		}
+	</style>
+</template>
+<template name="theme_viewscreen_1p2s">
+	<style>
+		.leftChromeBezel{
+			height: 80vh;
+			width: 100vw;
+			position: absolute;
+			top: 7vh;
+			-webkit-clip-path: polygon(33% 11%, 35% 14%, 2% 14%, 0 11%, 35% 11%, 37% 14%, 60% 14%, 58% 11%, 60.2% 11%, 60.2% 5%, 61.8% 0, 61.8% 100%, 60.2% 95%, 60.2% 86%, 59% 86%, 2% 86%, 0 89%, 24% 89%, 27% 86%, 30% 86%, 27% 89%, 57% 89%, 59% 86%, 60.2% 86%, 60.2% 11%);
+		}
+		.leftChrome{
+			height: 80vh;
+			width:  100vw;
+			position: absolute;
+			top:  7vh;
+			-webkit-clip-path: polygon(32.9% 11.2%, 34.7% 13.8%, 2.1% 13.8%, 0.3% 11.2%, 35.3% 11.2%, 37.1% 13.8%, 59.7% 13.8%, 57.9% 11.2%, 60.3% 11.2%, 60.3% 5.5%, 61.7% 0.5%, 61.7% 99.5%, 60.3% 95%, 60.3% 86%, 59.7% 86.2%, 2% 86.2%, 0.3% 88.8%, 23.75% 88.8%, 26.7% 86.2%, 30.3% 86.2%, 27.3% 88.8%, 56.9% 88.8%, 58.8% 86.2%, 60.3% 86.2%, 60.3% 11.2%)!important;
+		}
+		
+		
+		.viewscreenOutput[data-priority="true"]:nth-child(1){
+			left: 0;
+			top: 20.2vh;
+			width: 60vw;	
+			-webkit-transform: scale(.55);
+			-webkit-transform-origin: 4% top;
+		}
+		.viewscreenOutput[data-priority="true"]:nth-child(2){
+			left: 0;
+			top: 50vh;
+			height: 9vh;
+			width: 16vw;	
+		}
+		.viewscreenOutput[data-priority="true"]:nth-child(3){
+			left: 0;
+			top: 50vh;
+			height: 9vh;
+			width: 16vw;	
+		}
+		.viewscreenOutput:nth-child(1){
+			right: 0;
+			top: 50vh;
+			height: 9vh;
+			width: 40vw;
+		}
+		.viewscreenOutput:nth-child(2){
+			right: 0;
+			top: 10vh;
+			height: 9vh;
+			width: 38vw;
+		}
+		.viewscreenOutput:nth-child(3){
+			right: 0;
+			bottom: -60vh;
+			height: 9vh;
+			width: 38vw;
+			
+		}
+	</style>
+</template>
+<template name="theme_viewscreen_1p3s">
+	<style>
+	.leftChromeBezel{
+		height: 93vh;
+		width: 100vw;
+		position: absolute;
+		top: 7vh;
+		-webkit-clip-path: polygon(33% 11%, 35% 14%, 2% 14%, 0 11%, 35% 11%, 37% 14%, 60% 14%, 58% 11%, 69.2% 11%, 69.2% 5%, 70.8% 0, 70.8% 93.5%, 69.2% 88.5%, 69.2% 89%, 59% 89%, 2% 89%, 0 92%, 24% 92%, 27% 89%, 30% 89%, 27% 92%, 57% 92%, 59% 89%, 69.2% 89%, 69.2% 11%);
+	}
+	.leftChrome{
+		height: 93vh;
+		width:  100vw;
+		position: absolute;
+		top:  7vh;
+		-webkit-clip-path: polygon(32.9% 11.2%, 34.7% 13.8%, 2.1% 13.8%, 0.3% 11.2%, 35.3% 11.2%, 37.1% 13.8%, 59.7% 13.8%, 57.9% 11.2%, 69.3% 11.2%, 69.3% 5.4%, 70.7% 0.8%, 70.7% 92.8%, 69.3% 88.3%, 69.3% 89.2%, 59.7% 89.2%, 2% 89.2%, 0.3% 91.9%, 23.75% 91.9%, 26.4% 89.4%, 30.3% 89.2%, 27.3% 91.9%, 56.9% 91.9%, 58.8% 89.2%, 69.3% 89.2%, 69.3% 11.2%)!important;
+	}
+	
+	
+	.viewscreenOutput[data-priority="true"]:nth-child(1){
+		left: 0;
+		top: 20.2vh;
+		width: 69vw;	
+	}
+	.viewscreenOutput:nth-child(1){
+		right: 0;
+		top: 50vh;
+		height: 9vh;
+		width: 40vw;
+	}
+	.viewscreenOutput:nth-child(2){
+		right: 0;
+		top: 7vh;
+		height: 9vh;
+		width: 29vw;
+	}
+	.viewscreenOutput:nth-child(3){
+		right: 0;
+		top: 37vh;
+		height: 9vh;
+		width: 29vw;
+		
+	}
+	.viewscreenOutput:nth-child(4){
+		right: 0;
+		bottom: -74.5vh;
+		height: 9vh;
+		width: 29vw;
+		
+	}
+	</style>
+</template>
+<template name="theme_viewscreen_2p0s">
+	<style>
+	</style>
+</template>
+<template name="theme_viewscreen_2p1s">
+	<style>
+	</style>
+</template>
+<template name="theme_viewscreen_2p2s">
+	<style>
+	</style>
+</template>
+<template name="theme_viewscreen_3p0s">
+	<style>
+	</style>
+</template>
+<template name="theme_viewscreen_3p1s">
+	<style>
+	</style>
+</template>
+<template name="theme_viewscreen_4p0s">
+	<style>
+	</style>
+</template>
+<template name="theme_viewscreen_0p4s">
+	<style>
+	</style>
+</template>

@@ -1,15 +1,24 @@
 <template name="card_viewscreen">
-	<div class="viewscreen" style="position:absolute; z-index: 1; top:0px; left:0; display: inline; min-width: 100vw;"> 
-		{{> dynamicTemplate}}
+
+	{{> viewscreenStyle}}
+	<div class="viewscreen" style="position:absolute; z-index: 1; top:0px; left:0; display: inline; min-width: 100vw;">
+		<ul>
+			{{#each viewscreenInputs}}
+			<li class="viewscreenOutput" data-priority={{priority}} >
+			{{> Template.dynamic template=template.name data=template.context}}
+			</li>
+			{{/each}}
+		</ul>
 	</div>
 </template>
 
 
-<template name="Sandbox">
+
+<template name="viewscreen_sandbox">
 	<div id="viewscreen" style="position: absolute; top: 0; left: 0; margin: 0; padding: 0;"></div>
 </template>
 
-<template name="Tactical">
+<template name="viewscreen_tactical">
 	<div id="tacView" style="position: absolute; top: 110px; left: 0; margin: 0; padding: 0;"></div>
 </template>
 
@@ -21,14 +30,15 @@
 
 </template>
 
-<template name="Video">
+<template name="Shields">
+
+</template>
+
+<template name="viewscreen_video">
 	<div class="viewscreenVideo">
-		<video src={{tacticalVideo}} autoplay preload="auto" style="width: 100%;" loop muted>
+		<video src={{tacticalVideo}} autoplay preload="auto" style="width: 100%;" {{videoLooping}} muted>
 		</video>
 	</div>
 </template>
 
-<template name="Shields">
-
-</template>
 

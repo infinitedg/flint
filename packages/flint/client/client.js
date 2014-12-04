@@ -127,7 +127,7 @@ Flint.stationId = function() {
 Flint.card = function() {
   var station = Flint.station();
   if (station)
-    return station.cards[Session.get("flint.cardNumber")];
+    return station.cards[Session.get("flint.cardNumber")] || {};
 };
 
 Flint.cardNumber = function() {
