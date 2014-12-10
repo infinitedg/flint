@@ -60,7 +60,6 @@ card-flint-stations
 card-login
 card-mario
 card-message-composer
-card-navigation
 card-power
 card-scanner
 card-security
@@ -114,3 +113,6 @@ meteorhacks:kadira
 card-videochat
 card-comm-internal
 card-weapons-phasers
+card-tractor-beam
+card-security-doors
+card-roster
