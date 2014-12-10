@@ -30,6 +30,12 @@
          "connectionType":""
       },
       {  
+         "_id":"systems-voyager-tractorBeam",
+         "name":"Tractor Beam",
+         "state":"idle",
+         "target":"false"
+      },
+      {  
          "name":"Torpedo Launchers",
          "minPower":7,
          "maxPower":30,

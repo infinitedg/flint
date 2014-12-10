@@ -35,6 +35,16 @@
             }
          ]
       },
+      {
+         "_id":"voyager-ambassador",
+         "name":"Ambassador",
+         "card":[
+         {
+            "cardId":"card_login",
+            "name":"Login"
+         }
+         ]
+      },
       {  
          "_id":"voyager-damage",
          "name":"Damage Control",
@@ -42,6 +52,10 @@
             {  
                "cardId":"card_login",
                "name":"LOGIN"
+            },
+            {
+               "cardId":"card_damageControl",
+               "name":"Damage Report"
             }
          ]
       },
@@ -82,6 +96,14 @@
             {  
                "cardId":"card_login",
                "name":"LOGIN"
+            },
+            {
+               "cardId":"card_security_doors",
+               "name":"Deck Control"
+            },
+            {
+               "cardId":"card_security_teams",
+               "name":"Security Teams"
             }
          ]
       },
@@ -148,6 +170,22 @@
             {  
                "name":"Shields",
                "cardId":"core_shields"
+            },
+            {
+               "name":"Tractor Beam",
+               "cardId":"core_tractorBeam"
+            },
+            {
+               "name":"Internal Comm",
+               "cardId":"core_internalComm"
+            },
+            {
+               "name":"Security Doors",
+               "cardId":"core_security_doors"
+            },
+            {
+               "name":"Security Teams",
+               "cardId":"core_security_teams"
             }
          ],
          "layout":"layout_core",
@@ -173,15 +211,34 @@
                "name":"LOGIN"
             },
             {  
-               "cardId":"card_weapons",
-               "name":"WEAPONS"
-            },
-            {  
                "cardId":"card_viewscreenControl",
                "name":"viewscreenControl"
             }
          ],
          "name":"Operations",
+         "simulatorId":"voyager"
+      },
+      {  
+         "_id":"voyager-weapons",
+         "cards":[  
+            {  
+               "cardId":"card_login",
+               "name":"LOGIN"
+            },
+            {  
+               "cardId":"card_weapons",
+               "name":"WEAPONS"
+            },
+            {
+               "cardId":"card_phasers",
+               "name":"Phasers"
+            },
+            {
+               "cardId":"card_shields",
+               "name":"Shields"
+            }
+         ],
+         "name":"Weapons",
          "simulatorId":"voyager"
       },
       {  

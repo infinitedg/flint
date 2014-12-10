@@ -10,7 +10,8 @@
     "rooms",
     "tacSymbols",
     "viewscreenInputs",
-    "phasers"
+    "phasers",
+    "crew"
   ],
   "simulators": [
     "odyssey",
