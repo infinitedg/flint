@@ -1,5 +1,5 @@
 Package.describe({
-  "summary": "Security Teams Management",
+  "summary": "Security Doors Management",
   version: "0.1.0"
 });
 

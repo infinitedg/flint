@@ -1,0 +1,30 @@
+<template name="card_roster">
+	<div class="row">
+		<div class="roster col-sm-12">
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<td>First Name</td>
+						<td>Last Name</td>
+						<td>Gender</td>
+						<td>Age</td>
+						<td>Rank</td>
+						<td>Position</td>
+					</tr>
+				</thead>
+				<tbody>
+				{{#each crewmembers}}
+				<tr>
+					<td>{{firstName}}</td>
+					<td>{{lastName}}</td>
+					<td>{{gender}}</td>
+					<td>{{age}}</td>
+					<td>{{rank}}</td>
+					<td>{{position}}</td>
+					</tr>
+				{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</template>

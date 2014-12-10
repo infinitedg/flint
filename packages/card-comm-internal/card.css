@@ -12,7 +12,7 @@
   -webkit-transition: opacity 0.5s ease;
 }
 .connectionBox .deckSelect{
-  flex-grow: 2;
+  flex-grow: 1;
 }
 .connectionBox .connected *:not(.connect) {
     pointer-events: none;

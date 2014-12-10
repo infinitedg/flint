@@ -1,0 +1,11 @@
+<template name="core_security_doors">
+	<div class="securityDoors">
+		{{#each decks}}
+		<div class="deck">
+			<span class="deckName">Deck {{number}}</span>
+			<div class="doorsStatus {{doorsState}}"></div>
+			<div class="evacStatus {{evacState}}"></div>
+		</div>
+		{{/each}}
+	</div>
+</template>

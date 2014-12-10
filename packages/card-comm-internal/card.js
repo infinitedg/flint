@@ -7,7 +7,7 @@ Template.card_internalComm.created = function(){
 }
 Template.card_internalComm.helpers({
 	decks : function(){
-		return Flint.collection('decks').find();
+		return Flint.collection('decks').find({},{sort:{'number': 1}});
 	},
 	rooms : function(){
 		var currentDeck = Flint.simulatorId() + "-deck-" + Session.get('internalComm-currentDeck');

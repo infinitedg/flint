@@ -1,0 +1,35 @@
+<template name="card_security_doors">
+	<div class="security-doors row">
+		<div class="col-sm-2">
+			{{> securityDeckSidebar}}
+		</div>
+		<div class="col-sm-6 col-sm-offset-2">
+			{{> securityStatus}}
+			<div class="doorsButtons">
+				<button {{doorsButtonDisabled}} class="btn doorsControl">{{doorsButtonLabel}}</button>
+				<button {{evacButtonDisabled}} class="btn evacControl">{{evacButtonLabel}}</button>
+			</div>
+			<div class="tranzineControl well">
+				<span class="tranzineLabel">Tranzine Gas</span>
+				<div class="select">
+					<select class="roomSelect">
+						{{#each rooms}}
+						<option>{{name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<button class="btn btn-warning tranzineControl">{{tranzineButtonLabel}}</button>
+				<span class="tranzineWarning">Warning: The release of tranzine gas will cause unconsiousness to anyone who breathes in the gas. Use with caution. The use of tranzine gas is limited to security personnel only. Access is restricted.</span>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="securityStatus">
+	<div class="securityStatus">
+		<span class="deckStatus">Deck {{currentDeckNumber}} Status:</span>
+		<span class="deckStatus">Bulkhead Doors: {{currentDeckDoors}}</span>
+		<span class="deckStatus">Crew Status: {{currentDeckEvac}}</span>
+
+	</div>
+</template>

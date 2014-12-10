@@ -20,9 +20,22 @@ Variables used:
       text-transform: uppercase;
       font-family: "Gamecuben";
     }
+    .btn{
+      font-family: "Gamecuben";
+      text-transform: uppercase;
+    }
   </style>
 </template>
-
+<template name="theme_font_play">
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Sarpanch:400,800);    
+    html, body{
+      text-transform: uppercase;
+      font-family: 'Sarpanch', sans-serif;
+      font-weight: 800;
+    }
+  </style>
+</template>
 <template name="theme_font_readable">
   <style>
     @font-face {
@@ -162,8 +175,10 @@ header .backgroundBezel{
   position: absolute;
   bottom: 0px;
   -webkit-clip-path: polygon(.2% 78%, 22% 78%, 20.6% 96%, 22.1% 96%, 26% 43%, 87.5% 43%, 84.5% 96%, 85.9% 96%, 87.5% 68%, 99.8% 68%, 99.8% 96%, .2% 96%);}
-
-
+header.row-fluid h3{
+    line-height: 0.5;
+  margin-top: 0px;
+}
   @media (max-width: 1025px) {
     header.row-fluid h2{font-size:24px;display:none;}
     header.row-fluid h3{margin-top:57px;}
@@ -902,7 +917,7 @@ html, body, .perspective {
 
     .btn{
       position: relative;
-            color: #fff;
+      color: #fff;
     }
   </style>
 </template>

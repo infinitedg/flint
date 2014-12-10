@@ -1,0 +1,44 @@
+.securityTeams .securityOfficersContainer .well, 
+.securityAssignedContainer .well, 
+.securityTeams .assignedSecurityContainer.well,
+.securityTeams .assignedOrders.well{
+	padding: 5px;
+	height: 23vh;
+	overflow: scroll;
+	font-size: 20px;
+}
+.securityTeams .securityOfficersContainer .well p, 
+.securityTeams .securityAssignedContainer .well p,
+.securityTeams .assignedSecurityContainer.well p{
+	margin: 5px;
+}
+.securityTeams .recallOfficer, .securityTeams .assignOfficer{
+	width: 100%;
+	margin-bottom: 10px;
+}
+.securityTeams .row.orders *{
+	width: 100%;
+	display: block;
+	float: left;
+}
+.securityTeams .row.orders textarea{
+height: 20vh;
+}
+.securityTeams .row.orders .select{
+	display: -webkit-flex;
+	color: #fff;
+	margin-bottom: 20px;
+}
+.securityTeams .row.orders .select .deckContainer{
+margin-right: 30px;
+}
+.securityTeams .well, .securityTeams select, .securityTeams textarea{
+	-webkit-transition: background-color 0.25s linear;
+}
+.securityTeams .invalid{
+	background-color: rgba(153,12,12,1) !important;
+}
+.securityTeams .assigned{
+	font-style: italic;
+	color: #ff0;	
+}

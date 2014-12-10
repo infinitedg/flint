@@ -1,0 +1,44 @@
+.security-doors .deckSelect{
+	width: 100%;
+}
+.deckStatus{
+	font-size: 24px;
+	margin-bottom: 15px;
+	display: block;
+}
+.tranzineControl *{
+	display: block;
+}
+.tranzineControl .tranzineLabel{
+	margin-bottom: 5px;
+}
+.tranzineControl .select{
+	margin-bottom: 5px;
+}
+.tranzineControl .btn{
+	width: 100%;
+}
+.tranzineControl{
+	margin-top: 15px;
+}
+.tranzineWarning{
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+/* Core CSS */
+.doorsStatus, .evacStatus{
+	width: 12px;
+	height: 12px;
+	margin: 2px;
+	background-color: #000;
+	border: solid 1px #fff;
+	display: inline-block;
+	float: right;
+}
+.doorsStatus.doors{
+	background-color: #AD31FF;
+}
+.evacStatus.evacuated{
+	background-color: #FFC430;
+}

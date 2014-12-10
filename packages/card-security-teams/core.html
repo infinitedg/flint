@@ -1,2 +1,31 @@
 <template name="core_security_teams">
+	<div class="securityTeams row">
+		<div class="securityAssigned col-sm-6">
+			<label class="securityAssignment">Assigned Security:</label>
+			<div class="well securityAssignedList">
+				{{#each securityAssigned}}
+				<p class="securityAssignedName">{{lastName}}, {{firstName}}</p>
+				{{/each}}
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<label class="securityAssignment">Recall Requests:</label>
+			<div class="well recallRequestList">
+				{{#each recallRequests}}
+				<p class="recallRequestName">{{lastName}}, {{firstName}}</p>
+				{{/each}}
+			</div>
+			<button class="btn btn-xs btn-warning recallOfficer">Recall</button>
+		</div>
+	</div>
+	<div class="securityInfo row">
+		<div class="location">
+			<label class="securityLocation">Location:</label>
+			<span class="location">{{location}}</span>
+		</div>
+		<div class="orders">
+			<label class="securityLocation">Orders:</label>
+			<div class="well orders">{{orders}}</div>
+		</div>
+	</div>
 </template>

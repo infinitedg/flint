@@ -1,0 +1,28 @@
+.shipSide{
+	position: absolute;
+	-webkit-transform: translatex(300px);
+	width: 600px;
+	z-index: 1;
+}
+canvas#tractorEffect{
+		-webkit-transition: opacity 1s ease-in-out;
+				-webkit-mask-size: 400px 400px;
+				-webkit-mask-image: -webkit-gradient(linear, left bottom, right top, 
+				   color-stop(0.40,  rgba(0,0,0,0)),
+				   color-stop(0.60, rgba(0,0,0,1)),
+				   color-stop(1.00,  rgba(0,0,0,1)))
+}
+.target{
+	-webkit-transition: opacity 1s ease-in-out;
+	-webkit-transform: translate(40px,200px);
+}
+.tractorIo{
+	margin-top: 80px;
+}
+.target svg{
+	width: 100px;
+	height: 100px;
+}
+.not-shown{
+	opacity: 0;
+}

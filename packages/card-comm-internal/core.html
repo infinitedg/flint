@@ -1,0 +1,18 @@
+<template name="core_internalComm">
+	<div class="currentInteralCall">{{currentCall}}</div>
+	<div class="internalCallSelector">
+		<select class="select deck">
+			<option disabled>Deck</option>
+			{{#each decks}}
+			<option value={{number}}>Deck {{number}}</option>
+			{{/each}}
+		</select>
+		<select class="select room">
+			<option></option>
+			{{#each rooms}}
+			<option>{{name}}</option>
+			{{/each}}
+		</select>
+	</div>
+	<button class="btn btn-xs connect">{{callControlLabel}}</button>
+</template>

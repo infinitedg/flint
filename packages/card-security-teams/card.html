@@ -1,2 +1,99 @@
 <template name="card_security_teams">
+	<div class="securityTeams">
+		{{> Template.dynamic template=currentSecurityView}}
+	</div>
+</template>
+
+<template name="securityTeamsView">
+	<div class="row">
+		<div class="col-sm-2">
+			{{> securityDeckSidebar}}
+		</div>
+		<div class="col-sm-6 col-sm-offset-2">
+			{{> securityStatus}}
+			<div class="currentSecurity row">
+				<div class="col-sm-5">
+					<label class="assignedSecurityLabel">Assigned Security:</label>
+					<div class="well assignedSecurityContainer">
+						{{#each assignedSecurity}}
+						<p class="assignedSecurity readable">{{lastName}}, {{firstName}}</p>
+						{{/each}}
+					</div>
+				</div>
+				<div class="col-sm-6 col-sm-offset-1">
+					<label class="assignedSecurityLabel">Location:</label>
+					<span class="textBox assignedLocation">{{securityLocation}}</span>
+					<div class="ordersContainer">
+						<label class="assignedSecurityLabel">Orders:</label>
+						<div class="assignedOrders well readable">{{securityOrders}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<button class="btn btn-primary assignOfficer">Assign Security Officers</button>
+					<button class="btn btn-warning recallOfficer">Request Recall of Officer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="assignSecurity">
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="row">
+				<div class="col-sm-6 securityOfficersContainer">
+					<label class="availableLabel">Available:</label>
+					<div class="well">
+						{{#each officers}}
+						<p class="securityOfficer readable">{{lastName}}, {{firstName}}</p>
+						{{/each}}
+					</div>
+				</div>
+				<div class="col-sm-6 securityAssignedContainer">
+					<label class="assignedLabel">Assigned:</label>
+					<div class="well">
+						{{#each assigned}}
+						<p class="securityAssigned readable">{{lastName}}, {{firstName}}</p>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+			<div class="row orders">
+				<div class="col-sm-12">
+					<div class="select">
+						<div class="deckContainer">
+							<label class="deckLabel">Deck:</label>
+							<select class="deckSelect">
+								{{#each decks}}
+								<option value={{_id}}>Deck {{number}}</option>
+								{{/each}}
+							</select>
+						</div>
+						<div class="roomContainer">
+							<label class="ordersLabel">Room:</label>
+							<select class="roomSelect">
+								<option value="Entire Deck">Entire Deck</option>
+								{{#each rooms}}
+								<option value={{_id}}>{{name}}</option>
+								{{/each}}
+							</select>
+						</div>
+					</div>
+					<label class="ordersLabel">Orders:</label>
+					<textarea class="securityOrders"></textarea>
+					<button class="btn btn-danger sendSecurity">Assign Security Officers</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="securityDeckSidebar">
+	<div class="deckSidebar well">
+		{{#each decks}}
+		<p class={{securityAssigned}}>Deck {{number}}</p>
+		{{/each}}
+	</div>
 </template>
