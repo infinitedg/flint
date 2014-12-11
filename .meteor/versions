@@ -46,6 +46,7 @@ card-security-brig@0.1.0
 card-security-decks@0.1.0
 card-security-doors@0.1.0
 card-security-escapepods@0.1.0
+card-security-scanning@0.1.0
 card-security-teams@0.1.0
 card-security@0.1.0
 card-self-destruct@0.1.0
