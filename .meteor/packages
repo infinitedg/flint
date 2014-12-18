@@ -108,6 +108,8 @@ theme-viewscreen
 accounts-facebook
 accounts-google
 cfs:gridfs
+flint-snapshot
+card-core-timeline
 cfs:s3
 meteorhacks:kadira
 card-videochat
