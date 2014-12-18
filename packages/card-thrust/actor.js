@@ -2,7 +2,7 @@ var a = Flint.actor({
 	_id:"engine-thrust",
 	period: 100,
 	action: function(ticks) {
-		Flint.collection('systems').find({'name':'Engines'}).forEach(function(doc){
+		Flint.collection('systems').find({'name':'Thrust'}).forEach(function(doc){
 			var velocity = parseInt(doc.velocity,10) + parseInt(doc.thrust,10)*10;
 			var heat = Math.round((doc.heat + (Math.abs(parseInt(doc.thrust,10)) - 0.5)/50)*100)/100;
 			if (heat < 0) {heat = 0;}

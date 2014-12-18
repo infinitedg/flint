@@ -7,8 +7,8 @@ Template.card_engineControl.helpers({
 		var activeEngine = data.substr(0,1);
 		var speed = data.substr(2,1);
 		if (engine == 'impulse'){
-			if (activeEngine === 0){ //Impulse Speed or Full Stop
-				if (speed === 0){ //Full Stop
+			if (activeEngine == 0){ //Impulse Speed or Full Stop
+				if (speed == 0){ //Full Stop
 					return "width: 0%;";
 				} else {
 					return "width: " + (speed * 20) + "%;";
@@ -16,10 +16,10 @@ Template.card_engineControl.helpers({
 			} else { return "width: 100%;";}
 		}
 		if (engine == 'warp'){
-			if (activeEngine === 0){ //Impulse Speed or Full Stop
+			if (activeEngine == 0){ //Impulse Speed or Full Stop
 				return "width: 0%;";
 			} else { 
-				if (speed === 0){speed = 10;}
+				if (speed == 0){speed = 10;}
 				return "width: " + (speed * 10) + "%;";
 			}
 		}

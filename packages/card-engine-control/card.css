@@ -1,18 +1,18 @@
-.engine-speed{
+.engineControl .engine-speed{
 	padding: 10px;
 }
 
-.col-xs-2 .btn{
+.engineControl .col-xs-2 .btn{
 	width: 100%;
 }
-.col-xs-8 .speedNums{
+.engineControl .col-xs-8 .speedNums{
 	width: 10%;
 }
-ul{
+.engineControl ul{
 	margin: 0;
 	padding: 0;
 }
-li.speedNums{
+.engineControl li.speedNums{
 	margin: 0;
 	padding: 0;
 	position: relative;
@@ -23,46 +23,51 @@ li.speedNums{
 	border: 1px solid rgba(255,255,255,0.5);
 	width:  20%;
 }
-.speedBox{
+.speedBtn{
+	margin: 3px;
+	width: 100%;
+}
+.engineControl .speedBox{
 	margin: 0;
 	padding: 0;
 	width: 99.99%;
 	height: 40px;
 	border: 1px solid #fff;
+	overflow: hidden;
 }
-.engineControlBox{
+.engineControl .engineControlBox{
 	display: -webkit-flexbox;
 	-webkit-flex-wrap: nowrap;
 	-justify-content: space-between;
 	-align-items: center;
 }
-.warpSpeed.speedBar{
+.engineControl .warpSpeed.speedBar{
 	width: 0%;
 }
-.impulseSpeed.speedBar{
+.engineControl .impulseSpeed.speedBar{
 	width: 0%;
 }
-.engineLabel{
+.engineControl .engineLabel{
 	overflow: visible;
 	text-align: center;
 }
-.speedBar{
+.engineControl .speedBar{
 	background-image: url(/themes/odyssey/public/background.png);
 	background-size: 1px 2px;
 	background-color: #ff0;
-	height: 27px;
+	height: 40px;
 	left: 0px;
-	top: 11px;
+	top: 0px;
 	position: relative;
 	transition: width 0.25s ease;
 }
-.fullStop{
+.engineControl .fullStop{
 	margin-top: 15px;
 }
-.engineControlBox{
+.engineControl .engineControlBox{
 	margin-top: 50px;
 }
-.shipView{min-width: 100%;}
+.engineControl .shipView{min-width: 100%;}
 #core_engineControl .heatBox{
 	border: solid 1px rgba(255,255,255,0.5);
 	background-color: #050505;

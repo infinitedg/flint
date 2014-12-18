@@ -1,46 +1,49 @@
 <template name="card_security_scanning">
 	<div class="securityScanning row">
-		<div class="col-sm-9">
+		<div class="col-sm-8 col-sm-offset-1">
 			<div class="row">
 				<div class="col-sm-12">
 					<label class="scanLocationLabel">Location Select:</label>
-					<div class="deckContainer">
-						<select class="deckSelect">
-							<option value="All Decks">All Decks</option>
-							{{#each decks}}
-							<option value={{_id}}>Deck {{number}}</option>
-							{{/each}}
-						</select>
-					</div>
-					<div class="roomContainer">
-						<select class="roomSelect">
-							<option value="Entire Deck">Entire Deck</option>
-							{{#each rooms}}
-							<option value={{_id}}>{{name}}</option>
-							{{/each}}
-						</select>
+					<div class="locationSelector">
+						<div class="deckContainer select">
+
+							<select class="deckSelect" {{scanDisabled}}>
+								<option value="All Decks" >All Decks</option>
+								{{#each decks}}
+								<option value={{_id}}>Deck {{number}}</option>
+								{{/each}}
+							</select>
+						</div>
+						<div class="roomContainer select">
+							<select class="roomSelect" {{scanDisabled}}>
+								<option value="Entire Deck">Entire Deck</option>
+								{{#each rooms}}
+								<option value={{_id}}>{{name}}</option>
+								{{/each}}
+							</select>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
 					<label class="scanInputLabel">Scan For:</label>
-					<input class="form-control scanInput" />
+					<input {{scanDisabled}} type="text" class="form-control scanInput" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
 					<button class="btn btn-primary">Begin Scan</button>
+					<button class="btn btn-warning">Clear</button>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<label class="scanOutputLabel">Scan Results:</label>
-					<div class="textBox scanOutput"></div>
+					{{> Template.dynamic template=scanState}}
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-2 scanType">
 			<label class="scanTypeLabel">Scan Type</label>
 			<button class="btn btn-sm">Standard</button>
 			<button class="btn btn-sm">Organic</button>
@@ -48,5 +51,17 @@
 			<button class="btn btn-sm">Infrared</button>
 			<button class="btn btn-sm">Subspace</button>
 		</div>
+	</div>
+</template>
+
+<template name="internalScanOutput">
+	<label class="scanOutputLabel">Scan Results:</label>
+	<textarea rows="10" disabled class="textBox scanOutput"></textarea>
+</template>
+
+<template name="internalScanProgress">
+	<div class="shipScan">
+		<img class="scanShipTop" src={{topView}} />
+		<div class="scannerBar"></div>
 	</div>
 </template>
