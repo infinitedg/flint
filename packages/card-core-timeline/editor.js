@@ -21,10 +21,11 @@ Template.card_timelineEditor.helpers({
 });
 
 Template.card_timelineEditor.events({
-	'click button': function(e,t) {
+	'click button.create-timeline': function(e,t) {
 		bootbox.prompt("What is the name of this timeline?", function(res){ 
 			if (res) {
 				var x = Flint.collection('flintTimelines').insert({name: res});
+				Session.set('card_timelineEditor.selectedTimeline', x._id);
 			}
 		});
 	},
