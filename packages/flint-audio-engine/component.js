@@ -1,6 +1,6 @@
 /**
 
-sounds:		
+sounds:
 	parentKey			- Unique key used by other sounds when referring to this object
 	simulatorId			- Simulator ID this sound is playing in
 	parentSounds:		- Array of sound IDs that this sound will wait for before playing

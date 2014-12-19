@@ -1,6 +1,7 @@
 var _flintMacros = {};
 
 Flint.registerMacro = function(macroName, macroFunc) {
+	console.log('Registering Macro:' + macroName);
 	if (_flintMacros[macroName]) {
 		Flint.Log.error("Macro " + macroName + " already registered!", "flint-macro-engine");
 	} else {
