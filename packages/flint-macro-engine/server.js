@@ -8,8 +8,8 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 		Flint.Log.error("Macro " + macroName + " already registered!", "flint-macro-engine");
 	} else {
 		// If we don't have a description or arguments, throw an error
-		if (typeof macroName !== 'String' || typeof macroDescription !== 'String' || typeof macroArguments !== 'object') {
-			Flint.Log.error('A macro must have a macroName, macroDescription (both strings) and a macroArguments definition (object)', 'flint-macro-engine');
+		if (typeof macroName !== 'string' || typeof macroDescription !== 'string' || typeof macroArguments !== 'object') {
+			Flint.Log.error('Macro registration for ' + macroName + ' invalid: A macro must have a macroName, macroDescription (both strings), a macroArguments definition (object), and a macroFunc (function)', 'flint-macro-engine');
 		} else {
 			_flintMacros[macroName] = {
 				name: macroName,
