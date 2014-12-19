@@ -41,3 +41,12 @@ Flint.collection('flintMacros').find().observe({
 		}
 	}
 });
+
+Meteor.publish("flint_macro_engine.macroNames", function() {
+	var self = this;
+	_.each(_flintMacros, function(macroFunction, macroName) {
+		self.added("flintMacroDefinitions".toLowerCase(), macroName, {name: macroName});
+	});
+
+	self.ready();
+});

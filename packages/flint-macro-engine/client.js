@@ -1,3 +1,5 @@
+Flint.collection('flintMacroDefinitions'); // Prepare the local virtual collection
+
 Flint.macro = function(macroName) {
 	// Setup the arguments
 	var args = Array.prototype.slice.call(arguments);
@@ -17,3 +19,6 @@ Flint.macro = function(macroName) {
 		}
 	});
 };
+
+// To get a list of macros, Meteor.subscribe('flint_macro_engine.macroNames')
+//		and look inside the flintMacroDefinitions collection
