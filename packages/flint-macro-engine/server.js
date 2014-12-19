@@ -1,14 +1,27 @@
 var _flintMacros = {};
 
-Flint.registerMacro = function(macroName, macroFunc) {
-	console.log('Registering Macro:' + macroName);
+/**
+Used to prepare a macro for use across the system. Requires macroName, macroDescription, and macroArguments
+*/
+Flint.registerMacro = function(macroName, macroDescription, macroArguments, macroFunc) {
 	if (_flintMacros[macroName]) {
 		Flint.Log.error("Macro " + macroName + " already registered!", "flint-macro-engine");
 	} else {
-		_flintMacros[macroName] = macroFunc;
+		// If we don't have a description or arguments, throw an error
+		if (typeof macroName !== 'String' || typeof macroDescription !== 'String' || typeof macroArguments !== 'object') {
+			Flint.Log.error('A macro must have a macroName, macroDescription (both strings) and a macroArguments definition (object)', 'flint-macro-engine');
+		} else {
+			_flintMacros[macroName] = {
+				name: macroName,
+				arguments: macroArguments,
+				description: macroDescription,
+				func: macroFunc
+			};
+		}
 	}
 };
 
+// The heart of the macro engine, used to execute a given macro
 Flint.collection('flintMacros').find({serverId: Flint.serverId()}).observe({
 	added: function(doc) {
 		// Trigger macro
@@ -16,12 +29,13 @@ Flint.collection('flintMacros').find({serverId: Flint.serverId()}).observe({
 			Flint.Log.error("No such macro " + doc.macroName);
 		} else {
 			Flint.Log.verbose("Triggering macro " + doc.macroName, "flint-macro-engine");
-			_flintMacros[doc.macroName].apply({}, doc.args);
+			_flintMacros[doc.macroName].func(doc.args);
 		}
 		Flint.collection('flintMacros').remove(doc._id);
 	}
 });
 
+// Used to emergency transfer macros to a new server if a server drops
 Flint.collection('flintServers').find().observe({
 	removed: function(doc) {
 		// When a server drops, update all macros for that server to a new server
@@ -32,6 +46,7 @@ Flint.collection('flintServers').find().observe({
 	}
 });
 
+// Used to emergency transfer a macro if it is created on a server that doesn't exist
 Flint.collection('flintMacros').find().observe({
 	added: function(doc) {
 		if (Flint.collection('flintServers').find({serverId: doc.serverId}).count() === 0) {
@@ -41,4 +56,14 @@ Flint.collection('flintMacros').find().observe({
 				{$set: {serverId: Meteor.call('nextServer')}}, {multi: true});
 		}
 	}
+});
+
+// Return a collection flintMacroDefintions that contains the names, descriptions, and arguments of all registered macros
+Meteor.publish("flint_macro_engine.macroNames", function() {
+	var self = this;
+	_.each(_flintMacros, function(macroPayload, macroName) {
+		self.added("flintMacroDefinitions".toLowerCase(), macroName, _.pick(macroPayload, ['name', 'arguments', 'description']));
+	});
+
+	self.ready();
 });
