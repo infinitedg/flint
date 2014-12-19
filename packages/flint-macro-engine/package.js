@@ -1,6 +1,6 @@
 Package.describe({
   summary: 'Arbitrary macro execution engine',
-  version: "0.1.0"
+  version: "0.2.0"
 });
 
 Package.on_use(function(api) {  
