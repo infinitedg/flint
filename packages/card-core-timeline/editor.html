@@ -1,0 +1,52 @@
+<template name="card_timelineEditor">
+	<button class="btn btn-primary create-timeline">Create Timeline</button>
+
+	<select>
+	{{#each timelines}}
+		<option>{{name}}</option>
+	{{/each}}
+	</select>
+
+	{{#if selectedTimeline}}
+		{{#with selectedTimeline}}
+			{{> timelineEditor_timeline}}
+		{{/with}}
+		
+		{{#if selectedCue}}
+			{{#with selectedCue}}
+				{{> timelineEditor_cue}}
+			{{/with}}
+		{{/if}}
+	{{/if}}
+</template>
+
+<template name="timelineEditor_timeline">
+	<h1>{{name}}</h1>
+	<div class="btn-group">
+		<button title="Toggle connecting mode" type="button" class="btn btn-default btn-small connect-mode {{connectModeCSS}}">
+			<span class="glyphicon glyphicon-transfer"></span>
+		</button>
+		<button title="Rename timeline" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-edit"></span>
+		</button>
+	</div>
+	
+	<div class="timelineEditorWindow" style="width: 600px; height: 338px; overflow: scroll;">
+		<div class="timelineEditor" style=""></div>
+	</div>
+</template>
+
+<template name="timelineEditor_cue">
+	<h1>Cue</h1>
+	<label>Notes
+		<textarea>{{notes}}</textarea>
+	</label>
+
+	<label>Primary Branch:
+		<select>
+			{{#each macros}}
+				<option>{{readableText}}</option>
+			{{/each}}
+		</select>
+	</label>
+</template>

@@ -1,61 +1,158 @@
 <template name="card_flint_sound">
-<div id="contents">
-		<textarea id="write" rows="6" cols="60"></textarea>
-		<ul id="keyboard">
-			<li class="symbol"><span class="off">`</span><span class="on">~</span></li>
-			<li class="symbol"><span class="off">1</span><span class="on">!</span></li>
-			<li class="symbol"><span class="off">2</span><span class="on">@</span></li>
-			<li class="symbol"><span class="off">3</span><span class="on">#</span></li>
-			<li class="symbol"><span class="off">4</span><span class="on">$</span></li>
-			<li class="symbol"><span class="off">5</span><span class="on">%</span></li>
-			<li class="symbol"><span class="off">6</span><span class="on">^</span></li>
-			<li class="symbol"><span class="off">7</span><span class="on">&amp;</span></li>
-			<li class="symbol"><span class="off">8</span><span class="on">*</span></li>
-			<li class="symbol"><span class="off">9</span><span class="on">(</span></li>
-			<li class="symbol"><span class="off">0</span><span class="on">)</span></li>
-			<li class="symbol"><span class="off">-</span><span class="on">_</span></li>
-			<li class="symbol"><span class="off">=</span><span class="on">+</span></li>
-			<li class="delete lastitem">delete</li>
-			<li class="tab">tab</li>
-			<li class="letter">q</li>
-			<li class="letter">w</li>
-			<li class="letter">e</li>
-			<li class="letter">r</li>
-			<li class="letter">t</li>
-			<li class="letter">y</li>
-			<li class="letter">u</li>
-			<li class="letter">i</li>
-			<li class="letter">o</li>
-			<li class="letter">p</li>
-			<li class="symbol"><span class="off">[</span><span class="on">{</span></li>
-			<li class="symbol"><span class="off">]</span><span class="on">}</span></li>
-			<li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>
-			<li class="capslock">caps lock</li>
-			<li class="letter">a</li>
-			<li class="letter">s</li>
-			<li class="letter">d</li>
-			<li class="letter">f</li>
-			<li class="letter">g</li>
-			<li class="letter">h</li>
-			<li class="letter">j</li>
-			<li class="letter">k</li>
-			<li class="letter">l</li>
-			<li class="symbol"><span class="off">;</span><span class="on">:</span></li>
-			<li class="symbol"><span class="off">'</span><span class="on">&quot;</span></li>
-			<li class="return lastitem">return</li>
-			<li class="left-shift">shift</li>
-			<li class="letter">z</li>
-			<li class="letter">x</li>
-			<li class="letter">c</li>
-			<li class="letter">v</li>
-			<li class="letter">b</li>
-			<li class="letter">n</li>
-			<li class="letter">m</li>
-			<li class="symbol"><span class="off">,</span><span class="on">&lt;</span></li>
-			<li class="symbol"><span class="off">.</span><span class="on">&gt;</span></li>
-			<li class="symbol"><span class="off">/</span><span class="on">?</span></li>
-			<li class="right-shift lastitem">shift</li>
-			<li class="space lastitem">&nbsp;</li>
-		</ul>
+	{{> comp_flint_player}}
+	<div class="row flint-sound">
+		{{currentKey}}
+		<div class="col-sm-8">
+			<div class="row">
+				<div id="contents">
+					{{>keyboard}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Macro Sets</h4>
+					<div class="macroSetList well">
+						{{#each macroSets}}
+						<p class="macroSetName {{macroSetSelected}}">{{name}}</p>
+						{{/each}}
+					</div>
+					<button class="btn btn-sm btn-primary addSet">Add Macro Set</button>
+					<button {{deleteSetDisabled}} class="btn btn-sm btn-danger deleteSet">Delete Macro Set</button>
+				</div>
+				<div class="col-sm-6">
+					<h4>Macros Assigned</h4>
+					<div class="macroAssignedList well">
+						{{#each macroAssigned}}
+						<p class="macroAssignedName {{macroAssignedSelected}}" >{{name}}</p>
+						{{/each}}
+					</div>
+					<div class="select">
+						<select class="addMacro">
+							<option>Add Macro...</option>
+							{{#each availableMacros}}
+							<option value={{_id}}>{{name}}</option>
+							{{/each}}
+						</select>
+					</div>
+					<button {{deleteMacroDisabled}} class="btn btn-sm btn-danger">Delete Macro</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<h4>Macro Config</h4>
+			<div class="configBox well"></div>
+
+		</div>
 	</div>
+</template>
+
+<template name="macro_playSound">
+	<div class="row playSoundConfig">
+		<label>Sound</label>
+		<div class="select">
+			<select id="soundName">
+				{{#each soundList}}
+				<option {{soundSelected}}>{{name}}</option>
+				{{/each}}
+			</select>
+		</div>
+		<label>Looping
+			<input type="checkbox" id="loop" {{soundLooping}} />
+		</label>
+		<label>Volume</label>
+		<input id="volume" type ="range" min ="0" max="100" step ="1" value ="{{soundVolume}}"/>
+		<label>Delay</label>
+		<input id="delay" type="number" value="{{soundDelay}}"/>
+		<label>Sound Group</label>
+		<div class="soundGroup">
+			{{#each soundGroups}}
+			<label><input data-groupId={{macroId}} type="checkbox" {{soundGroupSelected macroId}} />{{name}}</label>
+			{{/each}}
+		</div>
+	</div>
+</template>
+
+<template name="keyboard">
+	<ul id="keyboard">
+		<li data-which="9" class="{{keySelected 27}} tab"><span class="off">Esc</span></li>
+		<li data-which="112" class="{{keySelected 112}} symbol"><span class="off">F1</span></li>
+		<li data-which="113" class="{{keySelected 113}} symbol"><span class="off">F2</span></li>
+		<li data-which="114" class="{{keySelected 114}} symbol"><span class="off">F3</span></li>
+		<li data-which="115" class="{{keySelected 115}} symbol"><span class="off">F4</span></li>
+		<li data-which="116" class="{{keySelected 116}} symbol"><span class="off">F5</span></li>
+		<li data-which="117" class="{{keySelected 117}} symbol"><span class="off">F6</span></li>
+		<li data-which="118" class="{{keySelected 118}} symbol"><span class="off">F7</span></li>
+		<li data-which="119" class="{{keySelected 119}} symbol"><span class="off">F8</span></li>
+		<li data-which="120" class="{{keySelected 120}} symbol"><span class="off">F9</span></li>
+		<li data-which="121" class="{{keySelected 121}} symbol"><span class="off">F10</span></li>
+		<li data-which="122" class="{{keySelected 122}} symbol"><span class="off">F11</span></li>
+		<li data-which="123" class="{{keySelected 123}} symbol"><span class="off">F12</span></li>
+		<li data-which="124" class="{{keySelected 124}} symbol lastitem"><span class="off">&#9167;</span></li>
+
+		<li data-which="192" class="{{keySelected 192}} symbol"><span class="off">`</span></li>
+		<li data-which="49" class="{{keySelected 49}} symbol"><span class="off">1</span></li>
+		<li data-which="50" class="{{keySelected 50}} symbol"><span class="off">2</span></li>
+		<li data-which="51" class="{{keySelected 51}} symbol"><span class="off">3</span></li>
+		<li data-which="52" class="{{keySelected 52}} symbol"><span class="off">4</span></li>
+		<li data-which="53" class="{{keySelected 53}} symbol"><span class="off">5</span></li>
+		<li data-which="54" class="{{keySelected 54}} symbol"><span class="off">6</span></li>
+		<li data-which="55" class="{{keySelected 55}} symbol"><span class="off">7</span></li>
+		<li data-which="56" class="{{keySelected 56}} symbol"><span class="off">8</span></li>
+		<li data-which="57" class="{{keySelected 57}} symbol"><span class="off">9</span></li>
+		<li data-which="48" class="{{keySelected 48}} symbol"><span class="off">0</span></li>
+		<li data-which="189" class="{{keySelected 189}} symbol"><span class="off">-</span></li>
+		<li data-which="187" class="{{keySelected 187}} symbol"><span class="off">=</span></li>
+		<li data-which="8" class="{{keySelected 8}} delete lastitem">delete</li>
+
+		<li data-which="9" class="{{keySelected 9}} tab">tab</li>
+		<li data-which="81" class="{{keySelected 81}} letter">q</li>
+		<li data-which="87" class="{{keySelected 87}} letter">w</li>
+		<li data-which="69" class="{{keySelected 69}} letter">e</li>
+		<li data-which="82" class="{{keySelected 82}} letter">r</li>
+		<li data-which="84" class="{{keySelected 84}} letter">t</li>
+		<li data-which="89" class="{{keySelected 89}} letter">y</li>
+		<li data-which="85" class="{{keySelected 85}} letter">u</li>
+		<li data-which="73" class="{{keySelected 73}} letter">i</li>
+		<li data-which="79" class="{{keySelected 79}} letter">o</li>
+		<li data-which="80" class="{{keySelected 80}} letter">p</li>
+		<li data-which="219" class="{{keySelected 219}} symbol"><span class="off">[</span></li>
+		<li data-which="221" class="{{keySelected 221}} symbol"><span class="off">]</span></li>
+		<li data-which="220" class="{{keySelected 220}} symbol lastitem"><span class="off">\</span></li>
+
+		<li data-which="20" class="{{keySelected 20}} capslock">caps lock</li>
+		<li data-which="65" class="{{keySelected 65}} letter">a</li>
+		<li data-which="83" class="{{keySelected 83}} letter">s</li>
+		<li data-which="68" class="{{keySelected 68}} letter">d</li>
+		<li data-which="70" class="{{keySelected 70}} letter">f</li>
+		<li data-which="71" class="{{keySelected 71}} letter">g</li>
+		<li data-which="72" class="{{keySelected 72}} letter">h</li>
+		<li data-which="74" class="{{keySelected 74}} letter">j</li>
+		<li data-which="75" class="{{keySelected 75}} letter">k</li>
+		<li data-which="76" class="{{keySelected 76}} letter">l</li>
+		<li data-which="186" class="{{keySelected 186}} symbol"><span class="off">;</span></li>
+		<li data-which="222" class="{{keySelected 222}} symbol"><span class="off">'</span></li>
+		<li data-which="13" class="{{keySelected 13}} return lastitem">return</li>
+
+		<li data-which="16" class="{{keySelected 16}} modify left-shift">shift</li>
+		<li data-which="90" class="{{keySelected 90}} letter">z</li>
+		<li data-which="88" class="{{keySelected 88}} letter">x</li>
+		<li data-which="67" class="{{keySelected 67}} letter">c</li>
+		<li data-which="86" class="{{keySelected 86}} letter">v</li>
+		<li data-which="66" class="{{keySelected 66}} letter">b</li>
+		<li data-which="78" class="{{keySelected 78}} letter">n</li>
+		<li data-which="77" class="{{keySelected 77}} letter">m</li>
+		<li data-which="188" class="{{keySelected 188}} symbol"><span class="off">,</span></li>
+		<li data-which="190" class="{{keySelected 190}} symbol"><span class="off">.</span></li>
+		<li data-which="191" class="{{keySelected 191}} symbol"><span class="off">/</span></li>
+		<li data-which="16" class="{{keySelected 16}} modify right-shift lastitem">shift</li>
+
+		<li data-which="17" class="{{keySelected 17}} modify left-control">&#9096;</li>
+		<li data-which="18" class="{{keySelected 18}} modify left-option">&#8997;</li>
+		<li data-which="91" class="{{keySelected 91}} modify left-command">&#8984;</li>
+		<li data-which="32" class="{{keySelected 32}} space">&nbsp;</li>
+		<li data-which="93" class="{{keySelected 93}} modify right-command">&#8984;</li>
+		<li data-which="18" class="{{keySelected 18}} modify right-option">&#8997;</li>
+		<li data-which="17" class="{{keySelected 17}} modify right-control lastitem">&#9096;</li>
+
+	</ul>
 </template>
