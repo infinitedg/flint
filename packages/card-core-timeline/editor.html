@@ -1,5 +1,5 @@
 <template name="card_timelineEditor">
-	<button class="btn btn-primary">Create Timeline</button>
+	<button class="btn btn-primary create-timeline">Create Timeline</button>
 
 	<select>
 	{{#each timelines}}
@@ -23,10 +23,10 @@
 <template name="timelineEditor_timeline">
 	<h1>{{name}}</h1>
 	<div class="btn-group">
-		<button type="button" class="btn btn-default btn-small">
+		<button title="Toggle connecting mode" type="button" class="btn btn-default btn-small connect-mode {{connectModeCSS}}">
 			<span class="glyphicon glyphicon-transfer"></span>
 		</button>
-		<button type="button" class="btn btn-default">
+		<button title="Rename timeline" type="button" class="btn btn-default">
 			<span class="glyphicon glyphicon-edit"></span>
 		</button>
 	</div>
