@@ -1,5 +1,5 @@
 .macroSetName.selected{
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(0,0,0,0.5);
     border-radius: 5px;
 }
 .flint-sound .btn{
@@ -55,6 +55,10 @@
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
+#keyboard li.assigned{
+    background: #525F66;
+}
+
 #keyboard li.selected{
     background: #777;
 }

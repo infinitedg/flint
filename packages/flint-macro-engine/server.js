@@ -20,9 +20,10 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 		}
 	}
 };
-
 // The heart of the macro engine, used to execute a given macro
-Flint.collection('flintMacros').find({serverId: Flint.serverId()}).observe({
+var serverId = Flint.serverId();
+console.log('ServerId:' + serverId);
+Flint.collection('flintMacros').find({serverId: serverId}).observe({
 	added: function(doc) {
 		// Trigger macro
 		if (!_flintMacros[doc.macroName]) {

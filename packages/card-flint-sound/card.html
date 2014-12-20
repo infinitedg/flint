@@ -23,54 +23,31 @@
 					<h4>Macros Assigned</h4>
 					<div class="macroAssignedList well">
 						{{#each macroAssigned}}
-						<p class="macroAssignedName {{macroAssignedSelected}}" >{{name}}</p>
+						<p class="macroAssignedName {{macroAssignedSelected}}" >{{assignedMacroName}}</p>
 						{{/each}}
 					</div>
 					<div class="select">
 						<select class="addMacro">
-							<option>Add Macro...</option>
+							<option class="addMacroLabel">Add Macro...</option>
 							{{#each availableMacros}}
 							<option value={{_id}}>{{name}}</option>
 							{{/each}}
 						</select>
 					</div>
-					<button {{deleteMacroDisabled}} class="btn btn-sm btn-danger">Delete Macro</button>
+					<button {{deleteMacroDisabled}} class="btn btn-sm btn-danger .deleteMacro">Delete Macro</button>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-4">
 			<h4>Macro Config</h4>
-			<div class="configBox well"></div>
+			<div class="configBox well">
+				{{> Template.dynamic template=configTemplate data=configArguments}}
+			</div>
 
 		</div>
 	</div>
 </template>
 
-<template name="macro_playSound">
-	<div class="row playSoundConfig">
-		<label>Sound</label>
-		<div class="select">
-			<select id="soundName">
-				{{#each soundList}}
-				<option {{soundSelected}}>{{name}}</option>
-				{{/each}}
-			</select>
-		</div>
-		<label>Looping
-			<input type="checkbox" id="loop" {{soundLooping}} />
-		</label>
-		<label>Volume</label>
-		<input id="volume" type ="range" min ="0" max="100" step ="1" value ="{{soundVolume}}"/>
-		<label>Delay</label>
-		<input id="delay" type="number" value="{{soundDelay}}"/>
-		<label>Sound Group</label>
-		<div class="soundGroup">
-			{{#each soundGroups}}
-			<label><input data-groupId={{macroId}} type="checkbox" {{soundGroupSelected macroId}} />{{name}}</label>
-			{{/each}}
-		</div>
-	</div>
-</template>
 
 <template name="keyboard">
 	<ul id="keyboard">
@@ -133,7 +110,7 @@
 		<li data-which="222" class="{{keySelected 222}} symbol"><span class="off">'</span></li>
 		<li data-which="13" class="{{keySelected 13}} return lastitem">return</li>
 
-		<li data-which="16" class="{{keySelected 16}} modify left-shift">shift</li>
+		<li data-which="16" class="{{modifySelected 16}} modify left-shift">shift</li>
 		<li data-which="90" class="{{keySelected 90}} letter">z</li>
 		<li data-which="88" class="{{keySelected 88}} letter">x</li>
 		<li data-which="67" class="{{keySelected 67}} letter">c</li>
@@ -144,15 +121,15 @@
 		<li data-which="188" class="{{keySelected 188}} symbol"><span class="off">,</span></li>
 		<li data-which="190" class="{{keySelected 190}} symbol"><span class="off">.</span></li>
 		<li data-which="191" class="{{keySelected 191}} symbol"><span class="off">/</span></li>
-		<li data-which="16" class="{{keySelected 16}} modify right-shift lastitem">shift</li>
+		<li data-which="16" class="{{modifySelected 16}} modify right-shift lastitem">shift</li>
 
-		<li data-which="17" class="{{keySelected 17}} modify left-control">&#9096;</li>
-		<li data-which="18" class="{{keySelected 18}} modify left-option">&#8997;</li>
-		<li data-which="91" class="{{keySelected 91}} modify left-command">&#8984;</li>
+		<li data-which="17" class="{{modifySelected 17}} modify left-control">&#9096;</li>
+		<li data-which="18" class="{{modifySelected 18}} modify left-option">&#8997;</li>
+		<li data-which="91" class="{{modifySelected 91}} modify left-command">&#8984;</li>
 		<li data-which="32" class="{{keySelected 32}} space">&nbsp;</li>
-		<li data-which="93" class="{{keySelected 93}} modify right-command">&#8984;</li>
-		<li data-which="18" class="{{keySelected 18}} modify right-option">&#8997;</li>
-		<li data-which="17" class="{{keySelected 17}} modify right-control lastitem">&#9096;</li>
+		<li data-which="93" class="{{modifySelected 93}} modify right-command">&#8984;</li>
+		<li data-which="18" class="{{modifySelected 18}} modify right-option">&#8997;</li>
+		<li data-which="17" class="{{modifySelected 17}} modify right-control lastitem">&#9096;</li>
 
 	</ul>
 </template>

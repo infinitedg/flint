@@ -1,0 +1,25 @@
+<template name="macro_playSound">
+	<div class="row playSoundConfig">
+		<label>Sound</label>
+		<div class="select">
+			<select id="soundName">
+				{{#each soundList}}
+				<option {{soundSelected}}>{{name}}</option>
+				{{/each}}
+			</select>
+		</div>
+		<label>Looping
+			<input type="checkbox" id="loop" checked={{looping}} />
+		</label>
+		<label>Volume</label>
+		<input id="volume" type ="range" min ="0" max="100" step ="1" value ="{{volume}}"/>
+		<label>Delay (in miliseconds)</label>
+		<input id="delay" type="number" value="{{delay}}"/>
+		<label>Sound Group</label>
+		<div class="soundGroup">
+			{{#each soundGroups}}
+			<label><input data-groupId={{macroId}} type="checkbox" {{soundGroupSelected macroId}} />{{name}}</label>
+			{{/each}}
+		</div>
+	</div>
+</template>

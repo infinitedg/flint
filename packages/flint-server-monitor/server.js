@@ -58,7 +58,6 @@ Flint.serverId = function() {
 Flint.serverIdReset = function() {
 	stopObservers();
 	_serverId = new Meteor.Collection.ObjectID()._str;
-	
 	// Insert new server instance
 	Flint.collection('flintServers').insert({
 		'serverId': _serverId
