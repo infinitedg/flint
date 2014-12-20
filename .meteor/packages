@@ -84,7 +84,6 @@ card-flint-sound
 layout-admin
 flint-tween
 actor-sensors
-bootstrap-contextjs
 bootstrap-slider
 flint-heartbeat
 flint-macro-engine
@@ -103,7 +102,6 @@ card-efficiency
 card-transporters
 cfs:standard-packages
 cfs:filesystem
-flint-snapshot
 theme-viewscreen
 accounts-facebook
 accounts-google
