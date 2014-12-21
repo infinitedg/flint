@@ -319,6 +319,8 @@ function updateBezier(id, options) {
 }
 
 Template.viewscreen_sandbox.rendered = function () {
+    debugger;
+    THREE.ImageUtils.crossOrigin = "";
     var up = new THREE.Vector3(0, 1, 0);
     var clock = new THREE.Clock();
     var renderer = new THREE.WebGLRenderer({
@@ -948,7 +950,7 @@ function wormholeClose() {
                 hyperLight3.visible = false;
                 hyperLight4.visible = false;
                 scene.remove(hyperFlare);
-                //hyperBox.visible = false;            
+                //hyperBox.visible = false;
                 TweenLite.to(scaleValue, 2, {
                     currentPosition: -3,
                     ease: Power1.easeOut,

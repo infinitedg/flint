@@ -10,7 +10,7 @@ var a = Flint.actor({
 	onStart: function() {
 		// Flint.Log.info("Starting sensors actor", "actor-sensors");
 	}, onStop: function(){
-		
+
 	}, onKill: function() {
 		// Flint.Log.info("actor-sensors killed", "actor-sensors");
 	}, onError: function(exc){
@@ -67,7 +67,7 @@ var fadeContacts = function(doc){
 
 };
 
-var intervalObserver = Flint.simulators.find().observe({
+var intervalObserver = Flint.systems.find({'name':'Sensors'}).observe({
 	changed: function(newDoc, oldDoc){
 		if (newDoc.pingInterval != oldDoc.pingInterval){
 			/*if (newDoc.pingInterval.updated == 'true'){
@@ -79,7 +79,7 @@ var intervalObserver = Flint.simulators.find().observe({
 				Flint.simulators.update(newDoc._id, {$set: setter});
 			}
 			else{*/
-				Flint.collection('sensorContacts').find({simulatorId: newDoc._id}).forEach(function(doc){
+				Flint.collection('sensorContacts').find({simulatorId: newDoc.simulatorId}).forEach(function(doc){
 					fadeContacts(doc);
 				});
 			//}

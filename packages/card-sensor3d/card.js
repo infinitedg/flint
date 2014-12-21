@@ -1,10 +1,11 @@
 var viewRadius = 100,
-    viewWidth = 580, //500,
-    viewHeight = 580; //500;
-    function pausecomp(ms) {
-        ms += new Date().getTime();
-        while (new Date() < ms) {}
-    }
+viewWidth = 580,
+viewHeight = 580;
+
+function pausecomp(ms) {
+    ms += new Date().getTime();
+    while (new Date() < ms) {}
+}
 
 function ping() {
     $('.sensor_box').removeClass('animating');
@@ -221,6 +222,7 @@ function findOffset(element) {
 
 Template.card_sensor3d.rendered = function () {
     THREE.ImageUtils.crossOrigin = "";
+
     var sensorLabelOffset = $('.sensorLabel').offset();
     var onRenderFcts = [];
     var mouseVector = new THREE.Vector3();
@@ -401,6 +403,7 @@ onRenderFcts.push(function () {
         } else {
             opacity = 1;
         }
+        calculatedOpacity = calculatedOpacity;
         opacity = (opacity * calculatedOpacity);
         return opacity;
     };
@@ -409,12 +412,10 @@ onRenderFcts.push(function () {
         return (sprite.material.opacity == 1);
     };
 
-    this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
+    this.conditionObserver = Flint.collection('systems').find({'simulatorId':'voyager','name':'Sensors'}).observeChanges({
         changed: function (id, fields) {
-            if (id == Flint.simulatorId()) {
-                if (fields.pingInterval) {
-                    ping();
-                }
+            if (fields.pingInterval) {
+                ping();
             }
             if (fields.infaredSensors) {
                 var spriteColor, sprite;
@@ -467,8 +468,35 @@ loadTexture = function(url, uniform, cb){
     image.src = url;
 }
 
+function loadImage(path) {
+  var canvas = document.createElement('canvas');
+  canvas.style.position = 'absolute';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  //document.body.appendChild(canvas);
+
+  var texture = new THREE.Texture(canvas);
+
+  var img = new Image();
+  img.crossOrigin = '';
+  img.onload = function() {
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      var context = canvas.getContext('2d');
+      context.drawImage(img, 0, 0);
+
+      texture.needsUpdate = true;
+  };
+  img.src = path;
+  return texture;
+};
+
+
+
 this.sensorObserver = Flint.collection('sensorContacts').find().observe({
     added: function (doc) {
+        debugger;
         var spriteColor;
         var sprite;
             //doc.color = "#0f0";
@@ -476,9 +504,10 @@ this.sensorObserver = Flint.collection('sensorContacts').find().observe({
                 spriteColor = new THREE.Color('#f00');
                 sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/Infared'));
             } else {
-                spriteColor = new THREE.Color(doc.color);
-               // sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
-               sprite = loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
+                spriteColor = doc.color || '#fff';
+                spriteColor = new THREE.Color(spriteColor);
+                sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
+              // sprite = loadImage(Flint.a('/Sensor Icons/' + doc.icon));
            }
            var material = new THREE.SpriteMaterial({
             map: sprite,
@@ -497,7 +526,7 @@ this.sensorObserver = Flint.collection('sensorContacts').find().observe({
         }
         sprite.position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
         sprite.scale.set(0.05 * viewRadius, 0.05 * viewRadius, 1.0);
-        sprite.material.opacity = spriteOpacity(sprite);
+        sprite.material.opacity = spriteOpacity(sprite,doc.opacity);
         sprite.material.transparent = spriteTransparent(sprite);
         sprite.picture = doc.picture;
         sprite.name = doc.name;
@@ -515,9 +544,9 @@ this.sensorObserver = Flint.collection('sensorContacts').find().observe({
         if (doc.icon != oldDoc.icon) {
             var sprite;
             if (Flint.system('Sensors','infrared') == "true") {
-                sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/Infared'));
+                sprite = loadImage(Flint.a('/Sensor Icons/Infared'));
             } else {
-                sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
+                sprite = loadImage(Flint.a('/Sensor Icons/' + doc.icon));
             }
             sceneSprites[doc._id].material.map = sprite;
         }
