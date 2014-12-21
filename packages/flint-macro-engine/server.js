@@ -1,4 +1,4 @@
-var _flintMacros = {};
+_flintMacros = {};
 
 /**
 Used to prepare a macro for use across the system. Requires macroName, macroDescription, and macroArguments
@@ -20,10 +20,9 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 		}
 	}
 };
+console.log(_flintMacros);
 // The heart of the macro engine, used to execute a given macro
-var serverId = Flint.serverId();
-console.log('ServerId:' + serverId);
-Flint.collection('flintMacros').find({serverId: serverId}).observe({
+Flint.collection('flintMacros').find({serverId: Flint.serverId()}).observe({
 	added: function(doc) {
 		// Trigger macro
 		if (!_flintMacros[doc.macroName]) {
@@ -35,7 +34,6 @@ Flint.collection('flintMacros').find({serverId: serverId}).observe({
 		Flint.collection('flintMacros').remove(doc._id);
 	}
 });
-
 // Used to emergency transfer macros to a new server if a server drops
 Flint.collection('flintServers').find().observe({
 	removed: function(doc) {

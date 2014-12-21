@@ -3,7 +3,7 @@ Template.card_flint_sound.created = function(){
 		debugger;
 		e.preventDefault();
 		var macroKeys = Flint.collection('flintMacroKeys').findOne({'keyNum':e.which.toString()});
-		macroKeys.macros.forEach(function(id){
+		var macroPresets = Flint.collection('flintMacroPresets').find({'key':macroKeys._id}).forEach(function(id){
 			var macro = Flint.collection('flintMacroPresets').findOne({'_id':id});
 			Flint.macro(macro.name,macro.arguments);
 		});
@@ -59,9 +59,9 @@ Template.card_flint_sound.helpers({
 	},
 	'macroAssigned': function() {
 		var keyCollection = Flint.collection('flintMacroKeys').findOne(
-			{'keyNum':Session.get('soundKeyboard-selectedKey'),'set':Session.get('flint-macros-selectedSet')});
+			{'key':Session.get('soundKeyboard-selectedKey'),'set':Session.get('flint-macros-selectedSet')});
 		if (keyCollection != undefined){
-			return keyCollection.macros || [];
+			return Flint.collection('flintMacroPresets').find({'key':keyCollection._id}) || [];
 		} else {
 			return null;
 		}
@@ -70,7 +70,7 @@ Template.card_flint_sound.helpers({
 		return Flint.collection('flintMacroPresets').findOne({'_id':this.concat()}).name;
 	},
 	'macroAssignedSelected':function(){
-		if (this.concat() == Session.get('flint-macros-currentMacro')._id){
+		if (this._id == Session.get('flint-macros-currentMacro')._id){
 			return 'selected';
 		}
 	}
@@ -87,28 +87,34 @@ Template.card_flint_sound.events({
 		Session.set('flint-macros-selectedSet',this._id);
 	},
 	'click .macroAssignedName':function(){
-		var macro = Flint.collection('flintMacroPresets').findOne({'_id':this.concat()});
+		var macro = Flint.collection('flintMacroPresets').findOne({'_id':this._id});
 		Session.set('flint-macros-currentMacro',macro);
 	},
 	'change .addMacro':function(e){
+		debugger;
 		var obj = Flint.collection('flintMacroKeys').findOne(
 			{'keyNum':Session.get('soundKeyboard-selectedKey'),'set':Session.get('flint-macros-selectedSet')});
 		if (obj == undefined){
 			obj = {
 				_id: undefined,
 				set: Session.get('flint-macros-selectedSet'),
-				keyNum: Session.get('soundKeyboard-selectedKey'),
+				key: Session.get('soundKeyboard-selectedKey'),
 				modifiers:Session.get('soundKeyboard-selectedModifiers'),
-				macros: []
 			}
 		}
+		var keyId = Flint.collection('flintMacroKeys').upsert({'_id':obj._id},obj);
+		if (keyId.insertedId == undefined){
+			keyId = obj._id;
+		} else {
+			keyId = keyId.insertedId;
+		}
 		var macroData = {
+			'key': keyId,
 			'name':e.target.value,
 			'arguments':{}
 		}
 		macroId = Flint.collection('flintMacroPresets').insert(macroData);
-		obj.macros.push(macroId);
-		Flint.collection('flintMacroKeys').upsert({'_id':obj._id},obj)
+
 		Session.set('flint-macros-currentMacro',macroData);
 		$('.addMacroLabel').removeAttr('selected');
 		$('.addMacroLabel').attr('selected','true');
