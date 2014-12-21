@@ -1,12 +1,13 @@
 Template.card_flint_sound.created = function(){
 	window.addEventListener("keyup", function(e){
-		debugger;
 		e.preventDefault();
 		var macroKeys = Flint.collection('flintMacroKeys').findOne({'keyNum':e.which.toString()});
-		var macroPresets = Flint.collection('flintMacroPresets').find({'key':macroKeys._id}).forEach(function(id){
-			var macro = Flint.collection('flintMacroPresets').findOne({'_id':id});
-			Flint.macro(macro.name,macro.arguments);
-		});
+		if (marcoKeys != undefined){
+			Flint.collection('flintMacroPresets').find({'key':macroKeys._id}).forEach(function(doc){
+				Flint.macro(doc.name,doc.arguments);
+			});
+		}
+
 	});
 	window.addEventListener("keydown", function(e){
 		e.preventDefault();
