@@ -20,6 +20,9 @@
             "Ferengi"
          ],
          "commName":"",
+         "decodingFrequency":10,
+         "decodingAmplitude":10,
+         "decodingPhase":0,
          "_id":"systems-voyager-srCommunications"
       },
       {  
