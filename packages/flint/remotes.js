@@ -7,6 +7,10 @@ var _remotes = {};
  * @return {Object} Connection to remote meteor server of the key remoteName
  */
 Flint.remote = function(remoteName) {
+	if (!remoteName) {
+		return undefined;
+	}
+	
 	remoteName = remoteName.toLowerCase();
 	Flint.Log.verbose('Retrieving remote' + remoteName);
 	if (!_.has(_remotes, remoteName)) {

@@ -16,10 +16,10 @@ Flint.collections = {};
  */
 Flint.collection = function(name, remoteName) {
 	name = name.toLowerCase(); // Ensure consistent naming of our collections
-
 	Flint.Log.verbose('Retrieving collection ' + name);
-	if (! _.has(Flint.collections, name))
+	if (! _.has(Flint.collections, name)) {
 		Flint.collections[name] = new Meteor.Collection(name, {connection: Flint.remote(remoteName) });
+	}
 	return Flint.collections[name];
 };
 

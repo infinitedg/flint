@@ -48,12 +48,12 @@ if (Meteor.isServer){
 		},
 		help: function(str) {
 				if (checkLevel('error')) {
-		//	console.log(str);
+					console.log(str);
 				}
 		},
 		data: function(str) {
 				if (checkLevel('data')) {
-		///	console.log(str);
+					console.log(str);
 				}
 		},
 		info: function(str) {
@@ -68,24 +68,24 @@ if (Meteor.isServer){
 		},
 		prompt: function(str) {
 				if (checkLevel('prompt')) {
-		//	console.log(str);
+					console.log(str);
 				}
 		},
 		verbose: function(str) {
 				if (checkLevel('verbose')) {
-		//	console.log(str);
+					console.log(str);
 				}
 		},
 		input: function(str) {
 				if (checkLevel('input')) {
-		//	console.log(str);
+					console.log(str);
 				}
 		},
 		silly: function(str) {
 				if (checkLevel('silly')) {
-		//	console.log(str);
+					console.log(str);
 				}
-		},
+		}
 	};
 }
 
