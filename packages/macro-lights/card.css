@@ -1,0 +1,6 @@
+.playSoundConfig *{
+display: block;
+}
+.playSoundConfig input{
+display: inline;
+}

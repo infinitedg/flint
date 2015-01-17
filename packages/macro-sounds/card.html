@@ -1,25 +1,35 @@
 <template name="macro_playSound">
 	<div class="row playSoundConfig">
-		<label>Sound</label>
-		<div class="select">
-			<select id="soundName">
-				{{#each soundList}}
-				<option {{soundSelected}}>{{name}}</option>
-				{{/each}}
-			</select>
+		<div class="form-group">
+			<label>Sound</label>
+			<div class="select">
+				<select id="soundName">
+					{{#each soundList}}
+					<option {{soundSelected}}>{{name}}</option>
+					{{/each}}
+				</select>
+			</div>
 		</div>
-		<label>Looping
-			<input type="checkbox" id="loop" checked={{looping}} />
-		</label>
-		<label>Volume</label>
-		<input id="volume" type ="range" min ="0" max="100" step ="1" value ="{{volume}}"/>
-		<label>Delay (in miliseconds)</label>
-		<input id="delay" type="number" value="{{delay}}"/>
-		<label>Sound Group</label>
-		<div class="soundGroup">
-			{{#each soundGroups}}
-			<label><input data-groupId={{macroId}} type="checkbox" {{soundGroupSelected macroId}} />{{name}}</label>
-			{{/each}}
+		<div class="form-group">
+			<label>Looping
+				<input type="checkbox" id="loop" checked={{looping}} />
+			</label>
+		</div>
+		<div class="form-group">
+			<label>Volume</label>
+			<input id="volume" type ="range" min ="0" max="100" step ="1" value ="{{volume}}"/>
+		</div>
+		<div class="form-group">
+			<label>Delay (in miliseconds)</label>
+			<input id="delay" type="number" class="form-control" value="{{delay}}"/>
+		</div>
+		<div class="form-group">
+			<label>Sound Group</label>
+			<div class="soundGroup">
+				{{#each soundGroups}}
+				<label><input data-groupId={{macroId}} type="checkbox" {{soundGroupSelected macroId}} />{{name}}</label>
+				{{/each}}
+			</div>
 		</div>
 	</div>
 </template>
