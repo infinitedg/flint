@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {
-	api.use(['flint', 'flint-macro-engine'],['server']);
+	api.use(['flint', 'flint-macro-engine', 'flint-audio-engine', 'flint-sound'],['server']);
 	api.use(['templating', 'flint'],['client']);
 
 	api.add_files(['card.html','card.js','card.css'],'client');

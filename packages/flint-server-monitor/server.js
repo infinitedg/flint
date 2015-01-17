@@ -12,7 +12,7 @@ function generateObservers() {
 			Flint.Log.info('Joining server pool as ' + fields.serverId, 'server-monitor');
 		},
 		changed: function(id, fields) {
-			
+
 		},
 		removed: function(id) {
 			Flint.Log.info('Ouch! Kicked out of server pool for lagging. Regenerating...', 'server-monitor');

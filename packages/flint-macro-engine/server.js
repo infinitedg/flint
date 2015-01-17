@@ -20,7 +20,7 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 		}
 	}
 };
-console.log(_flintMacros);
+Meteor.startup(function(){
 // The heart of the macro engine, used to execute a given macro
 Flint.collection('flintMacros').find({serverId: Flint.serverId()}).observe({
 	added: function(doc) {
@@ -56,7 +56,7 @@ Flint.collection('flintMacros').find().observe({
 		}
 	}
 });
-
+});
 // Return a collection flintMacroDefintions that contains the names, descriptions, and arguments of all registered macros
 Meteor.publish("flint_macro_engine.macroNames", function() {
 	var self = this;

@@ -7,16 +7,41 @@ Flint.registerMacro("testMacro",
 	}, function(macroArgs) {
 		Flint.Log.info("TestMacro! ", macroArgs.arg1, macroArgs.arg2, macroArgs.arg3);
 		Flint.Log.info("Current number of servers: " + Flint.collection('flintServers').find({}).count());
-});
+	});
 
-Flint.registerMacro('playSound',
-	'Issues the Flint.play method with options',
-	{
-		'soundName':'The Flint Asset key which references the sound',
-		'options':'Object. Refer to Flint Audio Engine package for available options'
-	},
-	function(soundArgs) {
-		var looping = soundArgs.options.looping || false;
-		Flint.play(soundArgs.soundName, looping, soundArgs.options);
-	}
-);
+Meteor.startup(function(){
+	Flint.registerMacro('playSound',
+		'Issues the Flint.play method with options',
+		{
+			'soundName':'The Flint Asset key which references the sound',
+			'options':'Object. Refer to Flint Audio Engine package for available options'
+		},
+		function(soundArgs) {
+			if (!soundArgs.assetKey) {
+				Flint.Log.error("Attempted to play sound without an assetKey", "flint-sound");
+				return;
+			}
+			if (!soundArgs.soundGroups || !Array.isArray(soundArgs.soundGroups)) {
+				soundArgs.soundGroups = [];
+			}
+
+			if (soundArgs.soundGroups.length === 0 && soundArgs.soundPlayers.length === 0){
+				Flint.Log.error("Attempted to play sound without players or groups", "flint-sound");
+				return;
+			}
+			if (!soundArgs.parentKey) {
+				soundArgs.parentKey = Meteor.uuid();
+			}
+			Flint.collection('flintSounds').insert(soundArgs);
+		}
+		);
+	Flint.registerMacro('cancelRepeating',
+		'Cancels all repeating sound effects',
+		{
+			'simulatorId':'The ID of the simulator issuing the call'
+		},
+		function(data){
+			Flint.collection('flintSounds').update({simulatorId:data.simulatorId},{$set:{looping:false}});
+		}
+		);
+})

@@ -15,7 +15,7 @@ sounds:
 	keyId:				- key that originally scheduled this sound (Optional)
 	clientId:			- Client that originally scheduled this sound (Optional)
 	groupReady: 		- Boolean - If false, sound is ignored
-*/
+	*/
 
 // Used to track individual sounds playing back
 var _buzzSoundCache = {};
@@ -72,24 +72,27 @@ function refreshSound(sound) {
 Template.comp_flint_player.created = function() {
 	this.playerSub = Flint.collection('flintSounds').find({ soundPlayers: { $in: [Flint.clientId()] }, parentSounds: {$size: 0} }).observe({
 		added: function(sound) {
+			debugger;
 			var asset = Flint.a(sound.assetKey);
 			if (asset) {
 				if (isNaN(parseFloat(sound.delay)) || !isFinite(sound.delay)) {
 					sound.delay = 0;
 				}
 				Meteor.setTimeout(function() {
-					_buzzSoundCache[sound._id] = new buzz.sound(asset, {
-						loop: sound.looping || false,
-						autoplay: false
-					});
-					_buzzSoundCache[sound._id].load();
+					if (_buzzSoundCache[sound._id] == undefined){
+						_buzzSoundCache[sound._id] = new buzz.sound(asset, {
+							loop: sound.looping || false,
+							autoplay: false
+						});
+						_buzzSoundCache[sound._id].load();
 
-					_buzzSoundCache[sound._id].bindOnce("ended", function() {
-						Flint.collection('flintSounds').remove(sound._id);
-					});
+						_buzzSoundCache[sound._id].bindOnce("ended", function() {
+							Flint.collection('flintSounds').remove(sound._id);
+						});
 
-					refreshSound(sound);
-				}, sound.delay * 1000);
+						refreshSound(sound);
+					}
+				}, sound.delay);
 			} else {
 				Flint.Log.warn("Unable to find asset for sound playback " + sound.assetKey + "; removing sound", "flint-audio-engine");
 				Flint.collection('flintSounds').remove(sound._id);
@@ -99,6 +102,7 @@ Template.comp_flint_player.created = function() {
 			refreshSound(sound);
 		},
 		removed: function(sound) {
+			debugger;
 			if (_buzzSoundCache[sound._id]) {
 				_buzzSoundCache[sound._id].stop();
 				delete _buzzSoundCache[sound._id];

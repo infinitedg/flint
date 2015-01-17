@@ -6,7 +6,7 @@ Template.macro_playSound.helpers({
 	'soundSelected':function(){
 			var macro = Session.get('flint-macros-currentMacro');
 			if  (macro.arguments != undefined){
-				if (macro.arguments.soundName == '/Sounds/' + this.name){
+				if (macro.arguments.assetKey == '/Sounds/' + this.name){
 					return 'selected';
 				}
 			}
@@ -26,7 +26,7 @@ function updateMacro(argumentName, value){
 }
 Template.macro_playSound.events({
 	'change #soundName':function(e,t){
-		updateMacro('soundName','/Sounds/' + e.target.value);
+		updateMacro('assetKey','/Sounds/' + e.target.value);
 	},
 	'click #loop':function(e,t){
 		updateMacro('looping',e.target.checked);
