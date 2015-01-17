@@ -29,7 +29,8 @@ Package.on_use(function(api) {
   api.add_files('localization.js', ['client', 'server']);
   api.add_files('client/localization.js', ['client']);
   api.add_files('server/localization.js', ['server']);
-  
+
+  api.add_files('remotes.js', ['client', 'server']);
   
   api.export("Flint");
 });
