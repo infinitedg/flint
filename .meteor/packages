@@ -76,6 +76,7 @@ card-targeting
 card-viewscreen
 card-viewscreen-control
 card-thrusters
+card-comm-decoding
 infinitedg:winston-loggly
 iron:router
 flint-server-monitor
