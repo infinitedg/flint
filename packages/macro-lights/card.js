@@ -11,7 +11,8 @@ Template.macro_setLightChannelSet.rendered = function(){
 	ColorPicker(
 		document.getElementById('flexieSmall'),
 		function(hex, hsv, rgb) {
-			Session.set('currentColor',hex);
+			console.log(hex);
+			updateMacro('color',hex);
 		});
 }
 
@@ -29,7 +30,6 @@ Template.macro_setLightChannel.helpers({
 	}
 
 })
-
 
 Template.macro_setLightChannelSet.helpers({
 	channelSetList: function(){
@@ -58,7 +58,7 @@ Template.macro_lightEffect.helpers({
 		}
 	},
 	channelTypeIsChannel:function(){
-				var macro = Session.get('flint-macros-currentMacro');
+		var macro = Session.get('flint-macros-currentMacro');
 		if  (macro.arguments != undefined){
 			if (macro.arguments.channel.type == 'channel'){
 				return true;
@@ -97,17 +97,72 @@ Template.macro_lightEffect.helpers({
 	}
 
 })
-Template.macro_playSound.events({
-	'change #soundName':function(e,t){
-		updateMacro('assetKey','/Sounds/' + e.target.value);
+
+Template.macro_setLightChannel.events({
+	'change #channelName':function(e,t){
+		updateMacro('channel', e.target.value);
 	},
-	'click #loop':function(e,t){
-		updateMacro('looping',e.target.checked);
-	},
-	'change #volume':function(e){
-		updateMacro('volume',e.target.value);
+	'change #value':function(e){
+		updateMacro('value',e.target.value);
 	},
 	'change #delay':function(e){
 		updateMacro('delay',e.target.value);
+	}
+})
+
+Template.macro_setLightChannelSet.events({
+	'change #channelName':function(e,t){
+		updateMacro('channel', e.target.value);
+	},
+	'change #intensity':function(e){
+		updateMacro('intensity',e.target.value);
+	},
+	//Color is set with the colorpicker plugin.
+	'change #delay':function(e){
+		updateMacro('delay',e.target.value);
+	}
+})
+
+Template.macro_setLightChannel.events({
+	'change #effectName':function(e,t){
+		updateMacro('effectName', e.target.value);
+	},
+	'change #channelType':function(e){
+		updateMacro('value',e.target.value);
+	},
+	'change #channelName':function(e){
+		updateMacro('delay',e.target.value);
+	},
+	'change #start':function(e){
+		var macro = Session.get('flint-macros-currentMacro');
+		if  (macro.arguments != undefined){
+			var params = macro.arguments.params || {};
+			params.start = e.target.value;
+			updateMacro('params',params);
+		}
+	},
+	'change #stop':function(e){
+		var macro = Session.get('flint-macros-currentMacro');
+		if  (macro.arguments != undefined){
+			var params = macro.arguments.params || {};
+			params.stop = e.target.value;
+			updateMacro('params',params);
+		}
+	},
+	'change #intensity':function(e){
+		var macro = Session.get('flint-macros-currentMacro');
+		if  (macro.arguments != undefined){
+			var params = macro.arguments.params || {};
+			params.intensity = e.target.value;
+			updateMacro('params',params);
+		}
+	},
+	'change #duration':function(e){
+		var macro = Session.get('flint-macros-currentMacro');
+		if  (macro.arguments != undefined){
+			var params = macro.arguments.params || {};
+			params.duration = e.target.value;
+			updateMacro('params',params);
+		}
 	}
 })
