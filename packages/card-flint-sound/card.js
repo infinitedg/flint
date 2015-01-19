@@ -26,7 +26,7 @@ Template.card_flint_sound.created = function(){
 
 	});
 	window.addEventListener("keyup", function(e){
-		e.preventDefault();
+		//e.preventDefault();
 	});
 	window.addEventListener("keypress", function(e){
 		e.preventDefault();

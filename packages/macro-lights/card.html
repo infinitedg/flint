@@ -64,8 +64,8 @@
 			<label>Channel Type</label>
 			<div class="select">
 				<select id="channelType">
-					<option {{channelTypeSelected}} value="channel">Channel</option>
-					<option {{channelTypeSelected}} value="channelSet">Channel Set</option>
+					<option {{channelTypeSelected}} value="DMXChannel">Channel</option>
+					<option {{channelTypeSelected}} value="DMXChannelSet">Channel Set</option>
 				</select>
 			</div>
 			{{#if channelTypeIsChannel}}
@@ -106,7 +106,7 @@
 			{{#if effectType 'shake'}}
 			<div class="form-group">
 				<label>Intensity</label>
-				<input id="value" type ="range" min ="0" max="255" step ="1" value ="{{params.intensity}}"/>
+				<input id="shakeIntensity" type ="range" min ="0" max="255" step ="1" value ="{{params.intensity}}"/>
 			</div>
 			<div class="form-group">
 				<label>Duration (in miliseconds)</label>
