@@ -14,10 +14,10 @@ Flint.remote = function(remoteName) {
 	remoteName = remoteName.toLowerCase();
 	Flint.Log.verbose('Retrieving remote' + remoteName);
 	if (!_.has(_remotes, remoteName)) {
-		if (!Meteor.settings.public.flintRemotes || Meteor.settings.public.flintRemotes[remoteName]) {
+		if (!Meteor.settings.public.flintRemotes || !Meteor.settings.public.flintRemotes[remoteName]) {
 			throw new Meteor.Error('flint-no-such-remote', 'The remote ' + remoteName + ' is not configured in settings.public.flintRemotes!');
 		}
-		_remotes[remoteName] = DDP.connect();
+		_remotes[remoteName] = DDP.connect(Meteor.settings.public.flintRemotes[remoteName]);
 		Tracker.autorun(function(c) {
 			if (_remotes[remoteName].status() === 'connected') {
 				Flint.Log.verbose('Connected to ' + remoteName);
