@@ -72,7 +72,6 @@ function refreshSound(sound) {
 Template.comp_flint_player.created = function() {
 	this.playerSub = Flint.collection('flintSounds').find({ soundPlayers: { $in: [Flint.clientId()] }, parentSounds: {$size: 0} }).observe({
 		added: function(sound) {
-			debugger;
 			var asset = Flint.a(sound.assetKey);
 			if (asset) {
 				if (isNaN(parseFloat(sound.delay)) || !isFinite(sound.delay)) {
@@ -102,7 +101,6 @@ Template.comp_flint_player.created = function() {
 			refreshSound(sound);
 		},
 		removed: function(sound) {
-			debugger;
 			if (_buzzSoundCache[sound._id]) {
 				_buzzSoundCache[sound._id].stop();
 				delete _buzzSoundCache[sound._id];

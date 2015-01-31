@@ -51,8 +51,6 @@ Meteor.startup(function(){
 				obj.objectType = macroArgs.channel.type;
 				obj._id = macroArgs.channel.id;
 				Flint.remote('light-server').call('scheduleDMXEffect', macroArgs.effectName, [obj], {duration: parseInt(macroArgs.params.duration,10) || 5000});
-				console.log('Sent message to light server: DMX Effect,' + macroArgs.effectName)
-				console.log(obj);
 			},delay);
 		});
 })

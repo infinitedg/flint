@@ -496,7 +496,6 @@ function loadImage(path) {
 
 this.sensorObserver = Flint.collection('sensorContacts').find().observe({
     added: function (doc) {
-        debugger;
         var spriteColor;
         var sprite;
             //doc.color = "#0f0";

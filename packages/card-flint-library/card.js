@@ -172,7 +172,6 @@ Template.comp_flintContainerView.events({
 		$(e.target).toggleClass('enlarged');
 	},
 	'click .delete-object': function(e, t){
-		debugger;
 		var containerId = Session.get('comp.flintAssetBrowser.selectedContainer');
 		Flint.collection('flintassetcontainers').remove({'_id' : containerId});
 		Flint.collection('flintassetobjects').find({'containerId' : containerId}).forEach(function(e){

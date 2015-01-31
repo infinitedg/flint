@@ -319,7 +319,6 @@ function updateBezier(id, options) {
 }
 
 Template.viewscreen_sandbox.rendered = function () {
-    debugger;
     THREE.ImageUtils.crossOrigin = "";
     var up = new THREE.Vector3(0, 1, 0);
     var clock = new THREE.Clock();
