@@ -1,8 +1,13 @@
 Flint.themes = function() {
-	if (Flint.client() && Flint.station() && Flint.simulator()) {
+	if (Flint.card() && Flint.client() && Flint.station() && Flint.simulator()) {
+	
 		// Start with Clients
 		var appliedThemes = Flint.client('themes') || [],
 		restrictedThemes = Flint.client('restrictedThemes') || [];
+
+		// Cards
+		restrictedThemes = _.union(restrictedThemes, Flint.card().restrictedThemes || []);
+		appliedThemes = _.union(appliedThemes, _.difference(Flint.card().themes || [], restrictedThemes));
 
 		// Stations
 		restrictedThemes = _.union(restrictedThemes, Flint.station('restrictedThemes') || []);
