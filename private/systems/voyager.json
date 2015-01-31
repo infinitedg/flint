@@ -43,6 +43,9 @@
          "minPower":7,
          "maxPower":30,
          "power":10,
+         "quantumCount":10,
+         "photonCount":30,
+         "casingCount":40,
          "_id":"systems-voyager-torpedoes"
       },
       {  

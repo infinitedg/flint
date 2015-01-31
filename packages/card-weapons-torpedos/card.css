@@ -1,0 +1,75 @@
+.card-torpedos svg{
+	background-color: transparent;
+	cursor: wait;
+}
+.card-torpedos .select, .card-torpedos select{
+	width: 100%;
+}
+.warheadContainer{
+	max-height: 100px;
+	overflow: hidden;
+}
+.launcher {
+	position: absolute;
+	right: 0px;
+	bottom: -225px;
+	margin-right: 50px;
+}
+.warhead svg{
+	height: 16px;
+}
+.warheadLg svg{
+	height: 30px;
+}
+.casing{
+	position: relative;
+	top: 0;
+	left: 0;
+}
+.casing.transition{
+	-webkit-transform: translate3d(625px, 0px, 0px);
+}
+.casing.unprepared{
+	-webkit-transition: -webkit-transform 3s ease-in-out;
+	-webkit-transform: translate3d(625px, 0px, 0px)
+}
+.casing.prepared{
+	-webkit-transition: -webkit-transform 3s ease-in-out;
+	-webkit-transform: translate3d(40px, 0px, 0px)
+}
+
+.casing.loaded{
+	-webkit-transition: -webkit-transform 3s ease-in-out;
+	-webkit-transform: translate3d(40px, 175px, 0px)
+
+}
+.casing.fired{
+	-webkit-transition: -webkit-transform 3s ease-in-out;
+	-webkit-transform: translate3d(-5000px, 175px, 0px)
+
+}
+.casingOuterBox{
+	position: absolute;
+	right: 0px;
+	top: 300px;
+	width: 600px;
+	height: 300px;
+	overflow: hidden;
+}
+.warheadLg{
+	position: absolute;
+	left: 69px;
+	top: -2px;
+}
+
+@media (max-width: 1025px) {
+	.warheadLg svg{
+		height: 10px;
+	}
+	.launcher svg{
+		height: 80px;
+	}
+	.casing svg{
+		height: 36px;
+	}
+}
