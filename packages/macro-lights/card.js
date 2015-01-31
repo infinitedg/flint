@@ -117,7 +117,7 @@ Template.macro_setLightChannel.events({
 
 Template.macro_setLightChannelSet.events({
 	'change #channelName':function(e,t){
-		updateMacro('channel', e.target.value);
+		updateMacro('channelSet', e.target.value);
 	},
 	'change #intensity':function(e){
 		updateMacro('intensity',e.target.value);
