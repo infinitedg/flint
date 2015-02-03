@@ -32,16 +32,29 @@ Meteor.startup(function(){
 			if (!soundArgs.parentKey) {
 				soundArgs.parentKey = Meteor.uuid();
 			}
-			Flint.collection('flintSounds').insert(soundArgs);
+			if (soundArgs.cancelMacro){
+				Flint.collection('flintSounds').update({simulatorId:soundArgs.simulatorId,keyPressed:soundArgs.keyPressed},{$set:{looping:false}});
+			} else {
+				Flint.collection('flintSounds').insert(soundArgs);
+			}
 		}
 		);
-	Flint.registerMacro('cancelRepeating',
-		'Cancels all repeating sound effects',
-		{
-			'simulatorId':'The ID of the simulator issuing the call'
-		},
-		function(data){
-			Flint.collection('flintSounds').update({simulatorId:data.simulatorId},{$set:{looping:false}});
-		}
-		);
+Flint.registerMacro('cancelRepeating',
+	'Cancels all repeating sound effects',
+	{
+		'simulatorId':'The ID of the simulator issuing the call'
+	},
+	function(data){
+		Flint.collection('flintSounds').update({simulatorId:data.simulatorId},{$set:{looping:false}});
+	}
+	);
+Flint.registerMacro('cancelAllSounds',
+	'Cancels all sound effects',
+	{
+		'simulatorId':'The ID of the simulator issuing the call'
+	},
+	function(data){
+		Flint.collection('flintSounds').remove({simulatorId:data.simulatorId});
+	}
+	);
 })

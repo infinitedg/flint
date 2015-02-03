@@ -1,6 +1,5 @@
-var soundState;
-window.soundState = soundState;
 Template.card_flint_sound.created = function(){
+
 	Session.set('soundKeyboard-selectedModifiers',{
 		'meta':false,
 		'alt':false,
@@ -12,49 +11,68 @@ Template.card_flint_sound.created = function(){
 		if (focusElement != undefined){
 		} else {
 			e.preventDefault();
-			if (e.which == 191){
-				Meteor.call('cancelRepeating',Flint.simulatorId());
-			} else {
-				var modifiers = {meta: e.metaKey, alt: e.altKey, shift: e.shiftKey, control: e.ctrlKey};
-				Flint.collection('flintMacroKeys').find({'key':e.which.toString(), 'set':Session.get('flint-macros-selectedSet')}).forEach(function(macroKey){
-					if (JSON.stringify(macroKey.modifiers) == JSON.stringify(modifiers)){
-						Flint.collection('flintMacroPresets').find({'key':macroKey._id}).forEach(function(doc){
-							doc.arguments.soundGroups = ['preview'];
-							if (!doc.simulatorId) {
-								doc.arguments.simulatorId = Flint.simulatorId();
+			var modifiers = {meta: e.metaKey, alt: e.altKey, shift: e.shiftKey, control: e.ctrlKey};
+			Flint.collection('flintMacroKeys').find({'key':e.which.toString(), 'set':Session.get('flint-macros-selectedSet')}).forEach(function(macroKey){
+				if (JSON.stringify(macroKey.modifiers) == JSON.stringify(modifiers)){
+					Flint.collection('flintMacroPresets').find({'key':macroKey._id}).forEach(function(doc){
+						doc.arguments.soundGroups = ['preview'];
+						var keyPressed = false;
+						var removeKeys = [];
+						if (doc.arguments.looping){
+							if (typeof Flint.station("savedKeys") == "object"){
+								for (keysPressed in Flint.station("savedKeys")){
+									var e = Flint.station("savedKeys")[keysPressed];
+									if (e.key == macroKey.key && JSON.stringify(e.modifiers) == JSON.stringify(macroKey.modifiers))
+										keyPressed = true;
+									removeKeys.push(keysPressed);
+								}
 							}
-							Flint.macro(doc.name,doc.arguments);
-							window.soundState.insert({key: e.which, modifiers: modifiers, name: doc.name, arguments: doc.arguments});
-						});
-					}
-				});
-			}
-		}
+							if (keyPressed){
+								var savedKeys = Flint.station("savedKeys");
+								removeKeys.forEach(function(e){
+									savedKeys.splice(e,1);
+								});
+								Flint.station('savedKeys',savedKeys);
+								doc.arguments.cancelMacro = true;
+							}
+							var savedKey = {key: macroKey.key, modifiers:macroKey.modifiers};
+							doc.arguments.keyPressed = savedKey;
+							if (!keyPressed){
+								var keys = Flint.station("savedKeys") || [];
+								keys.push(savedKey);
+								Flint.station("savedKeys",keys);
+							}
+						}
+						if (!doc.simulatorId) {
+							doc.arguments.simulatorId = Flint.simulatorId();
+						}
+						Flint.macro(doc.name,doc.arguments);
+					});
+}
+});
+}
 
-	});
-	window.addEventListener("keyup", function(e){
-		var focusElement = $(':focus')[0];
-		if (focusElement != undefined){
-		} else {
-			e.preventDefault();
-			
-		}
-	});
-	window.addEventListener("keypress", function(e){
-		var focusElement = $(':focus')[0];
-		if (focusElement != undefined){
-		} else {
-			e.preventDefault();
-			
-		}
-	});
-	this.subscription = Tracker.autorun(function() {
-		Meteor.subscribe('flint-macroSets');
-		Meteor.subscribe('flint-macroKeys');
-		Meteor.subscribe('flint-macroPresets');
-		Meteor.subscribe('flint_macro_engine.macroNames');
-	});
-	window.soundState = new Mongo.Collection();
+});
+window.addEventListener("keyup", function(e){
+	var focusElement = $(':focus')[0];
+	if (focusElement != undefined){
+	} else {
+		e.preventDefault();
+	}
+});
+window.addEventListener("keypress", function(e){
+	var focusElement = $(':focus')[0];
+	if (focusElement != undefined){
+	} else {
+		e.preventDefault();
+	}
+});
+this.subscription = Tracker.autorun(function() {
+	Meteor.subscribe('flint-macroSets');
+	Meteor.subscribe('flint-macroKeys');
+	Meteor.subscribe('flint-macroPresets');
+	Meteor.subscribe('flint_macro_engine.macroNames');
+});
 };
 
 Template.card_flint_sound.destroyed = function() {
@@ -102,8 +120,10 @@ Template.card_flint_sound.helpers({
 		return output;
 	},
 	'macroAssignedSelected':function(){
-		if (this._id == Session.get('flint-macros-currentMacro')._id){
-			return 'selected';
+		if (this._id && Session.get('flint-macros-currentMacro')){
+			if (this._id == Session.get('flint-macros-currentMacro')._id){
+				return 'selected';
+			}
 		}
 	}
 });
