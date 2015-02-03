@@ -41,7 +41,7 @@ Meteor.startup(function(){
 			channel: 'An object like this: {type:"channelSet",id:"theid"} or {type:"channel",id:"theid"}',
 			delay: 'A delay before running the macro'
 		}, function(macroArgs) {
-			var delay = macroArgs.delay || 0;
+			var delay = macroArgs.params.delay || 0;
 			if (!macroArgs.effectName)
 				throw new Meteor.Error('flint-no-effect-name', 'The macro does not have an effect name!');
 			if (!macroArgs.channel || !macroArgs.channel.id || !macroArgs.channel.type)

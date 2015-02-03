@@ -179,5 +179,15 @@ Template.macro_lightEffect.events({
 			params.duration = e.target.value;
 			updateMacro('params',params);
 		}
+	},
+	'change #delay':function(e){
+		var macro = Session.get('flint-macros-currentMacro');
+		if  (macro.arguments != undefined){
+			var params = macro.arguments.params || {};
+			params.delay = e.target.value;
+			updateMacro('params',params);
+		}
+		updateMacro('delay',e.target.value);
+
 	}
 })
