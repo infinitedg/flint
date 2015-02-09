@@ -3,16 +3,17 @@
 @media (min-width: 1025px){
 	.sensor_box{
 		background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%,rgba(0,125,255,0.75) 65%,rgba(0,0,0,0) 70%);
-	    background-size: 0%;
-	   	background-position: center;
+		background-size: 0%;
+		background-position: center;
 		background-repeat: no-repeat;
-	    transition: background-size ease-in;
-	    transition-duration: 0s;
+		-webkit-transform: translate3d(0, 0, 0);
+		transition: background-size ease-in;
+		transition-duration: 0s;
 	}
 	.sensor_box.animating{
 		background-size: 300%;
 		transition:background-size;
-	    transition-duration: 5.5s;
+		transition-duration: 5.5s;
 	}
 	.sensor_box.infared{
 		background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%,rgba(255,0,0,0.75) 65%,rgba(0,0,0,0) 70%) !important;
@@ -26,7 +27,7 @@
 	left: 50%;
 	border-radius: 5000px;
 	border: solid 3px rgba(50,50,50,0.75);
-    box-shadow: inset 0px 0px 500px #000;
+	box-shadow: inset 0px 0px 500px #000;
 }
 
 #coreSensor3d{

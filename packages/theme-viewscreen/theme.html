@@ -169,6 +169,51 @@
 			background-color: #f00;
 			-webkit-clip-path: polygon(90% 2%, 10% 10%, 10% 43.5%, 90% 35%, 90% 57%, 10% 65%, 10% 98%, 90% 90%);
 		}
+		.viewscreenOutput:nth-child(1){
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			height:100%;
+			width: 100%;
+		}
+	</style>
+</template>
+<template name="theme_viewscreen_0p1s">
+	<style>
+		.bezel {
+			background: rgb(70,70,70);
+			background: linear-gradient(135deg, rgba(170,170,170,1) 0%,rgba(61,61,61,1) 12%,rgba(170,170,170,1) 25%,rgba(56,56,56,1) 50%,rgba(170,170,170,1) 75%,rgba(56,56,56,1) 99%);
+		}
+		
+
+		.leftChromeBezel,.leftChrome{
+			left: 0vh;
+		}
+		.rightChrome,.rightChromeBezel{
+			right: 0vh;
+		}
+		.leftChromeBezel, .rightChromeBezel{
+			height: 75vh;
+			width: 1vw;
+			position: absolute;
+			top: 12.5vh;
+			-webkit-clip-path: polygon(100% 0%, 0% 10%, 0% 45%, 100% 35%, 100% 55%, 0% 65%, 0% 100%, 100% 90%);
+		}
+		.leftChrome, .rightChrome{
+			height: 75vh;
+			width: 1vw;
+			position: absolute;
+			top: 12.5vh;
+			background-color: #f00;
+			-webkit-clip-path: polygon(90% 2%, 10% 10%, 10% 43.5%, 90% 35%, 90% 57%, 10% 65%, 10% 98%, 90% 90%);
+		}
+		.viewscreenOutput:nth-child(1){
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			height:100%;
+			width: 100%;
+		}
 	</style>
 </template>
 <template name="theme_viewscreen_1p1s">
