@@ -102,7 +102,7 @@ Template.comp_flint_player.created = function() {
 		},
 		removed: function(sound) {
 			if (_buzzSoundCache[sound._id]) {
-				_buzzSoundCache[sound._id].stop();
+				_buzzSoundCache[sound._id].pause();
 				delete _buzzSoundCache[sound._id];
 			}
 		}

@@ -1,7 +1,6 @@
 <template name="card_flint_sound">
 	{{> comp_flint_player}}
 	<div class="row flint-sound">
-		{{currentKey}}
 		<div class="col-sm-8">
 			<div class="row">
 				<div id="contents">
@@ -34,7 +33,7 @@
 							{{/each}}
 						</select>
 					</div>
-					<button {{deleteMacroDisabled}} class="btn btn-sm btn-danger .deleteMacro">Delete Macro</button>
+					<button class="btn btn-sm btn-danger deleteMacro">Delete Macro</button>
 				</div>
 			</div>
 		</div>
@@ -50,7 +49,7 @@
 
 
 <template name="keyboard">
-	<ul id="keyboard">
+	<ul id="keyboard" class={{capsKey}}>
 		<li data-which="9" class="{{keySelected 27}} tab"><span class="off">Esc</span></li>
 		<li data-which="112" class="{{keySelected 112}} symbol"><span class="off">F1</span></li>
 		<li data-which="113" class="{{keySelected 113}} symbol"><span class="off">F2</span></li>
@@ -96,7 +95,7 @@
 		<li data-which="221" class="{{keySelected 221}} symbol"><span class="off">]</span></li>
 		<li data-which="220" class="{{keySelected 220}} symbol lastitem"><span class="off">\</span></li>
 
-		<li data-which="20" class="{{keySelected 20}} capslock">caps lock</li>
+		<li data-which="20" class="{{modifySelected 20}} modify capslock">caps lock</li>
 		<li data-which="65" class="{{keySelected 65}} letter">a</li>
 		<li data-which="83" class="{{keySelected 83}} letter">s</li>
 		<li data-which="68" class="{{keySelected 68}} letter">d</li>

@@ -1,17 +1,21 @@
 Template.card_flint_sound.created = function(){
-
+	Session.setDefault('flint-macros-selectedSet',localStorage.getItem('flint-macros-selectedSet'));
+	Session.setDefault('soundKeyboard-capsKey',false);
 	Session.set('soundKeyboard-selectedModifiers',{
 		'meta':false,
 		'alt':false,
 		'shift':false,
-		'control':false
+		'control':false,
+		'caps':false
 	})
 	window.addEventListener("keydown", function(e){
 		var focusElement = $(':focus')[0];
 		if (focusElement != undefined){
 		} else {
+			if (e.which == '20')
+				Session.set('soundKeyboard-capsKey',!Session.get('soundKeyboard-capsKey'));
 			e.preventDefault();
-			var modifiers = {meta: e.metaKey, alt: e.altKey, shift: e.shiftKey, control: e.ctrlKey};
+			var modifiers = {meta: e.metaKey, alt: e.altKey, shift: e.shiftKey, control: e.ctrlKey, caps:Session.get('soundKeyboard-capsKey')};
 			Flint.collection('flintMacroKeys').find({'key':e.which.toString(), 'set':Session.get('flint-macros-selectedSet')}).forEach(function(macroKey){
 				if (JSON.stringify(macroKey.modifiers) == JSON.stringify(modifiers)){
 					Flint.collection('flintMacroPresets').find({'key':macroKey._id}).forEach(function(doc){
@@ -46,6 +50,9 @@ Template.card_flint_sound.created = function(){
 						if (!doc.simulatorId) {
 							doc.arguments.simulatorId = Flint.simulatorId();
 						}
+						if (!doc.stationId){
+							doc.arguments.stationId = Flint.station('_id');
+						}
 						Flint.macro(doc.name,doc.arguments);
 					});
 }
@@ -79,6 +86,9 @@ Template.card_flint_sound.destroyed = function() {
 	this.subscription.stop();
 };
 
+Template.card_flint_sound.rendered = function(){
+	window.focus();
+}
 Template.card_flint_sound.helpers({
 	'currentKey':function(){
 		return Session.get('soundKeyboard-selectedKey');
@@ -137,6 +147,7 @@ Template.card_flint_sound.events({
 	},
 	'click .macroSetName':function(){
 		Session.set('flint-macros-selectedSet',this._id);
+		localStorage.setItem('flint-macros-selectedSet',this._id);
 		Session.get('soundKeyboard-selectedKey',null);
 		Session.set('flint-macros-currentMacro',null);
 	},
@@ -144,45 +155,58 @@ Template.card_flint_sound.events({
 		var macro = Flint.collection('flintMacroPresets').findOne({'_id':this._id});
 		Session.set('flint-macros-currentMacro',macro);
 	},
+	'click .deleteMacro':function(){
+		debugger;
+		if (Session.get('flint-macros-currentMacro')){
+			_id = Session.get('flint-macros-currentMacro')._id;
+			bootbox.confirm('Are you sure you want to delete that macro?', function(result){
+				if (result){
+					Flint.collection('flintMacroPresets').remove({_id:_id});
+					_id = Flint.collection('flintMacroKeys').findOne({key:_id})._id;
+					Session.set('flint-macros-currentMacro',null);
+					Flint.collection('flintMacroKeys').remove({_id:_id});
+				}
+				bootbox.hideAll();
+			})
+		}
+	},
 	'change .addMacro':function(e){
 		var obj;
-		Flint.collection('flintMacroKeys').find(
-			{'key':Session.get('soundKeyboard-selectedKey'),'set':Session.get('flint-macros-selectedSet')}).forEach(function(doc){
-				if (JSON.stringify(doc.modifiers) == JSON.stringify(Session.get('soundKeyboard-selectedModifiers'))){
-					obj = doc;
-				}
-			});
-			if (obj == undefined){
-				obj = {
-					_id: undefined,
-					set: Session.get('flint-macros-selectedSet'),
-					key: Session.get('soundKeyboard-selectedKey'),
-					modifiers:Session.get('soundKeyboard-selectedModifiers'),
-				}
+		Flint.collection('flintMacroKeys').find({'key':Session.get('soundKeyboard-selectedKey'),'set':Session.get('flint-macros-selectedSet')}).forEach(function(doc){
+			if (JSON.stringify(doc.modifiers) == JSON.stringify(Session.get('soundKeyboard-selectedModifiers'))){
+				obj = doc;
 			}
-			var keyId = Flint.collection('flintMacroKeys').upsert({'_id':obj._id},obj);
-			if (keyId.insertedId == undefined){
-				keyId = obj._id;
-			} else {
-				keyId = keyId.insertedId;
+		});
+		if (obj == undefined){
+			obj = {
+				_id: undefined,
+				set: Session.get('flint-macros-selectedSet'),
+				key: Session.get('soundKeyboard-selectedKey'),
+				modifiers:Session.get('soundKeyboard-selectedModifiers'),
 			}
-			var macroData = {
-				'key': keyId,
-				'name':e.target.value,
-				'arguments':{}
-			}
-			macroId = Flint.collection('flintMacroPresets').insert(macroData);
-
-			//Session.set('flint-macros-currentMacro',macroData);
-			$('.addMacroLabel').removeAttr('selected');
-			$('.addMacroLabel').attr('selected','true');
-		},
-		'click .deleteMacro':function(){
-
 		}
-	})
+		var keyId = Flint.collection('flintMacroKeys').upsert({'_id':obj._id},obj);
+		if (keyId.insertedId == undefined){
+			keyId = obj._id;
+		} else {
+			keyId = keyId.insertedId;
+		}
+		var macroData = {
+			'key': keyId,
+			'name':e.target.value,
+			'arguments':{}
+		}
+		macroId = Flint.collection('flintMacroPresets').insert(macroData,function(err,_id){
+			Session.set('flint-macros-currentMacro',Flint.collection('flintMacroPresets').findOne({_id:_id}));
+		});
+
+		$('.addMacroLabel').removeAttr('selected');
+		$('.addMacroLabel').attr('selected','true');
+	}
+
+})
 Template.keyboard.events({
-	'click #keyboard li:not(.modify):not(.cancel)':function(e,t){
+	'click #keyboard li:not(.modify)':function(e,t){
 		Session.set('soundKeyboard-selectedKey',e.target.dataset.which);
 		Session.set('flint-macros-currentMacro',null);
 	},
@@ -191,8 +215,15 @@ Template.keyboard.events({
 			'meta':false,
 			'alt':false,
 			'shift':false,
-			'control':false
+			'control':false,
+			'caps':false
 		};
+		if (e.target.dataset.which == '20'){ //Caps
+			if (obj.caps)
+				obj.caps = false;
+			else
+				obj.caps = true;
+		} 
 		if (e.target.dataset.which == '16'){ //shift
 			if (obj.shift)
 				obj.shift = false;
@@ -233,12 +264,18 @@ Template.keyboard.helpers({
 	}
 
 },
+'capsKey':function(){
+	if (Session.get('soundKeyboard-capsKey')){
+		return 'capsDown';
+	}
+},
 'modifySelected':function(e){
 	var obj = Session.get('soundKeyboard-selectedModifiers') || {
 		'meta':false,
 		'alt':false,
 		'shift':false,
-		'control':false
+		'control':false,
+		'caps':false
 	};
 		if (e == '16'){ //shift
 			if (obj.shift)
@@ -254,6 +291,10 @@ Template.keyboard.helpers({
 		}
 		if (e == '91' || e == '93'){ //meta
 			if (obj.meta)
+				return 'selected';
+		}
+		if (e == '20'){ //caps
+			if (obj.caps)
 				return 'selected';
 		}
 	}
