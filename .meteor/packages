@@ -62,6 +62,7 @@ layout-tac-control
 layout-viewscreen
 layout-voyager
 layout-admin
+layout-digital
 
 assets-voyager
 
@@ -124,3 +125,5 @@ card-security-scanning
 card-roster
 card-weapons
 card-weapons-torpedos
+ccorcos:transitioner
+ficshelf:media-query

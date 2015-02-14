@@ -1,0 +1,293 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.card-container{
+  color: #fff;
+  overflow: hidden;
+  position: fixed;
+  height: 80vh;
+  width: 85vw;
+  left: 10vw;
+  top: 12vh;
+}
+.well{
+  background-color: rgba(10,10,10,0.75);
+  border-color: rgba(245,245,245,0.5);
+}
+.main_background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(165deg, #000000 0%, #081a29 50%, #000000 100%);
+}
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  div{
+    position: absolute;
+  }
+  svg {
+    position: fixed;
+    background-color: transparent;
+    cursor: auto;
+  }
+  .bottomLeft-bracket-end{
+   /* width: calc(~"100vw - 627px");
+    height: 160px;
+    top: 0px;
+    left: 156px;*/
+    width: 47px;
+    height: 35px;
+    bottom: 0px;
+    left: calc(~"147px + 39px");
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-end.png);
+  }
+  .bottomLeft-bracket-mid{
+    width: 147px;
+    height: 739px;
+    bottom: 0px;
+    left: 0px;
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-mid.png);
+  }
+  .bottomLeft-bracket-x{
+    width: 39px;
+    height: 35px;
+    bottom: 0px;
+    left: 147px;
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-x.png);
+  }
+  .bottomRight-bracket-end{
+    width: 62px;
+    height: 111px;
+    bottom: 0px;
+    right: 0px;
+    background-image: url(/themes/digital/frame/bottomRight-bracket-end.png);
+  }
+  .bottomRight-bracket-start{
+    width: 1116px;
+    height: 111px;
+    bottom: 0px;
+    right: calc(~"62px + 43px");
+    background-image: url(/themes/digital/frame/bottomRight-bracket-start.png);
+  }
+  .bottomRight-bracket-x{
+    width: 43px;
+    height: 111px;
+    bottom: 0px;
+    right: 62px;
+    background-image: url(/themes/digital/frame/bottomRight-bracket-x.png);
+  }
+  .left-doodad{
+    width: 141px;
+    height: 477px;
+    bottom: 45px;
+    left: 75px;
+    background-image: url(/themes/digital/frame/left-doodad.png);
+  }
+  .leftBottom-bracket-start{
+    width: 157px;
+    height: 106px;
+    left: 0px;
+    bottom: calc(~"739px + 38px");
+    background-image: url(/themes/digital/frame/leftBottom-bracket-start.png);
+  }
+  .leftBottom-bracket-x{
+    width: 138px;
+    height: 38px;
+    left: 0px;
+    bottom: 739px;
+    background-image: url(/themes/digital/frame/leftBottom-bracket-x.png);
+  }
+  .rightTop-bracket-end{
+    width: 62px;
+    height: 37px;
+    right: 0px;
+    top: calc(~"165px + 33px");
+    background-image: url(/themes/digital/frame/rightTop-bracket-end.png);
+  }
+  .rightTop-bracket-x{
+    width: 52px;
+    height: 33px;
+    right: 0px;
+    top: 165px;
+    background-image: url(/themes/digital/frame/rightTop-bracket-x.png);
+  }
+  .topRight-bracket-mid{
+    width: 334px;
+    height: 165px;
+    top: 0;
+    right: 0;
+    background-image: url(/themes/digital/frame/topRight-bracket-mid.png);
+  }
+  .topRight-bracket-start{
+    width: 27px;
+    height: 32px;
+    top: 0px;
+    right: calc(~"334px + 20px");
+    background-image: url(/themes/digital/frame/topRight-bracket-start.png);
+  }
+  .topRight-bracket-x{
+    width: 26px;
+    height: 40px;
+    top: 0px;
+    right: 334px;
+    background-image: url(/themes/digital/frame/topRight-bracket-x.png);
+  }
+  .topLeft-bracket-end{
+    width: 28px;
+    height: 31px;
+    top: 0px;
+    left: calc(~"497px + 20px");
+    background-image: url(/themes/digital/frame/topLeft-bracket-end.png);
+  }
+  .topLeft-bracket-x{
+    width: 20px;
+    height: 80px;
+    top: 0px;
+    left: 497px;
+    background-image: url(/themes/digital/frame/topLeft-bracket-x.png);
+  }
+  .topLeft-bracket-start{
+    width: 497px;
+    height: 80px;
+    top: 0px;
+    left: 0px;
+    background-image: url(/themes/digital/frame/topLeft-bracket-start.png);
+  }
+  /*Doodads*/
+  .nameBox {
+    top: 2.5vh;
+    left: 2vw;
+    width: 23.437vw;
+  }
+  .powerUp-doodad {
+    width: 2.3437vw;
+    right: 1vw;
+    bottom: 9vh;
+  }
+  .powerUp-holder {
+    position: fixed;
+    width: 1.7vw;
+    height: 44.981vh;
+    right: 1.3vw;
+    bottom: 9vh;
+    -webkit-clip-path: polygon(80% 1%, 0 7%, 0 92%, 90% 98%, 100% 98%, 100% 40%, 50% 37%, 50% 17%, 100% 13.5%, 100% 1%, 80% 1%);
+  }
+  .powerUp-bar {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(20, 85, 115, 0) 50%, #145573 51%, #145573 100%);
+    background-size: 10px;
+    background-attachment: fixed;
+    background-position: 100% 100%;
+    transition: height 1s ease-in-out;
+  }
+  .powerUp-holder:hover .powerUp-bar {
+    height: 50%;
+  }
+
+}
+.background-overlay.retina{
+  .bottomLeft-bracket-end{
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-end@2x.png);
+  }
+  .bottomLeft-bracket-mid{
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-mid@2x.png);
+  }
+  .bottomLeft-bracket-x{
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-x@2x.png);
+  }
+  .bottomRight-bracket-end{
+    background-image: url(/themes/digital/frame/bottomRight-bracket-end@2x.png);
+  }
+  .bottomRight-bracket-start{
+    background-image: url(/themes/digital/frame/bottomRight-bracket-start@2x.png);
+  }
+  .bottomRight-bracket-x{
+    background-image: url(/themes/digital/frame/bottomRight-bracket-x@2x.png);
+  }
+  .left-doodad{
+    background-image: url(/themes/digital/frame/left-doodad@2x.png);
+  }
+  .leftBottom-bracket-start{
+    background-image: url(/themes/digital/frame/leftBottom-bracket-start@2x.png);
+  }
+  .leftBottom-bracket-x{
+    background-image: url(/themes/digital/frame/leftBottom-bracket-x@2x.png);
+  }
+  .rightTop-bracket-end{
+    background-image: url(/themes/digital/frame/rightTop-bracket-end@2x.png);
+  }
+  .rightTop-bracket-x{
+    background-image: url(/themes/digital/frame/rightTop-bracket-x@2x.png);
+  }
+  .topRight-bracket-mid{
+    background-image: url(/themes/digital/frame/topRight-bracket-mid@2x.png);
+  }
+  .topRight-bracket-start{
+    background-image: url(/themes/digital/frame/topRight-bracket-start@2x.png);
+  }
+  .topRight-bracket-x{
+    background-image: url(/themes/digital/frame/topRight-bracket-x@2x.png);
+  }
+  .topLeft-bracket-end{
+    background-image: url(/themes/digital/frame/topLeft-bracket-end@2x.png);
+  }
+  .topLeft-bracket-x{
+    background-image: url(/themes/digital/frame/topLeft-bracket-x@2x.png);
+  }
+  .topLeft-bracket-start{
+    background-image: url(/themes/digital/frame/topLeft-bracket-start@2x.png);
+  }
+}
+
+.button,.btn{
+  font-family: 'Gamecuben';
+  text-transform: uppercase;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  padding-left: 30px;
+  height: 65px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  margin-right: 25px;
+  min-width: 157.5px;
+  box-sizing: border-box;
+  background-image: url(/themes/digital/frame/button1.png);
+  background-repeat: no-repeat, repeat-x;
+  background-position: 0px, 32px;
+}
+.button:before,.button:after, .btn:before, .btn:after{
+  position: absolute;
+  z-index: -1;
+  height: 65px;
+}
+.button:before, .btn:before{
+ width: calc(~'100% - 157.5px');
+ left: 36px;
+ top: 0;
+ content:'';
+ background-image: url(/themes/digital/frame/button2.png)
+}
+.button:after, .btn:after{
+ width: 93px;
+ right: 29px;
+ bottom: 0;
+ content: url(/themes/digital/frame/button3.png);
+}
+
+.digital_cardList{
+  position: fixed;
+  top: 25px;
+  left: 450px;
+}
