@@ -1,17 +1,23 @@
 <template name="card_login">
-  <div class="flexRow">
-  <img class="simLogo" draggable=false src={{loginImage}} />
-      {{#if client.name}}
+<div class="col-sm-6">
+    <div class="container">
+      <div class="row">
+        <img class="simLogo" draggable=false src={{loginImage}} />
+      </div>
+      <div class="row">
+        {{#if client.name}}
         <div class="text-center">
           <h1>{{t "Welcome"}} {{client.name}}</h1>
           <a href="#" class="btn btn-default btn-logout">{{t "Logout"}}</a>
         </div>
-      {{else}}      
-            <div class="login-group">
-                <label class="control-label">{{ t "Name" }}</label>
-                <input type="text" class="loginname login-input form-control {{alertStyle}}"/>
-            </div>
-            <button class="btn {{alertStyle}} btn-login">{{t "Login" }}</button>
-      {{/if}}
+        {{else}}      
+        <div class="login-group">
+          <label class="control-label">{{ t "Name" }}</label>
+          <input type="text" class="loginname login-input form-control {{alertStyle}}"/>
+        </div>
+        <button class="btn {{alertStyle}} btn-login">{{t "Login" }}</button>
+        {{/if}}
+      </div>
+    </div>
   </div>
 </template>

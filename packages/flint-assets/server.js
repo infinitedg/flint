@@ -195,7 +195,7 @@ function updateObjectDependencies(id) {
 		objectParts = _pathPartsForObject(id),
 		objectPath = _pathForParts(objectParts);
 
-	Flint.collection('flintAssetObjects').update(id, {$set: {containerPath: fullPath, folderPath: shortPath, objectPath: objectPath}}, {multi: true});
+	//Flint.collection('flintAssetObjects').update({_id:id}, {$set: {containerPath: fullPath, folderPath: shortPath, objectPath: objectPath}}, {multi: true});
 }
 
 Flint.collection('flintAssetObjects').find().observeChanges({
