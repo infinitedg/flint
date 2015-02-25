@@ -4,16 +4,13 @@ Template.card_selfDestruct.events = {
   'mouseup .modalOpen': function(e, context) {
     if (! currentCountdown()){
       bootbox.prompt('ENTER TIME UNTIL SELF DESTRUCT IN MINUTES:', function(result){
-        if (result === null || isNaN(result)) {                                             
-                      //Example.show("Prompt dismissed");                              
+        if (result === null || isNaN(result)) {
                     } else {
-                      //Example.show("Hi <b>"+result+"</b>");
                       var selfDestruct = new Countdown({  
                         seconds:(result * 60),  // number of seconds to count down
                         onUpdateStatus: function(sec){
                           parseTimer(sec);
-                        }, // callback for each second
-                        //onCounterEnd: function(){ $('.bigBorder').removeClass('animating');} // final action
+                        }, 
                       });
                       selfDestruct.start();
                     }

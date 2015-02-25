@@ -12,10 +12,10 @@ Meteor.publish('flint.flint-assets.simulator', function(simulatorId) {
 
 	// Make a list of all objects and their containers
 	Flint.collection('flintAssetObjects')
-		.find({$or: [{simulatorId: {$exists: false}}, {simulatorId: simulatorId}]})
-		.forEach(function(obj) {
-			if (!mappedObjects[obj.containerPath]) {
-				mappedObjects[obj.containerPath] = {
+	.find({$or: [{simulatorId: {$exists: false}}, {simulatorId: simulatorId}]})
+	.forEach(function(obj) {
+		if (!mappedObjects[obj.containerPath]) {
+			mappedObjects[obj.containerPath] = {
 					// objectId: obj._id,
 					containerId: obj.containerId,
 				};
@@ -42,9 +42,9 @@ Meteor.publish('flint.flint-assets.simulator', function(simulatorId) {
 	// var folderIds 		= _.pluck(condensedObjects, "folderId");
 	
 	return [
-		Flint.collection('flintAssetFolders').find(), 
-		Flint.collection('flintAssetContainers').find(),
-		Flint.collection('flintAssetObjects').find({_id: {$in: objectIds}})
+	Flint.collection('flintAssetFolders').find(), 
+	Flint.collection('flintAssetContainers').find(),
+	Flint.collection('flintAssetObjects').find({_id: {$in: objectIds}})
 	];
 });
 
@@ -54,8 +54,8 @@ Meteor.publish('fs.flint-assets.simulator', function(simulatorId) {
 
 	// Make a list of all objects and their containers
 	Flint.collection('flintAssetObjects')
-		.find({$or: [{simulatorId: {$exists: false}}, {simulatorId: simulatorId}]})
-		.forEach(function(obj) {
+	.find({$or: [{simulatorId: {$exists: false}}, {simulatorId: simulatorId}]})
+	.forEach(function(obj) {
 			// Setup objects, replacing if we find a simulator-specific default
 			if (!mappedObjects[obj.containerPath]) {
 				mappedObjects[obj.containerPath] = obj.objectId;
@@ -104,21 +104,27 @@ function _pathPartsForFolder(folderId, existingPath, pathsTraversed) {
 
 function _pathPartsForContainer(assetId) {
 	var asset = Flint.collection('flintAssetContainers').findOne(assetId);
-	return _pathPartsForFolder(asset.folderId, [asset.name]);
+	if (asset){
+		return _pathPartsForFolder(asset.folderId, [asset.name]);
+	}
 }
 
 function _pathPartsForObject(objectId) {
 	var object = Flint.collection('flintAssetObjects').findOne(objectId);
-	return _pathPartsForContainer(object.containerId, [":" + object.simulatorId]);
+	if (object)
+		return _pathPartsForContainer(object.containerId, [":" + object.simulatorId]);
 }
 
 function _pathForParts(parts) {
-	return "/" + parts.join('/');
+	if (parts)
+		return "/" + parts.join('/');
 }
 
 function _shortPathForParts(parts) {
-	parts.pop();
-	return "/" + parts.join('/');
+	if (parts){
+		parts.pop();
+		return "/" + parts.join('/');
+	}
 }
 
 // Setup observers for constructing denormalized asset properties
@@ -133,8 +139,8 @@ folder.fullPath			=> container.folderPath
 
 function updateFolderDependencies(id) {
 	var pathParts = _pathPartsForFolder(id),
-		fullPath = _pathForParts(pathParts),
-		shortPath = _shortPathForParts(pathParts);
+	fullPath = _pathForParts(pathParts),
+	shortPath = _shortPathForParts(pathParts);
 
 	Flint.collection('flintAssetFolders').update(id, {$set: {fullPath: fullPath, folderPath: shortPath}});
 	Flint.collection('flintAssetContainers').update({folderId: id}, {$set: {folderPath: fullPath}}, {multi: true});
@@ -163,8 +169,8 @@ container.fullPath		=> object.folderPath
 
 function updateContainerDependencies(id) {
 	var pathParts = _pathPartsForContainer(id),
-		fullPath = _pathForParts(pathParts),
-		shortPath = _shortPathForParts(pathParts);
+	fullPath = _pathForParts(pathParts),
+	shortPath = _shortPathForParts(pathParts);
 
 	Flint.collection('flintAssetContainers').update(id, {$set: {fullPath: fullPath, folderPath: shortPath}});
 	Flint.collection('flintAssetObjects').update({containerId: id}, {$set: {folderPath: fullPath}}, {multi: true});
@@ -190,10 +196,10 @@ object.folderPath		=> object.fullPath
 function updateObjectDependencies(id) {
 	var object = Flint.collection('flintAssetObjects').findOne(id);
 	var containerParts = _pathPartsForContainer(object.containerId),
-		fullPath = _pathForParts(containerParts),
-		shortPath = _shortPathForParts(containerParts),
-		objectParts = _pathPartsForObject(id),
-		objectPath = _pathForParts(objectParts);
+	fullPath = _pathForParts(containerParts),
+	shortPath = _shortPathForParts(containerParts),
+	objectParts = _pathPartsForObject(id),
+	objectPath = _pathForParts(objectParts);
 
 	//Flint.collection('flintAssetObjects').update({_id:id}, {$set: {containerPath: fullPath, folderPath: shortPath, objectPath: objectPath}}, {multi: true});
 }
