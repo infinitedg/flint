@@ -1,21 +1,31 @@
 <template name="card_messageComposer">
     <div id="card-messageComposer">
-        <div class="message-list">
+        <div class="col-sm-3 message-list">
             <h5>MESSAGES:</h5>
             <div class="textbox">
                 {{#each messageList}}
-                    <p>{{to}}</p>
+                <p>{{to}}</p>
                 {{/each}}
             </div>
         </div>
-        <div class="message-composer">
-            <span class="to-box"><h6>TO:</h6><input type="text" class="to-input {{alertStyle}}" disabled="disabled"/></span>
-            <textarea class='body-text {{alertStyle}}' disabled="disabled"></textarea>
-            <span class="bottom-btns">
-                <a href="#" class="clearBtn btn btn-danger">CLEAR</a>
-                <a href="#" class="newBtn btn btn-primary">NEW</a>
-                <!--<a href="#" class="encodeBtn btn btn-primary">ENCODE</a> Commented because it is lamesauce -->
-                <a href="#" class="queueBtn btn btn-default">QUEUE FOR SENDING</a></span>
+        <div class="col-sm-8 col-sm-offset-1 message-composer">
+            <div class="row">
+                <span class="to-box">
+                <span class="toLabel col-sm-2">TO:</span>
+                    <input type="text" class="to-input col-sm-offset-1 col-sm-10 {{alertStyle}}" disabled="disabled"/>
+                </span>
+            </div>
+            <div class="row">
+                <textarea class='body-text col-sm-12 {{alertStyle}}' disabled="disabled">
+
+                </textarea>
+                <span class="bottom-btns">
+                    <button type="button" class="clearBtn btn btn-danger">CLEAR</button>
+                    <button type="button" class="newBtn btn btn-primary">NEW</button>
+                    <!--<a href="#" class="encodeBtn btn btn-primary">ENCODE</a> Commented because it is lamesauce -->
+                    <button type="button" class="queueBtn btn btn-default">QUEUE FOR SENDING</button>
+                </span>
+            </div>
         </div>
     </div>
 </template>
