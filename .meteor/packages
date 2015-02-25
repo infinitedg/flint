@@ -34,6 +34,9 @@ accounts-facebook
 accounts-google
 cfs:gridfs
 bootstrap-slider
+ccorcos:transitioner
+ficshelf:media-query
+msavin:mongol
 
 ui-dropped-event
 
@@ -125,6 +128,4 @@ card-security-scanning
 card-roster
 card-weapons
 card-weapons-torpedos
-ccorcos:transitioner
-ficshelf:media-query
-msavin:mongol
+card-video-manager
