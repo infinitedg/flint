@@ -23,7 +23,7 @@ Template.card_torpedos.helpers({
 	},
 	probeCount: function(){
 		var output = [];
-		for (var i = 0; i < Flint.system('Torpedo Launchers','quantumCount'); i++){
+		for (var i = 0; i < Flint.system('Torpedo Launchers','probeCount'); i++){
 			output.push(i);
 		}
 		return output;
@@ -42,7 +42,8 @@ Template.card_torpedos.helpers({
 		}
 	},
 	prepDisabled:function(){
-		return Session.get('prepDisabled');
+		if (Session.get('prepDisabled'))
+			return 'disabled';
 	},
 	prepLabel: function(e,t){
 		var selectedTorpedo = Flint.collection('torpedos').findOne(Session.get('selectedLauncher'));
@@ -57,7 +58,8 @@ Template.card_torpedos.helpers({
 		}
 	},
 	fireDisabled:function(){
-		return Session.get('fireDisabled');
+		if (Session.get('fireDisabled'))
+			return 'disabled';
 	},
 	fireLabel: function(e,t){
 		var selectedTorpedo = Flint.collection('torpedos').findOne(Session.get('selectedLauncher'));
@@ -82,22 +84,55 @@ Template.card_torpedos.events({
 		var selectedTorpedo = Flint.collection('torpedos').findOne(Session.get('selectedLauncher'));
 		if (selectedTorpedo){
 			if (selectedTorpedo.state == 'unprepared'){
+				var casingCount = Flint.system('Torpedo Launchers','casingCount');
+				Flint.system('Torpedo Launchers','casingCount',casingCount - 1);
 				Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{state:'prepared'}});
+				Session.set('prepDisabled',true);
+				Session.set('fireDisabled',true);
+				Meteor.setTimeout(function(){
+					Session.set('prepDisabled',false);
+					Session.set('fireDisabled',false);
+				},3000);
 			}
 			if (selectedTorpedo.state == 'prepared'){
 				Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{state:'unprepared'}});
+				var selectedTorpedo = Flint.collection('torpedos').findOne(Session.get('selectedLauncher'));
+				var payload = selectedTorpedo.payload;
+				var payloadCount = Flint.system('Torpedo Launchers',(payload + "Count"));
+				Flint.system('Torpedo Launchers',(payload + "Count"),payloadCount + 1)
 				Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{payload:null}});
+				var casingCount = Flint.system('Torpedo Launchers','casingCount');
+				Flint.system('Torpedo Launchers','casingCount',casingCount + 1);
+				Session.set('prepDisabled',true);
+				Session.set('fireDisabled',true);
+				Meteor.setTimeout(function(){
+					Session.set('prepDisabled',false);
+					Session.set('fireDisabled',false);
+				},3000);
 			}
 			if (selectedTorpedo.state == 'loaded'){
 				Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{state:'prepared'}});
+				Session.set('prepDisabled',true);
+				Session.set('fireDisabled',true);
+				Meteor.setTimeout(function(){
+					Session.set('prepDisabled',false);
+					Session.set('fireDisabled',false);
+				},3000);
 			}
 		}
 	},
 	'click .fireTorpedo':function(){
 		var selectedTorpedo = Flint.collection('torpedos').findOne(Session.get('selectedLauncher'));
 		if (selectedTorpedo){
-			if (selectedTorpedo.state == 'prepared')
+			if (selectedTorpedo.state == 'prepared'){
+				Session.set('prepDisabled',true);
+				Session.set('fireDisabled',true);
+				Meteor.setTimeout(function(){
+					Session.set('prepDisabled',false);
+					Session.set('fireDisabled',false);
+				},3000);
 				Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{state:'loaded'}});
+			}
 			if (selectedTorpedo.state == 'loaded'){
 				Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{state:'fired'}});
 				Meteor.setTimeout(function(){
@@ -107,6 +142,12 @@ Template.card_torpedos.events({
 				Meteor.setTimeout(function(){
 					Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{state:'unprepared'}});
 				},3000);
+				Session.set('prepDisabled',true);
+				Session.set('fireDisabled',true);
+				Meteor.setTimeout(function(){
+					Session.set('prepDisabled',false);
+					Session.set('fireDisabled',false);
+				},3000);
 			}
 		}
 	},
@@ -114,7 +155,11 @@ Template.card_torpedos.events({
 		var type = e.currentTarget.dataset.type;
 		var selectedTorpedo = Flint.collection('torpedos').findOne(Session.get('selectedLauncher'));
 		if (selectedTorpedo){
-			Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{payload:type}});
+			if (selectedTorpedo.state == 'prepared'){
+				var payloadCount = Flint.system('Torpedo Launchers',(type + "Count"));
+				Flint.system('Torpedo Launchers',(type + "Count"),payloadCount - 1)
+				Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{payload:type}});
+			}
 		}
 	},
 	'change #launcherSelect':function(e,t){
@@ -135,6 +180,20 @@ Template.casing.helpers({
 		var selectedTorpedo = Flint.collection('torpedos').findOne(selectedLauncher);
 		if (selectedTorpedo){
 			return selectedTorpedo.state;
+		}
+	}
+})
+
+Template.casing.events({
+	'click .warheadLg': function(){
+		var selectedTorpedo = Flint.collection('torpedos').findOne(Session.get('selectedLauncher'));
+		if (selectedTorpedo){
+			if (selectedTorpedo.state == 'prepared'){
+				var payload = selectedTorpedo.payload;
+				var payloadCount = Flint.system('Torpedo Launchers',(payload + "Count"));
+				Flint.system('Torpedo Launchers',(payload + "Count"),payloadCount + 1)
+				Flint.collection('torpedos').update({_id:selectedTorpedo._id},{$set:{payload:null}});
+			}
 		}
 	}
 })

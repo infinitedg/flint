@@ -33,15 +33,15 @@
 				<label>Torpedo Launcher:</label>
 				<div class="select">
 					<select id="launcherSelect">
-						<option>Select Launcher</option>
+						<option disabled="true" value="">Select Launcher</option>
 						{{#each torpedoLaunchers}}
 						<option {{selectedLauncher}} value={{_id}}>Torpedo Launcher {{number}}</option>
 						{{/each}}
 					</select>
 				</div>
 				{{#if launcherPicked}}
-				<button class="btn prepareCasing btn-warning btn-block btn-md" {{prepDisabled}} type="button">{{prepLabel}}</button>
-				<button class="btn fireTorpedo btn-danger btn-block btn-md" {{fireDisabled}} type="button">{{fireLabel}}</button>
+				<button class="btn prepareCasing btn-warning btn-block btn-md" disabled={{prepDisabled}} type="button">{{prepLabel}}</button>
+				<button class="btn fireTorpedo btn-danger btn-block btn-md" disabled={{fireDisabled}} type="button">{{fireLabel}}</button>
 				{{/if}}
 				Available Casings: {{casingCount}}
 			</div>
