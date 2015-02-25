@@ -1,6 +1,7 @@
 <template name="card_flintlibrary">
 	<div class="row">
 		<div class="col-md-4">
+			{{> comp_flintAssetButtons}}
 			{{> comp_flintAssetBrowser}}
 		</div>
 		<div class="col-md-8">
@@ -11,8 +12,7 @@
 	</div>
 </template>
 
-<template name="comp_flintAssetBrowser">
-	<p><strong>Path: {{currentDirectory}}</strong></p>
+<template name="comp_flintAssetButtons">
 	<p>
 		<div class="btn-group">
 			<button class="add-folder btn btn-primary">
@@ -30,6 +30,10 @@
 			<input type="file" id="mass-upload-folder" multiple />
 		</div>
 	</p>
+</template>
+
+<template name="comp_flintAssetBrowser">
+	<p><strong>Path: {{currentDirectory}}</strong></p>
 	<div class="well flintassetbrowser">
 		<ul>
 			{{#if notRoot}}

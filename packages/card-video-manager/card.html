@@ -1,14 +1,16 @@
 <template name="card_video_manager">
-	<div class="container">
+	<div class="container video_manager">
 		<div class="row">
 			<div class="col-sm-3">
 				<h3>Library</h3>
-				<div class="well">
-				</div>
+				{{> comp_flintAssetBrowser}}
 			</div>
 			<div class="col-sm-3">
 				<h3>Clips</h3>
 				<div class="well">
+					{{#each videoClip}}
+					<p>{{name}}</p>
+					{{/each}}
 				</div>
 			</div>
 			<div class="col-sm-6 preview">
@@ -18,6 +20,9 @@
 			<div class="col-sm-3">
 				<h3>Video Segments</h3>
 				<div class="well">
+					{{#each videoSegment}}
+					<p>{{name}}</p>
+					{{/each}}
 				</div>
 			</div>
 			<div class="col-sm-3">

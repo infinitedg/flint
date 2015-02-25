@@ -71,7 +71,10 @@ Template.comp_flintAssetBrowser.events({
 		var parent = Flint.collection('flintAssetFolders').findOne({fullPath: Session.get('comp.flintAssetBrowser.currentDirectory')}) || {};
 		Session.set('comp.flintAssetBrowser.currentDirectory', parent.folderPath || "/");
 		Session.set('comp.flintAssetBrowser.selectedContainer', undefined);
-	},
+	}
+});
+
+Template.comp_flintAssetButtons.events({
 	'click button.add-folder': function(e, t) {
 		var n = prompt("Name this folder:");
 		if (n) {
@@ -151,8 +154,7 @@ Template.comp_flintAssetBrowser.events({
 			Flint.FS.collection('flintAssets').insert(files[i], uploadDefault);
 		}
 	}
-});
-
+})
 /// comp_flintContainerView
 Template.comp_flintContainerView.created = function() {
 	Meteor.subscribe("flint.assets.simulators");
