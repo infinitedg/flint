@@ -12,6 +12,10 @@ Template.digital_cardList.helpers({
 		});
 
 		return x;
+	},
+	currentCardImage: function(){
+		var cardId = Flint.card().cardId.replace(/_/g,'-');
+		return '/packages/' + cardId + "/icon.png";
 	}
 })
 
