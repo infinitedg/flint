@@ -3,28 +3,32 @@
     <div class="main_background {{alertColor}}">
 
     </div>
+
     <div class="background-overlay {{retina}}">
-     <div class="bottomLeft-bracket-end"></div>
-     <div class="bottomLeft-bracket-mid"></div>
-     <div class="bottomLeft-bracket-x"></div>
-     <div class="bottomRight-bracket-end"></div>
-     <div class="bottomRight-bracket-start"></div>
-     <div class="bottomRight-bracket-x"></div>
-     <div class="left-doodad"></div>
-     <div class="leftBottom-bracket-start"></div>
-     <div class="leftBottom-bracket-x"></div>
-     <div class="rightTop-bracket-end"></div>
-     <div class="rightTop-bracket-x"></div>
-     <div class="topLeft-bracket-end"></div>
-     <div class="topLeft-bracket-x"></div>
-     <div class="topLeft-bracket-start"></div>
-     <div class="topRight-bracket-mid"></div>
-     <div class="topRight-bracket-start"></div>
-     <div class="topRight-bracket-x"></div>
-     {{> digital_nameBox}}
-     {{> digital_powerUp_doodad}}
-   </div>
-   <div class="card-container card-area" data-card="{{cardId}}">
+
+      <div class="bottomLeft-bracket-end"></div>
+      <div class="bottomLeft-bracket-mid"></div>
+      <div class="bottomLeft-bracket-x"></div>
+      <div class="bottomRight-bracket-end"></div>
+      <div class="bottomRight-bracket-start"></div>
+      <div class="bottomRight-bracket-x"></div>
+      <div class="left-doodad"></div>
+      <div class="leftBottom-bracket-start"></div>
+      <div class="leftBottom-bracket-x"></div>
+      <div class="rightTop-bracket-end"></div>
+      <div class="rightTop-bracket-x"></div>
+      <div class="topLeft-bracket-end"></div>
+      <div class="topLeft-bracket-x"></div>
+      <div class="topLeft-bracket-start"></div>
+      <div class="topRight-bracket-mid"></div>
+      <div class="topRight-bracket-start"></div>
+      <div class="topRight-bracket-x"></div>
+      <div class="alertNum">{{alertnum}}</div>
+      {{> digital_nameBox}}
+      {{> digital_powerUp_doodad}}
+      <div class="alertColor {{alertColor}}"></div>
+    </div>
+    <div class="card-container card-area" data-card="{{cardId}}">
 
      {{#transitioner}}
 
@@ -32,13 +36,14 @@
 
      {{/transitioner}}
    </div>
+
    {{> digital_cardList}}
  </span>
 </template>
 
 <template name="digital_cardList">
   <div class="cardControl">
-    <div class="currentCard-button">
+    <div class="currentCard-button {{locked}}">
       <img src={{currentCardImage}} draggable="false" />
     </div>
     <div class="lockScreen">
@@ -81,6 +86,9 @@
       <path id="Shape 6 copy" d="M69.2219,8.38715C104.59,8.38715 133.261,37.0583 133.261,72.426C133.261,107.794 104.59,136.465 69.2219,136.465C33.8542,136.465 5.18299,107.794 5.18299,72.426C5.18299,37.0583 33.8542,8.38715 69.2219,8.38715Z" style="fill:black;fill-opacity:0;stroke-width:4.17px;stroke:rgb(81,81,81);"/>
     </g>
   </svg>
+  <div class="profilePicture"><img src={{profilePictureSrc}} /></div>
+  <div class="username" style={{usernameStyle}}>{{username}}</div>
+  <div class="stationName" style={{stationNameStyle}}>{{stationName}}</div>
 </template>
 
 <template name="digital_powerUp_doodad">

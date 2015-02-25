@@ -6,6 +6,7 @@ body {
   color: #fff;
   overflow: hidden;
   position: fixed;
+  padding-top: 10px;
   height: 80vh;
   width: 85vw;
   left: 10vw;
@@ -33,7 +34,6 @@ body {
   .main_background.alertColor1{
     background: linear-gradient(165deg, #000000 0%, #290808 50%, #000000 100%);
   }
-
   .background-overlay {
     position: fixed;
     top: 0;
@@ -303,26 +303,26 @@ body {
   right:  170px;
 }
 .currentCard-button{
-position: absolute;
+  position: absolute;
   width: 70px;
-   height: 70px;
-    background-color: rgba(45, 130, 187,0.5);
-    border: 3px solid #999;
-    border-radius: 50%;
-    z-index:1000;
-    left: 40px;
+  height: 70px;
+  background-color: rgba(45, 130, 187,0.5);
+  border: 3px solid #999;
+  border-radius: 50%;
+  z-index:1000;
+  left: 40px;
 }
 .currentCard-button img{
   width: 60px;
-   height: 60px;
-   padding: 3px;
-   margin-left: 2px;
-   margin-top: 2px;
-   border: 1px solid #aaa;
-   border-radius: 50%;
+  height: 60px;
+  padding: 3px;
+  margin-left: 2px;
+  margin-top: 2px;
+  border: 1px solid #aaa;
+  border-radius: 50%;
 }
 .cardControl:hover .currentCard-button{
-      background-color: rgba(104, 180, 230,0.5);
+  background-color: rgba(104, 180, 230,0.5);
 }
 li.digital_cardLink{
   display: block;
@@ -331,7 +331,7 @@ li.digital_cardLink{
   opacity: 0;
   left: -90px;
 }
-.currentCard-button:hover ~ .digital_cardList li.digital_cardLink, .digital_cardList:hover li.digital_cardLink{
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink, .digital_cardList:hover li.digital_cardLink{
   opacity: 1;
 }
 li.digital_cardLink:nth-child(1){
@@ -352,39 +352,39 @@ li.digital_cardLink:nth-child(5){
 li.digital_cardLink:nth-child(6){
   transition: top 0.5s ease-in-out 0.6s, opacity 0.5s ease-in 0.6s;
 }
-.currentCard-button:hover ~ .digital_cardList li.digital_cardLink:nth-child(1), .digital_cardList:hover li.digital_cardLink:nth-child(1){
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(1), .digital_cardList:hover li.digital_cardLink:nth-child(1){
   top: -50px;
 }
-.currentCard-button:hover ~ .digital_cardList li.digital_cardLink:nth-child(2), .digital_cardList:hover li.digital_cardLink:nth-child(2){
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(2), .digital_cardList:hover li.digital_cardLink:nth-child(2){
   top: -110px;
 }
-.currentCard-button:hover ~ .digital_cardList li.digital_cardLink:nth-child(3), .digital_cardList:hover li.digital_cardLink:nth-child(3){
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(3), .digital_cardList:hover li.digital_cardLink:nth-child(3){
   top: -170px;
 }
-.currentCard-button:hover ~ .digital_cardList li.digital_cardLink:nth-child(4), .digital_cardList:hover li.digital_cardLink:nth-child(4){
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(4), .digital_cardList:hover li.digital_cardLink:nth-child(4){
   top: -230px;
 }
-.currentCard-button:hover ~ .digital_cardList li.digital_cardLink:nth-child(5), .digital_cardList:hover li.digital_cardLink:nth-child(5){
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(5), .digital_cardList:hover li.digital_cardLink:nth-child(5){
   top: -290px;
 }
-.currentCard-button:hover ~ .digital_cardList li.digital_cardLink:nth-child(6), .digital_cardList:hover li.digital_cardLink:nth-child(6){
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(6), .digital_cardList:hover li.digital_cardLink:nth-child(6){
   top: -360px;
 }
 .lockScreen svg{
   width: 42px;
-   height: 42px;
-   padding: 3px;
-   margin-left: 2px;
-   margin-top: 2px;
-   border: 1px solid #aaa;
-   border-radius: 50%;
-   background-color: transparent;
+  height: 42px;
+  padding: 3px;
+  margin-left: 2px;
+  margin-top: 2px;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  background-color: transparent;
 }
 .lockScreen{
-position: absolute;
-width: 50px;
- height: 50px;
-   top: 30px;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 30px;
   background: radial-gradient(ellipse at center, rgba(76,76,76,0.75) 0%,rgba(89,89,89,0.75) 27%,rgba(102,102,102,0.75) 48%,rgba(71,71,71,0.75) 75%,rgba(19,19,19,0.75) 100%);
   border: 2px solid #999;
   border-radius: 50%;
@@ -393,6 +393,53 @@ width: 50px;
 .lockScreen:hover{
   background: radial-gradient(ellipse at center, rgba(126,126,126,0.75) 0%,rgba(139,139,139,0.75) 27%,rgba(152,152,152,0.75) 48%,rgba(121,121,121,0.75) 75%,rgba(50,50,50,0.75) 100%);
 }
-
+.username{
+  top: 50px;
+  left: 140px;
+  width: 215px;
+  text-align: center;
+}
+.stationName{
+  top:69px;
+  left: 140px;
+  width: 215px;
+  text-align: center;
+}
+.profilePicture{
+  top:24px;
+  left: 31px;
+  width: 100px;
+  height: 100px;
+  img {
+    width: 100px;
+    border-radius: 100%
+  }
+}
+.alertColor{
+  right: 42px;
+  top: 90px;
+  width: 100px;
+  height: 14px;
+  opacity: 0.3;
+  border-radius: 0px 0px 0px 10px;
+}
+.alertNum{
+  font-size: 72px;
+  right: 50px;
+  text-align: center;
+  width: 64px;
+}
+.alertColor.alertColor4, .alertColor.alertColor5{
+  background-color: rgb(0,255,0);
+}
+.alertColor.alertColor3{
+  background-color: rgb(255,255,0);
+}
+.alertColor.alertColor2{
+  background-color: rgb(255,128,0);
+}
+.alertColor.alertColor1{
+  background-color: rgb(255,0,0);
+}
 
 }
