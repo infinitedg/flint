@@ -5,7 +5,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-  api.use(['templating','msavin:mongol']);
+  api.use(['templating']);
   
   api.add_files(['debugging.html', 'debugging.js'], 'client');
 });

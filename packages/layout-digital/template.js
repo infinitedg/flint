@@ -14,8 +14,8 @@ Template.digital_cardList.helpers({
 		return x;
 	},
 	currentCardImage: function(){
-		var cardId = Flint.card().cardId.replace(/_/g,'-');
-		return '/packages/' + cardId + "/icon.png";
+		var cardId = Flint.card().cardId;
+		return Flint.a('/Card Icons/' + cardId.slice(5,cardId.length));
 	},
 	locked: function(){
 		if (!Flint.client('name') || Flint.client('locked')){
@@ -44,6 +44,11 @@ Template.layout_digital.helpers({
 			return Flint.simulator('alertCondition');
 		}
 	},
+	loggedIn: function(){
+		if (!Flint.client().name){
+			return 'loggedOut';
+		}
+	}
 })
 
 Template.digital_nameBox.helpers({
@@ -70,6 +75,7 @@ Template.digital_nameBox.helpers({
 
 	},
 	profilePictureSrc: function(){
+		//This is a stub till we get actual user profiles in place.
 		return "https://infinitedev-flint.s3.amazonaws.com/flintassets/xfNRX3Kb9Cp4pYi4t-flintassets-zckr6cCsbfzF5YFeH-flintassets-E2k4ewQA7RPJGhnGh-Vanguard.png";
 	}
 })
