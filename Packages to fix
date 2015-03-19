@@ -1,0 +1,15 @@
+# Packages to fix: 
+
+actor-sensors
+card-thrust (actor engine-thrust)
+
+x flint-drama -- Replaced by workqueue system
+
+card-engine-control (engine-heat actor)
+card-sensor3d (sensor-pulse actor?)
+flint-server-monitor
+flint-tween
+flint-heartbeat
+flint-macro-engine
+flint-audio-engine
+macro-sounds
