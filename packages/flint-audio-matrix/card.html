@@ -13,7 +13,7 @@
 					<tr>
 						<td class="outputLabel">{{name}}</td>
 						{{#each input}}
-						<td data-busId={{../_id}} class="intersection {{intersectActive ..}}"></td>
+						<td id={{uuid}} data-busId={{../_id}} class="intersection {{intersectActive ..}}" tabindex="0" role="button" data-container="body" data-toggle="popover" data-trigger="manual" data-html="true" data-placement="right" data-content="<div>Volume: <input id='volume' type='range' min='1' max='4' step='.01' value={{volume}}/></div><div>Mute: <input type='checkbox'>"></td>
 						{{/each}}
 					</tr>
 					{{/each}}

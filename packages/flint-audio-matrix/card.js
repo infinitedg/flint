@@ -26,10 +26,13 @@ Template.card_audio_matrix.helpers({
 				return 'selected';
 			}
 		}
+	},
+	uuid:function(){
+		return Random.id();
 	}
 })
 Template.card_audio_matrix.events({
-	"click .intersection":function(e,t){
+	"dblclick .intersection":function(e,t){
 		var busId = e.target.dataset.busid;
 		var intersection = Flint.collection('AudioMatrixSend').findOne({
 			mixId:this._id,
@@ -42,5 +45,10 @@ Template.card_audio_matrix.events({
 			mute = 0;
 		}
 		Flint.collection('AudioMatrixSend').update({_id:intersection._id}, {$set: {mute:mute}});
+	},
+	"click .intersection":function(e,t){
+		var id = e.target.id;
+		$('.intersection').popover('hide');
+		$('#' + id).popover('show');
 	}
 })
