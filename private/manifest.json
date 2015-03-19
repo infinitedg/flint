@@ -11,7 +11,9 @@
     "tacSymbols",
     "viewscreenInputs",
     "phasers",
-    "crew"
+    "crew",
+    "hallways",
+    "inventoryItems"
   ],
   "simulators": [
     "odyssey",
