@@ -6,6 +6,6 @@ Package.describe({
 Package.on_use(function(api) {
   api.use(['flint', 'http', 'less', 'templating', 'underscore', 'flint-heartbeat', 'flint-server-monitor']);
 
-  api.add_files(['fixtures.js'], 'server');
-  api.add_files(['card.html', 'card.js'], 'client');
+  api.add_files(['fixtures.js', 'publish.js'], 'server');
+  api.add_files(['card.html', 'card.js', 'card.less'], 'client');
 });

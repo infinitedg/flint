@@ -1,0 +1,54 @@
+.audio-matrix{
+  td a:hover{
+    text-decoration: none;
+  }
+  td a:focus{
+    outline: 0;
+    color: transparent;
+  }
+  table{
+    position: absolute;
+    left:10px;
+  }
+  .inputLabel, .outputLabel{
+    border: 1px solid #000;
+    background-color: transparent;
+    color: #000;
+  }
+  .inputLabel{
+    -webkit-transform: rotate(90deg);
+    border-top:none;
+    line-height: 14px;
+    text-align: left;
+    height: 80px;
+  }
+  td{
+    margin: 2px !important;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    background-color: #444;
+    border: solid 2px #222;
+  }
+  td a{
+    color: #111111;
+  }
+  td:hover{
+    background-color: #333333;
+  }
+  td:hover a{
+    color: #333333;
+  }
+  td.selected{
+    background-color: #0088ff;
+  }
+  td.selected a{
+    color: #0088ff;
+  }
+  td.selected:hover{
+    background-color: #0044aa;
+  }
+  td.selected:hover a{
+    color: #0044aa;
+  }
+}
