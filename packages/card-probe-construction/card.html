@@ -1,0 +1,71 @@
+<template name="card_probeConstruction">
+	<div class="container probe-construction">
+		<div class="row probeRow">
+			<div class="col-sm-5 normalProbes">
+				{{#each normalProbes}}
+				<div class="col-sm-{{probeWidth}} probeTemplate">
+					<p>{{name}}: {{size}}</p>
+					<img src={{imgSrc}} />
+				</div>
+				{{/each}}
+			</div>
+			<div class="col-sm-4 col-sm-offset-3 specialProbes">
+				{{#each specialProbes}}
+				<div class="col-sm-{{probeWidth}} probeTemplate">
+					<p>{{name}}: {{size}}</p>
+					<img src={{imgSrc}} />
+				</div>
+				{{/each}}
+			</div>
+		</div>
+
+		<div class="row">
+			{{#if currentProbe}}
+			{{#if launchingProbe}}
+			<div class="col-sm-4 col-sm-offset-4 well">
+				<button type="button" class="launchProbe btn btn-success btn-block">Launch Probe</button>
+				<button type="button" class="reconfig btn btn-info btn-block">Reconfigure Probe</button>
+				<button type="button" class="cancelProbe btn btn-danger btn-block">Cancel Probe</button>
+			</div>
+			{{else}}
+			<div class="col-sm-4 well equipmentList">
+				{{#each probeEquipment}}
+				<p class="probeEquipment">{{size}} {{name}}</p>
+				{{/each}}
+			</div>
+			<div class="col-sm-4 probeInfo">
+				{{#with currentProbe }}
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-6">
+						<p>Total Space: {{size}}</p>
+						<p>Space Used: {{used}}</p>
+						<p>Space Left: {{left}}</p>
+					</div>
+				</div>
+				{{/with}}
+				<div class="row">
+					{{equipmentDescription}}
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<button type="button" class="btn btn-block cancelProbe">Cancel Probe</button>
+					</div>
+					<div class="col-sm-6">
+						<button type="button" class="btn btn-block finishProbe">Done</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4 loadedEquipment">
+				{{#each loadedEquipment}}
+				<p class="loadedEquipment">{{size}} {{name}}</p>
+				{{/each}}
+			</div>
+			{{/if}}
+			{{else}}
+			<div class="col-sm-6 col-sm-offset-3">
+				{{probeDescription}}
+			</div>
+			{{/if}}
+		</div>
+	</div>
+</template>
