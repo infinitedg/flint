@@ -36,7 +36,7 @@ cfs:gridfs
 bootstrap-slider
 ccorcos:transitioner
 ficshelf:media-query
-msavin:mongol
+#msavin:mongol
 
 ui-dropped-event
 
@@ -85,7 +85,6 @@ card-comm-shortrange
 card-core
 card-core-station-utility
 card-course-calculation
-card-decoding
 card-engine-control
 card-flint-library
 card-flint-stations
@@ -129,3 +128,5 @@ card-roster
 card-weapons
 card-weapons-torpedos
 card-video-manager
+card-probe-construction
+card-quartermaster

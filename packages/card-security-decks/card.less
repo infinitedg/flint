@@ -1,0 +1,30 @@
+.decks{
+	position: relative;
+	.deck{
+		width: 100%;
+		background-size: contain;
+		position: absolute;
+		-webkit-transition: -webkit-transform 0.5s ease, opacity 0.6s ease;
+		-webkit-transform-origin: bottom center;
+		-webkit-transform: perspective(300px) rotateX(110deg);
+		opacity: 0;
+		-webkit-perspective: 200px;
+	}
+	.deck.up{
+		-webkit-transform: rotateX(0deg) perspective(3000);
+		opacity: 1;
+	}
+	.deck.down{
+		-webkit-transform: rotateX(-110deg) perspective(3000);
+		opacity: 0;
+	}
+	.deck path, .deck rect{
+		stroke: rgb(128,128,255);
+		fill: rgba(30,30,45,0.75);
+	}
+	.deck path:hover, .deck rect:hover{
+		stroke: rgb(255,128,0);
+		fill: rgb(15,15,45);
+	}
+}
+
