@@ -96,6 +96,7 @@ fastclick@1.0.2
 flint@0.1.0
 flint-assets@0.1.0
 flint-audio-engine@0.1.0
+flint-audio-matrix@0.1.0
 flint-debug@0.1.0
 flint-drama@0.1.0
 flint-files@0.1.0
