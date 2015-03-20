@@ -32,7 +32,7 @@ Meteor.startup(function(){
   if (Flint.collection('AudioMatrix').find().count() <= 0){
     Flint.collection('AudioMatrix').insert({
       _id:"voyager-audio-core",
-      url:"http://voyager-audio-core.local/",
+      url:"http://voyager-audio-core.local",
       name:"Voyager Audio Core"
     })
   }

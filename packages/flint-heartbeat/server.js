@@ -49,7 +49,7 @@ Meteor.startup(function() {
     // Cleanup orphaned clients where appropriate
     Meteor.setInterval(function() {
         // Increment client counters
-        Flint.collection('flintClients').update({$inc: {heartbeatCounter: 1}}, {multi: true});
+        Flint.collection('flintClients').update({}, {$inc: {heartbeatCounter: 1}}, {multi: true});
         // If they pass the heartbeat timeout, remove the client
         var serverCount = Flint.collection('flintServers').find().count();
         Flint.collection('flintClients').remove({heartbeatCounter: {$gt: serverCount * heartbeatTimeout}});

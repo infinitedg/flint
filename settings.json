@@ -13,5 +13,8 @@
 		"assets": {
 			"s3base": "https://infinitedev-flint.s3.amazonaws.com/"
 		}
+	},
+	"audioMatrix": {
+		"debug": false
 	}
 }
