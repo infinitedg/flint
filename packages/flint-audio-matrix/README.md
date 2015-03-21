@@ -31,7 +31,7 @@ Four collections
 		* attack [10-500] in milliseconds
 	* comp
 		* enable [bool]
-		* release [10-20^00] in milliseconds
+		* release [10-2000] in milliseconds
 		* threshold [-40-0] in dB
 		* ratio [1-10]
 		* attack [10-100] in ms

@@ -5,7 +5,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {
-  api.use(['flint', 'http', 'less', 'templating', 'underscore', 'infinitedev:dnscache', 'thepumpinglemma:flat', 'liyu:sprintfjs']);
+  api.use(['flint', 'http', 'less', 'templating', 'underscore', 'infinitedev:dnscache', 'thepumpinglemma:flat', 'liyu:sprintfjs', 'infinitedg:gsap']);
 
   api.add_files(['fixtures.js', 'publish.js'], 'server');
   api.add_files(['card.html', 'card.js', 'card.less'], 'client');
