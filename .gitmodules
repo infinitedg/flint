@@ -1,3 +1,0 @@
-[submodule "packages/flint-job-collection"]
-	path = packages/flint-job-collection
-	url = git@github.com:vsivsi/meteor-job-collection.git

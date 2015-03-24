@@ -8,7 +8,7 @@ var animationLoop = function() {
 	Meteor.setTimeout(function() {
 		TWEEN.update();
 		animationLoop();
-	}, 1000 / 30); // Set the frame rate for animations
+	}, 1000 / ((Meteor.settings.animation && Meteor.settings.animation.frameRate) || 30)); // Set the frame rate for animations, default to 30
 };
 
 // Kick off our animation loop
@@ -39,7 +39,7 @@ Flint.Jobs.collection('animationQueue').find({}).observe({
 	}
 });
 
-Flint.animate(collectionName, objectId, endParams, startParams) {
+Flint.animate = function(collectionName, objectId, endParams, startParams) {
 	// Get the target document
 	var doc = Flint.collection(collectionName).findOne(objectId);
 
