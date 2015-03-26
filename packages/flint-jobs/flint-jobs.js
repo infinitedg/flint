@@ -6,6 +6,7 @@ Flint.Jobs = {
 	* Create or return cached copy of the corresponding job collection
 	*/
 	collection: function(collectionName, options) {
+		collectionName = collectionName.toLowerCase();
 		if (!_jobCollections[collectionName]) {
 			options = options || {};
 			_jobCollections[collectionName] = new JobCollection(collectionName, options);
@@ -22,6 +23,7 @@ Flint.Jobs = {
 		return _jobCollections[collectionName];
 	},
 	processJobs: function(collectionName, jobType, options, worker) {
+		collectionName = collectionName.toLowerCase();
 		options = options || {};
 		Flint.Jobs.collection(collectionName); // Ensure the collection has been prepared
 		return Job.processJobs(collectionName, jobType, options, worker);
