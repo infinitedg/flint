@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-  api.use(['flint']);
+  api.use(['flint', 'templating']);
   
   api.add_files(['engine.js'], 'server');
   api.add_files(['component.html', 'component.js'], 'client');

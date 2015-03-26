@@ -6,6 +6,7 @@ var a = Flint.actor({
 	period: 33,
 	action: function(ticks) {
 		TWEEN.update();
+		console.log(TWEEN);
 	},
 	onStart: function() {
 		// Flint.Log.info("Starting sensors actor", "actor-sensors");
@@ -29,20 +30,20 @@ var updateTweener = function(doc) {
 	var dist = Math.sqrt(Math.pow(doc.x - doc.dstX, 2) + Math.pow(doc.y - doc.dstY, 2) + Math.pow(doc.z - doc.dstZ, 2)),
 	velocity = doc.velocity || defaultVelocity;
 	var t = new TWEEN.Tween({x: doc.x, y: doc.y, z: doc.z})
-		.to({x: doc.dstX, y: doc.dstY, z: doc.dstZ }, Math.round(1000 * dist / velocity))
-		.easing(TWEEN.Easing.Linear.None)
-		.onUpdate( function() {
-			var d = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
-			if (d > 1.2) {
-				Flint.collection('sensorContacts').remove(doc._id);
-			} else {
-				Flint.collection('sensorContacts').update(doc._id, { $set: {x: this.x, y: this.y, z: this.z}});
-			}
-		})
-		.onComplete(function() {
-			Flint.collection('sensorContacts').update(doc._id, {$set: {isMoving: false}});
-		})
-		.start();
+	.to({x: doc.dstX, y: doc.dstY, z: doc.dstZ }, Math.round(1000 * dist / velocity))
+	.easing(TWEEN.Easing.Linear.None)
+	.onUpdate( function() {
+		var d = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
+		if (d > 1.2) {
+			Flint.collection('sensorContacts').remove(doc._id);
+		} else {
+			Flint.collection('sensorContacts').update(doc._id, { $set: {x: this.x, y: this.y, z: this.z}});
+		}
+	})
+	.onComplete(function() {
+		Flint.collection('sensorContacts').update(doc._id, {$set: {isMoving: false}});
+	})
+	.start();
 	tweenBank[doc._id] = t;
 };
 
@@ -55,14 +56,14 @@ var fadeContacts = function(doc){
 	}
 	var d = Math.sqrt(Math.pow(doc.x, 2) + Math.pow(doc.y, 2) + Math.pow(doc.z, 2));
 	var t = new TWEEN.Tween({opacity: 0.6 + Math.sqrt(d)*0.9})
-		.to({opacity: 0}, 7000)
-		.easing(TWEEN.Easing.Linear.None)
-		.onUpdate(function(){
-			if (this.opacity < 1){
-				Flint.collection('sensorContacts').update(doc._id, {$set: {opacity: this.opacity}});
-			}
-		})
-		.start();
+	.to({opacity: 0}, 7000)
+	.easing(TWEEN.Easing.Linear.None)
+	.onUpdate(function(){
+		if (this.opacity < 1){
+			Flint.collection('sensorContacts').update(doc._id, {$set: {opacity: this.opacity}});
+		}
+	})
+	.start();
 	tweenBank[doc._id + "o"] = t;
 
 };
