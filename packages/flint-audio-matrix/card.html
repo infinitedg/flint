@@ -23,7 +23,8 @@
 			</div>
 			<div class="col-sm-2 controls-sidebar">
 				{{#if equalizer}}
-				{{#with equalizer.eq}}
+				{{#with equalizer}}
+				{{#with eq}}
 				<div class="high">
 					<small>High</small>
 					<div class="row">
@@ -32,13 +33,13 @@
 							{{> enable_btn  fx="highshelf" data=this}}
 						</div>
 						<div class="col-sm-6">
-							{{> rotary_dial value=bw fx="highshelf" param="bw" min=.01 max=3}}
+							{{> rotary_dial value=bw fx="highshelf" id=../../_id param="bw" min=.01 max=3}}
 						</div>
 						<div class="col-sm-6">
-							{{> rotary_dial value=freq fx="highshelf" param="freq" min=20 max=2000}}
+							{{> rotary_dial value=freq fx="highshelf" id=../../_id param="freq" min=20 max=2000}}
 						</div>
 						<div class="col-sm-6">
-							{{> rotary_dial value=gain fx="highshelf" param="gain" min=-20 max=20}}
+							{{> rotary_dial value=gain fx="highshelf" id=../../_id param="gain" min=-20 max=20}}
 						</div>
 						<!--<div class="col-sm-12">
 							{{> enable_btn  fx="highshelf" data=this}}
@@ -54,13 +55,13 @@
 							{{> enable_btn  fx="mid1" data=this}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=bw fx="mid1" param="bw" min=.01 max=3}}
+							{{> rotary_dial value=bw fx="mid1" id=../../_id param="bw" min=.01 max=3}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=freq fx="mid1" param="freq" min=20 max=2000}}
+							{{> rotary_dial value=freq fx="mid1" id=../../_id param="freq" min=20 max=2000}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=gain fx="mid1" param="gain" min=-20 max=20}}
+							{{> rotary_dial value=gain fx="mid1" id=../../_id param="gain" min=-20 max=20}}
 						</div>
 						{{/with}}
 					</div>
@@ -73,13 +74,13 @@
 							{{> enable_btn  fx="mid2" data=this}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=bw fx="mid2" param="bw" min=.01 max=3}}
+							{{> rotary_dial value=bw fx="mid2" id=../../_id param="bw" min=.01 max=3}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=freq fx="mid2" param="freq" min=20 max=2000}}
+							{{> rotary_dial value=freq fx="mid2" id=../../_id param="freq" min=20 max=2000}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=gain fx="mid2" param="gain" min=-20 max=20}}
+							{{> rotary_dial value=gain fx="mid2" id=../../_id param="gain" min=-20 max=20}}
 						</div>
 						{{/with}}
 					</div>
@@ -92,13 +93,13 @@
 							{{> enable_btn  fx="lowshelf" data=this}}
 						</div>
 						<div class="col-sm-6">
-							{{> rotary_dial value=bw fx="lowshelf" param="bw" min=.01 max=3}}
+							{{> rotary_dial value=bw fx="lowshelf" id=../../_id param="bw" min=.01 max=3}}
 						</div>
 						<div class="col-sm-6">
-							{{> rotary_dial value=freq fx="lowshelf" param="freq" min=20 max=2000}}
+							{{> rotary_dial value=freq fx="lowshelf" id=../../_id param="freq" min=20 max=2000}}
 						</div>
 						<div class="col-sm-6">
-							{{> rotary_dial value=gain fx="lowshelf" param="gain" min=-20 max=20}}
+							{{> rotary_dial value=gain fx="lowshelf" id=../../_id param="gain" min=-20 max=20}}
 						</div>
 						<div class="col-sm-12">
 							{{> enable_btn  fx="hpf" data=this}}
@@ -106,6 +107,7 @@
 						{{/with}}
 					</div>
 				</div>
+				{{/with}}
 				{{/with}}
 				{{/if}}
 				{{#if selectedInput}}
@@ -118,13 +120,13 @@
 							{{> enable_btn  fx="gate" data=this}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=release fx="gate" param="release" min=50 max=2000}}
+							{{> rotary_dial value=release fx="gate" id=../_id param="release" min=50 max=2000}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=threshold fx="gate" param="threshold" min=0 max=1}}
+							{{> rotary_dial value=threshold fx="gate" id=../_id param="threshold" min=0 max=1}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=attack fx="gate" param="attack" min=10 max=500}}
+							{{> rotary_dial value=attack fx="gate" id=../_id param="attack" min=10 max=500}}
 						</div>
 						{{/with}}
 					</div>
@@ -137,19 +139,19 @@
 							{{> enable_btn  fx="comp" data=this}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=release fx="comp" param="release" min=10 max=2000}}
+							{{> rotary_dial value=release fx="comp" id=../_id param="release" min=10 max=2000}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=threshold fx="comp" param="threshold" min=-40 max=0}}
+							{{> rotary_dial value=threshold fx="comp" id=../_id param="threshold" min=-40 max=0}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=ratio fx="comp" param="ratio" min=1 max=10}}
+							{{> rotary_dial value=ratio fx="comp" id=../_id param="ratio" min=1 max=10}}
 						</div>
 						<div class="col-sm-4 col-sm-offset-2">
-							{{> rotary_dial value=attack fx="comp" param="attack" min=10 max=100}}
+							{{> rotary_dial value=attack fx="comp" id=../_id param="attack" min=10 max=100}}
 						</div>
 						<div class="col-sm-4">
-							{{> rotary_dial value=trim fx="comp" param="trim" min=-20 max=20}}
+							{{> rotary_dial value=trim fx="comp" id=../_id param="trim" min=-20 max=20}}
 						</div>
 						{{/with}}
 					</div>
@@ -162,7 +164,7 @@
 							{{> enable_btn  fx="hpf" data=this}}
 						</div>
 						<div class="col-sm-4 col-sm-offset-4">
-							{{> rotary_dial value=freq fx="hpf" param="freq" min=20 max=20000}}
+							{{> rotary_dial value=freq fx="hpf" id=../_id param="freq" min=20 max=20000}}
 						</div>
 						{{/with}}
 					</div>

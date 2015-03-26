@@ -32,14 +32,14 @@ Template.card_audio_matrix.helpers({
 		return Random.id();
 	},
 	selectedInput:function(){
-		var input = Session.get('audiomatrix_selectedInput');
+		var input = Flint.collection('audioMatrixMix').findOne({_id:Session.get('audiomatrix_selectedInput')});
 		return input;
 	},
 	equalizer:function(){
 		if (Session.get('audiomatrix_selectedInput'))
-			var output = Session.get('audiomatrix_selectedInput');
+			var output = Flint.collection('audioMatrixMix').findOne({_id:Session.get('audiomatrix_selectedInput')});
 		else
-			var output = Session.get('audiomatrix_selectedOutput');
+			var output = Flint.collection('audioMatrixBus').findOne({_id:Session.get('audiomatrix_selectedOutput')});
 		return output;
 	},
 	rotation: function(){
@@ -67,11 +67,11 @@ Template.card_audio_matrix.events({
 		$('#' + id).popover('show');
 	},
 	'click .inputLabel':function(){
-		Session.set('audiomatrix_selectedInput',this);
+		Session.set('audiomatrix_selectedInput',this._id);
 		Session.set('audiomatrix_selectedOutput',null)
 	},
 	'click .outputLabel':function(){
-		Session.set('audiomatrix_selectedOutput',this)
+		Session.set('audiomatrix_selectedOutput',this._id)
 		Session.set('audiomatrix_selectedInput',null);
 	}
 
@@ -107,16 +107,34 @@ Template.rotary_dial.rendered = function(){
 			minRotation:-140, 
 			maxRotation:140
 		},
-		onDrag:function(){
-			Session.set('dragLoc',valueConvert(this.rotation,self.data.min,self.data.max));
-		}
+		onDragEnd:function(){
+			var param = self.data.param;
+			var input = Flint.collection('audioMatrixMix').findOne({_id:self.data.id});
+			var obj = {};
+			if (self.data.fx == 'highshelf' || self.data.fx == 'lowshelf' || self.data.fx == 'mid1' || self.data.fx == 'mid2'){
+				var eq = input.eq;
+				var fx = eq[self.data.fx];
+				fx[param] = valueConvert(this.rotation,self.data.min,self.data.max);
+				eq[self.data.fx] = fx;
+				obj.eq = eq;
+			} else {
+				fx = input[self.data.fx]
+				fx[param] = valueConvert(this.rotation,self.data.min,self.data.max);
+				obj[self.data.fx] = fx;
+			}
+			Flint.collection('audioMatrixMix').update({_id:self.data.id},{$set:obj});
+		},
 	});
 	TweenMax.set("#" + this.data.fx + "_" + this.data.param,{rotation:rangeConvert(self.data.value,self.data.min,self.data.max)});
 	Draggable.get("#" + this.data.fx + "_" + this.data.param).update();
 }
+Template.rotary_dial.helpers({
+	value:function(){
+		return Math.round(this.value*100)/100;
+	}
+})
 Template.enable_btn.helpers({
 	active:function(){
-		debugger;
 		if (this.data.enable == 1){
 			return 'active';
 		}
@@ -124,28 +142,57 @@ Template.enable_btn.helpers({
 })
 Template.enable_btn.events({
 	'click .btn':function(e){
-		debugger;
 		if (Session.get('audiomatrix_selectedInput')){
-			var output = Session.get('audiomatrix_selectedInput');
+			var output = Flint.collection('audioMatrixMix').findOne({_id:Session.get('audiomatrix_selectedInput')});
 			if (output){
-				var updateKey = this.fx;
-				var update = output[this.fx];
-				if(update.enable == "1")
-					update.enable = "0";
-				else
-					update.enable = "1";
-				Flint.collection('audiomatrixmix').update({_id:output._id},{$set:{updateKey:update}});
+
+				if (this.fx == 'highshelf' || this.fx == 'lowshelf' || this.fx == 'mid1' || this.fx == 'mid2'){
+					var eq = output.eq;
+					var updateKey = this.fx
+					var update = eq[this.fx];
+					if(update.enable == "1")
+						update.enable = "0";
+					else
+						update.enable = "1";
+					eq[this.fx] = update;
+					Flint.collection('audiomatrixmix').update({_id:output._id},{$set:{eq:eq}});
+				} else {
+					var updateKey = this.fx
+					var update = output[this.fx];
+					if(update.enable == "1")
+						update.enable = "0";
+					else
+						update.enable = "1";
+					var obj = {};
+					obj[updateKey] = update;
+					Flint.collection('audiomatrixmix').update({_id:output._id},{$set:obj});
+				}
 			}
 		} else {
-			var output = Session.get('audiomatrix_selectedOutput');
+			var output = Flint.collection('audioMatrixBus').findOne({_id:Session.get('audiomatrix_selectedOutput')});
 			if (output){
-				var updateKey = this.fx;
-				var update = output[this.fx] || {};
-				if(update.enable == "1")
-					update.enable = "0";
-				else
-					update.enable = "1";
-				Flint.collection('audiomatrixbus').update({_id:output._id},{$set:{updateKey:update}});
+
+				if (this.fx == 'highshelf' || this.fx == 'lowshelf' || this.fx == 'mid1' || this.fx == 'mid2'){
+					var eq = output.eq;
+					var updateKey = this.fx
+					var update = eq[this.fx];
+					if(update.enable == "1")
+						update.enable = "0";
+					else
+						update.enable = "1";
+					eq[this.fx] = update;
+					Flint.collection('audiomatrixbus').update({_id:output._id},{$set:{eq:eq}});
+				} else {
+					var updateKey = this.fx
+					var update = output[this.fx];
+					if(update.enable == "1")
+						update.enable = "0";
+					else
+						update.enable = "1";
+					var obj = {};
+					obj[updateKey] = update;
+					Flint.collection('audiomatrixbus').update({_id:output._id},{$set:obj});
+				}
 			}
 		}
 	}
