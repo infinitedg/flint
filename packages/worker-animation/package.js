@@ -10,7 +10,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.1');
-  api.use(['flint', 'flint-jobs', 'infinitedg:tween', 'underscore', 'vsivsi:job-collection']);
+  api.use(['flint', 'flint-jobs', 'infinitedg:gsap', 'underscore', 'vsivsi:job-collection']);
 
   api.addFiles('api.js', ['client', 'server']);
   api.addFiles('worker-animation.js', ['server']);

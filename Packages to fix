@@ -1,14 +1,15 @@
-# Packages to fix: 
-
-actor-sensors
-card-thrust (actor engine-thrust)
-
+# Packages fixed:
+x flint-tween -- Basic implementation in place, seems to work well
 x flint-drama -- Replaced by workqueue system
+x flint-server-monitor -- Replaced by workqueue system
 
+# Packages to fix: 
+actor-sensors -- Needs Testing
+
+card-thrust (actor engine-thrust)
 card-engine-control (engine-heat actor)
 card-sensor3d (sensor-pulse actor?)
-flint-server-monitor
-flint-tween
+
 flint-heartbeat
 flint-macro-engine
 flint-audio-engine
