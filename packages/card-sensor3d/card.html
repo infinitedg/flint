@@ -1,19 +1,21 @@
 <template name="card_sensor3d">
-		<div class="sensorLabel">
-			<img id='contactImage' src='#' alt="contactImage" /><p>Contact</p>
-		</div>
-	<div class="row">
-		<div class="col-xs-3">
-			{{> card_scanner}}
-		</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3">
+				{{> card_scanner}}
+			</div>
 
-		<div class="col-xs-6" id="sensor_grid">
-			<div class="sensor_box {{infaredSensors "class"}}"></div>
-		</div>
-		<div class="col-xs-3">
-			<h4>Sensor Options</h4>
-			<button class="btn btn-warning" id="infared">{{infaredSensors "button"}} Infared</button>
-			{{> sonarControl}}
+			<div class="col-xs-6" id="sensor_grid">
+				<div class="sensor_box {{infaredSensors "class"}}"></div>
+			</div>
+			<div class="col-xs-3">
+				<h4>Sensor Options</h4>
+				<button class="btn btn-warning" id="infared">{{infaredSensors "button"}} Infared</button>
+				{{> sonarControl}}
+			</div>
+			<div class="sensorLabel">
+				<img id='contactImage' src='#' alt="contactImage" /><p>Contact</p>
+			</div>
 		</div>
 	</div>
 </template>

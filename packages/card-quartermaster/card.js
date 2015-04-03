@@ -12,6 +12,7 @@ Template.card_quartermaster.created = function(){
 		Meteor.subscribe('simulator.hallways', Flint.simulatorId());
 		Meteor.subscribe('simulator.inventoryItems', Flint.simulatorId());
 	});
+	Session.setDefault("hovered_room",{});
 };
 Template.card_quartermaster.events({
 	'slide #suppliesLeftSlide': function (e) {
@@ -22,17 +23,22 @@ Template.card_quartermaster.events({
 	},
 	'mousemove path':function(e){
 		var room = Flint.collection('rooms').findOne({_id:e.target.parentElement.dataset.id});
+		var position = {x:e.clientX,y:e.clientY};
 		if (room)
-			Session.set('hovered_room',room.name);
+			Session.set('hovered_room',{name:room.name,position:position});
 		else
-			Session.set('hovered_room',null);	
+			Session.set('hovered_room',{});	
+	},
+	'mouseleave path':function(e){
+		Session.set('hovered_room',{});	
 	},
 	'mousemove rect':function(e){
 		var room = Flint.collection('rooms').findOne({_id:e.target.parentElement.dataset.id});
+		var position = {x:e.clientX,y:e.clientY};
 		if (room)
-			Session.set('hovered_room',room.name);
+			Session.set('hovered_room',{name:room.name,position:position});
 		else
-			Session.set('hovered_room',null);	
+			Session.set('hovered_room',{});	
 	},
 	'click path':function(e){
 		var room = Flint.collection('rooms').findOne({_id:e.target.parentElement.dataset.id});
@@ -86,17 +92,22 @@ Template.card_quartermaster.helpers({
 			output += "inventory "
 		return output;
 	},
+	roomName: function(){
+		return Session.get("hovered_room").name;
+	},
+	roomStyle: function(){
+		if (Session.get("hovered_room").position)
+			return "top:" + (Session.get("hovered_room").position.y - 100) + "px; left:" + (Session.get("hovered_room").position.x - 100) + "px;";
+	},
+
 	/*currentDeck: function(){
 		return Session.get("securityDecks_currentDeck");
 	},
 	deckCount: function(){
 		return Flint.collection('decks').find().count();
 	},*/
-	hoveredRoom: function(){
-		return Session.get('hovered_room')
-	},
 	leftInventory: function(){
-		return Flint.collection('inventoryItems').find({room:Session.get('selectedRoom')});
+		return Flint.collection('inventoryItems').find({room:Session.get('selectedRoom')}).fetch();
 	}
 
 });

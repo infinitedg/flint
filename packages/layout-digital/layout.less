@@ -114,7 +114,7 @@ body {
     background-image: url(/themes/digital/frame/left-doodad.png);
   }
   .leftBottom-bracket-start{
-        transition-delay: .1s;
+    transition-delay: .1s;
     width: 8.177%;
     height: 9.814%;
     left: 0px;
@@ -122,7 +122,7 @@ body {
     background-image: url(/themes/digital/frame/leftBottom-bracket-start.png);
   }
   .leftBottom-bracket-x{
-        transition-delay: .1s;
+    transition-delay: .1s;
     width: 7.187%;
     height: 3.518%;
     left: 0px;
@@ -130,7 +130,7 @@ body {
     background-image: url(/themes/digital/frame/leftBottom-bracket-x.png);
   }
   .rightTop-bracket-end{
-        transition-delay: .3s;
+    transition-delay: .3s;
     width: 3.229%;
     height: 3.425%;
     right: 0px;
@@ -138,7 +138,7 @@ body {
     background-image: url(/themes/digital/frame/rightTop-bracket-end.png);
   }
   .rightTop-bracket-x{
-        transition-delay: .3s;
+    transition-delay: .3s;
     width: 2.708%;
     height: 3.055%;
     right: 0px;
@@ -146,7 +146,7 @@ body {
     background-image: url(/themes/digital/frame/rightTop-bracket-x.png);
   }
   .topRight-bracket-mid{
-        transition-delay: .3s;
+    transition-delay: .3s;
     width: 17.395%;
     height: 15.277%;
     top: 0;
@@ -154,7 +154,7 @@ body {
     background-image: url(/themes/digital/frame/topRight-bracket-mid.png);
   }
   .topRight-bracket-start{
-        transition-delay: .3s;
+    transition-delay: .3s;
     width: 1.406%;
     height: 32px;
     top: 0px;
@@ -162,7 +162,7 @@ body {
     background-image: url(/themes/digital/frame/topRight-bracket-start.png);
   }
   .topRight-bracket-x{
-        transition-delay: .3s;
+    transition-delay: .3s;
     width: 1.354%;
     height: 3.703%;
     top: 0px;
@@ -170,7 +170,7 @@ body {
     background-image: url(/themes/digital/frame/topRight-bracket-x.png);
   }
   .topLeft-bracket-end{
-        transition-delay: .15s;
+    transition-delay: .15s;
     width: 1.458%;
     height: 2.870%;
     top: 0px;
@@ -178,7 +178,7 @@ body {
     background-image: url(/themes/digital/frame/topLeft-bracket-end.png);
   }
   .topLeft-bracket-x{
-        transition-delay: .15s;
+    transition-delay: .15s;
     width: 1.041%;
     height: 7.407%;
     top: 0px;
@@ -186,7 +186,7 @@ body {
     background-image: url(/themes/digital/frame/topLeft-bracket-x.png);
   }
   .topLeft-bracket-start{
-        transition-delay: .15s;
+    transition-delay: .15s;
     width: 25.885%;
     height: 7.407%;
     top: 0px;
@@ -308,6 +308,7 @@ body {
   background-image: url(/themes/digital/frame/button1.png);
   background-repeat: no-repeat, repeat-x;
   background-position: 0px, 32px;
+  transition: -webkit-filter 0.25s ease-in-out;
 }
 .button:before,.button:after, .btn:before, .btn:after{
   position: absolute;
@@ -327,6 +328,111 @@ body {
  bottom: 0;
  content: url(/themes/digital/frame/button3.png);
 }
+.button a{
+  color: #fff;
+  text-decoration: none;
+}
+.button:hover, .btn:hover{
+  -webkit-filter:drop-shadow(0px 0px 5px rgba(255,255,255,0.5));
+  background-image: inherit;
+  background-image: url(/themes/digital/frame/button1.png);
+  background-repeat: no-repeat, repeat-x;
+  background-position: 0px, 32px;
+
+}
+.button[disabled], .btn[disabled]{
+ -webkit-filter:drop-shadow(0px 0px 5px rgba(0,0,0,1));
+  background-image: inherit;
+  background-image: url(/themes/digital/frame/button1.png);
+  background-repeat: no-repeat, repeat-x;
+  background-position: 0px, 32px;
+  opacity: 0.5;
+}
+/*
+ * Select
+ */
+
+ .select {
+  position: relative;
+  display: inline-block;
+  color: #555;
+}
+.select select {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: .5rem 2.25rem .5rem 1rem;
+  line-height: 1.5;
+  color: #555;
+  background-color: #eee;
+  border: 0;
+  border-radius: .25rem;
+  cursor: pointer;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+/* Undo the Firefox inner focus ring */
+.select select:focus:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+/* Dropdown arrow */
+.select:after {
+  position: absolute;
+  top: 50%;
+  right: 1.25rem;
+  display: inline-block;
+  content: "";
+  width: 0;
+  height: 0;
+  margin-top: -.15rem;
+  pointer-events: none;
+  border-top: .35rem solid;
+  border-right: .35rem solid transparent;
+  border-bottom: .35rem solid transparent;
+  border-left: .35rem solid transparent;
+}
+
+/* Hover state */
+/* Uncomment if you need it, but be aware of the sticky iOS states.
+.select select:hover {
+  background-color: #ddd;
+}
+*/
+
+/* Focus */
+.select select:focus {
+  box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem #0074d9;
+}
+
+/* Active/open */
+.select select:active {
+  color: #fff;
+  background-color: #0074d9;
+}
+
+/* Hide the arrow in IE10 and up */
+.select select::-ms-expand {
+  display: none;
+}
+
+/* Media query to target Firefox only */
+@-moz-document url-prefix() {
+  /* Firefox hack to hide the arrow */
+  .select select {
+    text-indent: 0.01px;
+    text-overflow: '';
+    padding-right: 1rem;
+  }
+
+  /* <option> elements inherit styles from <select>, so reset them. */
+  .select option {
+    background-color: white;
+  }
+}
+
 
 
 .cardControl{
@@ -426,30 +532,31 @@ li.digital_cardLink:nth-child(6){
   background: radial-gradient(ellipse at center, rgba(126,126,126,0.75) 0%,rgba(139,139,139,0.75) 27%,rgba(152,152,152,0.75) 48%,rgba(121,121,121,0.75) 75%,rgba(50,50,50,0.75) 100%);
 }
 .username{
-  top: 50px;
-  left: 140px;
-  width: 215px;
+  top: 5.5vh;
+  left: 10vw;
+  width: 14.5vw;
   text-align: center;
 }
 .stationName{
-  top:69px;
-  left: 140px;
-  width: 215px;
+  top:9vh;
+  left: 10vw;
+  width: 14.5vw;
   text-align: center;
+  font-size: 0.9vw;
 }
 .profilePicture{
-  top:24px;
-  left: 31px;
-  width: 100px;
-  height: 100px;
+  top:2vh;
+  left: 2vw;
+  width: 8vw;
+  height: 8vw;
   img {
-    width: 100px;
+    width: 8vw;
     border-radius: 100%
   }
 }
 .alertColor{
-  right: 42px;
-  top: 90px;
+  right: 4.6vw;
+  top: 6.45vw;
   width: 100px;
   height: 14px;
   opacity: 0.3;

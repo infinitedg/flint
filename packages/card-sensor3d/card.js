@@ -278,8 +278,8 @@ $('.sensor_box').on('mousemove', function () {
     e = event;
     mouseVector.x = 2 * (e.offsetX / viewWidth) - 1;
     mouseVector.y = 1 - 2 * (e.offsetY / viewHeight);
-
-    var raycaster = projector.pickingRay(mouseVector.clone(), camera),
+    var raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouseVector.clone(), camera),
     intersects = raycaster.intersectObjects(scene.children);
 
         /*scene.children.forEach(function( cube ) {
@@ -296,8 +296,8 @@ if (Flint.system('Sensors','infrared') != "true") {
                 if (obj.material.opacity > 0.5) {
                     $('.sensorLabel').addClass('shown');
                     $('#contactImage').attr('src', Flint.a('/Sensor Pictures/' + obj.picture));
-                    $('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y - sensorLabelOffset.top - 10);
-                    $('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x - sensorLabelOffset.left + 30);
+                    $('.sensorLabel').css('top', (toScreenXY(obj.position, camera, canvasElement)).y  - 10);
+                    $('.sensorLabel').css('left', (toScreenXY(obj.position, camera, canvasElement)).x  + 30);
                     $('.sensorLabel p').text(obj.name);
 
                 }

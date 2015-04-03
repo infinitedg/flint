@@ -1,7 +1,7 @@
 <template name="card_quartermaster">
 	<div class="container card-quartermaster">
 		<div class="row">
-			<div class="col-sm-5 leftSupplies">
+			<div class="col-sm-4 leftSupplies">
 				<div class="decks">
 					{{#each decks}}
 					<div class="deck {{deckStateLeft}}">
@@ -26,16 +26,16 @@
 				<input type="text" id="suppliesLeftSlide" value='1' data-slider-min="1" data-slider-max="15" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden; width: inherit;">
 				<div class="well leftInventory">
 					{{#each leftInventory}}
-					<p>{{name}}</p>
+					<p>{{count}} : {{name}}</p>
 					{{/each}}
 				</div>
 			</div>
-			<div class="col-sm-2">
-				<button class="btn btn-primary transferRight" type="button">Transfer <i class="fa fa-arrow-right"></i></button>
-				<button class="btn btn-primary transferLeft" type="button"><i class="fa fa-arrow-left"></i> Transfer</button>
-				<button class="btn btn-primary requisition" type="button">Requisition</button>
+			<div class="col-sm-4">
+				<button class="btn btn-primary btn-block transferRight" type="button">Transfer <i class="fa fa-arrow-right"></i></button>
+				<button class="btn btn-primary btn-block transferLeft" type="button"><i class="fa fa-arrow-left"></i> Transfer</button>
+				<button class="btn btn-primary btn-block requisition" type="button">Requisition</button>
 			</div>
-			<div class="col-sm-5 leftSupplies">
+			<div class="col-sm-4 leftSupplies">
 				<div class="decks">
 					{{#each decks}}
 					<div class="deck {{deckStateRight}}">
@@ -64,4 +64,5 @@
 			</div>
 		</div>
 	</div>
+	<span class="roomLabel" style="position: absolute; {{roomStyle}}">{{roomName}}</span>
 </template>

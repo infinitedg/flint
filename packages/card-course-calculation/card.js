@@ -182,7 +182,7 @@ Template.card_courseCalculation.events({
 		$('.selected').text($('.selected').text() + a);
 		e.preventDefault();
 	},
-	"click .btn.enter": function(e, context) {
+	"click .enter": function(e, context) {
 		Flint.beep();
 		selectField('next');
 
