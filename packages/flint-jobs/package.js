@@ -10,7 +10,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.1');
-  api.use(['flint', 'vsivsi:job-collection']);
+  api.use(['flint', 'vsivsi:job-collection', 'underscore']);
   api.addFiles('flint-jobs.js');
 });
 

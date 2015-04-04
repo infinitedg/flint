@@ -108,3 +108,8 @@ card-roster
 meteorhacks:cluster
 worker-animation
 flint-jobs
+vsivsi:job-collection
+actor-sensors
+card-engine-control
+card-thrust
+card-sensor3d

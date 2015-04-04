@@ -22,7 +22,8 @@ Flint.Jobs = {
 		}
 		return _jobCollections[collectionName];
 	},
-	processJobs: function(collectionName, jobType, options, worker, workerIdentifier) {
+	processJobs: function(collectionName, jobType, options, worker) {
+		var workerIdentifier = collectionName.toLowerCase() + '_' + jobType.toLowerCase();
 		collectionName = collectionName.toLowerCase();
 		options = options || {};
 		Flint.Jobs.collection(collectionName); // Ensure the collection has been prepared
@@ -32,6 +33,63 @@ Flint.Jobs = {
 	},
 	queue: function(_id) {
 		return _jobQueues[_id];
+	},
+	createJob: function(collectionName, jobName, processOpts, jobOpts, jobData, worker) {
+		processOpts = processOpts || {};
+		jobOpts = jobOpts || {};
+		jobData = jobData || {};
+		jobOpts.cancelRepeats = jobOpts.cancelRepeats || false;
+
+		// Find whether this actor is here
+		if (Flint.Jobs.collection(collectionName).find({type: jobName}).count() == 0) {
+			var job = new Job(Flint.Jobs.collection(collectionName), jobName ,jobData);
+			if (jobOpts.priority) {
+				job.priority(jobOpts.priority);
+			}
+			if (jobOpts.retry) {
+				job.retry(jobOpts.retry);
+			}
+			if (jobOpts.repeat) {
+				job.repeat(jobOpts.repeat);
+			}
+			if (jobOpts.delay) {
+				job.delay(jobOpts.delay);
+			}
+			if (jobOpts.after) {
+				job.after(jobOpts.after);
+			}
+			if (jobOpts.depends) {
+				job.depends(jobOpts.depends);
+			}
+			console.log({cancelRepeats: jobOpts.cancelRepeats});
+			job.save({cancelRepeats: jobOpts.cancelRepeats});
+		}
+		Flint.Jobs.processJobs(collectionName, jobName, processOpts, worker);
+	},
+	createActor: function(jobName, interval, action) {
+		Flint.Jobs.createJob('generalQueue', jobName, {}, {repeat: {wait: 60*1000}, cancelRepeats: true}, {}, function(job, cb) {
+			// This job is never "done"
+			var intervalFunction = function(){
+				if (job.progress() === null) { // The server is shutting down
+					// Be sure to fail the job so it can restart again
+					job.fail({
+						reason: 'Server shutting down - moving to a different host'
+					});
+					cb();
+					return;
+				} else if (job.progress() === false) { // The job is cancelled or paused
+					job.fail({
+						reason: 'Job no longer running on this host'
+					});
+					cb();
+					return;
+				} else {
+					Meteor.setTimeout(intervalFunction, interval);
+				}
+				action();
+			};
+			intervalFunction();
+		});
 	}
 };
 
@@ -42,3 +100,18 @@ Flint.Jobs = {
 
 The above 3 points would make it possible to pause/resume work on-demand
 */
+
+// Restart actors when needed
+var restartCheckupInterval = 15;
+Meteor.setInterval(function() {
+	var t = new Date();
+	t.setSeconds(t.getSeconds() - restartCheckupInterval); // We will filter for jobs not updated during our checkup interval
+	// Get the list of running job IDs not updated since our last checkup interval and convert it to an array of IDs
+	var jobs = _.map(Flint.Jobs.collection('generalQueue').find({status: 'running', updated: {$lt: t}}, {fields: {_id: 1}}).fetch(), function(doc) {
+			return doc._id;
+		});
+	// Cancel said jobs
+	Flint.Jobs.collection('generalQueue').cancelJobs(jobs);
+	// Restart said jobs
+	Flint.Jobs.collection('generalQueue').restartJobs(jobs);
+}, restartCheckupInterval * 1000);
