@@ -43,7 +43,6 @@ ui-dropped-event
 
 flint
 flint-debug
-flint-drama
 flint-flash
 flint-sound
 flint-speech
@@ -85,6 +84,7 @@ card-comm-shortrange
 card-core
 card-core-station-utility
 card-course-calculation
+card-decoding
 card-engine-control
 card-flint-library
 card-flint-stations
@@ -101,7 +101,6 @@ card-security-escapepods
 card-security-teams
 card-self-destruct
 card-sensor-grid
-card-sensor3d
 card-tact-control
 card-targeting
 card-viewscreen
@@ -113,7 +112,6 @@ card-flint-sound
 card-shields
 card-coolant
 card-status
-card-thrust
 card-wormhole
 card-efficiency
 card-transporters
@@ -125,8 +123,17 @@ card-tractor-beam
 card-security-doors
 card-security-scanning
 card-roster
+meteorhacks:cluster
+worker-animation
 card-weapons
 card-weapons-torpedos
+actor-sensors
 card-video-manager
 card-probe-construction
+card-sensor3d
 card-quartermaster
+flint-jobs
+vsivsi:job-collection
+card-engine-control
+card-thrust
+flint-macro-engine
