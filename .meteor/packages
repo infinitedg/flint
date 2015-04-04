@@ -127,13 +127,10 @@ meteorhacks:cluster
 worker-animation
 card-weapons
 card-weapons-torpedos
-actor-sensors
 card-video-manager
 card-probe-construction
 card-sensor3d
 card-quartermaster
 flint-jobs
 vsivsi:job-collection
-card-engine-control
 card-thrust
-flint-macro-engine
