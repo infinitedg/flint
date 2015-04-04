@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-  api.use(['flint', 'templating', 'underscore', 'flint-heartbeat', 'flint-server-monitor', 'brentjanderson:buzz']);
+  api.use(['flint', 'templating', 'underscore', 'flint-jobs', 'brentjanderson:buzz']);
   
   api.add_files(['engine.js'], 'server');
   api.add_files(['component.html', 'component.js'], 'client');

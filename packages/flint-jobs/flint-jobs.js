@@ -11,7 +11,7 @@ Flint.Jobs = {
 			options = options || {};
 			_jobCollections[collectionName] = new JobCollection(collectionName, options);
 
-			// xxx @TODO Require separate logic for this function
+			// xxx @TODO Require separate logic for access permissions control
 			_jobCollections[collectionName].allow({
 				admin: function() {
 					return true;
@@ -34,62 +34,70 @@ Flint.Jobs = {
 	queue: function(_id) {
 		return _jobQueues[_id];
 	},
-	createJob: function(collectionName, jobName, processOpts, jobOpts, jobData, worker) {
-		processOpts = processOpts || {};
+	scheduleJob: function(collectionName, jobName, jobOpts, jobData) {
+		return Flint.Jobs.createJob(collectionName, jobName, jobOpts, jobData).save();
+	},
+	createJob: function(collectionName, jobName, jobOpts, jobData) {
 		jobOpts = jobOpts || {};
 		jobData = jobData || {};
+
 		jobOpts.cancelRepeats = jobOpts.cancelRepeats || false;
 
-		// Find whether this actor is here
-		if (Flint.Jobs.collection(collectionName).find({type: jobName}).count() == 0) {
-			var job = new Job(Flint.Jobs.collection(collectionName), jobName ,jobData);
-			if (jobOpts.priority) {
-				job.priority(jobOpts.priority);
-			}
-			if (jobOpts.retry) {
-				job.retry(jobOpts.retry);
-			}
-			if (jobOpts.repeat) {
-				job.repeat(jobOpts.repeat);
-			}
-			if (jobOpts.delay) {
-				job.delay(jobOpts.delay);
-			}
-			if (jobOpts.after) {
-				job.after(jobOpts.after);
-			}
-			if (jobOpts.depends) {
-				job.depends(jobOpts.depends);
-			}
-			console.log({cancelRepeats: jobOpts.cancelRepeats});
-			job.save({cancelRepeats: jobOpts.cancelRepeats});
+		var job = new Job(Flint.Jobs.collection(collectionName), jobName ,jobData);
+		if (jobOpts.priority) {
+			job.priority(jobOpts.priority);
 		}
+		if (jobOpts.retry) {
+			job.retry(jobOpts.retry);
+		}
+		if (jobOpts.repeat) {
+			job.repeat(jobOpts.repeat);
+		}
+		if (jobOpts.delay) {
+			job.delay(jobOpts.delay);
+		}
+		if (jobOpts.after) {
+			job.after(jobOpts.after);
+		}
+		if (jobOpts.depends) {
+			job.depends(jobOpts.depends);
+		}
+
+		return job;
+	},
+	createWorker: function(collectionName, jobName, processOpts, worker) {
+		processOpts = processOpts || {};
 		Flint.Jobs.processJobs(collectionName, jobName, processOpts, worker);
 	},
 	createActor: function(jobName, interval, action) {
-		Flint.Jobs.createJob('generalQueue', jobName, {}, {repeat: {wait: 60*1000}, cancelRepeats: true}, {}, function(job, cb) {
-			// This job is never "done"
-			var intervalFunction = function(){
-				if (job.progress() === null) { // The server is shutting down
-					// Be sure to fail the job so it can restart again
-					job.fail({
-						reason: 'Server shutting down - moving to a different host'
-					});
-					cb();
-					return;
-				} else if (job.progress() === false) { // The job is cancelled or paused
-					job.fail({
-						reason: 'Job no longer running on this host'
-					});
-					cb();
-					return;
-				} else {
-					Meteor.setTimeout(intervalFunction, interval);
-				}
-				action();
-			};
-			intervalFunction();
-		});
+		// Find whether this actor is here
+		if (Flint.Jobs.collection('generalQueue').find({type: jobName}).count() == 0) {
+			Flint.Jobs.scheduleJob('generalQueue', jobName, {repeat: {wait: 60*1000}, cancelRepeats: true}, {});
+			
+			Flint.Jobs.createWorker('generalQueue', jobName, {}, function(job, cb) {
+				// This job is never "done"
+				var intervalFunction = function(){
+					if (job.progress() === null) { // The server is shutting down
+						// Be sure to fail the job so it can restart again
+						job.fail({
+							reason: 'Server shutting down - moving to a different host'
+						});
+						cb();
+						return;
+					} else if (job.progress() === false) { // The job is cancelled or paused
+						job.fail({
+							reason: 'Job no longer running on this host'
+						});
+						cb();
+						return;
+					} else {
+						Meteor.setTimeout(intervalFunction, interval);
+					}
+					action();
+				};
+				intervalFunction();
+			});
+		}
 	}
 };
 

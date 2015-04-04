@@ -99,6 +99,7 @@ flint-debug@0.1.0
 flint-files@0.1.0
 flint-flash@0.1.0
 flint-jobs@0.0.1
+flint-macro-engine@0.2.0
 flint-snapshot@0.1.0
 flint-sound@0.1.0
 flint-speech@0.1.0

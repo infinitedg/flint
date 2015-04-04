@@ -3,14 +3,15 @@ x flint-tween -- Basic implementation in place, seems to work well
 x flint-drama -- Replaced by workqueue system
 x flint-server-monitor -- Replaced by workqueue system
 
+x actor-sensors -- Needs testing but looks right
+x card-thrust (actor engine-thrust) -- Needs testing but looks right
+x card-sensor3d (sensor-pulse actor?) -- Needs testing but looks right
+x card-engine-control (engine-heat actor) -- Needs testing but looks right
+x flint-macro-engine -- Needs testing but looks right
+
 # Packages to fix: 
-actor-sensors -- Needs Testing
 
-card-thrust (actor engine-thrust)
-card-engine-control (engine-heat actor)
-card-sensor3d (sensor-pulse actor?)
 
-flint-heartbeat
-flint-macro-engine
+flint-heartbeat -- Client control
 flint-audio-engine
 macro-sounds
