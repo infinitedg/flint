@@ -11,14 +11,16 @@ Flint.Jobs = {
 			options = options || {};
 			_jobCollections[collectionName] = new JobCollection(collectionName, options);
 
-			// xxx @TODO Require separate logic for access permissions control
-			_jobCollections[collectionName].allow({
-				admin: function() {
-					return true;
-				}
-			});
+			if (Meteor.isServer) {
+				// xxx @TODO Require separate logic for access permissions control
+				_jobCollections[collectionName].allow({
+					admin: function() {
+						return true;
+					}
+				});
 
-			_jobCollections[collectionName].startJobServer();
+				_jobCollections[collectionName].startJobServer();
+			}
 		}
 		return _jobCollections[collectionName];
 	},
