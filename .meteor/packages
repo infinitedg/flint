@@ -49,20 +49,18 @@ flint-speech
 flint-utils
 flint-files
 flint-assets
-flint-server-monitor
-flint-tween
-flint-heartbeat
 flint-macro-engine
 flint-audio-engine
 flint-theme-engine
 flint-snapshot
+flint-heartbeat
 
-layout-default
+#layout-default
 layout-blackout
 layout-core
 layout-tac-control
 layout-viewscreen
-layout-voyager
+#layout-voyager
 layout-admin
 layout-digital
 
@@ -84,7 +82,6 @@ card-comm-shortrange
 card-core
 card-core-station-utility
 card-course-calculation
-card-decoding
 card-engine-control
 card-flint-library
 card-flint-stations

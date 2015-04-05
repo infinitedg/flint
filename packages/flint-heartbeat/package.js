@@ -5,7 +5,7 @@ Package.describe({
 
 Package.on_use(function(api) {  
   
-  api.use(['flint', 'flint-server-monitor'],['server']);
+  api.use(['flint'],['server']);
   api.use(['flint', 'deps'], ['client']);
 
   api.add_files(['server.js'], ['server']);

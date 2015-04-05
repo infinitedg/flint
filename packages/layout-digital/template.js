@@ -14,8 +14,10 @@ Template.digital_cardList.helpers({
 		return x;
 	},
 	currentCardImage: function(){
-		var cardId = Flint.card().cardId;
-		return Flint.a('/Card Icons/' + cardId.slice(5,cardId.length));
+		if (Flint.card()){
+			var cardId = Flint.card().cardId;
+			return Flint.a('/Card Icons/' + cardId.slice(5,cardId.length));
+		}
 	},
 	locked: function(){
 		if (!Flint.client('name') || Flint.client('locked')){

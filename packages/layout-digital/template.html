@@ -37,7 +37,10 @@
 
      {{/transitioner}}
    </div>
-   {{> digital_cardList}}
+   <div class="front-controls {{loggedIn}}">
+     {{> digital_cardList}}
+     {{> layout_digital_messageBox}}
+   </div>
  </span>
 </template>
 
@@ -57,9 +60,9 @@
     <ul class="digital_cardList">
       {{#each cards}}
       <li class="digital_cardLink">
-        <button type="button" class="button">
-          <a href="{{pathFor 'flint_station'}}" class="{{#if isCurrentCard}}active{{/if}}">{{name}}</a>
-        </button>
+        <!--<button type="button" class="button">-->
+          <a href="{{pathFor 'flint_station'}}" class="btn {{#if isCurrentCard}}active{{/if}}">{{name}}</a>
+        <!--</button>-->
       </li>
       {{/each}}
     </ul>

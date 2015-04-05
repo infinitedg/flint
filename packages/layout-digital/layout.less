@@ -229,10 +229,11 @@ body {
   }
 
 }
-
-
-.background-overlay.loggedOut{
-  .alertNum, .alertColor, .powerUp-bar, .powerUp-doodad, .bottomLeft-bracket-end, .bottomLeft-bracket-mid, .bottomLeft-bracket-x, .bottomRight-bracket-end, .bottomRight-bracket-start, .bottomRight-bracket-x, .left-doodad, .leftBottom-bracket-start, .leftBottom-bracket-x, .rightTop-bracket-end, .rightTop-bracket-x, .topRight-bracket-mid, .topRight-bracket-start, .topRight-bracket-x, .topLeft-bracket-end, .topLeft-bracket-x, .topLeft-bracket-start{
+.front-controls{
+      transition-delay: .1s;
+}
+.loggedOut{
+  .cardControl, .messageBox, .alertNum, .alertColor, .powerUp-bar, .powerUp-doodad, .bottomLeft-bracket-end, .bottomLeft-bracket-mid, .bottomLeft-bracket-x, .bottomRight-bracket-end, .bottomRight-bracket-start, .bottomRight-bracket-x, .left-doodad, .leftBottom-bracket-start, .leftBottom-bracket-x, .rightTop-bracket-end, .rightTop-bracket-x, .topRight-bracket-mid, .topRight-bracket-start, .topRight-bracket-x, .topLeft-bracket-end, .topLeft-bracket-x, .topLeft-bracket-start{
     opacity: 0 !important;
   }
 }
@@ -308,7 +309,7 @@ body {
   background-image: url(/themes/digital/frame/button1.png);
   background-repeat: no-repeat, repeat-x;
   background-position: 0px, 32px;
-  transition: -webkit-filter 0.25s ease-in-out;
+  transition: -webkit-filter 0.25s linear;
 }
 .button:before,.button:after, .btn:before, .btn:after{
   position: absolute;
@@ -328,17 +329,20 @@ body {
  bottom: 0;
  content: url(/themes/digital/frame/button3.png);
 }
+a.btn{
+  line-height: 40px;
+}
 .button a{
   color: #fff;
   text-decoration: none;
 }
-.button:hover, .btn:hover{
+.button:hover, .btn:hover, .button:active, .btn:active, .btn:focus, .button:focus{
   -webkit-filter:drop-shadow(0px 0px 5px rgba(255,255,255,0.5));
   background-image: inherit;
   background-image: url(/themes/digital/frame/button1.png);
   background-repeat: no-repeat, repeat-x;
   background-position: 0px, 32px;
-
+  outline: 0;
 }
 .button[disabled], .btn[disabled]{
  -webkit-filter:drop-shadow(0px 0px 5px rgba(0,0,0,1));

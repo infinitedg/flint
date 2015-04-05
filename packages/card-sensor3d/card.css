@@ -80,7 +80,7 @@
 }
 
 
-.shown{
+.sensorLabel.shown{
 	height: auto !important;
 	opacity: 1 !important;
 	transition: opacity 0.0s ease;

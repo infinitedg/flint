@@ -1,4 +1,4 @@
-Template.layout_default_messageBox.helpers({
+Template.layout_digital_messageBox.helpers({
     messages: function() {
         return Flint.collection('ChatMessages').find({simId: Flint.simulatorId()}, { sort: [['time', 'desc']]}); 
     },
@@ -14,11 +14,17 @@ Template.layout_default_messageBox.helpers({
 
 //  $(".chat").scrollTop($(".chat")[0].scrollHeight);
 
-Template.layout_default_messageBox.rendered = function(){
-     Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},1000);     
+Template.layout_digital_messageBox.created = function() {
+  this.subComputation = Deps.autorun(function() {
+    Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
+});
 }
 
-Template.layout_default_messageBox.events({
+Template.layout_digital_messageBox.rendered = function(){
+ Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},1000);     
+}
+
+Template.layout_digital_messageBox.events({
     "click .messageBoxHeader": function(event){
         if (!Session.get('messageBoxOpen')){Session.set('newMessage', false);}
         Session.set('messageBoxOpen', (!Session.get('messageBoxOpen')));
@@ -27,30 +33,30 @@ Template.layout_default_messageBox.events({
         if (event.which == 13) {
           event.preventDefault();
 
-      if (Flint.client().name) {
-        var name = Flint.client().name;
-      } else {
-        var name = "Anonymous";
-      }
-
-      var message = document.getElementById("message");
-
-      if (message.value != "") {
-        newMessage = ({
-            name: name,
-            message: message.value,
-            simId: Flint.simulatorId()
-        });
-
-
-
-        document.getElementById("message").value = "";
-        message.value = "";
-        if (newMessage != "") {
-            Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},100);     
-            return Flint.collection('ChatMessages').insert(newMessage);
+          if (Flint.client().name) {
+            var name = Flint.client().name;
+        } else {
+            var name = "Anonymous";
         }
-      }
+
+        var message = document.getElementById("message");
+
+        if (message.value != "") {
+            newMessage = {
+                name: name,
+                message: message.value,
+                simId: Flint.simulatorId()
+            };
+
+
+
+            document.getElementById("message").value = "";
+            message.value = "";
+            if (newMessage != "") {
+                Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},100);     
+                return Flint.collection('ChatMessages').insert(newMessage);
+            }
+        }
     }
-    }
+}
 });    
