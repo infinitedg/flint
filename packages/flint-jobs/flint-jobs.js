@@ -33,7 +33,13 @@ Flint.Jobs = {
 		_jobQueues[workerIdentifier] = Job.processJobs(collectionName, jobType, options, worker);
 		return workerIdentifier;
 	},
-	queue: function(_id) {
+	queue: function(collectionName, jobType) {
+		var id;
+		if (jobType === undefined) {
+			_id = collectionName;
+		} else {
+			_id = collectionName.toLowerCase() + '_' + jobType.toLowerCase();
+		}
 		return _jobQueues[_id];
 	},
 	scheduleJob: function(collectionName, jobName, jobOpts, jobData) {

@@ -61,11 +61,18 @@ Flint.Jobs.processJobs('animationQueue', 'animation', {
 		}
 	}
 
-	// var fut = new Future();
 	gsVars.onUpdate = Meteor.bindEnvironment(function() {
 		// Animate the object (without the _gsTweenID property)
 		var newValues = _.omit(tweenBank[job._doc._id].target,['_gsTweenID']);
 		Flint.collection(job.data.collection).update(job.data.objId, {$set: newValues});
+		console.log(newValues);
+		if (job.progress() == false || job.progress() == null) {
+			tweenBank[job._doc._id].kill();
+			Flint.collection(job.data.collection).update({_id: job.data.objId}, {$unset: {_animationJobId: 1}});
+			delete tweenBank[job._doc._id];
+			job.fail('Animation cancelled during tween');
+			cb();
+		}
 	});
 
 	gsVars.onComplete = Meteor.bindEnvironment(function() {
@@ -73,7 +80,6 @@ Flint.Jobs.processJobs('animationQueue', 'animation', {
 		delete tweenBank[job._doc._id];
 		job.done();
 		cb();
-		// fut.return();
 	});
 
 	gsVars.data = {
@@ -144,6 +150,6 @@ Flint.Jobs.processJobs('animationQueue', 'animation', {
 
 Flint.Jobs.collection('animationQueue').find({status: 'ready'}).observe({
 	added: function(doc) {
-		Flint.Jobs.queue('animationQueue').trigger();
+		Flint.Jobs.queue('animationQueue', 'animation').trigger();
 	}
 });
