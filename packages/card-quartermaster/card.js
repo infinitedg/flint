@@ -40,12 +40,64 @@ Template.card_quartermaster.events({
 		else
 			Session.set('hovered_room',{});	
 	},
-	'click path':function(e){
+	'click .leftSupplies path':function(e){
 		var room = Flint.collection('rooms').findOne({_id:e.target.parentElement.dataset.id});
 		if (room)
-			Session.set('selectedRoom',room._id);
+			Session.set('leftSelectedRoom',room._id);
 		else
-			Session.set('selectedRoom',null);
+			Session.set('leftSelectedRoom',null);
+	},
+	'click .rightSupplies path':function(e){
+		var room = Flint.collection('rooms').findOne({_id:e.target.parentElement.dataset.id});
+		if (room)
+			Session.set('rightSelectedRoom',room._id);
+		else
+			Session.set('rightSelectedRoom',null);
+	},
+	'click .requisition':function(){
+		$('.requisition_modal').modal();
+	},
+	'click .leftInventory p':function(){
+		var item = Flint.collection('inventoryItems').findOne({_id:this._id});
+		var roomCount = item.roomCount;
+		roomCount[Session.get('leftSelectedRoom')] -= 1;
+		if (typeof (roomCount['ready']) == "undefined")
+			roomCount['ready'] = 0;
+		roomCount['ready'] += 1;
+		Flint.collection('inventoryItems').update({_id:this._id}, {$set: {roomCount:roomCount}});
+	},
+	'click .rightInventory p':function(){
+		var item = Flint.collection('inventoryItems').findOne({_id:this._id});
+		var roomCount = item.roomCount;
+		roomCount[Session.get('rightSelectedRoom')] -= 1;
+		if (typeof (roomCount['ready']) == 'undefined')
+			roomCount['ready'] = 0;
+		roomCount['ready'] += 1;
+		Flint.collection('inventoryItems').update({_id:this._id}, {$set: {roomCount:roomCount}});
+	},
+	'click .transferRight':function(){
+		var selector = {};
+		selector['roomCount.ready'] = {$gt:0};
+		Flint.collection('inventoryItems').find(selector).forEach(function(e){
+			var roomCount = e.roomCount;
+			if (typeof roomCount[Session.get('rightSelectedRoom')] == "undefined")
+				roomCount[Session.get('rightSelectedRoom')] = 0;
+			roomCount[Session.get('rightSelectedRoom')] += roomCount['ready'];
+			roomCount['ready'] = 0;
+			Flint.collection('inventoryItems').update({_id:e._id},{$set:{roomCount:roomCount}});
+		});
+	},
+	'click .transferLeft':function(){
+		var selector = {};
+		selector['roomCount.ready'] = {$gt:0};
+		Flint.collection('inventoryItems').find(selector).forEach(function(e){
+			var roomCount = e.roomCount;
+			if (typeof roomCount[Session.get('leftSelectedRoom')] == "undefined")
+				roomCount[Session.get('leftSelectedRoom')] = 0;
+			roomCount[Session.get('leftSelectedRoom')] += roomCount['ready'];
+			roomCount['ready'] = 0;
+			Flint.collection('inventoryItems').update({_id:e._id},{$set:{roomCount:roomCount}});
+		});
 	}
 });
 Template.card_quartermaster.helpers({
@@ -100,14 +152,33 @@ Template.card_quartermaster.helpers({
 			return "top:" + (Session.get("hovered_room").position.y - 100) + "px; left:" + (Session.get("hovered_room").position.x - 100) + "px;";
 	},
 
-	/*currentDeck: function(){
-		return Session.get("securityDecks_currentDeck");
-	},
-	deckCount: function(){
-		return Flint.collection('decks').find().count();
-	},*/
 	leftInventory: function(){
-		return Flint.collection('inventoryItems').find({room:Session.get('selectedRoom')}).fetch();
+		var selector = {};
+		selector['roomCount.' +  Session.get('leftSelectedRoom')] = {$gt:0};
+		return Flint.collection('inventoryItems').find(selector);
+	},
+	rightInventory: function(){
+		var selector = {};
+		selector['roomCount.' +  Session.get('rightSelectedRoom')] = {$gt:0};
+		return Flint.collection('inventoryItems').find(selector);
+	},
+	readyInventory:function(){
+		var selector = {};
+		selector['roomCount.ready'] = {$gt:0};
+		return Flint.collection('inventoryItems').find(selector);
+	},
+	leftCount: function(){
+		return this.roomCount[Session.get('leftSelectedRoom')];
+	},
+	rightCount: function(){
+		return this.roomCount[Session.get('rightSelectedRoom')];
+	},
+	readyCount: function(){
+		return this.roomCount['ready'];
+	},
+	transferDisabled: function(){
+		if (!Session.get('rightSelectedRoom') || !Session.get('leftSelectedRoom'))
+			return 'disabled';
 	}
 
 });
