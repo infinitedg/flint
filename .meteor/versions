@@ -167,6 +167,7 @@ observe-sequence@1.0.6
 ordered-dict@1.0.3
 pascoual:bootstrap-contextmenu@1.0.1
 pedrohenriquerls:peerjs@0.0.1
+percolate:migrations@0.7.3
 raix:eventemitter@0.1.2
 random@1.0.3
 reactive-dict@1.1.0
