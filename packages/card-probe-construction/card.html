@@ -3,23 +3,23 @@
 		<div class="row probeRow">
 			<div class="col-sm-5 normalProbes">
 				{{#each normalProbes}}
-				<div class="col-sm-{{probeWidth}} probeTemplate">
-					<p>{{name}}: {{size}}</p>
-					<img src={{imgSrc}} />
+				<div class="col-sm-{{normalProbeWidth}} probeTemplate">
+					<p>{{name}}: {{metadata.size}}</p>
+					<img src={{metadata.image}} />
 				</div>
 				{{/each}}
 			</div>
 			<div class="col-sm-4 col-sm-offset-3 specialProbes">
 				{{#each specialProbes}}
-				<div class="col-sm-{{probeWidth}} probeTemplate">
-					<p>{{name}}: {{size}}</p>
-					<img src={{imgSrc}} />
+				<div class="col-sm-{{specialProbeWidth}} probeTemplate">
+					<p>{{name}}: {{metadata.size}}</p>
+					<img src={{metadata.image}} />
 				</div>
 				{{/each}}
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row probeControls">
 			{{#if currentProbe}}
 			{{#if launchingProbe}}
 			<div class="col-sm-4 col-sm-offset-4 well">
@@ -28,41 +28,89 @@
 				<button type="button" class="cancelProbe btn btn-danger btn-block">Cancel Probe</button>
 			</div>
 			{{else}}
-			<div class="col-sm-4 well equipmentList">
-				{{#each probeEquipment}}
-				<p class="probeEquipment">{{size}} {{name}}</p>
-				{{/each}}
+			<div class="col-sm-4 well">
+				<table class="table headerRow table-hover table-striped">
+					<col style="width:70%">
+					<col style="width:10%">
+					<col style="width:15%">
+					<tr>
+						<th>Name</th>
+						<th>Size</th>
+						<th>QTY</th>
+					</tr>
+				</table>
+				<div class="equipmentList">
+					<table class="table table-hover table-striped">
+						<tr style="visibility:hidden; line-height:0;">
+							<th>Name</th>
+							<th>Sz</th>
+							<th>QY</th>
+						</tr>
+						{{#each probeEquipment}}
+
+						<tr class="probeEquipment">
+							<td>{{name}}</td>
+							<td>{{metadata.size}}</td>
+							<td>{{equipmentCount}}</td>
+						</tr>
+						{{/each}}
+					</table>
+				</div>
 			</div>
 			<div class="col-sm-4 probeInfo">
 				{{#with currentProbe }}
 				<div class="row">
-					<div class="col-sm-6 col-sm-offset-6">
-						<p>Total Space: {{size}}</p>
-						<p>Space Used: {{used}}</p>
-						<p>Space Left: {{left}}</p>
+					<div class="col-sm-12">
+						<p>Total Space: {{metadata.size}}</p>
+						<p>Space Used: {{spaceUsed}}</p>
+						<p>Space Left: {{spaceLeft}}</p>
 					</div>
 				</div>
 				{{/with}}
-				<div class="row">
-					{{equipmentDescription}}
-				</div>
+
 				<div class="row">
 					<div class="col-sm-6">
-						<button type="button" class="btn btn-block cancelProbe">Cancel Probe</button>
+						<button type="button" class="btn btn-block cancelProbe">Cancel</button>
 					</div>
 					<div class="col-sm-6">
 						<button type="button" class="btn btn-block finishProbe">Done</button>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<br />
+						{{equipmentDescription}}
+					</div>
+				</div>
 			</div>
-			<div class="col-sm-4 loadedEquipment">
-				{{#each loadedEquipment}}
-				<p class="loadedEquipment">{{size}} {{name}}</p>
-				{{/each}}
+			<div class="col-sm-4 well ">
+				<table class="table headerRow table-hover table-striped">
+					<col style="width:80%">
+					<col style="width:20%">
+					<tr>
+						<th>Name</th>
+						<th>Size</th>
+					</tr>
+				</table>
+				<div class="equipmentList">
+					<table class="table table-hover table-striped">
+						<tr style="visibility:hidden; line-height:0;">
+							<th>Name</th>
+							<th>Sz</th>
+						</tr>
+						{{#each loadedEquipment}}
+
+						<tr class="loadedEquipment">
+							<td>{{name}}</td>
+							<td>{{metadata.size}}</td>
+						</tr>
+						{{/each}}
+					</table>
+				</div>
 			</div>
 			{{/if}}
 			{{else}}
-			<div class="col-sm-6 col-sm-offset-3">
+			<div class="col-sm-4 col-sm-offset-4">
 				{{probeDescription}}
 			</div>
 			{{/if}}
