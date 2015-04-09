@@ -128,6 +128,7 @@ card-video-manager
 card-probe-construction
 card-sensor3d
 card-quartermaster
+card-probe-network
 flint-jobs
 vsivsi:job-collection
 card-thrust
