@@ -8,4 +8,5 @@ Package.on_use(function(api) {
   
   api.add_files(['core.html', 'core.js'], 'client');
   api.add_files(['card.html', 'card.js', 'card.less'], 'client');
+  api.add_files(['publish.js'],'server');
 });

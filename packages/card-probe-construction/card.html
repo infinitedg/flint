@@ -1,34 +1,37 @@
 <template name="card_probeConstruction">
 	<div class="container probe-construction">
-		<div class="row probeRow">
-			<div class="col-sm-5 normalProbes">
-				{{#each normalProbes}}
-				<div class="col-sm-{{normalProbeWidth}} probeTemplate">
-					<p>{{name}}: {{metadata.size}}</p>
-					<img src={{metadata.image}} />
-				</div>
-				{{/each}}
+		<div class="row probeRow {{probeSelected}}">
+			{{#each normalProbes}}
+			<div class="normalProbes {{probeSelected}}">
+				<p>{{probeName}}: {{probeCount}}</p>
+				<img src={{metadata.image}} />
 			</div>
-			<div class="col-sm-4 col-sm-offset-3 specialProbes">
-				{{#each specialProbes}}
-				<div class="col-sm-{{specialProbeWidth}} probeTemplate">
-					<p>{{name}}: {{metadata.size}}</p>
-					<img src={{metadata.image}} />
-				</div>
-				{{/each}}
+			{{/each}}
+			{{#each specialProbes}}
+			<div class="specialProbes {{probeSelected}}">
+				<p>{{probeName}}: {{probeCount}}</p>
+				<img src={{metadata.image}} />
 			</div>
+			{{/each}}
 		</div>
-
 		<div class="row probeControls">
 			{{#if currentProbe}}
 			{{#if launchingProbe}}
-			<div class="col-sm-4 col-sm-offset-4 well">
+			{{#Animate}}
+			<span class="fade animate">
+			{{#with launchingProbe}}
+			<div class="col-sm-4 col-sm-offset-4">
 				<button type="button" class="launchProbe btn btn-success btn-block">Launch Probe</button>
 				<button type="button" class="reconfig btn btn-info btn-block">Reconfigure Probe</button>
 				<button type="button" class="cancelProbe btn btn-danger btn-block">Cancel Probe</button>
 			</div>
+			{{/with}}
+			</span>
+			{{/Animate}}
 			{{else}}
-			<div class="col-sm-4 well">
+			{{#Animate}}
+			<span class="fade animate">
+			<div class="col-sm-4 well animate">
 				<table class="table headerRow table-hover table-striped">
 					<col style="width:70%">
 					<col style="width:10%">
@@ -57,7 +60,8 @@
 					</table>
 				</div>
 			</div>
-			<div class="col-sm-4 probeInfo">
+
+			<div class="col-sm-4 probeInfo animate">
 				{{#with currentProbe }}
 				<div class="row">
 					<div class="col-sm-12">
@@ -83,7 +87,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4 well ">
+			<div class="col-sm-4 well animate">
 				<table class="table headerRow table-hover table-striped">
 					<col style="width:80%">
 					<col style="width:20%">
@@ -108,6 +112,8 @@
 					</table>
 				</div>
 			</div>
+			</span>
+			{{/Animate}}
 			{{/if}}
 			{{else}}
 			<div class="col-sm-4 col-sm-offset-4">
