@@ -1,0 +1,35 @@
+{
+  "name": "meteor-job",
+  "version": "1.0.0",
+  "description": "Class for Meteor jobCollection for use both within meteor.js and with pure node.js workers",
+  "main": "lib/job_class.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "coffee-script": "1.9.1",
+    "mocha": "2.2.1",
+    "rewire": "2.3.1",
+    "sinon": "1.14.1",
+    "chai": "2.1.2",
+    "fibers": "1.0.5"
+  },
+  "scripts": {
+    "prepublish": "coffee --compile --output lib/ src/",
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:vsivsi/meteor-job.git"
+  },
+  "keywords": [
+  ],
+  "engine": {
+    "node": ">=0.10.36"
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/vsivsi/meteor-job/issues"
+  },
+  "author": "Vaughn Iverson",
+  "license": "MIT/X11"
+}

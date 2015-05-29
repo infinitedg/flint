@@ -1,0 +1,1 @@
+This package provides a mechanism for processing animation jobs for any object in Flint's database.
