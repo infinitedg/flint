@@ -56,7 +56,7 @@ Flint.clientId = Utils.memoize(function() {
 });
 
 Flint.system = function(sysName, key, val) {
-  if (arguments.length == 0) { // An unusual case, but we'll handle it
+  if (arguments.length === 0) { // An unusual case, but we'll handle it
     return Flint.systems.find();
   }
 
@@ -143,8 +143,8 @@ Flint.cardId = function() {
 Flint.layout = Utils.memoize(function() {
   if (Router.current()) {
     var layout,
-    params = Router.current().params, 
-    station = Flint.stations.findOne(params.stationId), 
+    params = Router.current().params,
+    station = Flint.stations.findOne(params.stationId),
     simulator = Flint.simulators.findOne(params.simulatorId);
 
     if (station && simulator) { // If we haven't loaded anything, then use our default layout

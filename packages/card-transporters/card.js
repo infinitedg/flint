@@ -10,7 +10,7 @@ Template.card_transporters.helpers({
 			return '';
 		} else {
 			return 'hidden';
-		};
+		}
 	},
 	scanBtnLabel: function(){
 		if (Flint.system('Transporters','state') == 'idle'){
@@ -54,7 +54,7 @@ Template.card_transporters.rendered = function(){
 				if (Draggable.hitTest(that,this,"90%")){
 					hit = this.id;
 				}
-			})
+			});
 			Flint.system('Transporters','locked',hit);
 		},
 		onDragEnd: function () {
@@ -65,7 +65,7 @@ Template.card_transporters.rendered = function(){
 
 Template.card_transporters.events({
 	'mousemove .powerUp' : function(e,t){
-		var cover = t.find('.powerUpCover')
+		var cover = t.find('.powerUpCover');
 		if (Flint.system('Transporters','locked') != 'false' && (cover.clientHeight - e.offsetY) < 10){
 			Flint.system('Transporters','powerUp', ((e.offsetY / e.currentTarget.clientHeight * 100)));
 		}
@@ -74,15 +74,15 @@ Template.card_transporters.events({
 		Flint.beep();
 		if (Flint.system('Transporters','state') == 'idle'){
 			Flint.system('Transporters','target',t.find('#transDesiredTarget').value);
-			Flint.system('Transporters','destination',t.find('#transDesiredDestination').value)
+			Flint.system('Transporters','destination',t.find('#transDesiredDestination').value);
 			Flint.system('Transporters','state','scanning');
 		}else if (Flint.system('Transporters','state') == "scanning"){
 			Flint.system('Transporters','target','');
-			Flint.system('Transporters','destination','')
+			Flint.system('Transporters','destination','');
 			Flint.system('Transporters','state','idle');
 		} else if (Flint.system('Transporters','state') == "targets"){
 			Flint.system('Transporters','target','');
-			Flint.system('Transporters','destination','')
+			Flint.system('Transporters','destination','');
 			Flint.system('Transporters','state','idle');
 			Flint.system('Transporters','targets',[]);
 		}

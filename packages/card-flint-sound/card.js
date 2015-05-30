@@ -21,7 +21,8 @@ Template.card_flint_sound.helpers({
 			return 'selected';
 		}
 	}
-})
+});
+
 Template.card_flint_sound.events({
 	'click .addSet':function(){
 		var setName = prompt('What is the name of the set?');
@@ -33,7 +34,8 @@ Template.card_flint_sound.events({
 	'click .macroSetName':function(){
 		Session.set('flint-sounds-selectedSet',this._id);
 	}
-})
+});
+
 Template.keyboard.events({
 	'click #keyboard li':function(e,t){
 		Session.set('soundKeyboard-selectedKey',e.target.dataset.which);
@@ -41,11 +43,12 @@ Template.keyboard.events({
 			Flint.play('/Sounds/Ping');
 		}
 	}
-})
+});
+
 Template.keyboard.helpers({
 	'keySelected':function(e){
 		if (Session.get('soundKeyboard-selectedKey') == e){
 			return 'selected';
 		}
 	}
-})
+});

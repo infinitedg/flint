@@ -22,7 +22,7 @@ Template.card_efficiency.rendered = function(){
 		type: "rotation",
 		onDrag: function (t) {
            var value = Math.abs(this.rotation-240)/240; //Normalize the value to just 360
-           Flint.system('Efficiency',t.target.id,value)
+           Flint.system('Efficiency',t.target.id,value);
        },
        onDragEnd: function () {
 
@@ -32,7 +32,7 @@ Template.card_efficiency.rendered = function(){
        	minRotation: 240,
        	maxRotation: 480
        }
-   });	
+   });
 };
 
 Template.card_efficiency.helpers({

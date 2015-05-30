@@ -9,8 +9,9 @@ Template.playlistPlayer.events = {
 	}
 
 };
+
 Template.playlistPlayer.helpers({
 	libraryList: function(){
 		return Flint.Asset.listFolder('/Videos/Library').containers;
 	}
-})
+});

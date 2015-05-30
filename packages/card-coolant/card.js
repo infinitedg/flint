@@ -15,12 +15,12 @@ Template.coolantTank.events({
 				Flint.system('Engines','heat',heatLevel);
 				Flint.simulator('coolant',(Flint.simulator('coolant') - 0.01));
 			}
-		},10)
+		},10);
 		$(document).bind('mouseup',function(){
 			e.target.className.baseVal = "valve";
 			Meteor.clearInterval(interval);
 			interval = null;
-		})
+		});
 		e.preventDefault();
 	}
 });

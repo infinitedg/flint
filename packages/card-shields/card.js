@@ -43,8 +43,9 @@ Template.card_shields.rendered = function(){
 
 			}
 		}
-	})
-}
+	});
+};
+
 Template.card_shields.events({
 	'click .shieldChange': function(){
 		if (Flint.system('Shields','state') == "raised"){

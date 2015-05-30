@@ -5,13 +5,13 @@ Template.card_viewscreen.created = function(){
         Meteor.subscribe('card.viewscreen.inputs', Flint.simulatorId());
     });
     viewscreenInputs = Flint.collection('viewscreenInputs').find();
-}
+};
+
 Template.card_viewscreen.helpers({
     viewscreenInputs: function(){
         return Flint.collection('viewscreenInputs').find();
     },
     viewscreenStyle: function (e,t) {
-        debugger;
         var priority = 0, secondary = 0;
         viewscreenInputs.forEach(function(e){
             if (e.priority){

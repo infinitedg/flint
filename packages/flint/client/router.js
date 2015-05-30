@@ -15,7 +15,7 @@ Router.onBeforeAction(function(){
 Router.onBeforeAction(function () {
   // we're done waiting on all subs
   if (this.ready()) {
-    NProgress.done(); 
+    NProgress.done();
     this.next(); // Permit downstream functions
   } else {
     NProgress.start();
@@ -46,7 +46,7 @@ Router.map(function () {
       this.next();
     }
   });
-  
+
   this.route('flint_stationPicker', {
     path: '/simulator/:simulatorId',
     layoutTemplate: 'flint_layout',
@@ -64,10 +64,10 @@ Router.map(function () {
       Session.set("flint.simulatorId", this.params.simulatorId);
       Session.set("flint.stationId", undefined);
       Session.set("flint.cardNumber", undefined);
-      this.next()
+      this.next();
     }
   });
-  
+
   this.route('flint_station', {
     path: '/simulator/:simulatorId/station/:stationId/card/:cardId',
     subscriptions: function() {
@@ -112,5 +112,3 @@ Router.map(function () {
     }
   });
 });
-
-

@@ -49,7 +49,7 @@ startScan = function(){
 		crosshairs.css('left',xCrosshairs);
 		crosshairs.css('top',yCrosshairs);
 		$('.linex').css('top',yCrosshairs + 7);
-		$('.liney').css('left',xCrosshairs + 7);	
+		$('.liney').css('left',xCrosshairs + 7);
 	});
 };
 stopScan = function(values,immediate){
@@ -60,24 +60,24 @@ stopScan = function(values,immediate){
 	if (immediate === undefined){
 		if (values !== undefined) {$(".calculatedX").text(values.x);}
 		else {$(".calculatedX").text('');}
-			$(".calculatedX").addClass("hilited"); 
+			$(".calculatedX").addClass("hilited");
 		TimeoutY = setTimeout(function() {
 			if (values !== undefined) {$(".calculatedY").text(values.y);}
 			else {$(".calculatedY").text('');}
-			$(".calculatedX").removeClass("hilited");   
-			$(".calculatedY").addClass("hilited");   
+			$(".calculatedX").removeClass("hilited");
+			$(".calculatedY").addClass("hilited");
 		},250);
 		TimeoutZ = setTimeout(function() {
 			if (values !== undefined) {$(".calculatedZ").text(values.z);}
 			else {$(".calculatedZ").text('');}
-				$(".calculatedY").removeClass("hilited");   
-			$(".calculatedZ").addClass("hilited"); 
+				$(".calculatedY").removeClass("hilited");
+			$(".calculatedZ").addClass("hilited");
 		},500);
 		TimeoutEnd = setTimeout(function() {
-			$(".calculatedZ").removeClass("hilited");  
+			$(".calculatedZ").removeClass("hilited");
 		},750);
 	} else {
-		
+
 		if (values !== undefined) {$(".calculatedX").text(values.x);}
 		if (values !== undefined) {$(".calculatedY").text(values.y);}
 		if (values !== undefined) {$(".calculatedZ").text(values.z);}
@@ -94,8 +94,8 @@ selectField = function(whichField) {
     $(".currentX").removeClass("selected");
     $(".currentY").removeClass("selected");
     $(".currentZ").removeClass("selected");
-    $(".current" + whichField).addClass("selected"); 
-    $(".current" + whichField).text(""); 
+    $(".current" + whichField).addClass("selected");
+    $(".current" + whichField).text("");
     Session.set('selectedCourseField',whichField);
 };
 submitCoordinates = function(){
@@ -105,23 +105,23 @@ submitCoordinates = function(){
 		'z': $(".currentZ").text()
 	};
 	Flint.system('Course Calculation','currentCoordinates',obj);
-	$(".currentX").addClass("hilited"); 
+	$(".currentX").addClass("hilited");
 	TimeoutY = setTimeout(function() {
 		if (obj.x != Flint.system('Course Calculation','desiredCoordinates').x){$(".currentX").addClass("invalid");}
 		else {$(".currentX").removeClass("invalid");}
-		$(".currentX").removeClass("hilited");   
-		$(".currentY").addClass("hilited");   
+		$(".currentX").removeClass("hilited");
+		$(".currentY").addClass("hilited");
 	},250);
 	TimeoutZ = setTimeout(function() {
 		if (obj.y != Flint.system('Course Calculation','desiredCoordinates').y){$(".currentY").addClass("invalid");}
 		else {$(".currentY").removeClass("invalid");}
-		$(".currentY").removeClass("hilited");   
-		$(".currentZ").addClass("hilited"); 
+		$(".currentY").removeClass("hilited");
+		$(".currentZ").addClass("hilited");
 	},500);
 	TimeoutEnd = setTimeout(function() {
 		if (obj.z != Flint.system('Course Calculation','desiredCoordinates').z){$(".currentZ").addClass("invalid");}
 		else {$(".currentZ").removeClass("invalid");}
-		$(".currentZ").removeClass("hilited");  
+		$(".currentZ").removeClass("hilited");
 	},750);
 	selectField('');
 };
@@ -176,7 +176,7 @@ Template.card_courseCalculation.events({
 		var a;
 		Flint.beep();
 		if (!Session.get('selectedCourseField')) {
-			selectField("X");   
+			selectField("X");
 		}
 		a = e.target.textContent;
 		$('.selected').text($('.selected').text() + a);
@@ -220,7 +220,7 @@ Template.card_courseCalculation.events({
 
 Template.card_courseCalculation.rendered = function(){
 	Session.set('selectedCourseField',undefined);
-	var system = "Course Calculation"
+	var system = "Course Calculation";
 	this.conditionObserver = Flint.collection('systems').find({
         'simulatorId': Flint.simulatorId(),
         'name': system
@@ -301,4 +301,3 @@ function animLoop( render, element ) {
     }
     loop( lastFrame );
 }
-
