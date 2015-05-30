@@ -66,7 +66,7 @@ Flint.Jobs.processJobs('animationQueue', 'animation', {
 		var newValues = _.omit(tweenBank[job._doc._id].target,['_gsTweenID']);
 		Flint.collection(job.data.collection).update(job.data.objId, {$set: newValues});
 		console.log(newValues);
-		if (job.progress() == false || job.progress() == null) {
+		if (job.progress() === false || job.progress() === null) {
 			tweenBank[job._doc._id].kill();
 			Flint.collection(job.data.collection).update({_id: job.data.objId}, {$unset: {_animationJobId: 1}});
 			delete tweenBank[job._doc._id];
@@ -100,11 +100,11 @@ Flint.Jobs.processJobs('animationQueue', 'animation', {
 		_.object(
 			_.map(
 				_.difference(
-					_.keys(job.data.tweenVars), 
+					_.keys(job.data.tweenVars),
 					gsTweenProps
-					), 
+					),
 				function(key) { return [key, 1]; })
-			), 
+			),
 		{_id: 0});
 
 
@@ -114,13 +114,13 @@ Flint.Jobs.processJobs('animationQueue', 'animation', {
 	// set to defaults of zero
 	// If doc.tweenVars is trying to tween keys on sourceObj that do not exist...
 	var keysWithoutDefaults = _.keys(
-		_.omit(job.data.tweenVars, 
+		_.omit(job.data.tweenVars,
 			_.union(gsTweenProps, _.keys(sourceObj)
 				)
 			)
 		);
 	if (keysWithoutDefaults.length > 0) {
-		job.log('Assuming default of 0 while animating ' + 
+		job.log('Assuming default of 0 while animating ' +
 			job.data.collection + '.' + job.data.objId + ' ' +
 			keysWithoutDefaults.join(' ,'), {level: 'warning'});
 
@@ -131,7 +131,7 @@ Flint.Jobs.processJobs('animationQueue', 'animation', {
 		3. Creates an object out of it
 		4. Uses this to drop defaults of zero on top
 		*/
-		sourceObj = _.defaults(sourceObj, 
+		sourceObj = _.defaults(sourceObj,
 			_.object(
 				_.map(
 					_.keys(

@@ -79,9 +79,9 @@ Flint.Jobs = {
 	},
 	createActor: function(jobName, interval, action) {
 		// Find whether this actor is here
-		if (Flint.Jobs.collection('generalQueue').find({type: jobName}).count() == 0) {
+		if (Flint.Jobs.collection('generalQueue').find({type: jobName}).count() === 0) {
 			Flint.Jobs.scheduleJob('generalQueue', jobName, {repeat: {wait: 60*1000}, cancelRepeats: true}, {});
-			
+
 			Flint.Jobs.createWorker('generalQueue', jobName, {}, function(job, cb) {
 				// This job is never "done"
 				var intervalFunction = function(){
