@@ -23,10 +23,10 @@ function shipDiagram() {
     ship.scale.z = 5;
     return ship;
 }
-Template.card_probe_network.created = function(){
+Template.card_probeNetwork.created = function(){
     this.animating = true;
 }
-Template.card_probe_network.rendered = function(){
+Template.card_probeNetwork.rendered = function(){
     THREE.ImageUtils.crossOrigin = "";
     var viewWidth = $('.probe_network').width(),
     viewHeight = $('.probe_network').height();
@@ -77,9 +77,13 @@ Template.card_probe_network.rendered = function(){
         intersects = raycaster.intersectObjects(scene.children);
         for (var i = 0; i < intersects.length; i++) {
             if (intersects[i].object.type == 'Mesh'){
+
                 intersection = intersects[i];
-                launchProbe(intersection.object.position);
-                return false;
+                if (!intersection.object.probe && intersection.object.probeBox){
+                    launchProbe(intersection.object.position);
+                    intersection.object.probe = true;
+                    return false;
+                }
             }
         }
         
@@ -107,6 +111,7 @@ Template.card_probe_network.rendered = function(){
 
         probeBox.position.z = Math.sin(Math.PI/4 * i) * 60;
         probeBox.position.x = Math.cos(Math.PI/4 * i) * 60;
+        probeBox.probeBox = true;
     }
     for (var i=1; i<=4; i++){
         var wireframe = new THREE.MeshBasicMaterial( { opacity: 0.0, transparent:true, wireframe: true, color: wireframeColor } );
@@ -118,6 +123,8 @@ Template.card_probe_network.rendered = function(){
         probeBox.position.z = Math.sin(Math.PI/2 * i + Math.PI/4) * 60/2;
         probeBox.position.x = Math.cos(Math.PI/2 * i + Math.PI/4) * 60/2;
         probeBox.position.y = 45;
+        probeBox.probeBox = true;
+
 
         var wireframe = new THREE.MeshBasicMaterial( { opacity: 0.0, transparent:true, wireframe: true, color: wireframeColor } );
         var probeBox = new THREE.Mesh(probeBoxGeo, wireframe);
@@ -128,6 +135,7 @@ Template.card_probe_network.rendered = function(){
         probeBox.position.z = Math.sin(Math.PI/2 * i + Math.PI/4) * 60/2;
         probeBox.position.x = Math.cos(Math.PI/2 * i + Math.PI/4) * 60/2;
         probeBox.position.y = -45;
+        probeBox.probeBox = true;
     }
     var light = new THREE.AmbientLight(0xaaaaaa); // soft white light
     scene.add(light);
