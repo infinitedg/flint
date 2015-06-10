@@ -1,0 +1,29 @@
+<template name="card_reactor">
+	<div class="container">
+		<div class="reactor">
+			<div class="bars mainPower"></div>
+			<div class="bars batteryPower1"></div>
+			<div class="bars batteryPower2"></div>
+			<div class="bars splitPower1"></div>
+			<div class="bars splitPower2"></div>
+			<div class="bars leftWingPower"></div>
+			<div class="bars rightWingPower"></div>
+			{{> reactorSVG}}
+			<label class="output">{{output}}</label>
+			<label class="batteries">{{batteries}}</label>
+			<label class="leftWing">{{leftWing}}</label>
+			<label class="rightWing">{{rightWing}}</label>
+			<label class="powerUsed">{{powerUsed}}</label>
+			<div class="router batteries">
+				<div class="dragger"></div>
+			</div>
+			<div class="router wings">
+				<div class="dragger"></div>
+			</div>
+		</div>
+		<div class="batteryPack">
+			<div class="batteryLevel" style="height: calc({{batteryLevel}}% - 22px)"></div>
+			{{> batterySVG}}
+		</div>
+	</div>
+</template>
