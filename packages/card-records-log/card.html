@@ -1,0 +1,65 @@
+<template name="card_recordsLog">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h3>Logs</h3>
+				<div class="well logList">
+					{{#each log}}
+					<p class="logEntry">{{stardate}}</p>
+					{{/each}}
+				</div>
+				<button class="btn btn-default btn-block btn-writeLog">Write Log</button>
+			</div>
+			<div class="col-sm-8">
+				{{#if activeLog}}
+				<div class="row">
+					<div class="col-sm-12">
+						<img src={{recordsLogImage}} />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-8">
+						<h4>Included Logs</h4>
+						<div class="well includedLogs">
+							{{#each includedLogs}}
+							<o class="includedLog">{{stardate}}</o>
+							{{/each}}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<button class="btn btn-default btn-block launchLog">Launch</button>
+						<button class="btn btn-default btn-block clearLog">Clear</button>
+					</div>
+				</div>
+				{{else}}
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3">
+						<button class="btn btn-default btn-block newRecordsLog">New Records Log</button> 
+					</div>
+				</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+	{{> record_composer}}
+</template>
+
+<template name="record_composer">
+	<div class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Compose Record Entry - {{stardate}}</h4>
+				</div>
+				<div class="modal-body">
+					<p>One fine body&hellip;</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>
