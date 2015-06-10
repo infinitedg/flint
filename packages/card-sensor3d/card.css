@@ -23,13 +23,17 @@
 	z-index: 1;
 	position: relative;
 	width: 580px;
+	height: 580px;
 	margin-left: -290px;
+	padding:0;
 	left: 50%;
 	border-radius: 5000px;
 	border: solid 3px rgba(50,50,50,0.75);
 	box-shadow: inset 0px 0px 500px #000;
 }
-
+.sensor-box canvas{
+	border-radius:5000px;
+}
 #coreSensor3d{
 	position: relative;
 	background-color: #000;

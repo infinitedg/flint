@@ -234,16 +234,14 @@ Template.card_sensor3d.rendered = function () {
 
     // Scene
     var scene = new THREE.Scene();
-
+    window.scene = scene;
     // Debugging Axis
     //scene.add(debugAxes(viewRadius / 2));
 
     //Ship Diagram
     scene.add(shipDiagram());
-
-    var light = new THREE.AmbientLight(0xaaaaaa); // soft white light
-    scene.add(light);
-
+    //scene.fog = new THREE.Fog(0x000000,0.015,1000)
+    
     // Starfield
     // var geometry  = new THREE.SphereGeometry(200, 32, 32);
     // var material  = new THREE.MeshBasicMaterial();
