@@ -5,6 +5,7 @@
 
 standard-app-packages
 insecure
+
 accounts-ui
 accounts-password
 underscore
@@ -129,7 +130,11 @@ card-probe-construction
 card-sensor3d
 card-quartermaster
 card-probe-network
+card-probe-control
 flint-jobs
 vsivsi:job-collection
 card-thrust
 appmill:animation-hooks
+card-records-log
+card-reactor
+

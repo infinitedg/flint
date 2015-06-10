@@ -41,8 +41,11 @@ card-mario@0.1.0
 card-message-composer@0.1.0
 card-power@0.1.0
 card-probe-construction@0.1.0
+card-probe-control@0.1.0
 card-probe-network@0.1.0
 card-quartermaster@0.1.0
+card-reactor@0.1.0
+card-records-log@0.1.0
 card-roster@0.1.0
 card-scanner@0.1.0
 card-security@0.1.0
