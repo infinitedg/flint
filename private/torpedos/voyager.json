@@ -6,42 +6,50 @@
   {
   	"_id": "voyager-torpedo-1",
   	"number":1,
-    "loaded":false
+    "payload" : null,
+    "state" : "unprepared"
   },
   {
   	"_id": "voyager-torpedo-2",
   	"number":2,
-    "loaded":false
+    "payload" : null,
+    "state" : "unprepared"
   },
   {
   	"_id": "voyager-torpedo-3",
   	"number":3,
-    "loaded":false
+    "payload" : null,
+    "state" : "unprepared"
   },
   {
   	"_id": "voyager-torpedo-4",
   	"number":4,
-    "loaded":false
+    "payload" : null,
+    "state" : "unprepared"
   },
   {
   	"_id": "voyager-torpedo-5",
   	"number":5,
-    "loaded":false
+    "payload" : null,
+    "state" : "unprepared"
   },
   {
   	"_id": "voyager-torpedo-6",
   	"number":6,
-    "loaded":false
+    "payload" : null,
+    "state" : "unprepared"
   },
   {
   	"_id": "voyager-torpedo-7",
   	"number":7,
-    "loaded":false
+    "payload" : null,
+    "state" : "unprepared"
   },
   {
   	"_id": "voyager-torpedo-8",
   	"number":8,
-    "loaded":false
+    "payload" : null,
+    "state" : "unprepared"
   }
   ]
 }
