@@ -7,5 +7,7 @@ Package.on_use(function(api) {
   api.use(['flint', 'templating']);
   
   api.add_files(['engine.js'], 'server');
-  api.add_files(['component.html', 'component.js'], 'client');
+  api.add_files(['component.html', 'component.js','tuna.js'], 'client');
+
+  api.export(['tuna'],'client');
 });

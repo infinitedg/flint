@@ -6,7 +6,7 @@ var a = Flint.actor({
 	period: 33,
 	action: function(ticks) {
 		TWEEN.update();
-		console.log(TWEEN);
+		//console.log(TWEEN);
 	},
 	onStart: function() {
 		// Flint.Log.info("Starting sensors actor", "actor-sensors");
