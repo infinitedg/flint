@@ -29,7 +29,6 @@ ui-dropped-event
 
 flint
 flint-debug
-flint-drama
 flint-flash
 flint-sound
 flint-speech
@@ -116,3 +115,4 @@ card-thrust
 card-sensor3d
 percolate:migrations
 flint-macro-engine
+macro-sounds

@@ -24,15 +24,25 @@ Flint.Jobs = {
 		}
 		return _jobCollections[collectionName];
 	},
+	/**
+	* Process jobs as a worker
+	*/
 	processJobs: function(collectionName, jobType, options, worker) {
-		var workerIdentifier = collectionName.toLowerCase() + '_' + jobType.toLowerCase();
 		collectionName = collectionName.toLowerCase();
-		options = options || {};
-		Flint.Jobs.collection(collectionName); // Ensure the collection has been prepared
+		var workerIdentifier = collectionName + '_' + jobType.toLowerCase();
+		if (!_jobQueues[workerIdentifier]) {
+			options = options || {};
+			// Ensure the collection has been prepared
 
-		_jobQueues[workerIdentifier] = Job.processJobs(collectionName, jobType, options, worker);
+			_jobQueues[workerIdentifier] = Flint.Jobs.collection(collectionName).processJobs(jobType, options, worker);
+		} else {
+			Flint.Log.error('Attempted to register worker for queue ID ' + workerIdentifier);
+		}
 		return workerIdentifier;
 	},
+	/**
+	* Get the queue associated with a given JobCollection and jobType
+	*/
 	queue: function(collectionName, jobType) {
 		var id;
 		if (jobType === undefined) {
@@ -42,9 +52,15 @@ Flint.Jobs = {
 		}
 		return _jobQueues[_id];
 	},
+	/**
+	* Create and save a job immediately for execution
+	*/
 	scheduleJob: function(collectionName, jobName, jobOpts, jobData) {
 		return Flint.Jobs.createJob(collectionName, jobName, jobOpts, jobData).save();
 	},
+	/**
+	* Wrapper to setup jobs (see vsivsi:job-collection for more details)
+	*/
 	createJob: function(collectionName, jobName, jobOpts, jobData) {
 		jobOpts = jobOpts || {};
 		jobData = jobData || {};
@@ -73,10 +89,16 @@ Flint.Jobs = {
 
 		return job;
 	},
+	/**
+	* Set up a worker process for a given collection, jobType, and set of jobs
+	*/
 	createWorker: function(collectionName, jobName, processOpts, worker) {
 		processOpts = processOpts || {};
 		Flint.Jobs.processJobs(collectionName, jobName, processOpts, worker);
 	},
+	/**
+	* Handy method to create actors that move between worker servers
+	*/
 	createActor: function(jobName, interval, action) {
 		// Find whether this actor is here
 		if (Flint.Jobs.collection('generalQueue').find({type: jobName}).count() === 0) {
