@@ -1,28 +1,39 @@
 <template name="card_flintlibrary">
 	<div class="row">
 		<div class="col-md-4">
+			{{> comp_flintAssetButtons}}
 			{{> comp_flintAssetBrowser}}
 		</div>
 		<div class="col-md-8">
 			{{#if containerSelected}}
-				{{> comp_flintContainerView}}
+			{{> comp_flintContainerView}}
 			{{/if}}
 		</div>
 	</div>
 </template>
 
+<template name="comp_flintAssetButtons">
+	<p>
+		<div class="btn-group">
+			<button class="add-folder btn btn-primary">
+				<span class="glyphicon glyphicon-folder-open"></span>
+			</button>
+			<button class="add-container btn btn-primary">
+				<span class="glyphicon glyphicon-file"></span>
+			</button>
+			<button class="mass-upload btn btn-warning">
+				<span class="glyphicon glyphicon-upload"></span>
+			</button>
+			
+		</div>
+		<div style="opacity: 0; width: 0px;">
+			<input type="file" id="mass-upload-folder" multiple />
+		</div>
+	</p>
+</template>
+
 <template name="comp_flintAssetBrowser">
 	<p><strong>Path: {{currentDirectory}}</strong></p>
-	<p>
-	<div class="btn-group">
-		<button class="add-folder btn btn-primary">
-			<span class="glyphicon glyphicon-folder-open"></span>
-		</button>
-		<button class="add-container btn btn-primary">
-			<span class="glyphicon glyphicon-file"></span>
-		</button>
-	</div>
-	</p>
 	<div class="well flintassetbrowser">
 		<ul>
 			{{#if notRoot}}
@@ -53,13 +64,13 @@
 	<h3>Objects:</h3>
 	<ul>
 		{{#each objects}}
-			<li>{{simulatorId}} <img src="{{url}}" class="img-responsive"/></li>
+		<li>{{simulatorId}} <img src="{{url}}" class="img-responsive"/></li>
 		{{/each}}
 	</ul>
 	<select>
-	{{#each simulators}}
+		{{#each simulators}}
 		<option value="{{_id}}">{{name}}</option>
-	{{/each}}
+		{{/each}}
 	</select>
 	<input type="file">
 	<button class="btn btn-primary add-object">Add Object</button>

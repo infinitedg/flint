@@ -6,6 +6,7 @@ accounts-password@1.1.1
 accounts-ui@1.1.5
 accounts-ui-unstyled@1.1.7
 actor-sensors@0.1.0
+appmill:animation-hooks@0.1.2
 assets-voyager@0.1.0
 autoupdate@1.2.1
 base64@1.0.3
@@ -21,6 +22,7 @@ callback-hook@1.0.3
 card-3d-car-demo@0.1.0
 card-3d-stars-demo@0.1.0
 card-alert-condition@0.1.0
+card-comm-decoding@0.1.0
 card-comm-internal@0.1.0
 card-comm-shortrange@0.1.0
 card-coolant@0.1.0
@@ -29,7 +31,6 @@ card-core-station-utility@0.1.0
 card-core-timeline@0.1.0
 card-course-calculation@0.1.0
 card-damage-control@0.1.0
-card-decoding@0.1.0
 card-efficiency@0.1.0
 card-engine-control@0.1.0
 card-flint-library@0.1.0
@@ -39,6 +40,8 @@ card-login@0.1.0
 card-mario@0.1.0
 card-message-composer@0.1.0
 card-power@0.1.0
+card-probe-construction@0.1.0
+card-quartermaster@0.1.0
 card-roster@0.1.0
 card-scanner@0.1.0
 card-security@0.1.0
@@ -60,11 +63,15 @@ card-thrust@0.1.0
 card-thrusters@0.1.0
 card-tractor-beam@0.1.0
 card-transporters@0.1.0
+card-video-manager@0.1.0
 card-videochat@0.1.0
 card-viewscreen@0.1.0
 card-viewscreen-control@0.1.0
+card-weapons@0.1.0
 card-weapons-phasers@0.1.0
+card-weapons-torpedos@0.1.0
 card-wormhole@0.1.0
+ccorcos:transitioner@2.0.1
 cfs:access-point@0.1.49
 cfs:base-package@0.0.30
 cfs:collection@0.5.5
@@ -93,11 +100,14 @@ ejson@1.0.6
 email@1.0.6
 facebook@1.2.0
 fastclick@1.0.3
+ficshelf:media-query@1.0.6
 flint@0.1.0
 flint-assets@0.1.0
+flint-audio-engine@0.1.0
 flint-debug@0.1.0
 flint-files@0.1.0
 flint-flash@0.1.0
+flint-heartbeat@0.1.0
 flint-jobs@0.0.1
 flint-macro-engine@0.2.0
 flint-snapshot@0.1.0
@@ -115,6 +125,7 @@ infinitedg:bootstrap-slider-touch@1.0.0
 infinitedg:gsap@1.13.2-beta1
 infinitedg:three@70.0.2
 infinitedg:winston@0.7.3
+infinitedg:winston-loggly@1.0.1
 insecure@1.0.3
 iron:controller@1.0.8
 iron:core@1.0.8
@@ -130,15 +141,15 @@ launch-screen@1.0.2
 layout-admin@0.0.1
 layout-blackout@0.0.1
 layout-core@0.0.1
-layout-default@0.0.1
+layout-digital@0.0.1
 layout-tac-control@0.0.1
 layout-viewscreen@0.0.1
-layout-voyager@0.0.1
 ldk:three@0.57.0
 less@1.0.14
 livedata@1.0.13
 localstorage@1.0.3
 logging@1.0.7
+macro-lights@0.1.0
 macro-sounds@0.1.0
 meteor@1.1.6
 meteor-platform@1.2.2
@@ -188,6 +199,7 @@ ui@1.0.6
 ui-dropped-event@0.0.7
 underscore@1.0.3
 url@1.0.4
+velocityjs:velocityjs@1.2.1
 vsivsi:job-collection@1.0.0
 webapp@1.2.0
 webapp-hashing@1.0.3

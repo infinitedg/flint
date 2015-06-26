@@ -1,0 +1,11 @@
+<template name="layout_digital_messageBox">
+<div class="messageBox {{messageBoxAnimate}}">
+<div class="messageBoxHeader">{{newMessage}} {{t "Messages"}}</div>
+	    <div class="chat textbox">
+	        {{#each messages}}
+	            <p><strong>{{name}}:</strong> {{message}}</p>
+	        {{/each}}
+	    </div>    
+	    <p><input type="text" id="message" size="80"/></p>
+	</div>
+</template>

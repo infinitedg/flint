@@ -2,7 +2,7 @@
 @class Flint
 */
 
-var soundPrefix = '/sounds/chimes';
+var soundPrefix = '/Sounds/Chimes';
 
 _.extend(Flint, {
   /**

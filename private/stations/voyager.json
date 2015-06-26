@@ -17,10 +17,7 @@
          "_id":"voyager-captain",
          "name":"Captain",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {
                "cardId":"card_selfDestruct",
                "name":"Self Destruct"
@@ -49,10 +46,7 @@
          "_id":"voyager-damage",
          "name":"Damage Control",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {
                "cardId":"card_damageControl",
                "name":"Damage Report"
@@ -62,41 +56,26 @@
       {  
          "_id":"voyager-engineering",
          "name":"Engineering",
-         "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            }
+         "cards":[
          ]
       },
       {  
          "_id":"voyager-medical",
          "name":"Medical",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            }
          ]
       },
       {  
          "_id":"voyager-science",
          "name":"Science",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            }
          ]
       },
       {  
          "_id":"voyager-security",
          "name":"Security",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {
                "cardId":"card_security_doors",
                "name":"Deck Control"
@@ -104,19 +83,20 @@
             {
                "cardId":"card_security_teams",
                "name":"Security Teams"
+            },
+            {
+               "cardId":"card_security_scanning",
+               "name":"Internal Sensors"
             }
          ]
       },
       {  
          "_id":"voyager-sensors",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {  
                "cardId":"card_sensor3d",
-               "name":"SENSOR3D"
+               "name":"Sensor Grid"
             }
          ],
          "name":"Sensors",
@@ -206,10 +186,7 @@
       {  
          "_id":"voyager-operations",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {  
                "cardId":"card_viewscreenControl",
                "name":"viewscreenControl"
@@ -221,17 +198,18 @@
       {  
          "_id":"voyager-weapons",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {  
                "cardId":"card_weapons",
-               "name":"WEAPONS"
+               "name":"Weapons"
             },
             {
                "cardId":"card_phasers",
                "name":"Phasers"
+            },
+            {
+               "cardId":"card_torpedos",
+               "name":"Torpedos"
             },
             {
                "cardId":"card_shields",
@@ -244,10 +222,7 @@
       {  
          "_id":"voyager-communications",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {  
                "cardId":"card_shortRangeComm",
                "name":"SHORTRANGECOMM"
@@ -267,10 +242,7 @@
       {  
          "_id":"voyager-navigation",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {  
                "cardId":"card_engineControl",
                "name":"ENGINECONTROL"
@@ -290,10 +262,7 @@
       {  
          "_id":"flint-admin",
          "cards":[  
-            {  
-               "cardId":"card_login",
-               "name":"LOGIN"
-            },
+
             {  
                "cardId":"card_flintlibrary",
                "name":"ASSET MANAGER"

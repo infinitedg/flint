@@ -1,7 +1,7 @@
 <template name="card_viewscreen">
 
 	{{> viewscreenStyle}}
-	<div class="viewscreen" style="position:absolute; z-index: 1; top:0px; left:0; display: inline; min-width: 100vw;">
+	<div class="viewscreen" style="position:absolute; z-index: 1; top:0px; left:0; display: inline; min-width: 100%; height: 100%" >
 		<ul>
 			{{#each viewscreenInputs}}
 			<li class="viewscreenOutput" data-priority={{priority}} >
@@ -36,7 +36,7 @@
 
 <template name="viewscreen_video">
 	<div class="viewscreenVideo">
-		<video src={{tacticalVideo}} autoplay preload="auto" style="width: 100%;" {{videoLooping}} muted>
+		<video src={{tacticalVideo}} autoplay preload="auto" style="width: 100%;" {{videoLooping}}>
 		</video>
 	</div>
 </template>

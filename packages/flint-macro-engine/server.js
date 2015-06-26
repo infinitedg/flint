@@ -1,4 +1,4 @@
-var _flintMacros = {};
+_flintMacros = {};
 
 /**
 Used to prepare a macro for use across the system. Requires macroName, macroDescription, and macroArguments
@@ -21,35 +21,35 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 		}
 	}
 };
-
-// The heart of the macro engine, used to execute a given macro
-Flint.Jobs.createWorker('macroQueue', 'macro', {}, function(job, cb) {
-	// Trigger macro
-	if (!_flintMacros[job.data.macroName]) {
-		job.fail("No such macro " + job.data.macroName);
-		cb();
-	} else {
-		_flintMacros[job.data.macroName].func(job.data.args);
-		job.done();
-		cb();
-	}
-});
-
-// Setup automatic macro triggering
-Flint.Jobs.collection('macroQueue').find({ type: 'macro', status: 'ready'})
-	.observe({
-		added: function() {
-				Flint.Jobs.queue('macroQueue', 'macro').trigger();
-			}
+Meteor.startup(function(){
+	// The heart of the macro engine, used to execute a given macro
+	Flint.Jobs.createWorker('macroQueue', 'macro', {}, function(job, cb) {
+		// Trigger macro
+		if (!_flintMacros[job.data.macroName]) {
+			job.fail("No such macro " + job.data.macroName);
+			cb();
+		} else {
+			_flintMacros[job.data.macroName].func(job.data.args);
+			job.done();
+			cb();
+		}
 	});
 
+	// Setup automatic macro triggering
+	Flint.Jobs.collection('macroQueue').find({ type: 'macro', status: 'ready'})
+		.observe({
+			added: function() {
+					Flint.Jobs.queue('macroQueue', 'macro').trigger();
+				}
+		});
 
-// Return a collection flintMacroDefintions that contains the names, descriptions, and arguments of all registered macros
-Meteor.publish("flint_macro_engine.macroNames", function() {
-	var self = this;
-	_.each(_flintMacros, function(macroPayload, macroName) {
-		self.added("flintMacroDefinitions".toLowerCase(), macroName, _.pick(macroPayload, ['name', 'arguments', 'description']));
+	// Return a collection flintMacroDefintions that contains the names, descriptions, and arguments of all registered macros
+	Meteor.publish("flint_macro_engine.macroNames", function() {
+		var self = this;
+		_.each(_flintMacros, function(macroPayload, macroName) {
+			self.added("flintMacroDefinitions".toLowerCase(), macroName, _.pick(macroPayload, ['name', 'arguments', 'description']));
+		});
+
+		self.ready();
 	});
-
-	self.ready();
 });

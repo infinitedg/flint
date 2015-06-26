@@ -1,6 +1,6 @@
 <template name="card_scanner">
  
-  <div class="row-fluid {{css_input}}">
+  <div class="row-fluid  {{css_input}}">
     <div class="span12">
       <div class="row-fluid">
         <div class="span12 scanning_input">
@@ -8,7 +8,7 @@
   <h3>Scanning...</h3>
   {{else}}
           <h4>Scan</h4>
-          <textarea rows="5" class="span12 input-field"></textarea>
+          <textarea rows="5" class="span12 scanning_input input-field"></textarea>
           <button class="scan-btn btn-block btn btn-success" {{scan_disabled}}>Begin Scan</button>
             {{/if}}
         </div>
@@ -16,7 +16,7 @@
       <div class="row-fluid">
         <div class="span12 scanning_output">
         <h4>Scan Response</h4>
-          <textarea rows="5" disabled class="span12">{{scannerResponse}}</textarea>
+          <textarea rows="5" disabled class="scanning_output span12">{{scannerResponse}}</textarea>
         </div>
       </div>
     </div>

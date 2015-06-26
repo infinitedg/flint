@@ -114,10 +114,11 @@ Variables used:
  transition: background-color 0.5s ease;
 }
 
-.backgroundColor:not(textarea):not(header):not([type="text"]),.btn {background: url(/themes/default/public/svg/speckles.png);
+.backgroundColor:not(textarea):not(header):not([type="text"]) {
+  background: url(/themes/default/public/svg/speckles.png);
   background-size: 100%;
   background-color: {{alertColora "1"}};
-  transition: background-color 0.5s ease;
+  transition: background-color 0.25s ease;
 }
 
 header{
@@ -175,10 +176,10 @@ header .backgroundBezel{
   position: absolute;
   bottom: 0px;
   -webkit-clip-path: polygon(.2% 78%, 22% 78%, 20.6% 96%, 22.1% 96%, 26% 43%, 87.5% 43%, 84.5% 96%, 85.9% 96%, 87.5% 68%, 99.8% 68%, 99.8% 96%, .2% 96%);}
-header.row-fluid h3{
+  header.row-fluid h3{
     line-height: 0.5;
-  margin-top: 0px;
-}
+    margin-top: 0px;
+  }
   @media (max-width: 1025px) {
     header.row-fluid h2{font-size:24px;display:none;}
     header.row-fluid h3{margin-top:57px;}
@@ -694,7 +695,27 @@ html, body, .perspective {
   </style>
 </template>
 
-<template name="theme_vangaurdButtons">
+<template name="theme_vanguardButtons">
+  <style>
+    .btn{
+      text-transform:uppercase;
+      border-radius:0;
+    }
+    .btn:hover,
+    .btn:focus,
+    .btn:active,
+    .btn[disabled]{
+      color: #ffffff;
+      background-image: none;
+      background: url(/themes/default/public/svg/default.svg);
+      background-color: transparent;
+      *background-color: transparent;
+      color: #f0f0f0;
+      text-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
+    }
+  </style>
+</template>
+<template name="theme_vangaurdButtons_old">
   <style>
     .btn{
       text-transform:uppercase;
@@ -727,9 +748,6 @@ html, body, .perspective {
       background-repeat: repeat-x;
       border-radius:0;
       text-decoration: none;
-      font-size: 14px;
-      height: 40px;
-      padding: 10px;
       color: #fff;
       text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);
       border: 0 solid rgba(0,0,0,0);
@@ -763,9 +781,6 @@ html, body, .perspective {
       background-repeat: repeat-x;
       border-radius:0;
       text-decoration: none;
-      font-size: 14px;
-      height: 40px;
-      padding: 10px;
       color: #fff;
       text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);
       border: 0 solid rgba(0,0,0,0);
@@ -799,9 +814,6 @@ html, body, .perspective {
       background-repeat: repeat-x;
       border-radius:0;
       text-decoration: none;
-      font-size: 14px;
-      height: 40px;
-      padding: 10px;
       color: #fff;
       text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);
       border: 0 solid rgba(0,0,0,0);
@@ -835,9 +847,6 @@ html, body, .perspective {
       background-repeat: repeat-x;
       border-radius:0;
       text-decoration: none;
-      font-size: 14px;
-      height: 40px;
-      padding: 10px;
       color: #fff;
       text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);
       border: 0 solid rgba(0,0,0,0);
@@ -871,9 +880,6 @@ html, body, .perspective {
       background-repeat: repeat-x;
       border-radius:0;
       text-decoration: none;
-      font-size: 14px;
-      height: 40px;
-      padding: 10px;
       color: #fff;
       text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);
       border: 0 solid rgba(0,0,0,0);
@@ -907,9 +913,6 @@ html, body, .perspective {
       background-repeat: repeat-x;
       border-radius:0;
       text-decoration: none;
-      font-size: 14px;
-      height: 40px;
-      padding: 10px;
       color: #fff;
       text-shadow: 0px 0px 7px rgba(255, 255, 255, 1);
       border: 0 solid rgba(0,0,0,0);

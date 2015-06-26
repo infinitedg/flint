@@ -1,0 +1,111 @@
+<template name="card_quartermaster">
+	<div class="container card-quartermaster">
+		<div class="row">
+			<div class="col-sm-4 leftSupplies">
+				<div class="decks">
+					{{#each decks}}
+					<div class="deck {{deckStateLeft}}">
+						<svg viewBox="0 0 1000 772" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:1.41421;">
+							<g id="deck_{{number}}">
+								<g>
+									<path d={{svgPath}} />
+								</g>
+								<g>
+									<path d={{deckHallway}} />
+								</g>
+								{{#each rooms}}
+								<g class={{roomClass}} data-id={{_id}}>
+									<path d={{svgPath}} />
+								</g>
+								{{/each}}
+							</g>
+						</svg>
+					</div>
+					{{/each}}
+				</div>
+				<input type="text" id="suppliesLeftSlide" value='1' data-slider-min="1" data-slider-max="15" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden; width: inherit;">
+				<div class="well inventory leftInventory">
+					{{#each leftInventory}}
+					<p>{{leftCount}} : {{name}}</p>
+					{{/each}}
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<button class="btn btn-primary btn-block transferRight" disabled={{transferDisabled}} type="button">Transfer <i class="fa fa-arrow-right"></i></button>
+				<button class="btn btn-primary btn-block transferLeft" disabled={{transferDisabled}} type="button"><i class="fa fa-arrow-left"></i> Transfer</button>
+				<button class="btn btn-primary btn-block requisition" type="button">Requisition</button>
+				<label>Ready Area</label>
+				<div class="well readySupplies">
+					{{#each readyInventory}}
+					<p>{{readyCount}} : {{name}}</p>
+					{{/each}}
+				</div>
+			</div>
+			<div class="col-sm-4 rightSupplies">
+				<div class="decks">
+					{{#each decks}}
+					<div class="deck {{deckStateRight}}">
+						<svg viewBox="0 0 1000 772" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:1.41421;">
+							<g id="deck_{{number}}">
+								<g>
+									<path d={{svgPath}} />
+								</g>
+								<g>
+									<path d={{deckHallway}} />
+								</g>
+								{{#each rooms}}
+								<g class={{roomClass}} data-id={{_id}}>
+									<path d={{svgPath}} />
+								</g>
+								{{/each}}
+							</g>
+						</svg>
+					</div>
+					{{/each}}
+				</div>
+				<input type="text" id="suppliesRightSlide" value='1' data-slider-min="1" data-slider-max="15" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden; width: inherit;">
+				<div class="well inventory rightInventory">
+					{{#each rightInventory}}
+					<p>{{rightCount}} : {{name}}</p>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<span class="roomLabel" style="position: absolute; {{roomStyle}}">{{roomName}}</span>
+	{{> requisition_modal}}
+</template>
+
+<template name="requisition_modal">
+	<div class="modal requisition_modal fade">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Requisition Request</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12">
+							To: Quartermaster, Farpoint Station
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							From: USS Voyager
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<textarea class="col-xs-12"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Queue Message</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>
