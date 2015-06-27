@@ -24,8 +24,7 @@ Meteor.startup(function() {
             _id: connectionId,
             connectionId: connectionId,
             createdOn: (new Date()).getTime(),
-            clientAddress: conn.clientAddress,
-            serverId: Flint.serverId()
+            clientAddress: conn.clientAddress
         });
     });
 
@@ -47,11 +46,11 @@ Meteor.startup(function() {
     });
 
     // Cleanup orphaned clients where appropriate
-    Meteor.setInterval(function() {
+    /*Meteor.setInterval(function() {
         // Increment client counters
         Flint.collection('flintClients').update({}, {$inc: {heartbeatCounter: 1}}, {multi: true});
         // If they pass the heartbeat timeout, remove the client
         var serverCount = Flint.collection('flintServers').find().count();
         Flint.collection('flintClients').remove({heartbeatCounter: {$gt: serverCount * heartbeatTimeout}});
-    }, 1000);
+    }, 1000);*/
 });

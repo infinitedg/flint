@@ -1,0 +1,592 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.card-container{
+  color: #fff;
+  overflow: hidden;
+  position: fixed;
+  padding-top: 10px;
+  height: 80vh;
+  width: 85vw;
+  left: 10vw;
+  top: 12vh;
+}
+.layout_digital,.bootbox{
+  .well{
+    background-color: rgba(10,10,10,0.75);
+    border-color: rgba(245,245,245,0.5);
+  }
+  .modal-content{
+    background-color: rgba(60,60,65,0.8);
+    box-shadow: inset 0px 0px 20px rgba(255,255,255,0.5);
+  }
+  .main_background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    -webkit-transition: background 1s ease-in-out;
+  }
+  .main_background.alertColor4, .main_background.alertColor5{
+    background: linear-gradient(165deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%), #081a29;
+  }
+  .main_background.alertColor3{
+    background: linear-gradient(165deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%), #292908;
+  }
+  .main_background.alertColor2{
+    background: linear-gradient(165deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%),#291808;
+  }
+  .main_background.alertColor1{
+    background: linear-gradient(165deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%),#290808;
+  }
+  .background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    div{
+      position: absolute;
+      background-size: cover;
+    }
+    svg {
+      position: fixed;
+      background-color: transparent;
+      cursor: auto;
+    }
+    .powerUp-doodad, .nameBox, .bottomLeft-bracket-end, .bottomLeft-bracket-mid, .bottomLeft-bracket-x, .bottomRight-bracket-end, .bottomRight-bracket-start, .bottomRight-bracket-x, .left-doodad, .leftBottom-bracket-start, .leftBottom-bracket-x, .rightTop-bracket-end, .rightTop-bracket-x, .topRight-bracket-mid, .topRight-bracket-start, .topRight-bracket-x, .topLeft-bracket-end, .topLeft-bracket-x, .topLeft-bracket-start{
+     -webkit-transition: opacity 0.5s cubic-bezier(.5,2,.5,-1.5); 
+     transition: opacity 0.5s cubic-bezier(.5,2,.5,-1.5);
+   }
+   .bottomLeft-bracket-end{
+    transition-delay: .1s;
+    width: 2.4479%;
+    height: 3.240%;
+    bottom: 0px;
+    left: calc(~"7.656% + 2.03125%");
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-end.png);
+  }
+  .bottomLeft-bracket-mid{
+    transition-delay: .1s;
+    width: 7.656%;
+    height: 68.425%;
+    bottom: 0px;
+    left: 0px;
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-mid.png);
+  }
+  .bottomLeft-bracket-x{
+    transition-delay: .1s;
+    width: 2.03125%;
+    height: 3.240%;
+    bottom: 0px;
+    left: 7.656%;
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-x.png);
+  }
+  .bottomRight-bracket-end{
+    transition-delay: .5s;
+
+    width: 3.22916%;
+    height: 10.277%;
+    bottom: 0px;
+    right: 0px;
+    background-image: url(/themes/digital/frame/bottomRight-bracket-end.png);
+  }
+  .bottomRight-bracket-start{
+    transition-delay: .5s;
+
+    width: 58.125%;
+    height: 10.277%;
+    bottom: 0px;
+    right: calc(~"3.229% + 2.239%");
+    background-image: url(/themes/digital/frame/bottomRight-bracket-start.png);
+  }
+  .bottomRight-bracket-x{
+    transition-delay: .5s;
+
+    width: 2.23958%;
+    height: 10.277%;
+    bottom: 0px;
+    right: 3.229%;
+    background-image: url(/themes/digital/frame/bottomRight-bracket-x.png);
+  }
+  .left-doodad{
+    transition-delay: .2s;
+    width: 7.343%;
+    height: 44.166%;
+    bottom: 4.166%;
+    left: 3.906%;
+    background-image: url(/themes/digital/frame/left-doodad.png);
+  }
+  .leftBottom-bracket-start{
+    transition-delay: .1s;
+    width: 8.177%;
+    height: 9.814%;
+    left: 0px;
+    bottom: calc(~"68.425% + 3.518%");
+    background-image: url(/themes/digital/frame/leftBottom-bracket-start.png);
+  }
+  .leftBottom-bracket-x{
+    transition-delay: .1s;
+    width: 7.187%;
+    height: 3.518%;
+    left: 0px;
+    bottom: 68.425%;
+    background-image: url(/themes/digital/frame/leftBottom-bracket-x.png);
+  }
+  .rightTop-bracket-end{
+    transition-delay: .3s;
+    width: 3.229%;
+    height: 3.425%;
+    right: 0px;
+    top: calc(~"15.277% + 3.055%");
+    background-image: url(/themes/digital/frame/rightTop-bracket-end.png);
+  }
+  .rightTop-bracket-x{
+    transition-delay: .3s;
+    width: 2.708%;
+    height: 3.055%;
+    right: 0px;
+    top: 15.277%;
+    background-image: url(/themes/digital/frame/rightTop-bracket-x.png);
+  }
+  .topRight-bracket-mid{
+    transition-delay: .3s;
+    width: 17.395%;
+    height: 15.277%;
+    top: 0;
+    right: 0;
+    background-image: url(/themes/digital/frame/topRight-bracket-mid.png);
+  }
+  .topRight-bracket-start{
+    transition-delay: .3s;
+    width: 1.406%;
+    height: 32px;
+    top: 0px;
+    right: calc(~"17.395% + 1.041%");
+    background-image: url(/themes/digital/frame/topRight-bracket-start.png);
+  }
+  .topRight-bracket-x{
+    transition-delay: .3s;
+    width: 1.354%;
+    height: 3.703%;
+    top: 0px;
+    right: 17.395%;
+    background-image: url(/themes/digital/frame/topRight-bracket-x.png);
+  }
+  .topLeft-bracket-end{
+    transition-delay: .15s;
+    width: 1.458%;
+    height: 2.870%;
+    top: 0px;
+    left: calc(~"25.885% + 1.041%");
+    background-image: url(/themes/digital/frame/topLeft-bracket-end.png);
+  }
+  .topLeft-bracket-x{
+    transition-delay: .15s;
+    width: 1.041%;
+    height: 7.407%;
+    top: 0px;
+    left: 25.885%;
+    background-image: url(/themes/digital/frame/topLeft-bracket-x.png);
+  }
+  .topLeft-bracket-start{
+    transition-delay: .15s;
+    width: 25.885%;
+    height: 7.407%;
+    top: 0px;
+    left: 0px;
+    background-image: url(/themes/digital/frame/topLeft-bracket-start.png);
+  }
+  /*Doodads*/
+  .nameBox {
+    top: 2.5vh;
+    left: 2vw;
+    width: 23.437vw;
+  }
+  .powerUp-doodad {
+    width: 2.3437vw;
+    right: 1vw;
+    bottom: 9vh;
+  }
+  .powerUp-holder {
+    position: fixed;
+    width: 1.7vw;
+    height: 44.981vh;
+    right: 1.3vw;
+    bottom: 9vh;
+    -webkit-clip-path: polygon(80% 1%, 0 7%, 0 92%, 90% 98%, 100% 98%, 100% 40%, 50% 37%, 50% 17%, 100% 13.5%, 100% 1%, 80% 1%);
+  }
+  .powerUp-bar {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(20, 85, 115, 0) 50%, #145573 51%, #145573 100%);
+    background-size: 10px;
+    background-attachment: fixed;
+    background-position: 100% 100%;
+    transition: height 1s ease-in-out;
+  }
+  .powerUp-holder:hover .powerUp-bar {
+    height: 50%;
+  }
+
+}
+.front-controls{
+  transition-delay: .1s;
+}
+.loggedOut{
+  .cardControl, .messageBox, .alertNum, .alertColor, .powerUp-bar, .powerUp-doodad, .bottomLeft-bracket-end, .bottomLeft-bracket-mid, .bottomLeft-bracket-x, .bottomRight-bracket-end, .bottomRight-bracket-start, .bottomRight-bracket-x, .left-doodad, .leftBottom-bracket-start, .leftBottom-bracket-x, .rightTop-bracket-end, .rightTop-bracket-x, .topRight-bracket-mid, .topRight-bracket-start, .topRight-bracket-x, .topLeft-bracket-end, .topLeft-bracket-x, .topLeft-bracket-start{
+    opacity: 0 !important;
+  }
+}
+.background-overlay.retina{
+  .bottomLeft-bracket-end{
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-end@2x.png);
+  }
+  .bottomLeft-bracket-mid{
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-mid@2x.png);
+  }
+  .bottomLeft-bracket-x{
+    background-image: url(/themes/digital/frame/bottomLeft-bracket-x@2x.png);
+  }
+  .bottomRight-bracket-end{
+    background-image: url(/themes/digital/frame/bottomRight-bracket-end@2x.png);
+  }
+  .bottomRight-bracket-start{
+    background-image: url(/themes/digital/frame/bottomRight-bracket-start@2x.png);
+  }
+  .bottomRight-bracket-x{
+    background-image: url(/themes/digital/frame/bottomRight-bracket-x@2x.png);
+  }
+  .left-doodad{
+    background-image: url(/themes/digital/frame/left-doodad@2x.png);
+  }
+  .leftBottom-bracket-start{
+    background-image: url(/themes/digital/frame/leftBottom-bracket-start@2x.png);
+  }
+  .leftBottom-bracket-x{
+    background-image: url(/themes/digital/frame/leftBottom-bracket-x@2x.png);
+  }
+  .rightTop-bracket-end{
+    background-image: url(/themes/digital/frame/rightTop-bracket-end@2x.png);
+  }
+  .rightTop-bracket-x{
+    background-image: url(/themes/digital/frame/rightTop-bracket-x@2x.png);
+  }
+  .topRight-bracket-mid{
+    background-image: url(/themes/digital/frame/topRight-bracket-mid@2x.png);
+  }
+  .topRight-bracket-start{
+    background-image: url(/themes/digital/frame/topRight-bracket-start@2x.png);
+  }
+  .topRight-bracket-x{
+    background-image: url(/themes/digital/frame/topRight-bracket-x@2x.png);
+  }
+  .topLeft-bracket-end{
+    background-image: url(/themes/digital/frame/topLeft-bracket-end@2x.png);
+  }
+  .topLeft-bracket-x{
+    background-image: url(/themes/digital/frame/topLeft-bracket-x@2x.png);
+  }
+  .topLeft-bracket-start{
+    background-image: url(/themes/digital/frame/topLeft-bracket-start@2x.png);
+  }
+}
+
+.button,.btn{
+  font-family: 'Gamecuben';
+  text-transform: uppercase;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  padding-left: 30px;
+  height: 65px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  margin-right: 0px;
+  min-width: 187.5px;
+  box-sizing: border-box;
+  background-image: url(/themes/digital/frame/button1.png);
+  background-repeat: no-repeat, repeat-x;
+  background-position: 0px, 32px;
+  transition: -webkit-filter 0.25s linear;
+}
+.button:before,.button:after, .btn:before, .btn:after{
+  position: absolute;
+  z-index: -1;
+  height: 65px;
+}
+.button:before, .btn:before{
+ width: calc(~'100% - 187.5px');
+ left: 36px;
+ top: 0;
+ content:'';
+ background-image: url(/themes/digital/frame/button2.png)
+}
+.button:after, .btn:after{
+ width: 93px;
+ right: 59px;
+ bottom: 0;
+ content: url(/themes/digital/frame/button3.png);
+}
+a.btn{
+  line-height: 40px;
+}
+.button a{
+  color: #fff;
+  text-decoration: none;
+}
+.button:hover, .btn:hover, .button:active, .btn:active, .btn:focus, .button:focus{
+  -webkit-filter:drop-shadow(0px 0px 5px rgba(255,255,255,0.5));
+  background-image: inherit;
+  background-image: url(/themes/digital/frame/button1.png);
+  background-repeat: no-repeat, repeat-x;
+  background-position: 0px, 32px;
+  outline: 0;
+}
+.button[disabled], .btn[disabled]{
+ -webkit-filter:drop-shadow(0px 0px 5px rgba(0,0,0,1));
+ background-image: inherit;
+ background-image: url(/themes/digital/frame/button1.png);
+ background-repeat: no-repeat, repeat-x;
+ background-position: 0px, 32px;
+ opacity: 0.5;
+}
+/*
+ * Select
+ */
+
+ .select {
+  position: relative;
+  display: inline-block;
+  color: #555;
+}
+.select select {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: .5rem 2.25rem .5rem 1rem;
+  line-height: 1.5;
+  color: #555;
+  background-color: #eee;
+  border: 0;
+  border-radius: .25rem;
+  cursor: pointer;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+/* Undo the Firefox inner focus ring */
+.select select:focus:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+/* Dropdown arrow */
+.select:after {
+  position: absolute;
+  top: 50%;
+  right: 1.25rem;
+  display: inline-block;
+  content: "";
+  width: 0;
+  height: 0;
+  margin-top: -.15rem;
+  pointer-events: none;
+  border-top: .35rem solid;
+  border-right: .35rem solid transparent;
+  border-bottom: .35rem solid transparent;
+  border-left: .35rem solid transparent;
+}
+
+/* Hover state */
+/* Uncomment if you need it, but be aware of the sticky iOS states.
+.select select:hover {
+  background-color: #ddd;
+}
+*/
+
+/* Focus */
+.select select:focus {
+  box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem #0074d9;
+}
+
+/* Active/open */
+.select select:active {
+  color: #fff;
+  background-color: #0074d9;
+}
+
+/* Hide the arrow in IE10 and up */
+.select select::-ms-expand {
+  display: none;
+}
+
+/* Media query to target Firefox only */
+@-moz-document url-prefix() {
+  /* Firefox hack to hide the arrow */
+  .select select {
+    text-indent: 0.01px;
+    text-overflow: '';
+    padding-right: 1rem;
+  }
+
+  /* <option> elements inherit styles from <select>, so reset them. */
+  .select option {
+    background-color: white;
+  }
+}
+
+
+
+.cardControl{
+  position: fixed;
+  bottom:  80px;
+  right:  170px;
+}
+.currentCard-button{
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-color: rgba(45, 130, 187,0.5);
+  border: 3px solid #999;
+  border-radius: 50%;
+  z-index:1000;
+  left: 40px;
+}
+.currentCard-button img{
+  width: 60px;
+  height: 60px;
+  padding: 3px;
+  margin-left: 2px;
+  margin-top: 2px;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+}
+.cardControl:hover .currentCard-button{
+  background-color: rgba(104, 180, 230,0.5);
+}
+li.digital_cardLink{
+  display: block;
+  position: absolute;
+  top: 40px;
+  opacity: 0;
+  left: -90px;
+}
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink, .digital_cardList:hover li.digital_cardLink{
+  opacity: 1;
+}
+li.digital_cardLink:nth-child(1){
+  transition: top 0.5s ease-in-out 0.1s, opacity 0.5s ease-in 0.1s;
+}
+li.digital_cardLink:nth-child(2){
+  transition: top 0.5s ease-in-out 0.2s, opacity 0.5s ease-in 0.2s;
+}
+li.digital_cardLink:nth-child(3){
+  transition: top 0.5s ease-in-out 0.3s, opacity 0.5s ease-in 0.3s;
+}
+li.digital_cardLink:nth-child(4){
+  transition: top 0.5s ease-in-out 0.4s, opacity 0.5s ease-in 0.4s;
+}
+li.digital_cardLink:nth-child(5){
+  transition: top 0.5s ease-in-out 0.5s, opacity 0.5s ease-in 0.5s;
+}
+li.digital_cardLink:nth-child(6){
+  transition: top 0.5s ease-in-out 0.6s, opacity 0.5s ease-in 0.6s;
+}
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(1), .digital_cardList:hover li.digital_cardLink:nth-child(1){
+  top: -50px;
+}
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(2), .digital_cardList:hover li.digital_cardLink:nth-child(2){
+  top: -110px;
+}
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(3), .digital_cardList:hover li.digital_cardLink:nth-child(3){
+  top: -170px;
+}
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(4), .digital_cardList:hover li.digital_cardLink:nth-child(4){
+  top: -230px;
+}
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(5), .digital_cardList:hover li.digital_cardLink:nth-child(5){
+  top: -290px;
+}
+.currentCard-button:not(.locked):hover ~ .digital_cardList li.digital_cardLink:nth-child(6), .digital_cardList:hover li.digital_cardLink:nth-child(6){
+  top: -360px;
+}
+.lockScreen svg{
+  width: 42px;
+  height: 42px;
+  padding: 3px;
+  margin-left: 2px;
+  margin-top: 2px;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.lockScreen{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 30px;
+  background: radial-gradient(ellipse at center, rgba(76,76,76,0.75) 0%,rgba(89,89,89,0.75) 27%,rgba(102,102,102,0.75) 48%,rgba(71,71,71,0.75) 75%,rgba(19,19,19,0.75) 100%);
+  border: 2px solid #999;
+  border-radius: 50%;
+  z-index:1000;
+}
+.lockScreen:hover{
+  background: radial-gradient(ellipse at center, rgba(126,126,126,0.75) 0%,rgba(139,139,139,0.75) 27%,rgba(152,152,152,0.75) 48%,rgba(121,121,121,0.75) 75%,rgba(50,50,50,0.75) 100%);
+}
+.username{
+  top: 5.5vh;
+  left: 10vw;
+  width: 14.5vw;
+  text-align: center;
+}
+.stationName{
+  top:9vh;
+  left: 10vw;
+  width: 14.5vw;
+  text-align: center;
+  font-size: 0.9vw;
+}
+.profilePicture{
+  top:2vh;
+  left: 2vw;
+  width: 8vw;
+  height: 8vw;
+  img {
+    width: 8vw;
+    border-radius: 100%
+  }
+}
+.alertColor{
+  right: 4.6vw;
+  top: 6.45vw;
+  width: 100px;
+  height: 14px;
+  opacity: 0.3;
+  border-radius: 0px 0px 0px 10px;
+}
+.alertNum{
+  font-size: 72px;
+  right: 50px;
+  text-align: center;
+  width: 64px;
+}
+.alertColor.alertColor4, .alertColor.alertColor5{
+  background-color: rgb(0,255,0);
+}
+.alertColor.alertColor3{
+  background-color: rgb(255,255,0);
+}
+.alertColor.alertColor2{
+  background-color: rgb(255,128,0);
+}
+.alertColor.alertColor1{
+  background-color: rgb(255,0,0);
+}
+
+}

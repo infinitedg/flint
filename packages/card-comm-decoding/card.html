@@ -1,0 +1,39 @@
+<template name="card_comm_decoding">
+	<div class="row decoding">
+		<div class="col-sm-9">
+			<div class="row commCandy">
+				<canvas id="canvasCandy" ></canvas>
+			</div>
+			<div class="row commControls">
+				<div class="frequency knob">
+					<div class="overlay">
+						<div class="handle">
+						</div>
+					</div>
+				</div>
+				<div class="amplitude knob">
+					<div class="overlay">
+						<div class="handle">
+						</div>
+					</div>
+				</div>
+				<div class="phase knob">
+					<div class="overlay">
+						<div class="handle">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="messageOutput">
+			{{freqValue}},{{ampValue}},{{phaseValue}}
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="messageList well">
+				{{#each messageList}}
+				<p class="message">{{from}}</p>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</template>

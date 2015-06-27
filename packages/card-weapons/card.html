@@ -1,12 +1,19 @@
-<template name="card_weapons">
-	<div class="card-weapons">
-		<div class="row">
-			<div class="col-xs-5 targetingBox">
-				<div class="targetGrid">
+<template name="card_targetingGrid">
+	<div class="container">
+		{{> targetingGrid}}
+	</div>
+</template>
 
+<template name="card_weapons">
+	<div class="card-weapons container">
+
+		<div class="row">
+			<div class="col-xs-8 targetingBox">
+				<div class="row">
+					{{> targetingGrid}}
 				</div>
 				<div class="targetOptions row">
-					<div class="col-xs-6">
+					<div class="col-xs-3">
 						<label class="control radio">
 							<input type="radio" id="general" name="radio">
 							<span class="control-indicator"></span>
@@ -17,6 +24,8 @@
 							<span class="control-indicator"></span>
 							Weapons
 						</label>
+					</div>
+					<div class="col-xs-3">
 						<label class="control radio">
 							<input type="radio" id="engines" name="radio">
 							<span class="control-indicator"></span>
@@ -28,17 +37,19 @@
 							Shields
 						</label>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-xs-3">
 						<label class="control radio">
 							<input type="radio" id="general" name="radio">
 							<span class="control-indicator"></span>
-							Communications
+							Comms.
 						</label>
 						<label class="control radio">
 							<input type="radio" id="weapons" name="radio">
 							<span class="control-indicator"></span>
 							Life Support
 						</label>
+					</div>
+					<div class="col-xs-3">
 						<label class="control radio">
 							<input type="radio" id="engines" name="radio">
 							<span class="control-indicator"></span>
@@ -52,38 +63,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-7 weaponsLoading">
-				<div class="row phaser1">
-					<h6>Phaser Bank 1</h6>
-					<div class="row">
-						<div class="col-xs-11 phaser1 energyBox">
-							<div class="phaser1 energyBar" style={{phaserEnergy '1'}} ></div>
-						</div>
-						<button id="charge1" class="col-xs-1 btn btn-danger charge">Charge</button>
-					</div>
-					<div class="row">
-						<div class="col-xs-11 phaser1 heatBox">
-							<div class="phaser1 heatBar" style={{phaserHeat '1'}} ></div>
-						</div>
-						<button id="fire1" class="col-xs-1 btn btn-danger fire">Fire</button>
-					</div>
+			<div class="col-xs-3 col-xs-offset-1 weaponsLoading">
+				{{#each phasers}}
+				<div class="row">
+					<button class="btn btn-xs btn-warning phaserSelector {{selectedPhaser}}" data-phaserNumber={{number}}>Fire Phaser {{number}}</button>
+					<span class="phaserCharge">
+						{{charge}}%
+					</span>
 				</div>
-				<div class="row phaser2">
-					<h6>Phaser Bank 2</h6>
-					<div class="row">
-						<div class="col-xs-11 phaser2 energyBox">
-							<div class="phaser2 energyBar" style={{phaserEnergy '2'}} ></div>
-						</div>
-						<button id="charge2" class="col-xs-1 btn btn-danger charge">Charge</button>
-					</div>
-					<div class="row">
-						<div class="col-xs-11 phaser2 heatBox">
-							<div class="phaser2 heatBar" style={{phaserHeat '1'}} ></div>
-						</div>
-						<button id="fire2" class="col-xs-1 btn btn-danger fire">Fire</button>
-					</div>
-				</div>
+				{{/each}}
 			</div>
-		</div>
+		</div> 
 	</div>
+</template> 
+
+<template name="targetingGrid">
+	<div class="targeting_box"></div>
 </template>

@@ -1,3 +1,6 @@
+.card-phasers{
+	overflow: scroll;
+}
 .phaserHeader{
 padding-left: 45px;
 margin-left: 35px;
@@ -36,7 +39,7 @@ display: none;
 	background-color: rgba(0,0,0,0.75);
 	height: 40px;
 	margin-right: 2%;
-	width: 93%;
+	width: 70%;
 	float: right;
 	position: relative;
 }

@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  background-color: #333;
+}
+.batteryPack{
+  position: absolute;
+  left: 20%;
+  bottom: 0;
+  height: 430px;
+  width: 15vw;
+  svg {
+    position: absolute;
+    width: 100%;
+    top: 0;
+  }
+  .batteryLevel{
+    position: absolute;
+    width: 80%;
+    height: 10%;
+    left: 10%;
+    bottom: 12px;
+    background: linear-gradient(to bottom, #333300 0%,#ffff00 51%,#333300 100%); 
+    background-size: 6px 6px;
+  }
+}
+.reactor {
+  position: absolute;
+  width: 80%;
+  height: 32.6vh;
+  right: 0px;
+  svg {
+    position: absolute;
+    width: 100%;
+  }
+  .router.batteries{
+    top: 82%;
+    left: 41.3%
+    
+  }
+  .router.wings{
+    top: 82%;
+    left: 52.8%
+  }
+  .router{
+    background-color: #889;
+    box-shadow: inset 0px 0px 20px rgba(0,0,0,1);
+    width: 5vw;
+    height: 5vw;
+    border-radius: 100%;
+    border: 0.3vw solid #aaa;
+    position: absolute;
+    .dragger{
+      width: 0;
+      height: 0;
+      margin-top: 1.2vw;
+      margin-left: 0.7vw;
+      border-top: 1vw solid transparent;
+      border-bottom: 1vw solid transparent;
+      border-left: 3.2vw solid #333;
+    }
+  }
+  label {
+    color: #fff;
+    font-size: 45px;
+    width: 120px;
+    height: 45px;
+    position: absolute;
+    text-align: center;
+  }
+  .output {
+    top: 85.5%;
+    left: 10.5%;
+  }
+  .batteries {
+    top: 136%;
+    left: 25.5%;
+  }
+  .leftWing {
+    top: 24.5%;
+    left: 81.5%;
+  }
+  .rightWing {
+    left: 81.5%;
+    top: 147%;
+  }
+  .powerUsed {
+    left: 73.6%;
+    top: 85.5%;
+  }
+  .bars {
+    position: absolute;
+    border-radius: 5px;
+    -webkit-animation-name: reactorMove;
+    -webkit-animation-duration: 1s;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+  }
+  .mainPower {
+    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(120, 120, 120, 1) 50%, rgba(20, 20, 20, 1) 100%);
+    background-size: 25px 25px;
+    height: 10.9%;
+    width: 50%;
+    top: 90%;
+    left: 27%;
+  }
+  .batteryPower1 {
+    background: linear-gradient(to bottom, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
+    background-size: 25px 25px;
+    height: 48%;
+    width: 3.9%;
+    top: 101%;
+    left: 43.1%;
+  }
+  .batteryPower2 {
+    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
+    background-size: 25px 25px;
+    -webkit-animation-name: reactorMoveUp;
+    height: 11%;
+    width: 14.5%;
+    top: 139.4%;
+    left: 32.2%;
+  }
+  .splitPower1 {
+    background: linear-gradient(to bottom, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
+    -webkit-animation-name: reactorMoveUp;
+    background-size: 25px 25px;
+    height: 57%;
+    width: 4.2%;
+    top: 32.6%;
+    left: 54.4%;
+  }
+  .splitPower2 {
+    background: linear-gradient(to bottom, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
+    background-size: 25px 25px;
+    height: 60%;
+    width: 3.8%;
+    top: 100.7%;
+    left: 54.6%;
+  }
+  .leftWingPower {
+    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
+    background-size: 25px 25px;
+    height: 11%;
+    width: 18%;
+    top: 28.4%;
+    left: 54.8%;
+  }
+  .rightWingPower {
+    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
+    background-size: 25px 25px;
+    height: 11%;
+    width: 18%;
+    top: 151.3%;
+    left: 54.8%;
+  }
+  @keyframes reactorMove {
+    from {
+      background-position: 0px 0px;
+    }
+    to {
+      background-position: 25px 25px;
+    }
+  }
+  @keyframes reactorMoveUp {
+    from {
+      background-position: 25px 25px;
+    }
+    to {
+      background-position: 0px 0px;
+    }
+  }
+}

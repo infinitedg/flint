@@ -71,7 +71,10 @@ Template.comp_flintAssetBrowser.events({
 		var parent = Flint.collection('flintAssetFolders').findOne({fullPath: Session.get('comp.flintAssetBrowser.currentDirectory')}) || {};
 		Session.set('comp.flintAssetBrowser.currentDirectory', parent.folderPath || "/");
 		Session.set('comp.flintAssetBrowser.selectedContainer', undefined);
-	},
+	}
+});
+
+Template.comp_flintAssetButtons.events({
 	'click button.add-folder': function(e, t) {
 		var n = prompt("Name this folder:");
 		if (n) {
@@ -97,9 +100,61 @@ Template.comp_flintAssetBrowser.events({
 			}
 			Flint.collection('flintAssetContainers').insert(obj);
 		}
-	}
-});
+	},
+	'click button.mass-upload': function(e,t){
+		$('#mass-upload-folder').click();
+	},
+	'change #mass-upload-folder': function(e,t){
+		var regex = new RegExp(/(.*)\.[^.]+$/);
+		debugger;
+		var uploadDefault = function (err, fileObj) {
+			if (!err) {
+		    	//Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+		    	var n = regex.exec(fileObj.name())[1];
+		    	if (n) {
+		    		var parentFolder = Flint.collection('flintAssetFolders').findOne({fullPath: Session.get('comp.flintAssetBrowser.currentDirectory')});
+		    		var obj = {
+		    			name: n
+		    		};
+		    		if (parentFolder) {
+		    			obj.folderId = parentFolder._id;
+		    		}
+		    		Flint.collection('flintAssetContainers').insert(obj, function(err,_id){
+		    			if (err){
+		    				console.log(err);
+		    				return false;
+		    			}
+		    			//Created the container; now put the files into the container.
+		    			var object = Flint.collection('flintAssetObjects').findOne({
+		    				containerId: _id,
+		    				simulatorId: {$exists: false},
+		    			});
 
+		       			// We have to do the following rigamarole since upserts are frowned upon
+		       			// on the client
+		       			if (object) {
+		       				Flint.collection('flintAssetObjects').update(object._id,
+		       				{
+		       					objectId: fileObj._id
+		       				});
+		       			} else {
+		       				Flint.collection('flintAssetObjects').insert({
+		       					containerId: _id,
+		       					objectId: fileObj._id
+		       				});
+		       			}
+		       		});
+		    	}
+
+		    };
+
+		}
+		var files = e.target.files;
+		for (var i = 0, ln = files.length; i < ln; i++) {
+			Flint.FS.collection('flintAssets').insert(files[i], uploadDefault);
+		}
+	}
+})
 /// comp_flintContainerView
 Template.comp_flintContainerView.created = function() {
 	Meteor.subscribe("flint.assets.simulators");
@@ -172,7 +227,6 @@ Template.comp_flintContainerView.events({
 		$(e.target).toggleClass('enlarged');
 	},
 	'click .delete-object': function(e, t){
-		debugger;
 		var containerId = Session.get('comp.flintAssetBrowser.selectedContainer');
 		Flint.collection('flintassetcontainers').remove({'_id' : containerId});
 		Flint.collection('flintassetobjects').find({'containerId' : containerId}).forEach(function(e){

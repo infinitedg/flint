@@ -163,7 +163,6 @@ function drawSpring(canvas, context) {
     var f = parseInt(Flint.system('Short Range Communications', 'commFrequency'),10) / 16; //parseInt($('#frequency').val())/8;
     var a = parseInt(Flint.system('Short Range Communications', 'commAmplitude'),10); //parseInt($('#amplitude').val());
     var p = 5;
-    //debugger;
     for (var y = 0; y < $(container).height(); y++) {
         // Sine wave equation
         var x = Math.sin(y * Math.PI / 180 * f) * a + p;

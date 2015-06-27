@@ -1,0 +1,108 @@
+<template name="layout_digital">
+
+  <span class="layout_digital">
+    <div class="main_background {{alertColor}}">
+
+    </div>
+
+    <div class="background-overlay {{retina}} {{loggedIn}}">
+
+      <div class="bottomLeft-bracket-end"></div>
+      <div class="bottomLeft-bracket-mid"></div>
+      <div class="bottomLeft-bracket-x"></div>
+      <div class="bottomRight-bracket-end"></div>
+      <div class="bottomRight-bracket-start"></div>
+      <div class="bottomRight-bracket-x"></div>
+      <div class="left-doodad"></div>
+      <div class="leftBottom-bracket-start"></div>
+      <div class="leftBottom-bracket-x"></div>
+      <div class="rightTop-bracket-end"></div>
+      <div class="rightTop-bracket-x"></div>
+      <div class="topLeft-bracket-end"></div>
+      <div class="topLeft-bracket-x"></div>
+      <div class="topLeft-bracket-start"></div>
+      <div class="topRight-bracket-mid"></div>
+      <div class="topRight-bracket-start"></div>
+      <div class="topRight-bracket-x"></div>
+      <div class="alertNum">{{alertnum}}</div>
+      {{> digital_nameBox}}
+      {{> digital_powerUp_doodad}}
+      <div class="alertColor {{alertColor}}"></div>
+    </div>
+    <div class="card-container card-area" data-card="{{cardId}}">
+
+     {{#transitioner}}
+
+     {{> yield}}
+
+     {{/transitioner}}
+   </div>
+   <div class="front-controls {{loggedIn}}">
+     {{> digital_cardList}}
+     {{> layout_digital_messageBox}}
+   </div>
+ </span>
+</template>
+
+<template name="digital_cardList">
+  <div class="cardControl">
+    <div class="currentCard-button {{locked}}">
+      <img src={{currentCardImage}} draggable="false" />
+    </div>
+    <div class="lockScreen">
+      <svg viewBox="0 0 25 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+        <g>
+          <path d="M22.1495,13.9672C21.2496,13.1827 19.9231,12.578 17.9685,12.2053C17.5755,7.67381 15.2769,4.19564 12.5,4.19564C9.72336,4.19564 7.42486,7.67325 7.0316,12.2046C5.08325,12.5752 3.75513,13.1754 2.85022,13.9541C2.84749,13.8318 2.84615,13.7091 2.84615,13.5861C2.84615,6.61752 7.16832,0.968381 12.5,0.968381C17.8317,0.968381 22.1539,6.61752 22.1539,13.5861C22.1539,13.7137 22.1524,13.8408 22.1495,13.9672Z" style="fill:rgb(157,157,159);"/>
+          <path d="M12.5,12.9155C24.4434,12.9155 24.0415,17.2124 24.0415,22.5129C24.0415,27.8134 17.8005,39.4921 12.5,39.4921C7.19951,39.4921 0.919985,27.8134 0.919985,22.5129C0.919985,17.2124 0.556578,12.9155 12.5,12.9155ZM14.1725,24.9665L15.2203,30.0456L9.77967,30.0456L10.7328,24.8891C10.1495,24.3902 9.77967,23.6488 9.77967,22.8209C9.77967,21.3185 10.9976,20.1006 12.5,20.1006C14.0024,20.1006 15.2203,21.3185 15.2203,22.8209C15.2203,23.6927 14.8102,24.4687 14.1725,24.9665Z" style="fill:rgb(157,157,159);"/>
+        </g>
+      </svg>
+    </div>
+    <ul class="digital_cardList">
+      {{#each cards}}
+      <li class="digital_cardLink">
+        <!--<button type="button" class="button">-->
+          <a href="{{pathFor 'flint_station'}}" class="btn {{#if isCurrentCard}}active{{/if}}">{{name}}</a>
+        <!--</button>-->
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="digital_nameBox">
+  <svg class="nameBox" viewBox="0 0 450 140" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+      <path id="Shape 7" d="M105.747,23.9962L125.52,9.78794L445.849,9.78794L445.849,28.5464L442.149,34.8257L442.149,88.3214L448.477,94.6007L441.009,108.159L382.427,108.159L378.288,101.648L138.939,101.648L103.011,69.0436L105.747,23.9962Z" style="fill:rgb(39,37,37);stroke-width:2.08px;stroke:rgb(81,81,81);"/>
+      <g>
+        <rect x="148.478" y="23.4034" width="133.157" height="5.9977" style="fill:rgb(81,81,81);"/>
+      </g>
+      <g>
+        <rect x="290.461" y="23.4034" width="91.8713" height="5.9977" style="fill:rgb(81,81,81);"/>
+      </g>
+      <g>
+        <rect x="390.914" y="23.4034" width="43.8023" height="5.9977" style="fill:rgb(81,81,81);"/>
+      </g>
+      <g id="Shape 8">
+        <rect x="148.478" y="70" width="286.239" height="19.1521" style="fill:rgb(133,133,133);"/>
+      </g>
+      <path id="Shape 6" d="M69.2219,8.38715C104.59,8.38715 133.261,37.0583 133.261,72.426C133.261,107.794 104.59,136.465 69.2219,136.465C33.8542,136.465 5.18299,107.794 5.18299,72.426C5.18299,37.0583 33.8542,8.38715 69.2219,8.38715Z" style="fill:rgb(31,34,36);"/>
+      <path id="Shape 6 copy" d="M69.2219,8.38715C104.59,8.38715 133.261,37.0583 133.261,72.426C133.261,107.794 104.59,136.465 69.2219,136.465C33.8542,136.465 5.18299,107.794 5.18299,72.426C5.18299,37.0583 33.8542,8.38715 69.2219,8.38715Z" style="fill:black;fill-opacity:0;stroke-width:4.17px;stroke:rgb(81,81,81);"/>
+    </g>
+  </svg>
+  <div class="profilePicture"><img src={{profilePictureSrc}} /></div>
+  <div class="username" style={{usernameStyle}}>{{username}}</div>
+  <div class="stationName" style={{stationNameStyle}}>{{stationName}}</div>
+</template>
+
+<template name="digital_powerUp_doodad">
+  <svg class="powerUp-doodad" viewBox="0 0 45 475" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g>
+      <g id="Shape 9">
+        <path d="M1.89397,31.2849L1.89397,439.146L32.4456,472.46L43.106,472.46L43.106,187.811L26.3014,172.919L26.3014,86.4904L41.1015,70.2654L41.1015,2.53981L28.4461,2.53981L1.89397,31.2849Z" style="fill:rgb(31,34,36);stroke-width:5.21px;stroke:rgb(81,81,81);"/>
+      </g>
+    </g>
+  </svg>
+  <div class="powerUp-holder">
+    <div class="powerUp-bar"></div>
+  </div>
+</template>

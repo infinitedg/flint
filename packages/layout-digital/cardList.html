@@ -1,0 +1,8 @@
+<template name="layout_digital_cardList">
+    <nav class="outer-nav top horizontal">
+    <!--  <li class="nav-header">{{station.name}}</li> -->
+    {{#each cards}}
+      <a href="{{pathFor 'flint_station'}}" class="{{#if isCurrentCard}}active{{/if}}">{{name}}</a>
+    {{/each}}
+  </nav>
+</template>

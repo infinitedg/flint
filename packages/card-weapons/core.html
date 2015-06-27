@@ -1,0 +1,14 @@
+<template name="core_targetingGrid">
+	<div class="core-targetingGrid">
+		<ul>
+			{{#each armyTarget}}
+			<li class="target">
+				<img id={{_id}} class="targetIcon" src={{icon}} />
+				<input type="text" class="form-control" id="quantity" value={{count}}/>
+				<input class="form-control" type="text" id="label" placeholder="Label" value={{label}} />
+			</li>
+			{{/each}}
+		</ul>
+		<button type="button" class="btn btn-xs btn-primary">Add Target Class</button>
+	</div>
+</template>

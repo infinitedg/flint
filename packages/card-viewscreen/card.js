@@ -11,7 +11,6 @@ Template.card_viewscreen.helpers({
         return Flint.collection('viewscreenInputs').find();
     },
     viewscreenStyle: function (e,t) {
-        debugger;
         var priority = 0, secondary = 0;
         viewscreenInputs.forEach(function(e){
             if (e.priority){

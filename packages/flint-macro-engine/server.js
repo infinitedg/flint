@@ -1,4 +1,4 @@
-var _flintMacros = {};
+_flintMacros = {};
 
 /**
 Used to prepare a macro for use across the system. Requires macroName, macroDescription, and macroArguments
@@ -20,31 +20,20 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 		}
 	}
 };
-
+Meteor.startup(function(){
 // The heart of the macro engine, used to execute a given macro
-Flint.collection('flintMacros').find({serverId: Flint.serverId()}).observe({
-	added: function(doc) {
+Flint.Jobs.createWorker('macroQueue', 'macro', {}, function(job, cb) {
 		// Trigger macro
-		if (!_flintMacros[doc.macroName]) {
-			Flint.Log.error("No such macro " + doc.macroName);
+	if (!_flintMacros[job.doc.macroName]) {
+		job.fail("No such macro " + job.doc.macroName);
+		cb();
 		} else {
-			Flint.Log.verbose("Triggering macro " + doc.macroName, "flint-macro-engine");
-			_flintMacros[doc.macroName].func(doc.args);
+		_flintMacros[job.doc.macroName].func(job.doc.args);
+		job.done();
+		cb();
 		}
-		Flint.collection('flintMacros').remove(doc._id);
-	}
 });
 
-// Used to emergency transfer macros to a new server if a server drops
-Flint.collection('flintServers').find().observe({
-	removed: function(doc) {
-		// When a server drops, update all macros for that server to a new server
-		Flint.Log.info("Moving macros from server " + doc.serverId + " to new server", 'flint-macro-engine');
-		var serverId = Meteor.call('nextServer');
-		Flint.collection('flintTweens').update({serverId: doc.serverId}, 
-			{$set: {serverId: Meteor.call('nextServer')}}, {multi: true});
-	}
-});
 
 // Used to emergency transfer a macro if it is created on a server that doesn't exist
 Flint.collection('flintMacros').find().observe({
@@ -57,7 +46,7 @@ Flint.collection('flintMacros').find().observe({
 		}
 	}
 });
-
+});
 // Return a collection flintMacroDefintions that contains the names, descriptions, and arguments of all registered macros
 Meteor.publish("flint_macro_engine.macroNames", function() {
 	var self = this;

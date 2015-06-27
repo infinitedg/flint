@@ -12,6 +12,9 @@
 	"public": {
 		"assets": {
 			"s3base": "https://infinitedev-flint.s3.amazonaws.com/"
+		},
+		"flintRemotes": {
+			"light-server": "http://localhost:4000"
 		}
 	},
 	"audioMatrix": {

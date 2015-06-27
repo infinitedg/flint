@@ -13,15 +13,6 @@ Returns a class to either show or hide the cardList if the user is logged in or 
 @property hideCardlistCSS
 @type String
 */
-Template.layout_default.helpers({
-  hideCardlistCSS: function() {
-    if (Flint.client('name')) {
-      return '';
-    } else {
-      return 'hide';
-    }
-  }
-});
 
 // /**
 // Constant speed for transitioning between cards

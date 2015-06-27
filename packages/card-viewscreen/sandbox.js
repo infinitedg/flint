@@ -1,8 +1,7 @@
 var scene;
 var controls;
-var cameras = [];
+var cameras = {};
 var animatingObjects = [];
-var currentCamera = 0;
 var cameraZoom = 0;
 var planetMesh;
 var onRenderFcts = [];
@@ -23,21 +22,21 @@ function loadObject(objModel, objMtl, objTexture, options) {
     // scale
     // shininess
     var manager = new THREE.LoadingManager();
-    manager.onProgress = function (item, loaded, total) {
+    manager.onProgress = function(item, loaded, total) {
         console.log(item, loaded, total);
     };
 
     var texture = new THREE.Texture();
 
     var imageLoader = new THREE.ImageLoader(manager);
-    imageLoader.load(objTexture, function (image) {
+    imageLoader.load(objTexture, function(image) {
         texture.image = image;
         texture.needsUpdate = true;
     });
     var loader = new THREE.OBJMTLLoader();
-    loader.load(objModel, objTexture, function (object) {
+    loader.load(objModel, objTexture, function(object) {
         object.scale.multiplyScalar(1 / 10);
-        object.traverse(function (object3d) {
+        object.traverse(function(object3d) {
             if (object3d.material) {
                 object3d.material.map = texture;
                 object3d.material.emissive.set('white');
@@ -48,13 +47,14 @@ function loadObject(objModel, objMtl, objTexture, options) {
     });
 
 }
-Template.viewscreen_sandbox.created = function () {
+Template.viewscreen_sandbox.created = function() {
     this.animating = true;
-    this.subscription = Deps.autorun(function () {
+    this.subscription = Deps.autorun(function() {
         Meteor.subscribe('cards.card-sensor3d.contacts', Flint.simulatorId());
     });
+        Session.setDefault('viewscreen_currentCamera','main');
     this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
-        changed: function (id, fields) {
+        changed: function(id, fields) {
             if (fields.cameraRotationYaw || fields.cameraRotationYaw === 0) {
                 if (fields.cameraRotationYaw < 0) {
                     controls.moveState.yawLeft = Math.abs(fields.cameraRotationYaw);
@@ -96,7 +96,7 @@ Template.viewscreen_sandbox.created = function () {
     });
 };
 
-Template.viewscreen_sandbox.destroyed = function () {
+Template.viewscreen_sandbox.destroyed = function() {
     this.conditionObserver.stop();
     this.animating = false;
     if (this.sensorObserver) {
@@ -109,7 +109,7 @@ Template.viewscreen_sandbox.destroyed = function () {
 
 // Bezier
 
-bezierFunc = function (t, p0, p1, p2, p3) {
+bezierFunc = function(t, p0, p1, p2, p3) {
     var cX = 3 * (p1.x - p0.x),
     bX = 3 * (p2.x - p1.x) - cX,
     aX = p3.x - p0.x - cX - bX;
@@ -137,7 +137,7 @@ function updateDottedLines() {
     lineLayer.draw();
 }
 
-drawCurves = function () {
+drawCurves = function() {
     for (var curveid in bezier) {
         var curve = bezier[curveid];
         var accuracy = 0.01, //this'll give the bezier 100 segments
@@ -235,7 +235,7 @@ function buildArrow(options) {
 }
 
 // add dotted line connectors
-var addBezier = function (id, options) {
+var addBezier = function(id, options) {
     var curveLine = new Kinetic.Line({
         //points: linePoints,
         stroke: options.color,
@@ -246,19 +246,19 @@ var addBezier = function (id, options) {
     });
 
     // add hover styling
-    curveLine.on('mouseover', function () {
+    curveLine.on('mouseover', function() {
         document.body.style.cursor = 'pointer';
         this.setStrokeWidth(6);
         anchorLayer.draw();
     });
-    curveLine.on('mouseout', function () {
+    curveLine.on('mouseout', function() {
         document.body.style.cursor = 'default';
         this.setStrokeWidth(5);
         anchorLayer.draw();
 
     });
 
-    curveLine.on('dragend', function () {
+    curveLine.on('dragend', function() {
         drawCurves();
         updateDottedLines();
     });
@@ -317,42 +317,60 @@ function updateBezier(id, options) {
     updateDottedLines();
     anchorLayer.draw();
 }
+Template.viewscreen_sandbox.helpers({
+    currentCamera:function(){
+        Session.set('viewscreen_currentCamera',this.currentCamera)
+    }
+})
 
-Template.viewscreen_sandbox.rendered = function () {
+Template.viewscreen_sandbox.rendered = function() {
+    Session.setDefault('viewscreen_currentCamera',this.data.currentCamera);
+    THREE.ImageUtils.crossOrigin = "";
     var up = new THREE.Vector3(0, 1, 0);
     var clock = new THREE.Clock();
     var renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true
     });
+
     // to get smoother output
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('viewscreen').appendChild(renderer.domElement);
     /*Ships Scene*/
     scene = new THREE.Scene();
     window.scene = scene;
+    window.camera = cameras;
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.29, 10000);
-    cameras.push(camera);
+    cameras.main = (camera);
 
-    var camera1 = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
-    camera1.position.z = 5;
-    cameras.push(camera1);
-    //controls = new THREE.OrbitControls( camera );
+    for (var i=1; i<=8; i++){
+        cameras[i] = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
 
-    var camera2 = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
-    camera2.position.z = 10;
-    camera2.position.y = 5;
-    camera2.position.x = 5;
-    camera2.lookAt(new THREE.Vector3(0, 0, 0));
-    cameras.push(camera2);
+        cameras[i].position.z = Math.sin(Math.PI/4 * i) * 10;
+        cameras[i].position.x = Math.cos(Math.PI/4 * i) * 10;
+        cameras[i].lookAt(new THREE.Vector3(0,0,0));
+    }
+    for (var i=1; i<=4; i++){
+        cameras[i+8] = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+        cameras[i+8].position.z = Math.sin(Math.PI/2 * i + Math.PI/4) * 10/2;
+        cameras[i+8].position.x = Math.cos(Math.PI/2 * i + Math.PI/4) * 10/2;
+        cameras[i+8].position.y = 7.5;
+        cameras[i+8].lookAt(new THREE.Vector3(0,0,0));
 
-    camera.position.z = 0;
+
+        cameras[i+12] = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+        cameras[i+12].position.z = Math.sin(Math.PI/2 * i + Math.PI/4) * 10/2;
+        cameras[i+12].position.x = Math.cos(Math.PI/2 * i + Math.PI/4) * 10/2;
+        cameras[i+12].position.y = 7.5;
+        cameras[i+12].lookAt(new THREE.Vector3(0,0,0));
+    }
+
     controls = new THREE.FlyControls(camera);
 
-    controls.movementSpeed = 0;
+    controls.movementSpeed = 2;
     controls.domElement = document.getElementById('viewscreen');
     controls.rollSpeed = Math.PI / 24;
-    controls.autoForward = false;
+    controls.autoForward = 0;
     controls.dragToLook = true;
 
 
@@ -360,10 +378,10 @@ Template.viewscreen_sandbox.rendered = function () {
     var ambientLight = new THREE.AmbientLight(0x020202);
     scene.add(ambientLight);
     var frontLight = new THREE.DirectionalLight('white', 0.5);
-    frontLight.position.set(0.5, 0.5, 2);
+    frontLight.position.set(1.5, 1.5, 2);
     scene.add(frontLight);
     var backLight = new THREE.DirectionalLight('white', 0.75);
-    backLight.position.set(-0.5, -0.5, -2);
+    backLight.position.set(-1.5, -1.5, -2);
     scene.add(backLight);
 
     //Star Sphere
@@ -383,7 +401,7 @@ Template.viewscreen_sandbox.rendered = function () {
     var textureFlare2 = THREE.ImageUtils.loadTexture("/packages/card-viewscreen/textures/lensflare/lensflare2.png");
     var textureFlare3 = THREE.ImageUtils.loadTexture("/packages/card-viewscreen/textures/lensflare/lensflare3.png");
 
-    addLight(0.55, 0.9, 0.5, -40, 0, 100);
+    addLight(0.55, 0.9, 0.5, -40, 0, -100);
     //addLight( 0.08, 0.8, 0.5,    0, 0, -100 );
     //addLight( 0.995, 0.5, 0.9, 400, 400, -100 );
 
@@ -409,7 +427,7 @@ Template.viewscreen_sandbox.rendered = function () {
         lensFlare.add(textureFlare3, 70, 1.0, THREE.AdditiveBlending);
 
         lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-        lensFlare.position = light.position;
+        lensFlare.position.set(light.position.x,light.position.y,light.position.z);
 
         scene.add(lensFlare);
 
@@ -484,7 +502,7 @@ Template.viewscreen_sandbox.rendered = function () {
     boxTexture = THREE.ImageUtils.loadTexture("/packages/card-viewscreen/textures/water.jpg");
     boxTexture.wrapT = THREE.RepeatWrapping;
     var boxGeo = new THREE.SphereGeometry(5, 32, 32);
-    var PlaneGeo = new THREE.PlaneGeometry(200, 200);
+    var PlaneGeo = new THREE.PlaneBufferGeometry(200, 200);
     var boxMat = new THREE.MeshLambertMaterial({
         transparent: true,
         color: 0xFFFFFF,
@@ -540,7 +558,7 @@ Template.viewscreen_sandbox.rendered = function () {
 
     hyperFlare.visible = false;
 
-    geometry = new THREE.PlaneGeometry(10, 10);
+    geometry = new THREE.PlaneBufferGeometry(10, 10);
     var material1 = new THREE.MeshLambertMaterial({
         map: THREE.ImageUtils.loadTexture('/packages/card-viewscreen/textures/planar001.png'),
         transparent: true,
@@ -591,20 +609,20 @@ Template.viewscreen_sandbox.rendered = function () {
     wormhole.position.z = 5;
     wormhole.matrixAutoUpdate = true;
     scene.add(wormhole);
+
+    //    scene.add(wormholeMesh1);
+    //    scene.add(wormholeMesh2);
+    //    scene.add(wormholeMesh3);
+    //    scene.add(wormholeMesh4);
+
     /*
-        scene.add(wormholeMesh1);
-        scene.add(wormholeMesh2);
-        scene.add(wormholeMesh3);
-        scene.add(wormholeMesh4);
-        */
+    window.laserHolder = new THREE.Object3D;
+    laserMaker = laserMaker || {}
 
-        window.laserHolder = new THREE.Object3D;
-        laserMaker = laserMaker || {}
-
-        laserMaker.LaserBeam    = function(color){
-            color = color || 0x4444aa;
-            var object3d    = new THREE.Object3D()
-            this.object3d   = object3d
+    laserMaker.LaserBeam    = function(color){
+        color = color || 0x4444aa;
+        var object3d    = new THREE.Object3D();
+        this.object3d   = object3d;
     // generate the texture
     var canvas  = generateLaserBodyCanvas()
     var texture = new THREE.Texture( canvas )
@@ -647,20 +665,20 @@ Template.viewscreen_sandbox.rendered = function () {
         // return the just built canvas 
         return canvas;  
     }
-}
+    }
 
 
-laserBeam = new laserMaker.LaserBeam(0xAB4444);
-var laserCooked = new THREEx.LaserCooked(laserBeam, scene);
-onRenderFcts.push(function (delta, now) {
-    laserCooked.update(delta, now);
-        //lookTowards(laserBeam.object3d, sceneContacts[laserTarget].position , 1);
-    });
-window.laserBeam = laserBeam;
-var object3d = laserBeam.object3d;
-object3d.position.x = 0;
-object3d.position.y = 0.08;
-object3d.position.z = 0.08;
+    laserBeam = new laserMaker.LaserBeam(0xAB4444);
+    var laserCooked = new THREEx.LaserCooked(laserBeam, scene);
+    onRenderFcts.push(function (delta, now) {
+        laserCooked.update(delta, now);
+            //lookTowards(laserBeam.object3d, sceneContacts[laserTarget].position , 1);
+        });
+    window.laserBeam = laserBeam;
+    var object3d = laserBeam.object3d;
+    object3d.position.x = 0;
+    object3d.position.y = 0.08;
+    object3d.position.z = 0.08;
     //object3d.rotation.z = -Math.PI/2      
     onRenderFcts.push(function (delta, now) {
         //var object3d        = laserBeam.object3d
@@ -669,23 +687,23 @@ object3d.position.z = 0.08;
     });
     window.laserHolder.add(laserBeam);
     scene.add(laserHolder);
-
+    */
 
     //Ship Textures
     var texture = new THREE.Texture();
     var manager = new THREE.LoadingManager();
-    manager.onProgress = function (item, loaded, total) {
+    manager.onProgress = function(item, loaded, total) {
         console.log(item, loaded, total);
     };
 
-    imageLoader.load(Flint.a('/Sandbox Images/Battleship'), function (image) {
+    imageLoader.load('/textures/battleship.png', function(image) {
         texture.image = image;
         texture.needsUpdate = true;
     });
     var loader = new THREE.OBJMTLLoader();
-    loader.load(Flint.a('/Sandbox Models/Battleship'), Flint.a('/Sandbox Materials/Battleship'), function (object) {
+    loader.load(Flint.a('/Sandbox Models/Battleship'), Flint.a('/Sandbox Materials/Battleship'), function(object) {
         object.scale.multiplyScalar(1 / 15);
-        object.traverse(function (object3d) {
+        object.traverse(function(object3d) {
             if (object3d.material) {
                 object3d.material.map = texture;
                 object3d.material.emissive.set('white');
@@ -703,16 +721,16 @@ object3d.position.z = 0.08;
 
     //Sensor Stuff
     this.sensorObserver = Flint.collection('sensorContacts').find().observe({
-        added: function (doc) {
+        added: function(doc) {
             var texture = new THREE.Texture();
-            imageLoader.load(Flint.a('/Sandbox Images/' + doc.mesh), function (image) {
+            imageLoader.load(Flint.a('/Sandbox Images/' + doc.mesh), function(image) {
                 texture.image = image;
                 texture.needsUpdate = true;
             });
             if (doc.mesh) {
-                loader.load(Flint.a('/Sandbox Models/' + doc.mesh), Flint.a('/Sandbox Materials/' + doc.mesh), function (object) {
+                loader.load(Flint.a('/Sandbox Models/' + doc.mesh), Flint.a('/Sandbox Materials/' + doc.mesh), function(object) {
                     object.scale.multiplyScalar(1 / 15);
-                    object.traverse(function (object3d) {
+                    object.traverse(function(object3d) {
                         if (object3d.material) {
                             object3d.material.map = texture;
                             object3d.material.emissive.set('white');
@@ -729,17 +747,19 @@ object3d.position.z = 0.08;
                 });
             }
         },
-        changed: function (doc) {
+        changed: function(doc) {
             sceneContacts[doc._id].position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
             sceneContacts[doc._id].target = (new THREE.Vector3(doc.dstX * viewRadius / 2, doc.dstY * viewRadius / 2, doc.dstZ * viewRadius / 2));
         },
-        removed: function (doc) {
+        removed: function(doc) {
             scene.remove(sceneContacts[doc._id]);
             delete sceneContacts[doc._id];
         }
     });
-var currentScene = scene;
-    //var currentCamera = camera;
+
+    //var Session.get('viewscreen_currentCamera') = camera;
+    var currentScene = scene;
+
     function moveToPoint(fromObject, toPosition, dTheta) {
         fromObject.dx.subVectors(toPosition, fromObject.position);
         if (fromObject.dx.length() > fromObject.closeEnough) {
@@ -747,7 +767,7 @@ var currentScene = scene;
             fromObject.translateZ(moveDist);
         }
     }
-    lookTowards = function (fromObject, toPosition, dTheta) {
+    lookTowards = function(fromObject, toPosition, dTheta) {
         if (fromObject.rotSpeed) {
             dTheta = dTheta * fromObject.rotSpeed;
         } else {
@@ -778,9 +798,9 @@ var currentScene = scene;
         var halfTheta = Math.acos(q1.w);
         return 2 * halfTheta;
     }
-    onRenderFcts.push(function () {
+    onRenderFcts.push(function() {
         var delta = clock.getDelta();
-        controls.object = cameras[currentCamera];
+        controls.object = cameras[Session.get('viewscreen_currentCamera')];
         //controls.target = scene.position;
         //controls.update();
 
@@ -792,15 +812,15 @@ var currentScene = scene;
 
 
 
-        var currentZoom = cameras[currentCamera].fov;
+        var currentZoom = cameras[Session.get('viewscreen_currentCamera')].fov;
         if ((currentZoom += cameraZoom) < 60) {
             currentZoom += cameraZoom;
         }
         if (currentZoom <= 0) {
             currentZoom = 0.1;
         }
-        cameras[currentCamera].fov = currentZoom;
-        cameras[currentCamera].updateProjectionMatrix();
+        cameras[Session.get('viewscreen_currentCamera')].fov = currentZoom;
+        cameras[Session.get('viewscreen_currentCamera')].updateProjectionMatrix();
 
         for (var prop in sceneContacts) {
             var object = sceneContacts[prop];
@@ -816,7 +836,7 @@ var currentScene = scene;
         wormholeMesh3.rotateZ(0.05);
         wormholeMesh4.rotateZ(-0.05);
 
-        renderer.render(currentScene, cameras[currentCamera]);
+        renderer.render(currentScene, cameras[Session.get('viewscreen_currentCamera')]);
 
     });
 
@@ -827,7 +847,7 @@ var currentScene = scene;
 
     function wormholeOpen() {
         //'6'
-        currentCamera = 0;
+        //Session.get('viewscreen_currentCamera') = 'main';
         scaleValue = {
             currentValue: 0.001,
             part1Value: 0.001,
@@ -852,11 +872,11 @@ var currentScene = scene;
         TweenLite.to(scaleValue, 8, {
             part1Value: 1,
             ease: Elastic.easeOut,
-            onUpdate: function () {
+            onUpdate: function() {
                 wormholeMesh1.scale.x = scaleValue.part1Value;
                 wormholeMesh1.scale.y = scaleValue.part1Value;
             },
-            onComplete: function () {
+            onComplete: function() {
                 hyperLight1.visible = true;
                 hyperLight2.visible = true;
                 hyperLight3.visible = true;
@@ -866,12 +886,12 @@ var currentScene = scene;
                 // hyperBox.visible = true;
                 TweenLite.to(scaleValue, 2, {
                     hyperBoxOpacity: 1,
-                    onUpdate: function () {
+                    onUpdate: function() {
                         hyperBox.visible = true;
                         console.log(scaleValue.hyperBoxOpacity);
                         hyperBox.material.opacity = scaleValue.hyperBoxOpacity;
                     },
-                    onComplete: function () {}
+                    onComplete: function() {}
                 });
             }
         });
@@ -879,7 +899,7 @@ TweenLite.to(scaleValue, 4, {
     part2Value: 1,
     delay: 0.5,
     ease: Power4.easeOut,
-    onUpdate: function () {
+    onUpdate: function() {
         wormholeMesh2.scale.x = scaleValue.part2Value;
         wormholeMesh2.scale.y = scaleValue.part2Value;
     }
@@ -888,7 +908,7 @@ TweenLite.to(scaleValue, 6, {
     part3Value: 0.5,
     delay: 0.75,
     ease: Power4.easeOut,
-    onUpdate: function () {
+    onUpdate: function() {
         wormholeMesh3.scale.x = scaleValue.part3Value;
         wormholeMesh3.scale.y = scaleValue.part3Value;
     }
@@ -897,7 +917,7 @@ TweenLite.to(scaleValue, 8, {
     part4Value: 1.25,
     ease: Elastic.easeOut,
     delay: 1,
-    onUpdate: function () {
+    onUpdate: function() {
         wormholeMesh4.scale.x = scaleValue.part4Value;
         wormholeMesh4.scale.y = scaleValue.part4Value;
     }
@@ -907,10 +927,10 @@ TweenLite.to(scaleValue, 12, {
     currentPosition: 3,
     delay: 4,
     ease: Power4.easeInOut,
-    onUpdate: function () {
+    onUpdate: function() {
         wormhole.position.z = scaleValue.currentPosition;
     },
-    onComplete: function () {
+    onComplete: function() {
 
     }
 });
@@ -918,7 +938,7 @@ TweenLite.to(scaleValue, 12, {
 
 function wormholeClose() {
         //'5'
-        currentCamera = 0;
+        //Session.get('viewscreen_currentCamera') = 'main';
         scaleValue = {
             currentValue: 3,
             part1Value: 1,
@@ -930,36 +950,36 @@ function wormholeClose() {
         };
         TweenLite.to(scaleValue, 1, {
             hyperBoxOpacity: 0,
-            onUpdate: function () {
+            onUpdate: function() {
                 hyperBox.material.opacity = scaleValue.hyperBoxOpacity;
             },
-            onComplete: function () {
+            onComplete: function() {
                 hyperspace = false;
                 hyperBox.visible = false;
             }
         });
 
-        TweenLite.to(cameras[currentCamera], 1, {
+        TweenLite.to(cameras[Session.get('viewscreen_currentCamera')], 1, {
             fov: 140,
 
-            onComplete: function () {
+            onComplete: function() {
                 hyperLight1.visible = false;
                 hyperLight2.visible = false;
                 hyperLight3.visible = false;
                 hyperLight4.visible = false;
                 scene.remove(hyperFlare);
-                //hyperBox.visible = false;            
+                //hyperBox.visible = false;
                 TweenLite.to(scaleValue, 2, {
                     currentPosition: -3,
                     ease: Power1.easeOut,
-                    onUpdate: function () {
+                    onUpdate: function() {
                         wormhole.position.z = scaleValue.currentPosition;
                     }
                 });
                 TweenLite.to(scaleValue, 4, {
                     part1Value: 0.0001,
                     ease: Power1.easeIn,
-                    onUpdate: function () {
+                    onUpdate: function() {
                         wormholeMesh1.scale.x = scaleValue.part1Value;
                         wormholeMesh1.scale.y = scaleValue.part1Value;
                     }
@@ -968,7 +988,7 @@ function wormholeClose() {
                     part2Value: 0.0001,
                     delay: 0.5,
                     ease: Power1.easeIn,
-                    onUpdate: function () {
+                    onUpdate: function() {
                         wormholeMesh2.scale.x = scaleValue.part2Value;
                         wormholeMesh2.scale.y = scaleValue.part2Value;
                     }
@@ -977,7 +997,7 @@ function wormholeClose() {
                     part3Value: 0.0001,
                     delay: 0.75,
                     ease: Power1.easeIn,
-                    onUpdate: function () {
+                    onUpdate: function() {
                         wormholeMesh3.scale.x = scaleValue.part3Value;
                         wormholeMesh3.scale.y = scaleValue.part3Value;
                     }
@@ -986,26 +1006,26 @@ function wormholeClose() {
                     part4Value: 0.0001,
                     ease: Power1.easeIn,
                     delay: 1,
-                    onUpdate: function () {
+                    onUpdate: function() {
                         wormholeMesh4.scale.x = scaleValue.part4Value;
                         wormholeMesh4.scale.y = scaleValue.part4Value;
                     }
                 });
-                TweenLite.to(cameras[currentCamera], 7, {
+                TweenLite.to(cameras[Session.get('viewscreen_currentCamera')], 7, {
                     fov: 45,
                     ease: Expo.easeOut,
-                    onUpdate: function () {
-                        cameras[currentCamera].updateProjectionMatrix();
+                    onUpdate: function() {
+                        cameras[Session.get('viewscreen_currentCamera')].updateProjectionMatrix();
                     }
                 });
             },
-            onUpdate: function () {
-                cameras[currentCamera].updateProjectionMatrix();
+            onUpdate: function() {
+                cameras[Session.get('viewscreen_currentCamera')].updateProjectionMatrix();
             }
         });
 }
 this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
-    changed: function (id, fields) {
+    changed: function(id, fields) {
         if (fields.wormhole) {
             if (fields.wormhole == "true") {
                 wormholeOpen();
@@ -1019,47 +1039,47 @@ this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()
 laserX = 0;
 laserY = 0;
 
-function onKeyDown(evt) {
-    var result;
-    switch (evt.keyCode) {
-        case 72:
-        laserBeam.object3d.lookAt(sceneContacts[laserTarget].position);
-        break;
-        case 74:
-        laserX -= 0.05;
-        break;
-        case 73:
-        laserY += 0.05;
-        break;
-        case 76:
-        laserX += 0.05;
-        break;
-        case 75:
-        laserY -= 0.05;
-        break;
-        case 53:
-        wormholeClose();
-        break;
-        case 54:
-        wormholeOpen();
-        break;
-        case 55:
+    /*function onKeyDown(evt) {
+        var result;
+        switch (evt.keyCode) {
+            case 72:
+                laserBeam.object3d.lookAt(sceneContacts[laserTarget].position);
+                break;
+            case 74:
+                laserX -= 0.05;
+                break;
+            case 73:
+                laserY += 0.05;
+                break;
+            case 76:
+                laserX += 0.05;
+                break;
+            case 75:
+                laserY -= 0.05;
+                break;
+            case 53:
+                wormholeClose();
+                break;
+            case 54:
+                wormholeOpen();
+                break;
+            case 55:
                 // '7'
-                currentCamera = 2;
+                Session.get('viewscreen_currentCamera') = 2;
                 break;
-                case 56:
+            case 56:
                 // '8'
-                currentCamera = 0;
+                Session.get('viewscreen_currentCamera') = 0;
                 break;
-                case 57:
+            case 57:
                 // '9'
-                currentCamera = 1;
+                Session.get('viewscreen_currentCamera') = 1;
                 break;
-            }
         }
+    }
 
-        window.addEventListener('keydown', onKeyDown, false);
-        requestAnimationFrame(function animate(nowMsec) {
+    window.addEventListener('keydown', onKeyDown, false);*/
+    requestAnimationFrame(function animate(nowMsec) {
         // keep looping
         requestAnimationFrame(animate);
         // measure time
@@ -1067,10 +1087,10 @@ function onKeyDown(evt) {
         var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
         lastTimeMsec = nowMsec;
         // call each update function
-      //  if (Flint.simulator().currentScreen == "Sandbox") {
-        onRenderFcts.forEach(function (onRenderFct) {
-            onRenderFct(deltaMsec / 1000, nowMsec / 1000);
-        });
-      //  }
-  });
-    };
+        //  if (Flint.simulator().currentScreen == "Sandbox") {
+            onRenderFcts.forEach(function(onRenderFct) {
+                onRenderFct(deltaMsec / 1000, nowMsec / 1000);
+            });
+        //  }
+    });
+};

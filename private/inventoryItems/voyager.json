@@ -1,0 +1,1304 @@
+{
+	"simulatorId":"voyager",
+	"inventoryItems":[
+	{
+		"name":"Air Compressor",
+		"roomCount":{
+			"voyager-room-195":6,
+			"voyager-room-40":2
+		},
+		"_id":"voyager-air-compressor"
+	},
+	{
+		"name":"Air Filter",
+		"roomCount":{
+			"voyager-room-195":20,
+			"voyager-room-42":7,
+			"voyager-room-40":4,
+			"voyager-room-24":7
+		},
+		"_id":"voyager-air-filter"
+	},
+	{
+		"name":"Anti-Grav Generator",
+		"roomCount":{
+			"voyager-room-195":1,
+			"voyager-room-4":1
+		},
+		"_id":"voyager-anti-grav-generator"
+	},
+	{
+		"name":"Anti-matter Containment Field Generator",
+		"roomCount":{
+			"voyager-room-195":1,
+			"voyager-room-132":1,
+			"voyager-room-155":1
+		},
+		"_id":"voyager-anti-matter-containment field generator"
+	},
+	{
+		"name":"Antimatter Fuel",
+		"roomCount":{
+			"voyager-room-133":456
+		},
+		"_id":"voyager-antimatter-fuel"
+	},
+	{
+		"name":"CASM Generator",
+		"roomCount":{
+			"voyager-room-36":2
+		},
+		"_id":"voyager-casm-generator"
+	},
+	{
+		"name":"Class I Probe",
+		"roomCount":{
+			"voyager-room-161":10,
+			"voyager-room-69":20
+		},
+		"metadata":{
+			"image":"/probes/class_i.svg",
+			"type":"probe",
+			"size":4,
+			"description":"The smallest probe; can only hold 4 units of equipment. Use for probe networks."
+		},
+		"_id":"voyager-class-i probe"
+	},
+	{
+		"name":"Class II Probe",
+		"roomCount":{
+			"voyager-room-161":10,
+			"voyager-room-69":20
+		},
+		"metadata":{
+			"image":"/probes/class_ii.svg",
+			"type":"probe",
+			"size":10,
+			"description":"This medium-sized probe can hold 10 units of equipment. Use for probe networks."
+		},
+		"_id":"voyager-class-ii probe"
+	},
+	{
+		"name":"Class III Probe",
+		"roomCount":{
+			"voyager-room-161":10,
+			"voyager-room-69":20
+		},
+		"metadata":{
+			"image":"/probes/class_iii.svg",
+			"type":"probe",
+			"size":16,
+			"description":"This is the largest probe. It can hold up to 16 units of equipment. Use for probe networks."
+		},
+		"_id":"voyager-class-iii probe"
+	},
+	{
+		"name":"Coaxial Servo",
+		"roomCount":{
+			"voyager-room-31":20,
+			"voyager-room-188":1,
+			"voyager-room-125":2,
+			"voyager-room-118":3,
+			"voyager-room-109":4,
+			"voyager-room-89":2,
+			"voyager-room-34":3,
+			"voyager-room-33":3,
+			"voyager-room-28":2,
+			"voyager-room-185":1,
+			"voyager-room-183":2,
+			"voyager-room-162":1,
+			"voyager-room-195":100
+		},
+		"_id":"voyager-coaxial-servo"
+	},
+	{
+		"name":"Communications Antenna",
+		"roomCount":{
+			"voyager-room-195":10,
+			"voyager-room-34":3,
+			"voyager-room-31":2
+		},
+		"_id":"voyager-communications-antenna"
+	},
+	{
+		"name":"Compression Grenade",
+		"roomCount":{
+			"voyager-room-29":20
+		},
+		"_id":"voyager-compression-grenade"
+	},
+	{
+		"name":"Compression Rifle",
+		"roomCount":{
+			"voyager-room-124":2
+		},
+		"_id":"voyager-compression-rifle"
+	},
+	{
+		"name":"Computer Parts",
+		"roomCount":{
+			"voyager-room-195":100,
+			"voyager-room-112":45
+		},
+		"_id":"voyager-computer-parts"
+	},
+	{
+		"name":"Computer Terminal",
+		"roomCount":{
+			"voyager-room-112":10,
+			"voyager-room-32":3,
+			"voyager-room-115":4,
+			"voyager-room-113":40
+		},
+		"_id":"voyager-computer-terminal"
+	},
+	{
+		"name":"Coolant injectors",
+		"roomCount":{
+			"voyager-room-195":4
+		},
+		"_id":"voyager-coolant-injectors"
+	},
+	{
+		"name":"Cortical Stimulator",
+		"roomCount":{
+			"voyager-room-46":2
+		},
+		"_id":"voyager-cortical-stimulator"
+	},
+	{
+		"name":"Defensive Probe",
+		"roomCount":{
+			"voyager-room-161":10,
+			"voyager-room-69":10
+		},
+		"metadata":{
+			"image":"/probes/defense.svg",
+			"type":"probe",
+			"size":4,
+			"description":"This weapon-like probe can be used to attack. It holds 20 units of equipment.",
+			"defense":true
+		},
+		"_id":"voyager-defensive-probe"
+	},
+	{
+		"name":"Dermal Regenerator",
+		"roomCount":{
+			"voyager-room-111":1
+		},
+		"_id":"voyager-dermal-regenerator"
+	},
+	{
+		"name":"Deuterium Fuel",
+		"roomCount":{
+			"voyager-room-7":516
+		},
+		"_id":"voyager-deuterium-fuel"
+	},
+	{
+		"name":"Dual Interface Cable",
+		"roomCount":{
+			"voyager-room-195":40,
+			"voyager-room-36":40,
+			"voyager-room-115":10
+		},
+		"_id":"voyager-dual-interface cable"
+	},
+	{
+		"name":"EMP Projectors",
+		"roomCount":{
+			"voyager-room-123":2
+		},
+		"_id":"voyager-emp-projectors"
+	},
+	{
+		"name":"EPS Power Node",
+		"roomCount":{
+			"voyager-room-31":3,
+			"voyager-room-30":1,
+			"voyager-room-120":1,
+			"voyager-room-108":1,
+			"voyager-room-113":9
+		},
+		"_id":"voyager-eps-power node"
+	},
+	{
+		"name":"EPS Step-down Conduit",
+		"roomCount":{
+			"voyager-room-31":4,
+			"voyager-room-132":6,
+			"voyager-room-30":4,
+			"voyager-room-120":3,
+			"voyager-room-108":5,
+			"voyager-room-164":10,
+			"voyager-room-113":21,
+			"voyager-room-195":13
+		},
+		"_id":"voyager-eps-step-down conduit"
+	},
+	{
+		"name":"Fiber Optic Cable",
+		"roomCount":{
+			"voyager-room-31":7,
+			"voyager-room-115":20,
+			"voyager-room-195":10,
+			"voyager-room-112":20,
+			"voyager-room-32":7
+		},
+		"_id":"voyager-fiber-optic cable"
+	},
+	{
+		"name":"Field Emitter",
+		"roomCount":{
+			"voyager-room-4":2,
+			"voyager-room-188":6,
+			"voyager-room-155":2,
+			"voyager-room-118":6,
+			"voyager-room-89":7,
+			"voyager-room-33":6,
+			"voyager-room-183":6
+		},
+		"_id":"voyager-field-emitter"
+	},
+	{
+		"name":"Fire Suppressant",
+		"roomCount":{
+			"voyager-room-26":20,
+			"voyager-room-195":140
+		},
+		"_id":"voyager-fire-suppressant"
+	},
+	{
+		"name":"Foodstuffs",
+		"roomCount":{
+			"voyager-room-66":5000,
+			"voyager-room-195":3500,
+			"voyager-room-61":1500,
+			"voyager-room-38":500
+		},
+		"_id":"voyager-foodstuffs"
+	},
+	{
+		"name":"Fuel Regulator",
+		"roomCount":{
+			"voyager-room-173":2
+		},
+		"_id":"voyager-fuel-regulator"
+	},
+	{
+		"name":"Fusion Generator",
+		"roomCount":{
+			"voyager-room-195":2,
+			"voyager-room-116":4
+		},
+		"_id":"voyager-fusion-generator"
+	},
+	{
+		"name":"Gravity Generator",
+		"roomCount":{
+			"voyager-room-195":2,
+			"voyager-room-4":1
+		},
+		"_id":"voyager-gravity-generator"
+	},
+	{
+		"name":"Gravplate",
+		"roomCount":{
+			"voyager-room-195":30
+		},
+		"_id":"voyager-gravplate"
+	},
+	{
+		"name":"Handheld Scanner",
+		"roomCount":{
+			"voyager-room-111":4,
+			"voyager-room-46":4
+		},
+		"_id":"voyager-handheld-scanner"
+	},
+	{
+		"name":"Heating Element",
+		"roomCount":{
+			"voyager-room-195":8,
+			"voyager-room-41":4
+		},
+		"_id":"voyager-heating-element"
+	},
+	{
+		"name":"High-amp Wire",
+		"roomCount":{
+			"voyager-room-35":10,
+			"voyager-room-157":10
+		},
+		"_id":"voyager-high-amp-wire"
+	},
+	{
+		"name":"High-density Plasma Detector",
+		"roomCount":{
+			"voyager-room-163":2
+		},
+		"_id":"voyager-high-density-plasma detector"
+	},
+	{
+		"name":"High-voltage Interositer",
+		"roomCount":{
+			"voyager-room-166":3
+		},
+		"_id":"voyager-high-voltage-interositer"
+	},
+	{
+		"name":"High-voltage wire",
+		"roomCount":{
+			"voyager-room-195":38
+		},
+		"_id":"voyager-high-voltage-wire"
+	},
+	{
+		"name":"Hypospray Cartridge",
+		"roomCount":{
+			"voyager-room-111":20,
+			"voyager-room-46":50
+		},
+		"_id":"voyager-hypospray-cartridge"
+	},
+	{
+		"name":"Hypospray",
+		"roomCount":{
+			"voyager-room-111":4,
+			"voyager-room-46":5
+		},
+		"_id":"voyager-hypospray"
+	},
+	{
+		"name":"Impulse Engine Coolant",
+		"roomCount":{
+			"voyager-room-195":600
+		},
+		"_id":"voyager-impulse-engine coolant"
+	},
+	{
+		"name":"Isolinear Replacement Chip",
+		"roomCount":{
+			"voyager-room-36":20
+		},
+		"_id":"voyager-isolinear-replacement chip"
+	},
+	{
+		"name":"Isolinear Rod",
+		"roomCount":{
+			"voyager-room-36":10
+		},
+		"_id":"voyager-isolinear-rod"
+	},
+	{
+		"name":"Liquid Compressed Hydrogen Tank",
+		"roomCount":{
+			"voyager-room-163":4,
+			"voyager-room-166":3
+		},
+		"_id":"voyager-liquid-compressed hydrogen tank"
+	},
+	{
+		"name":"Liquid Compressed Oxygen Tank",
+		"roomCount":{
+			"voyager-room-166":2,
+			"voyager-room-163":4
+		},
+		"_id":"voyager-liquid-compressed oxygen tank"
+	},
+	{
+		"name":"Magnetic Coil",
+		"roomCount":{
+			"voyager-room-195":20,
+			"voyager-room-132":7,
+			"voyager-room-116":4,
+			"voyager-room-164":4,
+			"voyager-room-157":25
+		},
+		"_id":"voyager-magnetic-coil"
+	},
+	{
+		"name":"Medical Supplies",
+		"roomCount":{
+			"voyager-room-195":50,
+			"voyager-room-111":20
+		},
+		"_id":"voyager-medical-supplies"
+	},
+	{
+		"name":"Mines",
+		"roomCount":{
+			"voyager-room-195":20
+		},
+		"_id":"voyager-mines"
+	},
+	{
+		"name":"Network Adaptor",
+		"roomCount":{
+			"voyager-room-195":16,
+			"voyager-room-112":6,
+			"voyager-room-32":2,
+			"voyager-room-115":24,
+			"voyager-room-113":112
+		},
+		"_id":"voyager-network-adaptor"
+	},
+	{
+		"name":"Network Node",
+		"roomCount":{
+			"voyager-room-115":17,
+			"voyager-room-113":26
+		},
+		"_id":"voyager-network-node"
+	},
+	{
+		"name":"Osteogenic Stimulator",
+		"roomCount":{
+			"voyager-room-46":1
+		},
+		"_id":"voyager-osteogenic-stimulator"
+	},
+	{
+		"name":"Personal Tactical Shield",
+		"roomCount":{
+			"voyager-room-123":4,
+			"voyager-room-29":4
+		},
+		"_id":"voyager-personal-tactical shield"
+	},
+	{
+		"name":"Phaser Bank Element",
+		"roomCount":{
+			"voyager-room-5":6,
+			"voyager-room-158":6
+		},
+		"_id":"voyager-phaser-bank element"
+	},
+	{
+		"name":"Phaser Coil",
+		"roomCount":{
+			"voyager-room-5":1,
+			"voyager-room-195":6,
+			"voyager-room-158":1
+		},
+		"_id":"voyager-phaser-coil"
+	},
+	{
+		"name":"Phaser Coolant",
+		"roomCount":{
+			"voyager-room-195":600
+		},
+		"_id":"voyager-phaser-coolant"
+	},
+	{
+		"name":"Phaser Heads",
+		"roomCount":{
+			"voyager-room-5":20,
+			"voyager-room-158":20
+		},
+		"_id":"voyager-phaser-heads"
+	},
+	{
+		"name":"Photon Grenade Launcher",
+		"roomCount":{
+			"voyager-room-29":5
+		},
+		"_id":"voyager-photon-grenade launcher"
+	},
+	{
+		"name":"Photon Torpedo Warhead",
+		"roomCount":{
+			"voyager-room-195":50,
+			"voyager-room-69":20
+		},
+		"_id":"voyager-photon-torpedo warhead"
+	},
+	{
+		"name":"Pipes",
+		"roomCount":{
+			"voyager-room-195":46,
+			"voyager-room-35":10
+		},
+		"_id":"voyager-pipes"
+	},
+	{
+		"name":"Planetary Geological Scan Unit",
+		"roomCount":{
+			"voyager-room-121":1
+		},
+		"_id":"voyager-planetary-geological scan unit"
+	},
+	{
+		"name":"Prefire Chamber",
+		"roomCount":{
+			"voyager-room-195":20,
+			"voyager-room-5":2,
+			"voyager-room-158":2
+		},
+		"_id":"voyager-prefire-chamber"
+	},
+	{
+		"name":"Quantum Torpedo Warhead",
+		"roomCount":{
+			"voyager-room-195":10,
+			"voyager-room-69":10
+		},
+		"_id":"voyager-quantum-torpedo warhead"
+	},
+	{
+		"name":"Reactor Coolant",
+		"roomCount":{
+			"voyager-room-195":600
+		},
+		"_id":"voyager-reactor-coolant"
+	},
+	{
+		"name":"Repair Supplies",
+		"roomCount":{
+			"voyager-room-36":40
+		},
+		"_id":"voyager-repair-supplies"
+	},
+	{
+		"name":"Replacement Dilithium Crystals",
+		"roomCount":{
+			"voyager-room-195":6
+		},
+		"_id":"voyager-replacement-dilithium crystals"
+	},
+	{
+		"name":"Replacement Lamp",
+		"roomCount":{
+			"voyager-room-36":10
+		},
+		"_id":"voyager-replacement-lamp"
+	},
+	{
+		"name":"Science Probe",
+		"roomCount":{
+			"voyager-room-161":10,
+			"voyager-room-69":10
+		},
+		"metadata":{
+			"image":"/probes/science.svg",
+			"type":"probe",
+			"size":12,
+			"description":"This probe can use special emitters and detectors. It holds 12 units of equipment.",
+			"science":true
+		},
+		"_id":"voyager-science-probe"
+	},
+	{
+		"name":"Sensor Array",
+		"roomCount":{
+			"voyager-room-195":7,
+			"voyager-room-109":1,
+			"voyager-room-44":1,
+			"voyager-room-28":1,
+			"voyager-room-185":1,
+			"voyager-room-162":1
+		},
+		"_id":"voyager-sensor-array"
+	},
+	{
+		"name":"Sensor Pallet",
+		"roomCount":{
+			"voyager-room-195":20,
+			"voyager-room-44":3,
+			"voyager-room-28":3,
+			"voyager-room-185":3,
+			"voyager-room-162":3
+		},
+		"_id":"voyager-sensor-pallet"
+	},
+	{
+		"name":"Sensor Pallets",
+		"roomCount":{
+			"voyager-room-109":3
+		},
+		"_id":"voyager-sensor-pallets"
+	},
+	{
+		"name":"Shield Generator",
+		"roomCount":{
+			"voyager-room-195":6,
+			"voyager-room-188":1,
+			"voyager-room-118":1,
+			"voyager-room-33":1
+		},
+		"_id":"voyager-shield-generator"
+	},
+	{
+		"name":"Signal Amplifier",
+		"roomCount":{
+			"voyager-room-34":3,
+			"voyager-room-195":10
+		},
+		"_id":"voyager-signal-amplifier"
+	},
+	{
+		"name":"Subspace Tranceiver",
+		"roomCount":{
+			"voyager-room-44":1,
+			"voyager-room-28":1,
+			"voyager-room-185":1,
+			"voyager-room-162":1
+		},
+		"_id":"voyager-subspace-tranceiver"
+	},
+	{
+		"name":"Tetrion Pulse Launcher",
+		"roomCount":{
+			"voyager-room-124":2
+		},
+		"_id":"voyager-tetrion-pulse launcher"
+	},
+	{
+		"name":"Thruster Colant",
+		"roomCount":{
+			"voyager-room-195":600
+		},
+		"_id":"voyager-thruster-colant"
+	},
+	{
+		"name":"Titanium Plating",
+		"roomCount":{
+			"voyager-room-195":45,
+			"voyager-room-35":7,
+			"voyager-room-166":12
+		},
+		"_id":"voyager-titanium-plating"
+	},
+	{
+		"name":"Torpedo Casing",
+		"roomCount":{
+			"voyager-room-195":100,
+			"voyager-room-69":20
+		},
+		"_id":"voyager-torpedo-casing"
+	},
+	{
+		"name":"Transport Inhibitors",
+		"roomCount":{
+			"voyager-room-123":6
+		},
+		"_id":"voyager-transport-inhibitors"
+	},
+	{
+		"name":"Transporter Buffer",
+		"roomCount":{
+			"voyager-room-191":1,
+			"voyager-room-195":3
+		},
+		"_id":"voyager-transporter-buffer"
+	},
+	{
+		"name":"Type I Phaser",
+		"roomCount":{
+			"voyager-room-124":4,
+			"voyager-room-123":4,
+			"voyager-room-93":1,
+			"voyager-room-29":2
+		},
+		"_id":"voyager-type-i phaser"
+	},
+	{
+		"name":"Type II Phaser",
+		"roomCount":{
+			"voyager-room-124":9,
+			"voyager-room-123":8,
+			"voyager-room-29":10,
+			"voyager-room-93":4
+		},
+		"_id":"voyager-type-ii phaser"
+	},
+	{
+		"name":"Type III Phaser Rifle",
+		"roomCount":{
+			"voyager-room-124":3,
+			"voyager-room-123":2,
+			"voyager-room-29":3
+		},
+		"_id":"voyager-type-iii phaser rifle"
+	},
+	{
+		"name":"Ultralight Duranium Beams",
+		"roomCount":{
+			"voyager-room-35":6
+		},
+		"_id":"voyager-ultralight-duranium beams"
+	},
+	{
+		"name":"Video Surveillance Unit",
+		"roomCount":{
+			"voyager-room-195":3,
+			"voyager-room-175":1
+		},
+		"_id":"voyager-video-surveillance unit"
+	},
+	{
+		"name":"Warp Engine Coolant",
+		"roomCount":{
+			"voyager-room-195":600
+		},
+		"_id":"voyager-warp-engine coolant"
+	},
+	{
+		"name":"Water Filtration Unit",
+		"roomCount":{
+			"voyager-room-187":1,
+			"voyager-room-195":2
+		},
+		"_id":"voyager-water-filtration unit"
+	},
+	{
+		"name":"Probe Network Package",
+		"roomCount":{
+			"voyager-room-161":15,
+			"voyager-room-160":20,
+			"voyager-room-72":25
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":0,
+			"description":"A probe network package instructs the probe to network with up to 7 other probes."
+		},
+		"_id":"voyager-probe-network package"
+	},
+	{
+		"name":"Radio Transceiver",
+		"roomCount":{
+			"voyager-room-161":7,
+			"voyager-room-160":18,
+			"voyager-room-72":29
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":1,
+			"description":"A radio transceiver is used to let the probe communicate."
+		},
+		"_id":"voyager-radio-transceiver"
+	},
+	{
+		"name":"Video Camera",
+		"roomCount":{
+			"voyager-room-161":8,
+			"voyager-room-160":23,
+			"voyager-room-72":16
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":1,
+			"description":"A Video Camera can take still or moving pictures."
+		},
+		"_id":"voyager-video-camera"
+	},
+	{
+		"name":"Communications Signal Booster",
+		"roomCount":{
+			"voyager-room-161":9,
+			"voyager-room-160":1,
+			"voyager-room-72":28
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":2,
+			"description":"A Communications Signal Booster gives the probe's radio more range."
+		},
+		"_id":"voyager-communications-signal booster"
+	},
+	{
+		"name":"Encoding Sequencer",
+		"roomCount":{
+			"voyager-room-161":5,
+			"voyager-room-160":11,
+			"voyager-room-72":9
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":2,
+			"description":"Encodes and encrypts signals, making them more secure."
+		},
+		"_id":"voyager-encoding-sequencer"
+	},
+	{
+		"name":"Extra Data Storage",
+		"roomCount":{
+			"voyager-room-161":16,
+			"voyager-room-160":21,
+			"voyager-room-72":24
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":2,
+			"description":"Increases the amount of on-board data storage, allowing the probe to store more data."
+		},
+		"_id":"voyager-extra-data storage"
+	},
+	{
+		"name":"Extra Fuel Cell",
+		"roomCount":{
+			"voyager-room-161":15,
+			"voyager-room-160":45,
+			"voyager-room-72":19
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":2,
+			"description":"An Extra Fuel Cell lets the probe travel further and perform longer."
+		},
+		"_id":"voyager-extra-fuel cell"
+	},
+	{
+		"name":"Sensor Array",
+		"roomCount":{
+			"voyager-room-161":25,
+			"voyager-room-160":60,
+			"voyager-room-72":35
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":2,
+			"description":"The Sensor Array gives the probe general scanning abilities."
+		},
+		"_id":"voyager-sensor-array"
+	},
+	{
+		"name":"Chemical Analysis Package",
+		"roomCount":{
+			"voyager-room-161":4,
+			"voyager-room-160":8,
+			"voyager-room-72":12
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Chemical Analysis Package lets the probe research what chemicals it has found."
+		},
+		"_id":"voyager-chemical-analysis package"
+	},
+	{
+		"name":"Sample Retrieval Package",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":7,
+			"voyager-room-72":13
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Sample Retrieval Package lets the probe get something and return it to the ship."
+		},
+		"_id":"voyager-sample-retrieval package"
+	},
+	{
+		"name":"Radiation Shielding",
+		"roomCount":{
+			"voyager-room-161":5,
+			"voyager-room-160":7,
+			"voyager-room-72":4
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"Protects the probe from moderate levels of radiaiton."
+		},
+		"_id":"voyager-radiation-shielding"
+	},
+	{
+		"name":"ECM Package",
+		"roomCount":{
+			"voyager-room-161":6,
+			"voyager-room-160":11,
+			"voyager-room-72":9
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":4,
+			"description":"An ECM (Electronic Counter Measures) Package is used to jam electronics."
+		},
+		"_id":"voyager-ecm-package"
+	},
+	{
+		"name":"Gas Giant Encounter Package",
+		"roomCount":{
+			"voyager-room-161":3,
+			"voyager-room-160":6,
+			"voyager-room-72":2
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":4,
+			"description":"A Gas Giant Encounter Package allows the probe to research a gas giant."
+		},
+		"_id":"voyager-gas-giant encounter package"
+	},
+	{
+		"name":"Nebula Encounter Package",
+		"roomCount":{
+			"voyager-room-161":7,
+			"voyager-room-160":3,
+			"voyager-room-72":4
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":4,
+			"description":"A Nebula Encounter Package allows the probe to research a nebula."
+		},
+		"_id":"voyager-nebula-encounter package"
+	},
+	{
+		"name":"Planetary Encounter Package",
+		"roomCount":{
+			"voyager-room-161":8,
+			"voyager-room-160":2,
+			"voyager-room-72":4
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":4,
+			"description":"A Planetary Encounter Package allows the probe to research a planet."
+		},
+		"_id":"voyager-planetary-encounter package"
+	},
+	{
+		"name":"Decoy Package",
+		"roomCount":{
+			"voyager-room-161":6,
+			"voyager-room-160":10,
+			"voyager-room-72":7
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":4,
+			"description":"A Decoy Package sends out signals to make sensor devices detect the probe as a ship."
+		},
+		"_id":"voyager-decoy-package"
+	},
+	{
+		"name":"Subspace Encounter Package",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":3,
+			"voyager-room-72":1
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":5,
+			"description":"A Subspace Encounter Package allows the probe to research subspace."
+		},
+		"_id":"voyager-subspace-encounter package"
+	},
+	{
+		"name":"Solar Encounter Package",
+		"roomCount":{
+			"voyager-room-161":6,
+			"voyager-room-160":8,
+			"voyager-room-72":5
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":5,
+			"description":"A Solar Encounter Package allows the probe to research a star."
+		},
+		"_id":"voyager-solar-encounter package"
+	},
+	{
+		"name":"Transporter Relay",
+		"roomCount":{
+			"voyager-room-161":10,
+			"voyager-room-160":1,
+			"voyager-room-72":4
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":5,
+			"description":"A transporter relay extends the transporter range of this ship."
+		},
+		"_id":"voyager-transporter-relay"
+	},
+	{
+		"name":"Hologram Projector Package",
+		"roomCount":{
+			"voyager-room-161":1,
+			"voyager-room-160":2,
+			"voyager-room-72":2
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":5,
+			"description":"A Hologram Projector Package makes the probe look like a ship."
+		},
+		"_id":"voyager-hologram-projector package"
+	},
+	{
+		"name":"Metaphasic Shield Generator",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":1,
+			"voyager-room-72":4
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":6,
+			"description":"Shield Generator that can construct a Shield Grid with other probes up to 2,500 Km protecting from radiation."
+		},
+		"_id":"voyager-metaphasic-shield generator"
+	},
+	{
+		"name":"Self-Destruct Kit",
+		"roomCount":{
+			"voyager-room-161":5,
+			"voyager-room-160":4,
+			"voyager-room-72":8
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":1,
+			"description":"A Self-Destruct Kit allows the probe to receive a self-destruct signal from the station.",
+			"defense":true
+		},
+		"_id":"voyager-self-destruct-kit"
+	},
+	{
+		"name":"Warp Nacelle",
+		"roomCount":{
+			"voyager-room-161":4,
+			"voyager-room-160":9,
+			"voyager-room-72":7
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":1,
+			"description":"A Warp Nacelle (warp core included) allows the probe to travel at warp speed.",
+			"defense":true
+		},
+		"_id":"voyager-warp-nacelle"
+	},
+	{
+		"name":"Targeting Sensors",
+		"roomCount":{
+			"voyager-room-161":10,
+			"voyager-room-160":8,
+			"voyager-room-72":3
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":2,
+			"description":"Targeting sensors extends the targeting range of the probe.",
+			"defense":true
+		},
+		"_id":"voyager-targeting-sensors"
+	},
+	{
+		"name":"Proximity Destruct",
+		"roomCount":{
+			"voyager-room-161":7,
+			"voyager-room-160":6,
+			"voyager-room-72":7
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":2,
+			"description":"A Proximity Self-Destruct detector tells the probe to blow-up when an enemy is near.",
+			"defense":true
+		},
+		"_id":"voyager-proximity-destruct"
+	},
+	{
+		"name":"Titanium Armor Alloy",
+		"roomCount":{
+			"voyager-room-161":4,
+			"voyager-room-160":8,
+			"voyager-room-72":3
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":2,
+			"description":"Titanium Armor Alloy increases the probe's defenses.",
+			"defense":true
+		},
+		"_id":"voyager-titanium-armor alloy"
+	},
+	{
+		"name":"Stealth Field",
+		"roomCount":{
+			"voyager-room-161":1,
+			"voyager-room-160":2,
+			"voyager-room-72":4
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A stealth field masks the probe making it harder to detect.",
+			"defense":true
+		},
+		"_id":"voyager-stealth-field"
+	},
+	{
+		"name":"Phaser Head",
+		"roomCount":{
+			"voyager-room-161":15,
+			"voyager-room-160":3,
+			"voyager-room-72":9
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Phaser Head allows the probe to fire one phaser shot at an enemy ship.",
+			"defense":true
+		},
+		"_id":"voyager-phaser-head"
+	},
+	{
+		"name":"Tachyon Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":1,
+			"voyager-room-72":5
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Tachyon Emitter allows the probe to interact with tachyon particles.",
+			"science":true
+		},
+		"_id":"voyager-tachyon-emitter"
+	},
+	{
+		"name":"Resonance Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":2,
+			"voyager-room-72":4
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Resonance Emitter allows the probe to interact with resonating particles.",
+			"science":true
+		},
+		"_id":"voyager-resonance-emitter"
+	},
+	{
+		"name":"Lithium Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":4,
+			"voyager-room-72":4
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Lithium Emitter allows the probe to interact with lithium particles.",
+			"science":true
+		},
+		"_id":"voyager-lithium-emitter"
+	},
+	{
+		"name":"Carbon Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":4,
+			"voyager-room-72":2
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Carbon Emitter allows the probe to interact with carbon particles.",
+			"science":true
+		},
+		"_id":"voyager-carbon-emitter"
+	},
+	{
+		"name":"Radiation Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":6,
+			"voyager-room-72":0
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Radiation Emitter allows the probe to interact with radioactive particles.",
+			"science":true
+		},
+		"_id":"voyager-radiation-emitter"
+	},
+	{
+		"name":"Oxygen Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":3,
+			"voyager-room-72":3
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"An Oxygen Emitter allows the probe to interact with oxygen particles.",
+			"science":true
+		},
+		"_id":"voyager-oxygen-emitter"
+	},
+	{
+		"name":"Hydrogen Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":4,
+			"voyager-room-72":2
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Hydrogen Emitter allows the probe to interact with hydrogen particles.",
+			"science":true
+		},
+		"_id":"voyager-hydrogen-emitter"
+	},
+	{
+		"name":"Helium Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":5,
+			"voyager-room-72":1
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Helium Emitter allows the probe to interact with helium particles.",
+			"science":true
+		},
+		"_id":"voyager-helium-emitter"
+	},
+	{
+		"name":"Graviton Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":0,
+			"voyager-room-72":6
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Graviton Emitter allows the probe to interact with graviton particles.",
+			"science":true
+		},
+		"_id":"voyager-graviton-emitter"
+	},
+	{
+		"name":"Magnetic Emitter",
+		"roomCount":{
+			"voyager-room-161":2,
+			"voyager-room-160":4,
+			"voyager-room-72":2
+		},
+		"metadata":{
+			"type":"probeEquipment",
+			"size":3,
+			"description":"A Magnetic Emitter allows the probe to interact with magnetic particles.",
+			"science":true
+		},
+		"_id":"voyager-magnetic-emitter"
+	}
+	]
+}

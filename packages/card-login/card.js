@@ -57,3 +57,14 @@ Template.card_login.helpers({
     return Flint.client();
   }
 });
+
+Template.card_locked.helpers({
+ loginImage: function(){
+  return Flint.a("/Login");
+}
+})
+Template.card_locked.events({
+  'click .unlock-station':function(){
+    Flint.client('locked',false);
+  }
+})

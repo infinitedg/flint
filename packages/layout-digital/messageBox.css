@@ -1,0 +1,65 @@
+.messageBox{
+    width: 39vw;
+    position: fixed;
+    bottom: -220px;
+    left: 19vw;
+    -webkit-transform:translateY(0px);
+    -webkit-transition: all 1000ms cubic-bezier(0.535, 0.135, 0.495, 1); /* older webkit */
+    -webkit-transition: all 500ms cubic-bezier(0.535, 0.135, 0.495, 1.210); 
+    -moz-transition: all 500ms cubic-bezier(0.535, 0.135, 0.495, 1.210); 
+    -o-transition: all 500ms cubic-bezier(0.535, 0.135, 0.495, 1.210); 
+    transition: all 500ms cubic-bezier(0.535, 0.135, 0.495, 1.210); /* custom */
+    z-index: 1000;
+
+}
+.messageBox.shown{
+	-webkit-transform:translateY(-230px);
+}
+.messageBox .messageBoxHeader{
+    height:25px;
+    padding: 3px;
+    width: 100%;
+    padding-left: 15px;
+    background-color: rgba(60,60,65,0.8);
+    box-shadow: inset 0px 0px 20px rgba(255,255,255,0.5);
+
+}
+.messageBox p{
+    margin: 0;
+}
+.messageBox .messageBoxHeader{
+    -webkit-clip-path: polygon(0% 0%, 0% 100%, 93.5% 100%, 94.5% 75%, 100% 75%, 100% 45%, 98% 0%);
+}
+
+.messageBox #message, .messageBox .chat{
+ -webkit-transition: all 1000ms cubic-bezier(0.535, 0.135, 0.495, 1); /* older webkit */
+ -webkit-transition: all 500ms cubic-bezier(0.535, 0.135, 0.495, 1.210); 
+ -moz-transition: all 500ms cubic-bezier(0.535, 0.135, 0.495, 1.210); 
+ -o-transition: all 500ms cubic-bezier(0.535, 0.135, 0.495, 1.210); 
+ transition: all 200ms cubic-bezier(0.535, 0.135, 0.495, 1.210); /* custom */   
+}
+.messageBox #message{
+    opacity: 0;
+    width: 90%;
+    font-size: 12px;
+    height: 30pxs;
+    padding: 1px;
+    padding-left: 5px;
+    background-color: rgba(0, 0, 0, 0.7980392);
+}
+.messageBox .chat {
+    opacity: 0;
+    width: 90%;
+    height: 210px;
+    font-size: 10px;
+    padding: 1px;
+    padding-left: 5px;
+    margin-bottom: 0px;
+    overflow: scroll;
+    background-color: rgba(0, 0, 0, 0.7980392);
+}
+.messageBox.shown .chat, .messageBox.shown #message{
+    opacity: 1;
+    transition: all 200ms 200ms cubic-bezier(0.535, 0.135, 0.495, 1.210); /* custom */   
+
+} 
