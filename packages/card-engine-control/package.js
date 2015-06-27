@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-  api.use(['templating', 'flint', 'mizzao:bootboxjs', 'infinitedg:gsap', 'underscore']);
+  api.use(['templating', 'flint', 'mizzao:bootboxjs', 'flint-jobs', 'underscore']);
   
   api.add_files(['actor.js'], 'server');
   api.add_files(['core.html', 'core.js'], 'client');

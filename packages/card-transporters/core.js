@@ -18,23 +18,24 @@ Template.core_transporters.events({
 		var currentTargets = Flint.system('Transporters','targets');
 		var currentCount = currentTargets.length;
 		var newArray = [];
+		var i;
 		if (num < currentCount) {
-			for (var i = 0; i < num; i++){
+			for (i = 0; i < num; i++){
 				newArray[i] = currentTargets[i];
 			}
 		} else if (num > currentCount){
 			newArray = currentTargets;
-			for (var i = 0; i < num - currentCount; i++){
+			for (i = 0; i < num - currentCount; i++){
 				obj = {
 					'targetId' : Meteor.uuid(),
 					'top' : Math.random() * 90,
 					'left' : Math.random() * 90
-				}
+				};
 				newArray.push(obj);
 			}
 		}
 		Flint.system('Transporters','targets',newArray);
-		if (num == 0) {
+		if (num === 0) {
 			Flint.system('Transporters','state','idle');
 		}else {
 			Flint.system('Transporters','state','targets');

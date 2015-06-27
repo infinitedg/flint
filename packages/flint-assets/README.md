@@ -1,3 +1,12 @@
+# Flint assets
+
+The Flint asset engine provides a key-value approach to retrieving assets.
+Returned objects are context-aware, based on the current simulator.
+
+@TODO - Do we care about creating overrides on a deeper level? E.g. Asset override
+for a station, card, client, or mission?
+
+## Examples
 Flint.assetUrl('/path/to/asset/keyname')
 	Returns the URL to the asset
 	If it's a directory, return undefined
@@ -20,7 +29,7 @@ Flint.assetObject('/path/keyname')
 
 //  flintAssetFolders
 {
-	_id: 
+	_id:
 	@name: "sounds"
 	@parentFolderId: _id of parent folder, unset if at root
 	@fullPath* // folderPath + / + name
@@ -32,14 +41,14 @@ Flint.assetObject('/path/keyname')
 	_id
 	folderId: // ID of flintAssetFolder, unset if at root
 	@name: "keyName"
-	@fullPath* // Parent's 
-	@folderPath* // 
+	@fullPath* // Parent's
+	@folderPath* //
 }
 
 // flintAssetObjects
 /// This basically serves as our rapid cache mechanism, too
 {
-	_id: 
+	_id:
 	containerId: // ID of flintAssetsContainer
 	simulatorId: // This key doesn't exist if it's the default
 	objectId: // ID of object in CFS

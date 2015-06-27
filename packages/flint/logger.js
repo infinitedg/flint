@@ -25,13 +25,11 @@ Centralized logger, modeled after Winston
 if (Meteor.isServer){
 	Flint.Log = Winston;
 	Flint.Log.cli(serverOptions);
-	Flint.Log.add(Winston_Loggly, logglyOptions);
-	Flint.Log.info('Added winston loggly transport');
 } else {
 	logLevels = {"error":0,"warn":1,"help":2,"data":3,"info":4,"debug":5,"prompt":6,"verbose":7,"input":8,"silly":9};
 
-	function checkLevel(str) {
-		return (logLevels[str] <= logLevels[clientOptions["level"]]);
+	checkLevel = function(str) {
+		return (logLevels[str] <= logLevels[clientOptions.level]);
 	};
 
 

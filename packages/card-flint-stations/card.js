@@ -85,7 +85,7 @@ Template.card_flintstations.helpers({
         }
         return (obj);
     }
-})
+});
 
 Template.card_flintstations.events = {
     'click .station': function (e, t) {

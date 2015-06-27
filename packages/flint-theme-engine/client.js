@@ -25,5 +25,5 @@ Template.flint_theme_engine.helpers({
 });
 
 Meteor.startup(function() {
-	Flint.addComponent('flint_theme_engine')
+	Flint.addComponent('flint_theme_engine');
 });

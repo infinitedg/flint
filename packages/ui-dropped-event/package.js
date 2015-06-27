@@ -3,7 +3,8 @@ Package.describe({
   summary: "Add dropped event to Meteor UI Templates"
 });
 
-Package.on_use(function (api) {
+Package.onUse(function (api) {
+  "use strict";
   api.use(['ui', 'templating'], 'client');
-  api.add_files(['dropped.event.js'], 'client');
+  api.addFiles(['dropped.event.js'], 'client');
 });

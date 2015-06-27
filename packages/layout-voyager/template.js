@@ -2,7 +2,7 @@
 @module Templates
 @submodule Layouts
 */
- 
+
 /**
 Default station layout
 @class layout_voyager
@@ -51,7 +51,7 @@ Template.layout_voyager.helpers({
     return Flint.station();
   },
   cardName: function() {
-      return Flint.card().name;   
+      return Flint.card().name;
   },
   cardId: function() {
       return Flint.card().cardId;
@@ -65,7 +65,7 @@ Template.layout_voyager.helpers({
 // @default 200
 // */
 // Template.layout_voyager.transitionSpeed = 200;
-// 
+//
 // // @TODO: Consider moving these to being variables on "this"
 // var cardTransitionAutorun, stationActionObserver;
 
@@ -89,7 +89,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //       $('div.card#card-' + Flint.cardId()).show();
 //     }
 //   });
-//   
+//
 //   // Watch the remoteAction and remoteActionSeed fields of the station object, trigger events when they change
 //   stationActionObserver = Flint.stations.find(Flint.stationId()).observeChanges({
 //     changed: function(id, fields) {
@@ -102,12 +102,12 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //         if (options === undefined) {
 //           options = Flint.station().remoteActionOptions;
 //         }
-//         
+//
 //         // Check to see if we are the intended participant
 //         if (options.clientId !== undefined && options.clientId !== Flint.clientId()) {
 //           return; // Ignore message
 //         }
-//         
+//
 //         // Implement actions here
 //         if (action === 'flash') {
 //           Flint.flash();
@@ -117,11 +117,11 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //       }
 //     }
 //   });
-//   
+//
 //   // For old times' sake :)
 //   Flint.play('sciences.wav');
 // };
-// 
+//
 // /**
 // When rendered, perform some magic to properly manage card transitions using dependencies
 // @method rendered
@@ -134,7 +134,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //     cardTransitionAutorun.invalidate();
 //   }
 // };
-// 
+//
 // /**
 // Cleanup dependencies
 // @method destroyed
@@ -144,7 +144,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   stationActionObserver.stop();
 // };
 Template.layout_voyager.destroyed = function() {
-   this.subComputation.stop();  
+   this.subComputation.stop();
 };
 
 Template.layout_voyager.created = function() {
@@ -152,7 +152,7 @@ Template.layout_voyager.created = function() {
         Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
     });
 	//Flint.play('sciences');
-}
+};
 
 Template.layout_voyager.events({
   'click div.pageContent, touchstart div.pageContent': function(e, context) {
@@ -161,12 +161,12 @@ Template.layout_voyager.events({
 			 perspectiveWrapper = document.getElementById( 'perspective' ),
 			 container = perspectiveWrapper.querySelector( '.pageContent' ),
 			 contentWrapper = container.querySelector( '.wrapper' );
-        
+
             $(perspectiveWrapper).removeClass('animate');
             Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 400);
-               
+
            }
-      
+
   },
 
   'click header, touchstart header': function(e, context) {

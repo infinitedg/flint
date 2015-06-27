@@ -2,13 +2,15 @@ Template.card_phasers.created = function(){
 	this.subscription = Deps.autorun(function() {
 		Meteor.subscribe('card-weapons-phasers', Flint.simulatorId());
 	});
-}
+};
+
 Template.card_phasers.rendered = function(){
 	Session.set('currentPhaser','');
-}
+};
+
 Template.card_phasers.helpers({
 	phasers: function(){
-		return Flint.collection('phasers').find()
+		return Flint.collection('phasers').find();
 	},
 	phaserNumber:function(){
 		if (typeof Session.get('currentPhaser') == "object"){
@@ -41,7 +43,7 @@ Template.card_phasers.events({
 		}
 	},
 	'click .dischargeAll':function(e,t){
-		var counter = 0
+		var counter = 0;
 		Flint.collection('phasers').find().forEach(function(e){
 			Flint.tween('phasers',e._id,0.5,{'charge':0, 'delay':counter, 'overwrite':'concurrent'});
 			counter += 0.5;
@@ -50,10 +52,10 @@ Template.card_phasers.events({
 
 	},
 	'click .chargeAll':function(e,t){
-		var counter = 0
+		var counter = 0;
 		Flint.collection('phasers').find().forEach(function(e){
 			Flint.tween('phasers',e._id,2,{'charge':100, 'delay':counter, 'overwrite':'concurrent'});
 			counter += 1;
 		});
 	}
-})
+});

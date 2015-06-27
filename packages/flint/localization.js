@@ -3,13 +3,13 @@ var _locale = "en-us",
 
 // Wrapped to prevent errors when starting up
 Meteor.startup(function(){
-	localeDep = new Deps.Dependency;
+	localeDep = new Deps.Dependency();
 });
 
 Flint.locale = function(l) {
 	if (l === undefined) { // Getter
 		localeDep.depend();
-		return _locale
+		return _locale;
 	} else { // Setter
 		_locale = l;
 		localeDep.changed();

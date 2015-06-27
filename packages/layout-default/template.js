@@ -30,7 +30,7 @@ Template.layout_default.helpers({
 // @default 200
 // */
 // Template.layout_default.transitionSpeed = 200;
-// 
+//
 // // @TODO: Consider moving these to being variables on "this"
 // var cardTransitionAutorun, stationActionObserver;
 
@@ -54,7 +54,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //       $('div.card#card-' + Flint.cardId()).show();
 //     }
 //   });
-//   
+//
 //   // Watch the remoteAction and remoteActionSeed fields of the station object, trigger events when they change
 //   stationActionObserver = Flint.stations.find(Flint.stationId()).observeChanges({
 //     changed: function(id, fields) {
@@ -67,12 +67,12 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //         if (options === undefined) {
 //           options = Flint.station().remoteActionOptions;
 //         }
-//         
+//
 //         // Check to see if we are the intended participant
 //         if (options.clientId !== undefined && options.clientId !== Flint.clientId()) {
 //           return; // Ignore message
 //         }
-//         
+//
 //         // Implement actions here
 //         if (action === 'flash') {
 //           Flint.flash();
@@ -82,11 +82,11 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //       }
 //     }
 //   });
-//   
+//
 //   // For old times' sake :)
 //   Flint.play('sciences.wav');
 // };
-// 
+//
 // /**
 // When rendered, perform some magic to properly manage card transitions using dependencies
 // @method rendered
@@ -99,7 +99,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //     cardTransitionAutorun.invalidate();
 //   }
 // };
-// 
+//
 // /**
 // Cleanup dependencies
 // @method destroyed
@@ -109,7 +109,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 //   stationActionObserver.stop();
 // };
 Template.layout_default.destroyed = function() {
- this.subComputation.stop();  
+  this.subComputation.stop();
 };
 Template.layout_default.helpers({
   alertCondition: function() {
@@ -153,38 +153,38 @@ Template.layout_default.created = function() {
   this.subComputation = Deps.autorun(function() {
     Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
   });
-	//Flint.play('sciences');
-}
+  //Flint.play('sciences');
+};
 
 Template.layout_default.events = {
   'click div.pageContent, touchstart div.pageContent': function(e, context) {
-   if ($('.animate').length > 0) {
-    var showMenu = document.getElementById( 'showMenu' ),
-    perspectiveWrapper = document.getElementById( 'perspective' ),
-    container = perspectiveWrapper.querySelector( '.pageContent' ),
-    contentWrapper = container.querySelector( '.wrapper' );
+    if ($('.animate').length > 0) {
+      var showMenu = document.getElementById( 'showMenu' ),
+      perspectiveWrapper = document.getElementById( 'perspective' ),
+      container = perspectiveWrapper.querySelector( '.pageContent' ),
+      contentWrapper = container.querySelector( '.wrapper' );
 
-    $(perspectiveWrapper).removeClass('animate');
-    Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 400);
+      $(perspectiveWrapper).removeClass('animate');
+      Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 400);
 
-  }
+    }
 
-},
+  },
 
-'click header, touchstart header': function(e, context) {
-  if (Flint.client().name){
-    var showMenu = document.getElementById( 'showMenu' ),
-    perspectiveWrapper = document.getElementById( 'perspective' ),
-    container = perspectiveWrapper.querySelector( '.pageContent' ),
-    contentWrapper = container.querySelector( '.wrapper' );
-            docscroll = window.pageYOffset || window.document.documentElement.scrollTop; //Finds the yScoll
-			// change top of contentWrapper
-			contentWrapper.style.top = docscroll * -1 + 'px';
-			// mac chrome issue:
-			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			// add modalview class
-			$(perspectiveWrapper).addClass('modalview');
-			// animate..
-			Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
+  'click header, touchstart header': function(e, context) {
+    if (Flint.client().name){
+      var showMenu = document.getElementById( 'showMenu' ),
+      perspectiveWrapper = document.getElementById( 'perspective' ),
+      container = perspectiveWrapper.querySelector( '.pageContent' ),
+      contentWrapper = container.querySelector( '.wrapper' );
+      docscroll = window.pageYOffset || window.document.documentElement.scrollTop; //Finds the yScoll
+      // change top of contentWrapper
+      contentWrapper.style.top = docscroll * -1 + 'px';
+      // mac chrome issue:
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      // add modalview class
+      $(perspectiveWrapper).addClass('modalview');
+      // animate..
+      Meteor.setTimeout( function() { $(perspectiveWrapper).addClass('animate'); }, 25 );    }
     },
-  }
+  };
