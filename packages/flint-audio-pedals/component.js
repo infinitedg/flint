@@ -4,18 +4,22 @@ sounds:
 	parentKey			- Unique key used by other sounds when referring to this object
 	simulatorId			- Simulator ID this sound is playing in
 	parentSounds:		- Array of sound IDs that this sound will wait for before playing
-	assetKey			- Asset key in the system
-	delay				- Seconds to wait before playing, timeout saved to sound object on player for cleanup purposes (Optional)
-	volume				- From 0 to 100
-	looping				- Boolean - controls whether the sound is looping
-	paused				- Boolean - controls whether the sound is paused
-	muted				- Boolean - controls whether the sound is muted
 	soundPlayers		- Array of soundPlayer objects (Optional)
 	soundGroups			- Array of sound groups (Converted into soundPlayers when inserted) (Optional)
 	keyId:				- key that originally scheduled this sound (Optional)
 	clientId:			- Client that originally scheduled this sound (Optional)
 	groupReady: 		- Boolean - If false, sound is ignored
+
+//Stuff only necessary for playback of the sound
+  assetKey      - Asset key in the system
+  looping       - Boolean - controls whether the sound is looping
+  playbackRate  - Number from 0 to Infinity; 1 is normal speed;
+  paused        - Boolean - controls whether the sound is paused. Automatically sets the playback rate to 0 if true;
+  volume        - From 0 to 100
+  muted       - Boolean - controls whether the sound is muted. Automatically sets the volume to 0
   channel:      -Array - Which channels you want to produce the audio on.
+  delay       - Seconds to wait before playing, timeout saved to sound object on player for cleanup purposes (Optional)
+  effects:    - A hashmap of effects with the name of the effect as the key and an object as the parameters eg {filter:{gain:1,wet:0.5,...}}
   */
 //
 var _audioSoundCache = {};
@@ -66,22 +70,25 @@ function downMix(buffer,outputBuffer){
 
 Flint.playAudioSound = function(opts){
   var self = this;
-  self.audioContext = self.audioContext || new (window.AudioContext || window.webkitAudioContext)();
+  var volume = opts.muted ? 0 : opts.volume || 1;
+  var playbackRate = opts.paused ? 0 : opts.playbackRate || 1;
 
-  self.audioContext.destination.channelCount = 8
+  self.audioContext = self.audioContext || new (window.AudioContext || window.webkitAudioContext)();
+  Tuna(self.audioContext);
+  self.audioContext.destination.channelCount = self.audioContext.destination.maxChannelCount;
 
   var channels = self.audioContext.destination.channelCount;
 	// Create an object with a sound source and a volume control.
 	var sound = {};
 	sound.source = self.audioContext.createBufferSource();
 	sound.volume = self.audioContext.createGain();
+  sound.volume.gain.value = volume;
 	var asset = opts.assetKey;//Flint.a(sound.assetKey);
 
 	// Connect the sound source to the volume control.
 	sound.source.connect(sound.volume);
 
-	// Make the sound source loop.
-	sound.source.loop = opts.looping || false;
+	
 
 	// Load a sound file using an ArrayBuffer XMLHttpRequest.
 	var request = new XMLHttpRequest();
@@ -108,8 +115,8 @@ Flint.playAudioSound = function(opts){
         }
       } else {
         //Do some downmixing to stereo
-        var downMixBuffer = self.audioContext.createBuffer(2, buffer.duration*self.audioContext.sampleRate, self.audioContext.sampleRate);
-        buffer = downMix(buffer,downMixBuffer);
+        //var downMixBuffer = self.audioContext.createBuffer(2, buffer.duration*self.audioContext.sampleRate, self.audioContext.sampleRate);
+        //buffer = downMix(buffer,downMixBuffer);
         var myArrayBuffer = self.audioContext.createBuffer(self.audioContext.destination.channelCount, buffer.duration*self.audioContext.sampleRate, self.audioContext.sampleRate);
 
         for (var c = 0; c < channel.length; c++) {
@@ -131,41 +138,27 @@ Flint.playAudioSound = function(opts){
       }
       var source = self.audioContext.createBufferSource();
       source.buffer = myArrayBuffer;
-      source.connect(self.audioContext.destination);
+      // Make the sound source loop.
+      source.loop = opts.looping || false;
+      source.playbackRate.value = playbackRate;
+      //Connect the source through effects nodes
+      var effectsObject = {};
+      var previousObject = source;
+      for (var key in opts.effects){
+        if (opts.effects.hasOwnProperty(key)){
+          var params = opts.effects[key];
+          effectsObject[key] = new Tuna[key](params);
+          previousObject.connect(effectsObject[key].input)
+          previousObject = effectsObject[key];
+        }
+      }
+      
+      previousObject.connect(self.audioContext.destination);
       source.start();
     }, function onFailure() {
-     alert("Decoding the audio buffer failed");
+     console.error("Decoding the audio buffer failed");
    });
 };
 request.send();
 
 }
-
-/*
-  button.onclick = function(){
-  	var myArrayBuffer = audioCtx.createBuffer(audioCtx.destination.channelCount, frameCount, audioCtx.sampleRate);
-
-  // Fill the buffer with white noise;
-  //just random values between -1.0 and 1.0
-  for (var channel = 0; channel < channels; channel++) {
-   // This gives us the actual ArrayBuffer that contains the data
-   var nowBuffering = myArrayBuffer.getChannelData(channel);
-   for (var i = 0; i < frameCount; i++) {
-     // Math.random() is in [0; 1.0]
-     // audio needs to be in [-1.0; 1.0]
-     nowBuffering[i] = Math.random() * 2 - 1;
- }
-}
-
-  // Get an AudioBufferSourceNode.
-  // This is the AudioNode to use when we want to play an AudioBuffer
-  var source = audioCtx.createBufferSource();
-  // set the buffer in the AudioBufferSourceNode
-  source.buffer = myArrayBuffer;
-  // connect the AudioBufferSourceNode to the
-  // destination so we can hear the sound
-  source.connect(audioCtx.destination);
-  // start the source playing
-  source.start();
-}
-}*/
