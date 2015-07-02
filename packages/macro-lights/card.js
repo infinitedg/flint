@@ -4,7 +4,9 @@ function updateMacro(argumentName, value){
 		macro.arguments = {};
 	macro.arguments[argumentName] = value;
 	Session.set('flint-macros-currentMacro',macro);
-	Flint.collection('flintMacroPresets').update({'_id':macro._id},macro);
+	var id = macro._id;
+	delete macro._id;
+	Flint.collection('flintMacroPresets').update({'_id':id},{$set:macro});
 }
 
 Template.macro_setLightChannelSet.rendered = function(){

@@ -5,6 +5,7 @@ Flint.registerMacro('audioMatrixToggle',
 		'busId':'The id of the bus (output)'
 	},
 	function(args) {
+		console.log(args);
 		var intersection = Flint.collection('AudioMatrixSend').findOne({
 			mixId:args.mixId,
 			busId:args.busId

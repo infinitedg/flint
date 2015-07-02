@@ -72,6 +72,7 @@ actor-sensors
 
 macro-sounds
 macro-lights
+macro-audio-matrix
 
 theme-default
 theme-odyssey

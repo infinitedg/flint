@@ -1,5 +1,5 @@
 Template.card_audio_matrix.created = function(){
-	this.subscription = Deps.autorun(function () {
+	this.subscription = Tracker.autorun(function () {
 		Meteor.subscribe('flint-audiomatrix');
 		Meteor.subscribe('flint-audiomatrix-mix');
 		Meteor.subscribe('flint-audiomatrix-bus');

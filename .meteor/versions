@@ -156,6 +156,7 @@ livedata@1.0.13
 liyu:sprintfjs@1.0.0
 localstorage@1.0.3
 logging@1.0.7
+macro-audio-matrix@0.1.0
 macro-lights@0.1.0
 macro-sounds@0.1.0
 meteor@1.1.5
