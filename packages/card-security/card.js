@@ -5,7 +5,7 @@ Template.card_security.created =  function(){
         height: window.innerHeight
     });
     var layer = new Kinetic.Layer();
-    
+
     var imageObj = new Image();
     imageObj.onload = function() {
         var image = new Kinetic.Image({
@@ -14,7 +14,7 @@ Template.card_security.created =  function(){
             image: imageObj,
             width: 613,
             height: 429
-            
+
         });
         // add the shape to the layer
         layer.add(image);
@@ -24,4 +24,4 @@ Template.card_security.created =  function(){
     };
     imageObj.src = '/packages/card-security/img/ship.png';
 
-}
+};

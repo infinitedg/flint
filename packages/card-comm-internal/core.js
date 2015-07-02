@@ -3,8 +3,9 @@ Template.core_internalComm.created = function(){
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());
 	});
-	Session.set('internalComm-currentDeck','')
-}
+	Session.set('internalComm-currentDeck','');
+};
+
 Template.core_internalComm.helpers({
 	decks : function(){
 		return Flint.collection('decks').find();
@@ -42,7 +43,7 @@ Template.core_internalComm.events({
 			if (roomState != "Room"){
 				type = 'room';
 				connection = roomState + ", Deck " + deckState;
-			} 
+			}
 			Flint.system('Internal Communications','state','connected');
 			Flint.system('Internal Communications','connectionType',type);
 			Flint.system('Internal Communications','currentCall',connection);
@@ -52,4 +53,4 @@ Template.core_internalComm.events({
 			Flint.system('Internal Communications','currentCall','');
 		}
 	}
-})
+});

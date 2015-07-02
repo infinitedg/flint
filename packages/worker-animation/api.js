@@ -19,8 +19,8 @@ Flint.tween = function(collectionName, objectId, duration, vars, beginningState)
     .priority('high')
     .retry({retries: 0})
     .save();
-}
+};
 
 Flint.cancelTween = function(tweenJobId) {
     Flint.Jobs.collection('animationQueue').cancelJobs([tweenJobId]);
-}
+};

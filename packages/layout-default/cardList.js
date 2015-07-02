@@ -28,7 +28,7 @@ Template.layout_default_cardList.helpers({
 
     return x;
   }
-})
+});
 
 Template.layout_default_cardList.events = {
   /**
@@ -46,7 +46,7 @@ Template.layout_default_cardList.events = {
       contentWrapper = container.querySelector( '.wrapper' );
 
       $(perspectiveWrapper).removeClass('animate');
-      Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 1000);   
+      Meteor.setTimeout( function() { $(perspectiveWrapper).removeClass('modalview'); }, 1000);
 
       $('.card-area').fadeOut(function(){
         Router.go('flint_station', {
@@ -71,7 +71,7 @@ Template.layout_default_cardList.created = function() {
 
 Template.layout_default_cardList.destroyed = function() {
   // Remove hook for fading in after a template has loaded
-  
+
   // Find the element
   var h = _.find(Router._globalHooks.onAfterAction, function(hook){
     return (hook.options.name === 'layout_default_fading');
@@ -81,4 +81,3 @@ Template.layout_default_cardList.destroyed = function() {
   // Splice it!
   Router._globalHooks.onAfterAction.splice(i, 1);
 };
-

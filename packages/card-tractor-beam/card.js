@@ -1,11 +1,14 @@
 var effectInterval;
+
 Template.card_tractorBeam.rendered = function(){
 	effectInterval = Meteor.setInterval(draw,64);
-}
+};
+
 Template.card_tractorBeam.destroyed = function(){
 	Meteor.clearTimeout(effectInterval);
 	effectInterval = null;
-}
+};
+
 Template.card_tractorBeam.helpers({
 	tractorButton: function(){
 		if (Flint.system('Tractor Beam','state') == 'idle')
@@ -31,7 +34,8 @@ Template.card_tractorBeam.helpers({
 	shipSide: function(){
 		return Flint.a('/Ship Views/Side');
 	}
-})
+});
+
 Template.card_tractorBeam.events({
 	'click .tractorIo': function(e,t){
 		if (Flint.system('Tractor Beam','state') == 'idle')
@@ -39,7 +43,8 @@ Template.card_tractorBeam.events({
 		else
 			Flint.system('Tractor Beam','state','idle');
 	}
-})
+});
+
 function draw(){
 	var canvas = document.getElementById("tractorEffect");
 	var context = canvas.getContext("2d");

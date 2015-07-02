@@ -139,3 +139,4 @@ card-thrust
 appmill:animation-hooks
 card-records-log
 card-reactor
+percolate:migrations

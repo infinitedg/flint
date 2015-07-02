@@ -4,7 +4,8 @@ Template.core_security_teams.created = function(){
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());
 	});
-}
+};
+
 Template.core_security_teams.helpers({
 	securityAssigned:function(){
 		return Flint.collection('crew').find({
@@ -37,7 +38,8 @@ Template.core_security_teams.helpers({
 			return officer.assignment.orders;
 		}
 	}
-})
+});
+
 Template.core_security_teams.events({
 	'click .securityAssignedName':function(e,t){
 		Session.set('security-selectedOfficer',this);
@@ -50,4 +52,4 @@ Template.core_security_teams.events({
 			Flint.collection('crew').update({'_id':Session.get('security-selectedOfficer')._id},
 				{$unset:{'recall':'','assignment':''}});
 	}
-})
+});

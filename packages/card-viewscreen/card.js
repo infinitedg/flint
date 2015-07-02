@@ -5,7 +5,8 @@ Template.card_viewscreen.created = function(){
         Meteor.subscribe('card.viewscreen.inputs', Flint.simulatorId());
     });
     viewscreenInputs = Flint.collection('viewscreenInputs').find();
-}
+};
+
 Template.card_viewscreen.helpers({
     viewscreenInputs: function(){
         return Flint.collection('viewscreenInputs').find();

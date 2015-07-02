@@ -137,6 +137,7 @@ Template.card_flint_sound.helpers({
 		}
 	}
 });
+
 Template.card_flint_sound.events({
 	'click .addSet':function(){
 		var setName = prompt('What is the name of the set?');
@@ -203,8 +204,7 @@ Template.card_flint_sound.events({
 		$('.addMacroLabel').removeAttr('selected');
 		$('.addMacroLabel').attr('selected','true');
 	}
-
-})
+});
 Template.keyboard.events({
 	'click #keyboard li:not(.modify)':function(e,t){
 		Session.set('soundKeyboard-selectedKey',e.target.dataset.which);
@@ -251,7 +251,8 @@ Template.keyboard.events({
 		Session.set('soundKeyboard-selectedModifiers',obj);
 		Session.set('flint-macros-currentMacro',null);
 	}
-})
+});
+
 Template.keyboard.helpers({
 	'keySelected':function(e){
 		if (Session.get('soundKeyboard-selectedKey') == e){
@@ -298,4 +299,4 @@ Template.keyboard.helpers({
 				return 'selected';
 		}
 	}
-})
+});

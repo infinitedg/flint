@@ -6,7 +6,7 @@ Meteor.startup(function(){
     // Remove clients that vanish for longer than 10 minutes
   //   Flint.collection('clients').remove({
   //   	$or: [
-  //   		{heartbeat: {$lt: (d.getTime() - cleanupThreshold)}}, // 
+  //   		{heartbeat: {$lt: (d.getTime() - cleanupThreshold)}}, //
   //   		{heartbeat: {$exists: false}}
   //   	]});
   }, cleanupInterval);
@@ -38,17 +38,17 @@ Meteor.methods({
     var setObj = {heartbeat: d.getTime()};
     var unsetObj = {};
     if (stationId) {
-      setObj['stationId'] = stationId;
+      setObj.stationId = stationId;
     } else {
-      unsetObj['stationId'] = true;
+      unsetObj.stationId = true;
     }
 
     if (simulatorId) {
-      setObj['simulatorId'] = simulatorId;
+      setObj.simulatorId = simulatorId;
     } else {
-      unsetObj['simulatorId'] = true;
+      unsetObj.simulatorId = true;
     }
-    
+
     Flint.collection('clients').update(clientId, {$set: setObj, $unset: unsetObj});
   }
 });

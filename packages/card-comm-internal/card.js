@@ -3,8 +3,9 @@ Template.card_internalComm.created = function(){
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());
 	});
-	Session.set('internalComm-currentDeck','')
-}
+	Session.set('internalComm-currentDeck','');
+};
+
 Template.card_internalComm.helpers({
 	decks : function(){
 		return Flint.collection('decks').find({},{sort:{'number': 1}});
@@ -15,17 +16,23 @@ Template.card_internalComm.helpers({
 	},
 	showAllDecks : function(){
 		var type = Flint.system('Internal Communications','connectionType');
-		if (type == "" || type == "all") return null;
+		if (type === "" || type === "all") {
+			return null;
+		}
 		else return "not-shown";
 	},
 	showDeckSelect : function(){
 		var type = Flint.system('Internal Communications','connectionType');
-		if (type == "" || type == "deck" || type == "room") return null;
+		if (type === "" || type === "deck" || type === "room") {
+			return null;
+		}
 		else return "not-shown";
 	},
 	showRooms : function(){
 		var type = Flint.system('Internal Communications','connectionType');
-		if (type == "" || type == "room") return null;
+		if (type === "" || type === "room") {
+			return null;
+		}
 		else return "not-shown";
 	},
 	connectionState : function(){
@@ -62,7 +69,7 @@ Template.card_internalComm.events({
 			if (roomState != "Room"){
 				type = 'room';
 				connection = roomState + ", Deck " + deckState;
-			} 
+			}
 			Flint.system('Internal Communications','state','connected');
 			Flint.system('Internal Communications','connectionType',type);
 			Flint.system('Internal Communications','currentCall',connection);
@@ -77,4 +84,4 @@ Template.card_internalComm.events({
 		Flint.system('Internal Communications','connectionType','all');
 		Flint.system('Internal Communications','currentCall','All Decks');
 	}
-})
+});

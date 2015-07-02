@@ -10,7 +10,7 @@ function pausecomp(ms) {
 function ping() {
     $('.sensor_box').removeClass('animating');
     //The Following use of setTimeout is necessary, becasue Meteor
-    //Doesn't like doing timeouts when it comes to updating the 
+    //Doesn't like doing timeouts when it comes to updating the
     //Local Cache.
     setTimeout(function () {
         $('.sensor_box').addClass('animating');
@@ -348,7 +348,7 @@ onRenderFcts.push(function () {
 	scene.add(radar_x);
 	scene.add(radar_y);
 	scene.add(radar_z);
-	
+
 	onRenderFcts.push(function() {
 		radar_x.rotation.x = radar_x.rotation.x + radar_rotation_speed;
 		radar_x.rotation.y = radar_x.rotation.y + radar_rotation_speed;
@@ -357,7 +357,7 @@ onRenderFcts.push(function () {
 		radar_y.rotation.x = radar_y.rotation.x + radar_rotation_speed;
 		radar_y.rotation.y = radar_y.rotation.y + radar_rotation_speed;
 		radar_y.rotation.z = radar_y.rotation.z + radar_rotation_speed;
-		
+
 		radar_z.rotation.x = radar_z.rotation.x + radar_rotation_speed;
 		radar_z.rotation.y = radar_z.rotation.y + radar_rotation_speed;
 		radar_z.rotation.z = radar_z.rotation.z + radar_rotation_speed;
@@ -464,7 +464,7 @@ loadTexture = function(url, uniform, cb){
         }
     };
     image.src = url;
-}
+};
 
 function loadImage(path) {
   var canvas = document.createElement('canvas');

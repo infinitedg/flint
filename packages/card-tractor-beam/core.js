@@ -1,14 +1,16 @@
 Template.core_tractorBeam.helpers({
 	hasTarget: function(){
-		if (Flint.system('Tractor Beam','target') == 'true')
+		if (Flint.system('Tractor Beam','target') == 'true') {
 			return 'Yes';
-		else
+		} else {
 			return 'No';
+		}
 	},
 	tractorActive: function(){
 		return capitalizeFirstLetter(Flint.system('Tractor Beam','state'));
 	}
-})
+});
+
 Template.core_tractorBeam.events({
 	'click .tractorTargetBtn':function(){
 		if (Flint.system('Tractor Beam','target') == 'true'){
@@ -18,7 +20,8 @@ Template.core_tractorBeam.events({
 			Flint.system('Tractor Beam','target','true');
 		}
 	}
-})
+});
+
 function capitalizeFirstLetter(string){
-    return string.charAt(0).toUpperCase() + string.slice(1);
+	return string.charAt(0).toUpperCase() + string.slice(1);
 }

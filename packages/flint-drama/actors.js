@@ -1,3 +1,6 @@
+/* Ignore a weird error when assigning DefaultPeriod */
+/*jshint -W030 */
+
 FlintActors = {},
 DramaInstanceID = new Meteor.Collection.ObjectID()._str,
 DefaultPeriod = 1000;
@@ -73,7 +76,7 @@ var Actor = function(opts) {
 		}
 
 		this._timeoutID = Meteor.setTimeout(function() {if (FlintActors[a._id]) {FlintActors[a._id]._pulse(); }}, getPeriod(FlintActors[a._id].period)); // Always run an actor
-	}
+	};
 };
 
 Actor.prototype.start = function() {
@@ -129,7 +132,8 @@ Actor.prototype.kill = function() {
 _.extend(Flint, {
 	actor: function(opts) {
 		// Create actor, move on if we are successful
-		if (a = new Actor(opts)) {
+		var a = new Actor(opts);
+		if (a) {
 			var coll = Flint.collection('FlintActors');
 			var d = coll.findOne(a._id);
 			Flint.Log.info("Registered actor " + a._id, "flint-drama");
@@ -137,7 +141,7 @@ _.extend(Flint, {
 				coll.insert({_id: a._id, counter: 0, claimedBy: DramaInstanceID, running: true});
 			}
 		}
-		
+
 		return a;
 	}
 });
@@ -160,9 +164,9 @@ Meteor.setTimeout(function() {
 					Flint.Log.info("Instance " + DramaInstanceID + " taking control of actor " + id, 'flint-drama');
 					fields.running = Flint.collection('FlintActors').findOne(id).running;
 				}
-				if (fields.running == true) {
+				if (fields.running === true) {
 					FlintActors[id].start();
-				} else if (fields.running == false) {
+				} else if (fields.running === false) {
 					FlintActors[id].stop();
 				}
 			}
@@ -172,4 +176,4 @@ Meteor.setTimeout(function() {
 			}
 		}
 	});
-}, 1000)
+}, 1000);

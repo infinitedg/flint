@@ -11,6 +11,7 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 		if (typeof macroName !== 'string' || typeof macroDescription !== 'string' || typeof macroArguments !== 'object') {
 			Flint.Log.error('Macro registration for ' + macroName + ' invalid: A macro must have a macroName, macroDescription (both strings), a macroArguments definition (object), and a macroFunc (function)', 'flint-macro-engine');
 		} else {
+			Flint.Log.info('Macro registered for ' + macroName);
 			_flintMacros[macroName] = {
 				name: macroName,
 				arguments: macroArguments,
@@ -23,15 +24,23 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 Meteor.startup(function(){
 // The heart of the macro engine, used to execute a given macro
 Flint.Jobs.createWorker('macroQueue', 'macro', {}, function(job, cb) {
-		// Trigger macro
-	if (!_flintMacros[job.doc.macroName]) {
-		job.fail("No such macro " + job.doc.macroName);
+	// Trigger macro
+	if (!_flintMacros[job.data.macroName]) {
+		job.fail("No such macro " + job.data.macroName);
 		cb();
-		} else {
-		_flintMacros[job.doc.macroName].func(job.doc.args);
+	} else {
+		_flintMacros[job.data.macroName].func(job.data.args);
 		job.done();
 		cb();
-		}
+	}
+});
+
+// Setup automatic macro triggering
+Flint.Jobs.collection('macroQueue').find({ type: 'macro', status: 'ready'})
+.observe({
+	added: function() {
+		Flint.Jobs.queue('macroQueue', 'macro').trigger();
+	}
 });
 
 

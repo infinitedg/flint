@@ -18,7 +18,7 @@ var checkCompatibility = function() {
 		return false;
 	}
 	return true;
-}
+};
 
 _.extend(Flint, {
   /**
@@ -33,13 +33,13 @@ _.extend(Flint, {
       var msg = new SpeechSynthesisUtterance(txt);
       msg.onend = function() {
       	delete spokenPhrases[txt];
-      }
+      };
       msg.voice = defaultVoice;
       msg.rate = voiceSettings.rate;
       msg.volume = voiceSettings.volume;
       msg.pitch = voiceSettings.pitch;
       msg.lang = voiceSettings.lang;
-      
+
       spokenPhrases[txt] = (new Date()).getTime();
       speechSynthesis.speak(msg);
     }
@@ -62,7 +62,7 @@ _.extend(Flint, {
   },
 
   getVoices: function() {
-  	if (voices.length == 0 && window.speechSynthesis) {
+  	if (voices.length === 0 && window.speechSynthesis) {
   		speechSynthesis.getVoices().forEach(function(voice) {
 		  voices.push(voice.name);
 		});
@@ -78,7 +78,7 @@ _.extend(Flint, {
 	  				if (isNaN(newValue)) {
 	  					Flint.Log.warn('Invalid rate setting (0.1 - 10)');
 	  					return false;
-		  			} 
+		  			}
 		  			newValue = (newValue < 0.1) ? 0.1 : newValue;
 	  				newValue = (newValue > 10) ? 10 : newValue;
   				break;
@@ -87,7 +87,7 @@ _.extend(Flint, {
 	  				if (isNaN(newValue)) {
 	  					Flint.Log.warn('Invalid volume setting (0 - 1)');
 	  					return false;
-		  			} 
+		  			}
 		  			newValue = (newValue < 0) ? 0 : newValue;
 	  				newValue = (newValue > 1) ? 1 : newValue;
   				break;
@@ -95,7 +95,7 @@ _.extend(Flint, {
 	  				if (isNaN(newValue)) {
 	  					Flint.Log.warn('Invalid pitch setting (0 - 2)');
 	  					return false;
-		  			} 
+		  			}
 		  			newValue = (newValue < 0) ? 0 : newValue;
 	  				newValue = (newValue > 2) ? 2 : newValue;
   				break;
@@ -108,7 +108,6 @@ _.extend(Flint, {
   				default:
 	  				Flint.Log.warn("Unknown voice property " + property);
 	  				return false;
-  				break;
   			}
   			voiceSettings[property] = newValue;
   		}

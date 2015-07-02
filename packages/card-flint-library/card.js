@@ -4,6 +4,7 @@ Template.card_flintlibrary.helpers({
 		return (!Session.equals('comp.flintAssetBrowser.selectedContainer', undefined));
 	}
 });
+
 Template.comp_flintAssetBrowser.helpers({
 	notRoot: function() {
 		return !Session.equals('comp.flintAssetBrowser.currentDirectory', '/');
@@ -29,13 +30,13 @@ Template.comp_flintAssetBrowser.helpers({
 		return Session.get('comp.flintAssetBrowser.currentDirectory');
 	}
 });
+
 Template.comp_flintContainerView.helpers({
 	container: function() {
 		return Flint.collection('flintAssetContainers').findOne(Session.get('comp.flintAssetBrowser.selectedContainer'));
 	},
 	objects: function() {
 		return Flint.collection('flintAssetObjects').find({containerId: Session.get('comp.flintAssetBrowser.selectedContainer')});
-		return objects;
 	},
 	simulators: function() {
 		var objects = Flint.collection('flintAssetObjects').find({containerId: Session.get('comp.flintAssetBrowser.selectedContainer')}).fetch();

@@ -14,7 +14,7 @@ Flint.collection('systems').find({'name' : 'Transporters'}).observeChanges({
 					}
 				}
 				if (removeKey){targets.splice(removeKey,1);}
-				var state = 'idle'
+				var state = 'idle';
 				Flint.collection('systems').update(id,{$set: {'locked' : 'false', 'state' : state, 'targets' : targets}});
 				Meteor.setTimeout(function(){
 					Flint.tween('systems',id,3,{'powerUp' : 100});
@@ -24,4 +24,3 @@ Flint.collection('systems').find({'name' : 'Transporters'}).observeChanges({
 		}
 	}
 });
-
