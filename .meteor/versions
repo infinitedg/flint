@@ -156,6 +156,10 @@ livedata@1.0.13
 liyu:sprintfjs@1.0.0
 localstorage@1.0.3
 logging@1.0.7
+macro-audio-matrix@0.1.0
+macro-lights@0.1.0
+macro-sounds@0.1.0
+meteor@1.1.5
 meteor-platform@1.2.2
 meteorhacks:cluster@1.6.8
 meteorhacks:kadira@2.22.0
@@ -178,6 +182,8 @@ observe-sequence@1.0.5
 ordered-dict@1.0.3
 pascoual:bootstrap-contextmenu@1.0.1
 pedrohenriquerls:peerjs@0.0.1
+percolate:migrations@0.7.5
+raix:eventemitter@0.1.1
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5

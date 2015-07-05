@@ -50,3 +50,93 @@ Template.macro_audioMatrixToggle.events({
 		updateMacro('busId',e.target.value);
 	}
 })
+
+Template.macro_audioMatrixState.created = function(){
+	this.subscription = Deps.autorun(function () {
+		Meteor.subscribe('flint-audiomatrix');
+		Meteor.subscribe('flint-audiomatrix-mix');
+		Meteor.subscribe('flint-audiomatrix-bus');
+		Meteor.subscribe('flint-audiomatrix-send');
+	});
+}
+Template.macro_audioMatrixState.destroyed = function(){
+	this.subscription.stop();
+}
+
+Template.macro_audioMatrixState.helpers({
+	matrixList:function(){
+		return Flint.collection('audioMatrix').find();
+	},
+	mixList:function(){
+		if (Session.get('macro_audioMatrixToggle_matrix'))
+			return Flint.collection('audioMatrixMix').find({matrixId:Session.get('macro_audioMatrixToggle_matrix')});
+	},
+	busList:function(){
+		if (Session.get('macro_audioMatrixToggle_matrix'))
+			return Flint.collection('audioMatrixBus').find({matrixId:Session.get('macro_audioMatrixToggle_matrix')});
+	},
+	matrixSelected:function(){
+		return Session.get('macro_audioMatrixToggle_matrix');
+	}
+})
+
+Template.macro_audioMatrixState.events({
+	'change #matrix':function(e,t){
+		Session.set('macro_audioMatrixToggle_matrix',e.target.value);
+		updateMacro('matrixId',e.target.value);
+	},
+	'change #mix':function(e,t){
+		updateMacro('mixId',e.target.value);
+	},
+	'change #bus':function(e,t){
+		updateMacro('busId',e.target.value);
+	},
+	'change #mute':function(e,t){
+		updateMacro('state',e.target.checked);
+	}
+})
+
+Template.macro_audioMatrixVolume.created = function(){
+	this.subscription = Deps.autorun(function () {
+		Meteor.subscribe('flint-audiomatrix');
+		Meteor.subscribe('flint-audiomatrix-mix');
+		Meteor.subscribe('flint-audiomatrix-bus');
+		Meteor.subscribe('flint-audiomatrix-send');
+	});
+}
+Template.macro_audioMatrixVolume.destroyed = function(){
+	this.subscription.stop();
+}
+
+Template.macro_audioMatrixVolume.helpers({
+	matrixList:function(){
+		return Flint.collection('audioMatrix').find();
+	},
+	mixList:function(){
+		if (Session.get('macro_audioMatrixToggle_matrix'))
+			return Flint.collection('audioMatrixMix').find({matrixId:Session.get('macro_audioMatrixToggle_matrix')});
+	},
+	busList:function(){
+		if (Session.get('macro_audioMatrixToggle_matrix'))
+			return Flint.collection('audioMatrixBus').find({matrixId:Session.get('macro_audioMatrixToggle_matrix')});
+	},
+	matrixSelected:function(){
+		return Session.get('macro_audioMatrixToggle_matrix');
+	}
+})
+
+Template.macro_audioMatrixVolume.events({
+	'change #matrix':function(e,t){
+		Session.set('macro_audioMatrixToggle_matrix',e.target.value);
+		updateMacro('matrixId',e.target.value);
+	},
+	'change #mix':function(e,t){
+		updateMacro('mixId',e.target.value);
+	},
+	'change #bus':function(e,t){
+		updateMacro('busId',e.target.value);
+	},
+	'change #volume':function(e,t){
+		updateMacro('volume',e.target.value);
+	}
+})
