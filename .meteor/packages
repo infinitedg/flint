@@ -35,13 +35,14 @@ flint-speech
 flint-utils
 flint-files
 flint-assets
+flint-lighting-matrix
 
-layout-default
+#layout-default
 layout-blackout
 layout-core
 layout-tac-control
 layout-viewscreen
-layout-voyager
+#layout-voyager
 
 assets-voyager
 
@@ -82,7 +83,7 @@ flint-theme-engine
 theme-default
 theme-odyssey
 card-shields
-mizzao:bootstrap-3
+twbs:bootstrap
 card-coolant
 card-status
 card-wormhole
