@@ -43,19 +43,6 @@ Flint.Jobs.collection('macroQueue').find({ type: 'macro', status: 'ready'})
 	}
 });
 
-
-// Used to emergency transfer a macro if it is created on a server that doesn't exist
-Flint.collection('flintMacros').find().observe({
-	added: function(doc) {
-		if (Flint.collection('flintServers').find({serverId: doc.serverId}).count() === 0) {
-			Flint.Log.info("Moving macro " + doc._id + " to new server", 'flint-macro-engine');
-			var serverId = Meteor.call('nextServer');
-			Flint.collection('flintMacros').update({serverId: doc.serverId}, 
-				{$set: {serverId: Meteor.call('nextServer')}}, {multi: true});
-		}
-	}
-});
-});
 // Return a collection flintMacroDefintions that contains the names, descriptions, and arguments of all registered macros
 Meteor.publish("flint_macro_engine.macroNames", function() {
 	var self = this;
@@ -64,4 +51,5 @@ Meteor.publish("flint_macro_engine.macroNames", function() {
 	});
 
 	self.ready();
+	});
 });
