@@ -1,0 +1,180 @@
+.lightCircuit{
+  background: #194715;
+  #chart{
+    height: 98vh;
+  }
+  #palette{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: #f3f3f3;
+    width: 180px;
+    text-align: center;
+    -webkit-user-select: none;
+    user-select: none;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+  }
+  .palette-scroll{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 25px;
+    left: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: scroll;
+    height: 100vh;
+  }
+  .palette_icon{
+    display: inline-block;
+    width: 20px;
+    height: 100%;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat
+  }
+  .palette-category{
+    border-bottom: 1px solid #ccc
+  }
+  .palette-header{
+    background: #f3f3f3;
+    cursor: pointer;
+    text-align: left;
+    padding: 9px;
+    font-weight: bold
+  }
+  .palette-content{
+    background: #fff;
+    padding: 3px;
+  }
+  .palette_node{
+    cursor: move;
+    background: #ddd;
+    margin: 10px auto;
+    height: 25px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    background-position: 5% 50%;
+    background-repeat: no-repeat;
+    width: 160px;
+    background-size: contain;
+    position: relative
+  }
+  .palette_label{
+    font-size: 13px;
+    margin: 4px 0 4px 28px;
+    line-height: 20px;
+    overflow: hidden;
+    text-align: left;
+    padding-left:12px;
+  }
+  .palette_icon_container{
+    position: absolute;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.05)
+  }
+  .palette_port{
+    position: absolute;
+    top: 8px;
+    left: -5px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background: #d9d9d9;
+    border-radius: 3px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #999
+  }
+  .palette_port_output{
+    left: auto;
+    right: -6px
+  }
+  .palette_port_input{
+    top: 9px;
+  }
+  .ui-draggable{
+    z-index:100;
+  }
+
+  #chart {
+    overflow: auto;
+    background: #e3e3e3;
+    position: absolute;
+    bottom:26px;
+    top: 0px;
+    left:180px;
+    right:0px;
+    box-sizing:border-box;
+  }
+
+  #chart svg:focus {
+    outline: none;
+  }
+
+  #workspace-footer{
+    border-top: 1px solid #bbb;
+    background: #f3f3f3;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    line-height: 23px;
+    padding: 0 10px
+  }
+  .workspace-footer-button{
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #999;
+    box-sizing: border-box;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 11px;
+    line-height: 17px;
+    width: 18px;
+    height: 18px
+  }
+  .drag_line {
+    stroke: #d36012;
+    stroke-width: 4;
+    fill: none;
+    pointer-events: none;
+  }
+
+  .drag_line_hidden {
+    stroke-width: 0;
+    pointer-events: none;
+    fill: none;
+  }
+  .sidebar{
+    width: 250px;
+    height: 100vh;
+    background-color: #f6f6f6;
+    box-shadow: -5px 0px 5px rgba(0,0,0,0.2);
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform:translateX(250px);
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+  }
+
+  .sidebar.in{
+    transform:translateX(0px);
+  }
+}

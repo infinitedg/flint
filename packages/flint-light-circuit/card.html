@@ -1,0 +1,100 @@
+<template name="card_lightingCircuit">
+	<div class="lightCircuit">
+		{{> module_container}}
+		{{> canvas}}
+		{{> sidebarTemplate}}
+	</div>
+</template>
+
+<template name="module_container">
+	<div id="palette">
+		<div id="palette-container" class="palette-scroll" style="display: block;">
+			{{#each categories}}
+
+			<div id="palette-container-input" class="palette-category palette-close palette-open {{categoryOpen}}">
+				<div id="palette-header-input" class="palette-header">
+					<i class="fa fa-angle-down expanded">
+					</i>
+					<span>{{label}}</span>
+				</div>
+				<div class="palette-content" id="palette-base-category-{{name}}" style="display: block;">
+					<div id="palette-{{name}}">
+						{{#each categoryModule}}
+						<div id="palette_node_inject" class="palette_node ui-draggable" style="height: 28px; display: block; background-color: {{color}};" data-original-title="" title="">
+							<div class="palette_label">{{label}}</div>
+							<div class="palette_icon_container">
+								<div class="palette_icon" style="background-image: url(/packages/flint-light-circuit/public/panelIcons/{{icon}}.png)">
+								</div>
+							</div>
+							{{#if inputs}}
+							<div class="palette_port palette_port_input" style="top: 9px;"></div>
+							{{/if}}
+							{{#if outputs}}
+							<div class="palette_port palette_port_output" style="top: 9px;">
+							</div>
+							{{/if}}
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+</template>
+
+<template name="sidebarTemplate">
+	<div class="sidebar {{#if sideBarTemplate}}in{{/if}} container-fluid">
+		{{> Template.dynamic template=sidebarTemplateName data=sideBarTemplate}}
+	</div>
+</template>
+
+<template name="canvas">
+	<div id="chart">
+		<svg width="5000" height="5000" tabindex="1" pointer-events="all" style="cursor: crosshair;">
+			<g>
+				<g transform="scale({{currentScale}})">
+					{{#if drag}}
+					<path class="drag_line" d="M {{drag.start.x}} {{drag.start.y}} C {{drag.c1.x}} {{drag.c1.y}} {{drag.c2.x}} {{drag.c2.y}} {{drag.end.x}} {{drag.end.y}}"></path>
+					{{/if}}
+					{{#each link}}
+					<g class="link">
+						<path class="link_line link_path" d="M {{linkCoords.start.x}} {{linkCoords.start.y}} C {{linkCoords.c1.x}} {{linkCoords.c1.y}} {{linkCoords.c2.x}} {{linkCoords.c2.y}} {{linkCoords.end.x}} {{linkCoords.end.y}}"></path>
+					</g>
+					{{/each}}
+					{{#each module}}
+					<g class="node nodegroup ui-draggable" id="{{_id}}" transform="matrix(1,0,0,1,{{nodePosition}})" style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, {{nodePosition}}, 0, 1);">
+						<rect class="node {{moduleSelected}}" rx="5" ry="5" fill={{color}} width="160" height="30"></rect>
+						<g class="node_icon_group" x="0" y="0" style="pointer-events: none;">
+							<rect x="0" y="0" class="node_icon_shade" width="30" stroke="none" fill="#000" fill-opacity="0.05" height="30"></rect>
+							<image xlink:href="/packages/flint-light-circuit/public/panelIcons/{{icon}}.png" class="node_icon" x="5" width="20" height="30" y="0"></image>
+							<path d="M 30 1 l 0 28" class="node_icon_shade_border" stroke-opacity="0.1" stroke="#000" stroke-width="1"></path>
+						</g>
+						<text class="node_label " x="38" dy=".35em" text-anchor="start" y="14">{{label}}</text>
+						{{#if inputs}}
+						<g class="port_input" transform="translate(-5,10)">
+							<rect class="port input" rx="3" ry="3" width="10" height="10"></rect>
+						</g>
+						{{/if}}
+						{{#if outputs}}
+						<g class="port_output" transform="translate(155,10)">
+							<rect class="port output" rx="3" ry="3" width="10" height="10"></rect>
+						</g>
+						{{/if}}
+					</g>
+					{{/each}}
+				</g>
+			</g>
+		</svg>
+	</div>
+	{{>workspace_footer}}
+</template>
+
+<template name="workspace_footer">
+	<div id="workspace-footer">
+		<a class="workspace-footer-button" id="btn-zoom-out" href="#"><i class="fa fa-minus"></i></a>
+		<a class="workspace-footer-button" id="btn-zoom-zero" href="#"><i class="fa fa-circle-o"></i></a>
+		<a class="workspace-footer-button" id="btn-zoom-in" href="#"><i class="fa fa-plus"></i></a>
+	</div>
+</template>
+

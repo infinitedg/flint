@@ -50,13 +50,13 @@ flint-speech
 flint-utils
 flint-files
 flint-assets
-flint-audio-matrix
+#flint-audio-matrix
 flint-macro-engine
 flint-audio-engine
 flint-theme-engine
 flint-snapshot
 flint-heartbeat
-
+flint-light-circuit
 #layout-default
 layout-blackout
 layout-core

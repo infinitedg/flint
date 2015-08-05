@@ -14,11 +14,3 @@ if (Meteor.isServer){
         
     });
 }
-if (Meteor.isClient){
-    Flint.collection('ChatMessages').find().observeChanges({
-       added: function (id, message) {
-           if(!Session.get('messageBoxOpen')){Session.set('newMessage', true);}
-            Meteor.setTimeout(function(){$(".chat").scrollTop($(".chat")[0].scrollHeight);},100);     
-       }
-    });
-}

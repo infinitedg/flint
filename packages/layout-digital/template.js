@@ -52,7 +52,20 @@ Template.layout_digital.helpers({
 		}
 	}
 })
-
+Template.layout_digital.rendered = function(){
+	Flint.collection('ChatMessages').find().observeChanges({
+		added:function() {
+			if (!Session.get('messageBoxOpen')){
+				Session.set('newMessage', true);
+			}
+			Meteor.setTimeout(function(){
+				if ($('.chat')){
+					$('.chat').scrollTop($('.chat')[0].scrollHeight);
+				}
+			}, 100);
+		},
+	});
+};
 Template.digital_nameBox.helpers({
 	username: function(){
 		if (Flint.client()){
