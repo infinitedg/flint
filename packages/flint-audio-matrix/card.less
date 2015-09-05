@@ -1,0 +1,109 @@
+.audio-matrix{
+  td a:hover{
+    text-decoration: none;
+  }
+  td a:focus{
+    outline: 0;
+    color: transparent;
+  }
+  table{
+    position: absolute;
+    left:10px;
+  }
+  .inputLabel, .outputLabel{
+    border: 1px solid #000;
+    background-color: transparent;
+    color: #000;
+  }
+
+  td.rotate {
+    /* Something you can count on */
+    height: 140px;
+    white-space: nowrap;
+    border: none;
+  }
+  td.rotate:hover{
+    background-color: transparent;
+  }
+  td.rotate:hover span{
+    background-color: #ccc;
+  }
+  td.rotate > div {
+    -webkit-transform: 
+    /* Magic Numbers */
+    translate(25px, 51px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+    width: 40px;
+  }
+  td.rotate > div > span {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+  }
+
+  td{
+    margin: 2px !important;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    background-color: #444;
+    border: solid 2px #222;
+  }
+  td a{
+    color: #111111;
+  }
+  td:hover{
+    background-color: #333333;
+  }
+  td:hover a{
+    color: #333333;
+  }
+  td.selected{
+    background-color: #0088ff;
+  }
+  td.selected a{
+    color: #0088ff;
+  }
+  td.selected:hover{
+    background-color: #0044aa;
+  }
+  td.selected:hover a{
+    color: #0044aa;
+  }
+}
+.controls-sidebar{
+  overflow: scroll;
+  height: 80vh;
+  border: solid 1px #d1d1d1;
+  .col-sm-12{
+    margin-bottom: 3px;
+  }
+}
+.rotary_dial{
+  .rotaryDial{
+    position: relative;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #ddd;
+    background: radial-gradient(ellipse at center, rgba(242,246,248,1) 0%,rgba(216,225,231,1) 55%,rgba(181,198,208,1) 56%,rgba(164,189,209,1) 100%);
+    border: 1px solid #aaa;
+    overflow: visible;
+  }
+
+  .rotaryDial:after{
+    content:"";
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    top: 0px;
+    left: 11px;
+    background-color:#888;
+    box-shadow: inset 1px 0px 2px #444;
+    border-radius: 0px 0px 2px 2px;
+  }
+  small{
+    margin: 0 auto;
+    text-align: center;
+  }
+}

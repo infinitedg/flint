@@ -32,4 +32,15 @@ Template.flint_debugging.events = {
 
 Meteor.startup(function() {
   Flint.addComponent('flint_debugging');
+  window.simulators = Flint.simulators;
+  window.stations = Flint.stations;
+  window.systems = Flint.systems;
+  Session.set("Mongol", {
+    'collections': ['simulators','stations','systems'],
+    'display': true,
+    'opacity_normal': ".7",
+    'opacity_expand': ".9",
+    'disable_warning': 'false'
+  });
 });
+

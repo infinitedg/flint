@@ -1,0 +1,191 @@
+<template name="card_audio_matrix">
+	<div class="container">
+		<div class="row audio-matrix">
+			<div class="col-sm-10">
+				<table>
+					<tbody>
+						<tr>
+							<td class="inputLabel"></td>
+							{{#each input}}
+							<td class="inputLabel rotate"><div><span>{{name}}</span></div></td>
+							{{/each}}
+						</tr>
+						{{#each output}}
+						<tr>
+							<td class="outputLabel">{{name}}</td>
+							{{#each input}}
+							<td id={{uuid}} data-busId={{../_id}} class="intersection {{intersectActive ..}}" tabindex="0" role="button" data-container="body" data-toggle="popover" data-trigger="manual" data-html="true" data-placement="right" data-content="<div>Volume: <input id='volume' type='range' min='1' max='4' step='.01' value={{volume}}/></div><div>Mute: <input type='checkbox'>"></td>
+							{{/each}}
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-2 controls-sidebar">
+				{{#if equalizer}}
+				{{#with equalizer}}
+				{{#with eq}}
+				<div class="high">
+					<small>High</small>
+					<div class="row">
+						{{#with highshelf}}
+						<div class="col-sm-12">
+							{{> enable_btn  fx="highshelf" data=this}}
+						</div>
+						<div class="col-sm-6">
+							{{> rotary_dial value=bw fx="highshelf" id=../../_id param="bw" min=.01 max=3}}
+						</div>
+						<div class="col-sm-6">
+							{{> rotary_dial value=freq fx="highshelf" id=../../_id param="freq" min=20 max=2000}}
+						</div>
+						<div class="col-sm-6">
+							{{> rotary_dial value=gain fx="highshelf" id=../../_id param="gain" min=-20 max=20}}
+						</div>
+						<!--<div class="col-sm-12">
+							{{> enable_btn  fx="highshelf" data=this}}
+						</div>-->
+						{{/with}}
+					</div>
+				</div>
+				<div class="mid1">
+					<small>Mid</small>
+					<div class="row">
+						{{#with mid1}}
+						<div class="col-sm-12">
+							{{> enable_btn  fx="mid1" data=this}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=bw fx="mid1" id=../../_id param="bw" min=.01 max=3}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=freq fx="mid1" id=../../_id param="freq" min=20 max=2000}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=gain fx="mid1" id=../../_id param="gain" min=-20 max=20}}
+						</div>
+						{{/with}}
+					</div>
+				</div>
+				<div class="mid2">
+					<small>Mid</small>
+					<div class="row">
+						{{#with mid2}}
+						<div class="col-sm-12">
+							{{> enable_btn  fx="mid2" data=this}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=bw fx="mid2" id=../../_id param="bw" min=.01 max=3}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=freq fx="mid2" id=../../_id param="freq" min=20 max=2000}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=gain fx="mid2" id=../../_id param="gain" min=-20 max=20}}
+						</div>
+						{{/with}}
+					</div>
+				</div>
+				<div class="low">
+					<small>Low</small>
+					<div class="row">
+						{{#with lowshelf}}
+						<div class="col-sm-12">
+							{{> enable_btn  fx="lowshelf" data=this}}
+						</div>
+						<div class="col-sm-6">
+							{{> rotary_dial value=bw fx="lowshelf" id=../../_id param="bw" min=.01 max=3}}
+						</div>
+						<div class="col-sm-6">
+							{{> rotary_dial value=freq fx="lowshelf" id=../../_id param="freq" min=20 max=2000}}
+						</div>
+						<div class="col-sm-6">
+							{{> rotary_dial value=gain fx="lowshelf" id=../../_id param="gain" min=-20 max=20}}
+						</div>
+						<div class="col-sm-12">
+							{{> enable_btn  fx="hpf" data=this}}
+						</div>
+						{{/with}}
+					</div>
+				</div>
+				{{/with}}
+				{{/with}}
+				{{/if}}
+				{{#if selectedInput}}
+				{{#with selectedInput}}
+				<div class="gate">
+					<small>Gate</small>
+					<div class="row">
+						{{#with gate}}
+						<div class="col-sm-12">
+							{{> enable_btn  fx="gate" data=this}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=release fx="gate" id=../_id param="release" min=50 max=2000}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=threshold fx="gate" id=../_id param="threshold" min=0 max=1}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=attack fx="gate" id=../_id param="attack" min=10 max=500}}
+						</div>
+						{{/with}}
+					</div>
+				</div>
+				<div class="comp">
+					<small>Compressor</small>
+					<div class="row">
+						{{#with comp}}
+						<div class="col-sm-12">
+							{{> enable_btn  fx="comp" data=this}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=release fx="comp" id=../_id param="release" min=10 max=2000}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=threshold fx="comp" id=../_id param="threshold" min=-40 max=0}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=ratio fx="comp" id=../_id param="ratio" min=1 max=10}}
+						</div>
+						<div class="col-sm-4 col-sm-offset-2">
+							{{> rotary_dial value=attack fx="comp" id=../_id param="attack" min=10 max=100}}
+						</div>
+						<div class="col-sm-4">
+							{{> rotary_dial value=trim fx="comp" id=../_id param="trim" min=-20 max=20}}
+						</div>
+						{{/with}}
+					</div>
+				</div>
+				<div class="hpf">
+					<small>High Pass Filter</small>
+					<div class="row">
+						{{#with hpf}}
+						<div class="col-sm-12">
+							{{> enable_btn  fx="hpf" data=this}}
+						</div>
+						<div class="col-sm-4 col-sm-offset-4">
+							{{> rotary_dial value=freq fx="hpf" id=../_id param="freq" min=20 max=20000}}
+						</div>
+						{{/with}}
+					</div>
+				</div>
+				{{/with}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="rotary_dial">
+	<div class="rotary_dial">
+		<div id="{{fx}}_{{param}}" data-value={{value}} class="rotaryDial"></div>
+		<small>{{param}}</small>
+		<small>{{value}}</small>
+	</div>
+</template>
+
+<template name="enable_btn">
+	<div class="enable_btn">
+		<button class="btn btn-block btn-primary btn-xs {{active}}">Enable</button>
+	</div>
+</template>

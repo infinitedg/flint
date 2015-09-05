@@ -1,0 +1,150 @@
+.probe-control{
+	position:relative;
+	.row{
+		height: 100%;
+	}
+	.row > .leftSide{
+		height: 100%;
+	}
+	.probeList{
+		font-size: 12px;
+		margin-left: 20px;
+		margin-right: 30px;
+		left: 0;
+		right: 0;
+		top: 5%;
+		bottom: 0;
+		position: absolute;
+	}
+	.equipmentList{
+		font-size: 12px;
+		height: 23.7vh;
+	}
+	.queryResult{
+		height: 18vh;
+	}
+	.well{
+		overflow-y: scroll;
+	}
+	.fade{
+		position: absolute;
+		opacity: 1;
+		-webkit-transition: opacity 0.2s ease-in-out;
+	}
+
+	.fade.animate{
+		opacity: 0;
+	}
+	.templateHolder .sensorHolder{
+		height: 55vh;
+		position: relative;
+	}
+	.sensorHolder .sensor_box{
+		position: absolute;
+		margin-left: 0px;
+		left: 0%;
+
+	}
+	.probeTab-navigation{
+		ul{
+			margin: 0;
+			padding: 0;
+		}
+		li.speedNums{
+			margin: 0;
+			padding: 0;
+			position: relative;
+			text-align: center;
+			list-style: none;
+			float: left;
+			background-color: #222;
+			border: 1px solid rgba(255,255,255,0.5);
+			width:  20%;
+		}
+		.speedBtn{
+			margin: 3px;
+			width: 100%;
+		}
+		.speedBox{
+			margin: 0;
+			padding: 0;
+			width: 99.99%;
+			height: 40px;
+			border: 1px solid #fff;
+			overflow: hidden;
+		}
+		.engineControlBox{
+			display: -webkit-flexbox;
+			-webkit-flex-wrap: nowrap;
+			-justify-content: space-between;
+			-align-items: center;
+		}
+		.impulseSpeed.speedBar{
+			width: 0%;
+		}
+		.engineLabel{
+			overflow: visible;
+			text-align: center;
+		}
+		.speedBar{
+			background-image: url(/themes/odyssey/public/background.png);
+			background-size: 1px 2px;
+			background-color: #ff0;
+			height: 40px;
+			left: 0px;
+			top: 0px;
+			position: relative;
+			transition: width 0.25s ease;
+		}
+
+		.numBox{
+			background-color: #333;
+			border: solid 1px #454545;
+			border-radius: 0px;
+			color: #fff;
+			height: 36px;
+			font-size: 20px;
+			padding: 3px;
+		}
+		.keypadButtons{
+			text-align: center;
+		}
+		.keypadButtons .keypad, .keypadButtons .enter{
+			position: static;
+			padding: none;
+			font-size: 36px;
+			height: 30%;
+			width: 28%;
+			margin: 5px;
+			display: inline-block;
+			background-color: rgba(55,55,60,0.7);
+			transition: background-color 0.25s ease-in-out;
+			background-image: none;
+			box-shadow: inset 0px 0px 10px rgba(255,255,255,0.5);
+			border-radius: 4px;
+		}
+		.keypadButtons .keypad:hover, #courseCalculation .keypadButtons .enter:hover{
+			background-color: rgba(255,255,255,0.5);
+		}
+		.keypad:before, .keypad:after{
+			visibility: hidden;
+		}
+		.keypadButtons .enter{
+			width: 95%;
+		}
+		.invalid{
+			background-color: #711;
+			border-color: #a11;
+		}
+		.hilited{
+			background-color: #666;
+			color: #fff;
+		}
+		.selected{
+			background-color: #666;
+			border-color: #888;
+		}
+
+	}
+
+}

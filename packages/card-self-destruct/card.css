@@ -1,11 +1,5 @@
 .card-selfDestruct{
 	height: 85vh;
-	display: -webkit-flex;
-   	display: flex;
-   	-webkit-flex-direction: row;
-  	flex-direction: row;
-  	-webkit-justify-content: center;
-  	justify-content: center;
 }
 
 @-webkit-keyframes dangerAnimation {

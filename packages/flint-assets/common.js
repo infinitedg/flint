@@ -9,13 +9,12 @@ Flint.Asset = {
 		if (!simulatorId && Meteor.isClient) {
 			simulatorId = Flint.simulatorId();
 		}
-
 		// Get the default object first
-		var defObj = Flint.collection('flintAssetObjects').findOne({containerPath: assetPath, simulatorId: {$exists: false}});
-		if (defObj) {
+		var defObj = Flint.collection('flintAssetObjects').findOne({folderPath: assetPath, simulatorId: {$exists: false}});
+		//if (defObj) {
 			var simObj, assetObj;
 			if (simulatorId) {
-				simObj = Flint.collection('flintAssetObjects').findOne({containerPath: assetPath, simulatorId: simulatorId});
+				simObj = Flint.collection('flintAssetObjects').findOne({folderPath: assetPath, simulatorId: simulatorId});
 			}
 
 			if (simObj) {
@@ -23,7 +22,8 @@ Flint.Asset = {
 			} else {
 				assetObj = defObj;
 			}
-
+			if (!assetObj)
+				return false;
 			var obj = Flint.FS.collection('flintAssets').findOne(assetObj.objectId);
 			
 			if (obj) {
@@ -44,7 +44,7 @@ Flint.Asset = {
 			} else {
 				Flint.Log.error("Asset " + assetPath + " has no object");
 			}
-		}
+		//}
 	},
 	// Return folder object for key
 	folderForKey: function(folderKey) {
