@@ -18,7 +18,6 @@ mizzao:bootboxjs
 mrt:bootstrap-growl
 natestrauser:font-awesome
 mrt:bootstrap-colorpicker-2
-simison:bootstrap3-less
 pascoual:bootstrap-contextmenu
 bootstrap-contextjs
 infinitedg:bootstrap-slider-touch
@@ -138,3 +137,6 @@ card-weapons-torpedos
 card-wormhole
 flint-drama
 flint-files
+standard-minifiers
+simison:bootstrap3-less
+layout-default
