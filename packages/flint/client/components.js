@@ -21,5 +21,12 @@ Flint.removeComponent = function(compName) {
 
 Flint.components = function() {
 	_componentDep.depend();
-	return _.keys(_components);
+	// Use components property from current station (if available)
+    // Combines (with de-duplication) from keys of manually-registered components
+	return _.uniq(
+        _.union(
+            _.keys(_components),
+            Flint.station('components') || [] // Default to empty array where appropriate
+        )
+    );
 };
