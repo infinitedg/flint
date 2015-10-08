@@ -3,6 +3,6 @@ Package.describe({
   version: "0.1.0"
 });
 
-Package.on_use(function(api) {   
-  api.add_files(['img/outline.png'], 'client');
+Package.on_use(function(api) {
+  api.addAssets(['img/outline.png'], 'client');
 });
