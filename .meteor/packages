@@ -50,6 +50,7 @@ flint-audio-engine
 flint-theme-engine
 flint-snapshot
 flint-heartbeat
+flint-audio-pedals
 
 #layout-default
 layout-blackout
