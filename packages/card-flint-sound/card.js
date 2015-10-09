@@ -1,8 +1,8 @@
 Template.card_flint_sound.created = function(){
 	window.addEventListener("keyup", function(e){
 		e.preventDefault();
-		var macroKeys = Flint.collection('flintMacroKeys').findOne({'keyNum':e.which.toString()});
-		if (marcoKeys != undefined){
+		var macroKeys = Flint.collection('flintMacroKeys').findOne({'key':e.which.toString()});
+		if (macroKeys != undefined){
 			Flint.collection('flintMacroPresets').find({'key':macroKeys._id}).forEach(function(doc){
 				Flint.macro(doc.name,doc.arguments);
 			});

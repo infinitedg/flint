@@ -83,7 +83,7 @@ Flint.playAudioSound = function(opts){
 	sound.source = self.audioContext.createBufferSource();
 	sound.volume = self.audioContext.createGain();
   sound.volume.gain.value = volume;
-	var asset = opts.assetKey;//Flint.a(sound.assetKey);
+	var asset = Flint.a(opts.assetKey);
 
 	// Connect the sound source to the volume control.
 	sound.source.connect(sound.volume);
@@ -99,7 +99,7 @@ Flint.playAudioSound = function(opts){
   	// Create a buffer from the response ArrayBuffer.
     self.audioContext.decodeAudioData(this.response, function onSuccess(buffer) {
       //Create a new buffer and set it to the specified channel.
-      var channel = opts.channel || [0];
+      var channel = opts.channel || [0,1];
 
       if (buffer.numberOfChannels == 1){
         var myArrayBuffer = self.audioContext.createBuffer(self.audioContext.destination.channelCount, buffer.duration*self.audioContext.sampleRate, self.audioContext.sampleRate);
