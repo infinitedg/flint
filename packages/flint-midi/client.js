@@ -9,6 +9,7 @@ var midiTransform = {
 };
 
 Template.comp_flint_midi.onCreated(function() {
+  console.log('comp_flint_midi created');
   // request MIDI access
   if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({
@@ -37,7 +38,7 @@ Template.comp_flint_midi.onCreated(function() {
   }
 
   function onMIDIMessage(message) {
-    data = message.data; // this gives us our [command/channel, note, velocity] data.
+    var data = message.data; // this gives us our [command/channel, note, velocity] data.
 
     var channel = data[0];
     var note = data[1];
