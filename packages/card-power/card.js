@@ -2,7 +2,7 @@
 @module Templates
 @submodule Cards
 */
- 
+
 /**
 Power balancing screen. Originally developed as a demo.
 @class card_power
@@ -83,12 +83,13 @@ Template.card_power.helpers({
   @type Number
   */
   totalPower: function() {
-    var totalPower = 0;
-    Flint.collection('systems').find().forEach(function(system){
-      totalPower += parseInt(system.power, 10);
-    });
-    
-    return totalPower;
+    return _.reduce(Flint.collection('systems').find().fetch(), function(memo, doc) {
+      var i = parseInt(doc.power, 10);
+      if (isNaN(i)) {
+        i = 0;
+      }
+      return i + memo;
+    }, 0);
   },
   /**
   The total power available to the current simulator
