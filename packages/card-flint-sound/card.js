@@ -157,7 +157,6 @@ Template.card_flint_sound.events({
 		Session.set('flint-macros-currentMacro',macro);
 	},
 	'click .deleteMacro':function(){
-		debugger;
 		if (Session.get('flint-macros-currentMacro')){
 			_id = Session.get('flint-macros-currentMacro')._id;
 			bootbox.confirm('Are you sure you want to delete that macro?', function(result){
@@ -203,6 +202,9 @@ Template.card_flint_sound.events({
 
 		$('.addMacroLabel').removeAttr('selected');
 		$('.addMacroLabel').attr('selected','true');
+	},
+	'click .ambianceTracks':function(){
+		Session.set('flint-macros-currentMacro', {name:'flint_ambiance'});
 	}
 });
 Template.keyboard.events({

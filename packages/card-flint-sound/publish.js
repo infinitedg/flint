@@ -4,6 +4,9 @@ Meteor.publish('flint-macroSets', function(){
 Meteor.publish('flint-macroKeys', function(){
 	return Flint.collection('flintMacroKeys').find();
 });
-Meteor.publish('flint-macroPresets',function(){
+Meteor.publish('flint-macroPresets', function(){
 	return Flint.collection('flintMacroPresets').find();
-})
+});
+Meteor.publish('flint-ambiance', function(){
+	return Flint.collection('flintAmbiance').find();
+});

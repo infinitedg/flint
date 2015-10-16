@@ -41,12 +41,16 @@ flint-flash
 flint-sound
 flint-speech
 flint-utils
+flint-files
+flint-assets
+flint-lighting-matrix
 flint-audio-matrix
 flint-macro-engine
 flint-audio-engine
 flint-theme-engine
 flint-snapshot
 flint-heartbeat
+flint-audio-pedals
 
 #layout-default
 layout-blackout
@@ -54,7 +58,6 @@ layout-core
 layout-tac-control
 layout-viewscreen
 #layout-voyager
-layout-admin
 layout-digital
 
 assets-voyager
@@ -73,6 +76,11 @@ card-flint-library
 card-flint-stations
 card-login
 card-flint-sound
+layout-admin
+twbs:bootstrap
+cfs:standard-packages
+cfs:filesystem
+cfs:gridfs
 card-core-timeline
 meteorhacks:cluster
 worker-animation
@@ -81,7 +89,6 @@ vsivsi:job-collection
 appmill:animation-hooks
 percolate:migrations
 flint-midi
-flint-assets
 card-core
 card-3d-car-demo
 card-3d-stars-demo
@@ -136,7 +143,6 @@ card-weapons-phasers
 card-weapons-torpedos
 card-wormhole
 flint-drama
-flint-files
 standard-minifiers
 simison:bootstrap3-less
 layout-default
