@@ -9,7 +9,7 @@ Template.card_lightingCircuit.helpers({
 	module: function() {
 		return Flint.collection('flintLightingModules').find();
 	}
-})
+});
 
 var shrinker = document.getElementById("shrinker");
 
@@ -23,12 +23,12 @@ Template.card_lightingCircuit.events({
 				number: null,
 				label: null
 			}
-		}
+		};
 		Flint.collection('flintLightingModules').insert(obj);
 	},
 	'mousedown .module': function(event, t) {
 		console.log('hi there!');
-		var dragObj = new Object();
+		var dragObj = {};
 		dragObj.zIndex = 0;
 		var el;
 		var x, y;
@@ -80,7 +80,7 @@ Template.card_lightingCircuit.events({
 		console.log('hi there!');
 		if (Session.get('draggingObject')) {
 			//if (this._id == Session.get('draggingObject')._id) {
-				console.log('were in')
+				console.log('were in');
 				var x, y;
 				var dragObj = Session.get('draggingObject');
 					//var e = dragObj.elNode;
@@ -94,7 +94,7 @@ Template.card_lightingCircuit.events({
 					var obj = {
 						leftPosition: (dragObj.elStartLeft + x - dragObj.cursorStartX),
 						topPosition: (dragObj.elStartTop + y - dragObj.cursorStartY)
-					}
+					};
 					Flint.collection('flintLightingModules').update({
 						_id: Session.get('draggingObject')._id
 					}, {
@@ -102,8 +102,6 @@ Template.card_lightingCircuit.events({
 					});
 
 					if (e.inputConnections) { // update any lines that point in here.
-						var c;
-
 						var off = e.inputs;
 						x = window.scrollX + 12;
 						y = window.scrollY + 12;
@@ -114,14 +112,13 @@ Template.card_lightingCircuit.events({
 							off = off.offsetParent;
 						}
 
-						for (c = 0; c < e.inputConnections.length; c++) {
+						for (var c = 0; c < e.inputConnections.length; c++) {
 							e.inputConnections[c].line.setAttributeNS(null, "x1", x);
 							e.inputConnections[c].line.setAttributeNS(null, "y1", y);
 						}
 					}
 
 					if (e.outputConnections) { // update any lines that point out of here.
-						var c;
 
 						var off = e.outputs;
 						x = window.scrollX + 12;
@@ -133,7 +130,7 @@ Template.card_lightingCircuit.events({
 							off = off.offsetParent;
 						}
 
-						for (c = 0; c < e.outputConnections.length; c++) {
+						for (var c = 0; c < e.outputConnections.length; c++) {
 							e.outputConnections[c].line.setAttributeNS(null, "x2", x);
 							e.outputConnections[c].line.setAttributeNS(null, "y2", y);
 						}
@@ -146,9 +143,9 @@ Template.card_lightingCircuit.events({
 		'mouseup .module': function(event, t) {
 			Session.set('draggingObject', false);
 		}
-	})
+	});
 
 Template.card_lightingCircuit.created = function() {
 	Meteor.subscribe("lightingModules");
 	Meteor.subscribe('lightingModuleTypes');
-}
+};

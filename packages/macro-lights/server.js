@@ -53,7 +53,7 @@ Meteor.startup(function(){
 				Flint.remote('light-server').call('scheduleDMXEffect', macroArgs.effectName, [obj], {duration: parseInt(macroArgs.params.duration,10) || 5000});
 			},delay);
 		});
-})
+});
 
 /*Effect params
 fade:{start,stop,duration}

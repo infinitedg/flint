@@ -59,7 +59,7 @@ function prepareParameters(doc, validParameters, prefix) {
 	// 3. Prefix parameters with /mix/chan/<index>/
 	parameters = _.object( // Convert back into an object
 		// 1. Convert parameters from object to 2-dimensional array
-		_.map(_.pairs(parameters), function(pair) { 
+		_.map(_.pairs(parameters), function(pair) {
 			// 2. Replace "key" from array pair with prefixed version
 			pair[0] = sprintf(prefix, pair[0]);
 			return pair;
@@ -99,11 +99,11 @@ function updateMix(doc) {
 		'matrix/mute'];
 
 	matrixPost(doc._matrix, prepareParameters(doc, validParameters, 'mix/chan/' + doc.chan));
-};
+}
 
 Flint.collection('AudioMatrixMix').find({}, {transform: function(doc) {
 	doc._matrix = Flint.collection('AudioMatrix').findOne(doc.matrixId);
-	return doc
+	return doc;
 }}).observe({
 	added: function(doc) {
 		updateMix(doc);
@@ -146,11 +146,11 @@ function updateBus(doc) {
 		'matrix/mute'];
 
 	matrixPost(doc._matrix, prepareParameters(doc, validParameters, 'mix/' + doc.type + '/' + doc.chan));
-};
+}
 
 Flint.collection('AudioMatrixBus').find({}, {transform: function(doc) {
 	doc._matrix = Flint.collection('AudioMatrix').findOne(doc.matrixId);
-	return doc
+	return doc;
 }}).observe({
 	added: function(doc) {
 		updateBus(doc);
