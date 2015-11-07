@@ -22,6 +22,28 @@ All Javascript code contributions must pass JSHint testing. JSHint automatically
 
 Unit testing is in development, and will follow the `meteor test-packages` standard. More documentation on using Tinytest is forthcoming.
 
+## Testing
+NOTE -- Testing is still in development for Flint and Meteor. The easiest way to get started is to run the following command:
+
+```
+# To test a specific package-name
+VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter package-name
+
+# To test all packages
+VELOCITY_TEST_PACKAGES=1 meteor test-packages --driver-package velocity:html-reporter
+```
+
+(The instructions that don't work yet for unknown reasons): Tests run with the velocity testing framework with jasmine and the html-reporter, the de-facto testing system for Meteor. To get started:
+
+1. Install Velocity with `npm install -g velocity`
+2. To test the whole app, run `velocity test-app`
+3. To test a single package, run `velocity test-package package-name`
+4. To test all packages, run `velocity test-packages`
+
+In each case, visit http://localhost:3000 to view the tests.
+
+For more information on testing meteor apps, see https://velocity.readme.io/ and http://www.meteortesting.com/.
+
 ## Contributor's Agreement
 See docs/legal for the official contributors agreement. This document must be signed and returned to Infinite Development Group prior to making contributions to this repository.
 

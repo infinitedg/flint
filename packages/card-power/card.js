@@ -14,7 +14,7 @@ Create a subscripton to cards.power.systems and save for later teardown
 @method created
 */
 Template.card_power.created = function() {
-  this.subComputation = Deps.autorun(function() {
+  this.subComputation = Tracker.autorun(function() {
     Meteor.subscribe("cards.power.systems", Flint.simulatorId());
   });
 };

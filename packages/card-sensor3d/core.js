@@ -261,7 +261,7 @@ Standard sensor grid card for sensors stations
 Template.core_sensor3d.created = function () {
   Session.set('currentDimension', currentDimensions.y);
 
-  this.subscription = Deps.autorun(function () {
+  this.subscription = Tracker.autorun(function () {
     Meteor.subscribe('cards.core-sensor3d.contacts', Flint.simulatorId());
     Meteor.subscribe('cards.core-sensor3d.armies', Flint.simulatorId());
     Meteor.subscribe("flint.assets.objects.all");

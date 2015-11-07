@@ -14,7 +14,7 @@ Setup subscription to cards.power.systems for later teardown
 */
 Template.core_power.created = function() {
   that = this;
-  this.subComputation = Deps.autorun(function() {
+  this.subComputation = Tracker.autorun(function() {
     Meteor.subscribe("cards.power.systems", Flint.simulatorId());
 
     that.observer = Flint.collection('systems').find().observeChanges({

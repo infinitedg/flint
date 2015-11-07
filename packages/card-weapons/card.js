@@ -1,5 +1,5 @@
 Template.card_weapons.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('card-weapons-phasers', Flint.simulatorId());
 	});
 }
@@ -21,7 +21,7 @@ Template.targetingGrid.events({
 })
 
 Template.targetingGrid.created = function(){
-	this.subscription = Deps.autorun(function () {
+	this.subscription = Tracker.autorun(function () {
 		Meteor.subscribe('cards.core-targetingGrid.targets', Flint.simulatorId());
 	});
 }

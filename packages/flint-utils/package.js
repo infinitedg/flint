@@ -4,6 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {
+  api.use('tracker');
   api.add_files(['memoize.js'], ['client', 'server']);
   api.export("Utils");
 });

@@ -1,5 +1,5 @@
 Template.core_security_teams.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.crew', Flint.simulatorId());
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());

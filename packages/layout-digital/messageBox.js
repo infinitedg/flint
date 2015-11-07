@@ -15,7 +15,7 @@ Template.layout_digital_messageBox.helpers({
 //  $(".chat").scrollTop($(".chat")[0].scrollHeight);
 
 Template.layout_digital_messageBox.created = function() {
-  this.subComputation = Deps.autorun(function() {
+  this.subComputation = Tracker.autorun(function() {
     Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
 });
 }

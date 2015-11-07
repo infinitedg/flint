@@ -4,7 +4,7 @@ Template.flint_components.helpers({
 	}
 });
 
-var _componentDep = new Deps.Dependency(),
+var _componentDep = new Tracker.Dependency(),
 _components = {};
 
 Flint.addComponent = function(compName) {

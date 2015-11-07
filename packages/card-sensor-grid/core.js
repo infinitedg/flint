@@ -186,7 +186,7 @@ Template.core_sensorGrid.helpers({
 Template.core_sensorGrid.created = function() {
   Session.set('currentDimension', currentDimensions.y);
 
-  this.subscription = Deps.autorun(function() {
+  this.subscription = Tracker.autorun(function() {
     Meteor.subscribe('cards.core-sensor3d.contacts', Flint.simulatorId());
     Meteor.subscribe('cards.core-sensor3d.armies', Flint.simulatorId());
   });

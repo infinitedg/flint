@@ -210,7 +210,7 @@ function animate(canvas, theta, lastTime) {
 }
 
 Template.card_shortRangeComm.created = function () {
-    this.subscription = Deps.autorun(function () {
+    this.subscription = Tracker.autorun(function () {
         Meteor.subscribe('cards.shortRangeComm.hails', Flint.simulatorId());
     });
 };

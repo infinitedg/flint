@@ -1,5 +1,5 @@
 Template.core_targetingGrid.created = function(){
-	this.subscription = Deps.autorun(function () {
+	this.subscription = Tracker.autorun(function () {
 		Meteor.subscribe('cards.core-targetingGrid.armies', Flint.simulatorId());
 	});
 	context.init({

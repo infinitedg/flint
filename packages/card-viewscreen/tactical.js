@@ -253,7 +253,7 @@ Template.viewscreen_tactical.rendered = function () {
     k.radius = (k.width / 2 < k.height / 2) ? k.width / 2 - k.strokeWidth : k.height / 2 - k.strokeWidth;
 
 
-    this.subscription = Deps.autorun(function () {
+    this.subscription = Tracker.autorun(function () {
         Meteor.subscribe('cards.card-tacControl.screencontacts', Flint.simulatorId());
     });
 

@@ -21,11 +21,11 @@ Utils.memoize = function(func) {
 
   return function() {
     if (!dep) {
-      dep = new Deps.Dependency();
+      dep = new Tracker.Dependency();
       
       // Create a new computation.
-      Deps.nonreactive(function() {
-        Deps.autorun(function() {
+      Tracker.nonreactive(function() {
+        Tracker.autorun(function() {
           
           var newValue = func();
           var changed = !_.isEqual(value, newValue);

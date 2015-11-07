@@ -231,7 +231,7 @@ Template.card_probeConstruction.events({
 });
 
 Template.card_probeConstruction.created = function () {
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());
 		Meteor.subscribe('simulator.inventoryItems', Flint.simulatorId());
 		Meteor.subscribe('cards.probes', Flint.simulatorId());

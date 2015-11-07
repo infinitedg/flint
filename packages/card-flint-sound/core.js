@@ -1,5 +1,5 @@
 Template.core_flint_sound.created = function(){
-	Deps.autorun(function() {
+	Tracker.autorun(function() {
 		Meteor.subscribe("core.flint-sound.sounds");
 	});
 	Flint.collection('flintSounds').find().observe({

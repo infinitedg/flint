@@ -21,7 +21,7 @@ sounds:
 var _buzzSoundCache = {};
 
 Meteor.startup(function() {
-	Deps.autorun(function(){
+	Tracker.autorun(function(){
 		var player = Flint.collection('flintSoundPlayers').findOne({playerId: Flint.clientId()});
 		if (player) {
 			Flint.addComponent('comp_flint_player');

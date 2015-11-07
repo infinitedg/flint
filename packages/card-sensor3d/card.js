@@ -187,7 +187,7 @@ function shipDiagram() {
 }
 Template.card_sensor3d.created = function () {
     this.animating = true;
-    this.subscription = Deps.autorun(function () {
+    this.subscription = Tracker.autorun(function () {
         Meteor.subscribe('cards.card-sensor3d.contacts', Flint.simulatorId());
     });
 };

@@ -1,5 +1,5 @@
 Template.core_security_doors.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 	});
 };

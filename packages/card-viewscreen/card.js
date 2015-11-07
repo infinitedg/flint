@@ -1,7 +1,7 @@
 var viewscreenInputs;
 
 Template.card_viewscreen.created = function(){
-    this.subscription = Deps.autorun(function () {
+    this.subscription = Tracker.autorun(function () {
         Meteor.subscribe('card.viewscreen.inputs', Flint.simulatorId());
     });
     viewscreenInputs = Flint.collection('viewscreenInputs').find();

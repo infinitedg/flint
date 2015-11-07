@@ -25,7 +25,7 @@ Template.layout_admin.destroyed = function() {
 };
 
 Template.layout_admin.created = function() {
-  this.subComputation = Deps.autorun(function() {
+  this.subComputation = Tracker.autorun(function() {
     Meteor.subscribe("cards.chatMessages", Flint.simulatorId());
   });
   //Flint.play('sciences');
