@@ -1,0 +1,23 @@
+{
+	"assets": {
+		"accessKeyId": "ACCESS-KEY-HERE",
+		"secretAccessKey": "SECRET-KEY-HERE",
+		"bucket": "infinitedev-flint",
+		"ACL": "public-read"
+	},
+	"kadira": {
+		"appId": "wrZXoP4tWKSzPvLmv",
+		"appSecret": "e81d8ecb-1195-4794-8014-0cd855073802"
+	},
+	"public": {
+		"assets": {
+			"s3base": "https://infinitedev-flint.s3.amazonaws.com/"
+		},
+		"flintRemotes": {
+			"light-server": "http://localhost:4000"
+		}
+	},
+	"audioMatrix": {
+		"debug": true
+	}
+}
