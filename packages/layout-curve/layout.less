@@ -1,0 +1,268 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,600,400);
+body{
+	overflow:hidden;
+	margin:0;
+	font-family: 'Open Sans';
+}
+//Card area
+.card-container{
+	position: absolute;
+	top: 200px;
+	left: 200px;
+	width: 1700px;
+	height: 860px;
+}
+
+
+#curve-frame{
+
+	height:100vh;
+	background:radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,.9) 100%), url(https://s3.amazonaws.com/f.cl.ly/items/282g0L2X3Q3g1f2E2R3L/background.svg?AWSAccessKeyId=AKIAJEFUZRCWSLB2QA5Q&amp;Expires=1447525817&amp;Signature=JMVUMU8uYgtAbNX3ky8K719a%2Bpw%3D&amp;response-content-disposition=attachment), linear-gradient(165deg, #000000 0%, rgba(0, 0, 0, 0) 50%, #000000 100%);
+	background-size: 100vw 100vh, 50px, 100vw 100vh;
+	transition: background-color 0.5s ease-in-out;
+	//Alert Classes
+	&.alertColor5, &.alertColor4{
+		background-color:#233F7A;
+		.frame-color div{
+			background-color:#194E7F;
+		}
+	}
+	&.alertColor3{
+		background-color:#7A7A23;
+		.frame-color div{
+			background-color:#808019;
+		}
+	}
+	&.alertColor2{
+		background-color:#7A4F23;
+		.frame-color div{
+			background-color:#804D19;
+		}
+	}
+	&.alertColor1{
+		background-color:#7A2323;
+		.frame-color div{
+			background-color:#801919;
+		}
+	}
+	&.alertColorp{
+		background-color:#40237A;
+		.frame-color div{
+			background-color:#3B1980;
+		}
+	}
+	.simulator-image{
+		img{
+			position: absolute;
+			top: 85px;
+			left: 35px;
+			width: 196px;
+			height: 196px;
+			border-radius: 50%;
+		}
+	}
+	.card-icon-container{
+		width: 80px;
+		position: absolute;
+		top: 370px;
+		left: 15px;
+		&:hover {
+			.card-icon-item {
+				.card-button-background{
+					left: 105px;
+				}
+				.card-button-mask{
+					width: 410px;
+					transition: width 0s linear;
+				}
+			}
+		}
+		.generate-delay(9);
+
+		.generate-delay(@n, @i: 1) when (@i =< @n) {
+			.card-icon-item:nth-child(@{i}) {
+				.card-button-background{
+					transition-delay:(0.05s * @i);
+				}
+			}
+			.generate-delay(@n, (@i + 1));
+		}
+		.card-icon-item{
+			position:relative;
+			margin-bottom:90px;
+			&:hover{
+				-webkit-filter: brightness(1.2);
+			}
+			.card-icon-background{
+				width:70px;
+				height:70px;
+				margin-top:-85px;
+				background: #ccc;
+				border-radius: 50%;
+			}
+			.card-icon-color{
+				position: absolute;
+				top: 4px;
+				left: 4px;
+				padding: 6px;
+				width: 62px;
+				height: 62px;
+				border-radius: 50%;
+				background-color: #f00;
+			}
+			.card-icon{
+				position: absolute;
+				top: 4px;
+				left: 4px;
+				padding: 6px;
+				width: 62px;
+				height: 62px;
+				box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+				border-radius: 50%;
+				background-color: #000;
+			}
+			.card-button-mask{
+				overflow: hidden;
+				left:50px;
+				height:100px;
+				position:absolute;
+				width: 0px;
+				transition: width 0s linear 1s;
+			}
+			.card-button{
+				font-weight: 700;
+				text-transform: capitalize;
+				height: 40px;
+				font-size: 25px;
+				line-height: 33px;
+				text-align: right;
+				padding-right: 20px;
+				padding-left:30px;
+				margin-top: 3px;
+				margin-right: -20px;
+				z-index: 0;
+				white-space: nowrap;
+				border: solid 1px #777;
+				background: radial-gradient(ellipse at center, #888888 0%, #aaaaaa 50%, #bbbbbb 100%);
+				border-radius: 15px;
+			}
+			.card-button-background{
+				position: absolute;
+				height: 48px;
+				margin-left: -100px;
+				margin-top: 13px;
+				background: linear-gradient(to bottom, #1c3f6d 0%, #2462b3 50%, #1c3f6d 100%);
+				border: solid 1px #949495;
+				border-radius: 15px;
+				transition: left 0.5s ease-in-out;
+				left:-410px;
+			}
+		}
+	}
+	.frame-text{
+		-webkit-user-select: none;
+		user-select: none; 
+		.simulator-name{
+			font-family: 'Open Sans';
+			text-transform: uppercase;
+			top: -45px;
+			left: 70px;
+			font-weight: 700;
+			position: absolute;
+			font-size: 60px;
+			background: -webkit-linear-gradient(#ccc, #999, #ccc);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			-webkit-text-stroke: 1px #9C9DA0;
+			-webkit-font-smoothing: subpixel-antialiased;
+			letter-spacing: 5px;
+		}
+		.station-name{
+			font-family: 'sn-Boldfont';
+			position: absolute;
+			width:500px;
+			text-align: center;
+			top: -70px;
+			right: 20px;
+			font-size: 80px;
+			background: -webkit-linear-gradient(#ccc, #999, #ccc);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			-webkit-text-stroke: 1px #9C9DA0;
+			-webkit-font-smoothing: subpixel-antialiased;
+			letter-spacing: 2px;
+		}
+		.login-name{
+			font-family: 'sn-Boldfont';
+			position: absolute;
+			top: 60px;
+			left: 260px;
+			font-size: 40px;
+			color: #000;
+			letter-spacing: 1px;
+			-webkit-font-smoothing: subpixel-antialiased;
+		}
+	}
+	.frame-image{
+		div{
+			position: absolute;
+		}
+		.frame-1{
+			width: 723px;
+			height: 169px;
+			background-image: url(/packages/layout-curve/images/slice1.png);
+		}
+		.frame-2{
+			width: 160px;
+			height: 909px;
+			top: 169px;
+			background-image: url(/packages/layout-curve/images/slice2.png);
+		}
+		.frame-3{
+			width: 603px;
+			height: 139px;
+			right: 0px;
+			background-image: url(/packages/layout-curve/images/slice3.png);
+		}
+	}
+	.frame-color{
+		div{
+			position: absolute;
+			transition: background-color 0.5s ease-in-out;
+		}
+		.part-1-1{
+			top:0px;
+			width:50px;
+			height:227px;
+			-webkit-clip-path: polygon(0 0, 50px 0px, 50px 130px, 45px 140px, 40px 150px, 38px 160px, 36px 170px, 35px 180px, 35px 190px, 37px 200px, 45px 227px, 0px 227px);
+		}
+		.part-1-2{
+			top:0px;
+			left:50px;
+			height: 130px;
+			width: 660px;
+			-webkit-clip-path: polygon(0 0, 655px 0px, 637px 38px, 635px 39px, 634px 40px, 627px 45px, 625px 46px, 468px 46px, 455px 65px, 450px 67px, 213px 67px, 207px 70px, 203px 72px, 200px 74px, 165px 127px, 148px 110px, 116px 91px, 80px 85px, 76px 87px, 56px 90px, 28px 100px, 15px 110px, 0px 130px);
+		}
+		.part-c{
+			width: 380px;
+			height: 60px;
+			left: 230px;
+			top:45px;
+			background-color:#C27A32 !important;
+			-webkit-clip-path: polygon(0 0, 380px 0, 355px 50px, 338px 60px, 0 60px);
+		}
+		.part-2{
+			width:105px;
+			height: 770px;
+			top: 232px;
+			-webkit-clip-path: polygon(0 0, 45px 0, 85px 37px, 105px 44px, 105px 580px, 0 687px, 0 700px, 105px 595px, 105px 658px, 95px 680px, 0 770px);
+		}
+		.part-3{
+			width: 557px;
+			height: 85px;
+			top: 0px;
+			right: 0px;
+			-webkit-clip-path: polygon(0 0, 557px 0, 557px 85px, 44px 85px, 40px 80px);
+		}
+	}
+}

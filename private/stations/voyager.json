@@ -13,16 +13,15 @@
       "_id": "voyager-captain",
       "name": "Captain",
       "cards": [
-
          {
             "cardId": "card_status",
-            "name": "STATUS"
+            "name": "Status"
          }, {
             "cardId": "card_selfDestruct",
             "name": "Self Destruct"
          }, {
             "cardId": "card_alertCondition",
-            "name": "ALERT CONDITION"
+            "name": "Alert Condition"
          }, {
             "cardId": "card_roster",
             "name": "Roster"
@@ -43,14 +42,14 @@
          "name": "Damage Report"
       }, {
          "cardId": "card_quartermaster",
-         "name": "quartermaster"
+         "name": "Quartermaster"
       }]
    }, {
       "_id": "voyager-engineering",
       "name": "Engineering",
       "cards": [{
          "cardId": "card_reactor",
-         "name": "reactor"
+         "name": "Reactor"
       }]
    }, {
       "_id": "voyager-medical",
@@ -61,16 +60,16 @@
       "name": "Science",
       "cards": [{
          "cardId": "card_probeConstruction",
-         "name": "probeConstruction"
+         "name": "Probe Construction"
       }, {
          "cardId": "card_probeNetwork",
-         "name": "probeNetwork"
+         "name": "Probe Network"
       }, {
          "cardId": "card_probeControl",
-         "name": "probeControl"
+         "name": "Probe Control"
       }, {
          "cardId": "card_recordsLog",
-         "name": "recordsLog"
+         "name": "Records Log"
       }]
    }, {
       "_id": "voyager-security",
@@ -88,7 +87,7 @@
             "name": "Internal Sensors"
          }, {
             "cardId": "card_security_decks",
-            "name": "security_decks"
+            "name": "security Decks"
          }
       ]
    }, {
@@ -168,16 +167,17 @@
    }, {
       "_id": "voyager-operations",
       "cards": [
-
+         {
+            "cardId": "card_transporters",
+            "name": "Transporters"
+         },
+         {
+            "cardId": "card_tractorBeam",
+            "name": "Tractor Beam"
+         },
          {
             "cardId": "card_viewscreenControl",
-            "name": "viewscreenControl"
-         }, {
-            "cardId": "card_transporters",
-            "name": "transporters"
-         }, {
-            "cardId": "card_tractorBeam",
-            "name": "tractorBeam"
+            "name": "Viewscreen Control"
          }
       ],
       "name": "Operations",

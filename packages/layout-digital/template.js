@@ -47,7 +47,7 @@ Template.layout_digital.helpers({
 		}
 	},
 	loggedIn: function(){
-		if (!Flint.client().name){
+		if (!Session.get('flint_clientName')){
 			return 'loggedOut';
 		}
 	}

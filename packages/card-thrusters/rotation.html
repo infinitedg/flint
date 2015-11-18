@@ -1,0 +1,11 @@
+<template name="thruster_rotation">
+	<div id="thruster_rotation" class="row">
+		<div class="col-sm-3">
+			{{#each thrusterType}}
+			<div class="dialHolder" data-type="{{this}}" data-value="{{rotationValue}}">
+				<div class="dial"></div>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+</template>

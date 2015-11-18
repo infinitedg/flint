@@ -1,0 +1,48 @@
+#thruster_rotation{
+  .dialHolder{
+    position: relative;
+    width: 25vh;
+    height: 25vh;
+    margin-top: 5px;
+    overflow: visible;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(180,180,180,1) 0%,rgba(200,200,200,1) 48%,rgba(60,60,65,1) 49%, rgba(30,30,35,1) 100%);
+
+    &:after{
+      content:attr(data-type) "          " attr(data-value);
+      color: #000;
+      font-family:"Gill Sans";
+      text-transform:uppercase;
+      text-align:center;
+      margin-top: calc(50% - 7%);
+      font-size:4vh;
+      position: absolute;
+      width: 25vh;
+      height: 25vh;
+    }
+    .dial{
+      position: absolute;
+      width: 25vh;
+      height: 25vh;
+      top:0px;
+      left:0px;
+      overflow: visible;
+      z-index:1000;
+
+      &:after{
+        content:"";
+        position: absolute;
+        border-radius: 50%;
+        background-color: #ddd;
+        background: radial-gradient(ellipse at center, rgba(242,246,248,1) 0%,rgba(216,225,231,1) 50%,rgba(181,198,208,1) 51%,rgba(224,239,249,1) 100%);
+        border: 2px solid #aaa;
+        width: 14%;
+        height: 14%;
+        top: 0px;
+        left: calc(50% - 7%);
+        background-color:#000;
+        z-index:1000;
+      }
+    }
+  }
+}

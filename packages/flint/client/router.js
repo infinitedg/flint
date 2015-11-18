@@ -81,7 +81,7 @@ Router.map(function () {
     action: function() {
       if (!Flint.station())
         return;
-      if (!Flint.client().name && Flint.station('name') != 'Flint Admin'){
+      if (!Session.get('flint_clientName') && Flint.station('name') != 'Flint Admin'){
         this.render('card_login');
       } else if (Flint.client().locked){
         this.render('card_locked');

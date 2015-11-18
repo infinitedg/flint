@@ -19,6 +19,7 @@ UI.registerHelper('alertStyle', function(){
 });
 
 Flint.login = function(name) {
+  Session.set('flint_clientName', name);
   return Flint.client('name', name);
 };
 

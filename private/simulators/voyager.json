@@ -1,23 +1,17 @@
 {
     "simulatorId": "voyager",
     "simulators": [{
-        "name": "USS Voyager",
+        "name": "Voyager II",
         "power": 120,
         "coolant": 100,
         "alertCondition": 4,
         "sensorText": "Important sensor information, Captain.",
         "_id": "voyager",
-        "layout": "layout_digital",
+        "layout": "layout_curve",
         "themes": [
-            "theme_vanguard_frame",
-            "theme_bodyReset",
             "theme_font_gamecuben",
             "theme_font_readable",
-            "theme_vanguardTextInputs",
-            "theme_cursor",
-            "theme_styledRadioCheck",
-            "theme_vanguardButtons",
-            "theme_vangaurdButtons"
+            "theme_cursor"
         ]
     }]
 }

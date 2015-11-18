@@ -1,0 +1,54 @@
+<template name="layout_curve">
+  <div class="card-container card-area" data-card="{{cardId}}">
+
+    {{#transitioner}}
+
+    {{> yield}}
+
+    {{/transitioner}}
+  </div>
+  <div id="curve-frame" class="{{alertClass}}">
+    <div class="frame-color"><div class="part-1-1"></div>
+    <div class="part-c"></div>
+    <div class="part-1-2"></div>
+    <div class="part-2"></div>
+    <div class="part-3"></div>
+  </div>
+  <div class="frame-image">
+    <div class="frame-1"></div>
+    <div class="frame-2"></div>
+    <div class="frame-3"></div>
+  </div>
+  <div class="frame-text">
+    <h1 class="simulator-name">{{simulator.name}}</h1>
+    <h2 class="station-name">{{station.name}}</h2>
+    <span class="login-name" style="{{usernameStyle}}">{{username}}</span>
+  </div>
+  <div class="simulator-image">
+    <img src="{{simulatorSrc}}" draggable="false" />
+  </div>
+  {{> layout_curve_cardButtons}}
+</div>
+</template>
+
+<template name="layout_curve_cardButtons">
+  <div class="card-icon-container">
+    {{#each cards}}
+    {{> layout_curve_cardButton_instance this}}
+    {{/each}}
+  </div>
+</template>
+<template name="layout_curve_cardButton_instance">
+  <div class="card-icon-item">
+  <a href="{{pathFor 'flint_station'}}" class="{{#if isCurrentCard}}active{{/if}}">
+      <div class="card-button-mask">
+        <div class="card-button-background">
+          <div class="card-button">{{name}}</div>
+        </div>
+      </div>
+      <div class="card-icon-color"></div>
+      <img class="card-icon" src="http://www.iconsplace.com/download/lime-phone-128.png" draggable="false" />
+      <div class="card-icon-background"></div>
+    </a>
+  </div>
+</template>

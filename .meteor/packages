@@ -58,7 +58,7 @@ layout-core
 layout-tac-control
 layout-viewscreen
 #layout-voyager
-layout-digital
+#layout-digital
 
 assets-voyager
 
@@ -145,4 +145,5 @@ card-wormhole
 flint-drama
 standard-minifiers
 simison:bootstrap3-less
-layout-default
+#layout-default
+layout-curve
