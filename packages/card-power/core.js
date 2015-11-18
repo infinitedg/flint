@@ -2,7 +2,7 @@
 @module Templates
 @submodule Core
 */
- 
+
 /**
 Power balancing screen. Originally developed as a demo.
 @class core_power
@@ -14,7 +14,7 @@ Setup subscription to cards.power.systems for later teardown
 */
 Template.core_power.created = function() {
   that = this;
-  this.subComputation = Deps.autorun(function() {
+  this.subComputation = Tracker.autorun(function() {
     Meteor.subscribe("cards.power.systems", Flint.simulatorId());
 
     that.observer = Flint.collection('systems').find().observeChanges({
@@ -67,12 +67,13 @@ Template.core_power.helpers({
   @type Number
   */
   totalPower: function() {
-    var systems = Flint.collection('systems').find({});
-    var totalPower = 0;
-    systems.forEach(function(system){
-      totalPower += parseInt(system.power, 10);
-    });
-    return totalPower;
+    return _.reduce(Flint.collection('systems').find().fetch(), function(memo, doc) {
+      var i = parseInt(doc.power, 10);
+      if (isNaN(i)) {
+        i = 0;
+      }
+      return i + memo;
+    }, 0);
   },
   /**
   The total power available to the simulator.

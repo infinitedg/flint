@@ -1,5 +1,5 @@
 Template.card_roster.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.crew', Flint.simulatorId());
 	});
 };

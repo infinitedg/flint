@@ -1,3 +1,5 @@
+// @TODO consider making this its own package, or splitting the worker component
+// 				into a separate package from the scheduler.
 /**
 * Smoothly interpolate any object's properties
 * @method tween

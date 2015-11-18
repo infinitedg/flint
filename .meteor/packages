@@ -23,7 +23,6 @@ bootstrap-contextjs
 infinitedg:bootstrap-slider-touch
 infinitedg:winston-loggly
 iron:router@1.0.6
-meteorhacks:kadira
 mizzao:bootstrap-3
 accounts-facebook
 accounts-google
@@ -147,3 +146,8 @@ standard-minifiers
 simison:bootstrap3-less
 #layout-default
 layout-curve
+tracker
+jshint
+velocity:html-reporter
+sanjo:jasmine
+meteorhacks:kadira

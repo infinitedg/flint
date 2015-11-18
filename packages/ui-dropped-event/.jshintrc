@@ -96,7 +96,7 @@
         "Template",
         "check",
         "Match",
-        "Deps",
+        "Tracker",
         "EJSON",
         "Email",
         "Package",

@@ -1,5 +1,5 @@
 Template.card_probeControl.created = function(){
-	this.subscription = Deps.autorun(function(){
+	this.subscription = Tracker.autorun(function(){
 		Meteor.subscribe('cards.probes',Flint.simulatorId());
 	})
 	Session.setDefault('probeControl_currentTab','navigation')

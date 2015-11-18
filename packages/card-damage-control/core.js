@@ -26,7 +26,7 @@ Template.core_damageControl.events = {
 
 Template.core_damageControl.created = function() {
 
-  this.subscription = Deps.autorun(function() {
+  this.subscription = Tracker.autorun(function() {
     Meteor.subscribe('cards.card-damageReports.damageReports', Flint.simulatorId());
   });
 };

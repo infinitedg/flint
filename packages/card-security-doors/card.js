@@ -1,5 +1,5 @@
 Template.card_security_doors.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());
 	});
@@ -76,7 +76,7 @@ Template.card_security_doors.events({
 });
 
 Template.securityStatus.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 	});
 	Session.set('security-currentDeck',(Flint.simulatorId() + "-deck-1"));

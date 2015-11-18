@@ -1,6 +1,6 @@
 Meteor.startup(function() {
 	// Reactively update the client document based on the current simulator
-	Deps.autorun(function() {
+	Tracker.autorun(function() {
 		Flint.collection('flintClients').update({_id: Flint.clientId()},
 			{$set: {
 				simulatorId: Flint.simulatorId()
@@ -9,7 +9,7 @@ Meteor.startup(function() {
 	});
 
 	// Reactively update the client document based on the current simulator
-	Deps.autorun(function() {
+	Tracker.autorun(function() {
 		Flint.collection('flintClients').update({_id: Flint.clientId()},
 			{$set: {
 				stationId: Flint.stationId()
@@ -18,7 +18,7 @@ Meteor.startup(function() {
 	});
 
 	// Reactively reset the connectionId
-	Deps.autorun(function() {
+	Tracker.autorun(function() {
 		if (Meteor.status().connected) {
 			Meteor.call('flint.connectionId', function(err, res) {
 				if (res) {

@@ -40,7 +40,7 @@ Standard sensor grid card for sensors stations
 @class card_sensorGrid
 */
 Template.card_sensorGrid.created = function() {
-  this.subscription = Deps.autorun(function() {
+  this.subscription = Tracker.autorun(function() {
     Meteor.subscribe('cards.card-sensorGrid.contacts', Flint.simulatorId());
   });
 

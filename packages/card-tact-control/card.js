@@ -325,11 +325,11 @@ gridLayer = new Kinetic.Layer();
         contactsLayer.add(trashCan);
     };
     trashCanIcon.src = "/packages/card-tacControl/images/trashcan.png";
-    this.subscription = Deps.autorun(function () {
+    this.subscription = Tracker.autorun(function () {
         Meteor.subscribe('cards.card-tacControl.symbols', Flint.simulatorId());
         Meteor.subscribe('cards.card-tacControl.contacts', Flint.simulatorId());
     });
-    this.selectionWatcher = Deps.autorun(function (c) {
+    this.selectionWatcher = Tracker.autorun(function (c) {
         var target;
         if (Session.get('selectedSymbol') !== '') {
             if (contactsArray.hasOwnProperty(Session.get('selectedSymbol'))) {

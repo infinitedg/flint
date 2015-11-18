@@ -1,5 +1,5 @@
 Template.card_phasers.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('card-weapons-phasers', Flint.simulatorId());
 	});
 };

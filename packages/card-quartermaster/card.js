@@ -6,7 +6,7 @@ Template.card_quartermaster.rendered = function () {
 };
 
 Template.card_quartermaster.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());
 		Meteor.subscribe('simulator.hallways', Flint.simulatorId());

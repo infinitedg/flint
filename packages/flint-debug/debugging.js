@@ -6,7 +6,7 @@ Template.flint_debugging.helpers({
   reconnectCountdown: function() {
     var status = Meteor.status();
     if (status.retryTime) {
-      var computation = Deps.currentComputation;
+      var computation = Tracker.currentComputation;
       Meteor.setTimeout(function() {
         computation.invalidate();
       }, 1000);

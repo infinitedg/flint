@@ -114,7 +114,7 @@ Create a subscripton to cards.messageComposer.lrmessages and save for later tear
 */
 Template.card_messageComposer.created = function() {
     Session.set('currentLRMessage','');
-    this.subComputation = Deps.autorun(function() {
+    this.subComputation = Tracker.autorun(function() {
         Meteor.subscribe("cards.messageComposer.lrmessages", Flint.simulatorId());
     });
 };

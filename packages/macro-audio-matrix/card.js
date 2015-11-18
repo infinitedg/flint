@@ -10,7 +10,7 @@ function updateMacro(argumentName, value){
 }
 
 Template.macro_audioMatrixToggle.created = function(){
-	this.subscription = Deps.autorun(function () {
+	this.subscription = Tracker.autorun(function () {
 		Meteor.subscribe('flint-audiomatrix');
 		Meteor.subscribe('flint-audiomatrix-mix');
 		Meteor.subscribe('flint-audiomatrix-bus');
@@ -52,7 +52,7 @@ Template.macro_audioMatrixToggle.events({
 })
 
 Template.macro_audioMatrixState.created = function(){
-	this.subscription = Deps.autorun(function () {
+	this.subscription = Tracker.autorun(function () {
 		Meteor.subscribe('flint-audiomatrix');
 		Meteor.subscribe('flint-audiomatrix-mix');
 		Meteor.subscribe('flint-audiomatrix-bus');
@@ -97,7 +97,7 @@ Template.macro_audioMatrixState.events({
 })
 
 Template.macro_audioMatrixVolume.created = function(){
-	this.subscription = Deps.autorun(function () {
+	this.subscription = Tracker.autorun(function () {
 		Meteor.subscribe('flint-audiomatrix');
 		Meteor.subscribe('flint-audiomatrix-mix');
 		Meteor.subscribe('flint-audiomatrix-bus');

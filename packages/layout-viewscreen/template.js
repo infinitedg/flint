@@ -35,7 +35,7 @@ Most importantly, this will also play the "sciences.wav" sound effect for old ti
 @method created
 */
 // Template.layout_default.created = function() {
-//   cardTransitionAutorun = Deps.autorun(function() {
+//   cardTransitionAutorun = Tracker.autorun(function() {
 //     if ('card-' + Flint.cardId() !== $('div.card:visible').attr('id')) {
 //       $('div.card:visible').fadeOut(Template.layout_default.transitionSpeed, function() {
 //         $('div.card#card-' + Flint.cardId()).fadeIn(Template.layout_default.transitionSpeed);

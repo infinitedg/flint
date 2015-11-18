@@ -4,7 +4,7 @@ Template.flint_components.helpers({
 	}
 });
 
-var _componentDep = new Deps.Dependency(),
+var _componentDep = new Tracker.Dependency(),
 _components = {};
 
 Flint.addComponent = function(compName) {
@@ -21,5 +21,12 @@ Flint.removeComponent = function(compName) {
 
 Flint.components = function() {
 	_componentDep.depend();
-	return _.keys(_components);
+	// Use components property from current station (if available)
+    // Combines (with de-duplication) from keys of manually-registered components
+	return _.uniq(
+        _.union(
+            _.keys(_components),
+            Flint.station('components') || [] // Default to empty array where appropriate
+        )
+    );
 };

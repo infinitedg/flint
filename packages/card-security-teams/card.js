@@ -11,7 +11,7 @@ Template.card_security_teams.helpers({
 });
 
 Template.assignSecurity.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.crew', Flint.simulatorId());
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());
@@ -98,7 +98,7 @@ Template.assignSecurity.events({
 });
 
 Template.securityTeamsView.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.crew', Flint.simulatorId());
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 		Meteor.subscribe('simulator.rooms', Flint.simulatorId());
@@ -151,7 +151,7 @@ Template.securityTeamsView.events({
 });
 
 Template.securityDeckSidebar.created = function(){
-	this.subscription = Deps.autorun(function() {
+	this.subscription = Tracker.autorun(function() {
 		Meteor.subscribe('simulator.decks', Flint.simulatorId());
 	});
 	Session.set('security-currentDeck',(Flint.simulatorId() + "-deck-1"));
