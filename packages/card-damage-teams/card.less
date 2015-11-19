@@ -1,0 +1,142 @@
+.damageTeams{
+	.row{
+		height: 630px;
+	}
+	counter-reset: orderNum;
+	.workOrder{
+		counter-increment: orderNum;
+		@circle-size: 60px;
+		width: 100%;
+		position: relative;
+		height: @circle-size;
+		margin-bottom: 20px;
+		.row-front{
+			font-weight: 700;
+			text-transform: capitalize;
+			height: 40px;
+			font-size: 25px;
+			line-height: 33px;
+			text-align: left;
+			color: #000;
+			padding-right: 20px;
+			padding-left:30px;
+			margin-top: 3px;
+			margin-right: -20px;
+			margin-left:-20px;
+			z-index: 0;
+			white-space: nowrap;
+			border: solid 1px #777;
+			background: radial-gradient(ellipse at center, #888888 0%, #aaaaaa 50%, #bbbbbb 100%);
+			border-radius: 15px;
+		}
+		.row-background{
+			position: absolute;
+			height: 48px;
+			width: calc(~"100% - 160px");
+			margin-top: @circle-size * 0.1325;
+			margin-left: 40px;
+			background: linear-gradient(to bottom, #1c3f6d 0%, #2462b3 50%, #1c3f6d 100%);
+			border: solid 1px #949495;
+			border-radius: 15px;
+			left: @circle-size;
+		}
+		.radial-progress {
+			@circle-background-idle: rgb(140,60,60);
+			@circle-background-paused: rgb(140,140,60);
+			@circle-background-active: rgb(60,140,60);
+			@circle-color: rgb(102,102,102);
+			@inset-size: @circle-size * .75;
+			@inset-color:#222233;
+			@transition-length: 0s;
+			@shadow: 6px 6px 10px rgba(0,0,0,0.7);
+			@percentage-color: #ccc;
+			@percentage-font-size: 22px;
+			@percentage-text-width: 57px;
+			position: absolute;
+			width:  @circle-size;
+			height: @circle-size;
+			float: left;
+			background-color: @circle-background-idle;
+			border-radius: 50%;
+			&.paused{
+				background-color: @circle-background-paused;
+			}
+			&.active{
+				background-color: @circle-background-active;
+			}
+			.circle {
+				.mask, .fill, .shadow {
+					width:    @circle-size;
+					height:   @circle-size;
+					position: absolute;
+					border-radius: 50%;
+				}
+				.shadow {
+					box-shadow: @shadow inset;
+				}
+				.mask, .fill {
+					-webkit-backface-visibility: hidden;
+					transition: -webkit-transform @transition-length;
+					transition: -ms-transform @transition-length;
+					transition: transform @transition-length;
+					border-radius: 50%;
+				}
+				.mask {
+					clip: rect(0px, @circle-size, @circle-size, @circle-size/2);
+					.fill {
+						clip: rect(0px, @circle-size/2, @circle-size, 0px);
+						background-color: @circle-color;
+					}
+				}
+			}
+			.inset {
+				width:       @inset-size;
+				height:      @inset-size;
+				position:    absolute;
+				margin-left: (@circle-size - @inset-size)/2;
+				margin-top:  (@circle-size - @inset-size)/2;
+
+				background-color: @inset-color;
+				border-radius: 50%;
+				box-shadow: @shadow;
+				.percentage {
+					width:       @percentage-text-width;
+					position:    absolute;
+					top:         (@inset-size - @percentage-font-size) / 2;
+					left:        (@inset-size - @percentage-text-width) / 2;
+
+					line-height: 1;
+					text-align:  center;
+
+					color:       @percentage-color;
+					font-weight: 800;
+					font-size:   @percentage-font-size;
+				}
+			}
+
+			@i: 0;
+			@increment: 180deg / 100;
+			.loop (@i) when (@i <= 100) {
+				&[data-progress="@{i}"] {
+					.circle {
+						.mask.full, .fill {
+							-webkit-transform: rotate(@increment * @i);
+							-ms-transform: rotate(@increment * @i);
+							transform: rotate(@increment * @i);
+						}	
+						.fill.fix {
+							-webkit-transform: rotate(@increment * @i * 2);
+							-ms-transform: rotate(@increment * @i * 2);
+							transform: rotate(@increment * @i * 2);
+						}
+					}
+					.inset .percentage:before {
+						content: counter(orderNum);
+					}
+				}
+				.loop(@i + 1);
+			}
+			.loop(@i);
+		}
+	}
+}

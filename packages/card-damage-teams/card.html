@@ -1,7 +1,42 @@
 <template name="card_damageTeams">
-	<div class="container">
+	<div class="damageTeams container">
 		<div class="row">
-			
+			<div class="col-sm-8">
+				<h1>Work Orders</h1>
+				{{#if workOrdersCount}}
+				{{#sortable items=workOrders animation="100" ghostClass="sortable-ghost" options=attributesOptions}}
+				{{> workOrder_item}}
+				{{/sortable}}
+				{{else}}
+				<h2>No outstanding work orders.</h2>
+				{{/if}}
+			</div>
 		</div>
+	</div>
+</template>
+
+<template name="workOrder_item">
+	<div class="workOrder">
+		<div class="row-background">
+			<div class="row-front">
+				{{system}}
+			</div>
+		</div>
+		<div class="radial-progress {{progressStyle}}" data-progress="{{progress}}">
+			<div class="circle">
+				<div class="mask full">
+					<div class="fill"></div>
+				</div>
+				<div class="mask half">
+					<div class="fill"></div>
+					<div class="fill fix"></div>
+				</div>
+				<div class="shadow"></div>
+			</div>
+			<div class="inset">
+				<div class="percentage"></div>
+			</div>
+		</div>
+
 	</div>
 </template>

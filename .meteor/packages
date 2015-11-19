@@ -30,6 +30,7 @@ bootstrap-slider
 ccorcos:transitioner
 ficshelf:media-query
 #msavin:mongol
+rubaxa:sortable
 
 ui-dropped-event
 
@@ -141,6 +142,7 @@ card-weapons
 card-weapons-phasers
 card-weapons-torpedos
 card-wormhole
+card-damage-systems
 flint-drama
 standard-minifiers
 simison:bootstrap3-less
@@ -151,3 +153,4 @@ jshint
 velocity:html-reporter
 sanjo:jasmine
 meteorhacks:kadira
+card-controls-test

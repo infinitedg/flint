@@ -7,49 +7,46 @@ body{
 //Card area
 .card-container{
 	position: absolute;
-	top: 200px;
-	left: 200px;
-	width: 1700px;
-	height: 860px;
+	top: 150px;
+	left: 220px;
+	width: 1680px;
+	height: 900px;
 }
 
-
-#curve-frame{
-
-	height:100vh;
-	background:radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,.9) 100%), url(https://s3.amazonaws.com/f.cl.ly/items/282g0L2X3Q3g1f2E2R3L/background.svg?AWSAccessKeyId=AKIAJEFUZRCWSLB2QA5Q&amp;Expires=1447525817&amp;Signature=JMVUMU8uYgtAbNX3ky8K719a%2Bpw%3D&amp;response-content-disposition=attachment), linear-gradient(165deg, #000000 0%, rgba(0, 0, 0, 0) 50%, #000000 100%);
+@alert5: #233F7A;
+@alert3: #7A7A23;
+@alert2: #804D19;
+@alert1: #801919;
+@alertp: #4D1980;
+.alertColor(@color,@url) {
+	background:radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,.9) 100%), url(@url), linear-gradient(165deg, #000000 0%, rgba(0, 0, 0, 0) 50%, #000000 100%);
+	background-color:@color;
 	background-size: 100vw 100vh, 50px, 100vw 100vh;
+	.frame-color div{
+		background-color:saturate(darken(@color, 1%), 5%);
+	}
+	.card-icon-container .card-icon-item .card-button-background{
+		background: linear-gradient(to bottom, saturate(darken(@color, 4%), 5%) 0%, saturate(darken(@color, 1%), 5%) 50%, saturate(darken(@color, 4%), 5%) 100%);
+	}
+}
+#curve-frame{
+	height:100vh;
 	transition: background-color 0.5s ease-in-out;
 	//Alert Classes
 	&.alertColor5, &.alertColor4{
-		background-color:#233F7A;
-		.frame-color div{
-			background-color:#194E7F;
-		}
+		.alertColor(@alert5,'/packages/layout-curve/images/background-blue.svg');
 	}
 	&.alertColor3{
-		background-color:#7A7A23;
-		.frame-color div{
-			background-color:#808019;
-		}
+		.alertColor(@alert3,'/packages/layout-curve/images/background-yellow.svg');
 	}
 	&.alertColor2{
-		background-color:#7A4F23;
-		.frame-color div{
-			background-color:#804D19;
-		}
+		.alertColor(@alert2,'/packages/layout-curve/images/background-orange.svg');
 	}
 	&.alertColor1{
-		background-color:#7A2323;
-		.frame-color div{
-			background-color:#801919;
-		}
+		.alertColor(@alert1,'/packages/layout-curve/images/background-red.svg');
 	}
 	&.alertColorp{
-		background-color:#40237A;
-		.frame-color div{
-			background-color:#3B1980;
-		}
+		.alertColor(@alertp,'/packages/layout-curve/images/background-purple.svg')
 	}
 	.simulator-image{
 		img{
@@ -140,7 +137,6 @@ body{
 				padding-left:30px;
 				margin-top: 3px;
 				margin-right: -20px;
-				z-index: 0;
 				white-space: nowrap;
 				border: solid 1px #777;
 				background: radial-gradient(ellipse at center, #888888 0%, #aaaaaa 50%, #bbbbbb 100%);

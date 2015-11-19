@@ -1,0 +1,28 @@
+<template name="card_damage_systems">
+	<div class="damageSystems container">
+		<div class="row">
+			{{#each system 'primary'}}
+			{{> card_damage_systems_tile this}}
+			{{/each}}
+		</div>
+	</div>
+</template>
+
+<template name="card_damage_systems_tile">
+	<div class="col-sm-2 damage-tile">
+		<div class="panel">
+			<div class="panel-body">
+				<h3 class='text-center'>{{name}}</h3>
+				<div class="col-sm-6">
+					<img class="img-responsive" draggable="false" src={{systemImage}} />
+				</div>
+				<div class="col-sm-6">
+					<p>E: {{efficiency}}%</p>
+					<p>M: {{maxEfficiency}}%</p>
+					<p>H: {{heat}}K</p>
+				</div>
+				<button {{disabled}} class="btn btn-block {{diagnosticState}} btn-sm diagnose">{{diagnosticLabel}}</button>
+			</div>
+		</div>
+	</div>
+</template>
