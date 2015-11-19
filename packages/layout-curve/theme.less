@@ -70,9 +70,14 @@ body{
 		background-color: rgba(0, 0, 0, 0.2);
 		-webkit-backdrop-filter: blur(10px);
 		backdrop-filter: blur(10px);
+		box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
 	}
 	.well{
-		color: #000;
+		border: 1px solid #9C9DA0;
+		background-color: rgba(0, 0, 0, 0.2);
+		color: #999;
+		-webkit-backdrop-filter: blur(10px);
+		box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
 	}
 	.table{
 		background-color: rgba(0,0,0,0.5);
@@ -97,6 +102,7 @@ body{
 		margin-top: 5px;
 		background: linear-gradient(to bottom, saturate(darken(@color, 4%), 5%) 0%, saturate(darken(@color, 1%), 5%) 50%, saturate(darken(@color, 4%), 5%) 100%);		border: solid 1px #949495;
 		border-radius: 15px;
+				box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 		.btn-block{
 			width: calc(~'100% - 20px');
 		}
@@ -140,17 +146,19 @@ body{
 		padding: 15px;
 		border-radius: 2px;
 		background: rgba(255,255,255,.10);
-		box-shadow: 0px 0px 5px rgba(255,255,255,.75);
+		-webkit-backdrop-filter: blur(10px);
+		box-shadow: 0px 0px 5px rgba(255,255,255,.75), 5px 5px 10px rgba(0, 0, 0, 0.3);
 		margin: 0 0 10px 0; 
 	}
 	input[type="text"]:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="password"]:focus, textarea:focus, textarea:focus {
-		box-shadow: 0px 0px 5px @alert5;
+		box-shadow: 0px 0px 5px @alert5, 5px 5px 10px rgba(0, 0, 0, 0.3);
 		transition: all 0.5s ease;
 	}
 	.textbox{
-		box-shadow: rgba(255, 255, 255, 0.74902) 0px 0px 5px 0px;
-		-webkit-box-shadow: rgba(255, 255, 255, 0.74902) 0px 0px 5px 0px;
+		box-shadow: rgba(255, 255, 255, 0.74902) 0px 0px 5px 0px, 5px 5px 10px rgba(0, 0, 0, 0.3);
+		-webkit-box-shadow: rgba(255, 255, 255, 0.74902) 0px 0px 5px 0px, 5px 5px 10px rgba(0, 0, 0, 0.3);
 		background-attachment: scroll;
+		-webkit-backdrop-filter: blur(10px);
 		background-color: rgba(255, 255, 255, 0.0980392);
 		border-bottom-left-radius: 2px;
 		border-bottom-right-radius: 2px;
