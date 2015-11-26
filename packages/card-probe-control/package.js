@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {  
-  api.use(['templating', 'flint', 'mizzao:bootboxjs', 'less']);
+  api.use(['templating', 'flint', 'mizzao:bootboxjs', 'less', 'infinitedg:three']);
   
   api.add_files(['core.html', 'core.js'], 'client');
   api.add_files(['card.html', 'card.js', 'card.less', 'sensors.js'], 'client');

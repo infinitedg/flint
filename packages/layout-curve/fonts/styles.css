@@ -1,14 +1,14 @@
 
 @font-face {
   font-family: 'sn-Boldfont';
-  src: url('sn-Boldfont.eot?#iefix') format('embedded-opentype'),  url('sn-Boldfont.woff') format('woff'), url('sn-Boldfont.ttf')  format('truetype'), url('sn-Boldfont.svg#sn-Boldfont') format('svg');
+  src: url('sn-Boldfont.woff') format('woff'), url('sn-Boldfont.ttf')  format('truetype'), url('sn-Boldfont.svg#sn-Boldfont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'DINAlternate-Bold';
-  src: url('DINAlternate-Bold.eot?#iefix') format('embedded-opentype'),  url('DINAlternate-Bold.woff') format('woff'), url('DINAlternate-Bold.ttf')  format('truetype'), url('DINAlternate-Bold.svg#DINAlternate-Bold') format('svg');
+  src: url('DINAlternate-Bold.woff') format('woff'), url('DINAlternate-Bold.ttf')  format('truetype'), url('DINAlternate-Bold.svg#DINAlternate-Bold') format('svg');
   font-weight: normal;
   font-style: normal;
 }

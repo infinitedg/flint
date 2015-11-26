@@ -1,0 +1,33 @@
+<template name="core_workOrders">
+	<h3>Work Orders</h3>
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>Time</th>
+				<th>Elapsed</th>
+				<th>Name</th>
+				<th>Ping</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each workOrder}}
+			<tr>
+				<td class="time">{{time}}</td>
+				<td class="elapsed">{{elapsed}}</td>
+				<td>{{system}}</td>
+				<td><button class="btn btn-warning btn-xs ping">Ping</button></td>
+			</tr>
+			{{/each}}
+			{{#each systems}}
+			{{#if isDiagnostic}}
+			<tr>
+				<td class="systemTime">{{systemTime}}</td>
+				<td class="elapsed"></td>
+				<td>{{name}}</td>
+				<td><button class="btn btn-warning btn-xs ping">Ping</button></td>
+			</tr>
+			{{/if}}
+			{{/each}}
+		</tbody>
+	</table>
+</template>

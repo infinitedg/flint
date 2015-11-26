@@ -6,7 +6,7 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.use(['templating', 'flint']);
+  api.use(['templating', 'flint', 'underscore']);
 
   api.add_files(['card.html', 'card.js','core.css'], 'client');
 });

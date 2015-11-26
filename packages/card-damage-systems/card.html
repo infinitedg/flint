@@ -1,15 +1,31 @@
 <template name="card_damage_systems">
 	<div class="damageSystems container">
+		<div class="tab-bar">
+			{{> card_damage_systems_tab title='Primary'}}
+			{{> card_damage_systems_tab title='Secondary'}}
+			{{> card_damage_systems_tab title='Misc'}}
+		</div>
 		<div class="row">
-			{{#each system 'primary'}}
-			{{> card_damage_systems_tile this}}
-			{{/each}}
+			<div class="col-sm-9">
+				{{#each system}}
+				{{> card_damage_systems_tile this}}
+				{{/each}}
+			</div>
+			<div class="col-sm-3 border-left">
+				<h2>Team Requests</h2>
+				<div class="panel">
+					<div class="panel-body pings">
+
+					</div>
+				</div>
+				{{> card_damage_systems_diagnosticReport}}
+			</div>
 		</div>
 	</div>
 </template>
 
 <template name="card_damage_systems_tile">
-	<div class="col-sm-2 damage-tile">
+	<div class="col-sm-3 damage-tile">
 		<div class="panel">
 			<div class="panel-body">
 				<h3 class='text-center'>{{name}}</h3>
@@ -25,4 +41,32 @@
 			</div>
 		</div>
 	</div>
+</template>
+
+<template name="card_damage_systems_tab">
+	<div id="{{title}}" class="tab">
+		<div class="tab-image">{{title}}</div>
+		<div class="frame-color">
+			<div class="tab-color {{active}}"></div>
+		</div>
+	</div>
+</template>
+
+<template name="card_damage_systems_diagnosticReport">
+	{{#if currentReport}}
+	<h2>Diagnostic Report</h2>
+	<div class="panel">
+		<div class="panel-body report">
+			{{{currentReport}}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-5 col-sm-offset-1">
+			<button class="btn btn-block btn-danger resetDiagnostic">Reset</button>
+		</div>
+		<div class="col-sm-6">
+			<button class="btn btn-warning createOrder">Send Work Order</button>
+		</div>
+	</div>
+	{{/if}}
 </template>

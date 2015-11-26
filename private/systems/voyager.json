@@ -15,15 +15,30 @@
       "minPower": 5,
       "name": "Short Range Communications",
       "power": 7,
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+      },
       "simulatorId": "voyager"
    }, {
       "_id": "systems-voyager-tractorBeam",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "name": "Tractor Beam",
       "simulatorId": "voyager",
       "state": "idle",
       "target": "false"
    }, {
       "name": "Phasers",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "minPower": 7,
       "maxPower": 30,
       "power": 10,
@@ -31,6 +46,11 @@
       "simulatorId": "voyager"
    }, {
       "name": "Warp Core",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "minPower": 5,
       "maxPower": 20,
       "power": 7,
@@ -38,6 +58,11 @@
       "simulatorId": "voyager"
    }, {
       "name": "Efficiency",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "_id": "systems-voygaer-efficiency",
       "distance": "78",
       "gravity": 0,
@@ -45,12 +70,22 @@
       "simulatorId": "voyager"
    }, {
       "_id": "systems-voyager-tacticalControl",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "name": "Tactical Control",
       "tacScreenUL": "Preview",
       "tacScreenUR": "playlistPlayer",
       "simulatorId": "voyager"
    }, {
       "_id": "systems-voyager-thrust",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "efficiency": 0,
       "heat": 0,
       "name": "Thrust",
@@ -59,6 +94,11 @@
       "simulatorId": "voyager"
    }, {
       "_id": "systems-voyager-thrusters",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "name": "Thrusters",
       "manualThrusters": false,
       "direction": "none",
@@ -78,6 +118,11 @@
       "simulatorId": "voyager"
    }, {
       "_id": "systems-voyager-torpedoes",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "casingCount": 34,
       "maxPower": 30,
       "minPower": 7,
@@ -89,6 +134,11 @@
       "simulatorId": "voyager"
    }, {
       "_id": "systems-voyager-internalComm",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "connectionType": "",
       "currentCall": "",
       "name": "Internal Communications",
@@ -96,6 +146,11 @@
       "state": "idle"
    }, {
       "_id": "systems-voyager-engines",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "heat": {
          "warp": 0,
          "impulse": 0
@@ -106,21 +161,31 @@
       "speed": "0.2"
    }, {
       "_id": "systems-voyager-coursecalculation",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "currentCoordinates": {
-         "x": "12650",
-         "y": "214",
-         "z": "258.20"
+         "x": "",
+         "y": "",
+         "z": ""
       },
       "desiredCoordinates": {
          "x": "",
          "y": "",
          "z": ""
       },
-      "desiredCourse": "Fascinating",
+      "desiredCourse": "",
       "name": "Course Calculation",
       "simulatorId": "voyager"
    }, {
       "_id": "systems-voyager-sensors",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "infared": "false",
       "infrared": "false",
       "name": "Sensors",
@@ -132,6 +197,11 @@
       "wormhole": "false"
    }, {
       "_id": "systems-voyager-scanner",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "input": "This is my scan.",
       "name": "Scanner",
       "output": "Scan Response",
@@ -139,6 +209,11 @@
       "status": "idle"
    }, {
       "_id": "systems-voyager-shields",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "level": 100,
       "name": "Shields",
       "simulatorId": "voyager",
@@ -146,6 +221,11 @@
       "strength": 100
    }, {
       "_id": "systems-voyager-reactor",
+      "maintenance":{
+         "diagnostic":"idle",
+         "report":null,
+         "time":0
+         },
       "simulatorId": "voyager",
       "name": "Reactor",
       "output": 200,

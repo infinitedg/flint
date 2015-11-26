@@ -52,7 +52,7 @@ Template.viewscreen_sandbox.created = function() {
     this.subscription = Tracker.autorun(function() {
         Meteor.subscribe('cards.card-sensor3d.contacts', Flint.simulatorId());
     });
-        Session.setDefault('viewscreen_currentCamera','main');
+    Session.set('viewscreen_currentCamera','main');
     this.conditionObserver = Flint.collection('simulators').find(Flint.simulatorId()).observeChanges({
         changed: function(id, fields) {
             if (fields.cameraRotationYaw || fields.cameraRotationYaw === 0) {
@@ -319,11 +319,13 @@ function updateBezier(id, options) {
 }
 Template.viewscreen_sandbox.helpers({
     currentCamera:function(){
-        Session.set('viewscreen_currentCamera',this.currentCamera)
+        Session.set('viewscreen_currentCamera',this.currentCamera);
+       // return Session.get('viewscreen_currentCamera');
     }
 })
 
 Template.viewscreen_sandbox.rendered = function() {
+    debugger;
     Session.setDefault('viewscreen_currentCamera',this.data.currentCamera);
     THREE.ImageUtils.crossOrigin = "";
     var up = new THREE.Vector3(0, 1, 0);

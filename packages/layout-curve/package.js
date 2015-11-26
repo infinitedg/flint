@@ -13,6 +13,7 @@ Package.on_use(function(api) {
 	api.addAssets(['fonts/sn-Boldfont.svg','fonts/DINAlternate-Bold.svg'],'client');
 	api.addAssets(['fonts/sn-Boldfont.woff','fonts/DINAlternate-Bold.woff'],'client');
 	api.addAssets(['images/slice1.png','images/slice2.png','images/slice3.png'],'client');
+		api.addAssets(['images/slice1-900.png','images/slice2-900.png','images/slice3-900.png'],'client');
 	api.addAssets(['images/background-blue.svg','images/background-yellow.svg','images/background-orange.svg'],'client');
 	api.addAssets(['images/background-red.svg','images/background-purple.svg'],'client');
 	api.addAssets(['images/simulatorLogo.png'],'client');

@@ -7,6 +7,7 @@ Router.configure({
 Router.onBeforeAction(function(){
   if (!Meteor.user()) {
     this.render('flint_login');
+    this.next();
   } else {
     this.next();
   }
@@ -19,6 +20,7 @@ Router.onBeforeAction(function () {
     this.next(); // Permit downstream functions
   } else {
     NProgress.start();
+    this.next();
   }
 });
 

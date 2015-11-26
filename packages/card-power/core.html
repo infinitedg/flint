@@ -1,15 +1,34 @@
 <template name="core_power">
   <h1>Power Management</h1>
   <div class="row-fluid">
-    <div class="span11">
-      <dl class="dl-horizontal systems">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+        <th>E</th>
+          <th>Name</th>
+          <th>Power</th>
+          <th></th>
+          <th>Max</th>
+        </tr>
+      </thead>
+      <tbody>
         {{#each systems}}
-          <dt>{{name}}</dt>
-          <dd class="systemPower">{{power}} / {{maxPower}}</dd>
+        <tr>
+          <td class="efficiency">{{efficiency}}</td>
+          <td>{{name}}</td>
+          <td class="systemPower">{{power}}</td>
+          <td>/</td>
+          <td>{{maxPower}}</td>
+        </tr>
         {{/each}}
-        <dt>Total Power:</dt>
-        <dd>{{totalPower}} / {{totalPowerAvailable}}</dd>
-      </dl>
-    </div>
+        <tr>
+          <td></td>
+          <td>Total Power:</td>
+          <td>{{totalPower}}</td>
+          <td>/</td>
+          <td>{{totalPowerAvailable}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>

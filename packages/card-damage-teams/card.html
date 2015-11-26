@@ -1,8 +1,8 @@
 <template name="card_damageTeams">
 	<div class="damageTeams container">
 		<div class="row">
-			<div class="col-sm-8">
-				<h1>Work Orders</h1>
+			<h1>Work Orders</h1>
+			<div class="col-sm-9">
 				{{#if workOrdersCount}}
 				{{#sortable items=workOrders animation="100" ghostClass="sortable-ghost" options=attributesOptions}}
 				{{> workOrder_item}}
@@ -10,6 +10,14 @@
 				{{else}}
 				<h2>No outstanding work orders.</h2>
 				{{/if}}
+			</div>
+			<div class="col-sm-3 border-left">
+				<h2>Team Requests</h2>
+				<div class="panel">
+					<div class="panel-body pings">
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
