@@ -2,16 +2,16 @@
 	<div class="damageTeams container">
 		<div class="row">
 			<h1>Work Orders</h1>
-			<div class="col-sm-9">
+			<div class="col-sm-5">
 				{{#if workOrdersCount}}
-				{{#sortable items=workOrders animation="100" ghostClass="sortable-ghost" options=attributesOptions}}
+				{{#sortable items=workOrders sortField="order" animation="100" ghostClass="sortable-ghost" options=attributesOptions}}
 				{{> workOrder_item}}
 				{{/sortable}}
 				{{else}}
 				<h2>No outstanding work orders.</h2>
 				{{/if}}
 			</div>
-			<div class="col-sm-3 border-left">
+			<div class="col-sm-3 col-sm-offset-4 border-left">
 				<h2>Team Requests</h2>
 				<div class="panel">
 					<div class="panel-body pings">
@@ -27,7 +27,7 @@
 	<div class="workOrder">
 		<div class="row-background">
 			<div class="row-front">
-				{{system}}
+				{{system}} {{order}}
 			</div>
 		</div>
 		<div class="radial-progress {{progressStyle}}" data-progress="{{progress}}">

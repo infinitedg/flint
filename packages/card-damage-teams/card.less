@@ -5,17 +5,17 @@
 	counter-reset: orderNum;
 	.workOrder{
 		counter-increment: orderNum;
-		@circle-size: 60px;
+		@circle-size: 50px;
 		width: 100%;
 		position: relative;
 		height: @circle-size;
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 		.row-front{
 			font-weight: 700;
 			text-transform: capitalize;
-			height: 40px;
+			height: 30px;
 			font-size: 25px;
-			line-height: 33px;
+			line-height: 24px;
 			text-align: left;
 			color: #000;
 			padding-right: 20px;
@@ -31,7 +31,7 @@
 		}
 		.row-background{
 			position: absolute;
-			height: 48px;
+			height: 38px;
 			width: calc(~"100% - 160px");
 			margin-top: @circle-size * 0.1325;
 			margin-left: 40px;

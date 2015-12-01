@@ -1,11 +1,16 @@
 Template.card_damageTeams.helpers({
 	workOrders:function(){
-		return Flint.collection('workOrders').find();
+		return Flint.collection('workOrders').find({},{sort:{order:1}});
 	},
 	workOrdersCount:function(){
 		return Flint.collection('workOrders').find().count() > 0;
+	},
+	attributesOptions:{
+		onEnd: function (evt) {
+			Flint.collection('workOrders').update({_id:evt.data._id},{$set:{order:evt.newIndex}});
+		},
 	}
-})
+});
 
 Template.card_damageTeams.onCreated(function(){
 	this.subscribe('damageControl.workOrders',Flint.simulatorId());

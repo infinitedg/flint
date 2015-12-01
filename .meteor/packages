@@ -31,7 +31,7 @@ ccorcos:transitioner
 ficshelf:media-query
 #msavin:mongol
 rubaxa:sortable
-
+momentjs:moment
 ui-dropped-event
 
 
@@ -51,6 +51,7 @@ flint-theme-engine
 flint-snapshot
 flint-heartbeat
 flint-audio-pedals
+flint-hardware
 
 #layout-default
 layout-blackout

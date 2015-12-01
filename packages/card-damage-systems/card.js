@@ -20,6 +20,7 @@ Template.card_damage_systems_tab.helpers({
 });
 Template.card_damage_systems.created = function(){
 	Session.set('damage_systems-currentTab', 'Primary');
+	this.subscribe('damageControl.workOrders',Flint.simulatorId());
 };
 
 Template.card_damage_systems_tile.events({
@@ -45,19 +46,22 @@ Template.card_damage_systems_tile.helpers({
 		}
 	},
 	disabled:function(){
-		if (this.maintenance.diagnostic === 'progress' || this.maintenance.diagnostic === 'orderSent'){
+		if (this.maintenance.diagnostic === 'progress' || Flint.collection('workOrders').find({system_id:this._id}).count() > 0){
+			return 'disabled';
+		}
+		if (this.maintenance.diagnostic === 'complete' && Flint.collection('workOrders').find().count() >= 10){
 			return 'disabled';
 		}
 	},
 	diagnosticLabel:function(){
+		if (Flint.collection('workOrders').find({system_id:this._id}).count() > 0){
+			return 'Order Sent';
+		}
 		if (this.maintenance.diagnostic === 'idle' || !this.maintenance.diagnostic){
 			return 'Run Diagnostic';
 		}
 		if (this.maintenance.diagnostic === 'progress'){
 			return 'In Progress...';
-		}
-		if (this.maintenance.diagnostic === 'orderSent'){
-			return 'Order Sent';
 		}
 		if (this.maintenance.diagnostic === 'complete'){
 			return 'View Work Order';
@@ -82,7 +86,7 @@ Template.card_damage_systems_diagnosticReport.events({
 		var system = Flint.systems.findOne({_id:Session.get('damage_systems-currentReportSystem')});
 		var maintenance = system.maintenance || {};
 		var obj;
-		maintenance.diagnostic = 'orderSent';
+		maintenance.diagnostic = 'idle';
 		Flint.systems.update({_id:Session.get('damage_systems-currentReportSystem')},{$set:{
 			maintenance:maintenance,
 		}
