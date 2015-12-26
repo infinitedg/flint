@@ -1,5 +1,4 @@
 <template name="card_flint_sound">
-	{{> comp_flint_player}}
 	<div class="row flint-sound">
 		<div class="col-sm-8">
 			<div class="row">
@@ -51,82 +50,82 @@
 
 <template name="keyboard">
 	<ul id="keyboard" class={{capsKey}}>
-		<li data-which="9" class="{{keySelected 27}} tab"><span class="off">Esc</span></li>
-		<li data-which="112" class="{{keySelected 112}} symbol"><span class="off">F1</span></li>
-		<li data-which="113" class="{{keySelected 113}} symbol"><span class="off">F2</span></li>
-		<li data-which="114" class="{{keySelected 114}} symbol"><span class="off">F3</span></li>
-		<li data-which="115" class="{{keySelected 115}} symbol"><span class="off">F4</span></li>
-		<li data-which="116" class="{{keySelected 116}} symbol"><span class="off">F5</span></li>
-		<li data-which="117" class="{{keySelected 117}} symbol"><span class="off">F6</span></li>
-		<li data-which="118" class="{{keySelected 118}} symbol"><span class="off">F7</span></li>
-		<li data-which="119" class="{{keySelected 119}} symbol"><span class="off">F8</span></li>
-		<li data-which="120" class="{{keySelected 120}} symbol"><span class="off">F9</span></li>
-		<li data-which="121" class="{{keySelected 121}} symbol"><span class="off">F10</span></li>
-		<li data-which="122" class="{{keySelected 122}} symbol"><span class="off">F11</span></li>
-		<li data-which="123" class="{{keySelected 123}} symbol"><span class="off">F12</span></li>
+		<li data-which="9" data-hidkey="43" class="{{keySelected 27}} tab"><span class="off">Esc</span></li>
+		<li data-which="112" data-hidkey="58" class="{{keySelected 112}} symbol"><span class="off">F1</span></li>
+		<li data-which="113" data-hidkey="59" class="{{keySelected 113}} symbol"><span class="off">F2</span></li>
+		<li data-which="114" data-hidkey="60" class="{{keySelected 114}} symbol"><span class="off">F3</span></li>
+		<li data-which="115" data-hidkey="61" class="{{keySelected 115}} symbol"><span class="off">F4</span></li>
+		<li data-which="116" data-hidkey="62" class="{{keySelected 116}} symbol"><span class="off">F5</span></li>
+		<li data-which="117" data-hidkey="63" class="{{keySelected 117}} symbol"><span class="off">F6</span></li>
+		<li data-which="118" data-hidkey="64" class="{{keySelected 118}} symbol"><span class="off">F7</span></li>
+		<li data-which="119" data-hidkey="65" class="{{keySelected 119}} symbol"><span class="off">F8</span></li>
+		<li data-which="120" data-hidkey="66" class="{{keySelected 120}} symbol"><span class="off">F9</span></li>
+		<li data-which="121" data-hidkey="67" class="{{keySelected 121}} symbol"><span class="off">F10</span></li>
+		<li data-which="122" data-hidkey="68" class="{{keySelected 122}} symbol"><span class="off">F11</span></li>
+		<li data-which="123" data-hidkey="69" class="{{keySelected 123}} symbol"><span class="off">F12</span></li>
 		<li data-which="124" class="{{keySelected 124}} symbol lastitem"><span class="off">&#9167;</span></li>
 
-		<li data-which="192" class="{{keySelected 192}} symbol"><span class="off">`</span></li>
-		<li data-which="49" class="{{keySelected 49}} symbol"><span class="off">1</span></li>
-		<li data-which="50" class="{{keySelected 50}} symbol"><span class="off">2</span></li>
-		<li data-which="51" class="{{keySelected 51}} symbol"><span class="off">3</span></li>
-		<li data-which="52" class="{{keySelected 52}} symbol"><span class="off">4</span></li>
-		<li data-which="53" class="{{keySelected 53}} symbol"><span class="off">5</span></li>
-		<li data-which="54" class="{{keySelected 54}} symbol"><span class="off">6</span></li>
-		<li data-which="55" class="{{keySelected 55}} symbol"><span class="off">7</span></li>
-		<li data-which="56" class="{{keySelected 56}} symbol"><span class="off">8</span></li>
-		<li data-which="57" class="{{keySelected 57}} symbol"><span class="off">9</span></li>
-		<li data-which="48" class="{{keySelected 48}} symbol"><span class="off">0</span></li>
-		<li data-which="189" class="{{keySelected 189}} symbol"><span class="off">-</span></li>
-		<li data-which="187" class="{{keySelected 187}} symbol"><span class="off">=</span></li>
-		<li data-which="8" class="{{keySelected 8}} delete lastitem">delete</li>
+		<li data-which="192" data-hidkey="53" class="{{keySelected 192}} symbol"><span class="off">`</span></li>
+		<li data-which="49" data-hidkey="30" class="{{keySelected 49}} symbol"><span class="off">1</span></li>
+		<li data-which="50" data-hidkey="31" class="{{keySelected 50}} symbol"><span class="off">2</span></li>
+		<li data-which="51" data-hidkey="32" class="{{keySelected 51}} symbol"><span class="off">3</span></li>
+		<li data-which="52" data-hidkey="33" class="{{keySelected 52}} symbol"><span class="off">4</span></li>
+		<li data-which="53" data-hidkey="34" class="{{keySelected 53}} symbol"><span class="off">5</span></li>
+		<li data-which="54" data-hidkey="35" class="{{keySelected 54}} symbol"><span class="off">6</span></li>
+		<li data-which="55" data-hidkey="36" class="{{keySelected 55}} symbol"><span class="off">7</span></li>
+		<li data-which="56" data-hidkey="37" class="{{keySelected 56}} symbol"><span class="off">8</span></li>
+		<li data-which="57" data-hidkey="38" class="{{keySelected 57}} symbol"><span class="off">9</span></li>
+		<li data-which="48" data-hidkey="39" class="{{keySelected 48}} symbol"><span class="off">0</span></li>
+		<li data-which="189" data-hidkey="45" class="{{keySelected 189}} symbol"><span class="off">-</span></li>
+		<li data-which="187" data-hidkey="46" class="{{keySelected 187}} symbol"><span class="off">=</span></li>
+		<li data-which="8" data-hidkey="42" class="{{keySelected 8}} delete lastitem">delete</li>
 
-		<li data-which="9" class="{{keySelected 9}} tab">tab</li>
-		<li data-which="81" class="{{keySelected 81}} letter">q</li>
-		<li data-which="87" class="{{keySelected 87}} letter">w</li>
-		<li data-which="69" class="{{keySelected 69}} letter">e</li>
-		<li data-which="82" class="{{keySelected 82}} letter">r</li>
-		<li data-which="84" class="{{keySelected 84}} letter">t</li>
-		<li data-which="89" class="{{keySelected 89}} letter">y</li>
-		<li data-which="85" class="{{keySelected 85}} letter">u</li>
-		<li data-which="73" class="{{keySelected 73}} letter">i</li>
-		<li data-which="79" class="{{keySelected 79}} letter">o</li>
-		<li data-which="80" class="{{keySelected 80}} letter">p</li>
-		<li data-which="219" class="{{keySelected 219}} symbol"><span class="off">[</span></li>
-		<li data-which="221" class="{{keySelected 221}} symbol"><span class="off">]</span></li>
-		<li data-which="220" class="{{keySelected 220}} symbol lastitem"><span class="off">\</span></li>
+		<li data-which="9" data-hidkey="43" class="{{keySelected 9}} tab">tab</li>
+		<li data-which="81" data-hidkey="20" class="{{keySelected 81}} letter">q</li>
+		<li data-which="87" data-hidkey="26" class="{{keySelected 87}} letter">w</li>
+		<li data-which="69" data-hidkey="8" class="{{keySelected 69}} letter">e</li>
+		<li data-which="82" data-hidkey="21" class="{{keySelected 82}} letter">r</li>
+		<li data-which="84" data-hidkey="23" class="{{keySelected 84}} letter">t</li>
+		<li data-which="89" data-hidkey="28" class="{{keySelected 89}} letter">y</li>
+		<li data-which="85" data-hidkey="24" class="{{keySelected 85}} letter">u</li>
+		<li data-which="73" data-hidkey="12" class="{{keySelected 73}} letter">i</li>
+		<li data-which="79" data-hidkey="18" class="{{keySelected 79}} letter">o</li>
+		<li data-which="80" data-hidkey="19" class="{{keySelected 80}} letter">p</li>
+		<li data-which="219" data-hidkey="47" class="{{keySelected 219}} symbol"><span class="off">[</span></li>
+		<li data-which="221" data-hidkey="48" class="{{keySelected 221}} symbol"><span class="off">]</span></li>
+		<li data-which="220" data-hidkey="59" class="{{keySelected 220}} symbol lastitem"><span class="off">\</span></li>
 
-		<li data-which="20" class="{{modifySelected 20}} modify capslock">caps lock</li>
-		<li data-which="65" class="{{keySelected 65}} letter">a</li>
-		<li data-which="83" class="{{keySelected 83}} letter">s</li>
-		<li data-which="68" class="{{keySelected 68}} letter">d</li>
-		<li data-which="70" class="{{keySelected 70}} letter">f</li>
-		<li data-which="71" class="{{keySelected 71}} letter">g</li>
-		<li data-which="72" class="{{keySelected 72}} letter">h</li>
-		<li data-which="74" class="{{keySelected 74}} letter">j</li>
-		<li data-which="75" class="{{keySelected 75}} letter">k</li>
-		<li data-which="76" class="{{keySelected 76}} letter">l</li>
-		<li data-which="186" class="{{keySelected 186}} symbol"><span class="off">;</span></li>
-		<li data-which="222" class="{{keySelected 222}} symbol"><span class="off">'</span></li>
-		<li data-which="13" class="{{keySelected 13}} return lastitem">return</li>
+		<li data-which="20" data-hidkey="57" class="{{modifySelected 20}} modify capslock">caps lock</li>
+		<li data-which="65" data-hidkey="4" class="{{keySelected 65}} letter">a</li>
+		<li data-which="83" data-hidkey="22" class="{{keySelected 83}} letter">s</li>
+		<li data-which="68" data-hidkey="7" class="{{keySelected 68}} letter">d</li>
+		<li data-which="70" data-hidkey="9" class="{{keySelected 70}} letter">f</li>
+		<li data-which="71" data-hidkey="10" class="{{keySelected 71}} letter">g</li>
+		<li data-which="72" data-hidkey="11" class="{{keySelected 72}} letter">h</li>
+		<li data-which="74" data-hidkey="13" class="{{keySelected 74}} letter">j</li>
+		<li data-which="75" data-hidkey="14" class="{{keySelected 75}} letter">k</li>
+		<li data-which="76" data-hidkey="15" class="{{keySelected 76}} letter">l</li>
+		<li data-which="186" data-hidkey="51" class="{{keySelected 186}} symbol"><span class="off">;</span></li>
+		<li data-which="222" data-hidkey="52" class="{{keySelected 222}} symbol"><span class="off">'</span></li>
+		<li data-which="13" data-hidkey="40" class="{{keySelected 13}} return lastitem">return</li>
 
 		<li data-which="16" class="{{modifySelected 16}} modify left-shift">shift</li>
-		<li data-which="90" class="{{keySelected 90}} letter">z</li>
-		<li data-which="88" class="{{keySelected 88}} letter">x</li>
-		<li data-which="67" class="{{keySelected 67}} letter">c</li>
-		<li data-which="86" class="{{keySelected 86}} letter">v</li>
-		<li data-which="66" class="{{keySelected 66}} letter">b</li>
-		<li data-which="78" class="{{keySelected 78}} letter">n</li>
-		<li data-which="77" class="{{keySelected 77}} letter">m</li>
-		<li data-which="188" class="{{keySelected 188}} symbol"><span class="off">,</span></li>
-		<li data-which="190" class="{{keySelected 190}} symbol"><span class="off">.</span></li>
-		<li data-which="191" class="{{keySelected 191}} cancel symbol"><span class="off">/</span></li>
+		<li data-which="90" data-hidkey="29" class="{{keySelected 90}} letter">z</li>
+		<li data-which="88" data-hidkey="27" class="{{keySelected 88}} letter">x</li>
+		<li data-which="67" data-hidkey="6" class="{{keySelected 67}} letter">c</li>
+		<li data-which="86" data-hidkey="25" class="{{keySelected 86}} letter">v</li>
+		<li data-which="66" data-hidkey="5" class="{{keySelected 66}} letter">b</li>
+		<li data-which="78" data-hidkey="17" class="{{keySelected 78}} letter">n</li>
+		<li data-which="77" data-hidkey="16" class="{{keySelected 77}} letter">m</li>
+		<li data-which="188" data-hidkey="54" class="{{keySelected 188}} symbol"><span class="off">,</span></li>
+		<li data-which="190" data-hidkey="55" class="{{keySelected 190}} symbol"><span class="off">.</span></li>
+		<li data-which="191" data-hidkey="56" class="{{keySelected 191}} cancel symbol"><span class="off">/</span></li>
 		<li data-which="16" class="{{modifySelected 16}} modify right-shift lastitem">shift</li>
 
 		<li data-which="17" class="{{modifySelected 17}} modify left-control">&#9096;</li>
 		<li data-which="18" class="{{modifySelected 18}} modify left-option">&#8997;</li>
 		<li data-which="91" class="{{modifySelected 91}} modify left-command">&#8984;</li>
-		<li data-which="32" class="{{keySelected 32}} space">&nbsp;</li>
+		<li data-which="32" data-hidkey="44" class="{{keySelected 32}} space">&nbsp;</li>
 		<li data-which="93" class="{{modifySelected 93}} modify right-command">&#8984;</li>
 		<li data-which="18" class="{{modifySelected 18}} modify right-option">&#8997;</li>
 		<li data-which="17" class="{{modifySelected 17}} modify right-control lastitem">&#9096;</li>

@@ -1,0 +1,37 @@
+<template name="card_vocoder">
+	<h1>Vocoder</h1>
+	{{#with vocoder}}
+	<ul>
+		<li>
+			<label>Pitch:
+			<input type="range" name="pitch" min="-1" max="1" step="0.05" value="{{pitch}}" />
+			<span class="pitch">({{pitch}})</span>
+			</label>
+		</li>
+		<li>
+			<label>Formant:
+				<input type="range" disabled name="formant" min="0.05" max="2" step="0.05" value="{{formant}}" />
+				<span class="formant">({{formant}})</span>
+			</label>
+		</li>
+		<li>
+			<label>Reverb:
+				<input type="range" name="reverb" min="0" max="1" step="0.05" value="{{reverb}}" />
+				<span class="reverb">({{reverb}})</span>
+			</label>
+		</li>
+		<li>
+			<label>Effect:
+				<input type="range" name="effect" min="0" max="1" step="0.05" value="{{effect}}" />
+				<span class="effect">({{effect}})</span>
+			</label>
+		</li>
+		<li>
+			<label>Volume:
+				<input type="range" name="volume" min="0" max="5" step="0.05" value="{{volume}}" />
+				<span class="volume">({{volume}})</span>
+			</label>
+		</li>
+	</ul>
+	{{/with}}
+</template>

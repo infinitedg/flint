@@ -65,8 +65,8 @@ Flint.Jobs.processJobs('animationQueue', 'animation', {
 		// Animate the object (without the _gsTweenID property)
 		var newValues = _.omit(tweenBank[job._doc._id].target,['_gsTweenID']);
 		Flint.collection(job.data.collection).update(job.data.objId, {$set: newValues});
-		console.log(newValues);
 		if (job.progress() === false || job.progress() === null) {
+			console.log(tweenBank[job._doc._id]);
 			tweenBank[job._doc._id].kill();
 			Flint.collection(job.data.collection).update({_id: job.data.objId}, {$unset: {_animationJobId: 1}});
 			delete tweenBank[job._doc._id];

@@ -46,7 +46,7 @@ flint-assets
 flint-lighting-matrix
 flint-audio-matrix
 flint-macro-engine
-flint-audio-engine
+#flint-audio-engine
 flint-theme-engine
 flint-snapshot
 flint-heartbeat
@@ -144,6 +144,7 @@ card-weapons-phasers
 card-weapons-torpedos
 card-wormhole
 card-damage-systems
+card-vocoder
 flint-drama
 standard-minifiers
 simison:bootstrap3-less

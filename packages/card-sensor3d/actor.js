@@ -12,5 +12,5 @@ Flint.Jobs.createActor('sensor-ping', 500, function() {
 			}
 			Flint.systems.update(doc._id, {$set: setter});
 		}
-	});	
+	});
 });

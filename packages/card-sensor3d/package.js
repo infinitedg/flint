@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) {
-  api.use(['templating', 'flint', 'flint-jobs', 'brentjanderson:kinetic', 'underscore', 'jquery', 'infinitedg:three']);
+  api.use(['templating', 'flint', 'flint-jobs', 'brentjanderson:kinetic', 'underscore', 'jquery', 'infinitedg:three', 'worker-animation']);
 
   api.add_files(['publish.js', 'actor.js'], 'server');
   api.add_files(['core.html', 'core.js', 'card.css'], 'client');

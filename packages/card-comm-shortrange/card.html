@@ -5,28 +5,28 @@
                 <div class="imageBox">
                     <img class="commImage" src="about:blank" />
                 </div>
-                <span class="textbox">Frequency:<br />Comm Name</span>
+                <span class="textbox">Frequency: {{frequency}}</span>
                 <a href="#" class="btn btn-default hail">{{hailLabel}}</a>
                 <a href="#" {{muteEnabled}} class="btn btn-default mute">{{muteLabel}}</a>
 
             </div>
-            <div class="well frequencySelect col-sm-3 col-sm-offset-1">
+            <div class="well frequencySelect col-sm-2 col-sm-offset-1">
                 <div class="commArrows">
                     {{#each currentHails}}
                         <div class="commArrow" style={{arrowLocation}} ></div>
                     {{/each}}
                 </div>
-                <div class="commList">
+               <!-- <div class="commList">
                     {{#each commList}}
                     <p>{{this}}</p>
                     {{/each}}
-                </div>
+                </div> -->
                 <div class="freqControl">
                     <div class="freqBar"></div>
                     <input type="text" id="frequency" value="1" data-slider-min="4" data-slider-max="320" data-slider-step="1" data-slider-value="5" data-slider-orientation="vertical" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden;">
                 </div>
             </div>
-            <div class="well amplitudeSelect col-sm-1">
+            <div class="well amplitudeSelect col-sm-1 col-sm-offset-1">
                 <div class="ampBar"></div>
                 <input type="text" id="amplitude" value='50' data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="5" data-slider-orientation="vertical" data-slider-selection="after" data-slider-tooltip="hide" style="visibility: hidden; width: inherit;">
             </div>

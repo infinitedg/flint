@@ -22,7 +22,22 @@ sounds:
   effects:    - A hashmap of effects with the name of the effect as the key and an object as the parameters eg {filter:{gain:1,wet:0.5,...}}
   */
 //
+//Used to track individual sounds playing back
 var _audioSoundCache = {};
+
+Meteor.startup(function() {
+  Tracker.autorun(function(){
+    var player = Flint.collection('flintSoundPlayers').findOne({playerId: Flint.clientId()});
+    if (player) {
+      Flint.addComponent('comp_flint_webaudio_player');
+    } else {
+      Flint.removeComponent('comp_flint_webaudio_player');
+    }
+  });
+
+  Meteor.subscribe('flint.audio-engine.selfPlayer');
+  Meteor.subscribe('flint.audio-engine.sounds');
+});
 
 Template.comp_flint_webaudio_player.created = function(){
 	
@@ -65,25 +80,23 @@ function downMix(buffer,outputBuffer){
   return outputBuffer;
 }
 
-
-
-
 Flint.playAudioSound = function(opts){
   var self = this;
   var volume = opts.muted ? 0 : opts.volume || 1;
   var playbackRate = opts.paused ? 0 : opts.playbackRate || 1;
-
+  opts._id = opts._id || Random.id();
   self.audioContext = self.audioContext || new (window.AudioContext || window.webkitAudioContext)();
   Tuna(self.audioContext);
   self.audioContext.destination.channelCount = self.audioContext.destination.maxChannelCount;
 
   var channels = self.audioContext.destination.channelCount;
 	// Create an object with a sound source and a volume control.
-	var sound = {};
-	sound.source = self.audioContext.createBufferSource();
-	sound.volume = self.audioContext.createGain();
+	
+  var sound = {};
+  sound.source = self.audioContext.createBufferSource();
+  sound.volume = self.audioContext.createGain();
   sound.volume.gain.value = volume;
-	var asset = Flint.a(opts.assetKey);
+  var asset = Flint.a(opts.assetKey);
 
 	// Connect the sound source to the volume control.
 	sound.source.connect(sound.volume);
@@ -136,14 +149,14 @@ Flint.playAudioSound = function(opts){
           }
         }
       }
-      var source = self.audioContext.createBufferSource();
-      source.buffer = myArrayBuffer;
+      _audioSoundCache[opts._id] = self.audioContext.createBufferSource();
+      _audioSoundCache[opts._id].buffer = myArrayBuffer;
       // Make the sound source loop.
-      source.loop = opts.looping || false;
-      source.playbackRate.value = playbackRate;
+      _audioSoundCache[opts._id].loop = opts.looping || false;
+      _audioSoundCache[opts._id].playbackRate.value = playbackRate;
       //Connect the source through effects nodes
       var effectsObject = {};
-      var previousObject = source;
+      var previousObject = _audioSoundCache[opts._id];
       for (var key in opts.effects){
         if (opts.effects.hasOwnProperty(key)){
           var params = opts.effects[key];
@@ -152,13 +165,75 @@ Flint.playAudioSound = function(opts){
           previousObject = effectsObject[key];
         }
       }
-      
+      _audioSoundCache[opts._id].onended = function(){
+        Flint.collection('flintSounds').remove(opts._id);
+      };
       previousObject.connect(self.audioContext.destination);
-      source.start();
+      _audioSoundCache[opts._id].start();
     }, function onFailure() {
      console.error("Decoding the audio buffer failed");
    });
 };
 request.send();
+};
 
+function refreshSound(sound) {
+  // Sound can be an object or a string
+  // If a string, we assume it's the sound's ID and we go looking
+  if (typeof sound === "string") {
+    var soundObj = Flint.collection('flintSounds').findOne(sound);
+    if (!soundObj) {
+      Flint.Log.error("Attempt to refresh unknown sound " + sound, "flint-audio-engine");
+      return;
+    }
+    sound = soundObj;
+  }
+  _audioSoundCache[sound._id].loop = sound.looping || false;
+  _audioSoundCache[sound._id].playbackRate.value = sound.paused ? 0 : sound.playbackRate || 1;
 }
+
+Template.comp_flint_webaudio_player.created = function() {
+  this.playerSub = Flint.collection('flintSounds').find({ soundPlayers: { $in: [Flint.clientId()] }, parentSounds: {$size: 0} }).observe({
+    added: function(sound) {
+      var asset = Flint.a(sound.assetKey);
+      if (asset) {
+        if (isNaN(parseFloat(sound.delay)) || !isFinite(sound.delay)) {
+          sound.delay = 0;
+        }
+        Meteor.setTimeout(function() {
+          // Use mostly default opts for now
+          var opts = {
+            volume: 1,
+            playbackRate: 1,
+            channels: [0,1],
+            assetKey: sound.assetKey,
+            looping: sound.looping || false,
+            effects: [],
+            _id: sound._id
+          };
+
+          if (_audioSoundCache[sound._id] == undefined){
+            Flint.playAudioSound(opts);
+          }
+        }, sound.delay);
+      } else {
+        Flint.Log.warn("Unable to find asset for sound playback " + sound.assetKey + "; removing sound", "flint-audio-engine");
+        Flint.collection('flintSounds').remove(sound._id);
+      }
+    },
+    changed: function(sound) {
+      refreshSound(sound);
+    },
+    removed: function(sound) {
+      if (_audioSoundCache[sound._id]) {
+        _audioSoundCache[sound._id].stop();
+        delete _audioSoundCache[sound._id];
+      }
+    }
+  });
+};
+
+Template.comp_flint_webaudio_player.destroyed = function() {
+  this.playerSub.stop();
+};
+

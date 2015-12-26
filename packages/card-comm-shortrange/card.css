@@ -24,7 +24,7 @@
   width: 3vw;
   position: absolute;
   right: 4vw;
-  background-image: url(/packages/card-shortRangeComm/svg/freqBar.svg);
+  background-image: url(/packages/card-comm-shortrange/svg/freqBar.svg);
   background-repeat:repeat;
 }
 #card-shortRangeComm .ampBar{
@@ -34,7 +34,7 @@
   top:2.5vh;
   right: 4vw;
 
-  background-image: url(/packages/card-shortRangeComm/svg/ampBar.svg);
+  background-image: url(/packages/card-comm-shortrange/svg/ampBar.svg);
   background-repeat:repeat;
 }
 #card-shortRangeComm .amplitudeSelect{

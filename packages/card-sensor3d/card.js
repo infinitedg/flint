@@ -205,8 +205,7 @@ function toScreenXY(position, camera, div) {
         x: (pos.x + 1) * div.width / 2 + offset.left,
         y: (-pos.y + 1) * div.height / 2 + offset.top
     };
-
-}
+};
 
 function findOffset(element) {
     var pos = {};
@@ -221,19 +220,19 @@ function findOffset(element) {
 }
 
 Template.card_sensor3d.rendered = function () {
-    THREE.ImageUtils.crossOrigin = "";
-
     var sensorLabelOffset = $('.sensorLabel').offset();
     var onRenderFcts = [];
     var mouseVector = new THREE.Vector3();
     var projector = new THREE.Projector();
+    var scene = new THREE.Scene();
+    var hemiLight;
     // Camera
     var camera = new THREE.PerspectiveCamera(45, viewWidth / viewHeight, 0.01, 1000);
     camera.position.z = 130;
     camera.position.y = 90;
+    THREE.ImageUtils.crossOrigin = "";
 
     // Scene
-    var scene = new THREE.Scene();
     window.scene = scene;
     // Debugging Axis
     //scene.add(debugAxes(viewRadius / 2));
@@ -305,7 +304,11 @@ if (Flint.system('Sensors','infrared') != "true") {
 controls = new THREE.OrbitControls(camera, $('.sensor_box')[0]);
 controls.noZoom = true;
 controls.noPan = true;
-
+hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 1 );
+hemiLight.color.setHSL( 1, 1, 1 );
+hemiLight.groundColor.setHSL( 1, 1, 1 );
+hemiLight.position.set( 0, 500, 0 );
+scene.add( hemiLight );
     /*controls.rotateSpeed = 1.0;
 	controls.zoomSpeed = 1.2;
 	controls.panSpeed = 0.8;
@@ -505,14 +508,14 @@ this.sensorObserver = Flint.collection('sensorContacts').find().observe({
                 spriteColor = new THREE.Color(spriteColor);
                 sprite = THREE.ImageUtils.loadTexture(Flint.a('/Sensor Icons/' + doc.icon));
               // sprite = loadImage(Flint.a('/Sensor Icons/' + doc.icon));
-           }
-           var material = new THREE.SpriteMaterial({
+          }
+          var material = new THREE.SpriteMaterial({
             map: sprite,
             useScreenCoordinates: false,
             color: spriteColor
         });
-           sprite = new THREE.Sprite(material);
-           if (Flint.system('Sensors','infrared') == "true") {
+          sprite = new THREE.Sprite(material);
+          if (Flint.system('Sensors','infrared') == "true") {
             if (!doc.infared) {
                 sprite.visible = false;
             }
@@ -523,6 +526,7 @@ this.sensorObserver = Flint.collection('sensorContacts').find().observe({
         }
         sprite.position.set(doc.x * viewRadius / 2, doc.y * viewRadius / 2, doc.z * viewRadius / 2);
         sprite.scale.set(0.05 * viewRadius, 0.05 * viewRadius, 1.0);
+        if (!doc.opacity) doc.opacity = 1;
         sprite.material.opacity = spriteOpacity(sprite,doc.opacity);
         sprite.material.transparent = spriteTransparent(sprite);
         sprite.picture = doc.picture;

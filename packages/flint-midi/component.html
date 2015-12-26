@@ -1,3 +1,60 @@
 <template name="comp_flint_midi">
-    <!--comp_flint_midi-->
+	<!--comp_flint_midi-->
+</template>
+
+<template name="card_flint_midi">
+	<div class="row">
+		<h1>Midi Control</h1>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label>Command</label>
+				<input readonly type="text" class="form-control" value={{midiData.command}} />
+			</div>
+			<div class="form-group">
+				<label>Note</label>
+				<input readonly type="text" class="form-control" value={{midiData.note}} />
+			</div>
+			<div class="form-group">
+				<label>Velocity</label>
+				<input readonly type="text" class="form-control" value={{midiData.velocity}} />
+			</div>
+			{{#if midiData}}
+			{{#if currentChannel}}
+			<button  class="btn btn-block btn-danger removeMidiControl">Remove Midi Control</button>
+			{{else}}
+			<button  class="btn btn-block btn-primary addMidiControl">Add Midi Control</button>
+			{{/if}}
+			{{/if}}
+		</div>
+		{{#if currentChannel}}
+		<div class="col-sm-4">
+			{{#with currentChannel}}
+			<div class="form-group select">
+				<label>Collection</label>
+				<select name="collection">
+					{{#each collections}}
+					<option value="{{name}}">{{name}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Selector (json)</label>
+				<input name="selector" type="text" class="form-control" value="{{selectorString}}" />
+			</div>
+			<div class="form-group">
+				<label>Property Path</label>
+				<input name="propertyPath" type="text" class="form-control" value="{{propertyPath}}" />
+			</div>
+			<div class="form-group select">
+				<label>Transform</label>
+				<select name="transform">
+					{{#each transform}}
+					<option value="{{this}}">{{this}}</option>
+					{{/each}}
+				</select>
+			</div>
+			{{/with}}
+		</div>
+		{{/if}}
+	</div>
 </template>

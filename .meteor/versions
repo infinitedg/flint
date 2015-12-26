@@ -80,6 +80,7 @@ card-video-manager@0.1.0
 card-videochat@0.1.0
 card-viewscreen@0.1.0
 card-viewscreen-control@0.1.0
+card-vocoder@0.1.0
 card-weapons@0.1.0
 card-weapons-phasers@0.1.0
 card-weapons-torpedos@0.1.0
@@ -124,7 +125,6 @@ fastclick@1.0.7
 ficshelf:media-query@1.0.6
 flint@0.1.0
 flint-assets@0.1.0
-flint-audio-engine@0.1.0
 flint-audio-matrix@0.1.0
 flint-audio-pedals@0.1.0
 flint-debug@0.1.0

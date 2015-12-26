@@ -11,7 +11,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.1');
   api.use(['flint', 'templating']);
-  api.addFiles(['component.html', 'client.js'], 'client');
+  api.addFiles(['component.html', 'component.js', 'client.js'], 'client');
   api.addFiles(['server.js'], 'server');
 });
 

@@ -1,4 +1,5 @@
 Template.card_flint_sound.created = function(){
+	Flint.collection('flintSoundPlayers').insert({playerId: Flint.clientId(),simulatorId:Flint.simulatorId(),groupNames:['preview']});
 	Session.setDefault('flint-macros-selectedSet',localStorage.getItem('flint-macros-selectedSet'));
 	Session.setDefault('soundKeyboard-capsKey',false);
 	Session.set('soundKeyboard-selectedModifiers',{
@@ -182,6 +183,7 @@ Template.card_flint_sound.events({
 				_id: undefined,
 				set: Session.get('flint-macros-selectedSet'),
 				key: Session.get('soundKeyboard-selectedKey'),
+				hidkey: Session.get('soundKeyboard-selectedHidKey'),
 				modifiers:Session.get('soundKeyboard-selectedModifiers'),
 			}
 		}
@@ -210,6 +212,7 @@ Template.card_flint_sound.events({
 Template.keyboard.events({
 	'click #keyboard li:not(.modify)':function(e,t){
 		Session.set('soundKeyboard-selectedKey',e.target.dataset.which);
+		Session.set('soundKeyboard-selectedHidKey',e.target.dataset.hidkey);
 		Session.set('flint-macros-currentMacro',null);
 	},
 	'click #keyboard li.modify':function(e,t){

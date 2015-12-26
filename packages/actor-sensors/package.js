@@ -4,7 +4,7 @@ Package.describe({
 });
 
 Package.on_use(function(api) { 
-  api.use(['flint', 'flint-jobs']);
+  api.use(['flint', 'flint-jobs', 'worker-animation']);
    
   api.add_files(['actor.js'], ['server']);
 });

@@ -26,13 +26,14 @@ var observer = Flint.collection('sensorContacts').find({isMoving: true}).observe
 
 var fadeContacts = function(doc){
 	var d = Math.sqrt(Math.pow(doc.x, 2) + Math.pow(doc.y, 2) + Math.pow(doc.z, 2));
-	Flint.tween('sensorContacts', doc._id, 7, {opacity: 0}, {opacity: 0.6 + Math.sqrt(d) * 0.9});
+	Flint.collection('sensorContacts').update({_id:doc._id},{$set:{opacity: 0.6 + Math.sqrt(d) * 0.9}});
+	Flint.tween('sensorContacts', doc._id, 7000, {opacity: 0}, {opacity: 0.6 + Math.sqrt(d) * 0.9});
 };
 
-var intervalObserver = Flint.simulators.find().observe({
+var intervalObserver = Flint.collection('systems').find({'name':'Sensors'}).observe({
 	changed: function(newDoc, oldDoc){
-		if (newDoc.pingInterval != oldDoc.pingInterval){
-			Flint.collection('sensorContacts').find({simulatorId: newDoc._id}).forEach(function(doc){
+		if (newDoc.pingInterval.period != oldDoc.pingInterval.period){
+			Flint.collection('sensorContacts').find({simulatorId: newDoc.simulatorId}).forEach(function(doc){
 				fadeContacts(doc);
 			});
 		}

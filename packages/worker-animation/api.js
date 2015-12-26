@@ -10,7 +10,7 @@
 * @param {Object} beginningState Optional values with which to initialize the object in the collection
 */
 Flint.tween = function(collectionName, objectId, duration, vars, beginningState) {
-	var job = new Job(Flint.Jobs.collection('animationQueue'), 'animation', {
+    var job = new Job(Flint.Jobs.collection('animationQueue'), 'animation', {
     	collection: collectionName,
     	objId: objectId,
     	duration: duration,
