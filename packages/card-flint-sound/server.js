@@ -3,11 +3,13 @@ Meteor.methods({
 		Flint.collection('flintSounds').remove({'simulatorId' : simulatorId,'type' : {$ne:'ambiance'}});
 	},
 	runMacroHIDKey:function (key,mods,simulator){
-		var modifiers = {meta: mods.l_meta || mods.r_meta, alt: mods.l_alt || mods.r_alt, shift: mods.l_shift || mods.r_shift, control: mods.l_control || mods.r_control,};// caps:Session.get('soundKeyboard-capsKey')};
-		Flint.collection('flintMacroKeys').find({'hidkey':key, 'set':Flint.simulators.findOne({_id:simulator}).macroSet}).forEach(function(macroKey){
+		var modifiers = {meta: mods.l_meta || mods.r_meta, alt: mods.l_alt || mods.r_alt, shift: mods.l_shift || mods.r_shift, control: mods.l_control || mods.r_control, caps: false};// caps:Session.get('soundKeyboard-capsKey')};
+		Flint.collection('flintMacroKeys').find({'hidkey':key.toString(), 'set':Flint.simulators.findOne({_id:simulator}).macroSet}).forEach(function(macroKey){
+			console.log(macroKey, JSON.stringify(macroKey.modifiers), JSON.stringify(modifiers));
 			if (JSON.stringify(macroKey.modifiers) == JSON.stringify(modifiers)){
 				Flint.collection('flintMacroPresets').find({'key':macroKey._id}).forEach(function(doc){
-					doc.arguments.soundGroups = ['preview'];
+					doc.arguments.soundGroups = ['main'];
+					doc.arguments.channel = [2,3];
 					var keyPressed = false;
 					var removeKeys = [];
 					if (doc.arguments.looping){
@@ -42,7 +44,7 @@ Meteor.methods({
 					//	doc.arguments.stationId = Flint.station('_id');
 					//}
 					console.log(doc);
-					Flint.macro(doc.name,doc.arguments);
+					Flint.Jobs.scheduleJob('macroQueue', 'macro', {}, {macroName: doc.name, args: doc.arguments});
 				});
 }
 });

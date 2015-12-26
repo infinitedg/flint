@@ -205,7 +205,7 @@ Template.comp_flint_webaudio_player.created = function() {
           var opts = {
             volume: 1,
             playbackRate: 1,
-            channels: [0,1],
+            channel: sound.channel || [0,1],
             assetKey: sound.assetKey,
             looping: sound.looping || false,
             effects: [],

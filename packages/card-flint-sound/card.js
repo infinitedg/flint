@@ -1,3 +1,6 @@
+Template.card_flint_soundPlayer.created = function(){
+		Flint.collection('flintSoundPlayers').insert({playerId: Flint.clientId(),simulatorId:Flint.simulatorId(),groupNames:['main']});
+}
 Template.card_flint_sound.created = function(){
 	Flint.collection('flintSoundPlayers').insert({playerId: Flint.clientId(),simulatorId:Flint.simulatorId(),groupNames:['preview']});
 	Session.setDefault('flint-macros-selectedSet',localStorage.getItem('flint-macros-selectedSet'));
@@ -188,7 +191,7 @@ Template.card_flint_sound.events({
 			}
 		}
 		var keyId = Flint.collection('flintMacroKeys').upsert({'_id':obj._id},obj);
-		if (keyId.insertedId == undefined){
+		if (typeof keyId == 'undefined'|| !keyId.insertedId){
 			keyId = obj._id;
 		} else {
 			keyId = keyId.insertedId;
