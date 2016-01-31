@@ -99,6 +99,7 @@ Template.comp_flint_midi.onCreated(function() {
     var midiNote = data[1];
     var midiVelocity = data[2];
     var _id;
+    var macros;
     var doc = Flint.collection('flintMidiMappings')
     .findOne({midiCommand: midiCommand, midiNote: midiNote});
     Session.set('flint_midi_currentCommand',{command:data[0],note:data[1],velocity:data[2]});
@@ -107,43 +108,61 @@ Template.comp_flint_midi.onCreated(function() {
       if (doc.transform && midiTransform[doc.transform]) {
         midiVelocity = midiTransform[doc.transform](midiVelocity);
       }
-
-      var updateObj = Flint.collection(doc.collection).findOne(doc.selector);
-      delete updateObj._id;
-      //construct the property path properly.
-      var propPath = doc.propertyPath.split('.');
-      if (propPath.length === 1)  {
-        updateObj[propPath[0]] = midiVelocity;
-      }
-      if (propPath.length === 2) {
-        if (!updateObj[propPath[0]]){
-          updateObj[propPath[0]] = {};
+      if (doc.type === 'collection'){
+        var updateObj = Flint.collection(doc.collection).findOne(doc.selector);
+        delete updateObj._id;
+        //construct the property path properly.
+        var propPath = doc.propertyPath.split('.');
+        if (propPath.length === 1)  {
+          updateObj[propPath[0]] = midiVelocity;
         }
-        updateObj[propPath[0]][propPath[1]] = midiVelocity;
-      }
-      if (propPath.length === 3) {
-        if (!updateObj[propPath[0]]){
-          updateObj[propPath[0]] = {};
-        }
-        if (!updateObj[propPath[0]][propPath[1]]) {
+        if (propPath.length === 2) {
+          if (!updateObj[propPath[0]]){
+            updateObj[propPath[0]] = {};
+          }
           updateObj[propPath[0]][propPath[1]] = midiVelocity;
         }
-        updateObj[propPath[0]][propPath[1]][propPath[2]] = midiVelocity;
+        if (propPath.length === 3) {
+          if (!updateObj[propPath[0]]){
+            updateObj[propPath[0]] = {};
+          }
+          if (!updateObj[propPath[0]][propPath[1]]) {
+            updateObj[propPath[0]][propPath[1]] = midiVelocity;
+          }
+          updateObj[propPath[0]][propPath[1]][propPath[2]] = midiVelocity;
+        }
+        if (propPath.length === 4) {
+          if (!updateObj[propPath[0]]){
+            updateObj[propPath[0]] = {};
+          }
+          if (!updateObj[propPath[0]][propPath[1]]) {
+            updateObj[propPath[0]][propPath[1]] = midiVelocity;
+          }
+          if (!updateObj[propPath[0]][propPath[1]][propPath[2]]) {
+            updateObj[propPath[0]][propPath[1]][propPath[2]] = {};
+          }
+          updateObj[propPath[0]][propPath[1]][propPath[2]][propPath[3]] = midiVelocity;
+        }
+        if (Flint.collection(doc.collection).findOne(doc.selector)){
+          Flint.collection(doc.collection).update(doc.selector, {$set: updateObj});
+        }
       }
-      if (propPath.length === 4) {
-        if (!updateObj[propPath[0]]){
-          updateObj[propPath[0]] = {};
-        }
-        if (!updateObj[propPath[0]][propPath[1]]) {
-          updateObj[propPath[0]][propPath[1]] = midiVelocity;
-        }
-        if (!updateObj[propPath[0]][propPath[1]][propPath[2]]) {
-          updateObj[propPath[0]][propPath[1]][propPath[2]] = {};
-        }
-        updateObj[propPath[0]][propPath[1]][propPath[2]][propPath[3]] = midiVelocity;
-      }
-      if (Flint.collection(doc.collection).findOne(doc.selector)){
-        Flint.collection(doc.collection).update(doc.selector, {$set: updateObj});
+      if (doc.type === 'macro'){
+        macros = doc.macros;
+        macros.forEach(function(e){
+          Flint.collection('flintMacroPresets').find({_id:e.id}).forEach(function(macro){
+            if (e.argument){
+              macro.arguments[e.argument] = midiVelocity;
+            }
+            if (!macro.simulatorId) {
+              macro.arguments.simulatorId = Flint.simulatorId();
+            }
+            if (!macro.stationId){
+              macro.arguments.stationId = Flint.station('_id');
+            }
+            Flint.macro(macro.name,macro.arguments);
+          });
+        });
       }
     }
     Session.set('flint_midi_currentChannel', _id);
@@ -163,8 +182,8 @@ Template.comp_flint_midi.onCreated(function() {
     added: function(doc) {
       var fieldFilter = {};
       var propPath = doc.propertyPath.split('.');
-        fieldFilter[propPath[0]] = 1;
-     
+      fieldFilter[propPath[0]] = 1;
+
       Meteor.subscribe('flint-midi.genericSubscriber', doc.collection, doc.selector, fieldFilter);
       //if (Flint.collection(doc.collection).findOne(doc.selector)){
         that.observers[doc._id] = Flint.collection(doc.collection).find(doc.selector, {fields: fieldFilter}).observe({
@@ -190,11 +209,11 @@ Template.comp_flint_midi.onCreated(function() {
             }
           });
      // }
-    },
-    removed: function(doc) {
-      that.observers[doc._id].stop();
-    }
-  });
+   },
+   removed: function(doc) {
+    that.observers[doc._id].stop();
+  }
+});
 });
 
 Template.comp_flint_midi.onDestroyed(function() {

@@ -47,10 +47,24 @@
    }, {
       "_id": "voyager-engineering",
       "name": "Engineering",
-      "cards": [{
+      "cards": [
+      {
          "cardId": "card_reactor",
          "name": "Reactor"
-      }]
+      },
+      {
+         "cardId": "card_powerDistribution",
+         "name": "Power Distribution"
+         },
+         {
+            "cardId":"card_fuelControl",
+            "name":"Fuel Control"
+         },
+         {
+            "cardId":"card_coolant",
+            "name":"Coolant Control"
+         }
+         ]
    }, {
       "_id": "voyager-medical",
       "name": "Medical",
