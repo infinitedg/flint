@@ -83,7 +83,6 @@ cfs:standard-packages
 cfs:filesystem
 cfs:gridfs
 card-core-timeline
-meteorhacks:cluster
 worker-animation
 flint-jobs
 vsivsi:job-collection

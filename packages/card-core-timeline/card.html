@@ -1,3 +1,26 @@
-<template name="card_timeline">
-	<h1>Timeline</h1>
+<template name="card_timelineEditor">
+	<h1>Timeline Editor</h1>
+	{{#if Template.subscriptionsReady}}
+	<p>Timelines:
+		<select>
+			{{#each timelines}}
+				<option value="{{_id}}">{{name}}</option>
+			{{/each}}
+		</select>
+
+		<ol>
+			{{#each steps}}
+				<li>
+					<ul>
+						{{#each this.macros}}
+						<li>{{macroName}}</li>
+						{{/each}}
+					</ul>
+				</li>
+			{{/each}}
+		</ol>
+	</p>
+	{{else}}
+		<p>Loading...</p>
+	{{/if}}
 </template>

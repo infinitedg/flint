@@ -185,7 +185,6 @@ macro-lights@0.1.0
 macro-sounds@0.1.0
 meteor@1.1.10
 meteor-platform@1.2.3
-meteorhacks:cluster@1.6.9
 meteorhacks:kadira@2.26.3
 meteorhacks:meteorx@1.4.1
 minifiers@1.1.7
