@@ -9,6 +9,15 @@ Template.timelineEditor_timeline.events({
 	'click button.connect-mode': function(e, t) {
 		var x = Session.get('timelineEditor_timeline.connect-mode') || false;
 		Session.set('timelineEditor_timeline.connect-mode', !x);
+	},
+	'click button.rename-timeline': function(e, t) {
+		e.preventDefault();
+		bootbox.prompt("What is the new name of this timeline?", function(res){
+			if (res) {
+				var x = Flint.collection('flintTimelines')
+				.update(Session.get('card_timelineEditor.selectedTimeline'), {$set: {name: res}});
+			}
+		});
 	}
 });
 

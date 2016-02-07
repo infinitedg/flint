@@ -171,6 +171,7 @@ layout-admin@0.0.1
 layout-blackout@0.0.1
 layout-core@0.0.1
 layout-curve@0.0.1
+layout-default@0.0.1
 layout-tac-control@0.0.1
 layout-viewscreen@0.0.1
 ldk:three@0.57.0
