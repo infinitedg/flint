@@ -128,6 +128,7 @@ flint@0.1.0
 flint-assets@0.1.0
 flint-audio-matrix@0.1.0
 flint-audio-pedals@0.1.0
+flint-audio-units@0.0.1
 flint-debug@0.1.0
 flint-drama@0.1.0
 flint-files@0.1.0
