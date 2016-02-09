@@ -135,7 +135,7 @@ flint-flash@0.1.0
 flint-hardware@0.0.1
 flint-heartbeat@0.1.0
 flint-jobs@0.0.1
-flint-lighting-matrix@0.2.0
+flint-lighting-control@0.1.0
 flint-macro-engine@0.2.0
 flint-midi@0.0.1
 flint-snapshot@0.1.0

@@ -26,7 +26,7 @@
 					{{#each module}}
 					<div class="module noselect" id='{{_id}}' style="left: {{leftPosition}}px; top: {{topPosition}}px; z-index: 2;">
 						<div class="content">
-							{{> Template.dynamic template=templateName data=data}}
+							{{> Template.dynamic template=templateName data=templateData}}
 						</div>
 					</div>
 					{{/each}}
@@ -41,10 +41,11 @@
 	<div class="input"></div>
 	<div class="form-group">
 		<label>Channel Number</label>
-		<input type="text" class="form-control" value={{number}} />
+		<input name="number" type="text" class="form-control" value={{number}} />
 	</div>
 	<div class="form-group">
 		<label>Label</label>
-		<input type="text" class="form-control" value={{label}} />
+		<input name="label" type="text" class="form-control" value={{label}} />
 	</div>
+	<p>{{value}}</p>
 </template>

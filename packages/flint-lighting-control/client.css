@@ -1,0 +1,69 @@
+
+.range-control:before {
+  content: '';
+  position: absolute;
+  top: calc(40%);
+  left: 0;
+  width: 100%;
+  height: 12px;
+  display: block;
+  background-image: linear-gradient(to bottom,#ebebeb 0,#f5f5f5 100%);
+  background-repeat: repeat-x;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+  z-index: -1;
+}
+.range-control {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin-bottom: 14px;
+  -moz-transform: translate(0, 16px);
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  cursor: pointer;
+  cursor: w-resize;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -ms-grab;
+  cursor: grab;
+  z-index: 1;
+}
+.range-control:active {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -ms-grabbing;
+  cursor: grabbing;
+}
+.range-control:focus {
+  outline: 0;
+}
+.range-control::-webkit-slider-runnable-track {
+  margin: 8px 0 0;
+  background: none;
+  border: 0;
+}
+.range-control::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-width: 0;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #f0f0f2 -webkit-linear-gradient(#f0f0f2, #c2c3cb);
+  background: #f0f0f2 -moz-linear-gradient(#f0f0f2, #c2c3cb);
+  background: #f0f0f2 -o-linear-gradient(#f0f0f2, #c2c3cb);
+  background: #f0f0f2 -ms-linear-gradient(#f0f0f2, #c2c3cb);
+  background: #f0f0f2 linear-gradient(#f0f0f2, #c2c3cb);
+  -webkit-box-shadow: rgba(0,0,0,0.5) 0 4px 8px;
+  box-shadow: rgba(0,0,0,0.5) 0 4px 8px;
+}

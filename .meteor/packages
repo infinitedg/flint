@@ -43,7 +43,7 @@ flint-speech
 flint-utils
 flint-files
 flint-assets
-flint-lighting-matrix
+flint-lighting-control
 flint-audio-matrix
 flint-macro-engine
 #flint-audio-engine

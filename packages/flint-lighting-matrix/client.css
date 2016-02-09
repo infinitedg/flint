@@ -265,6 +265,7 @@ body {
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	display: inline-block;
 	position: absolute;
+	color: #222;
 }
 .module .content {
 	background: #fff;
@@ -318,7 +319,10 @@ body {
 
 .module.analyzer {
 }
-
+.module .content .form-group input{
+	border: solid 1px #eee;
+	color: #222;
+}
 /* Module footer */
 .module footer {
 	background-color: #fff;

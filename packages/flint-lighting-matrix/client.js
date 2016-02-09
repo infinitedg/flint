@@ -1,7 +1,19 @@
+/**
+* Potential Module Types
+* Operations: +, -, *, ÷
+* Boolean: And/Or/Not
+* Signal Converter: much like the converter for the MIDI control
+* Database connection: Specify a collection, document, and key
+**/
 Template.card_lightingCircuit.helpers({
 	templateName: function() {
-		console.log(this, 'lightingmodule_' + this.name);
+		//console.log(this, 'lightingmodule_' + this.name);
 		return 'lightingmodule_' + this.name;
+	},
+	templateData: function(){
+		var data = this.data;
+		data._id = this._id;
+		return data;
 	},
 	moduleTypes: function() {
 		return Flint.collection('flintLightingModuleTypes').find();
@@ -27,7 +39,6 @@ Template.card_lightingCircuit.events({
 		Flint.collection('flintLightingModules').insert(obj);
 	},
 	'mousedown .module': function(event, t) {
-		console.log('hi there!');
 		var dragObj = {};
 		dragObj.zIndex = 0;
 		var el;
@@ -77,10 +88,8 @@ Template.card_lightingCircuit.events({
 		event.preventDefault();
 	},
 	'mousemove .module': function(event, t) {
-		console.log('hi there!');
 		if (Session.get('draggingObject')) {
 			//if (this._id == Session.get('draggingObject')._id) {
-				console.log('were in');
 				var x, y;
 				var dragObj = Session.get('draggingObject');
 					//var e = dragObj.elNode;
@@ -101,8 +110,8 @@ Template.card_lightingCircuit.events({
 						$set: obj
 					});
 
-					if (e.inputConnections) { // update any lines that point in here.
-						var off = e.inputs;
+					if (event.inputConnections) { // update any lines that point in here.
+						var off = event.inputs;
 						x = window.scrollX + 12;
 						y = window.scrollY + 12;
 
@@ -112,15 +121,15 @@ Template.card_lightingCircuit.events({
 							off = off.offsetParent;
 						}
 
-						for (var c = 0; c < e.inputConnections.length; c++) {
-							e.inputConnections[c].line.setAttributeNS(null, "x1", x);
-							e.inputConnections[c].line.setAttributeNS(null, "y1", y);
+						for (var c = 0; c < event.inputConnections.length; c++) {
+							event.inputConnections[c].line.setAttributeNS(null, "x1", x);
+							event.inputConnections[c].line.setAttributeNS(null, "y1", y);
 						}
 					}
 
-					if (e.outputConnections) { // update any lines that point out of here.
+					if (event.outputConnections) { // update any lines that point out of here.
 
-						var off = e.outputs;
+						var off = event.outputs;
 						x = window.scrollX + 12;
 						y = window.scrollY + 12;
 
@@ -130,9 +139,9 @@ Template.card_lightingCircuit.events({
 							off = off.offsetParent;
 						}
 
-						for (var c = 0; c < e.outputConnections.length; c++) {
-							e.outputConnections[c].line.setAttributeNS(null, "x2", x);
-							e.outputConnections[c].line.setAttributeNS(null, "y2", y);
+						for (var c = 0; c < event.outputConnections.length; c++) {
+							event.outputConnections[c].line.setAttributeNS(null, "x2", x);
+							event.outputConnections[c].line.setAttributeNS(null, "y2", y);
 						}
 					}
 
