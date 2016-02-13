@@ -153,7 +153,7 @@ simison:bootstrap3-less
 layout-curve
 tracker
 jshint
-velocity:html-reporter
+#velocity:html-reporter
 sanjo:jasmine
 meteorhacks:kadira
 card-controls-test

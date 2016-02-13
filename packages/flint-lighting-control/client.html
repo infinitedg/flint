@@ -1,10 +1,10 @@
 <template name="card_lightingControl">
-  <div class="container">
+  <div class="container-fluid">
     <h2>
       Lighting Control
     </h2>
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <h4>
           Zones
         </h4>
@@ -31,343 +31,277 @@
           </li>
         </ul>
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="all">
-            <div class="form-group">
-              <label>
-                Intensity
-              </label>
-              <input class="range-control" type="range" min="0" max="255" name="intensity">
-            </div>
-            
-            <div class="form-group">
-              <label>
-                Red
-              </label>
-              <input class="range-control" type="range" min="0" max="255" name="red">
-            </div>
-            
-            <div class="form-group">
-              <label>
-                Green
-              </label>
-              <input class="range-control" type="range" min="0" max="255" name="green">
-            </div>
-            
-            <div class="form-group">
-              <label>
-                Blue
-              </label>
-              <input class="range-control" type="range" min="0" max="255" name="blue">
-			</div>
-                      
-                      <div class="form-group">
-                        <label>
-                          Amber
-                        </label>
-                        <input class="range-control" type="range" min="0" max="255" name="amber">
-                      </div>
-                      
-                      <div class="form-group">
-                        <label>
-                          White
-                        </label>
-                        <input class="range-control" type="range" min="0" max="255" name="white">
-                      </div>
-                      
-                      <div class="form-group">
-                        <label>
-                          UV
-                        </label>
-                        <input class="range-control" type="range" min="0" max="255" name="uv">
-                      </div>
-                      
-                      <div class="form-group">
-                        <label>
-                          Strobe
-                        </label>
-                        <input class="range-control" type="range" min="0" max="255" name="strobe">
-                      </div>
-                  </div>
-                  <div role="tabpanel" class="tab-pane" id="spots">
-                    <div class="form-group">
-                      <label>
-                        Intensity
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="intensity">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Red
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="red">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Green
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="green">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Blue
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="blue">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Amber
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="amber">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        White
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="white">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        UV
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="uv">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Strobe
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="strobe">
-                    </div>
-                  </div>
-                  <div role="tabpanel" class="tab-pane" id="accent">
-                    <div class="form-group">
-                      <label>
-                        Intensity
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="intensity">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Red
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="red">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Green
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="green">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Blue
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="blue">
-                    </div>
-                  </div>
-                  <div role="tabpanel" class="tab-pane" id="hallway">
-                    <div class="form-group">
-                      <label>
-                        Intensity
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="intensity">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Red
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="red">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Green
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="green">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Blue
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="blue">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Amber
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="amber">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        White
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="white">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        UV
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="uv">
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>
-                        Strobe
-                      </label>
-                      <input class="range-control" type="range" min="0" max="255" name="strobe">
-                    </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-sm-4">
-            <h4>
-              Presets
-            </h4>
-            <div class="row">
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#555555">
-                  Blackout
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#ffffff">
-                  Full Intensity
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#330000">
-                  Red Off
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#ff0000">
-                  Red On
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#003300">
-                  Green Off
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#00ff00">
-                  Green Full
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#000033">
-                  Blue Off
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#0000ff">
-                  Blue Full
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#4D2B00">
-                  Amber Off
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#FF9100">
-                  Amber Full
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#333333">
-                  White Off
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#ffffff">
-                  White Full
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#5E00A6">
-                  UV Off
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#D500FF">
-                  UV Full
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#696546">
-                  Solo Off
-                </button>
-              </div>
-              <div class="col-xs-12">
-                <button class="macro btn btn-sm btn-block btn-default" style="background-color:#FFF6B1">
-                  Solo Full
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <h4>
-              Effects
-            </h4>
-            <button class="white-lights btn btn-block btn-default">
-              White Lights
-            </button>
-            <button class="shake-white btn btn-block btn-default">
-              Shake White
-            </button>
-            <button class="fade-white-down btn btn-block btn-default">
-              Fade White Down
-            </button>
-            <button class="fade-white-up btn btn-block btn-default">
-              Fade White Up
-            </button>
-            <button class="strobe-white btn btn-block btn-default">
-              Strobe White
-            </button>
-            <button class="flicker-white btn btn-block btn-default">
-              Flicker White
-            </button>
-            <button class="red-lights btn btn-block btn-danger">
-              Red Lights
-            </button>
-            <button class="shake-red btn btn-block btn-danger">
-              Shake Reds
-            </button>
-            <button class="fade-red-down btn btn-block btn-danger">
-              Fade Red Down
-            </button>
-            <button class="fade-red-up btn btn-block btn-danger">
-              Fade Red Up
-            </button>
-            <button class="strobe-red btn btn-block btn-danger">
-              Strobe Red
-            </button>
-            <button class="flicker-red btn btn-block btn-danger">
-              Flicker Red
-            </button>
-            <button class="blackout btn btn-block btn-black">
-              Blackout
-            </button>
-            <button class="fade-to-black btn btn-block btn-black">
-              Fade To Black
-            </button>
-          </div>
+          {{> lighting_all}}
+          {{> lighting_spots}}
+          {{> lighting_accent}}
+          {{> lighting_hallway}}
+        </div>
       </div>
+      <div class="col-sm-6">
+        <h4>
+          Effects
+        </h4>
+        <div class="col-sm-6">
+          <button class="white-lights btn btn-block btn-default">
+            White Lights
+          </button>
+          <button class="shake-white btn btn-block btn-default">
+            Shake White
+          </button>
+          <button class="fade-white-down btn btn-block btn-default">
+            Fade White Down
+          </button>
+          <button class="fade-white-up btn btn-block btn-default">
+            Fade White Up
+          </button>
+          <button class="strobe-white btn btn-block btn-default">
+            Strobe White
+          </button>
+          <button class="flicker-white btn btn-block btn-default">
+            Flicker White
+          </button>
+        </div>
+        <div class="col-sm-6">
+          <button class="red-lights btn btn-block btn-danger">
+            Red Lights
+          </button>
+          <button class="shake-red btn btn-block btn-danger">
+            Shake Reds
+          </button>
+          <button class="fade-red-down btn btn-block btn-danger">
+            Fade Red Down
+          </button>
+          <button class="fade-red-up btn btn-block btn-danger">
+            Fade Red Up
+          </button>
+          <button class="strobe-red btn btn-block btn-danger">
+            Strobe Red
+          </button>
+          <button class="flicker-red btn btn-block btn-danger">
+            Flicker Red
+          </button>
+        </div>
+        <div class="col-sm-12">
+          <button class="blackout btn btn-block btn-black">
+            Blackout
+          </button>
+          <button class="fade-to-black btn btn-block btn-black">
+            Fade To Black
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
+<template name="lighting_all">
+  <div role="tabpanel" class="tab-pane active" id="all">
+    <div class="form-group">
+      <label>
+        Intensity
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="intensity">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Red
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="red">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Green
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="green">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Blue
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="blue">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Amber
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="amber">
+    </div>
+
+    <div class="form-group">
+      <label>
+        White
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="white">
+    </div>
+
+    <div class="form-group">
+      <label>
+        UV
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="uv">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Strobe
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="strobe">
+    </div>
+  </div>
+</template>
+
+<template name="lighting_spots">
+  <div role="tabpanel" class="tab-pane" id="spots">
+    <div class="form-group">
+      <label>
+        Intensity
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="intensity">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Red
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="red">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Green
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="green">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Blue
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="blue">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Amber
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="amber">
+    </div>
+
+    <div class="form-group">
+      <label>
+        White
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="white">
+    </div>
+
+    <div class="form-group">
+      <label>
+        UV
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="uv">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Strobe
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="strobe">
+    </div>
+  </div>
+</template>
+
+<template name="lighting_accent">
+  <div role="tabpanel" class="tab-pane" id="accent">
+    <div class="form-group">
+      <label>
+        Intensity
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="intensity">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Red
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="red">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Green
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="green">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Blue
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="blue">
+    </div>
+  </div>
+</template>
+
+<template name="lighting_hallway">
+  <div role="tabpanel" class="tab-pane" id="hallway">
+    <div class="form-group">
+      <label>
+        Intensity
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="intensity">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Red
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="red">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Green
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="green">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Blue
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="blue">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Amber
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="amber">
+    </div>
+
+    <div class="form-group">
+      <label>
+        White
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="white">
+    </div>
+
+    <div class="form-group">
+      <label>
+        UV
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="uv">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Strobe
+      </label>
+      <input class="range-control" type="range" min="0" max="255" name="strobe">
+    </div>
+  </div>
+</template>
