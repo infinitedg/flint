@@ -41,53 +41,12 @@
         <h4>
           Effects
         </h4>
-        <div class="col-sm-6">
-          <button class="white-lights btn btn-block btn-default">
-            White Lights
-          </button>
-          <button class="shake-white btn btn-block btn-default">
-            Shake White
-          </button>
-          <button class="fade-white-down btn btn-block btn-default">
-            Fade White Down
-          </button>
-          <button class="fade-white-up btn btn-block btn-default">
-            Fade White Up
-          </button>
-          <button class="strobe-white btn btn-block btn-default">
-            Strobe White
-          </button>
-          <button class="flicker-white btn btn-block btn-default">
-            Flicker White
-          </button>
-        </div>
-        <div class="col-sm-6">
-          <button class="red-lights btn btn-block btn-danger">
-            Red Lights
-          </button>
-          <button class="shake-red btn btn-block btn-danger">
-            Shake Reds
-          </button>
-          <button class="fade-red-down btn btn-block btn-danger">
-            Fade Red Down
-          </button>
-          <button class="fade-red-up btn btn-block btn-danger">
-            Fade Red Up
-          </button>
-          <button class="strobe-red btn btn-block btn-danger">
-            Strobe Red
-          </button>
-          <button class="flicker-red btn btn-block btn-danger">
-            Flicker Red
-          </button>
-        </div>
-        <div class="col-sm-12">
-          <button class="blackout btn btn-block btn-black">
-            Blackout
-          </button>
-          <button class="fade-to-black btn btn-block btn-black">
-            Fade To Black
-          </button>
+        <div class="row">
+          {{#each macro}}
+          <div class="col-sm-6">
+                  <button class="macro btn btn-block btn-default" style="background-color:{{color}}">{{name}}</button>
+          </div>
+          {{/each}}
         </div>
       </div>
     </div>
