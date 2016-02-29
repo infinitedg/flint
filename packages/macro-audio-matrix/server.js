@@ -53,11 +53,12 @@ Flint.registerMacro('audioMatrixVolume',
 			mixId:args.mixId,
 			busId:args.busId
 		})
-		if (volume > 1)
-			volume = 1;
-		if (volume < 0)
-			volume = 0;
-		Flint.collection('AudioMatrixSend').update({_id:intersection._id}, {$set: {volume:volume}});
+		if (args.volume > 1)
+			args.volume = 1;
+		if (args.volume < 0)
+			args.volume = 0;
+		console.log(intersection,args.volume);
+		Flint.collection('AudioMatrixSend').update({_id:intersection._id}, {$set: {volume:args.volume}});
 	}
 );
 

@@ -10,6 +10,9 @@ var midiTransform = Template.comp_flint_midi.midiTransform = {
   scaleTo4:function(x){
     return x * 4 / 127;
   },
+  scaleTo4Inverse:function(x){
+    return abs(x - 127) * 4 / 127;
+  },
   bool:function(value){
     if (value > 0){
       return true;
@@ -148,7 +151,7 @@ Template.comp_flint_midi.onCreated(function() {
         }
       }
       if (doc.type === 'macro'){
-        macros = doc.macros;
+        var macros = doc.macros;
         macros.forEach(function(e){
           Flint.collection('flintMacroPresets').find({_id:e.id}).forEach(function(macro){
             if (e.argument){
@@ -183,7 +186,7 @@ Template.comp_flint_midi.onCreated(function() {
       var fieldFilter = {};
       var propPath = doc.propertyPath.split('.');
       fieldFilter[propPath[0]] = 1;
-
+      console.log('Subscribed to:', doc.collection, doc.selector, fieldFilter);
       Meteor.subscribe('flint-midi.genericSubscriber', doc.collection, doc.selector, fieldFilter);
       //if (Flint.collection(doc.collection).findOne(doc.selector)){
         that.observers[doc._id] = Flint.collection(doc.collection).find(doc.selector, {fields: fieldFilter}).observe({
