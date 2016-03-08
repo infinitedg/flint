@@ -7,3 +7,9 @@ Template.card_lightingControl.helpers({
 		return macros.find();
 	}
 })
+
+Template.card_lightingControl.events({
+	'click .macro':function(e){
+		console.log(this);
+	}
+})
