@@ -30,6 +30,13 @@ var midiTransform = Template.comp_flint_midi.midiTransform = {
   },
   mod4:function(value){
     return Math.ceil(((value + 1) / 128) * 4);
+  },
+  audioConvert:function(value){
+    //Useful for the log function of the audio channels
+    var base = Math.sqrt(5);
+    var output = Math.pow(base, (value/64)) - 1;
+    console.log(value, output);
+    return output;
   }
 };
 
@@ -61,6 +68,11 @@ var midiTransformInverse = Template.comp_flint_midi.midiTransformInverse = {
   },
   mod4:function(value){
     return value * (127 / 4);
+  },
+  audioConvert:function(value){
+    var output = (128 * Math.log(1 + value)) / (Math.log(5));
+    console.log('Reverse',value,output);
+    return output;
   }
 };
 
@@ -100,7 +112,6 @@ Template.comp_flint_midi.onCreated(function() {
 
     var midiCommand = data[0];
     var midiNote = data[1];
-    var midiVelocity = data[2];
     var _id;
     var macros;
     var doc = Flint.collection('flintMidiMappings')
@@ -108,14 +119,15 @@ Template.comp_flint_midi.onCreated(function() {
     Session.set('flint_midi_currentCommand',{command:data[0],note:data[1],velocity:data[2]});
     if (doc) {
       _id = doc._id;
-      if (doc.transform && midiTransform[doc.transform]) {
-        midiVelocity = midiTransform[doc.transform](midiVelocity);
-      }
-      if (doc.type === 'collection'){
-        var updateObj = Flint.collection(doc.collection).findOne(doc.selector);
+      doc.operations.forEach(function(e){
+        var midiVelocity = data[2];
+        if (e.transform && midiTransform[e.transform]) {
+          midiVelocity = midiTransform[e.transform](midiVelocity);
+        }
+        var updateObj = Flint.collection(e.collection).findOne(e.selector);
         delete updateObj._id;
         //construct the property path properly.
-        var propPath = doc.propertyPath.split('.');
+        var propPath = e.propertyPath.split('.');
         if (propPath.length === 1)  {
           updateObj[propPath[0]] = midiVelocity;
         }
@@ -146,27 +158,10 @@ Template.comp_flint_midi.onCreated(function() {
           }
           updateObj[propPath[0]][propPath[1]][propPath[2]][propPath[3]] = midiVelocity;
         }
-        if (Flint.collection(doc.collection).findOne(doc.selector)){
-          Flint.collection(doc.collection).update(doc.selector, {$set: updateObj});
+        if (Flint.collection(e.collection).findOne(e.selector)){
+          Flint.collection(e.collection).update(e.selector, {$set: updateObj});
         }
-      }
-      if (doc.type === 'macro'){
-        var macros = doc.macros;
-        macros.forEach(function(e){
-          Flint.collection('flintMacroPresets').find({_id:e.id}).forEach(function(macro){
-            if (e.argument){
-              macro.arguments[e.argument] = midiVelocity;
-            }
-            if (!macro.simulatorId) {
-              macro.arguments.simulatorId = Flint.simulatorId();
-            }
-            if (!macro.stationId){
-              macro.arguments.stationId = Flint.station('_id');
-            }
-            Flint.macro(macro.name,macro.arguments);
-          });
-        });
-      }
+      })
     }
     Session.set('flint_midi_currentChannel', _id);
   }
@@ -183,11 +178,14 @@ Template.comp_flint_midi.onCreated(function() {
 
   this.observers.baseObserver = Flint.collection('flintMidiMappings').find({}).observe({
     added: function(doc) {
-      var fieldFilter = {};
-      var propPath = doc.propertyPath.split('.');
-      fieldFilter[propPath[0]] = 1;
-      console.log('Subscribed to:', doc.collection, doc.selector, fieldFilter);
-      Meteor.subscribe('flint-midi.genericSubscriber', doc.collection, doc.selector, fieldFilter);
+
+      doc.operations.forEach(function(e){
+        var fieldFilter = {};
+        var propPath = e.propertyPath.split('.');
+        fieldFilter[propPath[0]] = 1;
+        Meteor.subscribe('flint-midi.genericSubscriber', e.collection, e.selector, fieldFilter);
+        console.log('Subscribed to:', e.collection, e.selector, fieldFilter);
+      })
       //if (Flint.collection(doc.collection).findOne(doc.selector)){
         that.observers[doc._id] = Flint.collection(doc.collection).find(doc.selector, {fields: fieldFilter}).observe({
             /**
@@ -201,14 +199,18 @@ Template.comp_flint_midi.onCreated(function() {
               if (doc.transform) {
                 midiVelocity = midiTransformInverse[doc.transform](midiVelocity);
               }
-              sendMIDIMessage(doc.midiCommand, doc.midiNote, midiVelocity);
+              if (midiVelocity){
+                sendMIDIMessage(doc.midiCommand, doc.midiNote, midiVelocity);
+              }
             },
             changed: function(targetDoc) {
               var midiVelocity = targetDoc[doc.propertyPath];
               if (doc.transform) {
                 midiVelocity = midiTransformInverse[doc.transform](midiVelocity);
               }
-              sendMIDIMessage(doc.midiCommand, doc.midiNote, midiVelocity);
+              if (midiVelocity){
+                sendMIDIMessage(doc.midiCommand, doc.midiNote, midiVelocity);
+              }
             }
           });
      // }

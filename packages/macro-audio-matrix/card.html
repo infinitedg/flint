@@ -122,3 +122,37 @@
 		{{/if}}
 	</div>
 </template>
+
+<template name="macro_audioMatrixInputVolume">
+	<div class="row audioMatrixToggleConfig">
+		<div class="form-group">
+			<label>Matrix</label>
+			<div class="select">
+				<select id="matrix">
+					<option> </option>
+					{{#each matrixList}}
+					<option {{matrixSelected}} value="{{_id}}">{{name}}</option>
+					{{/each}}
+				</select>
+			</div>
+		</div>
+		{{#if matrixSelected}}
+		<div class="form-group">
+			<label>Input</label>
+			<div class="select">
+				<select id="mix">
+					{{#each mixList}}
+					<option {{mixSelected}} value="{{_id}}">{{name}}</option>
+					{{/each}}
+				</select>
+			</div>
+		</div>
+		<div class="checkbox">
+			<label>
+				  <input type="range" name="volume" id="volume" min="0" max="1" step="0.01" value={{volumeValue}}>
+				  Volume
+			</label>
+		</div>
+		{{/if}}
+	</div>
+</template>
