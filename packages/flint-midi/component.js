@@ -77,7 +77,21 @@ var midiTransformInverse = Template.comp_flint_midi.midiTransformInverse = {
 };
 
 Template.comp_flint_midi.onCreated(function() {
-  Meteor.subscribe("flint-midi.flintMidiMappings");
+  Meteor.subscribe("flint-midi.flintMidiMappings",{
+    onReady:function(){
+      Flint.collection('flintMidiMappings').find().forEach(function(doc){
+        if (doc.operations){
+          doc.operations.forEach(function(e){
+            var fieldFilter = {};
+            var propPath = e.propertyPath.split('.');
+            fieldFilter[propPath[0]] = 1;
+            Meteor.subscribe('flint-midi.genericSubscriber', e.collection, e.selector, fieldFilter);
+            console.log('Subscribed to:', e.collection, e.selector, fieldFilter);
+          })
+        }
+      })
+    }
+  });
   console.log('comp_flint_midi created');
   // request MIDI access
   if (navigator.requestMIDIAccess) {
@@ -170,13 +184,12 @@ Template.comp_flint_midi.onCreated(function() {
     // @TODO Figure out how to address a specific MIDI input/output
     this.midiOutput.send([midiCommand, midiNote, midiVelocity]);
   }
-
   // Setup observers for all MIDI collection values
   this.observers = {};
 
   var that = this;
 
-  this.observers.baseObserver = Flint.collection('flintMidiMappings').find({}).observe({
+  /*this.observers.baseObserver = Flint.collection('flintMidiMappings').find({}).observe({
     added: function(doc) {
 
       doc.operations.forEach(function(e){
@@ -194,7 +207,7 @@ Template.comp_flint_midi.onCreated(function() {
             untransform it (so it's between 0 and 127)
             and then write it back to the MIDI device
             */
-            added: function(targetDoc) {
+            /*added: function(targetDoc) {
               var midiVelocity = targetDoc[doc.propertyPath];
               if (doc.transform) {
                 midiVelocity = midiTransformInverse[doc.transform](midiVelocity);
@@ -224,5 +237,5 @@ Template.comp_flint_midi.onCreated(function() {
 Template.comp_flint_midi.onDestroyed(function() {
   _.each(_.values(this.observers), function(obs) {
     obs.stop();
-  });
+  });*/
 });
