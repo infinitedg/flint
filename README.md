@@ -16,6 +16,7 @@ If you aren't familliar with what `cd` or your command line does, then first tak
 6. `cd` to the directory you'd like to keep `Flint` and clone it by running `git clone https://bitbucket.org/infinitedev/flint.git`
 7. To run the project, simply fire up `meteor --settings settings.json`
   * You may need to create the settings.json file with new keys, based on settings.json.sample
+  * Make sure you change the 'audioMatrix' key to false
 
 ## Contributing
 All Javascript code contributions must pass JSHint testing. JSHint automatically tests all code
@@ -45,12 +46,12 @@ In each case, visit http://localhost:3000 to view the tests.
 For more information on testing meteor apps, see https://velocity.readme.io/ and http://www.meteortesting.com/.
 
 ## Contributor's Agreement
-See docs/legal for the official contributors agreement. This document must be signed and returned to Infinite Development Group prior to making contributions to this repository.
+See docs/legal for the official contributors agreement. This document must be signed and returned to Infinite Development Group prior to making contributions to this repository or having pull requests accepted. Contributions to forked repositories without the contributors agreement is allowed.
 
 ### Legal TLDR
-Unless prior arrangements are made, all contributions to this project are completely volunteer and uncompensated. You'll get a pat on the back and a big "thank you", and we'll put your name in CREDITS.md. By contributing, you assign all rights and ownership to any contributions you make to this project to Infinite Development Group. You also certify that you are able to do so without conflicting with other agreements (e.g. with employers, etc.).
+Unless prior arrangements are made, all contributions to this project are completely volunteer and uncompensated. You'll get a pat on the back and a big "thank you", and we'll put your name in CREDITS.md. By contributing, you assign all rights and ownership to any contributions you make to this project to Infinite Development Group, licensed under AGPLv3. You also certify that you are able to do so without conflicting with other agreements (e.g. with employers, etc.).
 
 ## Licenses & 3rd party software
-3Rd party software in the project is governed by their respective license. Check out the licenses at the top of the various files for more information on the licenses for various components. See LICENSE.md for specifics.
+3rd party software in the project is governed by their respective license. Check out the licenses at the top of the various files for more information on the licenses for various components. All other components are copyright their respective owners, licensed under AGPLv3. See LICENSE.md for specifics.
 
-Flint is Copyright 2013-2015 by Infinite Development Group, LLC. All Rights Reserved Worldwide.
+Flint is Copyright 2013-2016 by Infinite Development Group, LLC. Licensed under AGPLv3. All Rights Reserved Worldwide.
