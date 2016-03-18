@@ -17,6 +17,9 @@ Template.macro_runLightMacro.events({
 	'change #macroSelect':function(e,t){
 		updateMacro('macro', e.target.value);
 	},
+	'change #delay':function(e,t){
+		updateMacro('delay', e.target.value);
+	}
 })
 function updateMacro(argumentName, value){
 	var macro = Session.get('flint-macros-currentMacro');

@@ -58,10 +58,13 @@ Meteor.startup(function(){
 		{
 			macro: "Which macro to run. Configure on the lighting server",
 		}, function(macroArgs) {
+			var delay = macroArgs.delay || 0;
 			if (!macroArgs.macro)
 				throw new Meteor.Error('flint-no-macro-name', 'The macro does not have an macro name!');
 			console.log('runMacro',macroArgs.macro);
-			Flint.remote('light-server').call('runMacro', macroArgs.macro);
+			Meteor.setTimeout(function(){
+				Flint.remote('light-server').call('runMacro', macroArgs.macro);
+			},delay); 		
 		});
 });
 
