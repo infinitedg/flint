@@ -19,6 +19,6 @@
 		}
 	},
 	"audioMatrix": {
-		"debug": false
+		"debug": true
 	}
 }
