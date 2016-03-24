@@ -4,7 +4,7 @@ Meteor.publish("flint-midi.flintMidiMappings", function() {
 
 // Used to ensure that targeted objects are available on the client
 Meteor.publish("flint-midi.genericSubscriber", function(collection, selector, fieldFilter) {
-	return Flint.collection(collection).find(selector, {fields: fieldFilter});
+	return Flint.collection(collection).find(selector);//, {fields: fieldFilter});
 });
 
 Meteor.publish("flint-midi.collections", function() {

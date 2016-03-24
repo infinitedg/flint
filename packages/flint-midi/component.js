@@ -35,7 +35,6 @@ var midiTransform = Template.comp_flint_midi.midiTransform = {
     //Useful for the log function of the audio channels
     var base = Math.sqrt(5);
     var output = Math.pow(base, (value/64)) - 1;
-    console.log(value, output);
     return output;
   }
 };
@@ -120,25 +119,16 @@ Template.comp_flint_midi.onCreated(function() {
     // when we get a failed response, run this code
     Flint.Log.error('No support for MIDI devices found: ' + error);
   }
-
-  function onMIDIMessage(message) {
-    var data = message.data; // this gives us our [command/channel, note, velocity] data.
-
-    var midiCommand = data[0];
-    var midiNote = data[1];
-    var _id;
-    var macros;
-    var doc = Flint.collection('flintMidiMappings')
-    .findOne({midiCommand: midiCommand, midiNote: midiNote});
-    Session.set('flint_midi_currentCommand',{command:data[0],note:data[1],velocity:data[2]});
-    if (doc) {
-      _id = doc._id;
+  var sendUpdate = _.throttle(function(doc, data){
+        console.log('Running Operations', data[2])
+        _id = doc._id;
       doc.operations.forEach(function(e){
         var midiVelocity = data[2];
         if (e.transform && midiTransform[e.transform]) {
           midiVelocity = midiTransform[e.transform](midiVelocity);
         }
         var updateObj = Flint.collection(e.collection).findOne(e.selector);
+        var docId = updateObj._id;
         delete updateObj._id;
         //construct the property path properly.
         var propPath = e.propertyPath.split('.');
@@ -173,9 +163,22 @@ Template.comp_flint_midi.onCreated(function() {
           updateObj[propPath[0]][propPath[1]][propPath[2]][propPath[3]] = midiVelocity;
         }
         if (Flint.collection(e.collection).findOne(e.selector)){
-          Flint.collection(e.collection).update(e.selector, {$set: updateObj});
+          Flint.collection(e.collection).update(docId, {$set: updateObj});
         }
       })
+      },60);
+  function onMIDIMessage(message) {
+    var data = message.data; // this gives us our [command/channel, note, velocity] data.
+
+    var midiCommand = data[0];
+    var midiNote = data[1];
+    var _id;
+    var macros;
+    var doc = Flint.collection('flintMidiMappings')
+    .findOne({midiCommand: midiCommand, midiNote: midiNote});
+    Session.set('flint_midi_currentCommand',{command:data[0],note:data[1],velocity:data[2]});
+    if (doc) {
+      sendUpdate(doc,data);
     }
     Session.set('flint_midi_currentChannel', _id);
   }

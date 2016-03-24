@@ -53,7 +53,7 @@ Template.macro_flint_ambiance.events({
 	'change [data-key]':function(e){
 		var obj = {};
 		obj[e.target.dataset.key] = e.target.value;
-		if (e.target.dataset.key == 'channels') obj[e.target.dataset.key = JSON.parse(e.target.value)];
+		if (e.target.dataset.key == 'channels') obj[e.target.dataset.key] = JSON.parse(e.target.value);
 		Flint.collection('flintambiance').update({_id:this._id},
 			{$set:obj});
 	},

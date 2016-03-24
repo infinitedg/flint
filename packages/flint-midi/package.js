@@ -10,7 +10,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.4.1');
-  api.use(['flint', 'templating']);
+  api.use(['flint', 'templating','underscore']);
   api.addFiles(['component.html', 'component.js', 'client.js'], 'client');
   api.addFiles(['server.js'], 'server');
 });
