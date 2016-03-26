@@ -36,6 +36,10 @@ var midiTransform = Template.comp_flint_midi.midiTransform = {
     var base = Math.sqrt(5);
     var output = Math.pow(base, (value/64)) - 1;
     return output;
+  },
+  // Scale to range of -1024 to 1024, with 64 (middle) as zero
+  vocoderPitchParam: function(value) {
+    return (value - 64) * 16; 
   }
 };
 
