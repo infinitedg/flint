@@ -147,7 +147,6 @@ card-damage-systems
 card-vocoder
 card-fuel-control
 flint-drama
-standard-minifiers
 simison:bootstrap3-less
 #layout-default
 layout-curve
@@ -158,3 +157,5 @@ sanjo:jasmine
 meteorhacks:kadira
 card-controls-test
 flint-audio-units
+standard-minifier-css
+standard-minifier-js
