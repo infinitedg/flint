@@ -24,6 +24,59 @@ Template.card_flint_midi.helpers({
 	},
 	selectedCollection:function(){
 		return (Template.parentData().collection == this.name.toString());
+	},
+	'configTemplate':function(){
+		var macro = Session.get('flint-macros-currentMacro');
+		if (macro != undefined){
+			return 'macro_' + macro.name;
+		} else {
+			return null;
+		}
+	},
+	'configArguments':function(){
+		var macro = Session.get('flint-macros-currentMacro');
+		if (macro != undefined){
+			return macro.arguments;
+		} else {
+			return null;
+		}
+	},
+	channelType:function(type){
+		if (type === this.type){
+			return true;
+		}
+		return false;
+	},
+	selectedMacro:function(){
+		if (JSON.stringify(this) === JSON.stringify(Session.get('flint-macros-currentMacro'))){
+			return 'selected';
+		}
+	},
+	macros:function(){
+		if (this.macros){
+			return this.macros.map(function(e){
+				return Flint.collection('flintMacroPresets').findOne(e.id);
+			});
+		}
+	},
+	macroArgument:function(){
+		var macro = Session.get('flint-macros-currentMacro');
+		var midiChannel = Flint.collection('flintMidiMappings').findOne({midiCommand:Session.get('flint_midi_currentCommand').command, midiNote:Session.get('flint_midi_currentCommand').note});
+		var _id = macro._id;
+		for (var i = midiChannel.operations.length - 1; i >= 0; i--){
+			if (this.id === midiChannel.operations[i].id){
+				var macros = midiChannel.operations[i].macros;
+				macros.forEach(function(e){
+					if (e.id === _id){
+						$('[name="macroArgument"]').val(e.argument);
+						return e.argument;
+					}
+				});
+			}
+		}
+	},
+	'availableMacros':function(){
+		return Flint.collection('flintMacroDefinitions').find();
 	}
 });
 
@@ -132,6 +185,34 @@ Template.card_flint_midi.events({
 			}
 		}
 		Flint.collection('flintMidiMappings').update({_id:currentChannel},{$set:midiObject});
-
+	},
+	'change .addMacro':function(e){
+		var currentChannel = Session.get('flint_midi_currentChannel');
+		var midiObject = Flint.collection('flintMidiMappings').findOne({_id:currentChannel});
+		var name = e.target.name;
+		delete midiObject._id;
+		var macroData = {
+			'name':e.target.value,
+			'arguments':{}
+		};
+		for (var i = midiObject.operations.length - 1; i >= 0; i--){
+			if (this.id === midiObject.operations[i].id) {
+				var opKey = i;
+				macroId = Flint.collection('flintMacroPresets').insert(macroData,function(err,_id){
+					Session.set('flint-macros-currentMacro',Flint.collection('flintMacroPresets').findOne({_id:_id}));
+					if (typeof midiObject.operations[opKey].macros === 'undefined'){
+						midiObject.operations[opKey].macros = [{id:_id,argument:''}];
+					} else {
+						midiObject.operations[opKey].macros.push({id:_id,argument:''});
+					}
+					Flint.collection('flintMidiMappings').update({_id:currentChannel},{$set:midiObject});
+				});
+				$('.addMacroLabel').removeAttr('selected');
+				$('.addMacroLabel').attr('selected','true');
+			}
+		}
+	},
+	'click .macro':function(){
+		Session.set('flint-macros-currentMacro',this);
 	}
 });

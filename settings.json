@@ -1,7 +1,7 @@
 {
 	"assets": {
-		"accessKeyId": "AKIAIIFZRX3TIXC7WGKA",
-		"secretAccessKey": "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",
+		"accessKeyId": "AKIAIQOJ5TJWDXCM7HRA",
+		"secretAccessKey": "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",
 		"bucket": "infinitedev-flint",
 		"ACL": "public-read"
 	},
@@ -19,6 +19,6 @@
 		}
 	},
 	"audioMatrix": {
-		"debug": false
+		"debug": true
 	}
 }

@@ -1,5 +1,5 @@
 Meteor.publish("flint-midi.flintMidiMappings", function() {
-	return Flint.collection('flintMidiMappings').find();
+	return [Flint.collection('flintMidiMappings').find(),Flint.collection('flintMidiMessages').find()];
 });
 
 // Used to ensure that targeted objects are available on the client

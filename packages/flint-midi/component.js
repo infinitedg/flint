@@ -124,9 +124,26 @@ Template.comp_flint_midi.onCreated(function() {
     Flint.Log.error('No support for MIDI devices found: ' + error);
   }
   var sendUpdate = _.throttle(function(doc, data){
-        console.log('Running Operations', data[2])
-        _id = doc._id;
-      doc.operations.forEach(function(e){
+    console.log('Running Operations', data[2])
+    _id = doc._id;
+    doc.operations.forEach(function(e){
+      if (e.type === 'macro'){
+        var macros = e.macros;
+        macros.forEach(function(m){
+          Flint.collection('flintMacroPresets').find({_id:m.id}).forEach(function(macro){
+            if (m.argument){
+              macro.arguments[m.argument] = midiVelocity;
+            }
+            if (!macro.simulatorId) {
+              macro.arguments.simulatorId = Flint.simulatorId();
+            }
+            if (!macro.stationId){
+              macro.arguments.stationId = Flint.station('_id');
+            }
+            Flint.macro(macro.name,macro.arguments);
+          });
+        });
+      } else { //Assume that it is a collection
         var midiVelocity = data[2];
         if (e.transform && midiTransform[e.transform]) {
           midiVelocity = midiTransform[e.transform](midiVelocity);
@@ -169,8 +186,9 @@ Template.comp_flint_midi.onCreated(function() {
         if (Flint.collection(e.collection).findOne(e.selector)){
           Flint.collection(e.collection).update(docId, {$set: updateObj});
         }
-      })
-      },60);
+      }
+    });
+  },60);
   function onMIDIMessage(message) {
     var data = message.data; // this gives us our [command/channel, note, velocity] data.
 
@@ -196,6 +214,30 @@ Template.comp_flint_midi.onCreated(function() {
 
   var that = this;
 
+  this.observers.baseObserver = Flint.collection('flintMidiMessages').find({}).observe({
+    //This is a collection with a single document which changes whenever there is any kind of
+    //Midi update which needs to happen. This is to simplify sending MIDI messages when
+    //There might be multiple documents which are affected by a single MIDI control. Have a
+    //Macro adjust this particular collection when necessary
+    added: function(doc){
+      var midiVelocity = doc.velocity;
+      if (doc.transform) {
+        midiVelocity = midiTransformInverse[doc.transform](doc.velocity);
+      }
+      if (!!midiVelocity || midiVelocity === 0){
+        sendMIDIMessage(doc.midiCommand, doc.midiNote, midiVelocity);
+      }
+    },
+    changed: function(doc){
+      var midiVelocity = doc.velocity;
+      if (doc.transform) {
+        midiVelocity = midiTransformInverse[doc.transform](doc.velocity);
+      }
+      if (!!midiVelocity || midiVelocity === 0){
+        sendMIDIMessage(doc.midiCommand, doc.midiNote, midiVelocity);
+      }
+    }
+  });
   /*this.observers.baseObserver = Flint.collection('flintMidiMappings').find({}).observe({
     added: function(doc) {
 
