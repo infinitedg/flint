@@ -10,11 +10,11 @@ Flint.Asset = {
 			simulatorId = Flint.simulatorId();
 		}
 		// Get the default object first
-		var defObj = Flint.collection('flintAssetObjects').findOne({folderPath: assetPath, simulatorId: {$exists: false}});
+		var defObj = Flint.collection('flintAssetObjects').findOne({objectPath: assetPath, simulatorId: {$exists: false}});
 		//if (defObj) {
 			var simObj, assetObj;
 			if (simulatorId) {
-				simObj = Flint.collection('flintAssetObjects').findOne({folderPath: assetPath, simulatorId: simulatorId});
+				simObj = Flint.collection('flintAssetObjects').findOne({objectPath: assetPath, simulatorId: simulatorId});
 			}
 
 			if (simObj) {
