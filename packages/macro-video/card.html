@@ -1,134 +1,56 @@
-<template name="macro_setLightChannel">
-	<div class="row setLightChannelConfig">
-		<div class="form-group">
-			<label>Channel</label>
-			<div class="select">
-				<select id="channelName">
-					<option>Please Select a Channel</option>
-					{{#each channelList}}
-					<option {{channelSelected}} value={{_id}}>{{name}}</option>
-					{{/each}}
-				</select>
+<template name="macro_addVideoInput">
+	<div class="row">
+		{{#with currentMacro}}
+		<div class="col-sm-12">
+			<div class="form-group">
+				<label>Video Input Name</label>
+				<input name="name" placeholder="Video Input Name" value="{{name}}" />
+			</div>
+			<div class="form-group">
+				<label>Weight</label>
+				<input name="weight" type="number" placeholder="0.5" value="{{weight}}" />
+			</div>
+			<div class="form-group">
+				<label>Priority</label>
+				<div class="radio">
+					<label>
+						<input type="radio" name="priority" id="optionsRadios1" value="true" checked>
+						Primary
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="priority" id="optionsRadios2" value="false">
+						Secondary
+					</label>
+				</div>
+				<div class="form-group select">
+					<label>Template Name</label>
+					<select name="template">
+						{{#each templates}}
+						<option value="{{id}}">{{name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Template Context (JSON)</label>
+					<input name="context" placeholder='{"key":"value"}' value="{{context}}" />
+				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			<label>Value</label>
-			<input id="value" type ="range" min ="0" max="255" step ="1" value ="{{value}}"/>
-		</div>
-		<div class="form-group">
-			<label>Delay (in miliseconds)</label>
-			<input id="delay" type="number" value="{{delay}}"/>
-		</div>
+		{{/with}}
 	</div>
 </template>
 
-<template name="macro_setLightChannelSet">
-	<div class="row setLightChannelConfig">
-		<div class="form-group">
-			<label>Channel Set</label>
-			<div class="select">
-				<select id="channelName">
-					<option>Please Select a Channel Set</option>
-					{{#each channelSetList}}
-					<option {{channelSetSelected}} value={{_id}}>{{name}}</option>
-					{{/each}}
-				</select>
-			</div>
-		</div>
-		<div class="form-group">
-			<label>Intensity</label>
-			<input id="intensity" type ="range" min ="0" max="255" step ="1" value ="{{intensity}}"/>
-		</div>
-		<div class="form-group">
-			<label>Team Color</label>
-			<div id="flexieSmall" class="cp cp-small"></div>
-		</div>
-		<div class="form-group">
-			<label>Delay (in miliseconds)</label>
-			<input id="delay" type="number" value="{{delay}}"/>
-		</div>
-	</div>
-</template>
-
-<template name="macro_lightEffect">
-	<div class="row lightEffectConfig">
-		<div class="form-group">
-			<label>Effect</label>
-			<div class="select">
-				<select id="effectName">
-					<option>Please Select an Effect</option>
-					{{#each effectList}}
-					<option {{effectSelected}}>{{name}}</option>
-					{{/each}}
-				</select>
-			</div>
-		</div>
-		<div class="form-group">
-			<label>Channel Type</label>
-			<div class="select">
-				<select id="channelType">
-					<option>Please Select</option>
-					<option {{channelTypeSelected}} value="DMXChannel">Channel</option>
-					<option {{channelTypeSelected}} value="DMXChannelSet">Channel Set</option>
-				</select>
-			</div>
-			{{#if channelTypeIsChannel}}
-			<label>Channel</label>
-			<div class="select">
-				<select id="channelName">
-					<option>Please Select a Channel</option>
-					{{#each channelList}}
-					<option {{channelSelected}} value={{_id}}>{{name}}</option>
-					{{/each}}
-				</select>
-			</div>
-			{{else}}
-			<label>Channel Set</label>
-			<div class="select">
-				<select id="channelName">
-					<option>Please Select a Channel Set</option>
-					{{#each channelSetList}}
-					<option {{channelSetSelected}} value={{_id}}>{{name}}</option>
-					{{/each}}
-				</select>
-			</div>
-			{{/if}}
-		</div>
-		<div class="params form-group">
-			{{#if effectType 'fade'}}
+<template name="macro_removeVideoInput">
+	<div class="row">
+		{{#with currentMacro}}
+		<div class="col-sm-12">
 			<div class="form-group">
-				<label>Start</label>
-				<input id="start" type ="range" min ="0" max="255" step ="1" value ="{{params.start}}"/>
+				<label>Video Input Name</label>
+				<input name="name" placeholder="Video Input Name" value="{{name}}" />
 			</div>
-			<div class="form-group">
-				<label>Stop</label>
-				<input id="stop" type ="range" min ="0" max="255" step ="1" value ="{{params.stop}}"/>
-			</div>
-			<div class="form-group">
-				<label>Duration (in miliseconds)</label>
-				<input id="duration" type="number" value="{{params.duration}}"/>
-			</div>
-			{{/if}}
-			{{#if effectType 'shake'}}
-			<div class="form-group">
-				<label>Intensity</label>
-				<input id="shakeIntensity" type ="range" min ="0" max="255" step ="1" value ="{{params.intensity}}"/>
-			</div>
-			<div class="form-group">
-				<label>Duration (in miliseconds)</label>
-				<input id="duration" type="number" value="{{params.duration}}"/>
-			</div>
-			{{/if}}
-			{{#if effectType 'strobe'}}
-			<div class="form-group">
-				<label>Duration (in miliseconds)</label>
-				<input id="duration" type="number" value="{{params.duration}}"/>
-			</div>
-			{{/if}}
 		</div>
-		<div class="form-group">
-			<label>Delay (in miliseconds)</label>
-			<input id="delay" type="number" value="{{delay}}"/>
-		</div>
+		{{/with}}
 	</div>
 </template>
