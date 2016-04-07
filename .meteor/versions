@@ -184,6 +184,7 @@ logging@1.0.10
 macro-audio-matrix@0.1.0
 macro-lights@0.1.0
 macro-sounds@0.1.0
+macro-video@0.1.0
 meteor@1.1.12
 meteor-platform@1.2.4
 meteorhacks:cluster@1.6.9

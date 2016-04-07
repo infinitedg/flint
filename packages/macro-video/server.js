@@ -8,7 +8,7 @@ Meteor.startup(function(){
 			template: 'Object. Includes template name key and context key (for template context)',
 			simulatorId: 'Obvious'
 		}, function(macroArgs) {
-			Flint.collection('viewscreeninputs').upsert(macroArgs);
+			Flint.collection('viewscreeninputs').upsert({name:macroArgs.name},macroArgs);
 		});
 	Flint.registerMacro("removeVideoInput",
 		"Removes a specific video input",

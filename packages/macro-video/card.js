@@ -29,15 +29,15 @@ Template.macro_addVideoInput.events({
 	"change select":function(e){
 		var macro = Session.get('flint-macros-currentMacro');
 		var value = e.target.value;
-		var template = macro.template;
+		var template = macro.arguments.template || {};
 		template.name = value;
 		updateMacro('template',template);
 	},
 	'change input[name="context"]':function(e){
 		var macro = Session.get('flint-macros-currentMacro');
 		var value = e.target.value;
-		var template = macro.template;
-		template.name = JSON.parse(value);
+		var template = macro.arguments.template || {};
+		template.context = JSON.parse(value);
 		updateMacro('template',template);
 	}
 });
