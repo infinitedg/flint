@@ -1,7 +1,7 @@
 {
 	"assets": {
-		"accessKeyId": "AKIAIIFZRX3TIXC7WGKA",
-		"secretAccessKey": "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",
+		"accessKeyId": "",
+		"secretAccessKey": "",
 		"bucket": "infinitedev-flint",
 		"ACL": "public-read"
 	},

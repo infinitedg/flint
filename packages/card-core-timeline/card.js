@@ -10,6 +10,19 @@
  */
 Template.card_timelineEditor.onCreated(function() {
   this.subscribe('timelineEditor');
+
+  var timeline = Flint.collection('flintTimelines').findOne();
+  if (timeline) {
+    Session.set('card_timelineEditor.selected-timeline-id', timeline._id);
+    var firstCue = Flint.collection('flintTimelineCues').findOne({
+      timelineId: timeline._id
+    }, {
+      sort: {
+        order: 1
+      }
+    });
+    Session.set('card_timelineEditor.selected-cue-id', firstCue._id);
+  }
 });
 
 
@@ -37,9 +50,12 @@ Template.card_timelineEditor.helpers({
    */
   steps: function() {
     return Flint.collection('flintTimelineSteps').find({
-      timelineId: Session.get('card_timelineEditor.selected-timeline-id'),
       cueId: Session.get('card_timelineEditor.selected-cue-id')
-    }, {sort: {order: 1}});
+    }, {
+      sort: {
+        order: 1
+      }
+    });
   },
   /**
    * Disable or enable the "run cue" button
@@ -47,8 +63,8 @@ Template.card_timelineEditor.helpers({
    */
   runCueClass: function() {
     if (Flint.collection('flintTimelineCues').find({
-      timelineId: Session.get('card_timelineEditor.selected-timeline-id')
-    }).count() > 0) {
+        timelineId: Session.get('card_timelineEditor.selected-timeline-id')
+      }).count() > 0) {
       return '';
     } else {
       return 'disabled';
@@ -67,7 +83,8 @@ Template.card_timelineEditor.helpers({
     }).fetch(), function(el) {
       return el.order;
     });
-    if (cue && minCue && cue.order <= minCue.order) {
+    if (minCue === Infinity ||
+      (cue && minCue && cue.order <= minCue.order)) {
       return 'disabled';
     }
   },
@@ -84,13 +101,90 @@ Template.card_timelineEditor.helpers({
     }).fetch(), function(el) {
       return el.order;
     });
-    if (cue && maxCue && cue.order >= maxCue.order) {
+    if (maxCue === -Infinity ||
+      (cue && maxCue && cue.order >= maxCue.order)) {
       return 'disabled';
     }
   }
 });
 
+/**
+ * Block of helper functions to simplify event map
+ */
+
+/**
+ * Find the next cue and set it as active
+ */
+function nextCue() {
+  var currentCue = Flint.collection('flintTimelineCues').findOne(Session.get('card_timelineEditor.selected-cue-id'));
+  var nextCue = Flint.collection('flintTimelineCues').findOne({
+    timelineId: currentCue.timelineId,
+    order: {
+      $gt: currentCue.order
+    }
+  }, {
+    sort: {
+      order: 1
+    }
+  });
+  if (nextCue !== undefined) {
+    Session.set('card_timelineEditor.selected-cue-id', nextCue._id);
+  }
+}
+
+/**
+ * Find the previous cue and set it as active
+ */
+function prevCue() {
+  var currentCue = Flint.collection('flintTimelineCues').findOne(Session.get('card_timelineEditor.selected-cue-id'));
+  var prevCue = Flint.collection('flintTimelineCues').findOne({
+    timelineId: currentCue.timelineId,
+    order: {
+      $lt: currentCue.order
+    }
+  }, {
+    sort: {
+      order: -1
+    }
+  });
+  if (prevCue !== undefined) {
+    Session.set('card_timelineEditor.selected-cue-id', prevCue._id);
+  }
+}
+
+/**
+ * Schedule all enabled macros from the current cue
+ */
+function runCue() {
+  var steps = Flint.collection('flintTimelineSteps').find({
+    cueId: Session.get('card_timelineEditor.selected-cue-id'),
+    enabled: true
+  }).forEach(function(step) {
+    Flint.macro(step.macroName, step.arguments);
+  });
+}
+
+/**
+ * Schedule all macros from the current cue (including disabled)
+ * @return {[type]} [description]
+ */
+function runAll() {
+  var steps = Flint.collection('flintTimelineSteps').find({
+    cueId: Session.get('card_timelineEditor.selected-cue-id')
+  }).forEach(function(step) {
+    Flint.macro(step.macroName, step.arguments);
+  });
+}
+
+
 Template.card_timelineEditor.events({
+  /**
+   * Watch for macro enabled changes
+   * @param  {event} e Event object
+   */
+  'change input[type=checkbox]': function(e) {
+    Flint.collection('flintTimelineSteps').update(this._id, {$set: {enabled: e.target.checked }});
+  },
   /**
    * Set the currently selected timeline
    * @param  {event} e Event object
@@ -98,19 +192,19 @@ Template.card_timelineEditor.events({
   'change select': function(e) {
     var _id = e.currentTarget.options[e.currentTarget.selectedIndex].value;
     Session.set('card_timelineEditor.selected-timeline-id', _id);
-    Session.set('card_timelineEditor.selected-cue-id', 0);
-  },
-  /**
-   * Create a new timeline
-   * @param  {event} e Event object
-   */
-  'click button.add-timeline': function(e, t) {
-    e.preventDefault();
-    bootbox.prompt("What is the name of this timeline?", function(res) {
-      if (res) {
-        Flint.collection('flintTimelines').insert({name: res});
+    var firstCue = Flint.collection('flintTimelineCues').findOne({
+      timelineId: _id
+    }, {
+      sort: {
+        order: 1
       }
     });
+    // When no cue available, use undefined
+    if (firstCue) {
+      Session.set('card_timelineEditor.selected-cue-id', firstCue._id);
+    } else {
+      Session.set('card_timelineEditor.selected-cue-id', undefined);
+    }
   },
   /**
    * Schedule all enabled macros in the currently selected cue and
@@ -119,47 +213,51 @@ Template.card_timelineEditor.events({
    */
   'click button.runCueNext': function(e, t) {
     e.preventDefault();
-
+    runCue();
+    nextCue();
   },
   /**
    * Schedule all enabled macros in the currently selected cue and
    * stay on this cue
    * @param  {event} e Event object
    */
-  'click button.runCueStay': function(e, t) {
+  'click a.runCueStay': function(e, t) {
     e.preventDefault();
-
+    runCue();
   },
   /**
    * Schedule all macros in the currently selected cue and
    * go to next cue
    * @param  {event} e Event object
    */
-  'click button.runAllNext': function(e, t) {
+  'click a.runAllNext': function(e, t) {
     e.preventDefault();
-
+    runAll();
+    nextCue();
   },
   /**
    * Schedule all macros in the currently selected cue and
    * stay on this cue
    * @param  {event} e Event object
    */
-  'click button.runAllStay': function(e, t) {
+  'click a.runAllStay': function(e, t) {
     e.preventDefault();
-
+    runAll();
   },
   /**
    * Go back one cue in this timeline
    * @param  {event} e Event object
    */
   'click button.prevCue': function(e, t) {
-
+    e.preventDefault();
+    prevCue();
   },
   /**
    * Go forward one cue in this timeline
    * @param  {event} e Event object
    */
-  'click button.nextCue': function(e, t) {
-
+  'click button.nextCue': function(e) {
+    e.preventDefault();
+    nextCue();
   }
 });

@@ -1,45 +1,39 @@
 <template name="card_timelineEditor">
-	<h1>Timeline Editor</h1>
-	{{#if Template.subscriptionsReady}}
-	<p>Timelines:
-		<select>
-			{{#each timelines}}
-				<option value="{{_id}}">{{name}}</option>
-			{{/each}}
-		</select>
-		<button class="add-timeline btn btn-warning btn-xs">+</button>
+  <h1>Timeline Editor</h1> {{#if Template.subscriptionsReady}}
+  <p>Timelines:
+    <select>
+      {{#each timelines}}
+      <option value="{{_id}}">{{name}}</option>
+      {{/each}}
+    </select>
 
-		<ol>
-			{{#with cue}}
-				<li>
-					<ul>
-						{{#each steps}}
-						<li><input type="checkbox"> {{macroName}}</li>
-						{{/each}}
-					</ul>
-				</li>
-			{{/with}}
+    {{#if cue}} {{#with cue}}
+    <ul>
+      {{#each steps}}
+      <li>
+        <input type="checkbox" checked="{{enabled}}"> {{label}}</li>
+      {{/each}}
+    </ul>
+    {{/with}} {{/if}}
 
-			<div class="btn-group" role="group" aria-label="Macro toolbar">
-			  <button type="button" class="btn btn-primary prevCue {{prevCueClass}}">&laquo;</button>
-				<div class="btn-group">
-				  <button type="button" class="btn btn-primary runCueNext {{runCueClass}}">Run + next cue</button>
-				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    <span class="caret"></span>
-				    <span class="sr-only">Toggle Dropdown</span>
-				  </button>
-				  <ul class="dropdown-menu">
-				    <li><a href="#" class="runCueStay">Run + stay</a></li>
-						<li><a href="#" class="runAllNext">Run all + next cue</a></li>
-						<li><a href="#" class="runAllStay">Run all + stay</a></li>
-				  </ul>
-				</div>
-			  <button type="button" class="btn btn-primary nextCue {{nextCueClass}}">&raquo;</button>
-			</div>
-
-		</ol>
-	</p>
-	{{else}}
-		<p>Loading...</p>
-	{{/if}}
+    <div class="btn-group" role="group" aria-label="Macro toolbar">
+      <button type="button" class="btn btn-primary prevCue {{prevCueClass}}">&laquo;</button>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary runCueNext {{runCueClass}}">Run + next cue</button>
+        <button type="button" class="btn btn-primary dropdown-toggle {{runCueClass}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="#" class="runCueStay">Run + stay</a></li>
+          <li><a href="#" class="runAllNext">Run all + next cue</a></li>
+          <li><a href="#" class="runAllStay">Run all + stay</a></li>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-primary nextCue {{nextCueClass}}">&raquo;</button>
+    </div>
+  </p>
+  {{else}}
+  <p>Loading...</p>
+  {{/if}}
 </template>
