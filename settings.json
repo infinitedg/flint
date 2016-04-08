@@ -12,7 +12,7 @@
 	"public": {
 		"assets": {
 			"s3base": "https://infinitedev-flint.s3.amazonaws.com/",
-			"adaptor":"S3"
+			"adaptor":"filesystem"
 		},
 		"flintRemotes": {
 			"light-server": "http://voyager-server.local:4000"

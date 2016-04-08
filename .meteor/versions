@@ -185,6 +185,7 @@ logging@1.0.11
 macro-audio-matrix@0.1.0
 macro-lights@0.1.0
 macro-sounds@0.1.0
+macro-video@0.1.0
 meteor@1.1.13
 meteor-platform@1.2.5
 meteorhacks:kadira@2.28.5
