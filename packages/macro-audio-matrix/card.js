@@ -100,8 +100,6 @@ Template.macro_audioMatrixVolume.created = function(){
 	this.subscription = Tracker.autorun(function () {
 		Meteor.subscribe('flint-audiomatrix');
 		Meteor.subscribe('flint-audiomatrix-mix');
-		Meteor.subscribe('flint-audiomatrix-bus');
-		Meteor.subscribe('flint-audiomatrix-send');
 	});
 }
 Template.macro_audioMatrixVolume.destroyed = function(){
@@ -135,6 +133,42 @@ Template.macro_audioMatrixVolume.events({
 	},
 	'change #bus':function(e,t){
 		updateMacro('busId',e.target.value);
+	},
+	'change #volume':function(e,t){
+		updateMacro('volume',e.target.value);
+	}
+})
+
+Template.macro_audioMatrixInputVolume.created = function(){
+	this.subscription = Tracker.autorun(function () {
+		Meteor.subscribe('flint-audiomatrix');
+		Meteor.subscribe('flint-audiomatrix-mix');
+	});
+}
+Template.macro_audioMatrixInputVolume.destroyed = function(){
+	this.subscription.stop();
+}
+
+Template.macro_audioMatrixInputVolume.helpers({
+	matrixList:function(){
+		return Flint.collection('audioMatrix').find();
+	},
+	mixList:function(){
+		if (Session.get('macro_audioMatrixToggle_matrix'))
+			return Flint.collection('audioMatrixMix').find({matrixId:Session.get('macro_audioMatrixToggle_matrix')});
+	},
+	matrixSelected:function(){
+		return Session.get('macro_audioMatrixToggle_matrix');
+	}
+})
+
+Template.macro_audioMatrixInputVolume.events({
+	'change #matrix':function(e,t){
+		Session.set('macro_audioMatrixToggle_matrix',e.target.value);
+		updateMacro('matrixId',e.target.value);
+	},
+	'change #mix':function(e,t){
+		updateMacro('mixId',e.target.value);
 	},
 	'change #volume':function(e,t){
 		updateMacro('volume',e.target.value);

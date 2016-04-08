@@ -11,10 +11,11 @@
 	},
 	"public": {
 		"assets": {
-			"s3base": "https://infinitedev-flint.s3.amazonaws.com/"
+			"s3base": "https://infinitedev-flint.s3.amazonaws.com/",
+			"adaptor":"S3"
 		},
 		"flintRemotes": {
-			"light-server": "http://localhost:4000"
+			"light-server": "http://voyager-server.local:4000"
 		}
 	},
 	"audioMatrix": {

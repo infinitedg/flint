@@ -1,3 +1,26 @@
+Meteor.startup(function(){
+	if (!Flint.collections.dmxMacro)
+		Flint.collections.dmxMacro = new Mongo.Collection('dmxMacro',{connection:Flint.remote('light-server')});
+})
+
+Template.macro_runLightMacro.helpers({
+	dmxMacro:function(){
+		return Flint.collections.dmxMacro.find();
+	},
+	isSelected:function(){
+		var macro = Session.get('flint-macros-currentMacro');
+		if (macro.macro == this._id) return 'selected';
+	}
+})
+
+Template.macro_runLightMacro.events({
+	'change #macroSelect':function(e,t){
+		updateMacro('macro', e.target.value);
+	},
+	'change #delay':function(e,t){
+		updateMacro('delay', e.target.value);
+	}
+})
 function updateMacro(argumentName, value){
 	var macro = Session.get('flint-macros-currentMacro');
 	if (macro.arguments == undefined)

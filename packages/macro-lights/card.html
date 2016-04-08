@@ -1,3 +1,22 @@
+<template name="macro_runLightMacro">
+	<div class="row">
+		<div class="form-group">
+			<label>Light Macro</label>
+			<div class="select">
+				<select id="macroSelect" class="select">
+					{{#each dmxMacro}}
+					<option value="{{_id}}" {{isSelected}}>{{name}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Delay (in miliseconds)</label>
+				<input id="delay" type="number" value="{{delay}}"/>
+			</div>
+		</div>
+	</div>
+</template>
+
 <template name="macro_setLightChannel">
 	<div class="row setLightChannelConfig">
 		<div class="form-group">

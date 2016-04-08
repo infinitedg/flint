@@ -1,26 +1,60 @@
+var coolantAdjust = 0.4;
+
 Template.coolantTank.helpers({
 	coolantHeight: function() {
-		return Math.abs(Flint.simulator('coolant') - 100) * 0.56 + "%";
+		return Flint.simulator('coolant');
+	},
+	coolantDestinations:function(){
+		return Flint.systems.find({coolant:{$exists: true}});
+	},
+	running:function(){
+		if (Session.get('coolantMoving')){
+			return 'running';
+		}
 	}
 });
 
 Template.coolantTank.events({
-	'mousedown .valve' : function(e,t){
-		e.target.className.baseVal = "valve open";
-		var id=e.target.id;
-		var interval = Meteor.setInterval(function(){
-			if (id == "warp" || id == "impulse"){
-				var heatLevel = Flint.system('Engines','heat');
-				heatLevel[id] -= 0.4;
-				Flint.system('Engines','heat',heatLevel);
-				Flint.simulator('coolant',(Flint.simulator('coolant') - 0.01));
-			}
-		},10);
-		$(document).bind('mouseup',function(){
-			e.target.className.baseVal = "valve";
-			Meteor.clearInterval(interval);
-			interval = null;
-		});
-		e.preventDefault();
-	}
+	'mousedown .decreaseCoolant':function(){
+		var self = this;
+		Meteor.clearInterval(Template.instance().coolantInterval);
+		Session.set('coolantMoving',true);
+		Template.instance().coolantInterval = Meteor.setInterval(function(){
+			var maxTank = Flint.simulator('maxCoolant') || 100;
+			var tank = Flint.simulator('coolant') || maxTank;
+			var maxCoolant = Flint.systems.findOne({_id:self._id}).maxCoolant || 100;
+			var coolant = Flint.systems.findOne({_id:self._id}).coolant || maxCoolant;
+			if (tank + coolantAdjust <= maxTank
+				&& coolant - coolantAdjust >= 0){
+				Flint.simulator('coolant',tank + coolantAdjust);
+			Flint.systems.update({_id:self._id},{$set:{coolant:coolant - coolantAdjust}});
+		} else {
+			Meteor.clearInterval(Template.instance().coolantInterval);
+			Session.set('coolantMoving',false);
+		}
+	},40);
+	},
+	'mousedown .increaseCoolant':function(){
+		var self = this;
+		Meteor.clearInterval(Template.instance().coolantInterval);
+		Session.set('coolantMoving',true);
+		Template.instance().coolantInterval = Meteor.setInterval(function(){
+			var maxTank = Flint.simulator('maxCoolant') || 100;
+			var tank = Flint.simulator('coolant') || maxTank;
+			var maxCoolant = Flint.systems.findOne({_id:self._id}).maxCoolant || 100;
+			var coolant = Flint.systems.findOne({_id:self._id}).coolant || maxCoolant;
+			if (tank - coolantAdjust >= 0
+				&& coolant + coolantAdjust <= maxCoolant){
+				Flint.simulator('coolant',tank - coolantAdjust);
+			Flint.systems.update({_id:self._id},{$set:{coolant:coolant + coolantAdjust}});
+		} else {
+			Meteor.clearInterval(Template.instance().coolantInterval);
+			Session.set('coolantMoving',false);
+		}
+	},40);
+	},
+	'mouseup .btn':function(){
+		Meteor.clearInterval(Template.instance().coolantInterval);
+		Session.set('coolantMoving',false);
+	},
 });

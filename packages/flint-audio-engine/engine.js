@@ -153,11 +153,11 @@ Flint.collection('flintSoundPlayers').find({}).observe({
 	}
 });
 
-Meteor.methods({
+/*Meteor.methods({
 	cancelRepeating:function(simulatorId){
 		Flint.collection('flintSounds').update({simulatorId:simulatorId},{$set:{looping:false}});
 	}
-})
+})*/
 Meteor.publish("flint.audio-engine.selfPlayer", function() {
 	// Based on the connection, send back this player
 	return Flint.collection('flintSoundPlayers').find({playerId: this.connection.id});

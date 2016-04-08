@@ -37,6 +37,7 @@ Meteor.startup(function() {
 
   Meteor.subscribe('flint.audio-engine.selfPlayer');
   Meteor.subscribe('flint.audio-engine.sounds');
+  Meteor.subscribe('flint-ambiance');
 });
 
 Template.comp_flint_webaudio_player.created = function(){
@@ -173,8 +174,8 @@ Flint.playAudioSound = function(opts){
     }, function onFailure() {
      console.error("Decoding the audio buffer failed");
    });
-};
-request.send();
+  };
+  request.send();
 };
 
 function refreshSound(sound) {
@@ -231,9 +232,31 @@ Template.comp_flint_webaudio_player.created = function() {
       }
     }
   });
+  this.ambianceSub = Flint.collection('flintambiance').find().observe({
+    added:function(sound){
+      var asset = Flint.a(sound.sound);
+      if (asset){
+        var opts = {
+          volume: sound.volume/100,
+          playbackRate: 1,
+          channel: sound.channels || [0,1],
+          assetKey: sound.sound,
+          looping: true,
+          effects: [],
+          _id: sound._id
+        };
+        if (_audioSoundCache[sound._id] == undefined){
+          Flint.playAudioSound(opts);
+        }
+      } else {
+        Flint.Log.warn("Unable to find asset for sound playback " + sound.assetKey + "; removing sound", "flint-audio-engine");
+      }
+    }
+  })
 };
 
 Template.comp_flint_webaudio_player.destroyed = function() {
   this.playerSub.stop();
+  this.ambianceSub.stop();
 };
 

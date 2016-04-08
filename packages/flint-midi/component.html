@@ -27,32 +27,38 @@
 			{{/if}}
 		</div>
 		{{#if currentChannel}}
-		<div class="col-sm-4">
+		<div class="col-sm-8" style="overflow:scroll; height: 80vh;">
 			{{#with currentChannel}}
-			<div class="form-group select">
-				<label>Collection</label>
-				<select name="collection">
-					{{#each collections}}
-					<option value="{{name}}">{{name}}</option>
-					{{/each}}
-				</select>
+			{{#each operations}}
+			<div class="row">
+				<div class="form-group select">
+					<label>Transform</label>
+					<select name="transform">
+						{{#each transform}}
+						<option value="{{this}}" selected="{{selectedTransform}}">{{this}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="form-group select">
+					<label>Collection</label>
+					<select name="collection">
+						{{#each collections}}
+						<option value="{{name}}" selected="{{selectedCollection}}">{{name}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Selector (json)</label>
+					<input name="selector" type="text" class="form-control" value="{{selectorString}}" />
+				</div>
+				<div class="form-group">
+					<label>Property Path</label>
+					<input name="propertyPath" type="text" class="form-control" value="{{propertyPath}}" />
+				</div>
+				<button class="btn btn-danger removeOperation">Remove Operation</button> 
 			</div>
-			<div class="form-group">
-				<label>Selector (json)</label>
-				<input name="selector" type="text" class="form-control" value="{{selectorString}}" />
-			</div>
-			<div class="form-group">
-				<label>Property Path</label>
-				<input name="propertyPath" type="text" class="form-control" value="{{propertyPath}}" />
-			</div>
-			<div class="form-group select">
-				<label>Transform</label>
-				<select name="transform">
-					{{#each transform}}
-					<option value="{{this}}">{{this}}</option>
-					{{/each}}
-				</select>
-			</div>
+			{{/each}}
+			<button class="btn btn-success addOperation">Add Operation</button>
 			{{/with}}
 		</div>
 		{{/if}}

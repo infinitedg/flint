@@ -1,0 +1,114 @@
+#coolant{
+	position: relative;
+	#tank{
+		.tankFrame{
+			height: 500px;
+			position: absolute;
+			z-index:1;
+		}
+		#coolantHolder{
+			width:231px;
+			height: 310px;
+			position: absolute;
+			background-color: rgba(0,0,0,0.3);
+			-webkit-clip-path: polygon(0 100%, 100% 100%, 100% 55px, 97% 37px, 90% 22px, 75% 7px, 60% 2px, 50% 0, 40% 2px, 25% 7px, 10% 22px, 3% 37px, 0% 55px);
+			clip-path: polygon(0 100%, 100% 100%, 100% 55px, 97% 37px, 90% 22px, 75% 7px, 60% 2px, 50% 0, 40% 2px, 25% 7px, 10% 22px, 3% 37px, 0% 55px);
+			left:9px;
+			bottom: -439px;
+			#coolantLevel{
+				position: absolute;
+				width: 100%;
+				bottom: 0px;
+				background-color: #036;
+				animation: 2s ease-in-out 0s infinite coolant_glow;
+			}
+		}
+		#connectorBackground{
+			position: absolute;
+			width: 176px;
+			height: 497px;
+			left: 115px;
+			top: 2px;
+			background-color: rgba(0,0,0,0.3);
+			-webkit-clip-path: polygon(100% 100%, 100% 0, 155px 0, 150px 5px, 150px 470px, 145px 471px, 28px 471px, 24px 466px, 24px 438px, 0 438px, 0 492px, 5px 497px, 100% 100%);
+			&.running{
+				background-color: #036;
+				animation: 2s ease-in-out 0s infinite coolant_glow;
+			}
+		}
+	}
+	#pipes{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 538px;
+		position: absolute;
+		left: 288px;
+		z-index:5;
+		.pipe{
+			position:relative;
+			&:before{
+				content: attr(data-label);
+				position: absolute;
+				left: 10px;
+				top: -18px;
+				color: #fff;
+			}
+			.leftBracket{
+				height: 37px;
+				width: 7px;
+				float:left;
+				background-image: url(https://s3-us-west-2.amazonaws.com/ralex93/blog/images/ryYFoH85ehjydfY6N-undefined);
+			}
+			.pipeMiddle{
+				height: 35px;
+				width:50vw;
+				float:left;
+				background-image: url(https://s3-us-west-2.amazonaws.com/ralex93/blog/images/Kn35d2diYSu4XXcuA-undefined);
+			}
+			.pipeCenter {
+				width:50vw;
+				height: 31px;
+				margin-top:2px;
+				margin-left:4px;
+				background-color: rgba(0,0,0,0.3);
+				.pipeColor{
+					height: 100%;
+					width: 33%;
+					animation: 2s ease-in-out 0s infinite coolant_glow;
+				}
+			}
+			.rightBracket{
+				height: 35px;
+				width: 5px;
+				float:left;
+				margin-left:-3px;
+				background-image: url(https://s3-us-west-2.amazonaws.com/ralex93/blog/images/u7yX6D3gd64zePWtA-undefined);
+			}
+			.btn{
+				float:left;
+				margin-left: 40px;
+			}
+		}
+	}
+}
+@keyframes coolant_glow {
+	0% {
+		box-shadow:
+		inset 0 0 50px #3ff,
+		inset 20px 0 80px #30f,
+		inset -20px 0 80px #0ff
+	}
+	50% {
+		box-shadow:
+		inset 0 0 30px #9ff,
+		inset 20px 0 80px #30f,
+		inset -20px 0 80px #0ff
+	}
+	100% {
+		box-shadow:
+		inset 0 0 50px #3ff,
+		inset 20px 0 80px #30f,
+		inset -20px 0 80px #0ff
+	}
+}

@@ -419,7 +419,6 @@ Template.card_lightingCircuit.rendered = function() {
 	}
 
 	function updateConnectors() {
-		console.log('hey1');
 		$('#modules').children().each(function(c, e) {
 			if (e.inputConnections) { // update any lines that point in here.
 				var c;

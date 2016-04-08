@@ -6,7 +6,7 @@ Router.configure({
 
 Router.onBeforeAction(function(){
   if (!Meteor.user()) {
-    this.render('flint_login');
+    //this.render('flint_login');
     this.next();
   } else {
     this.next();
@@ -83,7 +83,7 @@ Router.map(function () {
     action: function() {
       if (!Flint.station())
         return;
-      if (!Session.get('flint_clientName') && Flint.station('name') != 'Flint Admin'){
+      if (!Session.get('flint_clientName') && Flint.station('name') != 'Flint Admin' && Flint.station('name') != 'Viewscreen'){
         this.render('card_login');
       } else if (Flint.client().locked){
         this.render('card_locked');

@@ -1,7 +1,0 @@
-.valve{
-	transform-origin: 50% 50%;
-	transition: all .25s ease-in-out;
-}
-.valve.open{
-	transform: rotate(90deg);
-}

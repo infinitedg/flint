@@ -1,45 +1,13 @@
-body {
-  margin: 0;
-  background-color: #333;
-}
-.batteryPack{
-  position: absolute;
-  left: 20%;
-  bottom: 0;
-  height: 430px;
-  width: 15vw;
-  svg {
+#card_reactor{
+  .powerPath{
     position: absolute;
-    width: 100%;
-    top: 0;
+    width: 100vw;
+    top: 325px;
+    left: 180px;
   }
-  .batteryLevel{
-    position: absolute;
-    width: 80%;
-    height: 10%;
-    left: 10%;
-    bottom: 12px;
-    background: linear-gradient(to bottom, #333300 0%,#ffff00 51%,#333300 100%); 
-    background-size: 6px 6px;
-  }
-}
-.reactor {
-  position: absolute;
-  width: 80%;
-  height: 32.6vh;
-  right: 0px;
-  svg {
-    position: absolute;
-    width: 100%;
-  }
-  .router.batteries{
-    top: 82%;
-    left: 41.3%
-    
-  }
-  .router.wings{
-    top: 82%;
-    left: 52.8%
+  .router.dynamo{
+    top: 72%;
+    left: 31.5%;
   }
   .router{
     background-color: #889;
@@ -59,114 +27,164 @@ body {
       border-left: 3.2vw solid #333;
     }
   }
-  label {
-    color: #fff;
-    font-size: 45px;
-    width: 120px;
-    height: 45px;
+  .reactor{
     position: absolute;
-    text-align: center;
+    height: 20vw;
+    width: 20vw;
+    top: 20vh;
+    svg{
+      position: absolute;
+    }
+    .powerGlow{
+      width: 20%;
+      height: 90%;
+      border-radius: 50%;
+      background-color: transparent;
+      position: absolute;
+      transform: rotate(4deg) translate(193%,0px);
+      animation: reactorGlow 1s ease-in-out infinite;
+    }
   }
-  .output {
-    top: 85.5%;
-    left: 10.5%;
-  }
-  .batteries {
-    top: 136%;
-    left: 25.5%;
-  }
-  .leftWing {
-    top: 24.5%;
-    left: 81.5%;
-  }
-  .rightWing {
-    left: 81.5%;
-    top: 147%;
-  }
-  .powerUsed {
-    left: 73.6%;
-    top: 85.5%;
-  }
-  .bars {
+  .spark{
+    width: 1px;  height:1px;
+    border-radius:50%;
+    box-shadow: 0px 0px 5px 5px rgba(255,255,200,0.7);
+    background-color:#fff;
     position: absolute;
-    border-radius: 5px;
-    -webkit-animation-name: reactorMove;
-    -webkit-animation-duration: 1s;
-    animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
+    top: 0;
+    left: 0;
+    animation-name: sweep;
+    animation-iteration-count:infinite;
+    &:nth-child(1){
+      animation-duration: 4s;
+      animation-delay: .2s;
+    }
+    &:nth-child(2){
+      animation-delay: .4s;
+      animation-duration: 2s;
+    }
+    &:nth-child(3){
+      animation-delay: .6s;
+      animation-duration: 3s;
+    }
+    &:nth-child(4){
+      animation-delay: .8s;
+      animation-duration: 1.5s;
+    }
+    &:nth-child(5){
+      animation-delay: 1s;
+      animation-duration: 2.5s;
+    }
+    &:nth-child(6){
+      animation-delay: 1.2s;
+      animation-duration: 3.5s;
+    }
+    &:nth-child(7){
+      animation-delay: 1.4s;
+      animation-duration: 1s;
+    }
+    &:nth-child(8){
+      animation-delay: 1.6s;
+      animation-duration: 2s;
+    }
+    &:nth-child(9){
+      animation-delay: 1.8s;
+      animation-duration: 3s;
+    }
+    &:nth-child(10){
+      animation-delay: 2s;
+      animation-duration: 1s;
+    }
+    &.toDynamo{
+      motion-path: path('M2,126.18c0,0 0,66.09 0,106.192c0,7.956 3.161,15.587 8.787,21.213c5.626,5.626 13.257,8.787 21.213,8.787c75.63,0 268.1,0 268.1,0c0,0 0,29.773 0,53.833c0,16.569 13.431,30 30,30c51.739,0 152.263,0 152.263,0');
+    }
+    &.toBattery{
+      motion-path: path('M2,126.18c0,0 0,66.09 0,106.192c0,7.956 3.161,15.587 8.787,21.213c5.626,5.626 13.257,8.787 21.213,8.787c75.63,0 268.1,0 268.1,0c0,0 0,-161.101 0,-229.372c0,-16.569 13.431,-30 30,-30c176.255,0 1069.37,0 1069.37,0');
+    }
   }
-  .mainPower {
-    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(120, 120, 120, 1) 50%, rgba(20, 20, 20, 1) 100%);
-    background-size: 25px 25px;
-    height: 10.9%;
-    width: 50%;
-    top: 90%;
-    left: 27%;
-  }
-  .batteryPower1 {
-    background: linear-gradient(to bottom, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
-    background-size: 25px 25px;
-    height: 48%;
-    width: 3.9%;
-    top: 101%;
-    left: 43.1%;
-  }
-  .batteryPower2 {
-    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
-    background-size: 25px 25px;
-    -webkit-animation-name: reactorMoveUp;
-    height: 11%;
-    width: 14.5%;
-    top: 139.4%;
-    left: 32.2%;
-  }
-  .splitPower1 {
-    background: linear-gradient(to bottom, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
-    -webkit-animation-name: reactorMoveUp;
-    background-size: 25px 25px;
-    height: 57%;
-    width: 4.2%;
-    top: 32.6%;
-    left: 54.4%;
-  }
-  .splitPower2 {
-    background: linear-gradient(to bottom, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
-    background-size: 25px 25px;
-    height: 60%;
-    width: 3.8%;
-    top: 100.7%;
-    left: 54.6%;
-  }
-  .leftWingPower {
-    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
-    background-size: 25px 25px;
-    height: 11%;
-    width: 18%;
-    top: 28.4%;
-    left: 54.8%;
-  }
-  .rightWingPower {
-    background: linear-gradient(to right, rgba(20, 20, 20, 1) 0%, rgba(100, 100, 100, 1) 50%, rgba(20, 20, 20, 1) 100%);
-    background-size: 25px 25px;
-    height: 11%;
-    width: 18%;
-    top: 151.3%;
-    left: 54.8%;
-  }
-  @keyframes reactorMove {
-    from {
-      background-position: 0px 0px;
+
+  @keyframes sweep {
+    0% {
+      motion-offset: 0;
     }
     to {
-      background-position: 25px 25px;
+      motion-offset: 100%;
     }
   }
-  @keyframes reactorMoveUp {
-    from {
-      background-position: 25px 25px;
+
+  @keyframes reactorGlow{
+    0%{
+      box-shadow: inset 1px 1px 50px 10px #0ff,
+      0px 0px 50px 10px #0ff;
     }
-    to {
-      background-position: 0px 0px;
+    50%{
+      box-shadow: inset 1px 1px 50px 10px #0ff,
+      0px 0px 50px 20px #0ff;
+    }
+    100%{
+      box-shadow: inset 1px 1px 50px 10px #0ff,
+      0px 0px 50px 10px #0ff;
+    }
+  }
+  @keyframes sparkle{
+    0%{
+      opacity:1;
+    }
+    20%{
+      opacity:0.6;
+    }
+    40%{
+      opacity:0.7;
+    }
+    60%{
+      opacity:0.4;
+    }
+    80%{
+      opacity: 0.6;
+    }
+  }
+  .spinnerHolder{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 40px 10px rgba(0,0,0,0.7);
+    border: solid 3px #888;
+    background-color: #555;
+    background-image: url(/packages/card-reactor/hexPattern.svg);
+    background-size: 30px;
+    top: 560px;
+    left: 650px;
+  }
+  #spinner{
+    width: 100%;
+    height: 10%;
+    top: 45%;
+    position: absolute;
+    background-color: #ccc;
+    border-radius: 100%;
+    box-shadow: inset 0px 0px 8px 5px rgba(0,0,0,0.7);
+  }
+  .batteryPack{
+    width: 15%;
+    height: 41.5%;
+    left: 900px;
+    top: 30px;
+    position: absolute;
+    svg{
+      width: 100%;
+      position:absolute;
+      z-index:2;
+    }
+    .batteryLevel{
+      position: absolute;
+      width: 80%;
+      height: 10%;
+      left: 10%;
+      bottom: 12px;
+      background: linear-gradient(to bottom, #333300 0%,#ffff00 51%,#333300 100%); 
+      background-size: 6px 6px;
+      z-index:1;
     }
   }
 }

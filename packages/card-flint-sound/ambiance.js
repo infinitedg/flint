@@ -31,6 +31,9 @@ Template.macro_flint_ambiance.helpers({
 			return true;
 		}
 		return false;
+	},
+	soundChannels:function(){
+		return JSON.stringify(this.channels)
 	}
 });
 
@@ -43,13 +46,14 @@ Template.macro_flint_ambiance.events({
 			name:null,
 			sound:null,
 			volume:100,
-			audioGroups:[],
+			channels:[],
 		};
 		Flint.collection('flintambiance').insert(obj);
 	},
 	'change [data-key]':function(e){
 		var obj = {};
 		obj[e.target.dataset.key] = e.target.value;
+		if (e.target.dataset.key == 'channels') obj[e.target.dataset.key] = JSON.parse(e.target.value);
 		Flint.collection('flintambiance').update({_id:this._id},
 			{$set:obj});
 	},

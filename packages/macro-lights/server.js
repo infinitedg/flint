@@ -53,6 +53,19 @@ Meteor.startup(function(){
 				Flint.remote('light-server').call('scheduleDMXEffect', macroArgs.effectName, [obj], {duration: parseInt(macroArgs.params.duration,10) || 5000});
 			},delay);
 		});
+	Flint.registerMacro("runLightMacro",
+		"Runs a light macro specified on the lighting server",
+		{
+			macro: "Which macro to run. Configure on the lighting server",
+		}, function(macroArgs) {
+			var delay = macroArgs.delay || 0;
+			if (!macroArgs.macro)
+				throw new Meteor.Error('flint-no-macro-name', 'The macro does not have an macro name!');
+			console.log('runMacro',macroArgs.macro);
+			Meteor.setTimeout(function(){
+				Flint.remote('light-server').call('runMacro', macroArgs.macro);
+			},delay); 		
+		});
 });
 
 /*Effect params

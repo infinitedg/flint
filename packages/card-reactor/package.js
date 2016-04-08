@@ -6,6 +6,7 @@ Package.describe({
 Package.on_use(function(api) {  
   api.use(['templating', 'flint', 'less', 'mizzao:bootboxjs', 'infinitedg:gsap']);
   
-  api.add_files(['core.html', 'core.js','svg.html'], 'client');
+  api.add_files(['core.html', 'core.js'], 'client');
   api.add_files(['card.html', 'card.js', 'card.less'], 'client');
+  api.addAssets(['hexPattern.svg'],'client');
 });
