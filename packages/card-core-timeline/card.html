@@ -7,17 +7,36 @@
 				<option value="{{_id}}">{{name}}</option>
 			{{/each}}
 		</select>
+		<button class="add-timeline btn btn-warning btn-xs">+</button>
 
 		<ol>
-			{{#each steps}}
+			{{#with cue}}
 				<li>
 					<ul>
-						{{#each this.macros}}
-						<li>{{macroName}}</li>
+						{{#each steps}}
+						<li><input type="checkbox"> {{macroName}}</li>
 						{{/each}}
 					</ul>
 				</li>
-			{{/each}}
+			{{/with}}
+
+			<div class="btn-group" role="group" aria-label="Macro toolbar">
+			  <button type="button" class="btn btn-primary prevCue {{prevCueClass}}">&laquo;</button>
+				<div class="btn-group">
+				  <button type="button" class="btn btn-primary runCueNext {{runCueClass}}">Run + next cue</button>
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <span class="caret"></span>
+				    <span class="sr-only">Toggle Dropdown</span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a href="#" class="runCueStay">Run + stay</a></li>
+						<li><a href="#" class="runAllNext">Run all + next cue</a></li>
+						<li><a href="#" class="runAllStay">Run all + stay</a></li>
+				  </ul>
+				</div>
+			  <button type="button" class="btn btn-primary nextCue {{nextCueClass}}">&raquo;</button>
+			</div>
+
 		</ol>
 	</p>
 	{{else}}
