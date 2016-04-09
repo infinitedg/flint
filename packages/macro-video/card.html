@@ -34,7 +34,7 @@
 				</div>
 				<div class="form-group">
 					<label>Template Context (JSON)</label>
-					<input name="context" placeholder='{"key":"value"}' value="{{context}}" />
+					<input name="context" selected={{selectedTemplate}} placeholder='{"key":"value"}' value="{{context}}" />
 				</div>
 			</div>
 		</div>
@@ -43,6 +43,19 @@
 </template>
 
 <template name="macro_removeVideoInput">
+	<div class="row">
+		{{#with currentMacro}}
+		<div class="col-sm-12">
+			<div class="form-group">
+				<label>Video Input Name</label>
+				<input name="name" placeholder="Video Input Name" value="{{name}}" />
+			</div>
+		</div>
+		{{/with}}
+	</div>
+</template>
+
+<template name="macro_pauseVideoInput">
 	<div class="row">
 		{{#with currentMacro}}
 		<div class="col-sm-12">

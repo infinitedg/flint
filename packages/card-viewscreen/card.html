@@ -5,7 +5,7 @@
 		<ul>
 			{{#each viewscreenInputs}}
 			<li class="viewscreenOutput" data-priority={{priority}} >
-			{{> Template.dynamic template=template.name data=template.context}}
+			{{> Template.dynamic template=template.name data=context}}
 			</li>
 			{{/each}}
 		</ul>
@@ -36,7 +36,7 @@
 
 <template name="viewscreen_video">
 	<div class="viewscreenVideo">
-		<video src={{tacticalVideo}} autoplay preload="auto" style="width: 100%;" {{videoLooping}}>
+		<video src={{tacticalVideo}} id={{_id}} {{videoPaused}} autoplay preload="auto" style="width: 100%;" {{videoLooping}}>
 		</video>
 	</div>
 </template>

@@ -16,14 +16,21 @@ Template.macro_addVideoInput.helpers({
 		return Object.keys(Template);
 	},
 	currentMacro:function(){
-		return Session.get('flint-macros-currentMacro');
+		return Session.get('flint-macros-currentMacro').arguments;
 	},
+	context:function(){
+		return JSON.stringify(this.template.context);
+	},
+	selectedTemplate:function(){
+		debugger;
+	}
 });
 
 Template.macro_addVideoInput.events({
 	'change input:not([name="context"])':function(e){
 		var value = e.target.value;
 		var name = e.target.name;
+		if (value === 'false') value = false;
 		updateMacro(name,value);
 	},
 	"change select":function(e){
@@ -55,3 +62,19 @@ Template.macro_removeVideoInput.events({
 		updateMacro(name,value);
 	},
 });
+
+
+Template.macro_pauseVideoInput.helpers({
+	currentMacro:function(){
+		return Session.get('flint-macros-currentMacro');
+	},
+});
+
+Template.macro_pauseVideoInput.events({
+	'change input':function(e){
+		var value = e.target.value;
+		var name = e.target.name;
+		updateMacro(name,value);
+	},
+});
+
