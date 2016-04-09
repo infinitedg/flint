@@ -4,12 +4,17 @@ Template.card_viewscreen.created = function(){
     this.subscription = Tracker.autorun(function () {
         Meteor.subscribe('card.viewscreen.inputs', Flint.simulatorId());
     });
-    viewscreenInputs = Flint.collection('viewscreenInputs').find();
+    viewscreenInputs = Flint.collection('viewscreenInputs').find({},{sort:{weight:1}});
 };
 
 Template.card_viewscreen.helpers({
     viewscreenInputs: function(){
-        return Flint.collection('viewscreenInputs').find();
+        return Flint.collection('viewscreenInputs').find({},{sort:{weight:1}});
+    },
+    context:function(){
+        var context = this.template.context;
+        context._id = this._id;
+        return context;
     },
     viewscreenStyle: function (e,t) {
         var priority = 0, secondary = 0;
@@ -35,6 +40,13 @@ Template.viewscreen_video.helpers({
             return 'loop';
         } else {
             return null;
+        }
+    },
+    videoPaused:function(){
+        if (this.paused){
+            Template.instance().find('#' + this._id).pause();
+        } else {
+            Template.instance().find('#' + this._id).play();
         }
     }
 });

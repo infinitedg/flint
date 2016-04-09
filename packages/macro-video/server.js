@@ -18,4 +18,17 @@ Meteor.startup(function(){
 		}, function(macroArgs) {
 			Flint.collection('viewscreeninputs').remove(macroArgs);
 		});
+	Flint.registerMacro("pauseVideoInput",
+		"Removes a specific video input",
+		{
+			name: "The video id you want to pauseVideoInput. This is what is used to identify and remove the video. Unique string",
+			simulatorId: 'Obvious'
+		}, function(macroArgs) {
+			//Change the viewscreen input template context to show that the video is paused.
+			var template = Flint.collection('viewscreeninputs').findOne({name:macroArgs.name}).template;
+			var context = template.context || {};
+			context.paused = !context.paused;
+			template.context = context;
+			Flint.collection('viewscreeninputs').update({name:macroArgs.name},{$set:{template:template}});
+		});
 });
