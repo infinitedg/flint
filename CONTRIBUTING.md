@@ -6,7 +6,9 @@ Infinte Development Group welcomes all contributions to the main Flint repositor
 ## What needs to be done
 
 * Check the issues tab for features and bug which need to be addressed.
-* Think of an awesome feature yourself and implement it. Share it with the community
+* Ask for access to the Farpoint Google Drive to see notes on controls designs. Contact one of the primary contributors for more information.
+* Think of an awesome feature yourself and implement it. Share it with the community.
+
 ## Requesting features or reporting bugs
 
 * Submit an issue for your bug or feature, assuming one does not already exist.

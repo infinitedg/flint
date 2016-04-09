@@ -69,6 +69,7 @@ macro-sounds
 macro-lights
 macro-audio-matrix
 macro-vocoder
+macro-video
 
 theme-default
 theme-odyssey
@@ -84,7 +85,6 @@ cfs:standard-packages
 cfs:filesystem
 cfs:gridfs
 card-core-timeline
-meteorhacks:cluster
 worker-animation
 flint-jobs
 vsivsi:job-collection
@@ -148,7 +148,6 @@ card-damage-systems
 card-vocoder
 card-fuel-control
 flint-drama
-standard-minifiers
 simison:bootstrap3-less
 #layout-default
 layout-curve
@@ -159,3 +158,6 @@ sanjo:jasmine
 meteorhacks:kadira
 card-controls-test
 flint-audio-units
+standard-minifier-css
+standard-minifier-js
+layout-default

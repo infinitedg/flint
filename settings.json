@@ -1,7 +1,7 @@
 {
 	"assets": {
-		"accessKeyId": "AKIAIQOJ5TJWDXCM7HRA",
-		"secretAccessKey": "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",
+		"accessKeyId": "",
+		"secretAccessKey": "",
 		"bucket": "infinitedev-flint",
 		"ACL": "public-read"
 	},
@@ -12,7 +12,7 @@
 	"public": {
 		"assets": {
 			"s3base": "https://infinitedev-flint.s3.amazonaws.com/",
-			"adaptor":"S3"
+			"adaptor":"filesystem"
 		},
 		"flintRemotes": {
 			"light-server": "http://voyager-server.local:4000"
