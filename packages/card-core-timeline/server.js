@@ -2,7 +2,7 @@ Meteor.publish("timelineEditor", function() {
   return [
     Flint.collection('flintTimelines').find(),
     Flint.collection('flintTimelineCues').find(),
-    Flint.collection('flintTimelineSteps').find()
+    Flint.collection('flintMacroPresets').find()
   ];
 });
 

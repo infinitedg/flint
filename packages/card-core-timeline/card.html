@@ -1,21 +1,44 @@
 <template name="card_timelineEditor">
   <h1>Timeline Editor</h1> {{#if Template.subscriptionsReady}}
+  <label><input type="checkbox" id="editMode" {{inEditMode}} /> Edit Mode</label>
+  <div class="row">
+  
+  <div class="col-sm-3">
   <p>Timelines:
-    <select>
+    <select id="timelines">
+      <option value="">Please select a timeline.</option>
       {{#each timelines}}
       <option value="{{_id}}">{{name}}</option>
       {{/each}}
     </select>
-
+      </p>
+  <ul>
+  {{#each cues}}
+  <li class="cueList {{selectedCueClass}}">{{description}}</li>
+  {{/each}}
+  </ul>
+  </div>
+  <div class="col-sm-3">
     {{#if cue}} {{#with cue}}
+    <h3>{{description}}</h3>
     <ul>
       {{#each steps}}
-      <li>
-        <input type="checkbox" checked="{{enabled}}"> {{label}}</li>
+      <li class="stepList">
+        <input type="checkbox" checked="{{enabled}}"> {{label}}
+        </li>
       {{/each}}
     </ul>
     {{/with}} {{/if}}
-
+        {{#if inEditMode}}  
+<div class="select">
+            <select class="addMacro">
+              <option class="addMacroLabel">Add Step...</option>
+              {{#each availableMacros}}
+              <option value={{_id}}>{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+              {{/if}}
     <div class="btn-group" role="group" aria-label="Macro toolbar">
       <button type="button" class="btn btn-primary prevCue {{prevCueClass}}">&laquo;</button>
       <div class="btn-group">
@@ -32,7 +55,16 @@
       </div>
       <button type="button" class="btn btn-primary nextCue {{nextCueClass}}">&raquo;</button>
     </div>
-  </p>
+  </div>
+  <div class='col-sm-4'>
+    {{#if inEditMode}}  
+    <h4>Macro Config</h4>
+      <div class="configBox well">
+        {{> Template.dynamic template=configTemplate data=configArguments}}
+      </div>
+      {{/if}}
+  </div>
+  </div>
   {{else}}
   <p>Loading...</p>
   {{/if}}

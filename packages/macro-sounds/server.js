@@ -25,7 +25,6 @@ Meteor.startup(function(){
 				Flint.collection('flintSounds').update({simulatorId:soundArgs.simulatorId,keyPressed:soundArgs.keyPressed},{$set:{looping:false}});
 			} else {
 				Flint.collection('flintSounds').insert(soundArgs);
-				console.log(soundArgs);
 			}
 		}
 		);

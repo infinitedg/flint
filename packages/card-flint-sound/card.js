@@ -57,6 +57,7 @@ Template.card_flint_sound.created = function(){
 						if (!doc.stationId){
 							doc.arguments.stationId = Flint.station('_id');
 						}
+						console.log(doc,modifiers,macroKey);
 						Flint.macro(doc.name,doc.arguments);
 					});
 }
