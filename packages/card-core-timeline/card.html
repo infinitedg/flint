@@ -1,38 +1,87 @@
 <template name="card_timelineEditor">
   <h1>Timeline Editor</h1> {{#if Template.subscriptionsReady}}
-  <p>Timelines:
-    <select>
-      {{#each timelines}}
-      <option value="{{_id}}">{{name}}</option>
-      {{/each}}
-    </select>
+  <label><input type="checkbox" id="editMode" {{inEditMode}} /> Edit Mode</label>
+  <div class="row">
 
-    {{#if cue}} {{#with cue}}
-    <ul>
-      {{#each steps}}
-      <li>
-        <input type="checkbox" checked="{{enabled}}"> {{label}}</li>
-      {{/each}}
-    </ul>
-    {{/with}} {{/if}}
-
-    <div class="btn-group" role="group" aria-label="Macro toolbar">
-      <button type="button" class="btn btn-primary prevCue {{prevCueClass}}">&laquo;</button>
-      <div class="btn-group">
-        <button type="button" class="btn btn-primary runCueNext {{runCueClass}}">Run + next cue</button>
-        <button type="button" class="btn btn-primary dropdown-toggle {{runCueClass}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="#" class="runCueStay">Run + stay</a></li>
-          <li><a href="#" class="runAllNext">Run all + next cue</a></li>
-          <li><a href="#" class="runAllStay">Run all + stay</a></li>
-        </ul>
-      </div>
-      <button type="button" class="btn btn-primary nextCue {{nextCueClass}}">&raquo;</button>
+    <div class="col-sm-3">
+      <p>Timelines:
+        <div class="select">
+          <select id="timelines">
+            <option class="selectTimeline" value="">Please select a timeline.</option>
+            {{#each timelines}}
+            <option value="{{_id}}" {{timelineSelected}}>{{name}}</option>
+            {{/each}}
+            {{#if inEditMode}}
+            <option disabled> ─────────────────── </option>
+            <option value="addTimeline">Add Timeline</option>
+            {{/if}}
+          </select>
+        </div>
+        {{#if timeline}}
+        <button class="btn btn-danger btn-block btn-xs removeTimeline">Remove Timeline</button>
+        {{/if}}
+      </p>
+      <h3>Cues:</h3>
+      <ul>
+        {{#each cues}}
+        <li class="cueList {{selectedCueClass}}">{{description}} {{#if inEditMode}}<i class="fa fa-ban text-danger removeCue"></i>{{/if}}</li> 
+        {{/each}}
+      </ul>
+      {{#if inEditMode}}
+      {{#if timeline}}
+      <button class="btn btn-info btn-block btn-xs addCue">Add Cue</button>
+      {{/if}}
+      {{/if}}
     </div>
-  </p>
+    <div class="col-sm-3">
+      {{#if cue}} {{#with cue}}
+      <h3>{{description}}</h3>
+      <ul>
+        {{#each steps}}
+        <li class="stepList">
+          <input type="checkbox" checked="{{enabled}}"> {{label}} {{#if inEditMode}}<i class="fa fa-ban text-danger removeStep"></i>{{/if}}
+        </li>
+        {{/each}}
+      </ul>
+      {{/with}} {{/if}}
+      {{#if inEditMode}}  
+      {{#if cue}}
+      <div class="select">
+        <select class="addMacro">
+          <option class="addMacroLabel">Add Step...</option>
+          {{#each availableMacros}}
+          <option value={{_id}}>{{name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      {{/if}}
+      {{/if}}
+      <div class="btn-group" role="group" aria-label="Macro toolbar">
+        <button type="button" class="btn btn-primary prevCue {{prevCueClass}}">&laquo;</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary runCueNext {{runCueClass}}">Run + next cue</button>
+          <button type="button" class="btn btn-primary dropdown-toggle {{runCueClass}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="runCueStay">Run + stay</a></li>
+            <li><a href="#" class="runAllNext">Run all + next cue</a></li>
+            <li><a href="#" class="runAllStay">Run all + stay</a></li>
+          </ul>
+        </div>
+        <button type="button" class="btn btn-primary nextCue {{nextCueClass}}">&raquo;</button>
+      </div>
+    </div>
+    <div class='col-sm-4'>
+      {{#if inEditMode}}  
+      <h4>Macro Config</h4>
+      <div class="configBox well">
+        {{> Template.dynamic template=configTemplate data=configArguments}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
   {{else}}
   <p>Loading...</p>
   {{/if}}
