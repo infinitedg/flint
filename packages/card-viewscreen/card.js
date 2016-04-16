@@ -2,7 +2,7 @@ var viewscreenInputs;
 
 Template.card_viewscreen.created = function(){
     this.subscription = Tracker.autorun(function () {
-        Meteor.subscribe('card.viewscreen.inputs', Flint.simulatorId());
+        Meteor.subscribe('card.viewscreen.inputs', localStorage.getItem('viewscreen') || Flint.simulatorId() + '-bridge');
     });
     viewscreenInputs = Flint.collection('viewscreenInputs').find({},{sort:{weight:1}});
 };

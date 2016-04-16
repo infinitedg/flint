@@ -9,7 +9,7 @@ Template.macro_runLightMacro.helpers({
 	},
 	isSelected:function(){
 		var macro = Session.get('flint-macros-currentMacro');
-		if (macro.macro == this._id) return 'selected';
+		if (macro.arguments.macro === this._id) return 'selected';
 	}
 })
 
@@ -147,7 +147,9 @@ Template.macro_setLightChannelSet.events({
 	'change #intensity':function(e){
 		updateMacro('intensity',e.target.value);
 	},
-	//Color is set with the colorpicker plugin.
+	'change #color':function(e){
+		updateMacro('color',e.target.value);
+	},
 	'change #delay':function(e){
 		updateMacro('delay',e.target.value);
 	}

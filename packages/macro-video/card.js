@@ -11,18 +11,52 @@ function updateMacro(argumentName, value){
 	Flint.collection('flintMacroPresets').update({'_id':id},{$set:macro});
 }
 
+Template.macro_addVideoInput.created = function(){
+	Meteor.subscribe('card.viewscreen.viewscreens',Flint.simulatorId());
+};
+
 Template.macro_addVideoInput.helpers({
 	templates:function(){
-		return Object.keys(Template);
+		return Object.keys(Template).filter(function(e){
+			return e.substring(0,10) === 'viewscreen';
+		});
+	},
+	viewscreens:function(){
+		return Flint.collection('viewscreens').find();
+	},
+	selectedViewscreen:function(){
+		debugger;
+		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreen){
+			return 'selected';
+		}
 	},
 	currentMacro:function(){
 		return Session.get('flint-macros-currentMacro').arguments;
 	},
 	context:function(){
-		return JSON.stringify(this.template.context);
+		return JSON.stringify(Session.get('flint-macros-currentMacro').arguments.template.context);
+	},
+	inputName:function(){
+		return Session.get('flint-macros-currentMacro').arguments.name;
+	},
+	weight:function(){
+		return Session.get('flint-macros-currentMacro').arguments.weight;
+	},
+	priorityChecked:function(priority){
+		if (priority){
+			if (Session.get('flint-macros-currentMacro').arguments.priority){
+				return 'checked';
+			}
+		} else {
+			if (!Session.get('flint-macros-currentMacro').arguments.priority){
+				return 'checked';
+			}
+		}
 	},
 	selectedTemplate:function(){
-		debugger;
+		if (this.toString() === Session.get('flint-macros-currentMacro').arguments.template.name){
+			return 'selected';
+		}
 	}
 });
 
@@ -33,12 +67,15 @@ Template.macro_addVideoInput.events({
 		if (value === 'false') value = false;
 		updateMacro(name,value);
 	},
-	"change select":function(e){
+	"change select[name='template']":function(e){
 		var macro = Session.get('flint-macros-currentMacro');
 		var value = e.target.value;
 		var template = macro.arguments.template || {};
 		template.name = value;
 		updateMacro('template',template);
+	},
+	"change select[name='viewscreen']":function(e){
+		updateMacro('viewscreen',e.target.value);
 	},
 	'change input[name="context"]':function(e){
 		var macro = Session.get('flint-macros-currentMacro');
@@ -49,9 +86,21 @@ Template.macro_addVideoInput.events({
 	}
 });
 
+Template.macro_removeVideoInput.created = function(){
+	Meteor.subscribe('card.viewscreen.viewscreens',Flint.simulatorId());
+};
+
 Template.macro_removeVideoInput.helpers({
 	currentMacro:function(){
 		return Session.get('flint-macros-currentMacro');
+	},
+	viewscreens:function(){
+		return Flint.collection('viewscreens').find();
+	},
+	selectedViewscreen:function(){
+		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreen){
+			return 'selected';
+		}
 	},
 });
 
@@ -61,12 +110,26 @@ Template.macro_removeVideoInput.events({
 		var name = e.target.name;
 		updateMacro(name,value);
 	},
+	"change select[name='viewscreen']":function(e){
+		updateMacro('viewscreen',e.target.value);
+	},
 });
 
+Template.macro_pauseVideoInput.created = function(){
+	Meteor.subscribe('card.viewscreen.viewscreens',Flint.simulatorId());
+};
 
 Template.macro_pauseVideoInput.helpers({
 	currentMacro:function(){
 		return Session.get('flint-macros-currentMacro');
+	},
+	viewscreens:function(){
+		return Flint.collection('viewscreens').find();
+	},
+	selectedViewscreen:function(){
+		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreen){
+			return 'selected';
+		}
 	},
 });
 
@@ -76,5 +139,28 @@ Template.macro_pauseVideoInput.events({
 		var name = e.target.name;
 		updateMacro(name,value);
 	},
+	"change select[name='viewscreen']":function(e){
+		updateMacro('viewscreen',e.target.value);
+	},
 });
 
+Template.macro_removeAllVideoInput.created = function(){
+	Meteor.subscribe('card.viewscreen.viewscreens',Flint.simulatorId());
+};
+
+Template.macro_removeAllVideoInput.helpers({
+	viewscreens:function(){
+		return Flint.collection('viewscreens').find();
+	},
+	selectedViewscreen:function(){
+		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreen){
+			return 'selected';
+		}
+	},
+});
+
+Template.macro_removeAllVideoInput.events({
+	"change select[name='viewscreen']":function(e){
+		updateMacro('viewscreen',e.target.value);
+	},
+});
