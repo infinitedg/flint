@@ -33,7 +33,7 @@ Meteor.startup(function(){
 				Flint.collection('dmxChannelSet','light-server').update(macroArgs.channelSet, {$set: obj});
 			},delay);
 		});
-	Flint.registerMacro("lightEffect",
+	/*Flint.registerMacro("lightEffect",
 		"Runs a light effect",
 		{
 			effectName: "The name of the effect. Options: Shake (flicker), Fade, Strobe",
@@ -52,7 +52,7 @@ Meteor.startup(function(){
 				obj._id = macroArgs.channel.id;
 				Flint.remote('light-server').call('scheduleDMXEffect', macroArgs.effectName, [obj], {duration: parseInt(macroArgs.params.duration,10) || 5000});
 			},delay);
-		});
+		});*/
 	Flint.registerMacro("runLightMacro",
 		"Runs a light macro specified on the lighting server",
 		{
