@@ -26,7 +26,7 @@ Template.macro_addVideoInput.helpers({
 	},
 	selectedViewscreen:function(){
 		debugger;
-		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreen){
+		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreenId){
 			return 'selected';
 		}
 	},
@@ -74,8 +74,8 @@ Template.macro_addVideoInput.events({
 		template.name = value;
 		updateMacro('template',template);
 	},
-	"change select[name='viewscreen']":function(e){
-		updateMacro('viewscreen',e.target.value);
+	"change select[name='viewscreenId']":function(e){
+		updateMacro('viewscreenId',e.target.value);
 	},
 	'change input[name="context"]':function(e){
 		var macro = Session.get('flint-macros-currentMacro');
@@ -98,7 +98,7 @@ Template.macro_removeVideoInput.helpers({
 		return Flint.collection('viewscreens').find();
 	},
 	selectedViewscreen:function(){
-		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreen){
+		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreenId){
 			return 'selected';
 		}
 	},
@@ -110,8 +110,8 @@ Template.macro_removeVideoInput.events({
 		var name = e.target.name;
 		updateMacro(name,value);
 	},
-	"change select[name='viewscreen']":function(e){
-		updateMacro('viewscreen',e.target.value);
+	"change select[name='viewscreenId']":function(e){
+		updateMacro('viewscreenId',e.target.value);
 	},
 });
 
@@ -127,7 +127,7 @@ Template.macro_pauseVideoInput.helpers({
 		return Flint.collection('viewscreens').find();
 	},
 	selectedViewscreen:function(){
-		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreen){
+		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreenId){
 			return 'selected';
 		}
 	},
@@ -139,8 +139,8 @@ Template.macro_pauseVideoInput.events({
 		var name = e.target.name;
 		updateMacro(name,value);
 	},
-	"change select[name='viewscreen']":function(e){
-		updateMacro('viewscreen',e.target.value);
+	"change select[name='viewscreenId']":function(e){
+		updateMacro('viewscreenId',e.target.value);
 	},
 });
 
@@ -153,14 +153,14 @@ Template.macro_removeAllVideoInput.helpers({
 		return Flint.collection('viewscreens').find();
 	},
 	selectedViewscreen:function(){
-		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreen){
+		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreenId){
 			return 'selected';
 		}
 	},
 });
 
 Template.macro_removeAllVideoInput.events({
-	"change select[name='viewscreen']":function(e){
-		updateMacro('viewscreen',e.target.value);
+	"change select[name='viewscreenId']":function(e){
+		updateMacro('viewscreenId',e.target.value);
 	},
 });
