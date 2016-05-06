@@ -141,11 +141,11 @@ Flint.playAudioSound = function(opts){
             myArrayBuffer = copyToChannel(myArrayBuffer,buffer.getChannelData(1),channel[c][1]);
           } else {
             //Combine the two buffer channels into one.
-            var downMixBuffer = self.audioContext.createBuffer(1, buffer.duration*self.audioContext.sampleRate, self.audioContext.sampleRate);
+           /* var downMixBuffer = self.audioContext.createBuffer(1, buffer.duration*self.audioContext.sampleRate, self.audioContext.sampleRate);
             var nowBuffering = downMixBuffer.getChannelData(0); //Mono
             for (var i = 0; i < buffer.getChannelData(0).length; i++) {
               nowBuffering[i] = 0.5 * (buffer.getChannelData(0)[i] + buffer.getChannelData(1)[i]);
-            }
+            }*/
             myArrayBuffer = copyToChannel(myArrayBuffer,buffer.getChannelData(0),channel[c]);
           }
         }
