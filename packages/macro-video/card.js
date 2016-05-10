@@ -21,11 +21,20 @@ Template.macro_addVideoInput.helpers({
 			return e.substring(0,10) === 'viewscreen';
 		});
 	},
+	configTemplate:function(){
+		if (Session.get('flint-macros-currentMacro').arguments.template.name){
+			return 'config_' + Session.get('flint-macros-currentMacro').arguments.template.name;
+		}
+		//Set up the proper session variabled
+		var template = Session.get('flint-macros-currentMacro').arguments.template;
+		var container = Flint.collections.flintassetcontainers.findOne({fullPath:template.context.video});
+		Session.set('comp.flintAssetBrowser.selectedContainer',container._id);
+		Session.set('comp.flintAssetBrowser.currentDirectory',container.folderPath);
+	},
 	viewscreens:function(){
 		return Flint.collection('viewscreens').find();
 	},
 	selectedViewscreen:function(){
-		debugger;
 		if (this._id === Session.get('flint-macros-currentMacro').arguments.viewscreenId){
 			return 'selected';
 		}
@@ -57,11 +66,22 @@ Template.macro_addVideoInput.helpers({
 		if (this.toString() === Session.get('flint-macros-currentMacro').arguments.template.name){
 			return 'selected';
 		}
+	},
+	//This next line watches for a change in the Session.get('comp.flintAssetBrowser.selectedContainer')
+	//So that I can attach the asset path to the macro preset
+	selectedAsset:function(){
+		var selectedContainer = Flint.collection('flintassetcontainers').findOne({_id:Session.get('comp.flintAssetBrowser.selectedContainer')});
+		var template = Session.get('flint-macros-currentMacro').arguments.template;
+		if (template.context.video !== selectedContainer.fullPath){
+			template.context.video = selectedContainer.fullPath;
+			updateMacro('template',template);
+		}
+		return '';
 	}
 });
 
 Template.macro_addVideoInput.events({
-	'change input:not([name="context"])':function(e){
+	'change input:not([type="checkbox"])':function(e){
 		var value = e.target.value;
 		var name = e.target.name;
 		if (value === 'false') value = false;
@@ -83,7 +103,14 @@ Template.macro_addVideoInput.events({
 		var template = macro.arguments.template || {};
 		template.context = JSON.parse(value);
 		updateMacro('template',template);
-	}
+	},
+	'change input[name="checkbox"]':function(e){
+		var macro = Session.get('flint-macros-currentMacro');
+		var value = e.target.value;
+		var template = macro.arguments.template || {};
+		template.context[e.target.name] = e.target.value;
+		updateMacro('template',template);
+	},
 });
 
 Template.macro_removeVideoInput.created = function(){

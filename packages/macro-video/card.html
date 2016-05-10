@@ -1,6 +1,7 @@
 <template name="macro_addVideoInput">
-	<div class="row">
+	<div class="row" style="max-height: 80vh; overflow: scroll;">
 		<div class="col-sm-12">
+		{{selectedAsset}}
 			<div class="form-group">
 				<label>Video Input Name</label>
 				<input name="name" placeholder="Video Input Name" value="{{inputName}}" />
@@ -41,9 +42,10 @@
 						{{/each}}
 					</select>
 				</div>
+				{{> Template.dynamic template=configTemplate}}
 				<div class="form-group">
 					<label>Template Context (JSON)</label>
-					<input name="context" placeholder='{"key":"value"}' value="{{context}}" />
+					<input name="context" readonly class="form-control" placeholder='{"key":"value"}' value="{{context}}" />
 				</div>
 			</div>
 		</div>

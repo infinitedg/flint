@@ -1,0 +1,24 @@
+<template name="viewscreen_video">
+	<div class="viewscreenVideo">
+		<video src={{tacticalVideo}} id={{_id}} {{videoPaused}} autoplay preload="auto" style="width: 100%;" {{videoLooping}}>
+		</video>
+	</div>
+</template>
+
+<template name="config_viewscreen_video">
+	<div class="row">
+		<div class="form-group">
+			<label>
+				<input type="checkbox" name="looping" class="videoLoop" />
+				Loop
+			</label>
+		</div>
+		<div class="form-group">
+			<label>
+				<input type="checkbox" name="autoplay" class="autoPlay" />
+				Autoplay
+			</label>
+		</div>
+		{{> comp_flintAssetBrowser}}
+	</div>
+</template>
