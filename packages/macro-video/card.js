@@ -72,6 +72,7 @@ Template.macro_addVideoInput.helpers({
 	selectedAsset:function(){
 		var selectedContainer = Flint.collection('flintassetcontainers').findOne({_id:Session.get('comp.flintAssetBrowser.selectedContainer')});
 		var template = Session.get('flint-macros-currentMacro').arguments.template;
+		template.context = template.context || {};
 		if (template.context.video !== selectedContainer.fullPath){
 			template.context.video = selectedContainer.fullPath;
 			updateMacro('template',template);
@@ -91,6 +92,7 @@ Template.macro_addVideoInput.events({
 		var macro = Session.get('flint-macros-currentMacro');
 		var value = e.target.value;
 		var template = macro.arguments.template || {};
+		template.context = template.context || {};
 		template.name = value;
 		updateMacro('template',template);
 	},
@@ -101,14 +103,16 @@ Template.macro_addVideoInput.events({
 		var macro = Session.get('flint-macros-currentMacro');
 		var value = e.target.value;
 		var template = macro.arguments.template || {};
+		template.context = template.context || {};
 		template.context = JSON.parse(value);
 		updateMacro('template',template);
 	},
-	'change input[name="checkbox"]':function(e){
+	'change input[type="checkbox"]':function(e){
 		var macro = Session.get('flint-macros-currentMacro');
-		var value = e.target.value;
+		var value = e.target.checked;
 		var template = macro.arguments.template || {};
-		template.context[e.target.name] = e.target.value;
+		template.context = template.context || {};
+		template.context[e.target.name] = e.target.checked;
 		updateMacro('template',template);
 	},
 });

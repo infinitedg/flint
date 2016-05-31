@@ -40,7 +40,7 @@ Meteor.startup(function(){
 			viewscreenId: 'The id of the viewscreen in question',
 			simulatorId: 'obvious'
 		},function(macroArgs){
-			if (macroArgs.viewscreen){
+			if (macroArgs.viewscreenId){
 				Flint.collection('viewscreeninputs').remove(macroArgs);
 			}
 		}
