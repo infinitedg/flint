@@ -1,5 +1,5 @@
 _flintMacros = {};
-
+_flintWorkers = [];
 /**
 Used to prepare a macro for use across the system. Requires macroName, macroDescription, and macroArguments
 */
@@ -23,7 +23,7 @@ Flint.registerMacro = function(macroName, macroDescription, macroArguments, macr
 };
 Meteor.startup(function(){
 // The heart of the macro engine, used to execute a given macro
-Flint.Jobs.createWorker('macroQueue', 'macro', {}, function(job, cb) {
+_flintWorkers.push(Flint.Jobs.createWorker('macroQueue', 'macro', {}, function(job, cb) {
 	// Trigger macro
 	if (!_flintMacros[job.data.macroName]) {
 		job.fail("No such macro " + job.data.macroName);
@@ -33,7 +33,7 @@ Flint.Jobs.createWorker('macroQueue', 'macro', {}, function(job, cb) {
 		job.done();
 		cb();
 	}
-});
+}));
 
 // Setup automatic macro triggering
 Flint.Jobs.collection('macroQueue').find({ type: 'macro', status: 'ready'})
