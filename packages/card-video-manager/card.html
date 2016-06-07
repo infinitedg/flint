@@ -1,40 +1,99 @@
 <template name="card_video_manager">
-	<div class="container video_manager">
-		<div class="row">
-			<div class="col-sm-3">
-				<h3>Library</h3>
-				{{> comp_flintAssetBrowser}}
+	<div class="card-videoManager">
+		<div class="video-quad video-topLeft">
+			<div class="card-container-topLeft">
+				{{> card_viewscreen forceViewscreen=previewViewscreen }}
 			</div>
-			<div class="col-sm-3">
-				<h3>Clips</h3>
-				<div class="well">
-					{{#each videoClip}}
-					<p>{{name}}</p>
-					{{/each}}
-				</div>
-			</div>
-			<div class="col-sm-6 preview">
+			<div class="video-overlay">
+				<span class="video-sectionTitle">Cue</span>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-3">
-				<h3>Video Segments</h3>
-				<div class="well">
-					{{#each videoSegment}}
-					<p>{{name}}</p>
-					{{/each}}
+		<div class="video-quad video-topRight">
+			<div class="card-container-topRight">
+				{{> card_viewscreen forceViewscreen=mainViewscreen }}
+			</div>
+			<div class="video-overlay">
+				<span class="video-sectionTitle">Viewscreen</span>
+				<div class="select video-previewSelect">
+					<select name="viewscreenSelect">
+						{{#each viewscreen}}
+						<option selected={{viewscreenSelected "viewscreen" }} value={{_id}}>{{name}}</option>
+						{{/each}}
+					</select>
 				</div>
 			</div>
-			<div class="col-sm-3">
-				<button class="btn btn-block btn-sm btn-primary">Insert Stars</button>
-				<button class="btn btn-block btn-sm btn-success">Insert Computers</button>
-				<button class="btn btn-block btn-sm btn-link">Insert Black</button>
-				<button class="btn btn-block btn-sm btn-danger">Insert Red Alert</button>
-				<button class="btn btn-block btn-sm btn-default">Insert Tactical</button>
+		</div>
+		<div class="video-quad video-bottomLeft">
+			<div class="video-manager-control col-sm-6">
+				{{> widget_video_manager}}
 			</div>
-			<div class="col-sm-6 options">
+			<div class="video-manager-buttons col-sm-6">
+					<button id="cueInsert" class="btn col-sm-6 btn-sm btn-primary">Insert Into Cue</button>
+					<button id="viewscreenInsert" class="btn col-sm-6 btn-sm btn-success">Insert Into Viewscreen</button>
+					<button id="cueClear" class="btn col-sm-6 btn-sm btn-warning">Clear Cue</button>
+					<button id="viewscreenClear" class="btn col-sm-6 btn-sm btn-danger">Clear Viewscreen</button>
+					<button id="cueToViewscreen" class="btn btn-block btn-sm btn-primary">Cue to Viewscreen</button>
+					<button id="previewSelected" class="btn btn-block btn-sm btn-default">Preview Selected</button>
+			</div>
+		</div>
+		<div class="video-quad video-bottomRight">
+			<div class="video-overlay">
+				<span class="video-sectionTitle">Preview</span>
+			</div>
+		</div>
+	</div>
+</template>
 
+<template name="widget_video_manager">
+	<div class="video-manager-widget">
+		{{selectedAsset}}
+		<div class="form-group">
+			<label>Video Input Name</label>
+			<input name="inputName" class="form-control" placeholder="Video Input Name" value="{{inputName}}" />
+		</div>
+		<!--<div class="form-group select">
+			<label>Viewscreen</label>
+			<select name="viewscreenId">
+				<option></option>
+				{{#each viewscreens}}
+				<option selected={{selectedViewscreen}} value="{{_id}}">{{name}}</option>
+				{{/each}}
+			</select>
+		</div>-->
+		<div class="form-group select">
+			<label>Template Name</label>
+			<select name="template">
+				<option></option>
+				{{#each templates}}
+				<option selected={{selectedTemplate}} value="{{this}}">{{this}}</option>
+				{{/each}}
+			</select>
+		</div>
+		{{#if configTemplate}}
+		{{> Template.dynamic template=configTemplate}}
+		{{/if}}
+		<div class="form-group">
+			<label>Weight</label>
+			<input name="weight" class="form-control" type="number" placeholder="0.5" value="{{weight}}" />
+		</div>
+		<div class="form-group">
+			<label>Priority</label>
+			<div class="radio">
+				<label>
+					<input type="radio" name="priority" id="optionsRadios1" value="true" {{priorityChecked true}}>
+					Primary
+				</label>
 			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="priority" id="optionsRadios2" value="false" {{priorityChecked false}}>
+					Secondary
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Template Context (JSON)</label>
+			<input name="context" readonly class="form-control" placeholder='{"key":"value"}' value="{{context}}" />
 		</div>
 	</div>
 </template>

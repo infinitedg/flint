@@ -1,5 +1,5 @@
-Meteor.publish("card.viewscreen.inputs", function(viewscreenId) {
-	return Flint.collection('viewscreenInputs').find({'viewscreenId': viewscreenId});
+Meteor.publish("card.viewscreen.inputs", function(simulatorId) {
+	return Flint.collection('viewscreenInputs').find({'simulatorId': simulatorId});
 });
 
 Meteor.publish("card.viewscreen.viewscreens",function(simulatorId) {

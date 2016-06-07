@@ -1,0 +1,56 @@
+.video_manager .flintassetbrowser{
+	height: 300px;
+}
+.card-videoManager{
+	height: 100vh;
+	position: relative;
+	.video-quad{
+		position: absolute;
+		border: solid 2px white;
+	}
+	.video-overlay{
+		z-index: 500000;
+		top: 0;
+		position:absolute;
+	}
+	.video-topRight{
+		.video-overlay{
+			right:25%;
+		}
+	}
+	.video-topLeft{
+		.video-overlay{
+			left:25%;
+		}
+	}
+	.card-container-topLeft{
+		width: 100vw;
+		height: calc(100vw * 0.5625);
+		transform: scale(0.5) translate(-50vw,-50vh);
+	}
+	.card-container-topRight{
+		width: 100vw;
+		height: calc(100vw * 0.5625);
+		transform: scale(0.5) translate(50vw,-50vh);
+	}
+	.video-bottomRight{
+		transform: scale(0.5) translate(50vw,50vh);
+	}
+	.video-bottomLeft{
+		bottom:0px;
+		left: 0px;
+		width: 50%;
+		height: 50%;
+		position: absolute;
+	}
+	.video-manager-control, .video-manager-buttons{
+		padding-left: 20px;
+		padding-right: 20px;
+		height: 50vh;
+		overflow-y: scroll;
+		background-color: gray;
+		.well{
+			background-color: #111;
+		}
+	}
+}

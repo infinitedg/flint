@@ -4,7 +4,10 @@
 		<ul>
 			{{#each viewscreenInputs}}
 			<li class="viewscreenOutput" data-priority={{priority}} >
-			{{> Template.dynamic template=template.name data=context}}
+				<span style="display:{{isDev}}">
+					<i id="removeInput" class="fa fa-5x fa-ban text-danger" style="position:absolute; right: 0; cursor: pointer;"></i>
+				</span>
+				{{> Template.dynamic template=template.name data=context}}
 			</li>
 			{{/each}}
 		</ul>

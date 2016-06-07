@@ -1,6 +1,7 @@
 <template name="viewscreen_video">
+<i id="pauseInput" class="fa fa-5x fa-{{videoPaused}} text-primary" style="position:absolute; left: 0; cursor: pointer; display:{{isDev}}"></i>
 	<div class="viewscreenVideo">
-		<video src={{tacticalVideo}} id={{_id}} {{videoPaused}} autoplay preload="auto" style="width: 100%;" {{videoLooping}}>
+		<video src={{tacticalVideo}} id={{_id}} {{videoPaused}} {{autoplay}} preload="auto" style="width: 100%;" {{videoLooping}}>
 		</video>
 	</div>
 </template>
