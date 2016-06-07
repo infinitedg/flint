@@ -26,6 +26,9 @@ Template.card_video_manager.helpers({
 	mainViewscreen: function(){
 		return Session.get('card.viewscreen.mainViewscreen');
 	},
+	cueViewscreen: function(){
+		return Flint.simulatorId() + '-cue';
+	},
 	previewViewscreen: function(){
 		return Flint.simulatorId() + '-preview';
 	}
@@ -37,7 +40,7 @@ Template.card_video_manager.events({
 		Session.set('card.viewscreen.mainViewscreen',value);
 	},
 	'click #cueInsert':function(){
-		var viewscreen = Flint.simulatorId() + '-preview';
+		var viewscreen = Flint.simulatorId() + '-cue';
 		var input = Session.get('card.video_manager.videoConfig');
 		input.simulatorId = Flint.simulatorId();
 		input.viewscreenId = viewscreen;
@@ -72,7 +75,7 @@ Template.card_video_manager.events({
 		});
 	},
 	'click #cueClear':function(){
-		var viewscreen = Flint.simulatorId() + '-preview';
+		var viewscreen = Flint.simulatorId() + '-cue';
 		Flint.collections.viewscreeninputs.find({viewscreenId:viewscreen}).forEach(function(e){
 			Flint.collection('viewscreeninputs').remove({_id:e._id});
 		});
@@ -84,14 +87,27 @@ Template.card_video_manager.events({
 		});
 	},
 	'click #previewSelected':function(){
-
+		var viewscreen = Flint.simulatorId() + '-preview';
+		var input = Session.get('card.video_manager.videoConfig');
+		Flint.collections.viewscreeninputs.find({viewscreenId:viewscreen}).forEach(function(e){
+			Flint.collection('viewscreeninputs').remove({_id:e._id});
+		});
+		input.simulatorId = Flint.simulatorId();
+		input.viewscreenId = viewscreen;
+		Flint.collections.viewscreeninputs.insert(input);
+	},
+	'click #clearPreview':function(){
+		var viewscreen = Flint.simulatorId() + '-preview';
+		Flint.collections.viewscreeninputs.find({viewscreenId:viewscreen}).forEach(function(e){
+			Flint.collection('viewscreeninputs').remove({_id:e._id});
+		});
 	},
 	'click #cueToViewscreen':function(){
 		var viewscreen = Session.get('card.viewscreen.mainViewscreen');
 		Flint.collections.viewscreeninputs.find({viewscreenId:viewscreen}).forEach(function(e){
 			Flint.collection('viewscreeninputs').remove({_id:e._id});
 		});
-		Flint.collections.viewscreeninputs.find({viewscreenId:Flint.simulatorId() + '-preview'}).forEach(function(e){
+		Flint.collections.viewscreeninputs.find({viewscreenId:Flint.simulatorId() + '-cue'}).forEach(function(e){
 			delete e._id;
 			e.viewscreenId = viewscreen;
 			Flint.collection('viewscreeninputs').insert(e);

@@ -1,0 +1,27 @@
+{
+  "simulatorId": "voyager",
+  
+  
+  "viewscreens": [
+  {
+    "_id": "voyager-bridge",
+    "name": "Bridge",
+    "simulatorId": "voyager"
+  },
+  {
+    "_id": "voyager-sickbay",
+    "name": "Sickbay",
+    "simulatorId": "voyager"
+  },
+  {
+    "_id": "voyager-cue",
+    "name": "Cue",
+    "simulatorId": "voyager"
+  },
+  {
+    "_id": "voyager-preview",
+    "name": "Preview",
+    "simulatorId": "voyager"
+  },
+  ]
+}

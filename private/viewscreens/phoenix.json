@@ -1,0 +1,27 @@
+{
+  "simulatorId": "phoenix",
+  
+  
+  "viewscreens": [
+  {
+    "_id": "phoenix-bridge",
+    "name": "Bridge",
+    "simulatorId": "phoenix"
+  },
+  {
+    "_id": "phoenix-sickbay",
+    "name": "Sickbay",
+    "simulatorId": "phoenix"
+  },
+  {
+    "_id": "phoenix-cue",
+    "name": "Cue",
+    "simulatorId": "phoenix"
+  },
+  {
+    "_id": "phoenix-preview",
+    "name": "Preview",
+    "simulatorId": "phoenix"
+  },
+  ]
+}

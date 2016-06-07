@@ -1,0 +1,27 @@
+{
+  "simulatorId": "odyssey",
+  
+  
+  "viewscreens": [
+  {
+    "_id": "odyssey-bridge",
+    "name": "Bridge",
+    "simulatorId": "odyssey"
+  },
+  {
+    "_id": "odyssey-sickbay",
+    "name": "Sickbay",
+    "simulatorId": "odyssey"
+  },
+  {
+    "_id": "odyssey-cue",
+    "name": "Cue",
+    "simulatorId": "odyssey"
+  },
+  {
+    "_id": "odyssey-preview",
+    "name": "Preview",
+    "simulatorId": "odyssey"
+  },
+  ]
+}
