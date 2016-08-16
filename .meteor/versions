@@ -70,6 +70,7 @@ card-sensor-grid@0.1.0
 card-sensor3d@0.1.0
 card-shields@0.1.0
 card-status@0.1.0
+card-tact-control@0.1.0
 card-targeting@0.1.0
 card-template@0.1.0
 card-thrust@0.1.0
@@ -153,6 +154,7 @@ infinitedev:dnscache@0.0.1
 infinitedg:bootstrap-slider-touch@1.0.0
 infinitedg:gsap@1.11.5
 infinitedg:three@68.0.1
+infinitedg:tween@0.14.0
 infinitedg:winston@0.7.3
 infinitedg:winston-loggly@1.0.1
 insecure@1.0.7

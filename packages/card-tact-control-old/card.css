@@ -1,0 +1,84 @@
+.card-tacControl{
+	background-color: #000;
+	height: 100vh;
+	width: 100vw;
+}
+#upLeftView{
+	position: absolute;
+	top: 22px;
+	left: 0;
+	width: 50vw;
+	height: 50vh;
+}
+#upRightView{
+	position: absolute;
+	top: 22px;
+	right: 0;
+	width: 50vw;
+	height: 50vh;
+}
+#lowerLeftView{
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 50vw;
+	height: 50vh;
+}
+#lowerRightView{
+	position: absolute;
+	top: 50%;
+	right: 0;
+	width: 50vw;
+	height: 50vh;
+}
+.card-tacControl .presets div{
+	text-align: center;
+	width: 100%;
+	border-radius: 10px;
+	border: solid 1px rgba(255,255,255,0.5);
+	margin-bottom: 5px;
+	line-height: 400%;
+}
+.card-tacControl .presets div:hover{
+	opacity: 0.75;
+}
+
+.card-tacControl .computerScreen{
+	background-color: rgba(255,213,0,0.25);
+}
+.card-tacControl .starsScreen{
+	background-color: rgba(178,124,230,0.25);
+}
+.card-tacControl .transwarpScreen{
+	background-color: rgba(127,127,230,0.25);
+}
+.card-tacControl .redAlertScreen{
+	background-color: rgba(230,124,124,0.25);
+}
+
+#slider{
+	width: 700px;
+	height:15px;
+	margin:15px 0px 8px 6px;    
+}
+.slider-handle{
+	width: 10px;
+	height: 10px;
+	display: block;
+	background-color: #fff;
+	border-radius: 3px;
+	box-shadow: inset 0px -3px 5px rgba(0,0,0,.5);
+}
+
+input[type="button"]{
+	font-family: "Gill Sans";
+	font-size: 16px;
+	color: #222;
+	background-color: #119fff;
+	border: solid 1px #226fff;
+	border-radius: 5px;
+	margin: 2px;
+}
+input[type="button"]:hover{
+	background-color: #52BAFF;
+}

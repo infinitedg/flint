@@ -146,6 +146,7 @@ card-wormhole
 card-damage-systems
 card-vocoder
 card-fuel-control
+card-tact-control
 flint-drama
 simison:bootstrap3-less
 #layout-default

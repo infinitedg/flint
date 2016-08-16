@@ -1,106 +1,76 @@
 <template name="card_tacControl">
-	<div class="card-tacControl">
-	{{> tacticalPreview}}
-
-		{{> tactical_controls}}
+	<div id="tactical-control">
+		<div class="tactical-select">
+			<span>Select tactical from 
+				<select class="template-tactical">
+					<option value="null">Tactical List</option>
+					{{#each tacticalScreens}}
+					<option value={{_id}}>{{name}}</option>
+					{{/each}}
+				</select>
+				or
+				<button class="btn btn-success btn-xs createTactical">Create Tactical</button>
+				<button class="btn btn-info btn-xs duplicateTactical">Duplicate Tactical</button>
+			</span>
+		</div>
+		<div id="tacticalView">
+			{{> viewscreen_tactical tactical=currentTactical}}
+		</div>
+		<div id="contactList" class="pull-right col-sm-3" style="position:absolute; top:0; right: 0;">
+			<div class="well">
+				<h3>Contacts</h3>
+				{{#each contacts}}
+				<p><img id="icon-{{_id}}" draggable="false" class="icon" style="width: 40px" src={{contactIcon}} /> {{name}}</p>
+				{{/each}}
+			</div>
+			<div class="well">
+				<h3>Add Contact</h3>
+				{{selectedAsset}}
+				{{> comp_flintAssetBrowser}}
+				<button class="btn btn-info btn-xs add-contact">Add Contact</button>
+			</div>
+		</div>
+		{{#if contact}}
+		{{> contact_controls contact}}
+		{{/if}}
+		{{#if context}}
+		{{> contact_context context}}
+		{{/if}}
 	</div>
 </template>
 
-<template name="viewscreenPreiew">
-	{{> card_viewscreen}}
+<template name="viewscreen_tactical">
+	<div class="tactical-container" style="background-color: black; width: 1920px; height: 1080px; transform: scale(0.5) translate(-50%, -40%);"></div>
 </template>
 
-<template name="playlistPlayer">
-	<div class="row">
-		<div class="col-sm-6 playlist well">
-			<ul>
-			{{#each libraryList}}
-				<li class="videoLibrary">
-				{{this.name}}
-				</li>
+<template name="config_viewscreen_tactical">
+	
+</template>
+
+<template name="contact_controls">
+	<div class="controls">
+		<h4>Contact</h4>
+		<div class="form-group">
+			<label>Label:</label>
+			<input type="text" class="form-control" id="name" value={{label}}/>
+		</div>
+		<div class="form-group">
+			<label>Max Speed:</label>
+			<input type="range" min="0" max="9" value={{maxSpeed}} class="form-control" id="maxSpeed" />{{maxSpeed}}
+		</div>
+		<div class="form-group">
+			<label>Cloakable:</label>
+			<input type="checkbox" id="cloakable" checked={{cloakable}} class="form-control" />
+		</div>
+	</div>
+</template>
+
+<template name="contact_context">
+	<div class="context" style={{style}}>
+		<ul>
+			{{#each this}}
+			<li>{{label}}</li>
 			{{/each}}
-			</ul>
-		</div>
-		<div class="col-sm-6 presets">
-			<div data-preset="/Videos/Computers" class="computerScreen preset"><p>Computers</p></div>
-			<div data-preset="/Videos/Stars" class="starsScreen preset"><p>Stars</p></div>
-			<div data-preset="/Videos/Transwarp" class="transwarpScreen preset"><p>Transwarp</p></div>
-			<div data-preset="/Videos/Forward Scans" class="transwarpScreen preset"><p>Forward Scans</p></div>
-			<div data-preset="/Videos/redAlert" class="redAlertScreen preset"><p>Red Alert</p></div>
-		</div>
-		
-	</div>
-</template>
-
-<template name="playlistCreator">
-
-</template>
-
-<template name="tacticalPreview">
-	<div id="tacPreview"></div>
-</template>
-
-<template name="tacticalScreen">
-	<div id="tacScreen"></div>
-</template>
-
-<template name="animationControls">
-	<div id="stateList"></div>
-	<div id="actionList"></div>
-	<div id="actionControls">
-		<label>Delay</label>
-		<label>Duration</label>
-		
-	</div>
-</template>
-
-<template name="tactical_controls">
-	<select id="screenSelect">
-		<option value="Sandbox">Sandbox</option>
-		<option value="Tactical">Tactical</option>
-		<option value="Video">Video</option>
-		<option value="Communications">Communications</option>
-	</select>
-	<input type="button" id="addCurve" value="Add Curve">
-	<input type="button" id="addLabel" value="Add Label">
-	<input type="button" id="clearAll" value="Clear All">
-	<input type="button" id="updateViewscreen" value="Update Viewscreen">
-	<div id="videoControls" class="hidden">
-		<select id="videoSelect">
-
-		</select>
-	</div>
-	<div id="curveControls" class="hidden">
-		<a href="#" class="colorpicker" id="curveColor">Curve Color</a>
-		<label><input type="checkbox" id="curveArrow" name="curveArrow"  class="attentionColor">Arrow</label>
-	</div>
-	<div id="labelControls" class="">
-		<select id="LabelFunction" class="hidden">
-			<option value="normal">Normal</option>
-			<option value="typeOn">Type On</option>
-			<option value="countdown">Countdown</option>
-		</select>
-		<label class="hidden"><input type="checkbox" id="labelFlashing"  name="labelFlashing" value="Label Flashing" class="attentionColor">Flashing</label>
-		<a href="#" class="hidden colorpicker" id="flashColor">Flash Color</a>
-		<textarea id="labelContent"></textarea>
-		<select id="LabelFont">
-			<option value="helvetica">Helvetica</option>
-			<option value="Gill Sans">Gill Sans</option>
-			<option value="Gamecuben">GameCuben</option>
-			<option value="Steelfish">Steelfish</option>
-		</select>
-		<a href="#" class="colorpicker" id="labelColor">Label Color</a>
-		<div id="fontSize"></div>
-	</div>
-
-
-	<div id="symbolControls" class="">
-		<div id="symbolSize"></div>
-		<!--<div id="symbolRotation"></div>-->
-		<a href="#" class="colorpicker" id="contactColor">Symbol Color</a>
-		<div class="manualMove hidden">
-			<label><input type="radio" id="manualMove1" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (WASD/EQ)</label>
-			<label><input type="radio" id="manualMove2" name="manualMove" value="Move Manually" class="attentionColor">Move Manually (IJKL/OU)</label>
-		</div>
+		</ul>
 	</div>
 </template>

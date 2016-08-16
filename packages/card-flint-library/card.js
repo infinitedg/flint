@@ -107,7 +107,6 @@ Template.comp_flintAssetButtons.events({
 	},
 	'change #mass-upload-folder': function(e,t){
 		var regex = new RegExp(/(.*)\.[^.]+$/);
-		debugger;
 		var uploadDefault = function (err, fileObj) {
 			if (!err) {
 		    	//Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
