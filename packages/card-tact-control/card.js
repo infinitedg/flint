@@ -1,7 +1,7 @@
 Template.card_tacControl.created = function(){
 	Meteor.subscribe('card.viewscreen.tacticalscreens');
-  Meteor.subscribe('card.viewscreen.tacticaltemplatecontacts');
   Meteor.subscribe('card.viewscreen.inputs',Flint.simulatorId());
+  Meteor.subscribe('card.viewscreen.tacticaltemplatecontacts');
 };
 
 Template.card_tacControl.helpers({
@@ -9,10 +9,16 @@ Template.card_tacControl.helpers({
 		return Flint.collection('tacticalscreens').find();
 	},
 	currentTactical: function(){
-		return Session.get('card_tactical-tactical');
+    if (Flint.collection('tacticalscreens').findOne()){
+      console.log(Flint.collection('tacticalscreens').findOne()._id || Session.get('card_tactical-tactical'))
+		  return Flint.collection('tacticalscreens').findOne()._id || Session.get('card_tactical-tactical');
+    }
 	},
   contacts: function(){
     return Flint.collection('tacticalTemplateContacts').find();
+  },
+  tacticalBackground:function(){
+    return Flint.Asset.listFolder('/Tactical Backgrounds').containers;
   },
   contactIcon:function(){
     var self = this;
@@ -70,6 +76,9 @@ Template.card_tacControl.events({
 	'change .template-tactical':function(e){
 		Session.set('card_tactical-tactical',e.target.value);
 	},
+  'change .tactical-background':function(e){
+    Flint.collection('tacticalscreens').update({_id:Session.get('card_tactical-tactical')},{$set:{background:e.target.value}});
+  },
   'click .add-contact':function(){
     var selectedContainer = Flint.collection('flintassetcontainers').findOne({_id:Session.get('comp.flintAssetBrowser.selectedContainer')});
     console.log('ICON', selectedContainer);
@@ -109,8 +118,34 @@ var k = {
   labelArray = {};
 
   Template.viewscreen_tactical.created = function(){
-    Meteor.subscribe('card.viewscreen.tacticalcontacts', this.tactical);
-    this.tacticalObserver = Flint.collection('tacticalContacts').find({tacticalScreen:this.tactical}).observeChanges({
+      Meteor.subscribe('card.viewscreen.tacticalscreens');
+
+    var self = this;
+    var isDev = this.data.admin || this.data.isDev;
+    Tracker.autorun(function(){
+      if (self.tacticalSubscription){
+        contactsLayer.clear();
+        self.tacticalSubscription.stop();
+      }
+      self.oldTacticalObserver = self.tacticalObserver;
+      Meteor.setTimeout(function(){
+        if (self.oldTacticalObserver){
+          self.oldTacticalObserver.stop();
+        }
+      },1000)
+      //debugger;
+      
+      if (isDev){
+        var tactical = Session.get('card_tactical-tactical') || self.data.tactical;
+      } else {
+    var tactical = self.data.tactical || Session.get('card_tactical-tactical');
+  }
+    if (Flint.collection('tacticalscreens').findOne()){
+    tactical = tactical || Flint.collection('tacticalscreens').findOne()._id;
+    }
+    self.tacticalSubscription = Meteor.subscribe('card.viewscreen.tacticalcontacts', tactical);
+    window.tacticalSubscription = self.tacticalSubscription
+    self.tacticalObserver = Flint.collection('tacticalContacts').find({tacticalScreen:tactical}).observeChanges({
       added: function(id, doc) {
        if (!contactsArray[id]) {
         var imageObj = new Image();
@@ -122,13 +157,24 @@ var k = {
             visible: !doc.cloaked,
             draggable: true
           });
-           var ghostContact = new Kinetic.Group({
+           if (isDev){
+            var ghostContact = new Kinetic.Group({
             x: (doc.x),
             y: (doc.y),
             visible: !doc.cloaked,
             draggable: false,
             opacity: 0.75
           });
+         } else {
+          var ghostContact = new Kinetic.Group({
+            x: (doc.x),
+            y: (doc.y),
+            visible: !doc.cloaked,
+            draggable: false,
+            opacity: 1
+          });
+         }
+
            var icon = new Kinetic.Image({
             image: imageObj,
             width: 60,
@@ -155,13 +201,14 @@ var k = {
            ghostContact.add(ghost);
            ghostContact.add(ghostLabel);
            contactsLayer.add(ghostContact);
+           if (isDev){
            contactsLayer.add(contact);
-
-           icon.cache();
+              icon.cache();
+              label.draw();
+              icon.draw();
+            }
            ghost.cache();
-           label.draw();
-           icon.draw();
-           icon.visible(doc.isVisible);
+           ghostContact.visible(doc.isVisible);
            contactsArray[id] = icon;
            labelArray[id] = label;
            groupArray[id] = contact;
@@ -215,15 +262,28 @@ var k = {
      }
    },
    removed: function(id) {
+    if (labelArray[id]){
      labelArray[id].remove();
+     }
+     if (groupArray[id]){
      groupArray[id].remove();
+   }
+   if (contactsArray[id]){
      contactsArray[id].remove();
+   }
+   if (labelArray[id + "-ghost"]){
      labelArray[id + "-ghost"].remove();
+   }
+   if (groupArray[id + "-ghost"]){
      groupArray[id + "-ghost"].remove();
+   }
+   if (contactsArray[id + "-ghost"]){
      contactsArray[id + "-ghost"].remove();
+   }
      contactsLayer.draw();
    }
  });
+  });
   };
 
   Template.viewscreen_tactical.rendered = function(){
@@ -270,7 +330,7 @@ var k = {
     	lineJoin: 'round',
     };
     var backdrop = new Kinetic.Layer();
-    backdrop.add(blackBack);
+    //backdrop.add(blackBack);
     var line;
     for (var i = 1; i< 16; i++){
     	line = new Kinetic.Line(_.extend(linePrototype, { points: linepoints(i*120)}));
@@ -302,6 +362,17 @@ var k = {
   	stage.add(contactsLayer);
   };
 
+  Template.viewscreen_tactical.helpers({
+    tacticalBackground:function(){
+      console.log(Flint.collection('tacticalscreens').findOne({_id:this.tactical}),this.tactical)
+      if (Flint.collection('tacticalscreens').findOne({_id:this.tactical})){
+        return Flint.a(Flint.collection('tacticalscreens').findOne({_id:this.tactical}).background)
+      }
+    },
+    tactical:function(){
+      Session.set('card_tactical-tactical',this.tactical);
+    }
+  })
   Template.viewscreen_tactical.destroyed = function() {
   	this.tacticalObserver.stop();
   };

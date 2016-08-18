@@ -22,7 +22,7 @@
         {{/if}}
       </p>
       <h3>Cues:</h3>
-      <ul>
+      <ul style="height: 60vh; overflow: scroll;">
         {{#each cues}}
         <li class="cueList {{selectedCueClass}}">{{description}} {{#if inEditMode}}<i class="fa fa-ban text-danger removeCue"></i>{{/if}}</li> 
         {{/each}}
@@ -34,6 +34,22 @@
       {{/if}}
     </div>
     <div class="col-sm-3">
+    <div class="btn-group" role="group" aria-label="Macro toolbar">
+        <button type="button" class="btn btn-primary prevCue {{prevCueClass}}">&laquo;</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary runCueNext {{runCueClass}}">Run + next cue</button>
+          <button type="button" class="btn btn-primary dropdown-toggle {{runCueClass}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="runCueStay">Run + stay</a></li>
+            <li><a href="#" class="runAllNext">Run all + next cue</a></li>
+            <li><a href="#" class="runAllStay">Run all + stay</a></li>
+          </ul>
+        </div>
+        <button type="button" class="btn btn-primary nextCue {{nextCueClass}}">&raquo;</button>
+      </div>
       {{#if cue}} {{#with cue}}
       <h3>{{description}}</h3>
       <ul>
@@ -56,22 +72,6 @@
       </div>
       {{/if}}
       {{/if}}
-      <div class="btn-group" role="group" aria-label="Macro toolbar">
-        <button type="button" class="btn btn-primary prevCue {{prevCueClass}}">&laquo;</button>
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary runCueNext {{runCueClass}}">Run + next cue</button>
-          <button type="button" class="btn btn-primary dropdown-toggle {{runCueClass}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#" class="runCueStay">Run + stay</a></li>
-            <li><a href="#" class="runAllNext">Run all + next cue</a></li>
-            <li><a href="#" class="runAllStay">Run all + stay</a></li>
-          </ul>
-        </div>
-        <button type="button" class="btn btn-primary nextCue {{nextCueClass}}">&raquo;</button>
-      </div>
     </div>
     <div class='col-sm-4'>
       {{#if inEditMode}}  

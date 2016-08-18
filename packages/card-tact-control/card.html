@@ -11,10 +11,16 @@
 				or
 				<button class="btn btn-success btn-xs createTactical">Create Tactical</button>
 				<button class="btn btn-info btn-xs duplicateTactical">Duplicate Tactical</button>
+				<select class="tactical-background">
+				<option disabled>Select A Background</option>
+				{{#each tacticalBackground}}
+				<option value={{fullPath}}>{{name}}</option>
+				{{/each}}
+				</select>
 			</span>
 		</div>
-		<div id="tacticalView">
-			{{> viewscreen_tactical tactical=currentTactical}}
+		<div id="tacticalView" style="transform: scale(0.5) translate(-50%, -40%);">
+			{{> viewscreen_tactical tactical=currentTactical admin=true}}
 		</div>
 		<div id="contactList" class="pull-right col-sm-3" style="position:absolute; top:0; right: 0;">
 			<div class="well">
@@ -40,7 +46,22 @@
 </template>
 
 <template name="viewscreen_tactical">
-	<div class="tactical-container" style="background-color: black; width: 1920px; height: 1080px; transform: scale(0.5) translate(-50%, -40%);"></div>
+<style>
+ img#tactical-background{
+ 	    position: absolute;
+    top: 0;
+    z-index: -100;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 1920px;
+    height: 1080px;
+ }
+</style>
+	<div class="tactical-container" style="width: 1920px; height: 1080px;">
+	</div>
+			<img id="tactical-background" src={{tacticalBackground}} />
+
 </template>
 
 <template name="config_viewscreen_tactical">
