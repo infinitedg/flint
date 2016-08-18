@@ -3,14 +3,14 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-standard-app-packages
-insecure
+standard-app-packages@1.0.9
+insecure@1.0.7
 
-accounts-ui
-accounts-password
-underscore
-less
-ejson
+accounts-ui@1.1.9
+accounts-password@1.3.0
+underscore@1.0.9
+less@2.7.5
+ejson@1.0.12
 d3
 mrt:nprogress
 brentjanderson:buzz
@@ -24,8 +24,8 @@ infinitedg:bootstrap-slider-touch
 infinitedg:winston-loggly
 iron:router@1.0.6
 mizzao:bootstrap-3
-accounts-facebook
-accounts-google
+accounts-facebook@1.0.10
+accounts-google@1.0.10
 bootstrap-slider
 ccorcos:transitioner
 ficshelf:media-query
@@ -151,13 +151,14 @@ flint-drama
 simison:bootstrap3-less
 #layout-default
 layout-curve
-tracker
-jshint
+tracker@1.1.0
+jshint@1.1.6
 #velocity:html-reporter
 sanjo:jasmine
 meteorhacks:kadira
 card-controls-test
 flint-audio-units
-standard-minifier-css
-standard-minifier-js
+standard-minifier-css@1.2.0
+standard-minifier-js@1.2.0
 layout-default
+shell-server
